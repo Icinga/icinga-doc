@@ -81,6 +81,11 @@
     </listitem>
   </itemizedlist>
 
+  <para><emphasis role="bold">Optional</emphasis></para>
+
+  <para>At one time or another you may need to use SNMP-based checks so it is a good idea to install the required packages now. Otherwise
+  some plugins are not compiled i.e. not available when you need them and it would require a recompile of the plugins.</para>
+
   <para><emphasis role="bold">New features for the &name-idoutils;:</emphasis></para>
 
   <para><emphasis role="bold">SSL- Encryption between idomod and ido2db</emphasis></para>
@@ -146,13 +151,22 @@
 
   <para><emphasis role="bold">&name-opensuse;:</emphasis></para>
 
-  <para>Use yast to install the packages for the RDBMS you want to use, i.e. "mysql", "mysql-devel", "mysql-client" or "postgresql",
-  "postgresql-devel", "postgresql-server". In OpenSuSE 11 (SLES 11) the name of the package was changed from "mysql-devel" to
-  "libmysqlclient-devel". The devel packages might be placed on the SDK DVDs.</para>
+  <para>Please use YaST to install at least the packages gd, gd-devel, libjpeg, libjpeg-devel, libpng, libpng-devel and, optionally,
+  net-snmp, net-snmp-devel and perl-net-snmp.</para>
+  <note><para>The devel packages might be place on the SDK DVDs.</para></note>
 
-  <para>It is most likely that there aren't any libdbi packages so you have to download and compile the sources. Replace &lt;rdbm&gt; with
-  your desired RDBM like mysql or pgsql. Remember that the Oracle driver is not yet working and read the appropriate section with ocilib
-  instead of libdbi.</para>
+  <para><emphasis role="bold">&name-mysql;:</emphasis></para>
+  <para>Use YaST to install the packages for the RDBMS you want to use, i.e. "mysql", "mysql-devel", "mysql-client" and the libdbi
+  packages "libdbi", "libdbi-devel", "libdbi-drivers" and "libdbi-dbd-mysql".</para> 
+  <note><para>In OpenSuSE 11 (SLES 11) the name of the package was changed from "mysql-devel" to "libmysqlclient-devel".</para></note>
+
+  <para><emphasis role="bold">&name-postgres;:</emphasis></para>
+  <para>Use YaST to install the packages for the RDBMS you want to use, i.e. "postgresql", "postgresql-devel", "postgresql-server" and
+  the libdbi packages "libdbi", "libdbi-devel" and "libdbi-drivers".</para>
+
+  <para>Using old OpenSuSE (SLES) versions including version 10 it is most likely that there aren't any libdbi packages so you have to
+  download and compile the sources. Replace &lt;rdbm&gt; with your desired RDBM like mysql or pgsql. Remember that the Oracle driver is
+  not yet working and read the appropriate section with ocilib instead of libdbi.</para>
 
   <orderedlist>
     <listitem>

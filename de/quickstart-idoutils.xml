@@ -81,6 +81,11 @@
     </listitem>
   </itemizedlist>
 
+  <para><emphasis role="bold">Optional</emphasis></para>
+
+  <para>Zu irgendeiner Zeit möchten Sie wahrscheinlich SNMP-basierte Prüfungen verwenden, so dass es eine gute Idee ist, die benötigten
+  Pakete gleich zu installieren. Anderenfalls werden die Plugins nicht kompiliert und sind nicht verfügbar, wenn Sie diese brauchen.</para>
+
   <para><emphasis role="bold">Neue Features für die &name-idoutils;:</emphasis></para>
 
   <para><emphasis role="bold">SSL-Verschlüsselung zwischen idomod und ido2db</emphasis></para>
@@ -152,11 +157,21 @@
 
   <para><emphasis role="bold">&name-opensuse;:</emphasis></para>
 
-  <para>Benutzen Sie yast zur Installation der Pakete für das RDBMS, das Sie verwenden möchten, also "mysql", "mysql-devel" und
-  "mysql-client" bzw. "postgresql", "postgresql-devel" und "postgresql-server". Bei OpenSuSE 11 (SLES 11) lautet der Name des Packages statt
-  "mysql-devel" nun "libmysqlclient-devel". Die devel-Pakete sind ggf. auf den SDK-DVDs zu finden.</para>
+  <para>Bitte nutzen Sie YaST für die Installation der Pakete gd, gd-devel, libjpeg, libjpeg-devel, libpng, libpng-devel und -optional-
+  net-snmp, net-snmp-devel und perl-net-snmp.</para>
+  <note><para>Die devel-Pakete sind ggf. auf den SDK-DVDs zu finden.</para></note>
 
-  <para>Es ist ziemlich wahrscheinlich, dass es keine libdbi-Packages gibt, so dass Sie die Sourcen herunterladen und kompilieren müssen.
+  <para><emphasis role="bold">&name-mysql;:</emphasis></para>
+  <para>Benutzen Sie yast zur Installation der Pakete für das RDBMS, das Sie verwenden möchten, also "mysql", "mysql-devel" sowie die
+  libdbi-Pakete "libdbi", "libdbi-devel", "libdbi-drivers" und "libdbi-dbd-mysql".</para>
+  <para>Bei OpenSuSE 11 (SLES 11) lautet der Name des Packages statt "mysql-devel" nun "libmysqlclient-devel".</para>
+
+  <para><emphasis role="bold">&name-postgres;:</emphasis></para>
+  <para>Benutzen Sie yast zur Installation der Pakete für das RDBMS, das Sie verwenden möchten, also "postgresql", "postgresql-devel" und
+  "postgresql-server" sowie die libdbi-Pakete "libdbi", "libdbi-devel" und "libdbi-drivers".</para>
+
+  <para>Bei alten OpenSuSE- (SLES) Version einschließlich Version 10 ist es ziemlich wahrscheinlich, dass es keine libdbi-Packages gibt,
+  so dass Sie die Sourcen herunterladen und kompilieren müssen.
   Ersetzen Sie dabei &lt;rdbm&gt; durch Ihr RDBM wie mysql oder pgsql. Bitte beachten Sie, dass der Oracle-Treiber noch nicht funktioniert.
   Lesen Sie daher den entsprechenden Abschnitt zu ocilib (anstatt libdbi).</para>
 

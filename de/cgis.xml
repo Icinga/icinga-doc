@@ -984,6 +984,24 @@
     <listitem>
       <para>"Export to CSV" wurde auf verschiedenen Seiten hinzugefügt (ab &name-icinga; 1.2).</para>
     </listitem>
+
+    <listitem>
+      <para>Die Zellen der Tabelle in extinfo.cgi haben Namen bekommen. Mit Hilfe von SSI-Fragmenten können Sie JavaScript-Code einbinden,
+      um auf die Daten dieser Zellen zuzugreifen (ab &name-icinga; 1.2.1).</para>
+      <para>Der Beispiel-Code benutzt Daten der Zelle "comment_data", um einen Link zu erzeugen (Dank an Oliver Graf).</para>
+      <para>common-header.ssi:</para>
+      <programlisting>&lt;script type='text/javascript'&gt;
+function urlify() {
+    var comments=document.getElementsByName('comment_data');
+    var neu="";
+    for (i=0; i&lt;=comments.length; i++) {
+        comments[i].innerHTML = comments[i].innerHTML.replace(/\bRT#(\d+)\b/g,"&lt;a href='https://YOUR-SERVER/Ticket/Display.html?id=$1'&gt;RT#$1&lt;/a&gt;");
+    }
+}
+window.onload=urlify;
+&lt;/script&gt;</programlisting>
+
+    </listitem>
   </itemizedlist>
 
   <indexterm zone="cgis-status_cgi">
