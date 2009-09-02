@@ -1,0 +1,1090 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="cgis" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="information_on_cgis" />Information On The CGIs</title>
+
+  <para><emphasis role="bold">Introduction</emphasis></para>
+
+  <para>The various CGIs distributed with &name-icinga; are described here, along with the authorization requirements for
+  accessing and using each CGI. By default the CGIs require that you have authenticated to the web server and are authorized to
+  view any information you are requesting. More information on configuring authorization can be found <link
+  xlink:href="cgiauth">here</link>.</para>
+
+  <para><emphasis role="bold">Index</emphasis></para>
+
+  <para><link linkend="cgis-status_cgi">Status CGI</link></para>
+
+  <para><link linkend="cgis-statusmap_cgi">Status map CGI</link></para>
+
+  <para><link linkend="cgis-statuswml_cgi">WAP interface CGI</link></para>
+
+  <para><link linkend="cgis-statuswrl_cgi">Status world CGI (VRML)</link></para>
+
+  <para><link linkend="cgis-tac_cgi">Tactical overview CGI</link></para>
+
+  <para><link linkend="cgis-outages_cgi">Network outages CGI</link></para>
+
+  <para><link linkend="cgis-config_cgi">Configuration CGI</link></para>
+
+  <para><link linkend="cgis-cmd_cgi">Command CGI</link></para>
+
+  <para><link linkend="cgis-extinfo_cgi">Extended information CGI</link></para>
+
+  <para><link linkend="cgis-showlog_cgi">Event log CGI</link></para>
+
+  <para><link linkend="cgis-history_cgi">Alert history CGI</link></para>
+
+  <para><link linkend="cgis-notifications_cgi">Notifications CGI</link></para>
+
+  <para><link linkend="cgis-trends_cgi">Trends CGI</link></para>
+
+  <para><link linkend="cgis-avail_cgi">Availability reporting CGI</link></para>
+
+  <para><link linkend="cgis-histogram_cgi">Alert histogram CGI</link></para>
+
+  <para><link linkend="cgis-summary_cgi">Alert summary CGI</link></para>
+
+  <para><anchor xml:id="cgis-status_cgi" /><emphasis role="bold">Status CGI</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="4">
+      <colspec colname="c1" colwidth="25*" />
+
+      <colspec colname="c2" colwidth="25*" />
+
+      <colspec colname="c3" colwidth="25*" />
+
+      <colspec colname="c4" colwidth="25*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/cgi-status-a.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/cgi-status-b.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/cgi-status-c.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/cgi-status-d.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>File Name:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">status.cgi</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para><emphasis role="bold">Description:</emphasis></para>
+
+  <para>This is the most important CGI included with &name-icinga;. It allows you to view the current status of all hosts and
+  services that are being monitored. The status CGI can produce two main types of output - a status overview of all host groups
+  (or a particular host group) and a detailed view of all services (or those associated with a particular host).</para>
+
+  <para><emphasis role="bold">Authorization Requirements:</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para>If you are <link xlink:href="configcgi#authorized_for_all_hosts"> <emphasis>authorized for all hosts</emphasis>
+      </link> you can view all hosts <emphasis role="bold">and</emphasis> all services.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are <link xlink:href="configcgi#authorized_for_all_services"> <emphasis>authorized for all services</emphasis>
+      </link> you can view all services.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are an <emphasis>authenticated contact</emphasis> you can view all hosts and services for which you are a
+      contact.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><anchor xml:id="cgis-statusmap_cgi" /><emphasis role="bold">Status Map CGI</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="1">
+      <colspec colname="c1" colwidth="100*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/cgi-statusmap.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>File Name:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">statusmap.cgi</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para><emphasis role="bold">Description:</emphasis></para>
+
+  <para>This CGI creates a map of all hosts that you have defined on your network. The CGI uses Thomas Boutell's <link
+  xlink:href="http://www.boutell.com/gd/">gd</link> library (version 1.6.3 or higher) to create a PNG image of your network
+  layout. The coordinates used when drawing each host (along with the optional pretty icons) are taken from <link
+  xlink:href="objectdefinitions#host">host</link> definitions. If you'd prefer to let the CGI automatically generate drawing
+  coordinates for you, use the <link xlink:href="configcgi#default_statusmap_layout">default_statusmap_layout</link> directive to
+  specify a layout algorithm that should be used.</para>
+
+  <para><emphasis role="bold">Authorization Requirements:</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para>If you are <link xlink:href="configcgi#authorized_for_all_hosts"> <emphasis>authorized for all hosts</emphasis>
+      </link> you can view all hosts.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are an <emphasis>authenticated contact</emphasis> you can view hosts for which you are a contact.</para>
+    </listitem>
+  </itemizedlist>
+
+  <note>
+    <para>Users who are not authorized to view specific hosts will see <emphasis>unknown</emphasis> nodes in those positions. I
+    realize that they really shouldn't see <emphasis>anything</emphasis> there, but it doesn't make sense to even generate the map
+    if you can't see all the host dependencies...</para>
+  </note>
+
+  <para><anchor xml:id="cgis-statuswml_cgi" /><emphasis role="bold">WAP Interface CGI</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="1">
+      <colspec colname="c1" colwidth="100*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/cgi-statuswml.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>File Name:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">statuswml.cgi</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para><emphasis role="bold">Description:</emphasis></para>
+
+  <para>This CGI serves as a WAP interface to network status information. If you have a WAP-enabled device (i.e. an Internet-ready
+  cellphone), you can view status information while you're on the go. Different status views include hostgroup summary, hostgroup
+  overview, host detail, service detail, all problems, and unhandled problems. In addition to viewing status information, you can
+  also disable notifications and checks and acknowledge problems from your cellphone. Pretty cool, huh?</para>
+
+  <para><emphasis role="bold">Authorization Requirements:</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para>If you are <link xlink:href="configcgi#authorized_for_system_information"> <emphasis>authorized for system
+      information</emphasis> </link> you can view &name-icinga; process information.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are <link xlink:href="configcgi#authorized_for_all_hosts"> <emphasis>authorized for all hosts</emphasis>
+      </link> you can view status data for all hosts <emphasis role="bold">and</emphasis> services.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are <link xlink:href="configcgi#authorized_for_all_services"> <emphasis>authorized for all services</emphasis>
+      </link> you can view status data for all services.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are an <emphasis>authenticated contact</emphasis> you can view status data for all hosts and services for which
+      you are a contact.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><anchor xml:id="cgis-statuswrl_cgi" /><emphasis role="bold">Status World CGI (VRML)</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="1">
+      <colspec colname="c1" colwidth="100*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/cgi-statuswrl.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>File Name:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">statuswrl.cgi</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para><emphasis role="bold">Description:</emphasis></para>
+
+  <para>This CGI creates a 3-D VRML model of all hosts that you have defined on your network. Coordinates used when drawing the
+  hosts (as well as pretty texture maps) are taken from <link xlink:href="objectdefinitions-host">host</link> definitions. If
+  you'd prefer to let the CGI automatically generate drawing coordinates for you, use the <link
+  xlink:href="configcgi-default_statuswrl_layout">default_statuswrl_layout</link> directive to specify a layout algorithm that
+  should be used. You'll need a VRML browser (like <link xlink:href="http://www.parallelgraphics.com/cortona/">Cortona</link>,
+  <link xlink:href="http://www.cosmosoftware.com">Cosmo Player</link> or <link
+  xlink:href="http://www.intervista.com">WorldView</link>) installed on your system before you can actually view the generated
+  model.</para>
+
+  <para><emphasis role="bold">Authorization Requirements:</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para>If you are <link xlink:href="configcgi-authorized_for_all_hosts"> <emphasis>authorized for all hosts</emphasis>
+      </link> you can view all hosts.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are an <emphasis>authenticated contact</emphasis> you can view hosts for which you are a contact.</para>
+    </listitem>
+  </itemizedlist>
+
+  <note>
+    <para>Users who are not authorized to view specific hosts will see <emphasis>unknown</emphasis> nodes in those positions. I
+    realize that they really shouldn't see <emphasis>anything</emphasis> there, but it doesn't make sense to even generate the map
+    if you can't see all the host dependencies...</para>
+  </note>
+
+  <para><anchor xml:id="cgis-tac_cgi" /><emphasis role="bold">Tactical Overview CGI</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="1">
+      <colspec colname="c1" colwidth="100*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/cgi-tac.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>File Name:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">tac.cgi</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para><emphasis role="bold">Description:</emphasis></para>
+
+  <para>This CGI is designed to server as a "birds-eye view" of all network monitoring activity. It allows you to quickly see
+  network outages, host status, and service status. It distinguishes between problems that have been "handled" in some way (i.e.
+  been acknowledged, had notifications disabled, etc.) and those which have not been handled, and thus need attention. Very useful
+  if you've got a lot of hosts/services you're monitoring and you need to keep a single screen up to alert you of problems.</para>
+
+  <para><emphasis role="bold">Authorization Requirements:</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para>If you are <link xlink:href="configcgi#authorized_for_all_hosts"> <emphasis>authorized for all hosts</emphasis>
+      </link> you can view all hosts <emphasis role="bold">and</emphasis> all services.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are <link xlink:href="configcgi#authorized_for_all_services"> <emphasis>authorized for all services</emphasis>
+      </link> you can view all services.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are an <emphasis>authenticated contact</emphasis> you can view all hosts and services for which you are a
+      contact.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><anchor xml:id="cgis-outages_cgi" /><emphasis role="bold">Network Outages CGI</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="1">
+      <colspec colname="c1" colwidth="100*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/cgi-outages.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>File Name:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">outages.cgi</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para><emphasis role="bold">Description:</emphasis></para>
+
+  <para>This CGI will produce a listing of "problem" hosts on your network that are causing network outages. This can be
+  particularly useful if you have a large network and want to quickly identify the source of the problem. Hosts are sorted based
+  on the severity of the outage they are causing.</para>
+
+  <para><emphasis role="bold">Authorization Requirements:</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para>If you are <link xlink:href="configcgi#authorized_for_all_hosts"> <emphasis>authorized for all hosts</emphasis>
+      </link> you can view all hosts.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are an <emphasis>authenticated contact</emphasis> you can view hosts for which you are a contact.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><anchor xml:id="cgis-config_cgi" /><emphasis role="bold">Configuration CGI</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="1">
+      <colspec colname="c1" colwidth="100*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/cgi-config.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>File Name:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">config.cgi</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para><emphasis role="bold">Description:</emphasis></para>
+
+  <para>This CGI allows you to view objects (i.e. hosts, host groups, contacts, contact groups, time periods, services, etc.) that
+  you have defined in your <link xlink:href="configobject">object configuration file(s)</link>.</para>
+
+  <para><emphasis role="bold">Authorization Requirements:</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para>You must be <link xlink:href="configcgi#authorized_for_configuration_information"> <emphasis>authorized for
+      configuration information</emphasis> </link> in order to any kind of configuration information.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><anchor xml:id="cgis-cmd_cgi" /><emphasis role="bold">Command CGI</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="1">
+      <colspec colname="c1" colwidth="100*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/cgi-cmd.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>File Name:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">cmd.cgi</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para><emphasis role="bold">Description:</emphasis></para>
+
+  <para>This CGI allows you to send commands to the &name-icinga; process. Although this CGI has several arguments, you would be
+  better to leave them alone. Most will change between different revisions of &name-icinga;. Use the <link
+  linkend="cgis-extinfo_cgi">extended information CGI</link> as a starting point for issuing commands.</para>
+
+  <para><emphasis role="bold">Authorization Requirements:</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para>You must be <link xlink:href="configcgi#authorized_for_system_commands"> <emphasis>authorized for system
+      commands</emphasis> </link> in order to issue commands that affect the &name-icinga; process (restarts, shutdowns, mode
+      changes, etc.).</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are <link xlink:href="configcgi#authorized_for_all_host_commands"> <emphasis>authorized for all host
+      commands</emphasis> </link> you can issue commands for all hosts <emphasis role="bold">and</emphasis> services.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are <link xlink:href="configcgi#authorized_for_all_service_commands"> <emphasis>authorized for all service
+      commands</emphasis> </link> you can issue commands for all services.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are an <emphasis>authenticated contact</emphasis> you can issue commands for all hosts and services for which
+      you are a contact.</para>
+    </listitem>
+  </itemizedlist>
+
+  <note>
+    <itemizedlist>
+      <listitem>
+        <para>If you have chosen not to <link xlink:href="configcgi#use_authentication">use authentication</link> with the CGIs,
+        this CGI will <emphasis>not</emphasis> allow anyone to issue commands to &name-icinga;. This is done for your own
+        protection. We would suggest removing this CGI altogether if you decide not to use authentication with the CGIs.</para>
+      </listitem>
+    </itemizedlist>
+  </note>
+
+  <para><anchor xml:id="cgis-extinfo_cgi" /><emphasis role="bold">Extended Information CGI</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="4">
+      <colspec colname="c1" colwidth="25*" />
+
+      <colspec colname="c2" colwidth="25*" />
+
+      <colspec colname="c3" colwidth="25*" />
+
+      <colspec colname="c4" colwidth="25*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/cgi-extinfo-a.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/cgi-extinfo-b.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/cgi-extinfo-c.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/cgi-extinfo-d.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>File Name:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">extinfo.cgi</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para><emphasis role="bold">Description:</emphasis></para>
+
+  <para>This CGI allows you to view &name-icinga; process information, host and service state statistics, host and service
+  comments, and more. It also serves as a launching point for sending commands to &name-icinga; via the <link
+  linkend="cgis-cmd_cgi">command CGI</link>. Although this CGI has several arguments, you would be better to leave them alone -
+  they are likely to change between different releases of &name-icinga;. You can access this CGI by clicking on the 'Network
+  Health' and 'Process Information' links on the side navigation bar, or by clicking on a host or service link in the output of
+  the <link linkend="cgis-status_cgi">status CGI</link>.</para>
+
+  <para><emphasis role="bold">Authorization Requirements:</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para>You must be <link xlink:href="configcgi#authorized_for_system_information"> <emphasis>authorized for system
+      information</emphasis> </link> in order to view &name-icinga; process information.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are <link xlink:href="configcgi#authorized_for_all_hosts"> <emphasis>authorized for all hosts</emphasis>
+      </link> you can view extended information for all hosts <emphasis role="bold">and</emphasis> services.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are <link xlink:href="configcgi#authorized_for_all_services"> <emphasis>authorized for all services</emphasis>
+      </link> you can view extended information for all services.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are an <emphasis>authenticated contact</emphasis> you can view extended information for all hosts and services
+      for which you are a contact.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><anchor xml:id="cgis-showlog_cgi" /><emphasis role="bold">Event Log CGI</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="1">
+      <colspec colname="c1" colwidth="100*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/cgi-showlog.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>File Name:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">showlog.cgi</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para><emphasis role="bold">Description:</emphasis></para>
+
+  <para>This CGI will display the <link xlink:href="configmain#log_file">log file</link>. If you have <link
+  xlink:href="configmain#log_rotation_method">log rotation</link> enabled, you can browse notifications present in archived log
+  files by using the navigational links near the top of the page.</para>
+
+  <para><emphasis role="bold">Authorization Requirements:</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para>You must be <link xlink:href="configcgi#authorized_for_system_information"> <emphasis>authorized for system
+      information</emphasis> </link> in order to view the log file.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><anchor xml:id="cgis-history_cgi" /><emphasis role="bold">Alert History CGI</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="1">
+      <colspec colname="c1" colwidth="100*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/cgi-history.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>File Name:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">history.cgi</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para><emphasis role="bold">Description:</emphasis></para>
+
+  <para>This CGI is used to display the history of problems with either a particular host or all hosts. The output is basically a
+  subset of the information that is displayed by the <link linkend="cgis-showlog_cgi">log file CGI</link>. You have the ability to
+  filter the output to display only the specific types of problems you wish to see (i.e. hard and/or soft alerts, various types of
+  service and host alerts, all types of alerts, etc.). If you have <link xlink:href="configmain#log_rotation_method">log
+  rotation</link> enabled, you can browse history information present in archived log files by using the navigational links near
+  the top of the page.</para>
+
+  <para><emphasis role="bold">Authorization Requirements:</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para>If you are <link xlink:href="configcgi#authorized_for_all_hosts"> <emphasis>authorized for all hosts</emphasis>
+      </link> you can view history information for all hosts <emphasis role="bold">and</emphasis> all services.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are <link xlink:href="configcgi#authorized_for_all_services"> <emphasis>authorized for all services</emphasis>
+      </link> you can view history information for all services.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are an <emphasis>authenticated contact</emphasis> you can view history information for all services and hosts
+      for which you are a contact.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><anchor xml:id="cgis-notifications_cgi" /><emphasis role="bold">Notifications CGI</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="1">
+      <colspec colname="c1" colwidth="100*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/cgi-notifications.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>File Name:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">notifications.cgi</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para><emphasis role="bold">Description:</emphasis></para>
+
+  <para>This CGI is used to display host and service notifications that have been sent to various contacts. The output is
+  basically a subset of the information that is displayed by the <link linkend="cgis-showlog_cgi">log file CGI</link>. You have
+  the ability to filter the output to display only the specific types of notifications you wish to see (i.e. service
+  notifications, host notifications, notifications sent to specific contacts, etc). If you have <link
+  xlink:href="configmain#log_rotation_method">log rotation</link> enabled, you can browse notifications present in archived log
+  files by using the navigational links near the top of the page.</para>
+
+  <para><emphasis role="bold">Authorization Requirements:</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para>If you are <link xlink:href="configcgi#authorized_for_all_hosts"> <emphasis>authorized for all hosts</emphasis>
+      </link> you can view notifications for all hosts <emphasis role="bold">and</emphasis> all services.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are <link xlink:href="configcgi#authorized_for_all_services"> <emphasis>authorized for all services</emphasis>
+      </link> you can view notifications for all services.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are an <emphasis>authenticated contact</emphasis> you can view notifications for all services and hosts for
+      which you are a contact.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><anchor xml:id="cgis-trends_cgi" /><emphasis role="bold">Trends CGI</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="1">
+      <colspec colname="c1" colwidth="100*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/cgi-trends.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>File Name:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">trends.cgi</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para><emphasis role="bold">Description:</emphasis></para>
+
+  <para>This CGI is used to create a graph of host or service states over an arbitrary period of time. In order for this CGI to be
+  of much use, you should enable <link xlink:href="configmain#log_rotation_method">log rotation</link> and keep archived logs in
+  the path specified by the <link xlink:href="configmain#log_archive_path">log_archive_path</link> directive. The CGI uses Thomas
+  Boutell's <link xlink:href="http://www.boutell.com/gd/">gd</link> library (version 1.6.3 or higher) to create the trends
+  image.</para>
+
+  <para><emphasis role="bold">Authorization Requirements:</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para>If you are <link xlink:href="configcgi#authorized_for_all_hosts"> <emphasis>authorized for all hosts</emphasis>
+      </link> you can view trends for all hosts <emphasis role="bold">and</emphasis> all services.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are <link xlink:href="configcgi#authorized_for_all_services"> <emphasis>authorized for all services</emphasis>
+      </link> you can view trends for all services.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are an <emphasis>authenticated contact</emphasis> you can view trends for all services and hosts for which you
+      are a contact.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><anchor xml:id="cgis-avail_cgi" /><emphasis role="bold">Availability Reporting CGI</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/cgi-avail-a.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/cgi-avail-b.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>File Name:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">avail.cgi</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para><emphasis role="bold">Description:</emphasis></para>
+
+  <para>This CGI is used to report on the availability of hosts and services over a user-specified period of time. In order for
+  this CGI to be of much use, you should enable <link xlink:href="configmain#log_rotation_method">log rotation</link> and keep
+  archived logs in the path specified by the <link xlink:href="configmain#log_archive_path">log_archive_path</link>
+  directive.</para>
+
+  <para><emphasis role="bold">Authorization Requirements:</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para>If you are <link xlink:href="configcgi#authorized_for_all_hosts"> <emphasis>authorized for all hosts</emphasis>
+      </link> you can view availability data for all hosts <emphasis role="bold">and</emphasis> all services.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are <link xlink:href="configcgi#authorized_for_all_services"> <emphasis>authorized for all services</emphasis>
+      </link> you can view availability data for all services.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are an <emphasis>authenticated contact</emphasis> you can view availability data for all services and hosts for
+      which you are a contact.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><anchor xml:id="cgis-histogram_cgi" /><emphasis role="bold">Alert Histogram CGI</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="1">
+      <colspec colname="c1" colwidth="100*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/cgi-histogram.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>File Name:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">histogram.cgi</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para><emphasis role="bold">Description:</emphasis></para>
+
+  <para>This CGI is used to report on the availability of hosts and services over a user-specified period of time. In order for
+  this CGI to be of much use, you should enable <link xlink:href="configmain#log_rotation_method">log rotation</link> and keep
+  archived logs in the path specified by the <link xlink:href="configmain#log_archive_path">log_archive_path</link> directive. The
+  CGI uses Thomas Boutell's <link xlink:href="http://www.boutell.com/gd/">gd</link> library (version 1.6.3 or higher) to create
+  the histogram image.</para>
+
+  <para><emphasis role="bold">Authorization Requirements:</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para>If you are <link xlink:href="configcgi#authorized_for_all_hosts"> <emphasis>authorized for all hosts</emphasis>
+      </link> you can view histograms for all hosts <emphasis role="bold">and</emphasis> all services.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are <link xlink:href="configcgi#authorized_for_all_services"> <emphasis>authorized for all services</emphasis>
+      </link> you can view histograms for all services.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are an <emphasis>authenticated contact</emphasis> you can view histograms for all services and hosts for which
+      you are a contact.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><anchor xml:id="cgis-summary_cgi" /><emphasis role="bold">Alert Summary CGI</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="1">
+      <colspec colname="c1" colwidth="100*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/cgi-summary.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>File Name:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">summary.cgi</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para><emphasis role="bold">Description:</emphasis></para>
+
+  <para>This CGI provides some generic reports about host and service alert data, including alert totals, top alert producers,
+  etc.</para>
+
+  <para><emphasis role="bold">Authorization Requirements:</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para>If you are <link xlink:href="configcgi#authorized_for_all_hosts"> <emphasis>authorized for all hosts</emphasis>
+      </link> you can view summary information for all hosts <emphasis role="bold">and</emphasis> all services.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are <link xlink:href="configcgi#authorized_for_all_services"> <emphasis>authorized for all services</emphasis>
+      </link> you can view summary information for all services.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are an <emphasis>authenticated contact</emphasis> you can view summary information for all services and hosts
+      for which you are a contact.</para>
+    </listitem>
+  </itemizedlist>
+</section>

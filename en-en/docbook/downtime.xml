@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="downtime" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="schedule_downtime" />Scheduled Downtime</title>
+
+  <para><emphasis role="bold">Introduction</emphasis></para>
+
+  <para>&name-icinga; allows you to schedule periods of planned downtime for hosts and service that you're monitoring. This is
+  useful in the event that you actually know you're going to be taking a server down for an upgrade, etc.</para>
+
+  <para><inlinemediaobject>
+      <imageobject>
+        <imagedata fileref="../images/downtime.png" format="PNG"></imagedata>
+      </imageobject>
+    </inlinemediaobject></para>
+
+  <para><emphasis role="bold">Scheduling Downtime</emphasis></para>
+
+  <para>You can schedule downtime for hosts and service through the <link linkend="cgis-extinfo_cgi">extinfo CGI</link> (either
+  when viewing host or service information). Click in the "Schedule downtime for this host/service" link to actually schedule the
+  downtime.</para>
+
+  <para>Once you schedule downtime for a host or service, &name-icinga; will add a comment to that host/service indicating that it
+  is scheduled for downtime during the period of time you indicated. When that period of downtime passes, &name-icinga; will
+  automatically delete the comment that it added. Nice, huh?</para>
+
+  <para><emphasis role="bold">Fixed vs. Flexible Downtime</emphasis></para>
+
+  <para>When you schedule downtime for a host or service through the web interface you'll be asked if the downtime is fixed or
+  flexible. Here's an explanation of how "fixed" and "flexible" downtime differs:</para>
+
+  <para>"Fixed" downtime starts and stops at the exact start and end times that you specify when you schedule it. Okay, that was
+  easy enough...</para>
+
+  <para>"Flexible" downtime is intended for times when you know that a host or service is going to be down for X minutes (or
+  hours), but you don't know exactly when that'll start. When you schedule flexible downtime, &name-icinga; will start the
+  scheduled downtime sometime between the start and end times you specified. The downtime will last for as long as the duration
+  you specified when you scheduled the downtime. This assumes that the host or service for which you scheduled flexible downtime
+  either goes down (or becomes unreachable) or goes into a non-OK state sometime between the start and end times you specified.
+  The time at which a host or service transitions to a problem state determines the time at which &name-icinga; actually starts
+  the downtime. The downtime will then last for the duration you specified, even if the host or service recovers before the
+  downtime expires. This is done for a very good reason. As we all know, you might think you've got a problem fixed, but then have
+  to restart a server ten times before it actually works right. Smart, eh?</para>
+
+  <para><emphasis role="bold">Triggered Downtime</emphasis></para>
+
+  <para>When scheduling host or service downtime you have the option of making it "triggered" downtime. What is triggered
+  downtime, you ask? With triggered downtime the start of the downtime is triggered by the start of some other scheduled host or
+  service downtime. This is extremely useful if you're scheduling downtime for a large number or hosts or services and the start
+  time of the downtime period depends on the start time of another downtime entry. For instance, if you schedule flexible downtime
+  for a particular host (because its going down for maintenance), you might want to schedule triggered downtime for all of that
+  hosts's "children".</para>
+
+  <para><emphasis role="bold">How Scheduled Downtime Affects Notifications</emphasis></para>
+
+  <para>When a host or service is in a period of scheduled downtime, &name-icinga; will not allow normal notifications to be sent
+  out for the host or service. However, a "DOWNTIMESTART" notification will get sent out for the host or service, which will serve
+  to put any admins on notice that they won't receive upcoming problem alerts.</para>
+
+  <para>When the scheduled downtime is over, &name-icinga; will allow normal notifications to be sent out for the host or service
+  again. A "DOWNTIMEEND" notification will get sent out notifying admins that the scheduled downtime is over, and they will start
+  receiving normal alerts again.</para>
+
+  <para>If the scheduled downtime is cancelled prematurely (before it expires), a "DOWNTIMECANCELLED" notification will get sent
+  out to the appropriate admins.</para>
+
+  <para><emphasis role="bold">Overlapping Scheduled Downtime</emphasis></para>
+
+  <para>I like to refer to this as the "Oh crap, its not working" syndrome. You know what I'm talking about. You take a server
+  down to perform a "routine" hardware upgrade, only to later realize that the OS drivers aren't working, the RAID array blew up,
+  or the drive imaging failed and left your original disks useless to the world. Moral of the story is that any routine work on a
+  server is quite likely to take three or four times as long as you had originally planned...</para>
+
+  <para>Let's take the following scenario:</para>
+
+  <orderedlist>
+    <listitem>
+      <para>You schedule downtime for host A from 7:30pm-9:30pm on a Monday</para>
+    </listitem>
+
+    <listitem>
+      <para>You bring the server down about 7:45pm Monday evening to start a hard drive upgrade</para>
+    </listitem>
+
+    <listitem>
+      <para>After wasting an hour and a half battling with SCSI errors and driver incompatabilities, you finally get the machine
+      to boot up</para>
+    </listitem>
+
+    <listitem>
+      <para>At 9:15 you realize that one of your partitions is either hosed or doesn't seem to exist anywhere on the drive</para>
+    </listitem>
+
+    <listitem>
+      <para>Knowing you're in for a long night, you go back and schedule additional downtime for host A from 9:20pm Monday evening
+      to 1:30am Tuesday Morning.</para>
+    </listitem>
+  </orderedlist>
+
+  <para>If you schedule overlapping periods of downtime for a host or service (in this case the periods were 7:40pm-9:30pm and
+  9:20pm-1:30am), &name-icinga; will wait until the last period of scheduled downtime is over before it allows notifications to be
+  sent out for that host or service. In this example notifications would be suppressed for host A until 1:30am Tuesday
+  morning.</para>
+</section>

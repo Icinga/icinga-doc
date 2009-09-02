@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="checkscheduling" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="checkscheduling-check_scheduling" />Service and Host Check Scheduling</title>
+
+  <para><anchor xml:id="checkscheduling-introduction" /><emphasis role="bold">Introduction</emphasis></para>
+
+  <para>There were a lot of questions regarding how service checks are scheduled in certain situations, along with how the
+  scheduling differs from when the checks are actually executed and their results are processed. We'll try to go into a little
+  more detail on how this all works...</para>
+
+  <para><anchor xml:id="checkscheduling-configuration_options" /><emphasis role="bold">Configuration Options</emphasis></para>
+
+  <para>Before we begin, there are several configuration options that affect how service checks are scheduled, executed, and
+  processed. For starters, each <link linkend="objectdefinitions-service">service definition</link> contains three options that
+  determine when and how each specific service check is scheduled and executed. Those three options are:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><emphasis>normal_check_interval</emphasis></para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis>retry_check_interval</emphasis></para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis>check_period</emphasis></para>
+    </listitem>
+  </itemizedlist>
+
+  <para>There are also four configuration options in the <link linkend="configmain">main configuration file</link> that affect
+  service checks. These include:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><link
+      linkend="configmain-service_inter_check_delay_method"><emphasis>service_inter_check_delay_method</emphasis></link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="configmain-service_interleave_factor"><emphasis>service_interleave_factor</emphasis></link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="configmain-max_concurrent_checks"><emphasis>max_concurrent_checks</emphasis></link></para>
+    </listitem>
+
+    <listitem>
+      <para><link
+      linkend="configmain-check_result_reaper_frequency"><emphasis>check_result_reaper_frequency</emphasis></link></para>
+    </listitem>
+  </itemizedlist>
+
+  <note>
+    <para>The last directive affects host checks as well.</para>
+  </note>
+
+  <para>We'll go into more detail on how all these options affect service check scheduling as we progress. First off, let's see
+  how services are initially scheduled when &name-icinga; first starts or restarts...</para>
+
+  <para><anchor xml:id="checkscheduling-initial_scheduling" /><emphasis role="bold">Initial Scheduling</emphasis></para>
+
+  <para>When &name-icinga; (re)starts, it will attempt to schedule the initial check of all services in a manner that will
+  minimize the load imposed on the local and remote hosts. This is done by spacing the initial service checks out, as well as
+  interleaving them. The spacing of service checks (also known as the inter-check delay) is used to minimize/equalize the load on
+  the local host running &name-icinga; and the interleaving is used to minimize/equalize load imposed on remote hosts. Both the
+  inter-check delay and interleave functions are discussed below.</para>
+
+  <para>Even though service checks are initially scheduled to balance the load on both the local and remote hosts, things will
+  eventually give in to the ensuing chaos and be a bit random. Reasons for this include the fact that services are not all checked
+  at the same interval, some services take longer to execute than others, host and/or service problems can alter the timing of one
+  or more service checks, etc. At least we try to get things off to a good start. Hopefully the initial scheduling will keep the
+  load on the local and remote hosts fairly balanced as time goes by...</para>
+
+  <note>
+    <para>If you want to view the initial service check scheduling information, start &name-icinga; using the <emphasis
+    role="bold">-s</emphasis> command line option. Doing so will display basic scheduling information (inter-check delay,
+    interleave factor, first and last service check time, etc) and will create a new status log that shows the exact time that all
+    services are initially scheduled. Because this option will overwrite the status log, you should not use it when another copy
+    of &name-icinga; is running. &name-icinga; does <emphasis>not</emphasis> start monitoring anything when this argument is
+    used.</para>
+  </note>
+
+  <para><anchor xml:id="checkscheduling-service_inter_check_delay" /><emphasis role="bold">Inter-Check Delay</emphasis></para>
+
+  <para>As mentioned before, &name-icinga; attempts to equalize the load placed on the machine that is running &name-icinga; by
+  equally spacing out initial service checks. The spacing between consecutive service checks is called the inter-check delay. By
+  giving a value to the <link linkend="configmain-service_inter_check_delay_method">service_inter_check_delay_method</link>
+  variable in the main config file, you can modify how this delay is calculated. We will discuss how the "smart" calculation
+  works, as this is the setting you will want to use for normal operation.</para>
+
+  <para>When using the "smart" setting of the <emphasis>service_inter_check_delay_method</emphasis> variable, &name-icinga; will
+  calculate an inter-check delay value by using the following calculation:</para>
+
+  <para><emphasis>inter-check delay = (average check interval for all services) / (total number of services)</emphasis></para>
+
+  <para>Let's take an example. Say you have 1,000 services that each have a normal check interval of 5 minutes (obviously some
+  services are going to be checked at different intervals, but let's look at an easy case...). The total check interal time for
+  all services is 5,000 (1,000 * 5). That means that the average check interval for each service is 5 minutes (5,000 / 1,000).
+  Give that information, we realize that (on average) we need to re-check 1,000 services every 5 minutes. This means that we
+  should use an inter-check delay of 0.005 minutes (0.3 seconds) when spacing out the initial service checks. By spacing each
+  service check out by 0.3 seconds, we can somewhat guarantee that &name-icinga; is scheduling and/or executing 3 new service
+  checks every second. By spacing the checks out evenly over time like this, we can hope that the load on the local server that is
+  running &name-icinga; remains somewhat balanced.</para>
+
+  <para><anchor xml:id="checkscheduling-service_interleaving" /><emphasis role="bold">Service Interleaving</emphasis></para>
+
+  <para>As discussed above, the inter-check delay helps to equalize the load that &name-icinga; imposes on the local host. What
+  about remote hosts? Is it necessary to equalize load on remote hosts? Why? Yes, it is important and yes, &name-icinga; can help
+  out with this. If you monitor a large number of services on a remote host and the checks were not spread out, the remote host
+  might think that it was the victim of a SYN attack if there were a lot of open connections on the same port. Plus, attempting to
+  equalize the load on hosts is just a nice thing to do...</para>
+
+  <para>By giving a value to the <link linkend="configmain-service_interleave_factor">service_interleave_factor</link> variable in
+  the main config file, you can modify how the interleave factor is calculated. We will discuss how the "smart" calculation works,
+  as this will probably be the setting you will want to use for normal operation. You can, however, use a pre-set interleave
+  factor instead of having &name-icinga; calculate one for you. Also of note, if you use an interleave factor of 1, service check
+  interleaving is basically disabled.</para>
+
+  <para>When using the "smart" setting of the <emphasis>service_interleave_factor</emphasis> variable, &name-icinga; will
+  calculate an interleave factor by using the following calculation:</para>
+
+  <para><emphasis>interleave factor = ceil ( total number of services / total number of hosts )</emphasis></para>
+
+  <para>Let's take an example. Say you have a total of 1,000 services and 150 hosts that you monitor. &name-icinga; would
+  calculate the interleave factor to be 7. This means that when &name-icinga; schedules initial service checks it will schedule
+  the first one it finds, skip the next 6, schedule the next one, and so on... This process will keep repeating until all service
+  checks have been scheduled. Since services are sorted (and thus scheduled) by the name of the host they are associated with,
+  this will help with minimizing/equalizing the load placed upon remote hosts.</para>
+
+  <para>The images below depict how service checks are scheduled when they are not interleaved
+  (<emphasis>service_interleave_factor</emphasis>=1) and when they are interleaved with the
+  <emphasis>service_interleave_factor</emphasis> variable equal to 4.</para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="50*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>Noninterleaved Checks</para></entry>
+
+          <entry><para>Interleaved Checks</para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/noninterleaved1.png" format="PNG" width="500"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/interleaved1.png" format="PNG" width="500"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/noninterleaved2.png" format="PNG" width="500"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/interleaved2.png" format="PNG" width="500"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+        </row>
+
+        <row>
+          <entry></entry>
+
+          <entry align="left" valign="middle"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/interleaved3.png" format="PNG" width="500"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para><anchor xml:id="checkscheduling-max_concurrent_checks" /><emphasis role="bold">Maximum Concurrent Service
+  Checks</emphasis></para>
+
+  <para>In order to prevent &name-icinga; from consuming all of your CPU resources, you can restrict the maximum number of
+  concurrent service checks that can be running at any given time. This is controlled by using the <link
+  linkend="configmain-max_concurrent_checks">max_concurrent_checks</link> option in the main config file.</para>
+
+  <para>The good thing about this setting is that you can regulate &name-icinga;' CPU usage. The down side is that service checks
+  may fall behind if this value is set too low. When it comes time to execute a service check, &name-icinga; will make sure that
+  no more than <emphasis>x</emphasis> service checks are either being executed or waiting to have their results processed (where
+  <emphasis>x</emphasis> is the number of checks you specified for the <emphasis>max_concurrent_checks</emphasis> option). If that
+  limit has been reached, &name-icinga; will postpone the execution of any pending checks until some of the previous checks have
+  completed. So how does one determine a reasonable value for the <emphasis>max_concurrent_checks</emphasis> option?</para>
+
+  <para>First off, you need to know the following things...</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>The inter-check delay that &name-icinga; uses to initially schedule service checks (use the <emphasis
+      role="bold">-s</emphasis> command line argument to check this)</para>
+    </listitem>
+
+    <listitem>
+      <para>The frequency (in seconds) of reaper events, as specified by the <link
+      linkend="configmain-check_result_reaper_frequency">check_result_reaper_frequency</link> variable in the main config
+      file.</para>
+    </listitem>
+
+    <listitem>
+      <para>A general idea of the average time that service checks actually take to execute (most plugins timeout after 10
+      seconds, so the average is probably going to be lower)</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>Next, use the following calculation to determine a reasonable value for the maximum number of concurrent checks that are
+  allowed...</para>
+
+  <para><emphasis>max. concurrent checks = ceil( max( check result reaper frequency , average check execution time ) / inter-check
+  delay )</emphasis></para>
+
+  <para>The calculated number should provide a reasonable starting point for the <emphasis>max_concurrent_checks</emphasis>
+  variable. You may have to increase this value a bit if service checks are still falling behind schedule or decrease it if
+  &name-icinga; is hogging too much CPU time.</para>
+
+  <para>Let's say you are monitoring 875 services, each with an average check interval of 2 minutes. That means that your
+  inter-check delay is going to be 0.137 seconds. If you set the check result reaper frequency to be 10 seconds, you can calculate
+  a rough value for the max. number of concurrent checks as follows (we'll assume that the average execution time for service
+  checks is less than 10 seconds) ...</para>
+
+  <para><emphasis>max. concurrent checks = ceil( 10 / 0.137 )</emphasis></para>
+
+  <para>In this case, the calculated value is going to be 73. This makes sense because (on average) &name-icinga; are going to be
+  executing just over 7 new service checks per second and it only processes service check results every 10 seconds. That means at
+  given time there will be a just over 70 service checks that are either being executed or waiting to have their results
+  processed. In this case, we would probably recommend bumping the max. concurrent checks value up to 80, since there will be
+  delays when &name-icinga; processes service check results and does its other work. Obviously, you're going to have test and
+  tweak things a bit to get everything running smoothly on your system, but hopefully this provided some general
+  guidelines...</para>
+
+  <para><anchor xml:id="checkscheduling-time_restraints" /><emphasis role="bold">Time Restraints</emphasis></para>
+
+  <para>The <emphasis>check_period</emphasis> option determines the <link linkend="timeperiods">time period</link> during which
+  &name-icinga; can run checks of the service. Regardless of what status a particular service is in, if the time that it is
+  actually executed is not a valid time within the time period that has been specified, the check will <emphasis>not</emphasis> be
+  executed. Instead, &name-icinga; will reschedule the service check for the next valid time in the time period. If the check can
+  be run (e.g. the time is valid within the time period), the service check is executed.</para>
+
+  <note>
+    <para>Even though a service check may not be able to be executed at a given time, &name-icinga; may still
+    <emphasis>schedule</emphasis> it to be run at that time. This is most likely to happen during the initial scheduling of
+    services, although it may happen in other instances as well. This does <emphasis>not</emphasis> mean that &name-icinga; will
+    execute the check! When it comes time to actually <emphasis>execute</emphasis> a service check, &name-icinga; will verify that
+    the check can be run at the current time. If it cannot, &name-icinga; will not execute the service check, but will instead
+    just reschedule it for a later time. Don't let this one throw you confuse you! The scheduling and execution of service checks
+    are two distinctly different (although related) things.</para>
+  </note>
+
+  <para><anchor xml:id="checkscheduling-normal_scheduling" /><emphasis role="bold">Normal Scheduling</emphasis></para>
+
+  <para>In an ideal world you wouldn't have network problems. But if that were the case, you wouldn't need a network monitoring
+  tool. Anyway, when things are running smoothly and a service is in an OK state, we'll call that "normal". Service checks are
+  normally scheduled at the frequency specified by the <emphasis>check_interval</emphasis> option. That's it. Simple, huh?</para>
+
+  <para><anchor xml:id="checkscheduling-problem_scheduling" /><emphasis role="bold">Scheduling During Problems</emphasis></para>
+
+  <para>So what happens when there are problems with a service? Well, one of the things that happens is the service check
+  scheduling changes. If you've configured the <emphasis>max_attempts</emphasis> option of the service definition to be something
+  greater than 1, &name-icinga; will recheck the service before deciding that a real problem exists. While the service is being
+  rechecked (up to <emphasis>max_attempts</emphasis> times) it is considered to be in a "soft" state (as described <link
+  linkend="statetypes">here</link>) and the service checks are rescheduled at a frequency determined by the
+  <emphasis>retry_interval</emphasis> option.</para>
+
+  <para>If &name-icinga; rechecks the service <emphasis>max_attempts</emphasis> times and it is still in a non-OK state,
+  &name-icinga; will put the service into a "hard" state, send out notifications to contacts (if applicable), and start
+  rescheduling future checks of the service at a frequency determined by the <emphasis>check_interval</emphasis> option.</para>
+
+  <para>As always, there are exceptions to the rules. When a service check results in a non-OK state, &name-icinga; will check the
+  host that the service is associated with to determine whether or not is up (see the note <link
+  linkend="checkscheduling-host_checks">below</link> for info on how this is done). If the host is not up (i.e. it is either down
+  or unreachable), &name-icinga; will immediately put the service into a hard non-OK state and it will reset the current attempt
+  number to 1. Since the service is in a hard non-OK state, the service check will be rescheduled at the normal frequency
+  specified by the <emphasis>check_interval</emphasis> option instead of the <emphasis>retry_interval</emphasis> option.</para>
+
+  <para><anchor xml:id="checkscheduling-host_checks" /><emphasis role="bold">Host Checks</emphasis></para>
+
+  <para>Unlike service checks, host checks are <emphasis>not</emphasis> scheduled on a regular basis. Instead they are run on
+  demand, as &name-icinga; sees a need. This is a common question asked by users, so it needs to be clarified.</para>
+
+  <para>One instance where &name-icinga; checks the status of a host is when a service check results in a non-OK status.
+  &name-icinga; checks the host to decide whether or not the host is up, down, or unreachable. If the first host check returns a
+  non-OK state, &name-icinga; will keep pounding out checks of the host until either (a) the maximum number of host checks
+  (specified by the <emphasis>max_attempts</emphasis> option in the host definition) is reached or (b) a host check results in an
+  OK state.</para>
+
+  <para>Also of note - when &name-icinga; is check the status of a host, it holds off on doing anything else (executing new
+  service checks, processing other service check results, etc). This can slow things down a bit and cause pending service checks
+  to be delayed for a while, but it is necessary to determine the status of the host before &name-icinga; can take any further
+  action on the service(s) that are having problems.</para>
+
+  <para><anchor xml:id="checkscheduling-scheduling_delays" /><emphasis role="bold">Scheduling Delays</emphasis></para>
+
+  <para>It should be noted that service check scheduling and execution is done on a best effort basis. Individual service checks
+  are considered to be low priority events in &name-icinga;, so they can get delayed if high priority events need to be executed.
+  Examples of high priority events include log file rotations, external command checks, and check results reaper events.
+  Additionally, host checks will slow down the execution and processing of service checks.</para>
+
+  <para><anchor xml:id="checkscheduling-scheduling_example" /><emphasis role="bold">Scheduling Example</emphasis></para>
+
+  <para>The scheduling of service checks, their execution, and the processing of their results can be a bit difficult to
+  understand, so let's look at a simple example. Look at the diagram below - we'll refer to it as we explain how things are
+  done.</para>
+
+  <para><inlinemediaobject>
+      <imageobject>
+        <imagedata fileref="../images/checktiming.png" format="PNG"></imagedata>
+      </imageobject>
+    </inlinemediaobject></para>
+
+  <para>First off, the <emphasis role="bold">X</emphasis><subscript>n</subscript> events are check result reaper events that are
+  scheduled at a frequency specified by the <link
+  linkend="configmain-check_result_reaper_frequency">check_result_reaper_frequency</link> option in the main config file. Check
+  result reaper events do the work of gathering and processing service check results. They serve as the core logic for
+  &name-icinga;, kicking off host checks, event handlers and notifications as necessary.</para>
+
+  <para>For the example here, a service has been scheduled to be executed at time <emphasis role="bold">A</emphasis>. However,
+  &name-icinga; got behind in its event queue, so the check was not actually executed until time <emphasis
+  role="bold">B</emphasis>. The service check finished executing at time <emphasis role="bold">C</emphasis>, so the difference
+  between points <emphasis role="bold">C</emphasis> and <emphasis role="bold">B</emphasis> is the actual amount of time that the
+  check was running.</para>
+
+  <para>The results of the service check are not processed immediately after the check is done executing. Instead, the results are
+  saved for later processing by a check result reaper event. The next check result reaper event occurs at time <emphasis
+  role="bold">D</emphasis>, so that is approximately the time that the results are processed (the actual time may be later than
+  <emphasis role="bold">D</emphasis> since other service check results may be processed before this one).</para>
+
+  <para>At the time that the check result reaper event processes the service check results, it will reschedule the next service
+  check and place it into &name-icinga;' event queue. We'll assume that the service check resulted in an OK status, so the next
+  check at time <emphasis role="bold">E</emphasis> is scheduled after the originally scheduled check time by a length of time
+  specified by the <emphasis>check_interval</emphasis> option. Note that the service is <emphasis>not</emphasis> rescheduled based
+  off the time that it was actually executed! There is one exception to this (isn't there always?) - if the time that the service
+  check is actually executed (point <emphasis role="bold">B</emphasis>) occurs after the next service check time (point <emphasis
+  role="bold">E</emphasis>), &name-icinga; will compensate by adjusting the next check time. This is done to ensure that
+  &name-icinga; doesn't go nuts trying to keep up with service checks if it comes under heavy load. Besides, what's the point of
+  scheduling something in the past...?</para>
+
+  <para><anchor xml:id="checkscheduling-service_options" /><emphasis role="bold">Service Definition Options That Affect
+  Scheduling</emphasis></para>
+
+  <para>Each service definition contains a <emphasis>normal_check_interval</emphasis> and
+  <emphasis>retry_check_interval</emphasis> option. Hopefully this will clarify what these two options do, how they relate to the
+  <emphasis>max_check_attempts</emphasis> option in the service definition, and how they affect the scheduling of the
+  service.</para>
+
+  <para>First off, the <emphasis>normal_check_interval</emphasis> option is the interval at which the service is checked under
+  "normal" circumstances. "Normal" circumstances mean whenever the service is in an OK state or when its in a <link
+  linkend="statetypes">hard</link> non-OK state.</para>
+
+  <para>When a service first changes from an OK state to a non-OK state, &name-icinga; gives you the ability to temporarily slow
+  down or speed up the interval at which subsequent checks of that service will occur. When the service first changes state,
+  &name-icinga; will perform up to <emphasis>max_check_attempts</emphasis>-1 retries of the service check before it decides its a
+  real problem. While the service is being retried, it is scheduled according to the <emphasis>retry_check_interval</emphasis>
+  option, which might be faster or slower than the normal <emphasis>normal_check_interval</emphasis> option. While the service is
+  being rechecked (up to <emphasis>max_check_attempts</emphasis>-1 times), the service is in a <link linkend="statetypes">soft
+  state</link>. If the service is rechecked <emphasis>max_check_attempts</emphasis>-1 times and it is still in a non-OK state, the
+  service turns into a <link linkend="statetypes">hard state</link> and is subsequently rescheduled at the normal rate specified
+  by the <emphasis>check_interval</emphasis> option.</para>
+
+  <para>On a side note, it you specify a value of 1 for the <emphasis>max_check_attempts</emphasis> option, the service will not
+  ever be checked at the interval specified by the <emphasis>retry_check_interval</emphasis> option. Instead, it immediately turns
+  into a <link linkend="statetypes">hard state</link> and is subsequently rescheduled at the rate specified by the
+  <emphasis>normal_check_interval</emphasis> option.</para>
+
+  <para><emphasis role="bold">TODO</emphasis></para>
+
+  <para><anchor xml:id="checkscheduling-host_inter_check_delay" /><emphasis role="bold">Host Check Directives</emphasis></para>
+
+  <para>Most of the above applies to host checks as well.</para>
+
+  <para>This documentation is being rewritten. Stay tuned for more information in a later beta release...</para>
+</section>

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="stalking" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="state_stalking" />State Stalking</title>
+
+  <para><emphasis role="bold">Introduction</emphasis></para>
+
+  <para>State "stalking" is a feature which is probably not going to used by most users. When enabled, it allows you to log
+  changes in the output service and host checks even if the state of the host or service does not change. When stalking is enabled
+  for a particular host or service, &name-icinga; will watch that host or service very carefully and log any changes it sees in
+  the output of check results. As you'll see, it can be very helpful to you in later analysis of the log files.</para>
+
+  <para><emphasis role="bold">How Does It Work?</emphasis></para>
+
+  <para>Under normal circumstances, the result of a host or service check is only logged if the host or service has changed state
+  since it was last checked. There are a few exceptions to this, but for the most part, that's the rule.</para>
+
+  <para>If you enable stalking for one or more states of a particular host or service, &name-icinga; will log the results of the
+  host or service check if the output from the check differs from the output from the previous check. Take the following example
+  of eight consecutive checks of a service:</para>
+
+  <informaltable frame="all">
+    <tgroup cols="5">
+      <colspec colname="c1" colwidth="15*" />
+
+      <colspec colname="c2" colwidth="15*" />
+
+      <colspec colname="c3" colwidth="50*" />
+
+      <colspec colname="c4" colwidth="10*" />
+
+      <colspec colname="c5" colwidth="10*" />
+
+      <tbody>
+        <row>
+          <entry><para> <emphasis role="bold">Service Check #:</emphasis> </para></entry>
+
+          <entry><para> <emphasis role="bold">Service State:</emphasis> </para></entry>
+
+          <entry><para> <emphasis role="bold">Service Check Output:</emphasis> </para></entry>
+
+          <entry><para> <emphasis role="bold">Logged Normally</emphasis> </para></entry>
+
+          <entry><para> <emphasis role="bold">Logged With Stalking</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry><para>x</para></entry>
+
+          <entry><para>OK</para></entry>
+
+          <entry><para>RAID array optimal</para></entry>
+
+          <entry><para>-</para></entry>
+
+          <entry><para>-</para></entry>
+        </row>
+
+        <row>
+          <entry><para>x+1</para></entry>
+
+          <entry><para>OK</para></entry>
+
+          <entry><para>RAID array optimal</para></entry>
+
+          <entry><para>-</para></entry>
+
+          <entry><para>-</para></entry>
+        </row>
+
+        <row>
+          <entry><para>x+2</para></entry>
+
+          <entry><para>WARNING</para></entry>
+
+          <entry><para>RAID array degraded (1 drive bad, 1 hot spare rebuilding)</para></entry>
+
+          <entry><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/checkmark.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+
+          <entry><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/checkmark.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+        </row>
+
+        <row>
+          <entry><para>x+3</para></entry>
+
+          <entry><para>CRITICAL</para></entry>
+
+          <entry><para>RAID array degraded (2 drives bad, 1 host spare online, 1 hot spare rebuilding)</para></entry>
+
+          <entry><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/checkmark.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+
+          <entry><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/checkmark.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+        </row>
+
+        <row>
+          <entry><para>x+4</para></entry>
+
+          <entry><para>CRITICAL</para></entry>
+
+          <entry><para>RAID array degraded (3 drives bad, 2 hot spares online)</para></entry>
+
+          <entry><para>-</para></entry>
+
+          <entry><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/checkmark.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+        </row>
+
+        <row>
+          <entry><para>x+5</para></entry>
+
+          <entry><para>CRITICAL</para></entry>
+
+          <entry><para>RAID array failed</para></entry>
+
+          <entry><para>-</para></entry>
+
+          <entry><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/checkmark.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+        </row>
+
+        <row>
+          <entry><para>x+6</para></entry>
+
+          <entry><para>CRITICAL</para></entry>
+
+          <entry><para>RAID array failed</para></entry>
+
+          <entry><para>-</para></entry>
+
+          <entry><para>-</para></entry>
+        </row>
+
+        <row>
+          <entry><para>x+7</para></entry>
+
+          <entry><para>CRITICAL</para></entry>
+
+          <entry><para>RAID array failed</para></entry>
+
+          <entry><para>-</para></entry>
+
+          <entry><para>-</para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Given this sequence of checks, you would normally only see two log entries for this catastrophe. The first one would occur
+  at service check x+2 when the service changed from an OK state to a WARNING state. The second log entry would occur at service
+  check x+3 when the service changed from a WARNING state to a CRITICAL state.</para>
+
+  <para>For whatever reason, you may like to have the complete history of this catastrophe in your log files. Perhaps to help
+  explain to your manager how quickly the situation got out of control, perhaps just to laugh at it over a couple of drinks at the
+  local pub...</para>
+
+  <para>Well, if you had enabled stalking of this service for CRITICAL states, you would have events at x+4 and x+5 logged in
+  addition to the events at x+2 and x+3. Why is this? With state stalking enabled, &name-icinga; would have examined the output
+  from each service check to see if it differed from the output of the previous check. If the output differed and the state of the
+  service didn't change between the two checks, the result of the newer service check would get logged.</para>
+
+  <para>A similiar example of stalking might be on a service that checks your web server. If the check_http plugin first returns a
+  WARNING state because of a 404 error and on subsequent checks returns a WARNING state because of a particular pattern not being
+  found, you might want to know that. If you didn't enable state stalking for WARNING states of the service, only the first
+  WARNING state event (the 404 error) would be logged and you wouldn't have any idea (looking back in the archived logs) that
+  future WARNING states were not due to a 404, but rather some text pattern that could not be found in the returned web
+  page.</para>
+
+  <para><emphasis role="bold">Should I Enable Stalking?</emphasis></para>
+
+  <para>First, you must decide if you have a real need to analyze archived log data to find the exact cause of a problem. You may
+  decide you need this feature for some hosts or services, but not for all. You may also find that you only have a need to enable
+  stalking for some host or service states, rather than all of them. For example, you may decide to enable stalking for WARNING
+  and CRITICAL states of a service, but not for OK and UNKNOWN states.</para>
+
+  <para>The decision to to enable state stalking for a particular host or service will also depend on the plugin that you use to
+  check that host or service. If the plugin always returns the same text output for a particular state, there is no reason to
+  enable stalking for that state.</para>
+
+  <para><emphasis role="bold">How Do I Enable Stalking?</emphasis></para>
+
+  <para>You can enable state stalking for hosts and services by using the <emphasis>stalking_options</emphasis> directive in <link
+  linkend="configobject">host and service definitions</link>.</para>
+
+  <para><emphasis role="bold">How Does Stalking Differ From Volatile Services?</emphasis></para>
+
+  <para><link linkend="volatileservices">Volatile services</link> are similar, but will cause notifications and event handlers to
+  run. Stalking is purely for logging purposes.</para>
+
+  <para><emphasis role="bold">Caveats</emphasis></para>
+
+  <para>You should be aware that there are some potential pitfalls with enabling stalking. These all relate to the reporting
+  functions found in various <link linkend="cgis">CGIs</link> (histogram, alert summary, etc.). Because state stalking will cause
+  additional alert entries to be logged, the data produced by the reports will show evidence of inflated numbers of alerts.</para>
+
+  <para>As a general rule, I would suggest that you <emphasis>not</emphasis> enable stalking for hosts and services without
+  thinking things through. Still, it's there if you need and want it.</para>
+</section>

@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="flapping" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="state_flapping" />Detection and Handling of State Flapping</title>
+
+  <para><emphasis role="bold">Introduction</emphasis></para>
+
+  <para>&name-icinga; supports optional detection of hosts and services that are "flapping". Flapping occurs when a service or
+  host changes state too frequently, resulting in a storm of problem and recovery notifications. Flapping can be indicative of
+  configuration problems (i.e. thresholds set too low), troublesome services, or real network problems.</para>
+
+  <para><emphasis role="bold">How Flap Detection Works</emphasis></para>
+
+  <para>Before we get into this, it is time to say that flapping detection has been a little difficult to implement. How exactly
+  does one determine what "too frequently" means in regards to state changes for a particular host or service? When Ethan Galstad
+  first started thinking about implementing flap detection he tried to find some information on how flapping could/should be
+  detected. He couldn't find any information about what others were using (where they using any?), so he decided to settle with
+  what seemed to him to be a reasonable solution...</para>
+
+  <para>Whenever &name-icinga; checks the status of a host or service, it will check to see if it has started or stopped flapping.
+  It does this by:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Storing the results of the last 21 checks of the host or service</para>
+    </listitem>
+
+    <listitem>
+      <para>Analyzing the historical check results and determine where state changes/transitions occur</para>
+    </listitem>
+
+    <listitem>
+      <para>Using the state transitions to determine a percent state change value (a measure of change) for the host or
+      service</para>
+    </listitem>
+
+    <listitem>
+      <para>Comparing the percent state change value against low and high flapping thresholds</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>A host or service is determined to have <emphasis>started</emphasis> flapping when its percent state change first exceeds
+  a <emphasis>high</emphasis> flapping threshold.</para>
+
+  <para>A host or service is determined to have <emphasis>stopped</emphasis> flapping when its percent state goes below a
+  <emphasis>low</emphasis> flapping threshold (assuming that is was previously flapping).</para>
+
+  <para><emphasis role="bold">Example</emphasis></para>
+
+  <para>Let's describe in more detail how flap detection works with services...</para>
+
+  <para>The image below shows a chronological history of service states from the most recent 21 service checks. OK states are
+  shown in green, WARNING states in yellow, CRITICAL states in red, and UNKNOWN states in orange.</para>
+
+  <para><inlinemediaobject>
+      <imageobject>
+        <imagedata fileref="../images/statetransitions.png" format="PNG"></imagedata>
+      </imageobject>
+    </inlinemediaobject></para>
+
+  <para>The historical service check results are examined to determine where state changes/transitions occur. State changes occur
+  when an archived state is different from the archived state that immediately precedes it chronologically. Since we keep the
+  results of the last 21 service checks in the array, there is a possibility of having at most 20 state changes. In this example
+  there are 7 state changes, indicated by blue arrows in the image above.</para>
+
+  <para>The flap detection logic uses the state changes to determine an overall percent state change for the service. This is a
+  measure of volatility/change for the service. Services that never change state will have a 0% state change value, while services
+  that change state each time they're checked will have 100% state change. Most services will have a percent state change
+  somewhere in between.</para>
+
+  <para>When calculating the percent state change for the service, the flap detection algorithm will give more weight to new state
+  changes compare to older ones. Specfically, the flap detection routines are currently designed to make the newest possible state
+  change carry 50% more weight than the oldest possible state change. The image below shows how recent state changes are given
+  more weight than older state changes when calculating the overall or total percent state change for a particular service.</para>
+
+  <para><inlinemediaobject>
+      <imageobject>
+        <imagedata fileref="../images/statetransitions2.png" format="PNG"></imagedata>
+      </imageobject>
+    </inlinemediaobject></para>
+
+  <para>Using the images above, lets do a calculation of percent state change for the service. You will notice that there are a
+  total of 7 state changes (at t<subscript>3</subscript>, t<subscript>4</subscript>, t<subscript>5</subscript>,
+  t<subscript>9</subscript>, t<subscript>12</subscript>, t<subscript>16</subscript>, and t<subscript>19</subscript>). Without any
+  weighting of the state changes over time, this would give us a total state change of 35%:</para>
+
+  <para>(7 observed state changes / possible 20 state changes) * 100 = 35 %</para>
+
+  <para>Since the flap detection logic will give newer state changes a higher rate than older state changes, the actual calculated
+  percent state change will be slightly less than 35% in this example. Let's say that the weighted percent of state change turned
+  out to be 31%...</para>
+
+  <para>The calculated percent state change for the service (31%) will then be compared against flapping thresholds to see what
+  should happen:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>If the service was <emphasis>not</emphasis> previously flapping and 31% is <emphasis>equal to or greater
+      than</emphasis> the high flap threshold, &name-icinga; considers the service to have just started flapping.</para>
+    </listitem>
+
+    <listitem>
+      <para>If the service <emphasis>was</emphasis> previously flapping and 31% is <emphasis>less than</emphasis> the low flap
+      threshold, &name-icinga; considers the service to have just stopped flapping.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>If neither of those two conditions are met, the flap detection logic won't do anything else with the service, since it is
+  either not currently flapping or it is still flapping.</para>
+
+  <para><emphasis role="bold">Flap Detection for Services</emphasis></para>
+
+  <para>&name-icinga; checks to see if a service is flapping whenever the service is checked (either actively or
+  passively).</para>
+
+  <para>The flap detection logic for services works as described in the example above.</para>
+
+  <para><emphasis role="bold">Flap Detection for Hosts</emphasis></para>
+
+  <para>Host flap detection works in a similiar manner to service flap detection, with one important difference: &name-icinga;
+  will attempt to check to see if a host is flapping whenever:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>The host is checked (actively or passively)</para>
+    </listitem>
+
+    <listitem>
+      <para>Sometimes when a service associated with that host is checked. More specifically, when at least <emphasis>x</emphasis>
+      amount of time has passed since the flap detection was last performed, where <emphasis>x</emphasis> is equal to the average
+      check interval of all services associated with the host.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>Why is this done? With services we know that the minimum amount of time between consecutive flap detection routines is
+  going to be equal to the service check interval. However, you might not be monitoring hosts on a regular basis, so there might
+  not be a host check interval that can be used in the flap detection logic. Also, it makes sense that checking a service should
+  count towards the detection of host flapping. Services are attributes of or things associated with host after all... At any
+  rate, that's the best method I could come up with for determining how often flap detection could be performed on a host, so
+  there you have it.</para>
+
+  <para><emphasis role="bold">Flap Detection Thresholds</emphasis></para>
+
+  <para>&name-icinga; uses several variables to determine the percent state change thresholds is uses for flap detection. For both
+  hosts and services, there are <emphasis>global</emphasis> high and low thresholds and <emphasis>host-</emphasis> or
+  <emphasis>service-specific</emphasis> thresholds that you can configure. &name-icinga; will use the global thresholds for flap
+  detection if you to not specify host- or service- specific thresholds.</para>
+
+  <para>The table below shows the global and host- or service-specific variables that control the various thresholds used in flap
+  detection.</para>
+
+  <informaltable frame="all">
+    <tgroup cols="3">
+      <colspec colname="c1" colwidth="33*" />
+
+      <colspec colname="c2" colwidth="33*" />
+
+      <colspec colname="c3" colwidth="33*" />
+
+      <tbody>
+        <row>
+          <entry><para> <emphasis role="bold">Object Type</emphasis> </para></entry>
+
+          <entry><para> <emphasis role="bold">Global Variables</emphasis> </para></entry>
+
+          <entry><para> <emphasis role="bold">Object-Specific Variables</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry><para>Host</para></entry>
+
+          <entry><para>
+               
+
+              <link linkend="configmain-low_host_flap_threshold">low_host_flap_threshold</link>
+
+               
+            </para> <para>
+               
+
+              <link linkend="configmain-high_host_flap_threshold">high_host_flap_threshold</link>
+
+               
+            </para></entry>
+
+          <entry><para>
+               
+
+              <link linkend="objectdefinitions-host">low_flap_threshold</link>
+
+               
+            </para> <para>
+               
+
+              <link linkend="objectdefinitions-host">high_flap_threshold</link>
+
+               
+            </para></entry>
+        </row>
+
+        <row>
+          <entry><para>Service</para></entry>
+
+          <entry><para>
+               
+
+              <link linkend="configmain-low_service_flap_threshold">low_service_flap_threshold</link>
+
+               
+            </para> <para>
+               
+
+              <link linkend="configmain-high_service_flap_threshold">high_service_flap_threshold</link>
+
+               
+            </para></entry>
+
+          <entry><para>
+               
+
+              <link linkend="objectdefinitions-service">low_flap_threshold</link>
+
+               
+            </para> <para>
+               
+
+              <link linkend="objectdefinitions-service">high_flap_threshold</link>
+
+               
+            </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para><emphasis role="bold">States Used For Flap Detection</emphasis></para>
+
+  <para>Normally &name-icinga; will track the results of the last 21 checks of a host or service, regardless of the check result
+  (host/service state), for use in the flap detection logic.</para>
+
+  <tip>
+    <para>You can exclude certain host or service states from use in flap detection logic by using the
+    <emphasis>flap_detection_options</emphasis> directive in your host or service definitions. This directive allows you to
+    specify what host or service states (i.e. "UP, "DOWN", "OK, "CRITICAL") you want to use for flap detection. If you don't use
+    this directive, all host or service states are used in flap detection.</para>
+  </tip>
+
+  <para><emphasis role="bold">Flap Handling</emphasis></para>
+
+  <para>When a service or host is first detected as flapping, &name-icinga; will:</para>
+
+  <orderedlist>
+    <listitem>
+      <para>Log a message indicating that the service or host is flapping.</para>
+    </listitem>
+
+    <listitem>
+      <para>Add a non-persistent comment to the host or service indicating that it is flapping.</para>
+    </listitem>
+
+    <listitem>
+      <para>Send a "flapping start" notification for the host or service to appropriate contacts.</para>
+    </listitem>
+
+    <listitem>
+      <para>Suppress other notifications for the service or host (this is one of the filters in the <link
+      linkend="notifications">notification logic</link>).</para>
+    </listitem>
+  </orderedlist>
+
+  <para>When a service or host stops flapping, &name-icinga; will:</para>
+
+  <orderedlist>
+    <listitem>
+      <para>Log a message indicating that the service or host has stopped flapping.</para>
+    </listitem>
+
+    <listitem>
+      <para>Delete the comment that was originally added to the service or host when it started flapping.</para>
+    </listitem>
+
+    <listitem>
+      <para>Send a "flapping stop" notification for the host or service to appropriate contacts.</para>
+    </listitem>
+
+    <listitem>
+      <para>Remove the block on notifications for the service or host (notifications will still be bound to the normal <link
+      linkend="notifications">notification logic</link>).</para>
+    </listitem>
+  </orderedlist>
+
+  <para><emphasis role="bold">Enabling Flap Detection</emphasis></para>
+
+  <para>In order to enable the flap detection features in &name-icinga;, you'll need to:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Set <link linkend="configmain-enable_flap_detection">enable_flap_detection</link> directive is set to 1.</para>
+    </listitem>
+
+    <listitem>
+      <para>Set the <emphasis>flap_detection_enabled</emphasis> directive in your host and service definitions is set to 1.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>If you want to disable flap detection on a global basis, set the <link
+  linkend="configmain-enable_flap_detection">enable_flap_detection</link> directive to 0.</para>
+
+  <para>If you would like to disable flap detection for just a few hosts or services, use the
+  <emphasis>flap_detection_enabled</emphasis> directive in the host and/or service definitions to do so.</para>
+</section>

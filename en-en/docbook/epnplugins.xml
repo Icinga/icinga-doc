@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="epnplugins" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="epn_plugins" />Developing Plugins For Use With Embedded Perl</title>
+
+  <para><emphasis role="bold">Introduction</emphasis></para>
+
+  <para>Stanley Hopcroft has worked with the embedded Perl interpreter quite a bit and has commented on the advantages/disadvanges
+  of using it. He has also given several helpful hints on creating Perl plugins that work properly with the embedded interpreter.
+  The majority of this documentation comes from his comments.</para>
+
+  <para>It should be noted that "ePN", as used in this documentation, refers to embedded Perl Nagios, or if you prefer,
+  &name-icinga; compiled with an embedded Perl interpreter.</para>
+
+  <para><emphasis role="bold">Target Audience</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Average Perl developers; those with an appreciation of the languages powerful features without knowledge of internals
+      or an in depth knowledge of those features.</para>
+    </listitem>
+
+    <listitem>
+      <para>Those with a utilitarian appreciation rather than a great depth of understanding.</para>
+    </listitem>
+
+    <listitem>
+      <para>If you are happy with Perl objects, name management, data structures, and the debugger, that's probably
+      sufficient.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis role="bold">Things you should do when developing a Perl Plugin (ePN or not)</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Always always generate some output</para>
+    </listitem>
+
+    <listitem>
+      <para>Use 'use utils' and import the stuff it exports ($TIMEOUT %ERRORS &amp;print_revision &amp;support)</para>
+    </listitem>
+
+    <listitem>
+      <para>Have a look at how the standard Perl plugins do their stuff e.g.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Always exit with $ERRORS{CRITICAL}, $ERRORS{OK}, etc.</para>
+        </listitem>
+
+        <listitem>
+          <para>Use getopt to read command line arguments</para>
+        </listitem>
+
+        <listitem>
+          <para>Manage timeouts</para>
+        </listitem>
+
+        <listitem>
+          <para>Call print_usage (supplied by you) when there are no command line arguments</para>
+        </listitem>
+
+        <listitem>
+          <para>Use standard switch names (e.g. H 'host', V 'version')</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis role="bold">Things you must do to develop a Perl plugin for ePN</emphasis></para>
+
+  <orderedlist>
+    <listitem>
+      <para>&lt;DATA&gt; can not be used; use here documents instead e.g.</para>
+
+      <screen>my $data = &lt;&lt;DATA;
+portmapper 100000
+portmap 100000
+sunrpc 100000
+rpcbind 100000
+rstatd 100001
+rstat 100001
+rup 100001
+..
+DATA
+
+%prognum = map { my($a, $b) = split; ($a, $b) } split(/\n/, $data) ;</screen>
+    </listitem>
+
+    <listitem>
+      <para>BEGIN blocks will not work as you expect. May be best to avoid.</para>
+    </listitem>
+
+    <listitem>
+      <para>Ensure that it is squeaky clean at compile time i.e.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>use strict</para>
+        </listitem>
+
+        <listitem>
+          <para>use perl -w (other switches [T notably] may not help)</para>
+        </listitem>
+
+        <listitem>
+          <para>use perl -c</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>Avoid lexical variables (my) with global scope as a means of passing __variable__ data into subroutines. In fact this
+      is __fatal__ if the subroutine is called by the plugin more than once when the check is run. Such subroutines act as
+      'closures' that lock the global lexicals first value into subsequent calls of the subroutine. If however, your global is
+      read-only (a complicated structure for example) this is not a problem. What Bekman <link
+      xlink:href="http://perl.apache.org/docs/1.0/guide/">recommends you do instead</link>, is any of the following:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>make the subroutine anonymous and call it via a code ref e.g.</para>
+
+          <screen>turn this                     into  
+
+my $x = 1 ;                   my $x = 1 ;
+sub a { .. Process $x ... }   $a_cr = sub { ... Process $x ... } ;
+.                             .
+.                             .
+a ;                           &amp;$a_cr ;
+$x = 2                        $x = 2 ;
+a ;                           &amp;$a_cr ;
+
+# anon closures __always__ rebind the current lexical value</screen>
+        </listitem>
+
+        <listitem>
+          <para>put the global lexical and the subroutine using it in their own package (as an object or a module)</para>
+        </listitem>
+
+        <listitem>
+          <para>pass info to subs as references or aliases (\$lex_var or $_[n])</para>
+        </listitem>
+
+        <listitem>
+          <para>replace lexicals with package globals and exclude them from 'use strict' objections with 'use vars qw(global1
+          global2 ..)'</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>Be aware of where you can get more information.</para>
+
+      <para>Useful information can be had from the usual suspects (the O'Reilly books, plus Damien Conways "Object Oriented Perl")
+      but for the really useful stuff in the right context start at Stas Bekman's mod_perl guide at <link
+      xlink:href="http://perl.apache.org/guide/">http://perl.apache.org/guide/</link>.</para>
+
+      <para>This wonderful book sized document has nothing whatsoever about &name-icinga;, but all about writing Perl programs for
+      the embedded Perl interpreter in Apache (i.e. Doug MacEacherns mod_perl).</para>
+
+      <para>The perlembed manpage is essential for context and encouragement.</para>
+
+      <para>On the basis that Lincoln Stein and Doug MacEachern know a thing or two about Perl and embedding Perl, their book
+      'Writing Apache Modules with Perl and C' is almost certainly worth looking at.</para>
+    </listitem>
+
+    <listitem>
+      <para>Be aware that your plugin may return strange values with an ePN and that this is likely to be caused by the problem in
+      item #4 above</para>
+    </listitem>
+
+    <listitem>
+      <para>Be prepared to debug via:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>having a test ePN and</para>
+        </listitem>
+
+        <listitem>
+          <para>adding print statements to your plugin to display variable values to STDERR (can't use STDOUT)</para>
+        </listitem>
+
+        <listitem>
+          <para>adding print statements to p1.pl to display what ePN thinks your plugin is before it tries to run it (vi)</para>
+        </listitem>
+
+        <listitem>
+          <para>running the ePN in foreground mode (probably in conjunction with the former recommendations)</para>
+        </listitem>
+
+        <listitem>
+          <para>use the 'Deparse' module on your plugin to see how the parser has optimised it and what the interpreter will
+          actually get. (see 'Constants in Perl' by Sean M. Burke, The Perl Journal, Fall 2001)</para>
+        </listitem>
+      </itemizedlist>
+
+      <screen> perl -MO::Deparse &lt;your_program&gt;</screen>
+    </listitem>
+
+    <listitem>
+      <para>Be aware of what ePN is transforming your plugin too, and if all else fails try and debug the transformed
+      version.</para>
+
+      <para>As you can see below p1.pl rewrites your plugin as a subroutine called 'hndlr' in the package named
+      'Embed::&lt;something_related_to_your_plugin_file_name&gt;'.</para>
+
+      <para>Your plugin may be expecting command line arguments in @ARGV so pl.pl also assigns @_ to @ARGV.</para>
+
+      <para>This in turn gets 'eval' ed and if the eval raises an error (any parse error and run error), the plugin gets chucked
+      out.</para>
+
+      <para>The following output shows how a test ePN transformed the <emphasis>check_rpc</emphasis> plugin before attempting to
+      execute it. Most of the code from the actual plugin is not shown, as we are interested in only the transformations that the
+      ePN has made to the plugin). For clarity, transformations are shown in red:</para>
+
+      <screen>package main;
+use subs 'CORE::GLOBAL::exit';
+sub CORE::GLOBAL::exit { die "ExitTrap: $_[0] 
+(Embed::check_5frpc)"; }
+
+package Embed::check_5frpc; sub hndlr { shift(@_);
+@ARGV=@_;
+#! /usr/bin/perl -w
+#
+# check_rpc plugin for &name-nagios;
+#
+# usage:
+#    check_rpc host service
+#
+# Check if an rpc serice is registered and running
+# using rpcinfo - $proto $host $prognum 2&gt;&amp;1 |";
+#
+# Use these hosts.cfg entries as examples
+#
+# command[check_nfs]=/some/path/libexec/check_rpc $HOSTADDRESS$ nfs
+# service[check_nfs]=NFS;24x7;3;5;5;unix-admin;60;24x7;1;1;1;;check_rpc
+#
+# initial version: 3 May 2000 by Truongchinh Nguyen and Karl DeBisschop
+# current status: $Revision: 1.20 $
+#
+# Copyright Notice: GPL
+#
+<emphasis> ... rest of plugin code goes here (it was removed for brevity) ...</emphasis>
+
+}</screen>
+    </listitem>
+
+    <listitem>
+      <para>Don't use 'use diagnostics' in a plugin run by your production ePN. We think it causes__all__ the Perl plugins to
+      return CRITICAL.</para>
+    </listitem>
+
+    <listitem>
+      <para>Consider using a mini embedded Perl C program to check your plugin. This is not sufficient to guarantee your plugin
+      will perform Ok with an ePN but if the plugin fails this test it will certainly fail with your ePN. <emphasis
+      condition="red" role="color">[ A sample mini ePN is included in the <emphasis>contrib/</emphasis> directory of the
+      &name-icinga; distribution for use in testing Perl plugins. Change to the contrib/ directory and type 'make mini_epn' to
+      compile it. It must be executed from the same directory that the p1.pl file resides in (this file is distributed with
+      &name-icinga;). ]</emphasis></para>
+    </listitem>
+  </orderedlist>
+</section>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="hostchecks" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="host_checks" />Host Checks</title>
+
+  <para><emphasis role="bold">Introduction</emphasis></para>
+
+  <para>The basic workings of host checks are described here...</para>
+
+  <para><emphasis role="bold">When Are Host Checks Performed?</emphasis></para>
+
+  <para>Hosts are checked by the &name-icinga; daemon:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>At regular intervals, as defined by the <emphasis>check_interval</emphasis> and <emphasis>retry_interval</emphasis>
+      options in your <link linkend="objectdefinitions-host">host definitions</link>.</para>
+    </listitem>
+
+    <listitem>
+      <para>On-demand when a service associated with the host changes state.</para>
+    </listitem>
+
+    <listitem>
+      <para>On-demand as needed as part of the <link linkend="networkreachability">host reachability</link> logic.</para>
+    </listitem>
+
+    <listitem>
+      <para>On-demand as needed for <link linkend="dependencychecks">predictive host dependency checks</link>.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>Regularly scheduled host checks are optional. If you set the <emphasis>check_interval</emphasis> option in your host
+  definition to zero (0), &name-icinga; will not perform checks of the hosts on a regular basis. It will, however, still perform
+  on-demand checks of the host as needed for other parts of the monitoring logic.</para>
+
+  <para>On-demand checks are made when a service associated with the host changes state because &name-icinga; needs to know
+  whether the host has also changed state. Services that change state are often an indicator that the host may have also changed
+  state. For example, if &name-icinga; detects that the HTTP service associated with a host just changed from a CRITICAL to an OK
+  state, it may indicate that the host just recovered from a reboot and is now back up and running.</para>
+
+  <para>On-demand checks of hosts are also made as part of the <link linkend="networkreachability">host reachability</link> logic.
+  &name-icinga; is designed to detect network outages as quickly as possible, and distinguish between DOWN and UNREACHABLE host
+  states. These are very different states and can help an admin quickly locate the cause of a network outage.</para>
+
+  <para>On-demand checks are also performed as part of the <link linkend="dependencychecks">predictive host dependency
+  check</link> logic. These checks help ensure that the dependency logic is as accurate as possible.</para>
+
+  <para><emphasis role="bold">Cached Host Checks</emphasis></para>
+
+  <para>The performance of on-demand host checks can be significantly improved by implementing the use of cached checks, which
+  allow &name-icinga; to forgo executing a host check if it determines a relatively recent check result will do instead. More
+  information on cached checks can be found <link linkend="cachedchecks">here</link>.</para>
+
+  <para><emphasis role="bold">Dependencies and Checks</emphasis></para>
+
+  <para>You can define <link linkend="objectdefinitions-hostdependency">host execution dependencies</link> that prevent
+  &name-icinga; from checking the status of a host depending on the state of one or more other hosts. More information on
+  dependencies can be found <link linkend="dependencies">here</link>.</para>
+
+  <para><emphasis role="bold">Parallelization of Host Checks</emphasis></para>
+
+  <para>Scheduled host checks are run in parallel. When &name-icinga; needs to run a scheduled host check, it will initiate the
+  host check and then return to doing other work (running service checks, etc). The host check runs in a child process that was
+  fork()ed from the main &name-icinga; daemon. When the host check has completed, the child process will inform the main
+  &name-icinga; process (its parent) of the check results. The main &name-icinga; process then handles the check results and takes
+  appropriate action (running event handlers, sending notifications, etc.).</para>
+
+  <para>On-demand host checks are also run in parallel if needed. As mentioned earlier, &name-icinga; can forgo the actual
+  execution of an on-demand host check if it can use the cached results from a relatively recent host check.</para>
+
+  <para>When &name-icinga; processes the results of scheduled and on-demand host checks, it may initiate (secondary) checks of
+  other hosts. These checks can be initated for two reasons: <link linkend="dependencychecks">predictive dependency checks</link>
+  and to determining the status of the host using the <link linkend="networkreachability">network reachability</link> logic. The
+  secondary checks that are initiated are usually run in parallel. However, there is one big exception that you should be aware
+  of, as it can have negative effect on performance...</para>
+
+  <note>
+    <para>Hosts which have their <emphasis>max_check_attempts</emphasis> value set to <emphasis role="bold">1</emphasis> can cause
+    serious performance problems. The reason? If &name-icinga; needs to determine their true state using the <link
+    linkend="networkreachability">network reachability</link> logic (to see if they're DOWN or UNREACHABLE), it will have to
+    launch <emphasis role="bold">serial</emphasis> checks of all of the host's immediate parents. Just to reiterate, those checks
+    are run <emphasis>serially</emphasis>, rather than in parallel, so it can cause a big performance hit. For this reason, I
+    would recommend that you always use a value greater than 1 for the <emphasis>max_check_attempts</emphasis> directives in your
+    host definitions.</para>
+  </note>
+
+  <para><emphasis role="bold">Host States</emphasis></para>
+
+  <para>Hosts that are checked can be in one of three different states:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>UP</para>
+    </listitem>
+
+    <listitem>
+      <para>DOWN</para>
+    </listitem>
+
+    <listitem>
+      <para>UNREACHABLE</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis role="bold">Host State Determination</emphasis></para>
+
+  <para>Host checks are performed by <link linkend="plugins">plugins</link>, which can return a state of OK, WARNING, UNKNOWN, or
+  CRITICAL. How does &name-icinga; translate these plugin return codes into host states of UP, DOWN, or UNREACHABLE? Lets
+  see...</para>
+
+  <para>The table below shows how plugin return codes correspond with preliminary host states. Some post-processing (which is
+  described later) is done which may then alter the final host state.</para>
+
+  <informaltable frame="all">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="10*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para> <emphasis role="bold">Plugin Result</emphasis> </para></entry>
+
+          <entry><para> <emphasis role="bold">Preliminary Host State</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry><para>OK</para></entry>
+
+          <entry><para>UP</para></entry>
+        </row>
+
+        <row>
+          <entry><para>WARNING</para></entry>
+
+          <entry><para>UP or DOWN<superscript>*</superscript></para></entry>
+        </row>
+
+        <row>
+          <entry><para>UNKNOWN</para></entry>
+
+          <entry><para>DOWN</para></entry>
+        </row>
+
+        <row>
+          <entry><para>CRITICAL</para></entry>
+
+          <entry><para>DOWN</para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <note>
+    <para>WARNING results usually means the host is UP. However, WARNING results are interpreted to mean the host is DOWN if the
+    <link linkend="configmain-use_aggressive_host_checking">use_aggressive_host_checking</link> option is enabled.</para>
+  </note>
+
+  <para>If the preliminary host state is DOWN, &name-icinga; will attempt to see if the host is really DOWN or if it is
+  UNREACHABLE. The distinction between DOWN and UNREACHABLE host states is important, as it allows admins to determine root cause
+  of network outages faster. The following table shows how &name-icinga; makes a final state determination based on the state of
+  the hosts parent(s). A host's parents are defined in the <emphasis>parents</emphasis> directive in host definition.</para>
+
+  <informaltable frame="all">
+    <tgroup cols="3">
+      <colspec colname="c1" colwidth="10*" />
+
+      <colspec colname="c2" colwidth="10*" />
+
+      <colspec colname="c3" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para> <emphasis role="bold">Preliminary Host State</emphasis> </para></entry>
+
+          <entry><para> <emphasis role="bold">Parent Host State</emphasis> </para></entry>
+
+          <entry><para> <emphasis role="bold">Final Host State</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry><para>DOWN</para></entry>
+
+          <entry><para>At least one parent is UP</para></entry>
+
+          <entry><para>DOWN</para></entry>
+        </row>
+
+        <row>
+          <entry><para>DOWN</para></entry>
+
+          <entry><para>All parents are either DOWN or UNREACHABLE</para></entry>
+
+          <entry><para>UNREACHABLE</para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>More information on how &name-icinga; distinguishes between DOWN and UNREACHABLE states can be found <link
+  linkend="networkreachability">here</link>.</para>
+
+  <para><emphasis role="bold">Host State Changes</emphasis></para>
+
+  <para>As you are probably well aware, hosts don't always stay in one state. Things break, patches get applied, and servers need
+  to be rebooted. When &name-icinga; checks the status of hosts, it will be able to detect when a host changes between UP, DOWN,
+  and UNREACHABLE states and take appropriate action. These state changes result in different <link linkend="statetypes">state
+  types</link> (HARD or SOFT), which can trigger <link linkend="eventhandlers">event handlers</link> to be run and <link
+  linkend="notifications">notifications</link> to be sent out. Detecting and dealing with state changes is what &name-icinga; is
+  all about.</para>
+
+  <para>When hosts change state too frequently they are considered to be "flapping". A good example of a flapping host would be
+  server that keeps spontaneously rebooting as soon as the operating system loads. That's always a fun scenario to have to deal
+  with. &name-icinga; can detect when hosts start flapping, and can suppress notifications until flapping stops and the host's
+  state stabilizes. More information on the flap detection logic can be found <link linkend="flapping">here</link>.</para>
+</section>
