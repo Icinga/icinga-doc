@@ -13,9 +13,9 @@ xmlns:svg="http://www.w3.org/2000/svg"
 xmlns:m="http://www.w3.org/1998/Math/MathML"
 xmlns:html="http://www.w3.org/1999/xhtml"
 xmlns:db="http://docbook.org/ns/docbook"
-> <title
+><title
 >&name-icinga; with &name-idoutils; Quickstart</title
-> <para
+><para
 ><emphasis
 role="bold"
 ><anchor
@@ -23,11 +23,11 @@ xml:id="introduction_idoutils"
 ></anchor
 >Introduction</emphasis
 ></para
-> <para
+><para
 >This guide is intended to provide you with simple instructions on how to install &name-icinga; from source (code) and have it monitoring your local machine within 20 minutes.</para
-> <para
+><para
 >No advanced installation options are discussed here - just the basics that will work for most of the users who want to get started.</para
-> <para
+><para
 >This guide will give you examples for currently three different Linux distributions: <link
 xlink:href="http://fedoraproject.org/"
 >&name-fedora;</link
@@ -50,9 +50,9 @@ xlink:href="http://www.debian.org/"
 xlink:href="http://www.novell.com/products/server/"
 >&name-sles;</link
 >.</para
-> <para
+><para
 >Other distributions may inherit from these examples.</para
-> <para
+><para
 ><emphasis
 role="bold"
 >If you are planning to use &name-icinga; without &name-idoutils; please read <xref
@@ -60,14 +60,14 @@ linkend="quickstart-icinga"
 ></xref
 > instead!</emphasis
 ></para
-> <para
+><para
 ><emphasis
 role="bold"
 >What You'll End Up With</emphasis
 ></para
-> <para
+><para
 >If you follow these instructions, here's what you'll end up with:</para
-> <itemizedlist
+><itemizedlist
 ><listitem
 ><para
 >&name-icinga; and the plugins will be installed underneath &url-icinga-base;</para
@@ -85,22 +85,22 @@ role="bold"
 >A database which is filled by &name-icinga; using &name-idoutils;</para
 ></listitem
 ></itemizedlist
-> <para
+><para
 ><emphasis
 role="bold"
 >Prerequisites</emphasis
 ></para
-> <para
+><para
 >During portions of the installation you'll need to have <emphasis
 role="bold"
 >root</emphasis
 > access to your machine.</para
-> <para
+><para
 >Make sure you've installed the following packages on your system before continuing. &name-idoutils; use the <link
 xlink:href="http://libdbi.sourceforge.net"
 >libdbi</link
 > and the libdbi-drivers for several databases. The development libraries are also required. The following examples will show how to install the &name-idoutils; with the libdbi using MySQL or Postgresql.</para
-> <itemizedlist
+><itemizedlist
 ><listitem
 ><para
 >Apache</para
@@ -127,67 +127,75 @@ xlink:href="http://www.boutell.com/gd/"
 ></para
 ></listitem
 ></itemizedlist
-> <para
+><para
 >You can install these packages by running the following commands (as root or sudo):</para
-> <para
+><para
 ><emphasis
 >&name-fedora;</emphasis
 ></para
-> <programlisting
+><programlisting
 ># yum install httpd gcc glibc glibc-common gd gd-devel</programlisting
 ><para
->MySQL</para
+><emphasis
+>MySQL:</emphasis
+></para
 ><programlisting
 ># yum install mysql libdbi libdbi-devel libdbi-drivers libdbi-dbd-mysql</programlisting
 ><para
->Postgresql:</para
+><emphasis
+>Postgresql:</emphasis
+></para
 ><programlisting
-># yum install postgresql libdbi libdbi-devel libdbi-drivers libdbi-dbd-pgsql</programlisting
-> <para
+># yum install postgresql postgresql-server ibdbi libdbi-devel libdbi-drivers libdbi-dbd-pgsql</programlisting
+><para
 ><emphasis
 >&name-ubuntu;</emphasis
 ></para
-> <programlisting
+><programlisting
 >
 # apt-get install apache2 build-essential libgd2-xpm-dev</programlisting
 ><para
->MySQL:</para
+><emphasis
+>MySQL:</emphasis
+></para
 ><programlisting
 ># apt-get install mysql libdbi0 libdbi0-dev libdbd-mysql</programlisting
 ><para
->Postgresql:</para
+><emphasis
+>Postgres:</emphasis
+></para
 ><programlisting
 ># apt-get install postgresql libdbi0 libdbi0-dev libdbd-pgsql</programlisting
-> <para
+><para
 ><emphasis
 role="bold"
 >Create Account Information</emphasis
 ></para
-> <para
+><para
 >Become the root user.</para
-> <programlisting
+><programlisting
 ># su -l</programlisting
-> <para
+><para
 >Create a new <emphasis
 >&name-icinga;</emphasis
 > user account and give it a password.</para
-> <programlisting
+><programlisting
 ># /usr/sbin/useradd -m icinga 
 # passwd icinga </programlisting
-> <para
+><para
 >On some distributions you'll need to add the group in a single step:</para
-> <programlisting
+><programlisting
 ># /usr/sbin/groupadd icinga</programlisting
-> <para
+><para
 ><emphasis
 role="bold"
 >Download &name-icinga; and the Plugins</emphasis
 ></para
-> <para
+><para
 >Change to your local source directory i.e. /usr/src</para
-> <programlisting
+><programlisting
 ># cd /usr/src</programlisting
-> <para
+><para
 >Either fetch the actual icinga-core snapshot from &name-icinga; GIT <programlisting
 ># git clone git://git.icinga.org/icinga-core.git  </programlisting
 > or from the <link
@@ -197,28 +205,28 @@ xlink:href="http://www.icinga.org/"
 xlink:href="http://www.nagios.org/"
 >Nagios Plugins</link
 ></para
-> <para
+><para
 ><emphasis
 role="bold"
 >Compile and Install &name-icinga; with &name-idoutils;</emphasis
 ></para
-> <para
+><para
 >Extract the &name-icinga; source code tarball (or change directory to the GIT snapshot)</para
-> <programlisting
+><programlisting
 ># cd /usr/src/ 
 # tar xvzf icinga-&ver-icinga;.tar.gz 
- cd icinga-&ver-icinga;</programlisting
-> <para
+# cd icinga-&ver-icinga;</programlisting
+><para
 >Run the &name-icinga; configure script and enable &name-idoutils;. You will get help by using the --help flag:</para
-> <programlisting
+><programlisting
 ># ./configure --enable-idoutils</programlisting
-> <para
+><para
 >Compile the &name-icinga; source code. There is also an extra option for &name-idoutils; (<emphasis
 >make idoutils</emphasis
 >) if you need to recompile only this module. To see available options, only use "make".</para
-> <programlisting
+><programlisting
 ># make all</programlisting
-> <para
+><para
 >Install binaries, init script, sample config files and set permissions on the external command directory. Also install the &name-idoutils;. <programlisting
 ># make install 
 # make install-init 
@@ -228,45 +236,58 @@ role="bold"
 > or shorter <programlisting
 ># make fullinstall</programlisting
 ></para
-> <para
+><para
 >Don't start &name-icinga; yet - there's still more that needs to be done...</para
-> <para
+><para
 ><emphasis
 role="bold"
 >Customize Configuration</emphasis
 ></para
-> <para
+><para
 >Sample configuration files have been installed by using make install-config into &url-icinga-base;/etc/. You'll need to make just one change before you proceed...</para
-> <para
+><para
 >Edit the <emphasis
 >&url-icinga-base;/etc/objects/contacts.cfg</emphasis
 > config file with your favourite editor and change the email address associated with the <emphasis
 >icingaadmin</emphasis
 > contact definition to the address you'd like to use for receiving alerts.</para
-> <programlisting
+><programlisting
 ># vi &url-icinga-base;/etc/objects/contacts.cfg</programlisting
-> <programlisting
+><programlisting
 ># cd &url-icinga-base;/etc/
 # cp idomod.cfg-sample idomod.cfg
 # cp ido2db.cfg-sample ido2db.cfg</programlisting
-> <programlisting
+><programlisting
 ># vi &url-icinga-cfg;</programlisting
+><para
+>Create Database, User, Grants in MySQL:</para
 ><programlisting
-></programlisting
+># mysql -u root -p
+
+mysql&gt; CREATE DATABASE icinga;
+
+GRANT USAGE ON *.* TO 'icinga'@'localhost' IDENTIFIED BY 'icinga' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0;
+
+GRANT SELECT , INSERT , UPDATE , DELETE ON icinga.* TO 'icinga'@'localhost';
+
+FLUSH PRIVILEGES ;
+
+quit
+</programlisting
 ><para
 ></para
 ><para
 ></para
 ><programlisting
 ></programlisting
-> <para
->Import database scheme</para
-> <programlisting
+><para
+>Import database scheme for MySQL:</para
+><programlisting
 > # mysql -u root -p icinga &lt; mysql.sql
  # mysql -u root -p icinga &lt; mysql-mods-1.4b8.sql</programlisting
-> <para
+><para
 >Edit the DB config file to customize &name-idoutils;</para
-> <!--  <link xlink:href="http://www.phpmyadmin.net">phpMyAdmin</link> --> <programlisting
+><!--  <link xlink:href="http://www.phpmyadmin.net">phpMyAdmin</link> --><programlisting
 ># vi &url-icinga-base;/etc/ido2db.cfg
 
  dbtype=mysql
@@ -274,7 +295,9 @@ role="bold"
  dbuser=icinga
  dbpass=icinga</programlisting
 ><para
->Postgresql:</para
+><emphasis
+>Postgresql:</emphasis
+></para
 ><programlisting
 > # su - postgres
  $psql
@@ -282,10 +305,25 @@ role="bold"
  postgres=# ALTER USER icingauser WITH PASSWORD 'icingauser';
  postgres=# CREATE DATABASE icinga;
  </programlisting
+><para
+><emphasis
+>Debian:</emphasis
+></para
 ><programlisting
-># vi /etc/postgresql/8.x/main/pg_hba.conf
-
- local   icinga   icingauser    trust</programlisting
+># vi /etc/postgresql/8.x/main/pg_hba.conf</programlisting
+><para
+><emphasis
+>Fedora:</emphasis
+></para
+><programlisting
+># vi /var/lib/pgsql/data/pg_hba.conf</programlisting
+><para
+>Edit the config as follwows (local user must be trusted)</para
+><programlisting
+>#icinga
+local all all trust
+host all 127.0.0.1/32 trust
+local icinga icingauser trust</programlisting
 ><para
 >Reload and configure database scheme.</para
 ><programlisting
@@ -309,129 +347,129 @@ role="bold"
 role="bold"
 >Configure the Web Interface</emphasis
 ></para
-> <para
+><para
 >Install the &name-icinga; web config file in the Apache conf.d directory.</para
-> <programlisting
+><programlisting
 ># make install-webconf</programlisting
-> <para
+><para
 >Create an <emphasis
 >icingaadmin</emphasis
 > account for logging into the &name-icinga; web interface. Remember the password you assign to this account - you'll need it later.</para
-> <programlisting
+><programlisting
 ># htpasswd -c &url-icinga-base;/etc/htpasswd.users icingaadmin</programlisting
-> <para
+><para
 >To change the password of an existing user or to add a new user, take this command:</para
-> <programlisting
+><programlisting
 ># htpasswd &url-icinga-base;/etc/htpasswd.users &lt;USERNAME&gt;</programlisting
-> <note
+><note
 ><para
 >Depending on your distribution/Apache-version you may have to use <emphasis
 >htpasswd2</emphasis
 > instead.</para
 ></note
-> <para
+><para
 >Reload/Restart Apache to make the new settings take effect.</para
-> <para
+><para
 ><emphasis
 >&name-fedora;</emphasis
 ></para
-> <programlisting
+><programlisting
 ># service httpd restart</programlisting
-> <para
+><para
 ><emphasis
 >&name-ubuntu; / &name-opensuse;</emphasis
 ></para
-> <programlisting
+><programlisting
 ># /etc/init.d/apache2 reload</programlisting
-> <para
+><para
 ><emphasis
 role="bold"
 >Compile and Install the Nagios Plugins</emphasis
 ></para
-> <para
+><para
 >Extract the Nagios plugins source code tarball.</para
-> <programlisting
+><programlisting
 ># cd /usr/src 
- tar xvzf nagios-plugins-&ver-nagiosplug;.tar.gz 
- cd nagios-plugins-&ver-nagiosplug;  </programlisting
-> <para
+# tar xvzf nagios-plugins-&ver-nagiosplug;.tar.gz 
+# cd nagios-plugins-&ver-nagiosplug;  </programlisting
+><para
 >Compile and install the plugins by changing install directory to &url-icinga-base;</para
-> <programlisting
-># ./configure --prefix=&url-icinga-base; --with-icinga-user=icinga 
+><programlisting
+># ./configure --prefix=&url-icinga-base; --with-nagios-user=icinga 
 # make 
 # make install </programlisting
-> <para
+><para
 ><emphasis
 role="bold"
 >Start &name-idoutils; and &name-icinga;</emphasis
 ></para
-> <para
+><para
 ><emphasis
 ><emphasis
 role="bold"
 >Start &name-idoutils;</emphasis
 ></emphasis
 ></para
-> <para
+><para
 >&name-idoutils; must be started and running <emphasis
 >before</emphasis
 > &name-icinga; is started.</para
-> <para
+><para
 ><emphasis
 >Start IDO</emphasis
 ></para
-> <programlisting
-># &url-icinga-base;/bin/ido2db -c &url-icinga-base;/etc/ido2db.cfg  </programlisting
-> <para
+><programlisting
+># /etc/init.d/ido2db start</programlisting
+><para
 ><emphasis
 >Stop IDO</emphasis
 ></para
-> <programlisting
-># killall -9 ido2db 
-# rm -f &url-icinga-base;/var/ido.sock  </programlisting
-> <para
+><programlisting
+># /etc/init.d/ido2db stop
+</programlisting
+><para
 >Verify the sample &name-icinga; configuration files.</para
-> <programlisting
+><programlisting
 > #&url-icinga-bin; -v &url-icinga-cfg; </programlisting
-> <para
+><para
 >If there are no errors, start &name-icinga;.</para
-> <para
+><para
 ><emphasis
 >&name-fedora; / &name-opensuse;</emphasis
 ></para
-> <programlisting
+><programlisting
 ># service icinga start</programlisting
-> <para
+><para
 ><emphasis
 >&name-ubuntu;</emphasis
 ></para
-> <programlisting
+><programlisting
 ># /etc/init.d/icinga start</programlisting
-> <para
+><para
 ><emphasis
 role="bold"
 >Configure &name-icinga; Startup</emphasis
 ></para
-> <para
+><para
 >Add &name-icinga; to the list of system services and have it automatically start when the system boots (make sure you have installed the init script before).</para
-> <para
+><para
 ><emphasis
 >&name-fedora; / &name-opensuse;</emphasis
 ></para
-> <programlisting
+><programlisting
 ># chkconfig --add icinga chkconfig icinga on</programlisting
-> <para
+><para
 ><emphasis
 >&name-ubuntu;</emphasis
 ></para
-> <programlisting
+><programlisting
 ># ln -s /etc/init.d/icinga /etc/rcS.d/S99icinga</programlisting
-> <para
+><para
 ><emphasis
 role="bold"
 >Login to the Web Interface</emphasis
 ></para
-> <para
+><para
 >You should now be able to access the &name-icinga; web interface at the URL below. You'll be prompted for the username ( <emphasis
 >icingaadmin</emphasis
 > ) and password you specified earlier. <programlisting
@@ -439,33 +477,33 @@ role="bold"
 > or <programlisting
 > http://yourdomain.com/icinga/ </programlisting
 ></para
-> <para
+><para
 >Click on the "Service Detail" navbar link to see details of what's being monitored on your local machine. It will take a few minutes for &name-icinga; to check all the services associated with your machine.</para
-> <para
+><para
 ><emphasis
 role="bold"
 >Other Modifications</emphasis
 ></para
-> <para
+><para
 >Make sure your system's firewall rules are configured to allow access to the web server if you want to access the &name-icinga; interface remotely.</para
-> <programlisting
+><programlisting
 ># iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT</programlisting
-> <para
+><para
 >Setting up your mail transfer agent (MTA) like exim, sendmail or postfix to allow &name-icinga; sending notification emails won't be explained here. Please refer to the <link
 xlink:href="http://www.nagioswiki.org/"
 >&name-nagioswiki;</link
 > for more resources.</para
-> <para
+><para
 >There are several tweaks for the &name-idoutils; (former NDOUtils of &name-nagios;) available.</para
-> <para
+><para
 ><emphasis
 role="bold"
 >You're Done</emphasis
 ></para
-> <para
+><para
 >Congratulations! You successfully installed &name-icinga; with &name-idoutils;. Your journey into monitoring has just begun. You'll no doubt want to monitor more than just your local machine, so check out the chapter on <link
 linkend="ch02"
 >"Getting Started"</link
 > about "Monitoring ..."</para
-> </section
+></section
 >
