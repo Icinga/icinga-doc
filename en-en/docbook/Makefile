@@ -7,6 +7,10 @@ all:
 	@echo ""
 
 wn:
-	xsltproc --xinclude ./xsl/html-chunked.xsl Icinga.xml
+	xsltproc --xinclude ../../xsl/html-chunked.xsl Icinga.xml
 
+en-pdf:
+	xsltproc --xinclude -o ../Icinga.fo ../../xsl/fo.xsl ./Icinga.xml
+	fop ../Icinga.fo ../../Icinga-en.pdf
+	rm -f ../Icinga.fo
 
