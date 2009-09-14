@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE chapter [
+  <!ENTITY % all.entities SYSTEM "all-entities.ent">
+  %all.entities;
+]>
+<section version="5.0" xml:id="embeddedperl" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+    <title>Benutzen des Embedded Perl Interpreters</title>
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="50*"/>
+        <colspec colname="c2" colwidth="50*"/>
+        <tbody>
+          <row>
+            <entry align="center" valign="top">
+              <para>
+                 <emphasis role="bold">Einführung</emphasis>
+              </para>
+              <para>&name-icinga; kann für die Unterstützung eines eingebetteten Perl-Interpreters (embedded perl interpreter) kompiliert werden. Dies erlaubt es &name-icinga;, Perl-Plugins effizienter als sonst auszuführen, also mag es interessant sein, wenn Sie sich viel auf Plugins verlassen, die in Perl geschrieben sind.</para>
+              <para>Ohne den eingebetteten Perl-Interpreter führt &name-icinga; Perl- (und andere) Plugins durch &quot;forking&quot; und ausführen als einen externen Befehl aus. Wenn der eingebettete Perl-Interpreter benutzt wird, kann &name-icinga; Perl-Plugins durch einen einfachen Library-Call ausführen.</para>
+              <para><inlinemediaobject>
+                  <imageobject>
+                    <imagedata fileref="../images/tip.gif" format="GIF"/>
+                  </imageobject>
+                </inlinemediaobject>
+ Hinweis: Der Perl-Interpreter arbeitet mit allen Perl-Scripten, die &name-icinga; ausführt - nicht nur Plugins. Diese Dokumentation behandelt den eingebetteten Perl-Interpreter in Verbindung mit Plugins für Host- und Service-Prüfungen, aber sie trifft genauso auf andere Arten von Perl-Scripten zu, die Sie vielleicht für andere Arten von Befehlen benutzen (z.B. Benachrichtigungs-Scripte, Eventhandler-Scripte usw.).</para>
+              <para>Stephen Davis hat den originalen eingebetteten Perl-Interpreter-Code vor einigen Jahren beigetragen. Stanley Hopcroft war die erste Person, die geholfen hat, den eingebetteten Perl-Interpreter-Code zu verbessern und die die Vor- und Nachteile bei der Benutzung kommentiert hat. Er hat auch verschiedene hilfreiche Hinweise zur Erstellung von Perl-Plugins gegeben, die sauber mit dem eingebetteten Interpreter arbeiten.</para>
+              <para>Es sollte angemerkt werden, dass sich &quot;ePN&quot; - wie in dieser Dokumentation benutzt - auf &quot;embedded Perl &name-icinga;&quot; bezieht, oder wenn Sie das bevorzugen, &name-icinga; mit eingebettetem Perl-Interpreter.</para>
+            </entry>
+            <entry align="center" valign="top">
+              <para>
+                <inlinemediaobject>
+                  <imageobject>
+                    <imagedata fileref="../images/epn.png" format="PNG"/>
+                  </imageobject>
+                </inlinemediaobject>
+              </para>
+            </entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+    <para>
+      <emphasis role="bold">Vorteile</emphasis>
+    </para>
+    <para>Einige Vorteile von ePN (embedded Perl &name-icinga;) umfassen:</para>
+    <itemizedlist>
+      <listitem>
+        <para> &name-icinga; wird viel weniger Zeit bei der Ausführung Ihrer Perl-Plugins verbringen, weil es nicht länger &quot;fork&quot;t, um das Plugin auszuführen (das Laden des Perl-Interpreters entfällt). Statt dessen führt es das Plugin durch einen Library-Call durch.</para>
+      </listitem>
+      <listitem>
+        <para> es reduziert die Systembelastung durch Perl-Plugins und/oder erlaubt es Ihnen, mehr Prüfungen mit Perl-Plugins durchzuführen, als Ihnen das sonst möglich wäre. Mit anderen Worten haben Sie weniger Anreiz, Plugins in anderen Sprachen wie z.B. C/C++, oder Expect/TCL zu schreiben, die bei den Entwicklungszeiten eine Zehnerpotenz langsamer angesehen werden als Perl (wobei sie auch zehnmal schneller ablaufen, von TCL mal abgesehen).</para>
+      </listitem>
+      <listitem>
+        <para> Wenn Sie kein C-Programmierer sind, dann können Sie trotzdem eine Menge mit Perl erledigen, ohne dass es &name-icinga; viel langsamer macht. Beachten Sie, dass ePN Ihre Plugins nicht schneller macht (außer, dass es die Ladezeit eliminiert). Wenn Sie schnelle Plugins wollen, dann berücksichtigen Sie Perl XSUBs (XS) oder C, <emphasis>nachdem</emphasis> Sie sicher sind, dass Sie Ihr Perl getuned haben und dass Sie einen angemessenen Algorithmus haben (Benchmark.pm is <emphasis>unbezahlbar</emphasis> für den Vergleich von Perl-Sprachelementen).</para>
+      </listitem>
+      <listitem>
+        <para> ePN zu benutzen ist eine exzellente Gelegenheit, mehr über Perl zu lernen.</para>
+      </listitem>
+    </itemizedlist>
+    <para>
+      <emphasis role="bold">Nachteile</emphasis>
+    </para>
+    <para>Die Nachteile von ePN (embedded Perl &name-icinga;) sind ziemlich die gleichen wie bei &name-apache; mod_perl (d.h. &name-apache; mit einem eingebetteten Interpreter) verglichen mit einem schlichten &name-apache;:</para>
+    <itemizedlist>
+      <listitem>
+        <para> Ein Perl-Programm, das <emphasis>wunderbar</emphasis> mit schlichtem &name-icinga; arbeitet, muss <emphasis>nicht</emphasis> mit ePN funktionieren. Möglicherweise müssen Sie Ihre Plugins modifizieren, damit sie funktionieren.</para>
+      </listitem>
+      <listitem>
+        <para> Perl-Plugins sind unter ePN schwieriger zu debuggen als unter schlichtem &name-icinga;.</para>
+      </listitem>
+      <listitem>
+        <para> Ihr ePN wird eine größere SIZE (Speichernutzung) haben als ein schlichtes &name-icinga;.</para>
+      </listitem>
+      <listitem>
+        <para> Einige Perl-Konstrukte können nicht genutzt werden oder mögen sich anders verhalten als Sie das erwarten würden.</para>
+      </listitem>
+      <listitem>
+        <para> Sie sollte sich bewusst sein, dass es &apos;mehr als einen Weg gibt, es zu tun&apos; und ggf. einen Weg wählen, der weniger attraktiv oder offensichtlich ist.</para>
+      </listitem>
+      <listitem>
+        <para> Sie werden mehr Perl-Know-How benötigen (aber nichts sehr esoterisches oder Zeug über Perl-Interna - außer, wenn Ihre Plugins XSUBS benutzen).</para>
+      </listitem>
+    </itemizedlist>
+    <para>
+      <emphasis role="bold">Benutzung des eingebetteten Perl-Interpreters</emphasis>
+    </para>
+    <para>Wenn Sie den eingebetteten Perl-Interpreter benutzen wollen, um Ihre Perl-Plugins und Scripts auszuführen, dann lesen Sie hier, was Sie tun müssen:</para>
+    <orderedlist>
+      <listitem>
+        <para> Kompilieren Sie &name-icinga; mit Unterstützung für den eingebetteten Perl-Interpreter (Anweisungen s.u.).</para>
+      </listitem>
+      <listitem>
+        <para> aktivieren Sie die <link linkend="configmain-enable_embedded_perl">enable_embedded_perl</link>-Option in der Hauptkonfigurationsdatei.</para>
+      </listitem>
+      <listitem>
+        <para> setzen Sie die <link linkend="configmain-use_embedded_perl_implicitly">use_embedded_perl_implicitly</link>-Option entsprechend Ihren Anforderungen. Diese Option legt fest, ob der Perl-Interpreter per Default für einzelne Perl-Plugins und Scripts benutzt werden sollte.</para>
+      </listitem>
+      <listitem>
+        <para> Optional sollten Sie bei verschiedenen Perl-Plugins und Scripts die Ausführung durch den eingebetteten Perl-Interpreter aktivieren oder deaktivieren. Das kann nützlich sein, wenn bestimmte Perl-Scripte Probleme bei der Ausführung mit dem Perl-Interpreter haben. Beachten Sie die Anweisungen weiter unten für mehr Informationen, wie das zu tun ist.</para>
+      </listitem>
+    </orderedlist>
+    <para>
+      <emphasis role="bold">&name-icinga; mit eingebettetem Perl kompilieren</emphasis>
+    </para>
+    <para>Wenn Sie den eingebetteten Perl-Interpreter benutzen möchten, müssen Sie zuerst &name-icinga; mit der Unterstützung dafür kompilieren. Um dies zu tun, starten Sie einfach das configure-Script zusätzlich mit der <emphasis condition="red" role="color">
+        <emphasis>--enable-embedded-perl</emphasis>
+      </emphasis>
+-Option. Wenn Sie aktivieren wollen, dass der Perl-Interpreter intern kompilierte Scripts in einem Cache ablegen soll, dann nutzen Sie die <emphasis condition="red" role="color">
+        <emphasis>--with-perlcache</emphasis>
+      </emphasis>
+-Option. Beispiel:</para>
+    <screen>
+   ./configure --enable-embedded-perl --with-perlcache <emphasis> otheroptions...</emphasis>
+</screen>
+    <para>Sobald Sie das configure-Script mit den neuen Optionen ausgeführt haben, müssen Sie &name-icinga; erneut kompilieren.</para>
+    <para>
+      <emphasis role="bold">Plugin-spezifische Benutzung des Perl-Interpreters</emphasis>
+    </para>
+    <para>Beginnend mit &name-icinga; 3 könenn Sie angeben, welche Perl-Plugins oder Scripts mit dem eingebetteten Perl-Interpreter ablaufen sollen und welche nicht. Das ist besonders dann nützlich, wenn Sie Perl-Scripte haben, die nicht sauber mit dem Perl-Interpreter laufen.</para>
+    <para>Um &name-icinga; <emphasis>explizit</emphasis> mitzuteilen, ob der Perl-Interpreter benutzt werden soll oder nicht, fügen Sie Ihrem Perl-Script/Plugin einen der folgenden Einträge hinzu...</para>
+    <para>Um &name-icinga; mitzuteilen, den Perl-Interpreter für ein bestimmtes Script zu nutzen, fügen Sie dem Perl-Script diese Zeile hinzu:</para>
+    <screen>
+# nagios: +epn
+</screen>
+    <para>Um &name-icinga; mitzuteilen, den Perl-Interpreter für ein bestimmtes Script NICHT zu nutzen, fügen Sie dem Perl-Script diese Zeile hinzu:</para>
+    <screen>
+# nagios: -epn
+</screen>
+    <para>Eine der beiden Zeilen muss innerhalb der ersten zehn Zeilen stehen, damit sie von &name-icinga; erkannt wird.</para>
+    <para><inlinemediaobject>
+        <imageobject>
+          <imagedata fileref="../images/tip.gif" format="GIF"/>
+        </imageobject>
+      </inlinemediaobject>
+ Hinweis: Wenn Sie nicht <emphasis>explizit</emphasis> die oben genannte Methode nutzen, um &name-icinga; mitzuteilen, den Perl-Interpreter für ein einzelnes Plugin zu nutzen, wird &name-icinga; eine Entscheidung für Sie treffen. Dieser Entscheidungsprozess wird von der <link linkend="configmain-use_embedded_perl_implicitly">use_embedded_perl_implicitly</link>-Variable kontrolliert. Wenn der Wert auf 1 gesetzt ist, werden alle Perl-Plugins/Scripts (bei denen nicht explizit der ePN aktiviert/deaktiviert ist) mit dem Perl-Interpreter ausgeführt. Wenn der Wert auf 0 gesetzt ist, werden sie NICHT mit dem Perl-Interpreter ausgeführt.</para>
+    <para>
+      <emphasis role="bold">Plugins für die Nutzung mit Embedded Perl entwickeln</emphasis>
+    </para>
+    <para>Informationen über die Entwicklung von Plugins zur Nutzung mit dem eingebetteten Perl-Interpreter finden Sie <link linkend="epnplugins">hier</link>.</para>
+</section>

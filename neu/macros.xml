@@ -1,0 +1,229 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE chapter [
+  <!ENTITY % all.entities SYSTEM "all-entities.ent">
+  %all.entities;
+]>
+<section version="5.0" xml:id="macros" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+    <title>Makros verstehen und wie sie arbeiten</title>
+    <para>
+      <emphasis role="bold">Makros</emphasis>
+    </para>
+    <para>Eine der Haupteigenschaften, die &name-icinga; so flexibel machen, ist die Fähigkeit, Makros in Befehlsdefinitionen zu benutzen. Makros erlauben Ihnen, Bezug auf Informationen von Hosts, Services und anderen Quellen zu nehmen.</para>
+    <para>
+      <emphasis role="bold">Makroersetzungen - wie Makros arbeiten</emphasis>
+    </para>
+    <para>Bevor &name-icinga; einen Befehl ausführt, ersetzt es jedes Makro, das es in der Befehlsdefinition findet, durch den entsprechenden Wert. Diese Makroersetzung erfolgt für alle Arten von Befehlen, die &name-icinga; ausführt - Host- und Service-Checks, Benachrichtigungen, Eventhandler usw.</para>
+    <para>Bestimmte Makros können wieder Makros enthalten. Dazu zählen die Makros $HOSTNOTES$, $HOSTNOTESURL$, $HOSTACTIONURL$, $SERVICENOTES$, $SERVICENOTESURL$ und $SERVICEACTIONURL$.</para>
+    <para>
+      <emphasis role="bold">Beispiel 1: Host-Address Makro</emphasis>
+    </para>
+    <para>Wenn Sie Host- und Service-Makros in Befehlsdefinitionen benutzen, beziehen sich diese auf Werte für den Host oder Service, für den der Befehl ausgeführt wird. Nehmen wir ein Beispiel. Angenommen, wir benutzen eine Host-Definition und einen <emphasis>check_ping</emphasis>-Befehl, die wie folgt definiert sind:</para>
+    <screen>
+define host{
+        host_name       linuxbox
+        address         
+192.168.1.2
+        check_command   check_ping
+        ...
+        }
+define command{
+        command_name    check_ping
+        command_line    &url-icinga-libexec;/check_ping -H 
+$HOSTADDRESS$ -w 100.0,90% -c 200.0,60%
+        }
+</screen>
+    <para>die erweiterte/endgültige auszuführende Befehlszeile für die Host-Prüfung würde so aussehen:</para>
+    <screen>
+   &url-icinga-libexec;/check_ping -H 
+192.168.1.2 -w 100.0,90% -c 200.0,60%
+</screen>
+    <para>Ziemlich einfach, stimmt&apos;s? Die Schönheit liegt darin, dass Sie eine einzelne Befehlsdefinition für eine unbegrenzte Zahl von Hosts nutzen können. Jeder Host kann mit der selben Befehlsdefinition geprüft werden, weil jede Host-Adresse automatisch vor der Ausführung in der Befehlszeile ersetzt wird.</para>
+    <para>
+      <emphasis role="bold">Beispiel 2: Befehlsargument-Makros</emphasis>
+    </para>
+    <para>Sie können auch Argumente an Befehle übergeben, was recht handlich ist, wenn Sie Ihre Befehlsdefinitonen ziemlich generisch halten möchten. Argumente werden in der Objektdefinition (d.h. Host oder Service) angegeben, indem sie durch Ausrufezeichen (!) vom Befehlsnamen getrennt werden:</para>
+    <screen>
+define service{
+        host_name               linuxbox
+        service_description     PING
+        check_command           check_ping!
+200.0,80%!
+400.0,40%
+        ...
+        }
+</screen>
+    <para>Im obigen Beispiel hat der Service-Check zwei Argumente (auf die mit <link linkend="macrolist-arg">$ARGn$</link>-Makros zugegriffen werden kann). Das $ARG1$-Makro wird &quot;<emphasis condition="red" role="color">200.0,80%</emphasis>&quot; und $ARG2$ wird &quot;<emphasis condition="red" role="color">400.0,40%</emphasis>&quot; (beide ohne Anführungszeichen). Angenommen, wir benutzen die vorher angegebene Host-Definiton und einen wie folgt definierten <emphasis>check_ping</emphasis>-Befehl:</para>
+    <screen>
+define command{
+        command_name    check_ping
+        command_line    &url-icinga-libexec;/check_ping -H 
+$HOSTADDRESS$ -w 
+$ARG1$ -c 
+$ARG2$
+        }
+</screen>
+    <para>die erweiterte/endgültige auszuführende Befehlszeile für die Service-Prüfung würde so aussehen:</para>
+    <screen>
+   &url-icinga-libexec;/check_ping -H 
+192.168.1.2 -w 
+200.0,80% -c 
+400.0,40%
+</screen>
+    <para><inlinemediaobject>
+        <imageobject>
+          <imagedata fileref="../images/tip.gif" format="GIF"/>
+        </imageobject>
+      </inlinemediaobject>
+Hinweis: Falls Sie Ausrufezeichen (!) in Ihren Argumenten übergeben müssen, dann können Sie das tun, indem Sie diese mit einem Backslash (\) maskieren. Falls Sie Backslashes in Ihren Argumenten einsetzen müssen, sind diese ebenfalls mit Backslashes zu maskieren.</para>
+    <para>
+      <emphasis role="bold">On-Demand-Makros</emphasis>
+    </para>
+    <para>Wenn Sie Host- und Service-Makros in Ihren Befehlsdefinitionen benutzen, dann beziehen sie sich normalerweise auf Werte des Hosts oder Service, für den der Befehl ausgeführt wird. Wenn beispielsweise eine Host-Prüfung für einen Host namens &quot;linuxbox&quot; ausgeführt wird, werden sich all die <link linkend="macrolist">Standard-Host-Makros</link> auf Werte für diesen Host beziehen (&quot;linuxbox&quot;).</para>
+    <para>Wenn Sie möchten, dass sich die Werte eines Befehls auf einen anderen Host oder Service beziehen (für den der Befehl nicht ausgeführt wird), dann können Sie die sogenannten &quot;On-Demand-Makros&quot; benutzen. On-Demand-Makros sehen wie normale Makros aus, außer der Tatsache, dass sie einen Bezeichner für den Host oder Service enthalten, von dem sie ihren Wert erhalten sollen. Hier das grundsätzliche Format von On-Demand-Makros:</para>
+    <itemizedlist>
+      <listitem>
+        <para> $<emphasis>HOSTMACRONAME</emphasis>:<emphasis>host_name</emphasis>$</para>
+      </listitem>
+      <listitem>
+        <para>  $<emphasis>SERVICEMACRONAME</emphasis>:<emphasis>host_name</emphasis>:<emphasis>service_description</emphasis>$</para>
+      </listitem>
+    </itemizedlist>
+    <para>Ersetzen Sie <emphasis>HOSTMACRONAME</emphasis> und <emphasis>SERVICEMACRONAME</emphasis> durch den Namen eines der Standard-Host- oder Service-Makros, die <link linkend="macrolist">hier</link> zu finden sind.</para>
+    <para>Beachten Sie, dass der Makroname durch einen Doppelpunkt (:) vom Host- oder Service-Bezeichner getrennt ist. Für On-Demand-Service-Makros besteht der Service-Bezeichner aus einem Host-Namen und einer Service-Beschreibung - sie sind ebenfalls durch einen Doppelpunkt (:) voneinander getrennt.</para>
+    <para><inlinemediaobject>
+        <imageobject>
+          <imagedata fileref="../images/tip.gif" format="GIF"/>
+        </imageobject>
+      </inlinemediaobject>
+ Hinweis: On-Demand-Service-Makros können ein leeres Host-Namen-Feld enthalten. In diesem Fall wird automatisch der Name des Hosts benutzt, der mit dem Service verbunden ist.</para>
+    <para>Beispiele für On-Demand-Host- und Service-Makros folgen:</para>
+    <screen>
+$HOSTDOWNTIME:myhost$                        &lt;--- On-Demand-Host-Makro
+$SERVICESTATEID:novellserver:DS Database$    &lt;--- On-Demand-Service-Makro
+$SERVICESTATEID::CPU Load$                   &lt;--- On-Demand-Service-Makro mit leerem Host-Namen-Feld
+</screen>
+    <para>On-Demand-Makros gibt es auch für hostgroup-, servicegroup-, contact- und contactgroup-Makros. Zum Beispiel:</para>
+    <screen>
+$CONTACTEMAIL:john$                          &lt;--- On-Demand-Contact-Makro
+$CONTACTGROUPMEMBERS:linux-admins$           &lt;--- On-Demand-Contactgroup-Makro
+$HOSTGROUPALIAS:linux-servers$               &lt;--- On-Demand-Hostgroup-Makro
+$SERVICEGROUPALIAS:DNS-Cluster$              &lt;--- On-Demand-Servicegroup-Makro
+</screen>
+    <para>
+      <emphasis role="bold">On-Demand-Gruppen-Makros</emphasis>
+    </para>
+    <para>Sie können die Werte eines Makros über alle Kontakte, Hosts oder Services in einer bestimmten Gruppe mit einem speziellen Format Ihrer On-Demand-Makrodeklaration erhalten. Sie tun dies, indem Sie auf eine bestimmte Hostgruppe, Servicegruppe oder Kontaktgruppe in einem On-Demand-Makro verweisen und zwar wie folgt:</para>
+    <itemizedlist>
+      <listitem>
+        <para>  $<emphasis>HOSTMACRONAME</emphasis>:<emphasis>hostgroup_name</emphasis>:<emphasis>delimiter</emphasis>$</para>
+      </listitem>
+      <listitem>
+        <para>  $<emphasis>SERVICEMACRONAME</emphasis>:<emphasis>servicegroup_name</emphasis>:<emphasis>delimiter</emphasis>$</para>
+      </listitem>
+      <listitem>
+        <para>  $<emphasis>CONTACTMACRONAME</emphasis>:<emphasis>contactgroup_name</emphasis>:<emphasis>delimiter</emphasis>$</para>
+      </listitem>
+    </itemizedlist>
+    <para>Ersetzen Sie <emphasis>HOSTMACRONAME</emphasis>, <emphasis>SERVICEMACRONAME</emphasis> und <emphasis>CONTACTMACRONAME</emphasis> durch den Namen eines der Standard-Host-, Service- oder Kontaktmakros, die Sie <link linkend="macrolist">hier</link> finden. Der Begrenzer (delimiter), den Sie angeben, wird benutzt, um Makrowerte der einzelnen Gruppenmitglieder von einander zu trennen.</para>
+    <para>Das folgende Makro wird beispielsweise eine komma-separierte Liste von Host-Status-IDs zurückliefern, die Mitglieder der <emphasis>hg1</emphasis>-Hostgruppe sind:</para>
+    <screen>
+$HOSTSTATEID:hg1:,$
+</screen>
+    <para>Diese Makrodefinition wird etwas zurückliefern, was etwa so aussieht:</para>
+    <screen>
+0,2,1,1,0,0,2
+</screen>
+    <para>
+      <emphasis role="bold">Benutzervariablen-Makros</emphasis>
+    </para>
+    <para>Jede <link linkend="customobjectvars">Benutzerobjekt-Variable</link>, die Sie in Host-, Service- oder Contact-Definitionen einsetzen, ist auch in Makros verfügbar. Benutzervariablen-Makros werden wie folgt benannt:</para>
+    <itemizedlist>
+      <listitem>
+        <para> $_HOST<emphasis>varname</emphasis>$</para>
+      </listitem>
+      <listitem>
+        <para> $_SERVICE<emphasis>varname</emphasis>$</para>
+      </listitem>
+      <listitem>
+        <para> $_CONTACT<emphasis>varname</emphasis>$</para>
+      </listitem>
+    </itemizedlist>
+    <para>Nehmen Sie die folgende Host-Definition mit einer &quot;_MACADDRESS&quot; genannten Benutzervariablen...</para>
+    <screen>
+define host{
+        host_name       linuxbox
+        address         192.168.1.1
+_MACADDRESS   00:01:02:03:04:05
+        ...
+        }
+</screen>
+    <para>Die Benutzervariable _MACADRESS wäre in einem Makro <emphasis condition="red" role="color">$_HOSTMACADDRESS$</emphasis> verfügbar. Weitere Informationen zu Benutzervariablen und wie sie in Makros eingesetzt werden können, finden Sie <link linkend="customobjectvars">hier</link>.</para>
+    <para>
+      <emphasis role="bold">Makrobereinigung</emphasis>
+    </para>
+    <para>Einige Makros werden von potenziell gefährlichen Shell-Metazeichen bereinigt, bevor Ersetzungen in Befehlen stattfinden. Welche Zeichen aus den Makros entfernt werden, hängt von den Einstellungen der <link linkend="configmain-illegal_macro_output_chars">illegal_macro_output_chars</link>-Direktive ab. Die folgenden Makros werden von potenziell gefährlichen Zeichen bereinigt:</para>
+    <orderedlist>
+      <listitem>
+        <para>
+          <link linkend="macrolist-hostoutput">$HOSTOUTPUT$</link>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <link linkend="macrolist-longhostoutput">$LONGHOSTOUTPUT$</link>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <link linkend="macrolist-hostperfdata">$HOSTPERFDATA$</link>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <link linkend="macrolist-hostackauthor">$HOSTACKAUTHOR$</link>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <link linkend="macrolist-hostackcomment">$HOSTACKCOMMENT$</link>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <link linkend="macrolist-serviceoutput">$SERVICEOUTPUT$</link>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <link linkend="macrolist-longserviceoutput">$LONGSERVICEOUTPUT$</link>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <link linkend="macrolist-serviceperfdata">$SERVICEPERFDATA$</link>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <link linkend="macrolist-serviceackauthor">$SERVICEACKAUTHOR$</link>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <link linkend="macrolist-serviceackcomment">$SERVICEACKCOMMENT$</link>
+        </para>
+      </listitem>
+    </orderedlist>
+    <para>
+      <emphasis role="bold">Makros als Umgebungsvariablen</emphasis>
+    </para>
+    <para>Die meisten Makros werden als Umgebungsvariablen zur Verfügung gestellt, um einen einfachen Einsatz in Scripts oder Befehlen zu ermöglichen, die von &name-icinga; ausgeführt werden. Aus Gründen der Sicherheit und der Vernunft werden <link linkend="macrolist-user">$USERn$</link> und &quot;on-demand&quot; Host- und Service-Makros <emphasis role="underline">nicht</emphasis> als Umgebungsvariablen zur Verfügung gestellt.</para>
+    <para>Umgebungsvariablen, die Standard-Makros enthalten, werden ebenso wie ihre entsprechenden Makronamen benannt (<link linkend="macrolist">hier</link> aufgeführt), wobei ihnen &quot;NAGIOS_&quot; vorangestellt wird. Beispielsweise wäre das <link linkend="macrolist-hostname">$HOSTNAME$</link>-Makro als Umgebungsvariable &quot;NAGIOS_HOSTNAME&quot; verfügbar.</para>
+    <para>
+      <emphasis role="bold">Verfügbare Makros</emphasis>
+    </para>
+    <para>Eine Liste aller in &name-icinga; verfügbaren Makros sowie eine Tabelle, wann sie eingesetzt werden können, finden Sie <link linkend="macrolist">hier</link>.</para>
+</section>

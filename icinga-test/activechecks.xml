@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="activechecks" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="active_checks" />Active Checks</title>
+
+  <para><emphasis role="bold">Introduction</emphasis></para>
+
+  <para>&name-icinga; is capable of monitoring hosts and services in two ways: actively and passively. Passive checks are
+  described <link linkend="passivechecks">elsewhere</link>, so we'll focus on active checks here. Active checks are the most
+  common method for monitoring hosts and services. The main features of actives checks as as follows:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Active checks are initiated by the &name-icinga; process</para>
+    </listitem>
+
+    <listitem>
+      <para>Active checks are run on a regularly scheduled basis</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><inlinemediaobject>
+      <imageobject>
+        <imagedata fileref="../images/activechecks.png" format="PNG"></imagedata>
+      </imageobject>
+    </inlinemediaobject></para>
+
+  <para><emphasis role="bold">How Are Active Checks Performed?</emphasis></para>
+
+  <para>Active checks are initiated by the check logic in the &name-icinga; daemon. When &name-icinga; needs to check the status
+  of a host or service it will execute a plugin and pass it information about what needs to be checked. The plugin will then check
+  the operational state of the host or service and report the results back to the &name-icinga; daemon. &name-icinga; will process
+  the results of the host or service check and take appropriate action as necessary (e.g. send notifications, run event handlers,
+  etc).</para>
+
+  <para>More information on how plugins work can be found <link linkend="plugins">here</link>.</para>
+
+  <para><emphasis role="bold">When Are Active Checks Executed?</emphasis></para>
+
+  <para>Active check are executed:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>At regular intervals, as defined by the <emphasis>check_interval</emphasis> and <emphasis>retry_interval</emphasis>
+      options in your host and service definitions</para>
+    </listitem>
+
+    <listitem>
+      <para>On-demand as needed</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>Regularly scheduled checks occur at intervals equaling either the <emphasis>check_interval</emphasis> or the
+  <emphasis>retry_interval</emphasis> in your host or service definitions, depending on what <link linkend="statetypes">type of
+  state</link> the host or service is in. If a host or service is in a HARD state, it will be actively checked at intervals equal
+  to the <emphasis>check_interval</emphasis> option. If it is in a SOFT state, it will be checked at intervals equal to the
+  <emphasis>retry_interval</emphasis> option.</para>
+
+  <para>On-demand checks are performed whenever &name-icinga; sees a need to obtain the latest status information about a
+  particular host or service. For example, when &name-icinga; is determining the <link
+  linkend="networkreachability">reachability</link> of a host, it will often perform on-demand checks of parent and child hosts to
+  accurately determine the status of a particular network segment. On-demand checks also occur in the <link
+  linkend="dependencychecks">predictive dependency check</link> logic in order to ensure &name-icinga; has the most accurate
+  status information.</para>
+</section>

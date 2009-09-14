@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE chapter [
+  <!ENTITY % all.entities SYSTEM "all-entities.ent">
+  %all.entities;
+]>
+<section version="5.0" xml:id="passivestatetranslation" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+    <title>Passive Host-Zustandsübersetzung</title>
+    <para>
+      <emphasis role="bold">Einführung</emphasis>
+    </para>
+    <para>Wenn &name-icinga; passive Host-Prüfungen von entfernten Quellen erhält (d.h. andere &name-icinga;-Instanzen in verteilten oder Failover-Umgebungen), gibt der von der entfernten Quelle gelieferte Host-Status ggf. nicht genau den aus &name-icinga;&apos; Sicht zutreffenden Zustand wieder. Weil verteilte und Failover-Überwachungs-Installationen ziemlich identisch sind, ist es wichtig einen Mechanismus anzubieten, um exakte Host-Zustände zwischen verschiedenen &name-icinga;-Instanzen sicherzustellen.</para>
+    <para>
+      <emphasis role="bold">Verschiedene Sichten</emphasis>
+    </para>
+    <para>Das folgende Bild zeigt eine vereinfachte Sicht für ein Failover-Überwachungsaufbau.</para>
+    <itemizedlist>
+      <listitem>
+        <para><emphasis>&name-icinga;-A</emphasis>  ist der primäre Überwachungsserver, der aktiv alle Switches und Router überwacht.</para>
+      </listitem>
+      <listitem>
+        <para><emphasis>&name-icinga;-B</emphasis>  und <emphasis>&name-icinga;-C</emphasis> sind Backup-Überwachungsserver, die passive Prüfergebnisse von <emphasis>&name-icinga;-A</emphasis> erhalten.</para>
+      </listitem>
+      <listitem>
+        <para> Sowohl <emphasis>Router-C</emphasis> als auch <emphasis>Router-D</emphasis> sind fehlerhaft und daher offline.</para>
+      </listitem>
+    </itemizedlist>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/passivehosttranslation.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    <para>In welchem Status sind <emphasis>Router-C</emphasis> und <emphasis>Router-D</emphasis> gerade? Die Antwort hängt davon ab, welche &name-icinga;-Instanz Sie fragen.</para>
+    <itemizedlist>
+      <listitem>
+        <para><emphasis>&name-icinga;-A</emphasis>  sieht <emphasis>Router-D</emphasis> als DOWN und <emphasis>Router-C</emphasis> als UNREACHABLE</para>
+      </listitem>
+      <listitem>
+        <para><emphasis>&name-icinga;-B</emphasis>  sollte <emphasis>Router-C</emphasis> als DOWN und <emphasis>Router-D</emphasis> als UNREACHABLE sehen</para>
+      </listitem>
+      <listitem>
+        <para><emphasis>&name-icinga;-C</emphasis>  sollte beide Router als DOWN sehen.</para>
+      </listitem>
+    </itemizedlist>
+    <para>Jede &name-icinga;-Instanz hat eine unterschiedliche Sicht des Netzwerks. Die Backup-Überwachungsserver sollten nicht blind passive Host-Zustände vom primären Überwachungsserver akzeptieren oder sie werden inkorrekte Informationen über den aktuellen Zustand des Netzwerks haben.</para>
+    <para>Ohne die Übersetzung von passiven Host-Prüfergebnissen vom primären Überwachungsserver (<emphasis>&name-icinga;-A</emphasis>) würde <emphasis>&name-icinga;-C</emphasis> den <emphasis>Router-D</emphasis> als UNREACHABLE sehen, obwohl dieser vom eigenen Standpunkt eigentlich DOWN ist. Ähnliches gilt für die DOWN/UNREACHABLE-Zustände von <emphasis>Router-C</emphasis> und <emphasis>Router-D</emphasis> (vom Standpunkt von <emphasis>&name-icinga;-A</emphasis> aus), die aus Sicht von <emphasis>&name-icinga;-B</emphasis> umgedreht werden sollten.</para>
+    <para><inlinemediaobject>
+        <imageobject>
+          <imagedata fileref="../images/note.gif" format="GIF"/>
+        </imageobject>
+      </inlinemediaobject>
+ Anmerkung: Es kann einige Situationen geben, in denen Sie nicht möchten, dass &name-icinga; die DOWN/UNREACHABLE-Zustände von entfernten Quellen in ihre &quot;korrekten&quot; Zustände vom Standpunkt der lokalen &name-icinga;-Instanz aus umsetzt. Zum Beispiel möchten Sie vielleicht in verteilten Überwachungsumgebungen, dass die zentrale &name-icinga;-Instanz weiß, wie verteilte Instanzen ihre jeweiligen Teile des Netzwerks sehen.</para>
+    <para>
+      <emphasis role="bold">Status-Übersetzung aktivieren</emphasis>
+    </para>
+    <para>Per Default wird &name-icinga; <emphasis>nicht</emphasis> automatisch die DOWN/UNREACHABLE-Zustände von passiven Prüfergebnissen übersetzen. Sie müssen dieses Feature aktivieren, wenn Sie es benötigen und nutzen wollen.</para>
+    <para>Die automatische Übersetzung von passiven Host-Prüfzuständen wird durch die <link linkend="configmain-translate_passive_host_checks">translate_passive_host_checks</link>-Variable kontrolliert. Durch die Aktivierung wird &name-icinga; automatisch DOWN- und UNREACHABLE-Zustände von entfernten Quellen in die korrekten Zustände für die lokale Instanz übersetzen.</para>
+</section>

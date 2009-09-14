@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE chapter [
+  <!ENTITY % all.entities SYSTEM "all-entities.ent">
+  %all.entities;
+]>
+<section version="5.0" xml:id="startstop" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+    <title>&name-icinga; starten und stoppen</title>
+    <para>Es gibt mehr als einen Weg, um &name-icinga; zu starten, zu stoppen und erneut zu starten. Hier einige der �blichen...</para>
+    <para><inlinemediaobject>
+        <imageobject>
+          <imagedata fileref="../images/tip.gif" format="GIF"/>
+        </imageobject>
+      </inlinemediaobject>
+ Hinweis: Stellen Sie immer sicher, dass Sie Ihre <link linkend="verifyconfig">Konfiguration überprüfen</link>, bevor Sie &name-icinga; (neu)starten.</para>
+    <para>
+      <emphasis role="bold">&name-icinga; starten</emphasis>
+    </para>
+    <orderedlist>
+      <listitem>
+        <para><emphasis role="bold">Init-Script:</emphasis>  Der einfachste Weg, den &name-icinga;-Daemon zu starten, ist die Nutzung des Init-Scripts: </para>
+        <screen>
+/etc/rc.d/init.d/nagios start
+</screen>
+      </listitem>
+      <listitem>
+        <para><emphasis role="bold">manuell:</emphasis>  Sie können &name-icinga; manuell mit der <emphasis role="bold">-d</emphasis>-Kommandozeilenoption wie folgt starten: </para>
+        <screen>
+&url-icinga-base;/bin/nagios -d &url-icinga-base;/etc/nagios.cfg
+</screen>
+      </listitem>
+    </orderedlist>
+    <para>
+      <emphasis role="bold">&name-icinga; erneut starten</emphasis>
+    </para>
+    <para>Ein Neustart bzw. neu laden ist notwendig, wenn Sie Ihre Konfigurationsdateien verändert haben und diese Änderungen aktiv werden sollen.</para>
+    <orderedlist>
+      <listitem>
+        <para><emphasis role="bold">Init-Script:</emphasis>  Der einfachste Weg, den &name-icinga;-Daemon neu zu starten, ist die Nutzung des Init-Scripts: </para>
+        <screen>
+/etc/rc.d/init.d/nagios reload
+</screen>
+      </listitem>
+      <listitem>
+        <para><emphasis role="bold">Web-Interface:</emphasis>  Sie können &name-icinga; mit Hilfe des Web-Interfaces neu starten. Klicken Sie auf den &quot;Process Info&quot;-Navigations-Link und wählen Sie &quot;Restart the &name-icinga; process&quot;:</para>
+        <para>
+          <inlinemediaobject>
+            <imageobject>
+              <imagedata fileref="../images/stoprestart.png" format="PNG"/>
+            </imageobject>
+          </inlinemediaobject>
+        </para>
+      </listitem>
+      <listitem>
+        <para><emphasis role="bold">manuell:</emphasis>  Sie können den &name-icinga;-Prozess durch Senden eines SIGHUP-Signals neu starten: </para>
+        <screen>
+kill -HUP &lt;nagios_pid&gt;
+</screen>
+      </listitem>
+    </orderedlist>
+    <para>
+      <emphasis role="bold">&name-icinga; stoppen</emphasis>
+    </para>
+    <orderedlist>
+      <listitem>
+        <para><emphasis role="bold">Init-Script:</emphasis>  Der einfachste Weg, den &name-icinga;-Daemon zu stoppen, ist die Nutzung des Init-Script: </para>
+        <screen>
+/etc/rc.d/init.d/nagios stop
+</screen>
+      </listitem>
+      <listitem>
+        <para><emphasis role="bold">Web-Interface:</emphasis>  Sie können &name-icinga; mit Hilfe des Web-Interfaces stoppen. Klicken Sie auf den &quot;Process Info&quot;-Navigations-Link und wählen Sie &quot;Shutdown the &name-icinga; process&quot;:</para>
+        <para>
+          <inlinemediaobject>
+            <imageobject>
+              <imagedata fileref="../images/stoprestart.png" format="PNG"/>
+            </imageobject>
+          </inlinemediaobject>
+        </para>
+      </listitem>
+      <listitem>
+        <para><emphasis role="bold">manuell:</emphasis>  Sie können den &name-icinga;-Prozess durch Senden eines SIGTERM-Signals stoppen: </para>
+        <screen>
+kill &lt;nagios_pid&gt;
+</screen>
+      </listitem>
+    </orderedlist>
+</section>
