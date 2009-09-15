@@ -3,11 +3,209 @@
 <!ENTITY % all.entities SYSTEM "all-entities.ent">
 %all.entities;
 ]>
-<section version="5.0" xml:id="whatsnew" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
-  <title>What's new</title>
-
-  <para>This section will be filled with some more useful information soon. In the meantime please have a look at the file "Changelog".</para>
-</section>
+<section
+version="5.0"
+xml:id="whatsnew"
+xmlns="http://docbook.org/ns/docbook"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:svg="http://www.w3.org/2000/svg"
+xmlns:m="http://www.w3.org/1998/Math/MathML"
+xmlns:html="http://www.w3.org/1999/xhtml"
+xmlns:db="http://docbook.org/ns/docbook"
+><title
+>What's new</title
+><para
+>This section will be filled with some more detailed information soon. Just have look at the changelog:</para
+><para
+><emphasis
+role="bold"
+>0.8.4 - 16/09/2009 </emphasis
+></para
+><para
+>* idoutils: fix failure_prediction_options in tables hosts, services for postgres </para
+><para
+>* idoutils: add configure support for manual libdbi detection </para
+><para
+>* idoutils: fix typo laste_state (wrong column) </para
+><para
+>* idoutils: fix buffer freeing with NAGIOS_SIZEOF_ARRAY </para
+><para
+>* idoutils: delete old mysql files coming from ndoutils </para
+><para
+>* idoutils: add new versionhandling, idomod/ido2db now shows version of Icinga core </para
+><para
+>* idoutils: rename existing mysql/pgsql files, added upgrade/fix files </para
+><para
+>* idoutils: fix wrong typecast in servicestatusdata_add, no more segfault while query preparing </para
+><para
+>* idoutils: add experimental db trimming interval option in ido2db.cfg </para
+><para
+>* core: fix wrong copyright url for Ethan</para
+><para
+></para
+><para
+><emphasis
+role="bold"
+>0.8.3 - 09/02/2009 </emphasis
+></para
+><para
+>* idoutils: add PostgreSQL support </para
+><para
+>* new Icinga documentation in docbook and html format </para
+><para
+>* fetch current Nagios patches </para
+><para
+>* fix support links after make </para
+><para
+>* idoutils: add note if install desired but not enabled </para
+><para
+>* idoutils: fix installing of rc.ido2db in make install-idoutils </para
+><para
+>* idoutils: add db/pgsql.sql, adapted table scheme for postgresql </para
+><para
+>* idoutils: add time conversion functions for postgresql </para
+><para
+>* idoutils: add try update, if affected rows=0, then insert queries for postgresql </para
+><para
+>* idoutils: modify insert queries, normalized to sql-standard </para
+><para
+>* idoutils: add insert-or-update functions in dbqueries.c, prepared for more rdbms </para
+><para
+>* idoutils: modify insert-or-update queries, build data array for functions </para
+><para
+>* idoutils: fix string escaping for postgresql </para
+><para
+>* idoutils: fix last insert id for postgresql - needs defined sequence id for table </para
+><para
+>* idoutils: modify command_line in commands table to varchar(1024) </para
+><para
+>* idoutils: add more debug output </para
+><para
+>* idoutils: Support 8192 chars of perfdata</para
+><para
+></para
+><para
+><emphasis
+role="bold"
+>0.8.2 - 08/12/2009</emphasis
+> </para
+><para
+>* create a new basic ido2db init script </para
+><para
+>* idoutils: fix child signal handling in ido2db</para
+><para
+>* idoutils: fix escaping of customvars before insert </para
+><para
+>* idoutils: fix in buggy rotate command execution </para
+><para
+>* idoutils: fix fmt specifier in ndo2db_daemonize() error </para
+><para
+>* idoutils: added long_output support to IDOUtils </para
+><para
+>* idoutils: Fix for not retrying read on 'EAGAIN' and 'EINTR' soft errors (Opsera Ltd) </para
+><para
+>* idoutils: Allow externalcommands table to be trimmed with a specific time limit (Opsera Ltd) </para
+><para
+>* icinga-api added: The search function now uses the icinga-api submodule * various minor changes </para
+><para
+></para
+><para
+><emphasis
+role="bold"
+>0.8.1 - 06/17/2009</emphasis
+></para
+><para
+><emphasis
+role="bold"
+><emphasis
+>* Archived Logfiles renamed from Icinga-date-syntax.log =&gt; icinga-date-syntax.log (capital 'i')</emphasis
+></emphasis
+></para
+><para
+><emphasis
+role="bold"
+><emphasis
+>* cherry picked latest Nagios Patches (see Nagios Changelog below) </emphasis
+></emphasis
+></para
+><para
+><emphasis
+role="bold"
+><emphasis
+>* new ido2db command switch: '-f' don't daemonize the ido2db </emphasis
+></emphasis
+></para
+><para
+><emphasis
+role="bold"
+><emphasis
+>* ido2db will now prints out available database drivers </emphasis
+></emphasis
+></para
+><para
+><emphasis
+role="bold"
+><emphasis
+>* fix ido2db segfault when try to access non existing tables </emphasis
+></emphasis
+></para
+><para
+><emphasis
+role="bold"
+><emphasis
+>* DocBook v5 conversion </emphasis
+></emphasis
+></para
+><para
+><emphasis
+role="bold"
+><emphasis
+>* Fix menu frameset cols width</emphasis
+></emphasis
+></para
+><para
+><emphasis
+role="bold"
+><emphasis
+></emphasis
+></emphasis
+></para
+><para
+><emphasis
+role="bold"
+><emphasis
+role="bold"
+> 0.8 - 05/19/2009</emphasis
+></emphasis
+></para
+><para
+><emphasis
+role="bold"
+><emphasis
+> * Almost biggest deal to rename the components </emphasis
+></emphasis
+></para
+><para
+><emphasis
+role="bold"
+><emphasis
+>* including IDOUtils (former NDOUtils) into the core code, updating configure &amp; make to get in touch with it </emphasis
+></emphasis
+></para
+><para
+><emphasis
+role="bold"
+><emphasis
+>* changed database handling in IDOUtils from native database support to libdbi (libdbi.sourceforge.net) as a abstraction layer, enable compile try with "configure --enable-idoutils" </emphasis
+></emphasis
+></para
+><para
+><emphasis
+role="bold"
+><emphasis
+>* Included a new stylesheet/icon theme based on Vautour Style Vautour Style have been created by Yoann LAMY. The menu of Vautour Style use the javascript framework MooTools (http://mootools.net/). The icons of Vautour Style use "Silk icon set" (http://www.famfamfam.com/lab/icons/silk/) created by Mark James. "Silk icon set" is licensed under Creative Commons Attribution 2.5 License (http://creativecommons.org/licenses/by/2.5/). </emphasis
+></emphasis
+></para
+></section
+>
