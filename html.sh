@@ -1,13 +1,13 @@
-#!/bin/bash
+!/bin/bash
 
-cd en-en
+
 [ ! -d html ]&&mkdir html
 cd html
-xsltproc --xinclude ../../xsl/html-chunked.xsl ../docbook/Icinga.xml
+xsltproc --xinclude ../xsl/html-chunked.xsl ../en-de/Icinga.xml
 
 ls *html | while read datei
 do
 	mv $datei $datei.tmp
-	cat $datei.tmp | sed 's/">the section called/">/;s#"../images/#"images/#g' > $datei
+	cat $datei.tmp | sed 's/">the section called/">/;"' > $datei
 	rm $datei.tmp
 done
