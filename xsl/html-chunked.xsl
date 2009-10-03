@@ -19,6 +19,7 @@
 <xsl:param name="use.id.as.filename" select="'1'"/>
 
 <!-- Hendrik: uses images for note, tip, warning,caution and important -->
+<xsl:param name="admon.graphics.path">../images/</xsl:param>
 <xsl:param name="admon.graphics" select="'1'"/>
 
 <!-- Hendrik: we want some nice navigation icons in header and footer -->
