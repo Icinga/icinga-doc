@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="largeinstalltweaks" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title>Large Installation Tweaks</title>
+
+  <para><emphasis role="bold">Einführung</emphasis></para>
+
+  <para>Benutzer mit großen &name-icinga;-Installation können von der <link
+  linkend="configmain-use_large_installation_tweaks">use_large_installation_tweaks</link>-Konfigurationsoption profitieren. Das
+  Aktivieren dieser Option erlaubt es dem &name-icinga;-Daemon, bestimmte Abkürzungen zu nehmen, die in geringerer Systembelastung
+  und besserer Leistung resultieren.</para>
+
+  <para><emphasis role="bold">Effekte</emphasis></para>
+
+  <para>Wenn Sie die <link linkend="configmain-use_large_installation_tweaks">use_large_installation_tweaks</link>-Option in Ihrer
+  &name-icinga;-Hauptkonfigurationsdatei aktivieren, werden mehrere Anpassungen gemacht, wie der &name-icinga;-Daemon
+  arbeitet:</para>
+
+  <orderedlist>
+    <listitem>
+      <para><emphasis role="bold">Keine Zusammenfassungsmakros in Umgebungsvariablen</emphasis> - Die <link
+      linkend="macrolist-summary_macros">Zusammenfassungsmakros</link> werden Ihnen nicht als Umgebungsvariablen zur Verfügung
+      stehen. Die Berechnung der Werte dieser Makros kann in großen Konfigurationen ziemlich zeitintensiv sein, so dass sie nicht
+      als Umgebungsvariablen zur Verfügung stehen, wenn Sie diese Option benutzen. Zusammenfassungsmakros sind weiterhin als
+      reguläre Makros verfügbar, wenn Sie diese Ihren Scripts als Parameter übergeben.</para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis role="bold">Unterschiedliche Speicherbereinigung</emphasis> - Normalerweise wird &name-icinga; den
+      allokierten Speicher in Kind-Prozessen freigeben, bevor sie enden. Dies ist wahrscheinlich die beste Vorgehensweise, aber
+      vielleicht in großen Installationen unnötig, weil die meisten Betriebssysteme selbst darauf achten, allokierten Speicher
+      freizugeben, wenn Prozesse enden. Das Betriebssystem neigt dazu, belegten Speicher schneller freizugeben, als &name-icinga;
+      das kann, so dass &name-icinga; nicht versucht, Speicher in Kind-Prozessen freizugeben, wenn Sie diese Option
+      aktivieren.</para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis role="bold">Weniger fork()</emphasis> - Normalerweise wird &name-icinga; zweimal fork() aufrufen, wenn es
+      Host- und Service-Prüfungen ausführt. Das wird getan, um (1) ein hohes Maß an Resistenz sicherzustellen gegen Plugins, die
+      fehlschlagen und einen SegFault erzeugen und (2) dafür sorgen, dass das Betriebssystem sich um die Bereinigung der
+      Enkel-Prozesse kümmert, sobald sie enden. Der zusätzliche fork() ist nicht wirklich nötig, so dass er übersprungen wird,
+      wenn Sie diese Option aktivieren. Als Ergebnis werden Kind-Prozesse von &name-icinga; selbst bereinigt (anstatt diese
+      Aufgabe dem Betriebssystem zu überlassen). Dieses Feature sollte für spürbare Lasteinsparungen in Ihrer
+      &name-icinga;-Installation sorgen.</para>
+    </listitem>
+  </orderedlist>
+</section>

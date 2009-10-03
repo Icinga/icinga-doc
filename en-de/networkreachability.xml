@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="networkreachability" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title>Ermitteln des Zustands und der Erreichbarkeit von Netzwerk-Hosts</title>
+
+  <para><emphasis role="bold">Einführung</emphasis></para>
+
+  <para>Falls Sie jemals im technischen Support gearbeitet haben, hatten Sie zweifelsohne Benutzer, die Ihnen erzählt haben, "das
+  Internet sei down". Als Techniker waren Sie ziemlich sicher, daß keiner den Stromstecker aus dem Internet gezogen hatte.
+  Irgendetwas muss schiefgehen zwischen dem Stuhl des Benutzers und dem Internet.</para>
+
+  <para>Angenommen es ist ein technisches Problem, dann werden Sie nach dem Problem suchen. Vielleicht ist der PC des Benutzers
+  ausgeschaltet oder das Netzwerkkabel ist gezogen oder der zentrale Router Ihres Unternehmen nimmt gerade eine Auszeit. Was immer
+  das Problem sein mag, eines ist sehr sicher - das Internet ist nicht down. Es ist lediglich nicht für den Benutzer
+  erreichbar.</para>
+
+  <para>&name-icinga; ist in der Lage festzustellen, ob die Hosts, die Sie überwachen, in einem DOWN- oder UNREACHABLE-Zustand
+  sind. Dies sind sehr unterschiedliche (obwohl durchaus verwandte) Zustände und können Ihnen helfen, schnell die Grundursache für
+  Netzwerkprobleme festzustellen. Hier nun, wie die Netzwerk-Erreichbarkeitslogik arbeitet, um zwischen diesen beiden Zuständen zu
+  unterscheiden...</para>
+
+  <para><emphasis role="bold">Beispiel-Netzwerk</emphasis></para>
+
+  <para>Werfen Sie einen Blick auf das einfache Netzwerk-Diagramm. Lassen Sie uns annehmen, dass Sie alle Hosts (Server, Router,
+  Switches, etc.) überwachen, die abgebildet sind. &name-icinga; ist installiert und lauffähig auf dem
+  <emphasis>&name-icinga;</emphasis>-Host.</para>
+
+  <para><inlinemediaobject>
+      <imageobject>
+        <imagedata fileref="../images/reachability1.png" format="PNG"></imagedata>
+      </imageobject>
+    </inlinemediaobject></para>
+
+  <para><emphasis role="bold">Definieren von Eltern/Kind-Beziehungen</emphasis></para>
+
+  <para>Um &name-icinga; in die Lage zu versetzen, zwischen DOWN und UNREACHABLE-Zuständen der überwachten Hosts zu unterscheiden,
+  müssen Sie &name-icinga; mitteilen, wie diese Hosts miteinander verbunden sind - vom Standpunkt des &name-icinga;-Daemons aus
+  gesehen. Um dies zu tun verfolgen Sie den Weg, den ein Datenpaket vom &name-icinga;-Daemon zu jedem einzelnen Host nehmen würde.
+  Jeder Switch, Router und Server, den das Paket trifft oder passiert, wird als "Hop" angesehen und erfordert, dass Sie eine
+  Eltern/Kind-Beziehung in &name-icinga; definieren. Hier nun, wie die Host-Eltern/Kind-Beziehung aus der Sicht von &name-icinga;
+  aussieht:</para>
+
+  <para><inlinemediaobject>
+      <imageobject>
+        <imagedata fileref="../images/reachability2.png" format="PNG"></imagedata>
+      </imageobject>
+    </inlinemediaobject></para>
+
+  <para>Nun, da Sie wissen, wie die Eltern/Kind-Beziehungen für überwachte Hosts aussehen, wie konfigurieren Sie &name-icinga;, um
+  sie abzubilden? Die <emphasis>parents</emphasis>-Direktive in Ihren <link
+  linkend="objectdefinitions-host">Host-Definitionen</link> erlaubt Ihnen, das zu tun. Hier nun, wie die (verkürzten)
+  Host-Definitionen mit Eltern/Kind-Beziehung für dieses Beispiel aussehen würden:</para>
+
+  <screen> define host{
+        host_name               &name-icinga;   ; &lt;-- der lokale Host hat keine Eltern - es ist der am weitesten oben stehende Host
+        }
+ define host{
+        host_name       Switch1
+        parents         &name-icinga;
+        }
+ define host{
+        host_name       Web
+        parents         Switch1
+        }
+ define host{
+        host_name       FTP
+        parents         Switch1
+        }
+ define host{
+        host_name       Router1
+        parents         Switch1
+        }
+ define host{
+        host_name       Switch2
+        parents         Router1
+        }
+ define host{
+        host_name       Wkstn1
+        parents         Switch2
+        }
+ define host{
+        host_name       &name-hp;LJ2605
+        parents         Switch2
+        }
+ define host{
+        host_name       Router2
+        parents         Router1
+        }
+ define host{
+        host_name       somewebsite.com
+        parents         Router2
+        }</screen>
+
+  <para><emphasis role="bold">Erreichbarkeits-Logik in Aktion</emphasis></para>
+
+  <para>Nachdem Sie &name-icinga; mit den passenden Eltern/Kind-Beziehungen konfiguriert haben, lassen Sie uns sehen, was
+  passiert, wenn Probleme auftauchen. Nehmen Sie an, dass zwei Hosts, <emphasis>Web</emphasis> und <emphasis>Router1</emphasis>,
+  offline gehen...</para>
+
+  <para><inlinemediaobject>
+      <imageobject>
+        <imagedata fileref="../images/reachability3.png" format="PNG"></imagedata>
+      </imageobject>
+    </inlinemediaobject></para>
+
+  <para>Wenn Hosts den Status wechseln (d.h. von UP zu DOWN) wird die Host-Erreichbarkeitslogik in &name-icinga; anspringen. Die
+  Erreichbarkeits-Logik wird parallele Prüfungen der Eltern und Kinder aller Hosts veranlassen, deren Status sich ändert. Dies
+  erlaubt es &name-icinga; schnell den aktuellen Status Ihrer Netzwerk-Infrastruktur zu ermitteln, wenn Änderungen
+  auftreten.</para>
+
+  <para><inlinemediaobject>
+      <imageobject>
+        <imagedata fileref="../images/reachability4.png" format="PNG"></imagedata>
+      </imageobject>
+    </inlinemediaobject></para>
+
+  <para>In diesem Beispiel wird &name-icinga; feststellen, dass <emphasis>Web</emphasis> und <emphasis>Router1</emphasis> beide im
+  DOWN-Status sind, weil der "Pfad" zu diesen Hosts nicht blockiert ist.</para>
+
+  <para>&name-icinga; wird feststellen, dass alle Hosts "unterhalb" <emphasis>Router1</emphasis> alle in einem UNREACHABLE Status
+  sind, weil &name-icinga; sie nicht erreichen kann. <emphasis>Router1</emphasis> ist DOWN und blockiert den Weg zu diesen anderen
+  Hosts. Diese Hosts können wunderbar funktionieren oder offline sein - &name-icinga; weiß es nicht, weil es sie nicht erreichen
+  kann. Deshalb wird &name-icinga; sie als UNREACHABLE ansehen anstatt DOWN.</para>
+
+  <para><emphasis role="bold">UNREACHABLE Zustände und Benachrichtigungen</emphasis></para>
+
+  <para>Standardmäßig wird &name-icinga; Kontakte über Hosts im DOWN und UNREACHABLE-Status informieren. Als ein Admin/Techniker
+  möchten Sie vielleicht keine Benachrichtigungen über Hosts erhalten, die UNREACHABLE sind. Sie kennen Ihre Netzwerkstruktur und
+  wenn &name-icinga; Sie informiert, dass der Router/die Firewall unten ist, dann wissen Sie, dass alles dahinter nicht erreichbar
+  ist.</para>
+
+  <para>Falls Sie sich eine Flut von Benachrichtigungen über UNREACHABLE-Zustände während eines Netzwerkausfalls ersparen möchten,
+  können Sie die unreachable (u)-Option der <emphasis>notification_options</emphasis>-Direktive in Ihren <link
+  linkend="objectdefinitions-host">Host</link>-Definitionen und/oder die <emphasis>host_notification_options</emphasis>-Direktive
+  in Ihren <link linkend="objectdefinitions-contact">Kontakt</link>-Direktiven ausschließen.</para>
+</section>

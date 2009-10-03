@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="perfdata" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <title>Performance-Daten</title>
+
+  <para><emphasis role="bold">Einführung</emphasis></para>
+
+  <para>&name-icinga; ist ausgelegt, dass <link linkend="plugins">Plugins</link> neben den normalen Statusinformationen optional
+  auch Performance-Daten zurückliefern können, die Sie außerdem zur weiteren Verarbeitung an externe Applikationen übergeben
+  können. Eine Beschreibung der verschiedenen Typen von Performance-Daten wie auch Informationen dar�ber, wie diese Daten
+  verarbeitet werden, finden Sie im Folgenden...</para>
+
+  <para><emphasis role="bold">Typen von Performance-Daten</emphasis></para>
+
+  <para>Es gibt zwei grundlegende Kategorien von Performance-Daten, die von &name-icinga; erhalten werden können:</para>
+
+  <orderedlist>
+    <listitem>
+      <para>Prüf-Performance-Daten</para>
+    </listitem>
+
+    <listitem>
+      <para>Plugin-Performance-Daten</para>
+    </listitem>
+  </orderedlist>
+
+  <para>Prüf-Performance-Daten sind interne Daten, die sich auf die aktuelle Ausführung einer Host- oder Service-Prüfung beziehen.
+  Dies kann Dinge wie die Service-Prüfverzögerung enthalten (service check latency, d.h., wie viel Zeit von der geplanten
+  Ausführung bis zu eigentlichen Ausführung verging) oder die Anzahl der Sekunden, die die Ausführung einer Host- oder
+  Service-Prüfung dauerte. Dieser Typ von Performance-Daten ist für alle ausgeführten Prüfungen verfügbar. Die <link
+  linkend="macrolist-hostexecutiontime">$HOSTEXECUTIONTIME$</link>- und <link
+  linkend="macrolist-serviceexecutiontime">$SERVICEEXECUTIONTIME$</link>-<link linkend="macros">Makros</link> können benutzt
+  werden, um die Anzahl der Sekunden zu ermitteln, die eine Host- oder Service-Prüfung dauerte und die <link
+  linkend="macrolist-hostlatency">$HOSTLATENCY$</link>- und <link
+  linkend="macrolist-servicelatency">$SERVICELATENCY$</link>-Makros können zur Ermittlung der "Verspätung" einer regulär geplanten
+  Host- oder Service-Prüfung genutzt werden.</para>
+
+  <para>Plugin-Performance-Daten sind externe Daten, die spezifisch für das Plugin sind, das die Host- oder Service-Prüfung
+  ausführt. Plugin-spezifische Daten können Dinge wie Prozentsatz des Paketverlustes, freie Plattenplatz, Prozessor-Load, Anzahl
+  der gegenwärtigen Benutzer usw. umfassen - generell jede Art von Metrik, die das Plugin misst, wenn es ausgeführt wird.
+  Plugin-spezifische Performance-Daten sind optional und werden ggf. nicht von allen Plugins unterstützt. Plugin-spezifische
+  Performance-Daten (falls verfügbar) werden durch die <link linkend="macrolist-hostperfdata">$HOSTPERFDATA$</link>- und <link
+  linkend="macrolist-serviceperfdata">$SERVICEPERFDATA$</link>-<link linkend="macros">Makros</link> bereit gestellt. Lesen Sie
+  weiter, um mehr Informationen darüber zu erhalten, wie Plugins Performance-Daten an &name-icinga; zur Bereitstellung durch die
+  $HOSTPERFDATA$- und $SERVICEPERFDATA$-Makros zurückliefern können.</para>
+
+  <para><emphasis role="bold">Plugin-Performance-Daten</emphasis></para>
+
+  <para>Als Minimum müssen &name-icinga;-Plugins eine einzelne Zeile mit menschlich lesbarem Text zurückliefern, die den Status
+  eines Typs von Messdaten enthält. Zum Beispiel könnte das check_ping-Plugin eine Textzeile wie die folgende
+  zurückliefern:</para>
+
+  <screen> PING ok - Packet loss = 0%, RTA = 0.80 ms</screen>
+
+  <para>Bei dieser einfachen Art von Ausgabe ist die gesamte Textzeile in den $HOSTOUTPUT$- oder $SERVICEOUTPUT$-<link
+  linkend="macros">Makros</link> verfügbar (abhängig davon, ob dieses Plugin als Host- oder Service-Prüfung benutzt wurde).</para>
+
+  <para>Plugins können in ihrer Ausgabe optionale Performance-Daten zur�ckliefern, indem nach dem normalen, menschlich lesbaren
+  Text ein Pipe-Symbol (|) folgt und danach eine Zeichenkette, die ein oder mehrere Performance-Daten-Metriken enthält. Lassen Sie
+  uns das check_ping-Plugin als Beispiel nehmen und annehmen, dass es um die Ausgabe von Performance-Daten-Metriken für den
+  Prozentsatz von Paketverlusten (percent paket loss) und durchschnittlicher Umlaufzeit (average round trip time) erweitert wurde.
+  Die Beispielausgabe des Plugins könnte wie folgt aussehen:</para>
+
+  <screen> PING ok - Packet loss = 0%, RTA = 0.80 ms | percent_packet_loss=0, rta=0.80</screen>
+
+  <para>wenn &name-icinga; dieses Plugin-Ausgabeformat sieht, wird es die Ausgabe in zwei Teile aufteilen:</para>
+
+  <orderedlist>
+    <listitem>
+      <para>alles vor dem Pipe-Symbol wird als "normale" Ausgabe des Plugins angesehen und im $HOSTOUTPUT$- oder
+      $SERVICEOUTPUT$-Makro gespeichert</para>
+    </listitem>
+
+    <listitem>
+      <para>alles nach dem Pipe-Symbol wird als Plugin-spezifische Ausgabe angesehen und in den $HOSTPERFDATA$- oder
+      $SERVICEPERFDATA$-Makros gespeichert.</para>
+    </listitem>
+  </orderedlist>
+
+  <para>Im obigen Beispiel würde das $HOSTOUTPUT$- oder das $SERVICEOUTPUT$-Makro "<emphasis>PING ok - Packet loss = 0%, RTA =
+  0.80 ms</emphasis>" enthalten (ohne Anführungszeichen) und das $HOSTPERFDATA$- oder das $SERVICEPERFDATA$-Makro würde
+  "<emphasis>percent_packet_loss=0, rta=0.80</emphasis>" enthalten (ohne Anführungszeichen).</para>
+
+  <para>&name-icinga; kann mehrere Zeilen Performance-Daten (ebenso wie normale Textausgaben) von Plugins entgegennehmen, wie in
+  der <link linkend="pluginapi">plugin API documentation</link> beschrieben.</para>
+
+  <para><inlinemediaobject>
+      <imageobject>
+        <imagedata fileref="../images/note.gif" format="GIF"></imagedata>
+      </imageobject>
+    </inlinemediaobject> Anmerkung: der &name-icinga;-Daemon verarbeitet Plugin-Performance-Daten nicht direkt, so dass es ihm
+  egal ist, wie die Performance-Daten aussehen. Es gibt daher eigentlich keine Beschränkungen des Formats oder des Inhalts der
+  Performance-Daten. Wenn Sie allerdings ein externes Addon benutzen, um die Performance-Daten zu verarbeiten (z.B. PNP oder
+  PerfParse), erwartet das Addon die Performance-Daten möglicher Weise in einem bestimmten Format. Prüfen Sie die Dokumentation
+  des Addon auf weitere Informationen.</para>
+
+  <para><emphasis role="bold">Performance-Daten verarbeiten</emphasis></para>
+
+  <para>Wenn Sie die Performance-Daten, die von den Plugins und in &name-icinga; verfügbar sind, müssen Sie folgendes tun:</para>
+
+  <orderedlist>
+    <listitem>
+      <para>aktivieren Sie die <link linkend="configmain-process_performance_data">process_performance_data</link>-Option.</para>
+    </listitem>
+
+    <listitem>
+      <para>konfigurieren Sie &name-icinga; so, dass Performance-Daten in Dateien geschrieben und/oder durch Befehle verarbeitet
+      wird.</para>
+    </listitem>
+  </orderedlist>
+
+  <para>Lesen Sie weiter, um Informationen darüber zu erhalten, wie Performance-Daten durch das Schreiben in Dateien oder die
+  Ausführung von Befehlen verarbeitet werden.</para>
+
+  <para><emphasis role="bold">Performance-Daten verarbeiten durch Befehle</emphasis></para>
+
+  <para>Der flexibelste Weg, um Performance-Daten zu verarbeiten, besteht darin, &name-icinga; Befehle ausführen zu lassen (die
+  Sie angeben), um die Daten zu verarbeiten oder sie umzulenken, damit sie später von externen Applikationen verarbeiten werden.
+  Die Befehle, die &name-icinga; ausführt, um Host- und Service-Performance-Daten zu verarbeiten, werden durch die <link
+  linkend="configmain-host_perfdata_command">host_perfdata_command</link>- und <link
+  linkend="configmain-service_perfdata_command">service_perfdata_command</link>-Optionen festgelegt.</para>
+
+  <para>Eine Beispiel-Befehlsdefinition, die Service-Prüf-Performance-Daten zur späteren Verarbeitung durch eine andere
+  Applikation in eine Textdatei umleitet, finden Sie nachfolgend:</para>
+
+  <screen> # ACHTUNG: diese Definition funktioniert NICHT mit PNP!
+ define command{
+        command_name    store-service-perfdata
+        command_line    /bin/echo -e "$LASTSERVICECHECK$\t$HOSTNAME$\t$SERVICEDESC$\t$SERVICESTATE$\t$SERVICEATTEMPT$\t$SERVICESTATETYPE$\t$SERVICEEXECUTIONTIME$\t$SERVICELATENCY$\t$SERVICEOUTPUT$\t$SERVICEPERFDATA$" &gt;&gt; &url-icinga-base;/var/service-perfdata.dat
+        }</screen>
+
+  <para><inlinemediaobject>
+      <imageobject>
+        <imagedata fileref="../images/tip.gif" format="GIF"></imagedata>
+      </imageobject>
+    </inlinemediaobject> Hinweis: Diese Methode, obwohl flexibel, erzeugt einen relativ hohen CPU-Overhead. Wenn Sie
+  Performance-Daten für viele Hosts und Services verarbeiten, dann ist es vielleicht besser, diese Daten in eine Datei zu
+  schreiben. Diese Methode wird im nächsten Abschnitt beschrieben.</para>
+
+  <para><emphasis role="bold">Performance-Daten in Dateien schreiben</emphasis></para>
+
+  <para>Sie können &name-icinga; mit Hilfe der <link linkend="configmain-host_perfdata_file">host_perfdata_file</link>- und <link
+  linkend="configmain-service_perfdata_file">service_perfdata_file</link>-Optionen anweisen, die Host- und
+  Service-Performance-Daten direkt in Textdateien auszugeben. Das Format, in dem Host- und Service-Performance-Daten in diese
+  Dateien geschrieben wird, wird durch die <link
+  linkend="configmain-host_perfdata_file_template">host_perfdata_file_template</link>- und <link
+  linkend="configmain-service_perfdata_file_template">service_perfdata_file_template</link>-Optionen festgelegt.</para>
+
+  <para>Eine Beispiel-Dateiformatvorlage für Performance-Daten könnte wie folgt aussehen:</para>
+
+  <screen> # ACHTUNG: diese Definition funktioniert NICHT mit PNP!
+ service_perfdata_file_template=[SERVICEPERFDATA]\t$TIMET$\t$HOSTNAME$\t$SERVICEDESC$\t$SERVICEEXECUTIONTIME$\t$SERVICELATENCY$\t$SERVICEOUTPUT$\t$SERVICEPERFDATA$
+</screen>
+
+  <para>Per Default werden die Textdateien im "append"-Modus ("anhängen") eröffnet. Wenn Sie den Modus auf "write" ("schreiben")
+  oder "non-blocking read/write" ("nicht-blockierendes Lesen/Schreiben", nützlich beim Schreiben in Pipes) ändern, können Sie die
+  <link linkend="configmain-host_perfdata_file_mode">host_perfdata_file_mode</link>- und <link
+  linkend="configmain-service_perfdata_file_mode">service_perfdata_file_mode</link>-Optionen nutzen.</para>
+
+  <para>Zusätzlich können Sie &name-icinga; mit den <link
+  linkend="configmain-host_perfdata_file_processing_command">host_perfdata_file_processing_command</link>- und <link
+  linkend="configmain-service_perfdata_file_processing_command">service_perfdata_file_processing_command</link>-Optionen anweisen,
+  periodisch Befehle auszuführen, um regelmäßig die Performance-Daten-Dateien zu verarbeiten (z.B., um sie zu rotieren). Das
+  Intervall, in dem diese Befehle ausgeführt werden, ist durch die <link
+  linkend="configmain-host_perfdata_file_processing_interval">host_perfdata_file_processing_interval</link>- und <link
+  linkend="configmain-service_perfdata_file_processing_interval">service_perfdata_file_processing_interval</link>-Optionen
+  festgelegt.</para>
+</section>

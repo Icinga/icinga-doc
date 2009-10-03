@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="int-tcpwrappers" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <title>TCP-Wrapper-Integration</title>
+
+  <para><emphasis role="bold">Einführung</emphasis></para>
+
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="../images/tcpwrappers.png" format="PNG"></imagedata>
+    </imageobject>
+  </mediaobject>
+
+  <para>Dieses Dokument erklärt, wie einfach in &name-icinga; Alarme für Verbindungsversuche generiert werden können, die von
+  TCP-Wrappern zurückgewiesen werden. Wenn zum Beispiel ein unautorisierter Host versucht, sich mit Ihrem SSH-Server zu verbinden,
+  können Sie in &name-icinga; einen Alarm empfangen, der den Namen des Hosts enthält, der zurückgewiesen wurde. Wenn Sie das auf
+  Ihren &name-linux;/Unix-Boxen installieren, dann werden Sie erstaunt sein, wie viele Port-Scans Sie in Ihrem Netzwerk
+  entdecken.</para>
+
+  <para>Diese Anweisungen gehen davon aus, dass</para>
+
+  <orderedlist>
+    <listitem>
+      <para>Sie bereits mit <link linkend="passivechecks">passiven Prüfungen</link> vertraut sind und wissen, wie sie
+      arbeiten.</para>
+    </listitem>
+
+    <listitem>
+      <para>Sie bereits mit <link linkend="volatileservices">sprunghaften Services</link> vertraut sind und wissen, wie sie
+      arbeiten.</para>
+    </listitem>
+
+    <listitem>
+      <para>der Host, für den Sie Alarme generieren (d.h. der Host, auf dem Sie TCP-Wrapper benutzen), ein entfernter Host ist (in
+      diesem Beispiel <emphasis>firestorm</emphasis> genannt). Wenn Sie Alarme auf dem gleichen Host generieren möchten, müssen
+      Sie ein paar Anpassungen an den Beispielen machen, die wir bereitstellen.</para>
+    </listitem>
+
+    <listitem>
+      <para>Sie den <link linkend="addons-nsca">&name-nsca;-Daemon</link> auf Ihrem Überwachungs-Server und den &name-nsca; client
+      (<emphasis>send_nsca</emphasis>) auf der entfernten Maschine installiert haben, für die Sie TCP-Wrapper-Alarme generieren
+      möchten.</para>
+    </listitem>
+  </orderedlist>
+
+  <para><emphasis role="bold">Einen Service definieren</emphasis></para>
+
+  <para>Wenn Sie es nicht bereits getan haben, erstellen Sie eine <link linkend="objectdefinitions-host">Host-Definition</link>
+  für den entfernten Host (<emphasis>firestorm</emphasis>).</para>
+
+  <para>Als nächstes definieren Sie einen Service in einer Ihrer <link linkend="configobject">Objektkonfigurationsdateien</link>
+  für die TCP-Wrapper-Alarme auf dem Host <emphasis>firestorm</emphasis>. Die Service-Definition könnte wie folgt aussehen:</para>
+
+  <screen> define service{
+        host_name                       firestorm
+        service_description             TCP Wrappers
+        is_volatile                     1
+        active_checks_enabled           0
+        passive_checks_enabled          1
+        max_check_attempts              1
+        check_command                   check_none
+        ...
+        }</screen>
+
+  <para>Es gibt einige wichtige Dinge zu der obigen Service-Definition anzumerken:</para>
+
+  <orderedlist>
+    <listitem>
+      <para>Die <emphasis>volatile</emphasis>-Option ist aktiviert. Wir wollen, dass diese Option aktiviert ist, weil wir eine
+      Benachrichtigung für jeden Alarm haben wollen, der herein kommt.</para>
+    </listitem>
+
+    <listitem>
+      <para>Aktive Prüfungen für den Service sind deaktiviert, während passive Prüfungen aktiviert sind. Das bedeutet, dass der
+      Service niemals aktiv von &name-icinga; geprüft wird - alle Alarminformationen müssen passiv von einer externen Quelle
+      empfangen werden.</para>
+    </listitem>
+
+    <listitem>
+      <para>Der <emphasis>max_check_attempts</emphasis>-Wert wird auf 1 gesetzt. Das gewährleistet, dass Sie eine Benachrichtigung
+      erhalten, sobald der erste Alarm generiert wird.</para>
+    </listitem>
+  </orderedlist>
+
+  <para><emphasis role="bold">TCP-Wrapper konfigurieren</emphasis></para>
+
+  <para>Nun müssen Sie die <emphasis>/etc/hosts.deny</emphasis>-Datei auf <emphasis>firestorm</emphasis> editieren. Damit die
+  TCP-Wrapper einen Alarm an den Überwachungs-Host senden, sobald ein Verbindungsversuch verweigert wird, müssen Sie eine Zeile
+  hinzufügen, die der folgenden ähnlich ist.</para>
+
+  <screen> ALL: ALL: RFC931: twist (&url-icinga-libexec;/eventhandlers/handle_tcp_wrapper %h %d) &amp;</screen>
+
+  <para>Diese Zeile nimmt an, dass es ein Script namens <emphasis>handle_tcp_wrapper</emphasis> im
+  <emphasis>&url-icinga-libexec;/eventhandlers/</emphasis>-Verzeichnis auf <emphasis>firestorm</emphasis> gibt. Wir werden dieses
+  Script als nächstes schreiben.</para>
+
+  <para><emphasis role="bold">Das Script schreiben</emphasis></para>
+
+  <para>Als letztes müssen Sie das <emphasis>handle_tcp_wrapper</emphasis>-Script auf <emphasis>firestorm</emphasis> schreiben,
+  das den Alarm zurück an den &name-icinga;-Server schickt. Es könnte ungefähr so aussehen:</para>
+
+  <screen> #!/bin/sh 
+&url-icinga-libexec;/eventhandlers/submit_check_result firestorm "TCP Wrappers" 2 "Denied $2-$1" &gt; /dev/null 2&gt; /dev/null</screen>
+
+  <para>Beachten Sie, dass das <emphasis>handle_tcp_wrapper</emphasis>-Script das <emphasis>submit_check_result</emphasis>-Script
+  aufruft, um den Alarm zurück an den Überwachungs-Host zu schicken. Angenommen, Ihr &name-icinga;-Server heißt
+  <emphasis>monitor</emphasis>, dann könnte das <emphasis>submit check_result</emphasis>-Script wie folgt aussehen:</para>
+
+  <screen> #!/bin/sh
+ # Arguments
+ #       $1 = name of host in service definition
+ #       $2 = name/description of service in service definition
+ #       $3 = return code
+ #       $4 = output
+ /bin/echo -e "$1\t$2\t$3\t$4\n" | &url-icinga-base;/bin/send_nsca monitor -c &url-icinga-base;/etc/send_nsca.cfg</screen>
+
+  <para><emphasis role="bold">Aufräumen</emphasis></para>
+
+  <para>Sie haben nun alles konfiguriert, was Sie brauchen, so dass Sie nur noch den <emphasis>inetd</emphasis>-Prozess auf
+  <emphasis>firestorm</emphasis> und &name-icinga; auf Ihrem Überwachungs-Server neu starten müssen. Das war's! Wenn die
+  TCP-Wrapper auf <emphasis>firestorm</emphasis> einen Verbindungsversuch verweigern, dann sollten Sie Alarme in &name-icinga;
+  erhalten. Die Plugin-Ausgabe für den Alarm könnte wie folgt aussehen:</para>
+
+  <screen> Denied sshd2-sdn-ar-002mnminnP321.dialsprint.net</screen>
+</section>

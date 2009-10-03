@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="hostchecks" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <title>Host-Prüfungen (Host checks)</title>
+
+  <para><emphasis role="bold">Einführung</emphasis></para>
+
+  <para>Die grundlegenden Tätigkeiten von Host-Prüfungen werden hier beschrieben...</para>
+
+  <para><emphasis role="bold">Wann werden Host-Prüfungen durchgeführt?</emphasis></para>
+
+  <para>Hosts werden durch den &name-icinga;-Daemon geprüft</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>in regelmäßigen Intervallen, wie sie durch die <emphasis>check_interval</emphasis> und
+      <emphasis>retry_interval</emphasis>-Optionen in Ihren <link linkend="objectdefinitions-host">Host-Definitionen</link>
+      festgelegt sind.</para>
+    </listitem>
+
+    <listitem>
+      <para>nach Bedarf, wenn ein mit dem Host verbundener Service den Status wechselt.</para>
+    </listitem>
+
+    <listitem>
+      <para>nach Bedarf als Teil der <link linkend="networkreachability">Host-Verfügbarkeit</link>s-Logik.</para>
+    </listitem>
+
+    <listitem>
+      <para>nach Bedarf bei <link linkend="dependencychecks">vorausschauenden Host-Abhängigkeitsprüfungen</link>.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>Regelmäßige Host-Prüfungen sind optional. Wenn Sie die <emphasis>check_interval</emphasis>-Option in Ihrer Host-Definition
+  auf Null (0) setzen, wird &name-icinga; keine Host-Prüfungen auf planmäßiger Basis durchführen. Es wird jedoch weiterhin nach
+  Bedarf Prüfungen für den Host durchführen für andere Teile der Überwachungslogik.</para>
+
+  <para>Prüfungen nach Bedarf werden gemacht, wenn ein mit dem Host verbundener Service den Status wechselt, denn &name-icinga;
+  muss wissen, ob auch der Host den Status gewechselt hat. Services, die den Status wechseln, sind oft ein Indikator dafür, dass
+  auch der Host den Status gewechselt hat. Wenn beispielsweise der mit einem Host verbundene HTTP-Service den Status von CRITICAL
+  auf OK gewechselt hat, kann das bedeuten, dass der Host gerade einen Reboot beendet hat und nun wieder verfügbar ist.</para>
+
+  <para>Host-Prüfungen nach Bedarf werden auch als Teil der <link linkend="networkreachability">Host-Erreichbarkeit</link>
+  erledigt. &name-icinga; ist so konstruiert, dass Netzwerkausfälle so schnell wie möglich erkannt werden und zwischen DOWN- und
+  UNREACHABLE-Zuständen unterschieden werden kann. Das sind sehr unterschiedliche Zustände und es kann dem Admin helfen, schnell
+  die Ursache für einen Netzwerkausfall zu finden.</para>
+
+  <para>Prüfungen nach Bedarf werden auch als Teil der <link linkend="dependencychecks">vorausschauenden
+  Host-Abhängigkeitsprüfung</link>s-Logik durchgeführt.</para>
+
+  <para><emphasis role="bold">zwischengespeicherte Host-Prüfungen (cached host checks)</emphasis></para>
+
+  <para>Die Performance von Host-Prüfungen nach Bedarf kann signifikant durch den Einsatz von "cached checks" erhöht werden, die
+  es &name-icinga; erlauben, auf eine Host-Prüfung zu verzichten, wenn es feststellt, dass ein relativ frisches Prüfungsergebnis
+  genügt. Mehr Informationen zu "cached checks" finden Sie <link linkend="cachedchecks">hier</link>.</para>
+
+  <para><emphasis role="bold">Abhängigkeiten und Prüfungen</emphasis></para>
+
+  <para>Sie können <link linkend="objectdefinitions-hostdependency">Host-Ausführungs-Abhängigkeiten</link> definieren, die
+  &name-icinga; von der Statusprüfung eines Hosts abhalten in Abhängigkeit vom Status ein oder mehrerer anderer Hosts. Mehr
+  Informationen zu Abhängigkeiten finden Sie <link linkend="dependencies">hier</link>.</para>
+
+  <para><emphasis role="bold">Parallelisierung von Host-Prüfungen</emphasis></para>
+
+  <para>Geplante Host-Prüfungen laufen parallel. Wenn &name-icinga; eine geplante Host-Prüfung ausführt, wird es die Host-Prüfung
+  veranlassen und dann zu anderen Arbeiten zurückkehren (Service-Prüfungen ausführen, etc.). Die Host-Prüfung läuft in einem
+  Kind-Prozess, der vom Haupt-&name-icinga;-Prozess aufgerufen wird ("fork()ed"). Wenn die Host-Prüfung beendet ist, wird der
+  Kind-Prozess den Haupt-&name-icinga;-Prozess (seinen Eltern-Prozess) über das Ergebnis informieren. Der
+  Haupt-&name-icinga;-Prozess wird dann das Prüfungsergebnis behandeln und geeignete Aktionen durchführen (Eventhandler starten,
+  Benachrichtigungen senden, usw.).</para>
+
+  <para>Host-Prüfungen nach Bedarf laufen ebenfalls parallel, falls notwendig. Wie bereits vorher erwähnt kann &name-icinga; auf
+  die eigentliche Ausführung einer Host-Prüfung nach Bedarf verzichten, wenn es das gespeicherte Ergebnis einer relativ frischen
+  Host-Prüfung benutzen kann.</para>
+
+  <para>Wenn &name-icinga; die Ergebnisse von geplanten und nach Bedarf ausgeführten Host-Prüfungen verarbeitet, kann es
+  (zusätzliche) Prüfungen anderer Hosts veranlassen. Diese Prüfungen können aus zwei Gründen veranlasst werden: <link
+  linkend="dependencychecks">vorausschauende Abhängigkeitsprüfungen</link> und um den Status des Hosts mit Hilfe von <link
+  linkend="networkreachability">Netzwerk-Erreichbarkeit</link>s-Logik festzustellen. Die zusätzlichen Prüfungen werden
+  normalerweise parallel ausgeführt. Allerdings gibt es eine große Ausnahme, der Sie sich bewusst sein sollten, da sie einen
+  negativen Einfluss auf die Performance haben kann...</para>
+
+  <para><inlinemediaobject>
+      <imageobject>
+        <imagedata fileref="../images/note.gif" format="GIF"></imagedata>
+      </imageobject>
+    </inlinemediaobject> Hosts, deren <emphasis>max_check_attempts</emphasis>-Wert auf <emphasis role="bold">1</emphasis> gesetzt
+  sind, können schwerwiegende Performance-Probleme verursachen. Der Grund? Wenn &name-icinga; den richtigen Status mit Hilfe der
+  <link linkend="networkreachability">Netzwerk-Erreichbarkeit</link>s-Logik ermitteln muss (um zu sehen, ob sie DOWN oder
+  UNREACHABLE sind), muss es <emphasis role="bold">aufeinanderfolgende</emphasis> Prüfungen für alle direkten Eltern des Hosts
+  starten. Um es noch einmal zu wiederholen, diese Prüfungen laufen <emphasis>nacheinander</emphasis> statt parallel, also kann es
+  zu einem Performance-Einbruch kommen. Aus diesem Grund würden wir empfehlen, dass Sie immer einen Wert größer als 1 für die
+  <emphasis>max_check_attempts</emphasis>-Direktiven in Ihren Host-Definitionen benutzen.</para>
+
+  <para><emphasis role="bold">Host-Zustände</emphasis></para>
+
+  <para>Hosts, die geprüft werden, können in einem von drei unterschiedlichen Zuständen sein</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>UP</para>
+    </listitem>
+
+    <listitem>
+      <para>DOWN</para>
+    </listitem>
+
+    <listitem>
+      <para>UNREACHABLE</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis role="bold">Host-Statusermittlung</emphasis></para>
+
+  <para>Host-Prüfungen werden mit Hilfe von <link linkend="plugins">Plugins</link> durchgeführt, die den Status OK, WARNING,
+  UNKNOWN oder CRITICAL zurückliefern können. Wie übersetzt &name-icinga; diese Return-Codes der Plugins in die Host-Zustände UP,
+  DOWN oder UNREACHABLE? Wir werden sehen...</para>
+
+  <para>Die nachfolgende Tabelle zeigt, wie sich die Return-Codes von Plugins mit vorläufigen Host-Zuständen decken. Einige
+  Nachbearbeitung (die später beschrieben wird) ergibt den endgültigen Host-Zustand.</para>
+
+  <informaltable frame="all">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="10*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para> <emphasis role="bold">Plugin-Ergebnis</emphasis> </para></entry>
+
+          <entry><para> <emphasis role="bold">vorläufiger Host-Zustand</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry><para>OK</para></entry>
+
+          <entry><para>UP</para></entry>
+        </row>
+
+        <row>
+          <entry><para>WARNING</para></entry>
+
+          <entry><para>UP oder DOWN<superscript>*</superscript></para></entry>
+        </row>
+
+        <row>
+          <entry><para>UNKNOWN</para></entry>
+
+          <entry><para>DOWN</para></entry>
+        </row>
+
+        <row>
+          <entry><para>CRITICAL</para></entry>
+
+          <entry><para>DOWN</para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para><inlinemediaobject>
+      <imageobject>
+        <imagedata fileref="../images/note.gif" format="GIF"></imagedata>
+      </imageobject>
+    </inlinemediaobject> Anmerkung: Das Ergebnis WARNING bedeutet normalerweise, dass der Host UP ist. Trotzdem werden
+  WARNING-Ergebnisse so interpretiert, dass der Host DOWN ist, wenn die <link
+  linkend="configmain-use_aggressive_host_checking">use_aggressive_host_checking</link>-Option aktiviert ist.</para>
+
+  <para>Wenn der vorläufige Host-Status DOWN ist, wird &name-icinga; versuchen festzustellen, ob der Host wirklich DOWN ist oder
+  UNREACHABLE. Die Unterscheidung zwischen den Host-Zuständen DOWN und UNREACHABLE ist wichtig, weil es Admins erlaubt, die
+  Grundursache von Netzwerkausfällen schneller zu ermitteln. Die folgende Tabelle zeigt, wie &name-icinga; eine endgültige
+  Zustandsermittlung basierend auf dem Zustand der Eltern des Hosts durchführt. Die Eltern eines Hosts werden in der
+  <emphasis>parents</emphasis>-Direktive der Host-Definition festgelegt.</para>
+
+  <informaltable frame="all">
+    <tgroup cols="3">
+      <colspec colname="c1" colwidth="15*" />
+
+      <colspec colname="c2" colwidth="33*" />
+
+      <colspec colname="c3" colwidth="10*" />
+
+      <tbody>
+        <row>
+          <entry><para> <emphasis role="bold">vorläufiger Host-Zustand</emphasis> </para></entry>
+
+          <entry><para> <emphasis role="bold">Zustand Host-Eltern</emphasis> </para></entry>
+
+          <entry><para> <emphasis role="bold">endgültiger Host-Zustand</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry><para>DOWN</para></entry>
+
+          <entry><para>mindestens ein Elternteil ist UP</para></entry>
+
+          <entry><para>DOWN</para></entry>
+        </row>
+
+        <row>
+          <entry><para>DOWN</para></entry>
+
+          <entry><para>alle Eltern sind entweder DOWN oder UNREACHABLE</para></entry>
+
+          <entry><para>UNREACHABLE</para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Mehr Informationen, wie &name-icinga; zwischen DOWN- und UNREACHABLE-Zuständen unterscheidet, finden Sie <link
+  linkend="networkreachability">hier</link>.</para>
+
+  <para><emphasis role="bold">Host-Statusänderungen</emphasis></para>
+
+  <para>Wie Ihnen wahrscheinlich bereits bewusst ist, bleiben Hosts nicht immer in einem Zustand. Dinge gehen kaputt, Patches
+  werden eingespielt und Server müssen neu gestartet werden. Wenn &name-icinga; den Status von Hosts prüft, ist es in der Lage
+  festzustellen, wenn ein Host zwischen UP-, DOWN- und UNREACHABLE-Zuständen wechselt und geeignete Maßnahmen ergreifen. Diese
+  Zustandsänderungen resultieren in verschiedenen <link linkend="statetypes">Statustypen</link> (HARD oder SOFT), was zum Auslösen
+  von <link linkend="eventhandlers">Eventhandlern</link> und dem Versenden von <link
+  linkend="notifications">Benachrichtigungen</link> führen kann. Das Erkennen und Behandeln von Statusänderungen ist das, worum es
+  sich bei &name-icinga; handelt.</para>
+
+  <para>Wenn Host-Statusänderungen zu oft erfolgen, werden sie als "flatternd" (flapping) angesehen. Ein gutes Beispiel für einen
+  flatternden Host wäre ein Server, der spontan jedes Mal neu startet, sobald das Betriebssystem lädt. Das ist immer ein spaßiges
+  Szenario, mit dem man sich befassen muss. &name-icinga; kann erkennen, wenn Hosts anfangen zu flattern, und kann
+  Benachrichtigungen unterdrücken, bis das Flattern stoppt und sich der Host-Status stabilisiert. Mehr Informationen über die
+  Erkennungslogik des Flatterns finden Sie <link linkend="flapping">hier</link>.</para>
+</section>

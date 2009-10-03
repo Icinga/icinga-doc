@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="freshness" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="freshness_checks" />Service and Host Freshness Checks</title>
+
+  <para><emphasis role="bold">Introduction</emphasis></para>
+
+  <para>&name-icinga; supports a feature that does "freshness" checking on the results of host and service checks. The purpose of
+  freshness checking is to ensure that host and service checks are being provided passively by external applications on a regular
+  basis.</para>
+
+  <para>Freshness checking is useful when you want to ensure that <link linkend="passivechecks">passive checks</link> are being
+  received as frequently as you want. This can be very useful in <link linkend="distributed">distributed</link> and <link
+  linkend="redundancy">failover</link> monitoring environments.</para>
+
+  <para><inlinemediaobject>
+      <imageobject>
+        <imagedata fileref="../images/freshness.png" format="PNG"></imagedata>
+      </imageobject>
+    </inlinemediaobject></para>
+
+  <para><emphasis role="bold">How Does Freshness Checking Work?</emphasis></para>
+
+  <para>&name-icinga; periodically checks the freshness of the results for all hosts services that have freshness checking
+  enabled.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>A freshness threshold is calculated for each host or service.</para>
+    </listitem>
+
+    <listitem>
+      <para>For each host/service, the age of its last check result is compared with the freshness threshold.</para>
+    </listitem>
+
+    <listitem>
+      <para>If the age of the last check result is greater than the freshness threshold, the check result is considered
+      "stale".</para>
+    </listitem>
+
+    <listitem>
+      <para>If the check results is found to be stale, &name-icinga; will force an <link linkend="activechecks">active
+      check</link> of the host or service by executing the command specified by in the host or service definition.</para>
+    </listitem>
+  </itemizedlist>
+
+  <tip>
+    <para>An active check is executed even if active checks are disabled on a program-wide or host- or service-specific
+    basis.</para>
+  </tip>
+
+  <para>For example, if you have a freshness threshold of 60 for one of your services, &name-icinga; will consider that service to
+  be stale if its last check result is older than 60 seconds.</para>
+
+  <para><emphasis role="bold">Enabling Freshness Checking</emphasis></para>
+
+  <para>Here's what you need to do to enable freshness checking...</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Enable freshness checking on a program-wide basis with the <link
+      linkend="configmain-check_service_freshness">check_service_freshness</link> and <link
+      linkend="configmain-check_host_freshness">check_host_freshness</link> directives.</para>
+    </listitem>
+
+    <listitem>
+      <para>Use <link linkend="configmain-service_freshness_check_interval">service_freshness_check_interval</link> and <link
+      linkend="configmain-host_freshness_check_interval">host_freshness_check_interval</link> options to tell &name-icinga; how
+      often in should check the freshness of service and host results.</para>
+    </listitem>
+
+    <listitem>
+      <para>Enable freshness checking on a host- and service-specific basis by setting the <emphasis>check_freshness</emphasis>
+      option in your host and service definitions to a value of 1.</para>
+    </listitem>
+
+    <listitem>
+      <para>Configure freshness thresholds by setting the <emphasis>freshness_threshold</emphasis> option in your host and service
+      definitions.</para>
+    </listitem>
+
+    <listitem>
+      <para>Configure the <emphasis>check_command</emphasis> option in your host or service definitions to reflect a valid command
+      that should be used to actively check the host or service when it is detected as stale.</para>
+    </listitem>
+
+    <listitem>
+      <para>The <emphasis>check_period</emphasis> option in your host and service definitions is used when &name-icinga;
+      determines when a host or service can be checked for freshness, so make sure it is set to a valid timeperiod.</para>
+    </listitem>
+  </itemizedlist>
+
+  <tip>
+    <para>If you do not specify a host- or service-specific <emphasis>freshness_threshold</emphasis> value (or you set it to
+    zero), &name-icinga; will automatically calculate a threshold automatically, based on a how often you monitor that particular
+    host or service. We would recommend that you explicitly specify a freshness threshold, rather than let &name-icinga; pick one
+    for you.</para>
+  </tip>
+
+  <para><emphasis role="bold">Example</emphasis></para>
+
+  <para>An example of a service that might require freshness checking might be one that reports the status of your nightly backup
+  jobs. Perhaps you have a external script that submit the results of the backup job to &name-icinga; once the backup is
+  completed. In this case, all of the checks/results for the service are provided by an external application using passive checks.
+  In order to ensure that the status of the backup job gets reported every day, you may want to enable freshness checking for the
+  service. If the external script doesn't submit the results of the backup job, you can have &name-icinga; fake a critical result
+  by doing something like this...</para>
+
+  <para>Here's what the definition for the service might look like (some required options are omitted)...</para>
+
+  <screen> define service{
+        host_name               backup-server
+        service_description     ArcServe Backup Job
+        active_checks_enabled   0               ; active checks are NOT enabled
+        passive_checks_enabled  1               ; passive checks are enabled (this is how results are reported)
+        check_freshness         1
+        freshness_threshold     93600           ; 26 hour threshold, since backups may not always finish at the same time
+        check_command           no-backup-report        ; this command is run only if the service results are "stale"
+        ...other options...
+        }</screen>
+
+  <para>Notice that active checks are disabled for the service. This is because the results for the service are only made by an
+  external application using passive checks. Freshness checking is enabled and the freshness threshold has been set to 26 hours.
+  This is a bit longer than 24 hours because backup jobs sometimes run late from day to day (depending on how much data there is
+  to backup, how much network traffic is present, etc.). The <emphasis>no-backup-report</emphasis> command is executed only if the
+  results of the service are determined to be stale. The definition of the <emphasis>no-backup-report</emphasis> command might
+  look like this...</para>
+
+  <screen> define command{
+        command_name    no-backup-report
+        command_line    &url-icinga-base;/libexec/check_dummy 2 "CRITICAL: Results of backup job were not reported!"
+        }</screen>
+
+  <para>If &name-icinga; detects that the service results are stale, it will run the <emphasis>no-backup-report</emphasis> command
+  as an active service check. This causes the <emphasis>check_dummy</emphasis> plugin to be executed, which returns a critical
+  state to &name-icinga;. The service will then go into to a critical state (if it isn't already there) and someone will probably
+  get notified of the problem.</para>
+</section>

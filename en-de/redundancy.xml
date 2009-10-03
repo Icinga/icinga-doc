@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="redundancy" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <title>Redundante und Failover-Netzwerk-Überwachung</title>
+
+  <para><emphasis role="bold">Einführung</emphasis></para>
+
+  <para>Dieser Abschnitt beschreibt einige Szenarien zum Implementieren von redundanten Überwachungs-Hosts auf verschiedenen Arten
+  von Netzwerk-Layouts. Mit redundanten Hosts können Sie die Überwachung Ihres Netzwerkes aufrecht erhalten, wenn der primäre
+  Host, auf dem &name-icinga; läuft, ausfällt oder wenn Teile Ihres Netzwerkes unerreichbar werden.</para>
+
+  <para><emphasis condition="red" role="color"> <emphasis role="bold">Anmerkung:</emphasis> </emphasis> Wenn Sie gerade lernen,
+  wie &name-icinga; zu nutzen ist, würden wir empfehlen, Redundanz so lange nicht zu implementieren, bis Sie mit den <link
+  linkend="redundancy-prerequisites">Voraussetzungen</link> vertraut sind. Redundanz ist ein relativ komplexes Thema und es ist
+  noch schwieriger, es zu implementieren.</para>
+
+  <para><emphasis role="bold">Index</emphasis></para>
+
+  <para><link linkend="redundancy-prerequisites">Voraussetzungen</link></para>
+
+  <para><link linkend="redundancy-samples">Beispiel-Scripte</link></para>
+
+  <para><link linkend="redundancy-scenario_1">Szenario 1 - Redundante Überwachung</link></para>
+
+  <para><link linkend="redundancy-scenario_2">Szenario 2 - Failover Überwachung</link></para>
+
+  <para><anchor xml:id="redundancy-prerequisites" /> <emphasis role="bold">Voraussetzungen</emphasis></para>
+
+  <para>Bevor Sie überhaupt daran denken können, Redundanz mit &name-icinga; zu implementieren, müssen Sie mit folgenden Dingen
+  vertraut werden...</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Implementieren von <link linkend="eventhandlers">Eventhandlern</link> für Hosts und Services</para>
+    </listitem>
+
+    <listitem>
+      <para>Erteilen von <link linkend="extcommands">externen Befehlen</link> an &name-icinga; über Shell-Scripts</para>
+    </listitem>
+
+    <listitem>
+      <para>Ausführen von Plugins auf entfernten Hosts mit Hilfe des <link linkend="addons-nrpe">&name-nrpe; Addons</link> oder
+      einer anderen Methode</para>
+    </listitem>
+
+    <listitem>
+      <para>Überprüfen des Zustands des &name-icinga;-Prozesses mit dem <emphasis>check_nagios</emphasis> Plugin</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><anchor xml:id="redundancy-samples" /> <emphasis role="bold">Beispiel-Scripte</emphasis></para>
+
+  <para>Jedes dieser Beispiel-Scripte, die wir in dieser Dokumentation benutzen, finden Sie im
+  <emphasis>eventhandlers/</emphasis>-Unterverzeichnis der &name-icinga;-Distribution. Vielleicht müssen Sie sie modifizieren,
+  damit sie auf Ihrem System funktionieren...</para>
+
+  <para><anchor xml:id="redundancy-scenario_1" /> <emphasis role="bold">Szenario 1 - Redundante Überwachung</emphasis></para>
+
+  <para><emphasis role="bold">Einführung</emphasis></para>
+
+  <para>Dies ist eine einfache (und harmlose) Methode, redundante Überwachungs-Hosts zu implementieren, und es wird nur gegen eine
+  begrenzte Anzahl von Ausfällen schützen. Komplexere Setups werden benötigt, um intelligentere Redundanz, bessere Redundanz über
+  verschiedene Netzwerk-Segmente hinweg zu bieten.</para>
+
+  <para><emphasis role="bold">Ziele</emphasis></para>
+
+  <para>Das Ziel dieser Art von Redundanz-Implementierung ist einfach. Sowohl der "Master"- als auch der "Slave"-Host überwachen
+  die gleichen Hosts und Services auf dem Netzwerk. Unter normalen Umständen wird nur der "Master"-Host Benachrichtigungen an
+  Kontakte versenden. Wir wollen, dass der "Slave"-Host die Benachrichtigung von Kontakten übernimmt, wenn:</para>
+
+  <orderedlist>
+    <listitem>
+      <para>der "Master"-Host, auf dem &name-icinga; läuft, "down" ist oder...</para>
+    </listitem>
+
+    <listitem>
+      <para>der &name-icinga;-Prozess auf dem "Master"-Host aus irgendeinem Grund stoppt</para>
+    </listitem>
+  </orderedlist>
+
+  <para><emphasis role="bold">Netzwork-Layout-Diagramm</emphasis></para>
+
+  <para>Das untenstehende Diagramm zeigt ein sehr simples Netzwerk-Setup. Bei diesem Szenario nehmen wir an, dass auf den Hosts A
+  und E &name-icinga; läuft und alle gezeigten Hosts überwacht werden. Host A ist der "Master"-Host und Host E der
+  "Slave"-Host.</para>
+
+  <informaltable frame="all">
+    <tgroup cols="1">
+      <colspec colname="c1" colwidth="100*" />
+
+      <tbody>
+        <row>
+          <entry><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/redundancy.png" format="PNG"></imagedata>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para><emphasis role="bold">anfängliche Programmeinstellungen</emphasis></para>
+
+  <para>Auf dem Slave-Host (Host E) wird die ursprüngliche <link
+  linkend="configmain-enable_notifications">enable_notifications</link>-Direktive deaktiviert, so dass dadurch der Versand von
+  Host- oder Service-Benachrichtigungen verhindert wird. Sie sollten auch sicherstellen, dass die <link
+  linkend="configmain-check_external_commands">check_external_commands</link>-Direktive deaktiviert ist. Das war einfach
+  genug...</para>
+
+  <para><emphasis role="bold">anfängliche Konfiguration</emphasis></para>
+
+  <para>Als nächstes sollten wir die Unterschiede zwischen den <link linkend="configobject">Objekt-Konfigurationsdatei</link> von
+  Master- und Slave-Host(s) betrachten...</para>
+
+  <para>Wir gehen davon aus, dass Sie den Master-Host (Host A) so konfiguriert haben, dass er alle Services auf den gezeigten
+  Hosts des Diagramms überwacht. Der Slave-Host (Host E) sollte die gleichen Hosts und Services überwachen, mit folgenden Zusätzen
+  in der Konfigurationsdatei...</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Die Host-Definition für Host A (in der Host-Konfigurationsdatei von Host E) sollte einen Host-<link
+      linkend="eventhandlers">Eventhandler</link> enthalten. Der Name für den Host-Eventhandler lautet <emphasis condition="red"
+      role="color">handle-master-host-event</emphasis>.</para>
+    </listitem>
+
+    <listitem>
+      <para>Die Konfigurationsdatei auf Host E enthält einen Service, der den Status des &name-icinga;-Prozesses auf Host A prüft.
+      Lassen Sie uns annehmen, dass diese Prüfung das <emphasis>check_nagios</emphasis>-Plugin auf Host A aufruft. Das kann durch
+      eine der in den <emphasis role="bold">FAQ</emphasis> beschriebenen Methoden erfolgen.</para>
+    </listitem>
+
+    <listitem>
+      <para>Die Service-Definition für den &name-icinga;-Prozess auf Host A sollte einen <link
+      linkend="eventhandlers">Eventhandler</link>-Eintrag enthalten. Als Namen für diese Service-Eventhandler wählen wir <emphasis
+      condition="red" role="color">handle-master-proc-event</emphasis>.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>Es ist wichtig anzumerken, dass Host A (der Master-Host) keine Ahnung von Host E (dem Slave-Host) hat. In diesem Szenario
+  besteht ganz einfach keine Notwendigkeit dazu. Natürlich können Sie von Host A Services auf Host E überwachen, aber das hat
+  nichts mit der Implementierung von Redundanz zu tun...</para>
+
+  <para><emphasis role="bold">Eventhandler-Befehlsdefinitionen</emphasis></para>
+
+  <para>Wir müssen kurz innehalten und beschreiben, wie die Befehlsdefinitionen für die Eventhandler auf dem Slave-Host aussehen.
+  Hier ist ein Beispiel...</para>
+
+  <screen> define command{
+    command_name handle-master-host-event
+    command_line &url-icinga-libexec;/eventhandlers/handle-master-host-event $HOSTSTATE$ $HOSTSTATETYPE$
+ }
+ define command{
+    command_name handle-master-proc-event
+    command_line &url-icinga-libexec;/eventhandlers/handle-master-proc-event $SERVICESTATE$ $SERVICESTATETYPE$
+ }</screen>
+
+  <para>Dies setzt voraus, dass Sie die Eventhandler-Scripte im Verzeichnis
+  <emphasis>&url-icinga-libexec;/eventhandlers</emphasis> abgelegt haben. Sie können sie ablegen, wohin Sie wollen, aber dann
+  müssen Sie die beigefügten Beispiele anpassen.</para>
+
+  <para><emphasis role="bold">Eventhandler-Scripte</emphasis></para>
+
+  <para>Okay, lassen Sie uns nun einen Blick darauf werden, wie die Eventhandler-Scripte aussehen...</para>
+
+  <para>Host-Eventhandler (<emphasis condition="red" role="color">handle-master-host-event</emphasis>):</para>
+
+  <screen> #!/bin/sh
+ # Only take action on hard host states...
+ case "$2" in
+ HARD)
+        case "$1" in
+        DOWN)
+                # The master host has gone down!
+                # We should now become the master host and take
+                # over the responsibilities of monitoring the 
+                # network, so enable notifications...
+                &url-icinga-libexec;/eventhandlers/enable_notifications
+                ;;
+        UP)
+                # The master host has recovered!
+                # We should go back to being the slave host and
+                # let the master host do the monitoring, so 
+                # disable notifications...
+                &url-icinga-libexec;/eventhandlers/disable_notifications
+                ;;
+        esac
+        ;;
+ esac
+ exit 0</screen>
+
+  <para>Service-Eventhandler (<emphasis condition="red" role="color">handle-master-proc-event</emphasis>):</para>
+
+  <screen> #!/bin/sh
+ # Only take action on hard service states...
+ case "$2" in
+ HARD)
+        case "$1" in
+        CRITICAL)
+                # The master &name-icinga; process is not running!
+                # We should now become the master host and
+                # take over the responsibility of monitoring
+                # the network, so enable notifications...
+                &url-icinga-libexec;/eventhandlers/enable_notifications
+                ;;
+        WARNING)
+        UNKNOWN)
+                # The master &name-icinga; process may or may not
+                # be running.. We won't do anything here, but
+                # to be on the safe side you may decide you 
+                # want the slave host to become the master in
+                # these situations...
+                ;;
+        OK)
+                # The master &name-icinga; process running again!
+                # We should go back to being the slave host, 
+                # so disable notifications...
+                &url-icinga-libexec;/eventhandlers/disable_notifications
+                ;;
+        esac
+        ;;
+ esac
+ exit 0</screen>
+
+  <para><emphasis role="bold">Was tun sie für uns</emphasis></para>
+
+  <para>Auf dem Slave-Host (Host E) sind anfänglich die Benachrichtigungen deaktiviert, so dass er keine Host- oder
+  Service-Benachrichtigungen versendet, solange der &name-icinga;-Prozess auf dem Master-Host (Host A) noch läuft.</para>
+
+  <para>Der &name-icinga;-Prozess auf dem Slave-host (Host E) wird zum Master-Host, wenn...</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>der Master-Host (Host A) "down" geht und der <emphasis> <emphasis condition="red"
+      role="color">handle-master-host-event</emphasis> </emphasis> -Host-Eventhandler ausgeführt wird.</para>
+    </listitem>
+
+    <listitem>
+      <para>der &name-icinga;-Prozess auf dem Master-Host (Host A) aufhört zu arbeiten und der <emphasis> <emphasis
+      condition="red" role="color">handle-master-proc-event</emphasis> </emphasis> -Service-Eventhandler ausgeführt wird.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>Wenn bei dem &name-icinga;-Prozess auf dem Slave-Host (Host E) Benachrichtigungen aktiviert sind, kann er
+  Benachrichtigungen über jegliche Host- und Service-Probleme und Erholungen versenden. An diesem Punkt hat Host E die
+  Verantwortlichkeiten über die Benachrichtigung von Kontakten über Host- und Service-Probleme übernommen!</para>
+
+  <para>Der &name-icinga;-Prozess auf Host E wird wieder zum Host-Slave, wenn...</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>sich Host A wieder erholt und der <emphasis> <emphasis condition="red"
+      role="color">handle-master-host-event</emphasis> </emphasis> -Host-Eventhandler ausgeführt wird.</para>
+    </listitem>
+
+    <listitem>
+      <para>sich der &name-icinga;-Prozess auf Host A wieder erholt und den <emphasis> <emphasis condition="red"
+      role="color">handle-master-proc-event</emphasis> </emphasis> -Service-Eventhandler ausführt.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>Wenn bei dem &name-icinga;-Prozess auf dem Slave-Host (Host E) Benachrichtigungen deaktiviert sind, wird er keine
+  Benachrichtigungen mehr über Host- und Service-Probleme und Erholungen versenden. An diesem Punkt hat Host E die
+  Verantwortlichkeiten über die Benachrichtigung von Kontakten über Host- und Service-Probleme an Host A übergeben. Alles ist
+  wieder so, als wir angefangen haben!</para>
+
+  <para><emphasis role="bold">Zeitverzögerungen</emphasis></para>
+
+  <para>Redundanz bei &name-icinga; ist in keinster Weise perfekt. Eins der offenkundigeren Probleme ist die Verzögerung zwischen
+  dem Ausfall von Host A und der Übernahme durch Host E. Das ist bedingt durch folgende Dinge...</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>die Zeit zwischen dem Ausfall des Master-Host und dem ersten Mal, dass der Slave-Host ein Problem entdeckt</para>
+    </listitem>
+
+    <listitem>
+      <para>die Zeit, die benötigt wird, um festzustellen, dass der Master-Host wirklich ein Problem hat (unter Verwendung von
+      Host- oder Service-Prüfwiederholungen auf dem Slave-Host)</para>
+    </listitem>
+
+    <listitem>
+      <para>die Zeit zwischen der Ausführung des Eventhandlers und der Zeit, zu der &name-icinga; das nächste Mal auf externe
+      Befehle prüft</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>Sie können diese Verzögerung minimieren durch...</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>eine hohe Frequenz von (Wiederholungs-) Prüfungen für Services auf Host E. Das kann durch die
+      <emphasis>check_interval</emphasis>- und <emphasis>retry_interval</emphasis>-Optionen in jeder Service-Definition erreicht
+      werden.</para>
+    </listitem>
+
+    <listitem>
+      <para>eine Zahl der Host-Wiederholungsprüfungen für Host A (auf Host E), die eine schnelle Erkennung von Host-Problemen
+      erlaubt. Das wird erreicht durch das <emphasis>max_check_attempts</emphasis>-Argument in der Host-Definition.</para>
+    </listitem>
+
+    <listitem>
+      <para>erhöhen der Frequenz der <link linkend="extcommands">external command</link>-Prüfungen auf Host E. Dies wird erreicht
+      durch die Anpassung der <link linkend="configmain-command_check_interval">command_check_interval</link>-Option in der
+      Hauptkonfigurationsdatei.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>Wenn sich &name-icinga; auf Host A erholt, gibt es ebenfalls eine Verzögerung, bevor Host E wieder zu einem Slave-Host
+  wird. Das wird durch folgende Dinge beeinflusst...</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>die Zeit zwischen der Erholung des Master-Hosts und der Zeit, zu der der &name-icinga;-Prozess auf Host E die Erholung
+      erkennt</para>
+    </listitem>
+
+    <listitem>
+      <para>die Zeit zwischen der Ausführung des Eventhandlers auf Host A und der Zeit, zu der &name-icinga;-Prozess auf Host E
+      das nächste Mal auf externe Befehle prüft</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>Die genaue Verzögerung zwischen dem Übergang der Verantwortlichkeiten hängt davon ab, wieviele Services Sie definiert
+  haben, dem Intervall, in dem Services geprüft werden, und einer Menge pures Glück. Auf jeden Falls ist es besser als
+  nichts.</para>
+
+  <para><emphasis role="bold">Spezialfälle</emphasis></para>
+
+  <para>Eins sollten Sie beachten: Wenn Host A "down" geht, werden bei Host E die Benachrichtigungen aktiviert und er übernimmt
+  die Verantwortung für das Informieren der Kontakte bei Problemen. Wenn sich Host A wieder erholt, werden bei Host E die
+  Benachrichtigungen deaktiviert. Falls der &name-icinga;-Prozess - wenn sich Host A erholt - auf Host A nicht sauber startet,
+  gibt es eine Zeitspanne, während der keiner der beiden Hosts die Kontakte über Probleme informiert! Glücklicherweise
+  berücksichtigt die Service-Prüflogik in &name-icinga; diesen Umstand. Das nächste Mal, wenn der &name-icinga;-Prozess auf Host E
+  den Status des &name-icinga;-Prozesses auf Host A prüft, wird er feststellen, dass dieser nicht läuft. Auf Host E werden dann
+  wieder die Benachrichtigungen aktiviert und er wird erneut die Verantwortung für die Benachrichtigung der Kontakte
+  übernehmen.</para>
+
+  <para>Der exakte Wert für die Zeit, während der keiner der Hosts das Netzwerk überwacht, ist schwer zu ermitteln. Offensichtlich
+  kann diese Zeit durch die Erhöhung der Frequenz von Service-Prüfungen (auf Host E) für Host A minimiert werden. Der Rest ist
+  purer Zufall, aber die gesamte "Blackout"-Zeit sollte nicht allzu hoch sein.</para>
+
+  <para><anchor xml:id="redundancy-scenario_2" /> <emphasis role="bold">Szenario 2 - Failover-Überwachung</emphasis></para>
+
+  <para><emphasis role="bold">Einführung</emphasis></para>
+
+  <para>Failover-Überwachung ist ähnlich wie die redundante Überwachung (wie beschrieben in <link
+  linkend="redundancy-scenario_1">Szenario 1</link>).</para>
+
+  <para><emphasis role="bold">Ziele</emphasis></para>
+
+  <para>Das grundlegende Ziel der Failover-Überwachung besteht darin, dass der &name-icinga;-Prozess auf dem Slave-Host untätig
+  ist, während der &name-icinga;-Prozess auf dem Master-Host läuft. Wenn der Prozess auf dem Master-Host stoppt (oder der Host
+  "down" geht), übernimmt der &name-icinga;-Prozess auf dem Slave-Host die gesamte Überwachung.</para>
+
+  <para>Während es Ihnen die in <link linkend="redundancy-scenario_1">Szenario 1</link> beschriebene Methode erlaubt, weiterhin
+  Benachrichtigungen zu erhalten, wenn der Master-Host "down" geht, gibt es einige Fallen. Das größte Problem besteht darin, dass
+  der Slave-Host die gleichen Hosts und Services wie der Master <emphasis>zur gleichen Zeit wie der Master</emphasis> überwacht!
+  Dies kann Probleme durch übermäßigen Traffic und Load auf den überwachten Maschinen verursachen, wenn Sie viele Services
+  definiert haben. Hier nun, wie Sie das Problem umgehen können.</para>
+
+  <para><emphasis role="bold">Initiale Programm-Einstellungen</emphasis></para>
+
+  <para>Deaktivieren Sie aktive Service-Prüfungen und Benachrichtigungen auf dem Slave-Host durch die <link
+  linkend="configmain-execute_service_checks">execute_service_checks</link>- und die <link
+  linkend="configmain-enable_notifications">enable_notifications</link>-Direktiven. Dies wird den Slave-Host davon abhalten,
+  Services und Hosts zu überwachen und Benachrichtigungen zu versenden, während der &name-icinga;-Prozess auf dem Master-Host noch
+  läuft. Stellen Sie außerdem sicher, dass die <link
+  linkend="configmain-check_external_commands">check_external_commands</link>-Direktive auf dem Slave-Host aktiviert ist.</para>
+
+  <para><emphasis role="bold">Master-Prozess-Prüfungen</emphasis></para>
+
+  <para>Setzen Sie einen cron-Job auf dem Slave-Host auf, der periodisch (sagen wir jede Minute) läuft und den Status des
+  &name-icinga;-Prozesses auf dem Master-Host (mit dem <emphasis>check_nrpe</emphasis> auf dem Slave-Host und den <link
+  linkend="addons-nrpe">nrpe daemon</link> und <emphasis>check_nagios</emphasis>-Plugins auf dem Master-Host) prüft. Das Script
+  sollte den Return-Code des <emphasis>check_nrpe-Plugins</emphasis> prüfen. Falls es einen nicht-OK-Status zurückliefert, sollte
+  das Script den entsprechenden Befehl an das <link linkend="configmain-command_file">external command file</link> senden, um
+  sowohl die Benachrichtigungen als auch die aktiven Service-Prüfungen zu aktivieren. Falls das Plugin einen OK-Status
+  zurückliefert, sollte das Script Befehle an das external command file senden, um sowohl Benachrichtigungen als auch aktive
+  Prüfungen zu deaktivieren.</para>
+
+  <para>Auf diese Weise läuft jeweils nur ein Prozess, der Hosts und Services prüft, was wesentlich effizienter ist als alles
+  doppelt zu überwachen.</para>
+
+  <para>Auch von Interesse: Sie müssen <emphasis>nicht</emphasis> wie in <link linkend="redundancy-scenario_1">Szenario 1</link>
+  beschrieben die Host- und Service-Handler definieren, weil die Dinge anders behandelt werden.</para>
+
+  <para><emphasis role="bold">Zusätzliche Themen</emphasis></para>
+
+  <para>An diesem Punkt haben Sie ein sehr einfaches Failover-Überwachungs-Setup implementiert. Trotzdem gibt es einen weiteren
+  Punkt, den Sie berücksichtigen sollten, damit die Dinge besser laufen.</para>
+
+  <para>Das große Problem dabei, wie die Dinge bisher konfiguriert sind, besteht darin, dass der Slave-Host nicht den aktuellen
+  Status von Hosts und Services kennt, wenn er die Überwachung übernimmt. Ein Weg, dieses Problem zu lösen, ist es, die <link
+  linkend="configmain-ocsp_command">ocsp command</link>-Option auf dem Master-Host zu aktivieren und alle Service-Prüfergebnisse
+  mit dem <link linkend="addons-nsca">nsca Addon</link> an den Slave-Host zu schicken. Der Slave-Host wird dann aktuelle
+  Status-Informationen für alle Services haben, wenn er die Überwachung übernimmt. Weil aktive Service-Prüfungen auf dem
+  Slave-Host nicht aktiviert sind, werden sie nicht ausgeführt. Host-Prüfungen hingegen werden nach Bedarf ausgeführt. Das
+  bedeutet, dass sowohl Master- als auch Slave-Host Host-Prüfungen ausführen, wenn sie benötigt werden, was kein Problem
+  darstellen sollte, weil die Mehrzahl der Überwachung Service-Prüfungen betrifft.</para>
+
+  <para>Das ist eigentlich alles, was das Setup betrifft.</para>
+</section>
