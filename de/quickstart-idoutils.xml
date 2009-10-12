@@ -122,11 +122,11 @@ xlink:href="http://www.boutell.com/gd/"
 ></listitem
 ><listitem
 ><para
->libdbi/libdbi-Treiber, eine Datenbank wie z.B. mysql oder psotgresql</para
+>libdbi/libdbi-Treiber, eine Datenbank wie z.B. mysql oder postgresql</para
 ></listitem
 ></itemizedlist
 ><para
->Sie können diese Pakete mit Hilfe der folgenden Befehle zu installieren (als root oder mit sudo):</para
+>Sie können diese Pakete mit Hilfe der folgenden Befehle installieren (als root oder mit sudo):</para
 ><para
 ><emphasis
 role="bold"
@@ -176,6 +176,16 @@ role="bold"
 ></para
 ><para
 >Bitte nutzen Sie yast für die Installation der Pakete</para
+><para
+><emphasis
+role="bold"
+>Neues Feature für die IDOUtils: SSL- Verschlüsselung zwischen idomod und ido2db</emphasis
+></para
+><para 
+>Wenn Sie SSL-Encryption verwenden möchten, werden zusätzlich die Pakete openssl und openssl-devel/libssl-dev benötigt!</para
+><para
+><note 
+>SSL muß auch bei allen idomod-Clients enabled werden, sonst gehen Daten verloren!!!</note
 ><para
 ><emphasis
 role="bold"
@@ -232,6 +242,16 @@ role="bold"
 >Führen Sie das &name-icinga;-configure-Script aus. Durch die Nutzung des --help-Flags erhalten Sie Hilfe zu den Optionen.</para
 ><programlisting
 > # ./configure --enable-idoutils</programlisting
+><para 
+><emphasis
+>Mit SSL-Encryption: 
+</emphasis
+></para
+><para
+><programlisting
+># ./configure --enable-idoutils --enable-ssl
+</programlisting
+></para
 ><para
 >Kompilieren Sie den &name-icinga;-Source-Code. Es gibt auch eine extra Option für &name-idoutils; (<emphasis
 >make idoutils</emphasis
@@ -271,6 +291,15 @@ role="bold"
 > # cd &url-icinga-base;/etc
  # cp idomod.cfg-sample idomod.cfg
  # cp ido2db.cfg-sample ido2db.cfg</programlisting
+><para
+>Wenn Sie die idoutils mit ssl compiliert haben, aktivieren Sie ssl in der idomod.cfg und der ido2db.cfg mit:</para
+><programlisting
+># use_ssl=1
+># socket_type=tcp </programlisting
+><para
+><note
+>!!!Vergessen Sie nicht alle anderen Clients auch neu zu kompilieren und auf ssl umzustellen!!!</note
+></para
 ><para
 >Aktivieren Sie das idomod-Eventbroker-Modul. Editieren Sie &url-icinga-cfg; und suchen Sie nach "broker_module" und aktivieren Sie diese Zeile bzw. fügen Sie die folgende Zeile hinzu (passen Sie die Namen an, falls nötig).</para
 ><programlisting
@@ -582,7 +611,9 @@ role="bold"
 ><para
 >Glückwunsch! Sie haben erfolgreich &name-icinga; installiert. Ihre Reise in die Überwachung hat gerade begonnen. Sie werden ohne Zweifel mehr als nur Ihre lokale Maschine überwachen wollen, so dass Sie u.a. das folgende <link
 linkend="ch02"
->Kapitel</link
-> lesen sollten...</para
-></section
->
+>Kapitel
+</link
+>lesen sollten...
+</para>
+</section
+
