@@ -127,14 +127,14 @@ xlink:href="http://www.boutell.com/gd/"
 ></para
 ></listitem
 ></itemizedlist
-> <emphasis
+><emphasis
 role="bold"
 >New feature for the &name-idoutils;: SSL- encryption between idomod and ido2db</emphasis
-> <para
+><para
 >If you want to use <emphasis
 role="bold"
 >SSL-Encryption </emphasis
->you'll need openssl and openssl-devel/libssl-dev to be installed !</para
+>you'll need openssl and openssl-devel/libssl-dev (ubuntu) to be installed !</para
 ><para
 >You can install these packages by running the following commands (as root or sudo):</para
 ><para
@@ -160,14 +160,13 @@ role="bold"
 >&name-ubuntu;:</emphasis
 ></para
 ><programlisting
->
-# apt-get install apache2 build-essential libgd2-xpm-dev</programlisting
+># apt-get install apache2 build-essential libgd2-xpm-dev</programlisting
 ><para
 ><emphasis
 >&name-mysql;:</emphasis
 ></para
 ><programlisting
-># apt-get install mysql mysql-libdbi0 libdbi0-dev libdbd-mysql</programlisting
+># apt-get install mysql-server mysql-client mysql-libdbi0 libdbi0-dev libdbd-mysql</programlisting
 ><para
 ><emphasis
 >&name-postgres;:</emphasis
@@ -225,7 +224,7 @@ xml:space="preserve"
 ># cd /usr/src/ 
 # tar xvzf icinga-&ver-icinga;.tar.gz 
 # cd icinga-&ver-icinga;</programlisting
-> <para
+><para
 >Run the &name-icinga; configure script and enable &name-idoutils;. You will get help by using the --help flag:</para
 ><programlisting
 ># ./configure --enable-idoutils</programlisting
@@ -273,9 +272,8 @@ role="bold"
 ># cd &url-icinga-base;/etc/
 # cp idomod.cfg-sample idomod.cfg
 # cp ido2db.cfg-sample ido2db.cfg</programlisting
-> <para
->If you want to enable SSL-encryption and you configured the &name-idoutils; with ./configure --enable-ssl, you have to change idomod.cfg and ido2db.cfg:
- <programlisting
+><para
+>If you want to enable SSL-encryption and you configured the &name-idoutils; with ./configure --enable-ssl, you have to change idomod.cfg and ido2db.cfg: <programlisting
 > # use_ssl=1
  # socket_type=tcp </programlisting
 ><note
@@ -283,7 +281,7 @@ role="bold"
 ></para
 ><para
 ><emphasis
->Enable the idomod event broker module.</emphasis
+>Enable the idomod event broker module:</emphasis
 ></para
 ><para
 >Search for broker_module and uncomment the example or edit it matching your filenames in:</para
@@ -291,9 +289,10 @@ role="bold"
 ># vi &url-icinga-cfg;</programlisting
 ><para
 ><emphasis
->&name-mysql;:</emphasis> </para>
-<para
-> Create Database, User, Grants:</para
+>&name-mysql;:</emphasis
+></para
+><para
+>Create Database, User, Grants:</para
 ><programlisting
 ># mysql -u root -p
 
@@ -305,16 +304,11 @@ GRANT SELECT , INSERT , UPDATE , DELETE ON icinga.* TO 'icinga'@'localhost';
 
 FLUSH PRIVILEGES ;
 
-quit
-</programlisting
-><para
-></para
+quit</programlisting
 ><para
 ></para
 ><para
 >Import database scheme for &name-mysql;:</para
-><para
-></para
 ><programlisting
 ># cd /path/to/icinga-src/module/idoutils/db 
 # mysql -u root -p icinga &lt; mysql.sql</programlisting
