@@ -127,6 +127,14 @@ xlink:href="http://www.boutell.com/gd/"
 ></para
 ></listitem
 ></itemizedlist
+> <emphasis
+role="bold"
+>New feature for the &name-idoutils;: SSL- encryption between idomod and ido2db</emphasis
+> <para
+>If you want to use <emphasis
+role="bold"
+>SSL-Encryption </emphasis
+>you'll need openssl and openssl-devel/libssl-dev to be installed !</para
 ><para
 >You can install these packages by running the following commands (as root or sudo):</para
 ><para
@@ -217,10 +225,17 @@ xml:space="preserve"
 ># cd /usr/src/ 
 # tar xvzf icinga-&ver-icinga;.tar.gz 
 # cd icinga-&ver-icinga;</programlisting
-><para
+> <para
 >Run the &name-icinga; configure script and enable &name-idoutils;. You will get help by using the --help flag:</para
 ><programlisting
 ># ./configure --enable-idoutils</programlisting
+><para
+><emphasis
+role="bold"
+>With SSL-encryption:</emphasis
+></para
+><programlisting
+># ./configure --enable-idoutils --enable-ssl</programlisting
 ><para
 >Compile the &name-icinga; source code. There is also an extra option for &name-idoutils; (<emphasis
 >make idoutils</emphasis
@@ -258,10 +273,17 @@ role="bold"
 ># cd &url-icinga-base;/etc/
 # cp idomod.cfg-sample idomod.cfg
 # cp ido2db.cfg-sample ido2db.cfg</programlisting
+> <para
+>If you want to enable SSL-encryption and you configured the &name-idoutils; with ./configure --enable-ssl, you have to change idomod.cfg and ido2db.cfg:
+ <programlisting
+> # use_ssl=1
+ # socket_type=tcp </programlisting
+><note
+>If SSL is enabled in ido2db but not in the different idomod clients - Data from those instances will be lost - that's quaranteed! SSL configuration has to be the same on all nodes!!!</note
+></para
 ><para
 ><emphasis
->Enable the idomod event broker module. 
-</emphasis
+>Enable the idomod event broker module.</emphasis
 ></para
 ><para
 >Search for broker_module and uncomment the example or edit it matching your filenames in:</para
@@ -269,10 +291,9 @@ role="bold"
 ># vi &url-icinga-cfg;</programlisting
 ><para
 ><emphasis
->&name-mysql;:</emphasis
-></para>
+>&name-mysql;:</emphasis> </para>
 <para
->Create Database, User, Grants:</para
+> Create Database, User, Grants:</para
 ><programlisting
 ># mysql -u root -p
 
@@ -308,11 +329,10 @@ quit
  db_pass=icinga</programlisting
 ><para
 ><emphasis
->&name-postgres;:</emphasis 
-></para 
+>&name-postgres;:</emphasis
+></para
 ><para
->Create database and User:
-</para
+>Create database and User:</para
 ><programlisting
 > # su - postgres
  $psql
