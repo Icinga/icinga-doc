@@ -18,21 +18,21 @@
   <note>
     <para><emphasis condition="red" role="color"></emphasis> If you are just learning how to use &name-icinga;, we would suggest
     not trying to implement redundancy until you have becoming familiar with the <link
-    linkend="redundancy.xml-prerequisites">prerequisites</link> that have been laid out. Redundancy is a relatively complicated
+    linkend="redundancy-prerequisites">prerequisites</link> that have been laid out. Redundancy is a relatively complicated
     issue to understand, and even more difficult to implement properly.</para>
   </note>
 
   <para><emphasis role="bold">Index</emphasis></para>
 
-  <para><link linkend="redundancy.xml-prerequisites">Prerequisites</link></para>
+  <para><link linkend="redundancy-prerequisites">Prerequisites</link></para>
 
-  <para><link linkend="redundancy.xml-samples">Sample scripts</link></para>
+  <para><link linkend="redundancy-samples">Sample scripts</link></para>
 
-  <para><link linkend="redundancy.xml-scenario_1">Scenario 1 - Redundant monitoring</link></para>
+  <para><link linkend="redundancy-scenario_1">Scenario 1 - Redundant monitoring</link></para>
 
-  <para><link linkend="redundancy.xml-scenario_2">Scenario 2 - Failover monitoring</link></para>
+  <para><link linkend="redundancy-scenario_2">Scenario 2 - Failover monitoring</link></para>
 
-  <para><anchor xml:id="redundancy.xml-prerequisites" /></para>
+  <para><anchor xml:id="redundancy-prerequisites" /></para>
 
   <informaltable frame="none">
     <tgroup cols="1">
@@ -68,7 +68,7 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="redundancy.xml-samples" /></para>
+  <para><anchor xml:id="redundancy-samples" /></para>
 
   <informaltable frame="none">
     <tgroup cols="1">
@@ -85,7 +85,7 @@
   <para>All of the sample scripts that we use in this documentation can be found in the <emphasis>eventhandlers/</emphasis>
   subdirectory of the &name-icinga; distribution. You'll probably need to modify them to work on your system...</para>
 
-  <para><anchor xml:id="redundancy.xml-scenario_1" /></para>
+  <para><anchor xml:id="redundancy-scenario_1" /></para>
 
   <informaltable frame="none">
     <tgroup cols="1">
@@ -383,7 +383,7 @@ exit 0</screen>
   minimized by increasing the frequency of service checks (on host E) of the &name-icinga; process on host A. The rest is up to
   pure chance, but the total "blackout" time shouldn't be too bad.</para>
 
-  <para><anchor xml:id="redundancy.xml-scenario_2" /></para>
+  <para><anchor xml:id="redundancy-scenario_2" /></para>
 
   <informaltable frame="none">
     <tgroup cols="1">
@@ -400,7 +400,7 @@ exit 0</screen>
   <para><emphasis role="bold">Introduction</emphasis></para>
 
   <para>Failover monitoring is similiar to, but slightly different than redundant monitoring (as discussed above in <link
-  linkend="redundancy.xml-scenario_1">scenario 1</link>).</para>
+  linkend="redundancy-scenario_1">scenario 1</link>).</para>
 
   <para><emphasis role="bold">Goals</emphasis></para>
 
@@ -408,7 +408,7 @@ exit 0</screen>
   &name-icinga; process on the master host is running. If the process on the master host stops running (or if the host goes down),
   the &name-icinga; process on the slave host starts monitoring everything.</para>
 
-  <para>While the method described in <link linkend="redundancy.xml-scenario_1">scenario 1</link> will allow you to continue
+  <para>While the method described in <link linkend="redundancy-scenario_1">scenario 1</link> will allow you to continue
   receive notifications if the master monitoring hosts goes down, it does have some pitfalls. The biggest problem is that the
   slave host is monitoring the same hosts and servers as the master <emphasis>at the same time as the master</emphasis>! This can
   cause problems with excessive traffic and load on the machines being monitored if you have a lot of services defined. Here's how
@@ -437,7 +437,7 @@ exit 0</screen>
   monitoring everything twice.</para>
 
   <para>Also of note, you <emphasis>don't</emphasis> need to define host and service handlers as mentioned in <link
-  linkend="redundancy.xml-scenario_1">scenario 1</link> because things are handled differently.</para>
+  linkend="redundancy-scenario_1">scenario 1</link> because things are handled differently.</para>
 
   <para><emphasis role="bold">Additional Issues</emphasis></para>
 
@@ -454,4 +454,7 @@ exit 0</screen>
   monitoring deals with service checks.</para>
 
   <para>That's pretty much it as far as setup goes.</para>
+  <indexterm zone="redundancy_failover"><primary>Failover</primary><secondary>Redundant and Failover Network Monitoring</secondary></indexterm>
+  <indexterm zone="redundancy_failover"><primary>Monitoring</primary><secondary>Redundant and Failover Network Monitoring</secondary></indexterm>
+  <indexterm zone="redundancy_failover"><primary>Redundancy</primary><secondary>Redundant and Failover Network Monitoring</secondary></indexterm>
 </section>
