@@ -5249,4 +5249,132 @@
   file grows larger than this size, it will be renamed with a .old extension. If a file already exists with a .old extension it
   will automatically be deleted. This helps ensure your disk space usage doesn't get out of control when debugging
   &name-icinga;.</para>
+  <indexterm zone="config_main"><primary>Main Configuration File Options</primary></indexterm>
+  <indexterm zone="configmain-log_file"><primary>log_file=</primary><secondary> Log File</secondary></indexterm>
+  <indexterm zone="configmain-cfg_file"><primary>cfg_file=</primary><secondary> Object Configuration File</secondary></indexterm>
+  <indexterm zone="configmain-cfg_dir"><primary>cfg_dir=</primary><secondary> Object Configuration Directory</secondary></indexterm>
+  <indexterm zone="configmain-object_cache_file"><primary>object_cache_file=</primary><secondary> Object Cache File</secondary></indexterm>
+  <indexterm zone="configmain-precached_object_file"><primary>precached_object_file=</primary><secondary> Precached Object File</secondary></indexterm>
+  <indexterm zone="configmain-resource_file"><primary>resource_file=</primary><secondary> Resource File</secondary></indexterm>
+  <indexterm zone="configmain-temp_file"><primary>temp_file=</primary><secondary> Temp File</secondary></indexterm>
+  <indexterm zone="configmain-temp_path"><primary>temp_path=</primary><secondary> Temp Path</secondary></indexterm>
+  <indexterm zone="configmain-status_file"><primary>status_file=</primary><secondary> Status File</secondary></indexterm>
+  <indexterm zone="configmain-status_log"><primary>status_log=</primary><secondary>Status Log</secondary></indexterm>
+  <indexterm zone="configmain-status_update_interval"><primary>status_update_interval=</primary><secondary> Status File Update Interval</secondary></indexterm>
+  <indexterm zone="configmain-icinga_user"><primary>icinga_user=</primary><secondary> &name-icinga; User</secondary></indexterm>
+  <indexterm zone="configmain-icinga_group"><primary>icinga_group=</primary><secondary> &name-icinga; Group</secondary></indexterm>
+  <indexterm zone="configmain-enable_notifications"><primary>enable_notifications=</primary><secondary> Notifications Option</secondary></indexterm>
+  <indexterm zone="configmain-execute_service_checks"><primary>execute_service_checks=</primary><secondary> Service Check Execution</secondary></indexterm>
+  <indexterm zone="configmain-accept_passive_service_checks"><primary>accept_passive_service_checks=</primary><secondary> Passive Service Check Acceptance</secondary></indexterm>
+  <indexterm zone="configmain-execute_host_checks"><primary>execute_host_checks=</primary><secondary> Host Check Execution Option</secondary></indexterm>
+  <indexterm zone="configmain-accept_passive_host_checks"><primary>accept_passive_host_checks=</primary><secondary> Passive Host Check Acceptance</secondary></indexterm>
+  <indexterm zone="configmain-enable_event_handlers"><primary>enable_event_handlers=</primary><secondary> Event Handler Option</secondary></indexterm>
+  <indexterm zone="configmain-log_rotation_method"><primary>log_rotation_method=</primary><secondary> Log Rotation Method</secondary></indexterm>
+  <indexterm zone="configmain-log_archive_path"><primary>log_archive_path=</primary><secondary> Log Archive Path</secondary></indexterm>
+  <indexterm zone="configmain-check_external_commands"><primary>check_external_commands=</primary><secondary> External Command Check</secondary></indexterm>
+  <indexterm zone="configmain-command_check_interval"><primary>command_check_interval=</primary><secondary> External Command Check</secondary></indexterm>
+  <indexterm zone="configmain-command_file"><primary>command_file=</primary><secondary> External Command File</secondary></indexterm>
+  <indexterm zone="configmain-external_command_buffer_slots"><primary>external_command_buffer_slots=</primary><secondary> External Command Buffer</secondary></indexterm>
+  <indexterm zone="configmain-lock_file"><primary>lock_file=</primary><secondary> Lock File</secondary></indexterm>
+  <indexterm zone="configmain-retain_state_information"><primary>retain_state_information=</primary><secondary> State Retention Option</secondary></indexterm>
+  <indexterm zone="configmain-state_retention_file"><primary>state_retention_file=</primary><secondary> State Retention File</secondary></indexterm>
+  <indexterm zone="configmain-retention_update_interval"><primary>retention_update_interval=</primary><secondary> Automatic State Retention Update</secondary></indexterm>
+  <indexterm zone="configmain-use_retained_program_state"><primary>use_retained_program_state=</primary><secondary> Use Retained Program State</secondary></indexterm>
+  <indexterm zone="configmain-use_retained_scheduling_info"><primary>retained_scheduling_info=</primary><secondary> Use Retained Scheduling Info</secondary></indexterm>
+  <indexterm zone="configmain-retained_host_attribute_mask"><primary>retained_host_attribute_mask=</primary><secondary> Retained Host Attribute Mask</secondary></indexterm>
+  <indexterm zone="configmain-retained_service_attribute_mask"><primary>retained_service_attribute_mask=</primary><secondary> Retained Host and Service Attribute Mask</secondary></indexterm>
+  <indexterm zone="configmain-retained_process_host_attribute_mask"><primary>retained_process_host_attribute_mask=</primary><secondary>Retained Process Host Attribute Mask</secondary></indexterm>
+  <indexterm zone="configmain-retained_process_service_attribute_mask"><primary>retained_process_attribute_mask=</primary><secondary> Retained Process Attribute Mask</secondary></indexterm>
+  <indexterm zone="configmain-retained_contact_host_attribute_mask"><primary>retained_contact_host_attribute_mask=</primary><secondary>Retained Contact Host Attribute Mask</secondary></indexterm>
+  <indexterm zone="configmain-retained_contact_service_attribute_mask"><primary>retained_contact_service_attribute_mask=</primary><secondary> Retained Contact Service Attribute Mask</secondary></indexterm>
+  <indexterm zone="configmain-use_syslog"><primary>use_syslog=</primary><secondary> Syslog Logging Option</secondary></indexterm>
+  <indexterm zone="configmain-log_notifications"><primary>log_notifications=</primary><secondary> Notification Logging Option</secondary></indexterm>
+  <indexterm zone="configmain-log_service_retries"><primary>log_service_retries=</primary><secondary> Service Check Retry Logging</secondary></indexterm>
+  <indexterm zone="configmain-log_host_retries"><primary>log_host_retries=</primary><secondary> Host Check Retry Logging Option</secondary></indexterm>
+  <indexterm zone="configmain-log_event_handlers"><primary>log_event_handlers=</primary><secondary> Event Handler Logging Option</secondary></indexterm>
+  <indexterm zone="configmain-log_initial_states"><primary>log_initial_states=</primary><secondary> Initial States Logging Option</secondary></indexterm>
+  <indexterm zone="configmain-log_external_commands"><primary>log_external_commands=</primary><secondary> External Command Logging</secondary></indexterm>
+  <indexterm zone="configmain-log_passive_checks"><primary>log_passive_checks=</primary><secondary> Passive Check Logging Option</secondary></indexterm>
+  <indexterm zone="configmain-global_host_event_handler"><primary>global_host_event_handler=</primary><secondary> Global Host Event Handler</secondary></indexterm>
+  <indexterm zone="configmain-global_service_event_handler"><primary>global_service_event_handler=</primary><secondary> Global Service Event Handler</secondary></indexterm>
+  <indexterm zone="configmain-sleep_time"><primary>sleep_time=</primary><secondary> Inter-Check Sleep Time</secondary></indexterm>
+  <indexterm zone="configmain-service_inter_check_delay_method"><primary>service_inter_check_delay_method=</primary><secondary> Service Inter-Check Delay</secondary></indexterm>
+  <indexterm zone="configmain-max_service_check_spread"><primary>max_service_check_spread=</primary><secondary> Maximum Service Check</secondary></indexterm>
+  <indexterm zone="configmain-service_interleave_factor"><primary>service_interleave_factor=</primary><secondary> Service Interleave Factor</secondary></indexterm>
+  <indexterm zone="configmain-max_concurrent_checks"><primary>max_concurrent_checks=</primary><secondary> Maximum Concurrent Service</secondary></indexterm>
+  <indexterm zone="configmain-check_result_reaper_frequency"><primary>check_result_reaper_frequency=</primary><secondary> Check Result Reaper</secondary></indexterm>
+  <indexterm zone="configmain-max_check_result_reaper_time"><primary>max_check_result_reaper_time=</primary><secondary> Maximum Check Result Reaper</secondary></indexterm>
+  <indexterm zone="configmain-check_result_path"><primary>check_result_path=</primary><secondary> Check Result Path</secondary></indexterm>
+  <indexterm zone="configmain-max_check_result_file_age"><primary>max_check_result_file_age=</primary><secondary> Max Check Result File Age</secondary></indexterm>
+  <indexterm zone="configmain-host_inter_check_delay_method"><primary>host_inter_check_delay_method=</primary><secondary> Host Inter-Check Delay</secondary></indexterm>
+  <indexterm zone="configmain-max_host_check_spread"><primary>max_host_check_spread=</primary><secondary> Maximum Host Check Spread</secondary></indexterm>
+  <indexterm zone="configmain-interval_length"><primary>interval_length=</primary><secondary> Timing Interval Length</secondary></indexterm>
+  <indexterm zone="configmain-auto_reschedule_checks"><primary>auto_reschedule_checks=</primary><secondary> Auto-Rescheduling Option</secondary></indexterm>
+  <indexterm zone="configmain-auto_rescheduling_interval"><primary>auto_rescheduling_interval=</primary><secondary> Auto-Rescheduling</secondary></indexterm>
+  <indexterm zone="configmain-auto_rescheduling_window"><primary>auto_rescheduling_windows=</primary><secondary> Auto-Rescheduling Window</secondary></indexterm>
+  <indexterm zone="configmain-use_agressive_host_checking"><primary>use_agressive_host_checking=</primary><secondary> Aggressive Host Checking</secondary></indexterm>
+  <indexterm zone="configmain-use_aggressive_host_checking"><primary>use_aggressive_host_checking=</primary><secondary> Aggressive Host Checking</secondary></indexterm>
+  <indexterm zone="configmain-translate_passive_host_checks"><primary>translage_passive_host_checks=</primary><secondary> Translate Passive Host Checks</secondary></indexterm>
+  <indexterm zone="configmain-passive_host_checks_are_soft"><primary>passive_host_checks_are_soft=</primary><secondary> Passive Host Checks Are SOFT</secondary></indexterm>
+  <indexterm zone="configmain-enable_predictive_host_dependency_checks"><primary>enable_predictive_host_dependency_checks=</primary><secondary> Predictive Host Dependency</secondary></indexterm>
+  <indexterm zone="configmain-enable_predictive_service_dependency_checks"><primary>enable_predictive_service_dependency_checks=</primary><secondary> Predictive Service</secondary></indexterm>
+  <indexterm zone="configmain-cached_host_check_horizon"><primary>cached_host_check_horizon=</primary><secondary> Cached Host Check Horizon</secondary></indexterm>
+  <indexterm zone="configmain-cached_service_check_horizon"><primary>cached_service_check_horizon=</primary><secondary> Cached Service Check</secondary></indexterm>
+  <indexterm zone="configmain-use_large_installation_tweaks"><primary>use_large_installation_tweaks=</primary><secondary> Large Installation Tweaks</secondary></indexterm>
+  <indexterm zone="configmain-free_child_process_memory"><primary>free_child_process_memory=</primary><secondary> Child Process Memory</secondary></indexterm>
+  <indexterm zone="configmain-child_processes_fork_twice"><primary>child_processes_fork_twice=</primary><secondary> Child Processes Fork</secondary></indexterm>
+  <indexterm zone="configmain-enable_environment_macros"><primary>enable_environment_macros=</primary><secondary> Environment Macros Option</secondary></indexterm>
+  <indexterm zone="configmain-enable_flap_detection"><primary>enable_flap_detection=</primary><secondary> Flap Detection Option</secondary></indexterm>
+  <indexterm zone="configmain-low_service_flap_threshold"><primary>low_service_flap_threshold=</primary><secondary> Low Service Flap</secondary></indexterm>
+  <indexterm zone="configmain-high_service_flap_threshold"><primary>high_service_flap_threshold=</primary><secondary> High Service Flap</secondary></indexterm>
+  <indexterm zone="configmain-low_host_flap_threshold"><primary>low_host_flap_threshold=</primary><secondary> Low Host Flap Threshold</secondary></indexterm>
+  <indexterm zone="configmain-high_host_flap_threshold"><primary>high_host_flap_threshold=</primary><secondary> High Host Flap Threshold</secondary></indexterm>
+  <indexterm zone="configmain-soft_state_dependencies"><primary>soft_state_dependencies=</primary><secondary> Soft State Dependencies</secondary></indexterm>
+  <indexterm zone="configmain-service_check_timeout"><primary>service_check_timeout=</primary><secondary> Service Check Timeout</secondary></indexterm>
+  <indexterm zone="configmain-host_check_timeout"><primary>host_check_timeout=</primary><secondary> Host Check Timeout</secondary></indexterm>
+  <indexterm zone="configmain-event_handler_timeout"><primary>event_handler_timeout=</primary><secondary> Event Handler Timeout</secondary></indexterm>
+  <indexterm zone="configmain-notification_timeout"><primary>notification_timeout=</primary><secondary> Notification Timeout</secondary></indexterm>
+  <indexterm zone="configmain-ocsp_timeout"><primary>ocsp_timeout=</primary><secondary> Obsessive Compulsive Service Processor</secondary></indexterm>
+  <indexterm zone="configmain-ochp_timeout"><primary>ochp_timeout=</primary><secondary> Obsessive Compulsive Host Processor</secondary></indexterm>
+  <indexterm zone="configmain-perfdata_timeout"><primary>perfdata_timeout=</primary><secondary> Performance Data Processor Command</secondary></indexterm>
+  <indexterm zone="configmain-obsess_over_services"><primary>obsess_over_services=</primary><secondary> Obsess Over Services Option</secondary></indexterm>
+  <indexterm zone="configmain-ocsp_command"><primary>ocsp_command=</primary><secondary> Obsessive Compulsive Service Processor</secondary></indexterm>
+  <indexterm zone="configmain-obsess_over_hosts"><primary>obsess_over_hosts=</primary><secondary> Obsess Over Hosts Option</secondary></indexterm>
+  <indexterm zone="configmain-ochp_command"><primary>ochp_command=</primary><secondary> Obsessive Compulsive Host Processor</secondary></indexterm>
+  <indexterm zone="configmain-process_performance_data"><primary>process_performance_data=</primary><secondary> Performance Data Processing</secondary></indexterm>
+  <indexterm zone="configmain-host_perfdata_command"><primary>host_perfdata_command=</primary><secondary> Host Performance Data Processing</secondary></indexterm>
+  <indexterm zone="configmain-service_perfdata_command"><primary>service_perfdata_command=</primary><secondary> Service Performance Data Processing</secondary></indexterm>
+  <indexterm zone="configmain-host_perfdata_file"><primary>host_perfdata_file=</primary><secondary> Host Performance Data File</secondary></indexterm>
+  <indexterm zone="configmain-service_perfdata_file"><primary>service_perfdata_file=</primary><secondary> Service Performance Data File</secondary></indexterm>
+  <indexterm zone="configmain-host_perfdata_file_template"><primary>host_perfdata_file_template=</primary><secondary> Host Performance Data File</secondary></indexterm>
+  <indexterm zone="configmain-service_perfdata_file_template"><primary>service_perfdata_file_template=</primary><secondary> Service Performance Data File</secondary></indexterm>
+  <indexterm zone="configmain-host_perfdata_file_mode"><primary>host_perfdata_file_mode=</primary><secondary> Host Performance Data File</secondary></indexterm>
+  <indexterm zone="configmain-service_perfdata_file_mode"><primary>service_perfdata_file_mode=</primary><secondary> Service Performance Data File</secondary></indexterm>
+  <indexterm zone="configmain-host_perfdata_file_processing_interval"><primary>host_perfdata_file_processing_interval=</primary><secondary> Host Performance Data File</secondary></indexterm>
+  <indexterm zone="configmain-service_perfdata_file_processing_interval"><primary>service_perfdata_file_processing_interval=</primary><secondary> Service Performance Data</secondary></indexterm>
+  <indexterm zone="configmain-host_perfdata_file_processing_command"><primary>host_perfdata_file_processing_command=</primary><secondary> Host Performance Data File</secondary></indexterm>
+  <indexterm zone="configmain-service_perfdata_file_processing_command"><primary>service_perfdata_file_processing_command=</primary><secondary> Service Performance Data</secondary></indexterm>
+  <indexterm zone="configmain-check_for_orphaned_services"><primary>check_for_orphaned_services=</primary><secondary> Orphaned Service Check</secondary></indexterm>
+  <indexterm zone="configmain-check_for_orphaned_hosts"><primary>check_for_orphaned_hosts=</primary><secondary> Orphaned Host Check Option</secondary></indexterm>
+  <indexterm zone="configmain-check_service_freshness"><primary>check_service_freshness=</primary><secondary> Service Freshness Checking</secondary></indexterm>
+  <indexterm zone="configmain-service_freshness_check_interval"><primary>service_freshness_check_interval=</primary><secondary> Service Freshness Check</secondary></indexterm>
+  <indexterm zone="configmain-check_host_freshness"><primary>check_host_freshness=</primary><secondary> Host Freshness Checking Option</secondary></indexterm>
+  <indexterm zone="configmain-host_freshness_check_interval"><primary>host_freshness_check_interval=</primary><secondary> Host Freshness Check</secondary></indexterm>
+  <indexterm zone="configmain-additional_freshness_latency"><primary>additional_freshness_latency=</primary><secondary> Additional Freshness Threshold Latency</secondary></indexterm>
+  <indexterm zone="configmain-enable_embedded_perl"><primary>enabled_embedded_perl=</primary><secondary> Embedded Perl Interpreter</secondary></indexterm>
+  <indexterm zone="configmain-use_embedded_perl_implicitly"><primary>use_embedded_perl_implicitly=</primary><secondary> Embedded Perl Implicit Use</secondary></indexterm>
+  <indexterm zone="configmain-date_format"><primary>date_format=</primary><secondary> Date Format</secondary></indexterm>
+  <indexterm zone="configmain-use_timezone"><primary>use_timezone=</primary><secondary> Timezone Option</secondary></indexterm>
+  <indexterm zone="configmain-illegal_object_name_chars"><primary>illegal_object_name_chars=</primary><secondary> Illegal Object Name</secondary></indexterm>
+  <indexterm zone="configmain-illegal_macro_output_chars"><primary>illegal_macro_output_chars=</primary><secondary> Illegal Macro Output</secondary></indexterm>
+  <indexterm zone="configmain-use_regexp_matching"><primary>use_regexp_matching=</primary><secondary> Regular Expression Matching</secondary></indexterm>
+  <indexterm zone="configmain-use_true_regexp_matching"><primary>use_true_regexp_matching=</primary><secondary> True Regular Expression Matching</secondary></indexterm>
+  <indexterm zone="configmain-admin_email"><primary>admin_email=</primary><secondary> Administrator Email Address</secondary></indexterm>
+  <indexterm zone="configmain-admin_pager"><primary>admin_pager=</primary><secondary> Administrator Pager</secondary></indexterm>
+  <indexterm zone="configmain-event_broker_options"><primary>event_broker_options=</primary><secondary> Event Broker Options</secondary></indexterm>
+  <indexterm zone="configmain-broker_module"><primary>broker_module=</primary><secondary> Event Broker Modules</secondary></indexterm>
+  <indexterm zone="configmain-debug_file"><primary>debug_file=</primary><secondary> Debug File</secondary></indexterm>
+  <indexterm zone="configmain-debug_level"><primary>debug_level=</primary><secondary> Debug Level</secondary></indexterm>
+  <indexterm zone="configmain-debug_verbosity"><primary>debug_verbosity=</primary><secondary> Debug Verbosity</secondary></indexterm>
+  <indexterm zone="configmain-max_debug_file_size"><primary>max_debug_file_size=</primary><secondary> Maximum Debug File Size</secondary></indexterm>
 </section>
