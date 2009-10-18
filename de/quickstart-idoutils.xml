@@ -89,11 +89,9 @@
   <para>Wenn Sie <emphasis role="bold">SSL-Encryption </emphasis>verwenden möchten, werden zusätzlich die Pakete openssl und
   openssl-devel/libssl-dev benötigt!</para>
 
-  <para><note>
-      : SSL muß auch bei allen idomod-Clients enabled werden, sonst gehen Daten verloren!!!
-    </note></para>
-
-  <para></para>
+  <note>
+    <para>SSL muß auch bei allen idomod-Clients enabled werden, sonst gehen Daten verloren!!!</para>
+  </note>
 
   <para>Sie können diese Pakete mit Hilfe der folgenden Befehle installieren (als root oder mit sudo):</para>
 
@@ -151,7 +149,7 @@
 
   <para>Vergessen Sie nicht die <link xlink:href="http://www.nagios.org/">Nagios Plugins</link> .</para>
 
-  <para><emphasis role="bold">&name-icinga;</emphasis> und die IDOutils kompilieren und installieren</para>
+  <para><emphasis role="bold">&name-icinga;</emphasis> und die &name-idoutils; kompilieren und installieren</para>
 
   <para>Entpacken Sie das &name-icinga;-Archiv (oder wechseln Sie in den GIT Snapshot)</para>
 
@@ -166,7 +164,7 @@
 
   <para><emphasis>Mit <emphasis role="bold"> SSL</emphasis>-Encryption:</emphasis></para>
 
-  <para><programlisting># ./configure --enable-idoutils --enable-ssl</programlisting></para>
+  <para><programlisting> # ./configure --enable-idoutils --enable-ssl</programlisting></para>
 
   <para>Kompilieren Sie den &name-icinga;-Source-Code. Es gibt auch eine extra Option für &name-idoutils; (<emphasis>make
   idoutils</emphasis>), wenn Sie nur dieses Module erneut kompilieren möchten. Um mögliche Optionen zu sehen, rufen Sie lediglich
@@ -198,21 +196,24 @@
  # cp idomod.cfg-sample idomod.cfg
  # cp ido2db.cfg-sample ido2db.cfg</programlisting>
 
-  <para>Wenn Sie die idoutils mit ssl compiliert haben, aktivieren Sie ssl in der idomod.cfg und der ido2db.cfg mit:</para>
+  <para>Wenn Sie die &name-idoutils; mit ssl kompiliert haben, aktivieren Sie ssl in der idomod.cfg und der ido2db.cfg mit:</para>
 
   <programlisting> # use_ssl=1
  # socket_type=tcp </programlisting>
 
-  <para><note>
-      !!! Vergessen Sie nicht alle anderen idomod- Clients auch neu zu kompilieren und auf ssl umzustellen!!!
-    </note></para>
+  <note>
+    <para>!!! Vergessen Sie nicht, alle anderen idomod- Clients auch neu zu kompilieren und auf ssl umzustellen, anderenfalls
+    werden Sie Daten verlieren!!!</para>
+  </note>
 
   <para>Aktivieren Sie das idomod-Eventbroker-Modul. Editieren Sie &url-icinga-cfg; und suchen Sie nach "broker_module" und
   aktivieren Sie diese Zeile bzw. fügen Sie die folgende Zeile hinzu (passen Sie die Namen an, falls nötig).</para>
 
   <programlisting> # broker_module=&url-icinga-base;/etc/bin/idomod.o config_file=&url-icinga-base;/etc/idomod.cfg</programlisting>
 
-<para><emphasis role="bold">&name-mysql;:</emphasis></para>
+  <para><emphasis role="bold">Konfigurieren von Datenbank und &name-idoutils;</emphasis></para>
+
+  <para><emphasis role="bold">&name-mysql;:</emphasis></para>
 
   <para><emphasis>Anlegen von Datenbank, Benutzer und Berechtigungen</emphasis></para>
 
@@ -227,8 +228,6 @@
  FLUSH PRIVILEGES ;
 
  quit</programlisting>
-
-  <para><emphasis role="bold">Konfigurieren von Datenbank und &name-idoutils;</emphasis></para>
 
   <programlisting> # cd &url-icinga-base;/module/idoutils/db 
  # mysql -u root -p icinga &lt; mysql.sql</programlisting>
@@ -291,7 +290,8 @@
 
   <note>
     <para>Abhängig von der Apache-Version müssen Sie ggf. <emphasis>htpasswd2 verwenden.</emphasis></para>
-   </note>
+  </note>
+
   <para>Wenn Sie das Passwort später ändern oder einen weiteren Benutzer hinzufügen möchten, verwenden Sie den folgenden
   Befehl:</para>
 
@@ -299,7 +299,7 @@
 
   <para>Starten Sie &name-apache; neu, damit die Änderungen wirksam werden.</para>
 
-  <para><emphasis role="bold">&name-fedora;:</emphasis></para>
+  <para><emphasis>&name-fedora; / &name-rhel; / &name-centos;</emphasis>:</para>
 
   <programlisting> # service httpd restart</programlisting>
 
@@ -307,13 +307,10 @@
 
   <programlisting> # /etc/init.d/apache2 reload</programlisting>
 
-  <para><note>
-      Prüfen Sie die Implementierung der verbesserten CGI-Sicherheitsmaßnahmen wie 
-
-      <link linkend="cgisecurity">hier</link>
-
-       beschrieben, um sicherzustellen, dass Ihre Web-Authentifizierungsinformationen nicht kompromittiert werden.
-    </note></para>
+  <note>
+    <para>Prüfen Sie die Implementierung der verbesserten CGI-Sicherheitsmaßnahmen wie <link linkend="cgisecurity">hier</link>
+    beschrieben, um sicherzustellen, dass Ihre Web-Authentifizierungsinformationen nicht kompromittiert werden.</para>
+  </note>
 
   <para><emphasis role="bold">Kompilieren und installieren der &name-nagios;-Plugins</emphasis></para>
 

@@ -79,9 +79,7 @@
     </listitem>
 
     <listitem>
-      <para>libdbi/libdbi-drivers, database like mysql or postgresql.</para>
-
-      <para></para>
+      <para>libdbi/libdbi-drivers, database like mysql or postgresql</para>
     </listitem>
   </itemizedlist>
 
@@ -189,51 +187,52 @@
   change idomod.cfg and ido2db.cfg: <programlisting> # use_ssl=1
  # socket_type=tcp </programlisting></para>
 
-  <note><para>
-      If SSL is enabled in ido2db but not in the different idomod clients - Data from those instances will be lost - that's quaranteed! SSL configuration has to be the same on all nodes!!!
-    </para></note>
+  <note>
+    <para>If SSL is enabled in ido2db but not in the different idomod clients - data from those instances will be lost - that's
+    guaranteed! SSL configuration has to be the same on all nodes!!!</para>
+  </note>
 
   <para><emphasis>Enable the idomod event broker module:</emphasis></para>
 
   <para>Search for broker_module and uncomment the example or edit it matching your filenames in:</para>
 
-  <programlisting># vi &url-icinga-cfg;</programlisting>
+  <programlisting> # vi &url-icinga-cfg;</programlisting>
 
-  <para><emphasis>&name-mysql;:</emphasis></para>
+  <para><emphasis role="bold">Creation of database and &name-idoutils;</emphasis></para>
+
+  <para><emphasis role="bold">&name-mysql;:</emphasis></para>
 
   <para>Create Database, User, Grants:</para>
 
-  <programlisting># mysql -u root -p
+  <programlisting> # mysql -u root -p
 
-mysql&gt; CREATE DATABASE icinga;
+ mysql&gt; CREATE DATABASE icinga;
 
-GRANT USAGE ON *.* TO 'icinga'@'localhost' IDENTIFIED BY 'icinga' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0;
+ GRANT USAGE ON *.* TO 'icinga'@'localhost' IDENTIFIED BY 'icinga' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0;
 
-GRANT SELECT , INSERT , UPDATE , DELETE ON icinga.* TO 'icinga'@'localhost';
+ GRANT SELECT , INSERT , UPDATE , DELETE ON icinga.* TO 'icinga'@'localhost';
 
-FLUSH PRIVILEGES ;
+ FLUSH PRIVILEGES ;
 
-quit</programlisting>
-
-  <para></para>
+ quit</programlisting>
 
   <para>Import database scheme for &name-mysql;:</para>
 
-  <programlisting># cd /path/to/icinga-src/module/idoutils/db 
-# mysql -u root -p icinga &lt; mysql.sql</programlisting>
+  <programlisting> # cd /path/to/icinga-src/module/idoutils/db 
+ # mysql -u root -p icinga &lt; mysql.sql</programlisting>
 
   <para>Edit the DB config file to customize &name-idoutils;</para>
 
   <!--  <link xlink:href="http://www.phpmyadmin.net">phpMyAdmin</link> -->
 
-  <programlisting># vi &url-icinga-base;/etc/ido2db.cfg
+  <programlisting> # vi &url-icinga-base;/etc/ido2db.cfg
 
  db_servertype=mysql
  db_port=3306
  db_user=icinga
  db_pass=icinga</programlisting>
 
-  <para><emphasis>&name-postgres;:</emphasis></para>
+  <para><emphasis role="bold">&name-postgres;:</emphasis></para>
 
   <para>Create database and User:</para>
 
@@ -246,49 +245,47 @@ quit</programlisting>
 
   <para><emphasis>&name-debian;:</emphasis></para>
 
-  <programlisting># vi /etc/postgresql/8.x/main/pg_hba.conf</programlisting>
+  <programlisting> # vi /etc/postgresql/8.x/main/pg_hba.conf</programlisting>
 
   <para><emphasis>&name-fedora;/&name-rhel;/&name-centos;:</emphasis></para>
 
-  <programlisting># vi /var/lib/pgsql/data/pg_hba.conf</programlisting>
+  <programlisting> # vi /var/lib/pgsql/data/pg_hba.conf</programlisting>
 
   <para>Edit the config as follows (local user must be trusted)</para>
 
-  <programlisting>#icinga
- local icinga icingauser trust</programlisting>
+  <programlisting> #icinga
+  local icinga icingauser trust</programlisting>
 
   <para>Reload and configure database scheme.</para>
 
-  <programlisting># /etc/init.d/postgresql-8.x reload</programlisting>
+  <programlisting> # /etc/init.d/postgresql-8.x reload</programlisting>
 
-  <programlisting># cd /path/to/icinga-src/module/idoutils/db
-# psql -U icingauser -d icinga &lt; pgsql.sql
+  <programlisting> # cd /path/to/icinga-src/module/idoutils/db
+ # psql -U icingauser -d icinga &lt; pgsql.sql
 </programlisting>
 
   <para>Edit the DB config file to customize &name-idoutils;</para>
 
-  <programlisting># vi /usr/local/icinga/etc/ido2db.cfg
+  <programlisting> # vi /usr/local/icinga/etc/ido2db.cfg
  db_servertype=pgsql
  db_port=5432
  db_user=icingauser
  db_pass=icingauser</programlisting>
 
-  <para></para>
-
   <para><emphasis role="bold">Configure the Web Interface</emphasis></para>
 
   <para>Install the &name-icinga; web config file in the Apache conf.d directory.</para>
 
-  <programlisting># make install-webconf</programlisting>
+  <programlisting> # make install-webconf</programlisting>
 
   <para>Create an <emphasis>icingaadmin</emphasis> account for logging into the &name-icinga; web interface. Remember the password
   you assign to this account - you'll need it later.</para>
 
-  <programlisting># htpasswd -c &url-icinga-base;/etc/htpasswd.users icingaadmin</programlisting>
+  <programlisting> # htpasswd -c &url-icinga-base;/etc/htpasswd.users icingaadmin</programlisting>
 
   <para>To change the password of an existing user or to add a new user, take this command:</para>
 
-  <programlisting># htpasswd &url-icinga-base;/etc/htpasswd.users &lt;USERNAME&gt;</programlisting>
+  <programlisting> # htpasswd &url-icinga-base;/etc/htpasswd.users &lt;USERNAME&gt;</programlisting>
 
   <note>
     <para>Depending on your distribution/Apache-version you may have to use <emphasis>htpasswd2</emphasis> instead.</para>
@@ -298,25 +295,25 @@ quit</programlisting>
 
   <para><emphasis>&name-fedora;/&name-rhel;/&name-centos;:</emphasis></para>
 
-  <programlisting># service httpd restart</programlisting>
+  <programlisting> # service httpd restart</programlisting>
 
   <para><emphasis>&name-ubuntu; / &name-opensuse;:</emphasis></para>
 
-  <programlisting># /etc/init.d/apache2 reload</programlisting>
+  <programlisting> # /etc/init.d/apache2 reload</programlisting>
 
   <para><emphasis role="bold">Compile and Install the Nagios Plugins</emphasis></para>
 
   <para>Extract the Nagios plugins source code tarball.</para>
 
-  <programlisting># cd /usr/src 
-# tar xvzf nagios-plugins-&ver-nagiosplug;.tar.gz 
-# cd nagios-plugins-&ver-nagiosplug;  </programlisting>
+  <programlisting> # cd /usr/src 
+ # tar xvzf nagios-plugins-&ver-nagiosplug;.tar.gz 
+ # cd nagios-plugins-&ver-nagiosplug;  </programlisting>
 
   <para>Compile and install the plugins by changing install directory to &url-icinga-base;</para>
 
-  <programlisting># ./configure --prefix=&url-icinga-base; --with-nagios-user=icinga 
-# make 
-# make install </programlisting>
+  <programlisting> # ./configure --prefix=&url-icinga-base; --with-nagios-user=icinga 
+ # make 
+ # make install </programlisting>
 
   <para><emphasis role="bold">Start &name-idoutils; and &name-icinga;</emphasis></para>
 
@@ -326,11 +323,11 @@ quit</programlisting>
 
   <para><emphasis>Start &name-idoutils;:</emphasis></para>
 
-  <programlisting># /etc/init.d/ido2db start</programlisting>
+  <programlisting> # /etc/init.d/ido2db start</programlisting>
 
   <para><emphasis>Stop &name-idoutils;:</emphasis></para>
 
-  <programlisting># /etc/init.d/ido2db stop
+  <programlisting> # /etc/init.d/ido2db stop
 </programlisting>
 
   <para>Verify the sample &name-icinga; configuration files.</para>
@@ -339,26 +336,26 @@ quit</programlisting>
 
   <para>If there are no errors, start &name-icinga;.</para>
 
-  <para><emphasis> &name-fedora; /&name-rhel;/&name-centos;:</emphasis></para>
+  <para><emphasis> &name-fedora;/&name-rhel;/&name-centos;:</emphasis></para>
 
-  <programlisting>service icinga start</programlisting>
+  <programlisting> service icinga start</programlisting>
 
   <para><emphasis>&name-ubuntu;/&name-opensuse;:</emphasis></para>
 
-  <programlisting># /etc/init.d/icinga start</programlisting>
+  <programlisting> # /etc/init.d/icinga start</programlisting>
 
   <para><emphasis role="bold">Configure &name-icinga; Startup</emphasis></para>
 
   <para>Add &name-icinga; to the list of system services and have it automatically start when the system boots (make sure you have
   installed the init script before).</para>
 
-  <para><emphasis>&name-fedora; /&name-rhel;/&name-centos;/&name-opensuse;:</emphasis></para>
+  <para><emphasis>&name-fedora;/&name-rhel;/&name-centos;/&name-opensuse;:</emphasis></para>
 
-  <programlisting># chkconfig --add icinga chkconfig icinga on</programlisting>
+  <programlisting> # chkconfig --add icinga chkconfig icinga on</programlisting>
 
   <para><emphasis>&name-ubuntu;:</emphasis></para>
 
-  <programlisting># ln -s /etc/init.d/icinga /etc/rcS.d/S99icinga</programlisting>
+  <programlisting> # ln -s /etc/init.d/icinga /etc/rcS.d/S99icinga</programlisting>
 
   <para><emphasis role="bold">Login to the Web Interface</emphasis></para>
 
@@ -374,7 +371,7 @@ quit</programlisting>
   <para>Make sure your system's firewall rules are configured to allow access to the web server if you want to access the
   &name-icinga; interface remotely.</para>
 
-  <programlisting># iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT</programlisting>
+  <programlisting> # iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT</programlisting>
 
   <para>Setting up your mail transfer agent (MTA) like exim, sendmail or postfix to allow &name-icinga; sending notification
   emails won't be explained here. Please refer to the <link xlink:href="http://www.nagioswiki.org/">&name-nagioswiki;</link> for
