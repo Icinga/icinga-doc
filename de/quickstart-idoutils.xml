@@ -12,7 +12,7 @@
   <para><emphasis role="bold"><anchor xml:id="introduction_idoutils" />Einführung</emphasis></para>
 
   <para>Diese Schnellstartanleitung ist dazu gedacht, Ihnen einfache Anweisungen zu liefern, wie Sie &name-icinga; innerhalb von
-  20 Minuten aus dem Quellcode installieren und Ihren lokalen Rechner damit überwachen.</para>
+  30 Minuten aus dem Quellcode installieren und Ihren lokalen Rechner damit überwachen.</para>
 
   <para>Hier werden keine fortgeschrittenen Installationsoptionen vorgestellt - lediglich die Grundlagen, die für 95% aller
   Benutzer funktionieren, die anfangen wollen.</para>
@@ -57,7 +57,7 @@
 
   <para>&name-idoutils; benutzt die <link xlink:href="http://libdbi.sourceforge.net">libdbi</link> und die libdbi-Treiber für
   verschiedene Datenbanken. Die Development-Libraries werden ebenfalls benötigt. Die folgenden Beispiele zeigen, wie die
-  &name-idoutils; mit libdbi für MySQL oder Postgresql installiert werden.</para>
+  &name-idoutils; mit libdbi für &name-mysql; oder &name-postgres; installiert werden.</para>
 
   <para>Stellen Sie sicher, dass die folgenden Pakete installiert sind, bevor Sie fortfahren.</para>
 
@@ -79,19 +79,29 @@
     </listitem>
 
     <listitem>
-      <para>libdbi/libdbi-Treiber, eine Datenbank wie z.B. mysql oder postgresql</para>
+      <para>libdbi/libdbi-Treiber, eine Datenbank wie z.B. &name-mysql; oder &name-postgres;</para>
     </listitem>
   </itemizedlist>
 
-  <para><emphasis role="bold">Neues Feature für die &name-idoutils;: SSL- Verschlüsselung zwischen idomod und
+  <para><emphasis role="bold">Neue Features für die &name-idoutils;: SSL- Verschlüsselung zwischen idomod und
   ido2db</emphasis></para>
 
-  <para>Wenn Sie <emphasis role="bold">SSL-Encryption </emphasis>verwenden möchten, werden zusätzlich die Pakete openssl und
+  <para>Wenn Sie <emphasis role="bold">SSL-Verschlüsselung </emphasis>verwenden möchten, werden zusätzlich die Pakete openssl und
   openssl-devel/libssl-dev benötigt!</para>
 
   <note>
-    <para>SSL muß auch bei allen idomod-Clients enabled werden, sonst gehen Daten verloren!!!</para>
+    <para>SSL muß auch bei allen idomod-Clients aktiviert werden, sonst gehen Daten verloren!!!</para>
   </note>
+
+  <para><emphasis role="bold">Oracle-Datenbankunterstützung</emphasis></para>
+
+  <para>Wenn Sie Oracle als RDBMS einsetzen möchten, müssen Sie neben libdbi auch die ocilib installieren. Holen Sie diese von
+  &url-orclib; and verweisen Sie bei configure auf Ihre Oracle-Libraries und Header-Files, z.B. die des Oracle Instant
+  Client:</para>
+
+  <para><programlisting> # ./configure --with-oracle-headers-path=/path/to/instantclient/sdk/include --with-oracle-lib-path=/path/to/instantclient/
+ # make
+ # make install</programlisting></para>
 
   <para>Sie können diese Pakete mit Hilfe der folgenden Befehle installieren (als root oder mit sudo):</para>
 
@@ -162,9 +172,24 @@
 
   <programlisting> # ./configure --enable-idoutils</programlisting>
 
-  <para><emphasis>Mit <emphasis role="bold"> SSL</emphasis>-Encryption:</emphasis></para>
+  <para><emphasis role="bold">Mit <emphasis role="bold">SSL</emphasis>-Verschlüsselung:</emphasis></para>
 
   <para><programlisting> # ./configure --enable-idoutils --enable-ssl</programlisting></para>
+
+  <para><emphasis role="bold">Mit Oracle-Datenbankunterstützung:</emphasis></para>
+
+  <para><programlisting> # ./configure --enable-idoutils --enable-oracle</programlisting> Wenn Sie die ocilib nicht im
+  Standardpfad (/usr/local) installiert haben, können Sie configure die lib/inc Verzeichnisse angeben:</para>
+
+  <programlisting> # ./configure --enable-idoutils --enable-oracle --with-ocilib-lib=/path/to/ocilib/lib --with-ocilib-inc=/path/to/ocilib/include</programlisting>
+
+  <note>
+    <para>Wenn Sie von einer Oracle-Datenbank auf ein anderes RDBMS wechseln möchten, dann müssen Sie die &name-idoutils; erneut
+    kompilieren und installieren!</para>
+  </note>
+
+  <programlisting> # make distclean
+ # ./configure --enable-idoutils</programlisting>
 
   <para>Kompilieren Sie den &name-icinga;-Source-Code. Es gibt auch eine extra Option für &name-idoutils; (<emphasis>make
   idoutils</emphasis>), wenn Sie nur dieses Module erneut kompilieren möchten. Um mögliche Optionen zu sehen, rufen Sie lediglich
@@ -276,6 +301,25 @@
  db_port=5432
  db_user=icingauser
  db_pass=icingauser</programlisting>
+
+  <para><emphasis role="bold">Oracle:</emphasis></para>
+
+  <para>Erstellen Sie ein Datenbank-Schema und eine username/password-Kombination (lesen Sie dazu die Oracle-Dokumentation unter
+  &url-oracle; oder fragen Sie Ihren DBA). Importieren Sie das Datenbank-Schema mit sqlplus (oder Ihrer bevorzugten Methode).
+  Kopieren Sie module/idoutils/db/oracle.sql nach $ORACLE_HOME</para>
+
+  <programlisting> # su - oracle
+ $ sqlplus dbuser/dbpass
+ SQL&gt; @oracle.sql</programlisting>
+
+  <para>Editieren Sie das DB-Config-File, um die &name-idoutils; anzupassen. Denken Sie daran, dass Oracle den DB-Host ignoriert,
+  nutzen Sie statt dessen db_name, um auf //DBSERVER/DBNAME zu verweisen</para>
+
+  <programlisting># vi /usr/local/icinga/etc/ido2db.cfg
+  db_servertype=oracle
+  db_port=1521
+  db_user=icinga
+  db_pass=icinga</programlisting>
 
   <para><emphasis role="bold">Konfigurieren des Web-Interface</emphasis></para>
 
@@ -442,6 +486,4 @@
   <para>Glückwunsch! Sie haben erfolgreich &name-icinga; installiert. Ihre Reise in die Überwachung hat gerade begonnen. Sie
   werden ohne Zweifel mehr als nur Ihre lokale Maschine überwachen wollen, so dass Sie u.a. das folgende <link
   linkend="ch02">Kapitel </link> lesen sollten...</para>
-  <indexterm zone="quickstart-idoutils><primary>Schnellstart</primary><secondary>Schnellstart &name-icinga; mit &name-idoutils;</secondary></indexterm>
-  <indexterm zone="quickstart-idoutils><primary>Quickstart</primary><secondary>Quickstart &name-icinga; mit &name-idoutils;</secondary></indexterm>
 </section>
