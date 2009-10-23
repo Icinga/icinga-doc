@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section
+version="5.0"
+xml:id="whatsnew"
+xmlns="http://docbook.org/ns/docbook"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:svg="http://www.w3.org/2000/svg"
+xmlns:m="http://www.w3.org/1998/Math/MathML"
+xmlns:html="http://www.w3.org/1999/xhtml"
+xmlns:db="http://docbook.org/ns/docbook"
+><title
+>Installation des &name-icinga; Webfrontends</title
+><para
+>Da noch kein Installer verfügbar ist, ist die Installation des Webinterfaces zugegebener Maßen noch etwas mühsam.</para
+><para
+>Hier findest Du eine Beispielkonfiguration, wenn Du andere Pfade und Verzeichnisse verwendest mußt Du den Code anpassen. Los geht's:</para
+><orderedlist
+><listitem
+><para
+>Clone von &url-icingagit-web; und verschiebe den git clone nach /var/www/icinga-web (in diesem Beispiel). Denk daran, dass der Pfad zu Deinem Webverzeichnis von Deiner Distribution abhängt:</para
+><programlisting
+> # mv icinga-web /var/www</programlisting
+></listitem
+><listitem
+><para
+>Clone auch die &name-icinga; API und verschiebe sie nach /var/www/lib/icinga-api: <programlisting
+> # git clone &url-icingagit-api;
+ # mv icinga-api /var/www/icinga-web/lib/</programlisting
+></para
+></listitem
+><listitem
+><para
+>Ändere den Besitzer des Web-Verzeichnisses auf den http-Benutzer:</para
+><para
+><emphasis
+>&name-fedora; / &name-redhat; / &name-centos;</emphasis
+></para
+><programlisting
+> # chown -R apache:apache /var/www/icinga-web</programlisting
+><para
+><emphasis
+>&name-ubuntu; / &name-debian; / &name-opensuse;</emphasis
+></para
+><programlisting
+> # chown -R www-data:www-data /var/www/icinga-web</programlisting
+></listitem
+><listitem
+><para
+>Anlegen der Datenbank und Setzen der Berechtigungen: <programlisting
+> # mysql -u root -p
+ mysql&gt; CREATE DATABASE icinga_web;
+ mysql&gt; GRANT ALL ON 'icinga_web.*' TO 'icinga_web'@'localhost' IDENTIFIED BY 'icinga_web';
+ mysql&gt; FLUSH PRIVILEGES;
+ quit</programlisting
+></para
+></listitem
+><listitem
+><para
+>Importieren der Datenbank über folgende Dateien: <programlisting
+> # mysql -u root -p icinga_web &lt; /var/www/icinga-web/etc/database/rescue_schema.sql
+ # mysql -u root -p icinga_web &lt; /var/www/icinga-web/etc/database/rescue_data.sql</programlisting
+></para
+></listitem
+><listitem
+><para
+>Editiere /var/www/icinga-web/app/config/databases.xml und setzte Deine Werte (ab Zeile 7):<programlisting
+>    &lt;database name="appkit_default" class="AgaviDoctrineDatabase"&gt;
+       &lt;ae:parameter name="dsn"&gt;mysql://icinga_web:icinga_web@127.0.0.1:3306/icinga_web&lt;/ae:parameter&gt;
+       &lt;ae:parameter name="username"&gt;icinga_web&lt;/ae:parameter&gt;
+       &lt;ae:parameter name="password"&gt;icinga_web&lt;/ae:parameter&gt;
+       &lt;ae:parameter name="charset"&gt;utf8&lt;/ae:parameter&gt;
+       &lt;ae:parameter name="manager_attributes"&gt;
+            <!-- This allows lazy loading of the models -->
+          &lt;ae:parameter name="MODEL_LOADING"&gt;CONSERVATIVE&lt;/ae:parameter&gt;
+       &lt;/ae:parameter&gt;
+       &lt;ae:parameter name="load_models"&gt;%de.icinga.appkit.doctrine_model_path%&lt;/ae:parameter&gt;
+    &lt;/database&gt;</programlisting
+></para
+></listitem
+><listitem
+><para
+>Editiere /var/www/icinga-web/app/config/icinga.xml und setze die Berechtigungen für den Zugriff auf die ido-Datenbank (ab Zeile 163): <programlisting
+> &lt;parameter name="IcingaData"&gt;
+     &lt;parameter name="class"&gt;IcingaData&lt;/parameter&gt;
+     &lt;parameter name="api_file"&gt;%core.root_dir%/lib/icinga-api/IcingaApi.php&lt;/parameter&gt;
+     &lt;parameter name="api_type"&gt;IcingaApi::CONNECTION_IDO&lt;/parameter&gt;
+     &lt;parameter name="config_type"&gt;mysql&lt;/parameter&gt;
+     &lt;parameter name="config_host"&gt;127.0.0.1&lt;/parameter&gt;
+
+     &lt;parameter name="config_port"&gt;3306&lt;/parameter&gt;
+     &lt;parameter name="config_database"&gt;icinga&lt;/parameter&gt;
+
+     &lt;parameter name="config_user"&gt;icinga&lt;/parameter&gt;
+     &lt;parameter name="config_password"&gt;icinga&lt;/parameter&gt;
+           
+     &lt;parameter name="config_table_prefix"&gt;icinga_&lt;/parameter&gt;
+ &lt;/parameter&gt;</programlisting
+><note
+> Vorher solltest Du die  &name-idoutils; installiert und konfiguriert haben, (wie hier beschrieben:<xref
+linkend="quickstart-idoutils"
+></xref
+> ) !</note
+></para
+></listitem
+><listitem
+><para
+>Erstelle einen virtuellen Host: <programlisting
+> &lt;VirtualHost *:80&gt;
+
+    ServerName icinga-web
+
+    DocumentRoot /var/www/icinga-web/pub/
+
+    DirectoryIndex index.php
+
+    &lt;Directory /var/www/icinga-web/pub/&gt;
+       Options -MultiViews -Indexes +FollowSymLinks
+       AllowOverride none
+       Order allow,deny
+       Allow from all
+
+       &lt;IfModule mod_rewrite.c&gt;
+          RewriteEngine On
+          RewriteBase /
+
+          # If the requested URL does not exist (it's likely an agavi route),
+          # pass it as path info to index.php, the Agavi dispatch script.
+          RewriteRule ^$ index.php?/ [QSA,L]
+          RewriteCond %{REQUEST_FILENAME} !-f
+          RewriteCond %{REQUEST_FILENAME} !-d
+          RewriteRule (.*) index.php?/$1 [QSA,L]
+       &lt;/IfModule&gt;
+
+    &lt;/Directory&gt;
+
+    # deny something!
+    &lt;Location /&gt;
+       Options -MultiViews -Indexes +FollowSymLinks
+       Order allow,deny
+       Allow from all
+    &lt;/Location&gt;
+
+    # JS frameworks
+    Alias /js/yui               /var/www/icinga-web/lib/yui
+    Alias /js/swfobject         /var/www/icinga-web/lib/swfobject
+    Alias /js/mootools          /var/www/icinga-web/lib/mootools
+    Alias /js/jquery            /var/www/icinga-web/lib/jquery
+    Alias /js/appkit            /var/www/icinga-web/lib/appkit/js
+    Alias /js/gc-prettify       /var/www/icinga-web/lib/gc-prettify
+    Alias /js/firebug           /var/www/icinga-web/lib/firebug
+    Alias /js/ext3              /var/www/icinga-web/lib/ext3
+
+    # Flash frameworks
+    Alias /flash/flexchart      /var/www/icinga-web/lib/flexchart
+
+    &lt;IfDefine APACHE2&gt;
+       AcceptPathInfo On
+    &lt;/IfDefine&gt;
+
+ &lt;/VirtualHost&gt;</programlisting
+></para
+></listitem
+><listitem
+><para
+>Leere den Cache:<programlisting
+> # rm /var/www/icinga-web/app/cache/config/*.php</programlisting
+></para
+></listitem
+><listitem
+><para
+>Lade die Konfiguration des Webservers neu:</para
+><para
+><emphasis
+>&name-fedora;/&name-redhat;/&name-centos;</emphasis
+></para
+><programlisting
+> # service httpd reload</programlisting
+><para
+><emphasis
+>&name-ubuntu; / &name-opensuse;</emphasis
+></para
+><programlisting
+> # /etc/init.d/apache2 reload</programlisting
+></listitem
+></orderedlist
+><para
+>Viel Spaß und bitte gib uns Dein Feedback!! 
+<link> http://localhost/icinga-web </link> 
+</para
+></section
+>
