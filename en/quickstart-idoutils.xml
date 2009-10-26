@@ -126,7 +126,7 @@
 
   <para><emphasis>&name-mysql;:</emphasis></para>
 
-  <programlisting> # apt-get install mysql-server mysql-client mysql-libdbi0 libdbi0-dev libdbd-mysql</programlisting>
+  <programlisting> # apt-get install mysql-server mysql-client libdbi0 libdbi0-dev libdbd-mysql</programlisting>
 
   <para><emphasis>&name-postgres;:</emphasis></para>
 
@@ -283,10 +283,19 @@
 
   <programlisting> # vi /var/lib/pgsql/data/pg_hba.conf</programlisting>
 
-  <para>Edit the config as follows (local user must be trusted)</para>
+  <para>Edit the config e.g. like this (local user must be trusted)</para>
 
-  <programlisting> #icinga
-  local icinga icingauser trust</programlisting>
+  <programlisting> # database administrative login by UNIX sockets
+ local    all        postgres                  ident
+ # TYPE   DATABASE   USER       CIDR-ADDRESS   METHOD 
+ #icinga
+ local    icinga     icingauser                trust
+ # "local" is for Unix domain socket connections only
+ local    all        all                       trust
+ # IPv4 local connections
+ local    all        all        127.0.0.1/32   trust
+ # IPV6 local connections
+ local    all        all        ::1/128        trust</programlisting>
 
   <para>Reload and configure database scheme.</para>
 
