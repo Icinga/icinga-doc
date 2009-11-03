@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section
+version="5.0"
+xml:id="icinga-web-scratch"
+xmlns="http://docbook.org/ns/docbook"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:svg="http://www.w3.org/2000/svg"
+xmlns:m="http://www.w3.org/1998/Math/MathML"
+xmlns:html="http://www.w3.org/1999/xhtml"
+xmlns:db="http://docbook.org/ns/docbook"
+><title
+>Installation &name-icinga; web frontend from scratch</title
+><para
+><emphasis
+>Install icinga-web standalone from scratch</emphasis
+></para
+><orderedlist
+><listitem
+><para
+><emphasis
+role="bold"
+>Prerequisits</emphasis
+></para
+><para
+>Based on the fact that you have a running mysql and php (with PEAR and CLI) environment. Also icinga and ido are running you can continue with the second step.</para
+><programlisting
+># apt-get install php5-cli php-pear php5-xmlrpc php5-xsl</programlisting
+></listitem
+><listitem
+><para
+><emphasis
+role="bold"
+>The place and dependencies</emphasis
+></para
+><para
+>Get the source and copy icinga-web to a place you like (e.g. /usr/local/icinga-web). You should have a icinga-api too or get one an copy it to you lib path you want</para
+></listitem
+><listitem
+><para
+><emphasis
+role="bold"
+>Php dependencies</emphasis
+></para
+><para
+>Test the php dependencies. Go to the etc directory and call the phing test script:</para
+><programlisting
+> # ../bin/phing testdeps</programlisting
+><para
+>All required tests should pass successfully. Maybe you have to alter the php.ini for the framework.</para
+><para
+>In case of the gpc_magic_quote setting, you have to disable both entries (apache and cli php.ini).</para
+><programlisting
+># vi /etc/php5/apache/php.ini
+  magic_quotes_gpc = off
+
+# vi /etc/php5/cli/php.ini
+  magic_quotes_gpc = off</programlisting
+></listitem
+><listitem
+><para
+><emphasis
+role="bold"
+>Database installation</emphasis
+></para
+><para
+><emphasis
+role="bold"
+>Manually creation</emphasis
+></para
+><para
+>Create a database and a user you like. The user must have default data privileges like SELECT, UPDATE, INSERT, DELETE. Import the schemes etc/database/deploy/init.sql etc/database/deploy/db-deploy.sql to your database. Thats all</para
+><para
+><emphasis
+role="bold"
+>Auto creation</emphasis
+></para
+><para
+>Create a database user with scheme and data privileges (CREATE, DROP, ALTER, INDEX). Go to the etc dir and copy the build.properties to a save place (e.g. /tmp). Alter the database settings within the properties file. You can also set you database root user to create your scheme. Call the phing deploy task:</para
+><para
+><programlisting
+># ../bin/phing -Dproperties=/usr/local/icinga-web/build.properties db-initialize</programlisting
+></para
+><para
+>You have to manually create a database user to access your database. Add the default data privileges that icinga-web can work with the newly created database.</para
+></listitem
+><listitem
+><para
+><emphasis
+role="bold"
+>Icinga-web settings</emphasis
+></para
+><para
+>Alter the configfiles:</para
+><para
+><programlisting
+># vi app/config/databases.xml</programlisting
+></para
+><para
+>Change the credentials for your database connection</para
+><para
+><programlisting
+># vi app/config/icinga.xml</programlisting
+></para
+><para
+>Go to the appkit.factories section and change the path and the credentials for the icinga-api.</para
+></listitem
+><listitem
+><para
+><emphasis
+role="bold"
+>Apache settings</emphasis
+></para
+><para
+>This should be prepared:</para
+><para
+>* mod_rewrite enabled</para
+><para
+>* Any htaccess enabled alias settings</para
+><para
+>Change owner of web directory to http user:</para
+><para
+><programlisting
+># chown -R www-data:www-data /usr/local/icinga-web</programlisting
+></para
+><para
+>Edit your icinga-web.conf:</para
+><para
+><programlisting
+># vi /etc/apache2/conf.d/icinga-web.conf
+ &lt;Alias /icinga-web /usr/local/icinga-web/pub&gt;
+ &lt;directory&gt;&lt;/usr/local/icinga-web/pub&gt;
+ &lt;AllowOverride All&gt;
+ &lt;/directory&gt;</programlisting
+></para
+><para
+>Go to the pub directory and changes the .htaccess file. You have to alter the RewriteBase direction to suite your needs.</para
+><para
+><programlisting
+># vi /usr/local/icinga-web/pub/.htaccess
+  RewriteBase /icinga-web/</programlisting
+></para
+><para
+>Clear cache:</para
+><para
+><programlisting
+># rm /usr/local/icinga-web/app/cache/config/*.php</programlisting
+></para
+><para
+>Restart your Webserver:</para
+><para
+><programlisting
+># service apache2 restart</programlisting
+></para
+></listitem
+><listitem
+><para
+><emphasis
+role="bold"
+>Try</emphasis
+></para
+><para
+>Go to the webpath and try if the webinterface starts without exceptions (database connections web and api). You can login with user 'root' and password 'password'</para
+></listitem
+></orderedlist
+></section
+>
