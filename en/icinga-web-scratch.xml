@@ -30,15 +30,32 @@ role="bold"
 >Based on the fact that you have a running mysql and php (with PEAR and CLI) environment. Also icinga and ido are running you can continue with the second step.</para
 ><programlisting
 ># apt-get install php5-cli php-pear php5-xmlrpc php5-xsl</programlisting
+><para
+>Take your clone from the icinga-web.git to get a fresh branch</para
+><programlisting
+>
+# git clone git://git.icinga.org/icinga-web.git</programlisting
 ></listitem
 ><listitem
 ><para
 ><emphasis
 role="bold"
->The place and dependencies</emphasis
+>The Installation</emphasis
 ></para
+><programlisting
+># tar xzvf icinga-web-(version).tar.gz
+# cd icinga-web</programlisting
 ><para
->Get the source and copy icinga-web to a place you like (e.g. /usr/local/icinga-web). You should have a icinga-api too or get one an copy it to you lib path you want</para
+>Recently work has been started on setting up an installer for the new Icinga-web UI, use:</para
+><programlisting
+># ./configure --help</programlisting
+><para
+>to see all configure options.</para
+><para
+>Default the &name-icingaweb; will be installed to /usr/local/icinga-web by:</para
+><programlisting
+># ./configure
+# make install</programlisting
 ></listitem
 ><listitem
 ><para
@@ -47,9 +64,9 @@ role="bold"
 >Php dependencies</emphasis
 ></para
 ><para
->Test the php dependencies. Go to the etc directory and call the phing test script:</para
+>Test the php dependencies with:</para
 ><programlisting
-> # ../bin/phing testdeps</programlisting
+> # make testdeps</programlisting
 ><para
 >All required tests should pass successfully. Maybe you have to alter the php.ini for the framework.</para
 ><para
@@ -83,7 +100,7 @@ role="bold"
 >Create a database user with scheme and data privileges (CREATE, DROP, ALTER, INDEX). Go to the etc dir and copy the build.properties to a save place (e.g. /tmp). Alter the database settings within the properties file. You can also set you database root user to create your scheme. Call the phing deploy task:</para
 ><para
 ><programlisting
-># ../bin/phing -Dproperties=/usr/local/icinga-web/build.properties db-initialize</programlisting
+># /usr/local/icinga-web/bin/phing -Dproperties=/usr/local/icinga-web/build.properties db-initialize</programlisting
 ></para
 ><para
 >You have to manually create a database user to access your database. Add the default data privileges that icinga-web can work with the newly created database.</para
@@ -95,19 +112,72 @@ role="bold"
 >Icinga-web settings</emphasis
 ></para
 ><para
->Alter the configfiles:</para
-><para
-><programlisting
-># vi app/config/databases.xml</programlisting
+>Alter the configfiles: Edit /var/www/icinga-web/app/config/databases.xml and set database credentials (block should begin at line 7):<programlisting
+>    &lt;database name="appkit_default" class="AgaviDoctrineDatabase"&gt;
+       &lt;ae:parameter name="dsn"&gt;mysql://icinga_web:icinga_web@127.0.0.1:3306/icinga_web&lt;/ae:parameter&gt;
+       &lt;ae:parameter name="username"&gt;icinga_web&lt;/ae:parameter&gt;
+       &lt;ae:parameter name="password"&gt;icinga_web&lt;/ae:parameter&gt;
+       &lt;ae:parameter name="charset"&gt;utf8&lt;/ae:parameter&gt;
+       &lt;ae:parameter name="manager_attributes"&gt;
+            <!-- This allows lazy loading of the models -->
+          &lt;ae:parameter name="MODEL_LOADING"&gt;CONSERVATIVE&lt;/ae:parameter&gt;
+       &lt;/ae:parameter&gt;
+       &lt;ae:parameter name="load_models"&gt;%de.icinga.appkit.doctrine_model_path%&lt;/ae:parameter&gt;
+    &lt;/database&gt;</programlisting
 ></para
 ><para
 >Change the credentials for your database connection</para
 ><para
+>Edit /var/www/icinga-web/app/config/icinga.xml and set database credentials to give access to ido-db (block should begin at line 163):</para
 ><programlisting
-># vi app/config/icinga.xml</programlisting
-></para
+> &lt;parameter name="IcingaData"&gt;
+     &lt;parameter name="class"&gt;IcingaData&lt;/parameter&gt;
+     &lt;parameter name="api_file"&gt;%core.root_dir%/lib/icinga-api/IcingaApi.php&lt;/parameter&gt;
+     &lt;parameter name="api_type"&gt;IcingaApi::CONNECTION_IDO&lt;/parameter&gt;
+     &lt;parameter name="config_type"&gt;mysql&lt;/parameter&gt;
+     &lt;parameter name="config_host"&gt;127.0.0.1&lt;/parameter&gt;
+
+     &lt;parameter name="config_port"&gt;3306&lt;/parameter&gt;
+     &lt;parameter name="config_database"&gt;icinga&lt;/parameter&gt;
+
+     &lt;parameter name="config_user"&gt;icinga&lt;/parameter&gt;
+     &lt;parameter name="config_password"&gt;icinga&lt;/parameter&gt;
+
+     &lt;parameter name="config_table_prefix"&gt;icinga_&lt;/parameter&gt;
+ &lt;/parameter&gt;</programlisting
+><note
+> Please keep in mind that you have to install &name-idoutils; before (according to the <xref
+linkend="quickstart-idoutils"
+></xref
+> ) </note
 ><para
 >Go to the appkit.factories section and change the path and the credentials for the icinga-api.</para
+><programlisting
+>
+ &lt;!-- icinga-api data interface --&gt;
+                &lt;parameter name="IcingaData"&gt;
+                        &lt;parameter name="class"&gt;IcingaData&lt;/parameter&gt;
+                        &lt;parameter name="file"&gt;%core.module_dir%/Web/lib/icinga/factory/IcingaData.class.php &lt;/parameter&gt;
+
+                         &lt;parameter name="requiredClasses"&gt;
+                                &lt;!-- NONE --&gt;
+                         &lt;/parameter&gt;
+
+                         &lt;parameter name="api_file"&gt;%core.root_dir%/icinga-api/IcingaApi.php/&lt;parameter&gt;
+                         &lt;parameter name="api_type"&gt;IcingaApi::CONNECTION_IDO&lt;/parameter&gt;
+
+                         &lt;parameter name="config_type"&gt;mysql&lt;/parameter&gt;
+                         &lt;parameter name="config_host"&gt;127.0.0.1&lt;/parameter&gt;
+
+
+                         &lt;parameter name="config_port"&gt;3306&lt;/parameter&gt;
+                         &lt;parameter name="config_database"&gt;icinga&lt;/parameter&gt;
+
+                         &lt;parameter name="config_user"&gt;ido&lt;/parameter&gt;
+                         &lt;parameter name="config_password"&gt;a4ido&lt;/parameter&gt;
+
+                         &lt;parameter name="config_table_prefix"&gt;icinga_&lt;/parameter&gt;
+                &lt;/parameter&gt;</programlisting
 ></listitem
 ><listitem
 ><para
