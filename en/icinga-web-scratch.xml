@@ -33,8 +33,7 @@ role="bold"
 ><para
 >Take your clone from the icinga-web.git to get a fresh branch</para
 ><programlisting
->
-# git clone git://git.icinga.org/icinga-web.git</programlisting
+># git clone git://git.icinga.org/icinga-web.git</programlisting
 ></listitem
 ><listitem
 ><para
@@ -173,8 +172,8 @@ linkend="quickstart-idoutils"
                          &lt;parameter name="config_port"&gt;3306&lt;/parameter&gt;
                          &lt;parameter name="config_database"&gt;icinga&lt;/parameter&gt;
 
-                         &lt;parameter name="config_user"&gt;ido&lt;/parameter&gt;
-                         &lt;parameter name="config_password"&gt;a4ido&lt;/parameter&gt;
+                         &lt;parameter name="config_user"&gt;your-ido-user&lt;/parameter&gt;
+                         &lt;parameter name="config_password"&gt;your-ido-pw&lt;/parameter&gt;
 
                          &lt;parameter name="config_table_prefix"&gt;icinga_&lt;/parameter&gt;
                 &lt;/parameter&gt;</programlisting
@@ -188,7 +187,11 @@ role="bold"
 ><para
 >This should be prepared:</para
 ><para
->* mod_rewrite enabled</para
+>* mod_rewrite enabled, maybe you have to create a link:</para
+><para
+><programlisting
+># ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enable/rewrite.load</programlisting
+></para
 ><para
 >* Any htaccess enabled alias settings</para
 ><para
@@ -200,12 +203,60 @@ role="bold"
 ><para
 >Edit your icinga-web.conf:</para
 ><para
-><programlisting
-># vi /etc/apache2/conf.d/icinga-web.conf
- &lt;Alias /icinga-web /usr/local/icinga-web/pub&gt;
- &lt;directory&gt;&lt;/usr/local/icinga-web/pub&gt;
- &lt;AllowOverride All&gt;
- &lt;/directory&gt;</programlisting
+>Set up a virtual host: <programlisting
+> &lt;VirtualHost *:80&gt;
+
+    ServerName icinga-web
+
+    DocumentRoot /var/www/icinga-web/pub/
+
+    DirectoryIndex index.php
+
+    &lt;Directory /var/www/icinga-web/pub/&gt;
+       Options -MultiViews -Indexes +FollowSymLinks
+       AllowOverride none
+       Order allow,deny
+       Allow from all
+
+       &lt;IfModule mod_rewrite.c&gt;
+          RewriteEngine On
+          RewriteBase /
+
+          # If the requested URL does not exist (it's likely an agavi route),
+          # pass it as path info to index.php, the Agavi dispatch script.
+          RewriteRule ^$ index.php?/ [QSA,L]
+          RewriteCond %{REQUEST_FILENAME} !-f
+          RewriteCond %{REQUEST_FILENAME} !-d
+          RewriteRule (.*) index.php?/$1 [QSA,L]
+       &lt;/IfModule&gt;
+
+    &lt;/Directory&gt;
+
+    # deny something!
+    &lt;Location /&gt;
+       Options -MultiViews -Indexes +FollowSymLinks
+       Order allow,deny
+       Allow from all
+    &lt;/Location&gt;
+
+    # JS frameworks
+    Alias /js/yui               /var/www/icinga-web/lib/yui
+    Alias /js/swfobject         /var/www/icinga-web/lib/swfobject
+    Alias /js/mootools          /var/www/icinga-web/lib/mootools
+    Alias /js/jquery            /var/www/icinga-web/lib/jquery
+    Alias /js/appkit            /var/www/icinga-web/lib/appkit/js
+    Alias /js/gc-prettify       /var/www/icinga-web/lib/gc-prettify
+    Alias /js/firebug           /var/www/icinga-web/lib/firebug
+    Alias /js/ext3              /var/www/icinga-web/lib/ext3
+
+    # Flash frameworks
+    Alias /flash/flexchart      /var/www/icinga-web/lib/flexchart
+
+    &lt;IfDefine APACHE2&gt;
+       AcceptPathInfo On
+    &lt;/IfDefine&gt;
+
+ &lt;/VirtualHost&gt;</programlisting
 ></para
 ><para
 >Go to the pub directory and changes the .htaccess file. You have to alter the RewriteBase direction to suite your needs.</para
@@ -232,6 +283,11 @@ role="bold"
 ><emphasis
 role="bold"
 >Try</emphasis
+></para
+><para
+><emphasis
+role="bold"
+>Please ensure mysql, apache, idoutils and icinga are running!</emphasis
 ></para
 ><para
 >Go to the webpath and try if the webinterface starts without exceptions (database connections web and api). You can login with user 'root' and password 'password'</para
