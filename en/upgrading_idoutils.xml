@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="upgrading_idoutils" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="upgrading_idoutils2" />Upgrading &name-idoutils; database</title>
+
+  <para>There may be a bug within the database scheme which has been fixed. If you are upgrading from an older &name-idoutils; version you also need to apply those fixes manually. 
+If you are using rpm/deb packages please read the notes and/or ask the maintainer if he has added those modifications to the install routine.</para>
+
+<para>The upgrade files can be found next to the database install files in</para>
+
+<code>/path/to/icinga-src/module/idoutils/db/</code>
+
+<para>The syntax is as follows</para>
+
+<code>&lt;rdbm&gt;-upgrade-&lt;version&gt;.sql</code>
+
+<para>where &lt;rdbm&gt; could be mysql, pgsql or oracle and &lt;version&gt; points to the version you want to upgrade to.</para>
+
+<note><para>If you are upgrading from an older version and there are other versions in between be advised that you need to apply those upgrade files with incremental steps!</para></note>
+
+<para>E.g. you have 1.0RC1 installed and want to upgrade to 1.0.1 - you will have to upgrade to 1.0 Stable first and then apply the upgrade to 1.0.1</para>
+
+<orderedlist><listitem><para>Backup your current database before upgrading!</para></listitem>
+<listitem><para>Check current &name-idoutils; version and the target version. Check if there are any version in between and upgrade incremental if necessary.</para></listitem>
+<listitem><para>Apply the upgrade(s) using a rdbm user with appropriate rights. You may use the upgradedb script, but this is not recommended (for MySQL only).</para></listitem>
+</orderedlist>
+<emphasis role="bold">MySQL</emphasis>
+<programlisting> $ mysql -u root -p &lt;dbname&gt; &lt; /path/to/icinga-src/module/idoutils/db/mysql-upgrade-&lt;version&gt;.sql</programlisting>
+
+<emphasis role="bold">Postgresql</emphasis>
+<programlisting> # su - postgres
+ $ psql -U icinga -d icinga &lt; /path/to/icinga-src/module/idoutils/db/pgsql-upgrade-&lt;version&gt;.sql</programlisting> 
+
+<emphasis role="bold">Oracle</emphasis>
+<programlisting> # su - oracle
+ $ sqlplus dbuser/dbpass
+ SQL> @oracle-upgrade-&lt;version&gt;.sql</programlisting>
+
+ <indexterm zone="upgrading_idoutils">
+    <primary>Upgrading &name-idoutils;</primary>
+  </indexterm>
+</section>

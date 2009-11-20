@@ -270,8 +270,8 @@
 
   <programlisting> # su - postgres
  $psql
- postgres=# CREATE USER icingauser;
- postgres=# ALTER USER icingauser WITH PASSWORD 'icingauser';
+ postgres=# CREATE USER icinga;
+ postgres=# ALTER USER icinga WITH PASSWORD 'icinga';
  postgres=# CREATE DATABASE icinga;
  </programlisting>
 
@@ -289,7 +289,7 @@
  local    all        postgres                  ident
  # TYPE   DATABASE   USER       CIDR-ADDRESS   METHOD 
  #icinga
- local    icinga     icingauser                trust
+ local    icinga     icinga                    trust
  # "local" is for Unix domain socket connections only
  local    all        all                       trust
  # IPv4 local connections
@@ -302,15 +302,15 @@
   <programlisting> # /etc/init.d/postgresql-8.x reload</programlisting>
 
   <programlisting> # cd /path/to/icinga-src/module/idoutils/db
- # psql -U icingauser -d icinga &lt; pgsql.sql</programlisting>
+ # psql -U icinga -d icinga &lt; pgsql.sql</programlisting>
 
   <para>Edit the DB config file to customize &name-idoutils;</para>
 
   <programlisting> # vi /usr/local/icinga/etc/ido2db.cfg
  db_servertype=pgsql
  db_port=5432
- db_user=icingauser
- db_pass=icingauser</programlisting>
+ db_user=icinga
+ db_pass=icinga</programlisting>
 
   <para><emphasis role="bold">Oracle:</emphasis></para>
 

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="upgrading_idoutils" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="upgrading_idoutils2" />&name-idoutils;-Datenbank aktualisieren</title>
+
+  <para>Es mag einen Bug im Datenbankschema geben, der behoben wurde. Wenn Sie eine ältere &name-idoutils;-Version aktualisieren,
+  dann müssen Sie außerdem diese Anpassungen manuell ausführen. Wenn Sie rpm/deb-Pakete, lesen Sie bitte die Hinweise und/oder
+  fragen Sie den Maintainer, ob er diese Anpassungen in der Installationsroutine hinzugefügt hat.</para>
+
+  <para>Die Update-Dateien finden Sie zusammenmit den Datenbank-Installationsdateien in</para>
+
+  <code>/path/to/icinga-src/module/idoutils/db/</code>
+
+  <para>Die Syntax ist wie folgt</para>
+
+  <code>&lt;rdbm&gt;-upgrade-&lt;version&gt;.sql</code>
+
+  <para>wobei &lt;rdbm&gt; mysql, pgsql oder oracle sein kann und &lt;version&gt; zeigt auf die Version, auf die Sie aktualisieren
+  wollen.</para>
+
+  <note>
+    <para>Wenn Sie eine ältere Version aktualisieren wollen und zwischen dieser und der aktuellen noch andere Versionen liegen,
+    dann sollten Sie beachten, dass Sie auch die dazwischen liegenden Updates inkrementell installieren müssen!</para>
+  </note>
+
+  <para>Z.B. haben Sie 1.0RC1 installiert und möchten auf 1.0.1 aktualisieren - Sie müssen dann zuerst auf 1.0 Stable updaten und
+  dann die Aktualierung auf 1.0.1 durchführen.</para>
+
+  <orderedlist>
+    <listitem>
+      <para>Sichern Sie Ihre aktuelle Datenbank vor der Aktualisierung!</para>
+    </listitem>
+
+    <listitem>
+      <para>Prüfen Sie die laufende &name-idoutils;-Version und die Zielversion. Prüfen Sie, ob zwischen diesen beiden Versionen
+      noch andere Versionen liegen und aktualisieren Sie ggf. schrittweise.</para>
+    </listitem>
+
+    <listitem>
+      <para>Führen Sie die Aktualisierung(en) mit einem Benutzer durch, der über die notwendigen Berechtigungen verfügt. Sie
+      können das upgradedb-Script verwenden, aber das wird nicht empfehlen (betrifft nur MySQL).</para>
+    </listitem>
+  </orderedlist>
+
+  <emphasis role="bold">MySQL</emphasis>
+
+  <programlisting> $ mysql -u root -p &lt;dbname&gt; &lt; /path/to/icinga-src/module/idoutils/db/mysql-upgrade-&lt;version&gt;.sql</programlisting>
+
+  <emphasis role="bold">Postgresql</emphasis>
+
+  <programlisting> # su - postgres
+ $ psql -U icinga -d icinga &lt; /path/to/icinga-src/module/idoutils/db/pgsql-upgrade-&lt;version&gt;.sql</programlisting>
+
+  <emphasis role="bold">Oracle</emphasis>
+
+  <programlisting> # su - oracle
+ $ sqlplus dbuser/dbpass
+ SQL&gt; @oracle-upgrade-&lt;version&gt;.sql</programlisting>
+
+  <indexterm zone="upgrading_idoutils">
+    <primary>Upgrading &name-idoutils;</primary>
+  </indexterm>
+</section>
