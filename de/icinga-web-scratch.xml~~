@@ -24,35 +24,34 @@ xmlns:db="http://docbook.org/ns/docbook"
 ><para
 ><emphasis
 role="bold"
->Prerequisits</emphasis
+>Voraussetzungen</emphasis
 ></para
 ><para
->Based on the fact that you have a running mysql and php (with PEAR and CLI) environment. Also icinga and ido are running you can continue with the second step.</para
+>Du hast mysql, php5 installiert (mit PEAR und CLI) . Icinga läuft und ebenfalls die IDOUtils, dann ab zu 2., ansonsten bitte:</para
 ><programlisting
 ># apt-get install php5-cli php-pear php5-xmlrpc php5-xsl</programlisting
 ><para
->Take your clone from the icinga-web.git to get a fresh branch</para
+>Clone von icinga-web.git um mit der aktuellsten Version zu arbeiten:</para
 ><programlisting
->
-# git clone git://git.icinga.org/icinga-web.git</programlisting
+># git clone git://git.icinga.org/icinga-web.git</programlisting
 ></listitem
 ><listitem
 ><para
 ><emphasis
 role="bold"
->The Installation</emphasis
+>Die Installation</emphasis
 ></para
 ><programlisting
 ># tar xzvf icinga-web-(version).tar.gz
 # cd icinga-web</programlisting
 ><para
->Recently work has been started on setting up an installer for the new Icinga-web UI, use:</para
+>Nun kannst Du schon den Installer bemühen, mit :</para
 ><programlisting
 ># ./configure --help</programlisting
 ><para
->to see all configure options.</para
+>siehst Du alle Konfigurationsmöglichkeiten.</para
 ><para
->Default the &name-icingaweb; will be installed to /usr/local/icinga-web by:</para
+>Ohne weitere Optionen wird das  &name-icingaweb; unter /usr/local/icinga-web installiert:</para
 ><programlisting
 ># ./configure
 # make install</programlisting
@@ -61,16 +60,16 @@ role="bold"
 ><para
 ><emphasis
 role="bold"
->Php dependencies</emphasis
+>PHP- Anhängigkeiten</emphasis
 ></para
 ><para
->Test the php dependencies with:</para
+>Bitte prüfe die PHP-Anhängigkeiten mit :</para
 ><programlisting
 > # make testdeps</programlisting
 ><para
->All required tests should pass successfully. Maybe you have to alter the php.ini for the framework.</para
+>Alle "require"-Test sollten erfolgreich sein. Eventuell mußt Du die php.ini anpassen:</para
 ><para
->In case of the gpc_magic_quote setting, you have to disable both entries (apache and cli php.ini).</para
+>Die "magic_quote_gpc" in der Apache und der Cli php.ini auf Off setzen!</para
 ><programlisting
 ># vi /etc/php5/apache/php.ini
   magic_quotes_gpc = off
@@ -112,11 +111,11 @@ role="bold"
 >Icinga-web settings</emphasis
 ></para
 ><para
->Alter the configfiles: Edit /var/www/icinga-web/app/config/databases.xml and set database credentials (block should begin at line 7, in this Example: DB-User: icinga_user, PW: password):<programlisting
+>Alter the configfiles: Edit /var/www/icinga-web/app/config/databases.xml and set database credentials (block should begin at line 7):<programlisting
 >    &lt;database name="appkit_default" class="AgaviDoctrineDatabase"&gt;
-       &lt;ae:parameter name="dsn"&gt;mysql://icinga_user:password@127.0.0.1:3306/icinga_web&lt;/ae:parameter&gt;
-       &lt;ae:parameter name="username"&gt;icinga_user&lt;/ae:parameter&gt;
-       &lt;ae:parameter name="password"&gt;password&lt;/ae:parameter&gt;
+       &lt;ae:parameter name="dsn"&gt;mysql://icinga_web:icinga_web@127.0.0.1:3306/icinga_web&lt;/ae:parameter&gt;
+       &lt;ae:parameter name="username"&gt;icinga_web&lt;/ae:parameter&gt;
+       &lt;ae:parameter name="password"&gt;icinga_web&lt;/ae:parameter&gt;
        &lt;ae:parameter name="charset"&gt;utf8&lt;/ae:parameter&gt;
        &lt;ae:parameter name="manager_attributes"&gt;
             <!-- This allows lazy loading of the models -->
@@ -140,8 +139,8 @@ role="bold"
      &lt;parameter name="config_port"&gt;3306&lt;/parameter&gt;
      &lt;parameter name="config_database"&gt;icinga&lt;/parameter&gt;
 
-     &lt;parameter name="config_user"&gt;your-ido-user&lt;/parameter&gt;
-     &lt;parameter name="config_password"&gt;your-ido-pw&lt;/parameter&gt;
+     &lt;parameter name="config_user"&gt;icinga&lt;/parameter&gt;
+     &lt;parameter name="config_password"&gt;icinga&lt;/parameter&gt;
 
      &lt;parameter name="config_table_prefix"&gt;icinga_&lt;/parameter&gt;
  &lt;/parameter&gt;</programlisting
@@ -188,7 +187,7 @@ role="bold"
 ><para
 >This should be prepared:</para
 ><para
->* mod_rewrite enabled, maybe you have to link:</para
+>* mod_rewrite enabled, maybe you have to create a link:</para
 ><para
 ><programlisting
 ># ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enable/rewrite.load</programlisting
@@ -204,12 +203,60 @@ role="bold"
 ><para
 >Edit your icinga-web.conf:</para
 ><para
-><programlisting
-># vi /etc/apache2/conf.d/icinga-web.conf
- &lt;Alias /icinga-web /usr/local/icinga-web/pub&gt;
- &lt;directory&gt;&lt;/usr/local/icinga-web/pub&gt;
- &lt;AllowOverride All&gt;
- &lt;/directory&gt;</programlisting
+>Set up a virtual host: <programlisting
+> &lt;VirtualHost *:80&gt;
+
+    ServerName icinga-web
+
+    DocumentRoot /var/www/icinga-web/pub/
+
+    DirectoryIndex index.php
+
+    &lt;Directory /var/www/icinga-web/pub/&gt;
+       Options -MultiViews -Indexes +FollowSymLinks
+       AllowOverride none
+       Order allow,deny
+       Allow from all
+
+       &lt;IfModule mod_rewrite.c&gt;
+          RewriteEngine On
+          RewriteBase /
+
+          # If the requested URL does not exist (it's likely an agavi route),
+          # pass it as path info to index.php, the Agavi dispatch script.
+          RewriteRule ^$ index.php?/ [QSA,L]
+          RewriteCond %{REQUEST_FILENAME} !-f
+          RewriteCond %{REQUEST_FILENAME} !-d
+          RewriteRule (.*) index.php?/$1 [QSA,L]
+       &lt;/IfModule&gt;
+
+    &lt;/Directory&gt;
+
+    # deny something!
+    &lt;Location /&gt;
+       Options -MultiViews -Indexes +FollowSymLinks
+       Order allow,deny
+       Allow from all
+    &lt;/Location&gt;
+
+    # JS frameworks
+    Alias /js/yui               /var/www/icinga-web/lib/yui
+    Alias /js/swfobject         /var/www/icinga-web/lib/swfobject
+    Alias /js/mootools          /var/www/icinga-web/lib/mootools
+    Alias /js/jquery            /var/www/icinga-web/lib/jquery
+    Alias /js/appkit            /var/www/icinga-web/lib/appkit/js
+    Alias /js/gc-prettify       /var/www/icinga-web/lib/gc-prettify
+    Alias /js/firebug           /var/www/icinga-web/lib/firebug
+    Alias /js/ext3              /var/www/icinga-web/lib/ext3
+
+    # Flash frameworks
+    Alias /flash/flexchart      /var/www/icinga-web/lib/flexchart
+
+    &lt;IfDefine APACHE2&gt;
+       AcceptPathInfo On
+    &lt;/IfDefine&gt;
+
+ &lt;/VirtualHost&gt;</programlisting
 ></para
 ><para
 >Go to the pub directory and changes the .htaccess file. You have to alter the RewriteBase direction to suite your needs.</para
