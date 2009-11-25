@@ -140,7 +140,41 @@
 
   <para><emphasis role="bold">&name-opensuse;:</emphasis></para>
 
-  <para>Bitte nutzen Sie yast für die Installation der Pakete</para>
+  <para>Es ist ziemlich wahrscheinlich, dass es keine libdbi-Packages gibt, so dass Sie die Sourcen herunterladen und kompilieren
+  müssen. Ersetzen Sie dabei &lt;rdbm&gt; durch Ihr RDBM wie mysql oder pgsql. Bitte beachten Sie, dass der Oracle-Treiber noch
+  nicht funktioniert. Lesen Sie daher den entsprechenden Abschnitt zu ocilib (anstatt libdbi).</para>
+
+  <orderedlist>
+    <listitem>
+      <para>Laden Sie die tar.gz-Dateien herunter und entpacken Sie diese</para>
+
+      <para><link xlink:href="libdbi">http://libdbi.sourceforge.net/download.html</link></para>
+
+      <para><link xlink:href="libdbi-drivers">http://libdbi-drivers.sourceforge.net/download.html</link></para>
+
+      <para><programlisting> # tar xvzf libdbi-0.8.3.tar.gz
+ # tar xvzf libdbi-drivers-0.8.3-1.tar.gz</programlisting></para>
+    </listitem>
+
+    <listitem>
+      <para>Installieren Sie die libdbi. Möglicherweise brauchen Sie beim configure weitere Optionen (set --prefix=/usr ...
+      )</para>
+
+      <para><programlisting> # cd libdbi
+ # ./configure --disable-docs
+ # make
+ # make install</programlisting></para>
+    </listitem>
+
+    <listitem>
+      <para>Installieren Sie die libdbi-Treiber</para>
+
+      <para><programlisting> # cd libdbi-drivers
+ # ./configure --with-&lt;rdbm&gt; --disable-docs
+ # make
+ # make install</programlisting></para>
+    </listitem>
+  </orderedlist>
 
   <para><emphasis role="bold">Benutzerinformationen erstellen</emphasis></para>
 
