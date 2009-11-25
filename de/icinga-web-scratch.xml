@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section
+version="5.0"
+xml:id="icinga-web-scratch"
+xmlns="http://docbook.org/ns/docbook"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:xi="http://www.w3.org/2001/XInclude"
+xmlns:svg="http://www.w3.org/2000/svg"
+xmlns:m="http://www.w3.org/1998/Math/MathML"
+xmlns:html="http://www.w3.org/1999/xhtml"
+xmlns:db="http://docbook.org/ns/docbook"
+><title
+>Installation &name-icinga; web frontend from scratch</title
+><para
+><emphasis
+>Install icinga-web standalone from scratch</emphasis
+></para
+><orderedlist
+><listitem
+><para
+><emphasis
+role="bold"
+>Voraussetzungen</emphasis
+></para
+><para
+>Du hast mysql, php5 installiert (mit PEAR und CLI) . Icinga läuft und ebenfalls die IDOUtils, dann ab zu 2., ansonsten bitte:</para
+><programlisting
+># apt-get install php5-cli php-pear php5-xmlrpc php5-xsl</programlisting
+><para
+>Clone von icinga-web.git um mit der aktuellsten Version zu arbeiten:</para
+><programlisting
+># git clone git://git.icinga.org/icinga-web.git</programlisting
+></listitem
+><listitem
+><para
+><emphasis
+role="bold"
+>Die Installation</emphasis
+></para
+><programlisting
+># tar xzvf icinga-web-(version).tar.gz
+# cd icinga-web</programlisting
+><para
+>Nun kannst Du schon den Installer bemühen, mit :</para
+><programlisting
+># ./configure --help</programlisting
+><para
+>siehst Du alle Konfigurationsmöglichkeiten.</para
+><para
+>Ohne weitere Optionen wird das &name-icingaweb; unter /usr/local/icinga-web installiert:</para
+><programlisting
+># ./configure
+# make install</programlisting
+></listitem
+><listitem
+><para
+><emphasis
+role="bold"
+>PHP- Anhängigkeiten</emphasis
+></para
+><para
+>Bitte prüfe die PHP-Anhängigkeiten mit :</para
+><programlisting
+> # make testdeps</programlisting
+><para
+>Alle "require"-Test sollten erfolgreich sein. Eventuell mußt Du die php.ini anpassen:</para
+><para
+>Die "magic_quote_gpc" in der Apache und der Cli php.ini auf Off setzen!</para
+><programlisting
+># vi /etc/php5/apache/php.ini
+  magic_quotes_gpc = off
+
+# vi /etc/php5/cli/php.ini
+  magic_quotes_gpc = off</programlisting
+></listitem
+><listitem
+><para
+><emphasis
+role="bold"
+>Datenbank Installation</emphasis
+></para
+><para
+><emphasis
+role="bold"
+>Manuelles Anlegen:</emphasis
+></para
+><para
+>Lege eine Datenbank und einen Benutzer an Deiner Wahl an. Der Benutzer braucht folgende Berechtigungen auf die Datenbank: SELECT, UPDATE, INSERT, DELETE. Importiere die Schema  etc/database/deploy/init.sql und etc/database/deploy/db-deploy.sql in Deine Datenbank. Das war es auch schon.</para
+><para
+><emphasis
+role="bold"
+>Automatische Installation:</emphasis
+></para
+><para
+>Angelegt wird eine Datenbank und ein User mit den entsprechenden Privilegien (CREATE, DROP, ALTER, INDEX). Gehe nach etc und kopiere die build.properties an einen sicheren Ort (e.g. /tmp). Ändern Sie die Datenbank-Einstellungen innerhalb der Properties-Datei. Du kannst auch Deinen Root der Datenbank benutzen um das Schema anzulegen. Rufe phing auf mit:</para
+><para
+><programlisting
+># /usr/local/icinga-web/bin/phing -Dproperties=/usr/local/icinga-web/build.properties db-initialize</programlisting
+></para
+><para
+>Dann musst Du noch einen User anlegen der auf die Datenbank berechtigt ist. </para
+></listitem
+><listitem
+><para
+><emphasis
+role="bold"
+>Icinga-Web Einstellungen:</emphasis
+></para
+><para
+>Ändere die Konfig-Dateien: Editiere /var/www/icinga-web/app/config/databases.xml und ändere Deine Datenbank-Werte: (ab Zeile 7):<programlisting
+>    &lt;database name="appkit_default" class="AgaviDoctrineDatabase"&gt;
+       &lt;ae:parameter name="dsn"&gt;mysql://icinga_web:icinga_web@127.0.0.1:3306/icinga_web&lt;/ae:parameter&gt;
+       &lt;ae:parameter name="username"&gt;icinga_web&lt;/ae:parameter&gt;
+       &lt;ae:parameter name="password"&gt;icinga_web&lt;/ae:parameter&gt;
+       &lt;ae:parameter name="charset"&gt;utf8&lt;/ae:parameter&gt;
+       &lt;ae:parameter name="manager_attributes"&gt;
+            <!-- This allows lazy loading of the models -->
+          &lt;ae:parameter name="MODEL_LOADING"&gt;CONSERVATIVE&lt;/ae:parameter&gt;
+       &lt;/ae:parameter&gt;
+       &lt;ae:parameter name="load_models"&gt;%de.icinga.appkit.doctrine_model_path%&lt;/ae:parameter&gt;
+    &lt;/database&gt;</programlisting
+></para
+><para
+>Ändere die Werte für Deine Datenbank- Verbindung.</para
+><para
+>Editiere /var/www/icinga-web/app/config/icinga.xml und setze die Werte für die IDOUtils (ab Zeile 163):</para
+><programlisting
+> &lt;parameter name="IcingaData"&gt;
+     &lt;parameter name="class"&gt;IcingaData&lt;/parameter&gt;
+     &lt;parameter name="api_file"&gt;%core.root_dir%/lib/icinga-api/IcingaApi.php&lt;/parameter&gt;
+     &lt;parameter name="api_type"&gt;IcingaApi::CONNECTION_IDO&lt;/parameter&gt;
+     &lt;parameter name="config_type"&gt;mysql&lt;/parameter&gt;
+     &lt;parameter name="config_host"&gt;127.0.0.1&lt;/parameter&gt;
+
+     &lt;parameter name="config_port"&gt;3306&lt;/parameter&gt;
+     &lt;parameter name="config_database"&gt;icinga&lt;/parameter&gt;
+
+     &lt;parameter name="config_user"&gt;icinga&lt;/parameter&gt;
+     &lt;parameter name="config_password"&gt;icinga&lt;/parameter&gt;
+
+     &lt;parameter name="config_table_prefix"&gt;icinga_&lt;/parameter&gt;
+ &lt;/parameter&gt;</programlisting
+><note
+> Denke daran vorher die &name-idoutils; installiert zu haben (wie hier beschrieben: <xref
+linkend="quickstart-idoutils"
+></xref
+> ) </note
+><para
+>Go to the appkit.factories section and change the path and the credentials for the icinga-api.</para
+><programlisting
+>
+ &lt;!-- icinga-api data interface --&gt;
+                &lt;parameter name="IcingaData"&gt;
+                        &lt;parameter name="class"&gt;IcingaData&lt;/parameter&gt;
+                        &lt;parameter name="file"&gt;%core.module_dir%/Web/lib/icinga/factory/IcingaData.class.php &lt;/parameter&gt;
+
+                         &lt;parameter name="requiredClasses"&gt;
+                                &lt;!-- NONE --&gt;
+                         &lt;/parameter&gt;
+
+                         &lt;parameter name="api_file"&gt;%core.root_dir%/icinga-api/IcingaApi.php/&lt;parameter&gt;
+                         &lt;parameter name="api_type"&gt;IcingaApi::CONNECTION_IDO&lt;/parameter&gt;
+
+                         &lt;parameter name="config_type"&gt;mysql&lt;/parameter&gt;
+                         &lt;parameter name="config_host"&gt;127.0.0.1&lt;/parameter&gt;
+
+
+                         &lt;parameter name="config_port"&gt;3306&lt;/parameter&gt;
+                         &lt;parameter name="config_database"&gt;icinga&lt;/parameter&gt;
+
+                         &lt;parameter name="config_user"&gt;your-ido-user&lt;/parameter&gt;
+                         &lt;parameter name="config_password"&gt;your-ido-pw&lt;/parameter&gt;
+
+                         &lt;parameter name="config_table_prefix"&gt;icinga_&lt;/parameter&gt;
+                &lt;/parameter&gt;</programlisting
+></listitem
+><listitem
+><para
+><emphasis
+role="bold"
+>Apache settings</emphasis
+></para
+><para
+>This should be prepared:</para
+><para
+>* mod_rewrite enabled, maybe you have to create a link:</para
+><para
+><programlisting
+># ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enable/rewrite.load</programlisting
+></para
+><para
+>* Any htaccess enabled alias settings</para
+><para
+>Change owner of web directory to http user:</para
+><para
+><programlisting
+># chown -R www-data:www-data /usr/local/icinga-web</programlisting
+></para
+><para
+>Edit your icinga-web.conf:</para
+><para
+>Set up a virtual host: <programlisting
+> &lt;VirtualHost *:80&gt;
+
+    ServerName icinga-web
+
+    DocumentRoot /var/www/icinga-web/pub/
+
+    DirectoryIndex index.php
+
+    &lt;Directory /var/www/icinga-web/pub/&gt;
+       Options -MultiViews -Indexes +FollowSymLinks
+       AllowOverride none
+       Order allow,deny
+       Allow from all
+
+       &lt;IfModule mod_rewrite.c&gt;
+          RewriteEngine On
+          RewriteBase /
+
+          # If the requested URL does not exist (it's likely an agavi route),
+          # pass it as path info to index.php, the Agavi dispatch script.
+          RewriteRule ^$ index.php?/ [QSA,L]
+          RewriteCond %{REQUEST_FILENAME} !-f
+          RewriteCond %{REQUEST_FILENAME} !-d
+          RewriteRule (.*) index.php?/$1 [QSA,L]
+       &lt;/IfModule&gt;
+
+    &lt;/Directory&gt;
+
+    # deny something!
+    &lt;Location /&gt;
+       Options -MultiViews -Indexes +FollowSymLinks
+       Order allow,deny
+       Allow from all
+    &lt;/Location&gt;
+
+    # JS frameworks
+    Alias /js/yui               /var/www/icinga-web/lib/yui
+    Alias /js/swfobject         /var/www/icinga-web/lib/swfobject
+    Alias /js/mootools          /var/www/icinga-web/lib/mootools
+    Alias /js/jquery            /var/www/icinga-web/lib/jquery
+    Alias /js/appkit            /var/www/icinga-web/lib/appkit/js
+    Alias /js/gc-prettify       /var/www/icinga-web/lib/gc-prettify
+    Alias /js/firebug           /var/www/icinga-web/lib/firebug
+    Alias /js/ext3              /var/www/icinga-web/lib/ext3
+
+    # Flash frameworks
+    Alias /flash/flexchart      /var/www/icinga-web/lib/flexchart
+
+    &lt;IfDefine APACHE2&gt;
+       AcceptPathInfo On
+    &lt;/IfDefine&gt;
+
+ &lt;/VirtualHost&gt;</programlisting
+></para
+><para
+>Go to the pub directory and changes the .htaccess file. You have to alter the RewriteBase direction to suite your needs.</para
+><para
+><programlisting
+># vi /usr/local/icinga-web/pub/.htaccess
+  RewriteBase /icinga-web/</programlisting
+></para
+><para
+>Clear cache:</para
+><para
+><programlisting
+># rm /usr/local/icinga-web/app/cache/config/*.php</programlisting
+></para
+><para
+>Restart your Webserver:</para
+><para
+><programlisting
+># service apache2 restart</programlisting
+></para
+></listitem
+><listitem
+><para
+><emphasis
+role="bold"
+>Try</emphasis
+></para
+><para
+><emphasis
+role="bold"
+>Please ensure mysql, apache, idoutils and icinga are running!</emphasis
+></para
+><para
+>Go to the webpath and try if the webinterface starts without exceptions (database connections web and api). You can login with user 'root' and password 'password'</para
+></listitem
+></orderedlist
+></section
+>
