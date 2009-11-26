@@ -14,9 +14,8 @@ xmlns:m="http://www.w3.org/1998/Math/MathML"
 xmlns:html="http://www.w3.org/1999/xhtml"
 xmlns:db="http://docbook.org/ns/docbook"
 ><title
->Installation des neuen &name-icingaweb; </title
->
-<orderedlist
+>Installation des neuen &name-icinga;-Webfrontends</title
+><orderedlist
 ><listitem
 ><para
 ><emphasis
@@ -24,7 +23,7 @@ role="bold"
 >Voraussetzungen</emphasis
 ></para
 ><para
->Du hast mysql, php5 installiert (mit PEAR und CLI) . Icinga läuft und ebenfalls die IDOUtils, dann ab zu 2., ansonsten bitte:</para
+>Du hast mysql, php5 installiert (mit PEAR und CLI). Icinga läuft und ebenfalls die IDOUtils, dann ab zu 2., ansonsten bitte:</para
 ><programlisting
 ># apt-get install php5-cli php-pear php5-xmlrpc php5-xsl</programlisting
 ><para
@@ -57,10 +56,10 @@ role="bold"
 ><para
 ><emphasis
 role="bold"
->PHP- Anhängigkeiten</emphasis
+>PHP- Abhängigkeiten</emphasis
 ></para
 ><para
->Bitte prüfe die PHP-Anhängigkeiten mit :</para
+>Bitte prüfe die PHP-Abhängigkeiten mit :</para
 ><programlisting
 > # make testdeps</programlisting
 ><para
@@ -78,25 +77,23 @@ role="bold"
 ><para
 ><emphasis
 role="bold"
-<<<<<<< HEAD:de/icinga-web-scratch.xml
->Datenbank Installation</emphasis
+>Anlegen der Datenbank</emphasis
 ></para
 ><para
 ><emphasis
 role="bold"
->Manuelles Anlegen der Datenbank:</emphasis
+>Manuelles Anlegen der Datenbank</emphasis
 ></para
 ><para
->Lege eine Datenbank und einen Benutzer an Deiner Wahl an. Der Benutzer braucht folgende Berechtigungen auf die Datenbank: SELECT, UPDATE, INSERT, DELETE. Importiere die Schema  etc/database/deploy/init.sql und etc/database/deploy/db-deploy.sql in Deine Datenbank. Das war es auch schon.</para
+>Erstelle eine Datenbank und einen für SELECT, UPDATE, INSERT, DELETE auf diese Datenbank berechtigten User. Importiere etc/database/deploy/init.sql etc/database/deploy/db-deploy.sql in Deine Datenbank.</para
 ><para
 ><emphasis
 role="bold"
->Automatische Installation:</emphasis
+>Anlegen mit Hilfe des Installers:</emphasis
 ></para
 ><para
->Angelegt wird eine Datenbank und ein User mit den entsprechenden Privilegien (CREATE, DROP, ALTER, INDEX). Gehe nach etc und kopiere die build.properties an einen sicheren Ort (z.B. nach /tmp). Ändern Sie die Datenbank-Einstellungen innerhalb der Properties-Datei. Du kannst auch Deinen Root der Datenbank benutzen um das Schema anzulegen. Rufe phing auf mit:</para
->
-<para
+>Gehe nach etc und kopiere die Datei build.properties (z.B. nach /tmp). Ändere die Datenbank-Einstellungen in  build.properties nach Deinen Vorstellungen . Führe phing aus:</para
+><para
 ><programlisting
 ># /usr/local/icinga-web/bin/phing -Dproperties=/usr/local/icinga-web/build.properties db-initialize</programlisting
 ></para
@@ -124,9 +121,9 @@ role="bold"
     &lt;/database&gt;</programlisting
 ></para
 ><para
->Ändere die Werte für Deine Datenbank- Verbindung.</para
+></para
 ><para
->Editiere /var/www/icinga-web/app/config/icinga.xml und setze die Werte für die IDOUtils (ab Zeile 163):</para
+>Editiere /var/www/icinga-web/app/config/icinga.xml und gib die Daten für den Zugriff auf Deine IDOUtils-DB ein  (ab Zeiile 163):</para
 ><programlisting
 > &lt;parameter name="IcingaData"&gt;
      &lt;parameter name="class"&gt;IcingaData&lt;/parameter&gt;
@@ -134,19 +131,22 @@ role="bold"
      &lt;parameter name="api_type"&gt;IcingaApi::CONNECTION_IDO&lt;/parameter&gt;
      &lt;parameter name="config_type"&gt;mysql&lt;/parameter&gt;
      &lt;parameter name="config_host"&gt;127.0.0.1&lt;/parameter&gt;
+
      &lt;parameter name="config_port"&gt;3306&lt;/parameter&gt;
      &lt;parameter name="config_database"&gt;icinga&lt;/parameter&gt;
+
      &lt;parameter name="config_user"&gt;your-ido-user&lt;/parameter&gt;
      &lt;parameter name="config_password"&gt;your-ido-pw&lt;/parameter&gt;
+
      &lt;parameter name="config_table_prefix"&gt;icinga_&lt;/parameter&gt;
  &lt;/parameter&gt;</programlisting
 ><note
-> Denke daran vorher die &name-idoutils; installiert zu haben (wie hier beschrieben: <xref
+> Denke bitte daran: &name-idoutils; müssen installiert sein (siehe hier <xref
 linkend="quickstart-idoutils"
 ></xref
-> ) </note
+> ) .</note
 ><para
->Go to the appkit.factories section and change the path and the credentials for the icinga-api.</para
+>Gehe in den appkit.factories Bereich und ändere den Pfad und die Einstellungen für die icinga-api.</para
 ><programlisting
 >
  &lt;!-- icinga-api data interface --&gt;
