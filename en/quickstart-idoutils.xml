@@ -102,20 +102,20 @@
 
   <para>You can install your packages by running the following commands (as root or sudo):</para>
 
-  <para><emphasis>&name-fedora;/&name-rhel;/&name-centos;:</emphasis></para>
+  <para><emphasis role="bold">&name-fedora;/&name-rhel;/&name-centos;:</emphasis></para>
 
   <programlisting> # yum install httpd gcc glibc glibc-common gd gd-devel
  # yum install libjpeg libjpeg-devel libpng libpng-devel</programlisting>
 
-  <para><emphasis>&name-mysql;:</emphasis></para>
+  <para><emphasis role="bold">&name-mysql;:</emphasis></para>
 
   <programlisting> # yum install mysql mysql-server libdbi libdbi-devel libdbi-drivers libdbi-dbd-mysql</programlisting>
 
-  <para><emphasis>&name-postgres;:</emphasis></para>
+  <para><emphasis role="bold">&name-postgres;:</emphasis></para>
 
   <programlisting> # yum install postgresql postgresql-server libdbi libdbi-devel libdbi-drivers libdbi-dbd-pgsql</programlisting>
 
-  <para><emphasis>&name-debian;/&name-ubuntu;:</emphasis></para>
+  <para><emphasis role="bold">&name-debian;/&name-ubuntu;:</emphasis></para>
 
   <programlisting> # apt-get install apache2 build-essential libgd2-xpm-dev
  # apt-get install libjpeg62 libjpeg62-dev libpng12 libpng12-dev</programlisting>
@@ -124,15 +124,15 @@
     <para>The numbers &lt;62/12&gt; might differ, depending on your distribution</para>
   </note>
 
-  <para><emphasis>&name-mysql;:</emphasis></para>
+  <para><emphasis role="bold">&name-mysql;:</emphasis></para>
 
   <programlisting> # apt-get install mysql-server mysql-client libdbi0 libdbi0-dev libdbd-mysql</programlisting>
 
-  <para><emphasis>&name-postgres;:</emphasis></para>
+  <para><emphasis role="bold">&name-postgres;:</emphasis></para>
 
   <programlisting> # apt-get install postgresql libdbi0 libdbi0-dev libdbd-pgsql</programlisting>
 
-  <para><emphasis>&name-opensuse;:</emphasis></para>
+  <para><emphasis role="bold">&name-opensuse;:</emphasis></para>
 
   <para>It is most likely that there aren't any libdbi packages so you have to download and compile the sources. Replace
   &lt;rdbm&gt; with your desired RDBM like mysql or pgsql. Remember that the Oracle driver is not yet working and read the
@@ -303,11 +303,11 @@
  postgres=# ALTER USER icinga WITH PASSWORD 'icinga';
  postgres=# CREATE DATABASE icinga; </programlisting>
 
-  <para><emphasis>&name-debian;:</emphasis></para>
+  <para><emphasis role="bold">&name-debian;:</emphasis></para>
 
   <programlisting> # vi /etc/postgresql/8.x/main/pg_hba.conf</programlisting>
 
-  <para><emphasis>&name-fedora;/&name-rhel;/&name-centos;:</emphasis></para>
+  <para><emphasis role="bold">&name-fedora;/&name-rhel;/&name-centos;:</emphasis></para>
 
   <programlisting> # vi /var/lib/pgsql/data/pg_hba.conf</programlisting>
 
@@ -379,11 +379,13 @@
 
   <para>Reload/Restart Apache to make the new settings take effect.</para>
 
-  <para><emphasis>&name-fedora;/&name-rhel;/&name-centos;:</emphasis></para>
+  <para><emphasis role="bold">&name-fedora;/&name-rhel;/&name-centos;:</emphasis></para>
 
   <programlisting> # service httpd restart</programlisting>
 
-  <para><emphasis>&name-debian;/&name-ubuntu;/&name-opensuse;:</emphasis></para>
+  <para><emphasis role="bold">&name-ubuntu;/&name-opensuse;:</emphasis></para>
+ <programlisting> # service apache2 restart</programlisting>
+ <para><emphasis role="bold">&name-debian;:</emphasis></para>
 
   <programlisting> # /etc/init.d/apache2 reload</programlisting>
 
@@ -408,10 +410,15 @@
   <para>&name-idoutils; must be started and running <emphasis>before</emphasis> &name-icinga; is started.</para>
 
   <para><emphasis>Start &name-idoutils;:</emphasis></para>
-
+ <para><emphasis role="bold"> &name-fedora;/&name-rhel;/&name-centos;/&name-ubuntu;/&name-opensuse;:</emphasis></para>
+ <programlisting> # service ido2db start</programlisting>
+ <para><emphasis role="bold">&name-debian;:</emphasis></para>
   <programlisting> # /etc/init.d/ido2db start</programlisting>
 
   <para><emphasis>Stop &name-idoutils;:</emphasis></para>
+<para><emphasis role="bold"> &name-fedora;/&name-rhel;/&name-centos;&name-ubuntu;/&name-opensuse;:</emphasis></para>
+ <programlisting> # service ido2db stop</programlisting>
+ <para><emphasis role="bold">&name-debian;:</emphasis></para>
 
   <programlisting> # /etc/init.d/ido2db stop</programlisting>
 
@@ -421,11 +428,11 @@
 
   <para>If there are no errors, start &name-icinga;.</para>
 
-  <para><emphasis> &name-fedora;/&name-rhel;/&name-centos;:</emphasis></para>
+  <para><emphasis role="bold"> &name-fedora;/&name-rhel;/&name-centos;/&name-ubuntu;/&name-opensuse;:</emphasis></para>
 
   <programlisting> service icinga start</programlisting>
 
-  <para><emphasis>&name-debian;/&name-ubuntu;/&name-opensuse;:</emphasis></para>
+  <para><emphasis role="bold">&name-debian;:</emphasis></para>
 
   <programlisting> # /etc/init.d/icinga start</programlisting>
 
@@ -434,11 +441,11 @@
   <para>Add &name-icinga; to the list of system services and have it automatically start when the system boots (make sure you have
   installed the init script before).</para>
 
-  <para><emphasis>&name-fedora;/&name-rhel;/&name-centos;/&name-opensuse;:</emphasis></para>
+  <para><emphasis role="bold">&name-fedora;/&name-rhel;/&name-centos;/&name-opensuse;:</emphasis></para>
 
   <programlisting> # chkconfig --add icinga chkconfig icinga on</programlisting>
 
-  <para><emphasis>&name-debian;/&name-ubuntu;:</emphasis></para>
+  <para><emphasis role="bold">&name-debian;/&name-ubuntu;:</emphasis></para>
 
   <programlisting> # update-rc.d icinga defaults</programlisting>
 
