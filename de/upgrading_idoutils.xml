@@ -13,7 +13,7 @@
   dann müssen Sie außerdem diese Anpassungen manuell ausführen. Wenn Sie rpm/deb-Pakete, lesen Sie bitte die Hinweise und/oder
   fragen Sie den Maintainer, ob er diese Anpassungen in der Installationsroutine hinzugefügt hat.</para>
 
-  <para>Die Update-Dateien finden Sie zusammenmit den Datenbank-Installationsdateien in</para>
+  <para>Die Update-Dateien finden Sie zusammen mit den Datenbank-Installationsdateien in</para>
 
   <code>/path/to/icinga-src/module/idoutils/db/</code>
 
@@ -62,6 +62,98 @@
   <programlisting> # su - oracle
  $ sqlplus dbuser/dbpass
  SQL&gt; @oracle-upgrade-&lt;version&gt;.sql</programlisting>
+
+  <anchor xml:id="upgrading_idoutils_1.0" />
+
+  <emphasis role="bold">Aktualisieren der &name-idoutils; auf 1.0</emphasis>
+
+  <para>Es gab einen Unique-Key-Fehler durch den Fork, der bei einigen Tabellen zu doppelten und nutzlosen Zeilen führt. Dies
+  betrifft die folgenden Tabellen:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>timedevents, timedeventqueue</para>
+    </listitem>
+
+    <listitem>
+      <para>servicechecks</para>
+    </listitem>
+
+    <listitem>
+      <para>systemcommands</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>Wenn Sie sich z.B. Definition der Tabelle servicechecks ansehen:</para>
+
+  <programlisting> mysql&gt; show create table icinga_servicechecks;</programlisting>
+
+  <para>sollten Sie etwa folgendes sehen</para>
+
+  <programlisting> PRIMARY KEY (`servicecheck_id`),
+ KEY `instance_id` (`instance_id`),
+ KEY `service_object_id` (`service_object_id`),
+ KEY `start_time` (`start_time`)</programlisting>
+
+  <para>Um die o.g. Definition zu etwas wie diesem</para>
+
+  <programlisting> PRIMARY KEY (`servicecheck_id`),
+ UNIQUE KEY `instance_id` (`instance_id`,`service_object_id`,`start_time`,`start_time_usec`)</programlisting>
+
+  <para>zu ändern, befolgen Sie bitte den folgenden Ablauf!</para>
+
+  <para>
+    <emphasis role="bold">Wenn Sie von &name-idoutils; 1.0RC aktualisieren, dann benutzen Sie bitte
+    module/idoutils/db/mysql-upgrade-1.0.sql - wenn Sie von einer älteren Version aktualisieren, dann führen Sie vorher die
+    notwendigen Schritte durch, um auf 1.0RC zu aktualisieren!</emphasis>
+  </para>
+
+  <para>Bitte sichern Sie Ihre Datenbank und stoppen Sie ido2db vor der Ausführung des Patches!</para>
+
+  <orderedlist>
+    <listitem>
+      <code>/etc/init.d/ido2db stop</code>
+    </listitem>
+
+    <listitem>
+      <code>mysql -u root -p icinga &lt; /path/to/icinga-src/module/idoutils/db/mysql-upgrade-1.0.sql</code>
+    </listitem>
+  </orderedlist>
+
+  <para>Der Patch erledigt das Folgende mit Hilfe von MySQL-Befehlen:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>hinzufügen einer temporären Spalte 'active', um die aktualisierte Zeile zu kennzeichnen</para>
+    </listitem>
+
+    <listitem>
+      <para>ermitteln der benötigten Informationen zweier doppelter Zeilen basierend auf dem unique contraint, aktualisieren der
+      zweiten Zeile und markieren durch first=inactive, second=active</para>
+    </listitem>
+
+    <listitem>
+      <para>löschen aller als 'inactive' gekennzeichneten Zeilen</para>
+    </listitem>
+
+    <listitem>
+      <para>entfernen der fehlerhaften Key-Definitionen</para>
+    </listitem>
+
+    <listitem>
+      <para>hinzüfen des Unique Key</para>
+    </listitem>
+
+    <listitem>
+      <para>entfernen der temporären Spalte 'active'</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>Diese Prozedur wird für jede Tabelle durchgeführt, so dass es eine Weile dauern kann, abhängig von Ihren Tabellengrößen
+  und/oder DB-Spezifikationen.</para>
+
+  <para>Falls Sie vorher etwas an den Keys verändert haben, dann stellen Sie sicher, dass Sie das gleiche DB-Schema wie in
+  &name-idoutils; 1.0RC benutzen, andernfalls wird das Script fehlschlagen.</para>
 
   <indexterm zone="upgrading_idoutils">
     <primary>Upgrading &name-idoutils;</primary>

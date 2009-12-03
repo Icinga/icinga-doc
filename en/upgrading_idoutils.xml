@@ -3,46 +3,158 @@
 <!ENTITY % all.entities SYSTEM "all-entities.ent">
 %all.entities;
 ]>
-<section version="5.0" xml:id="upgrading_idoutils" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
+<section version="5.0" xml:id="upgrading_idoutils" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="upgrading_idoutils2" />Upgrading &name-idoutils; database</title>
 
-  <para>There may be a bug within the database scheme which has been fixed. If you are upgrading from an older &name-idoutils; version you also need to apply those fixes manually. 
-If you are using rpm/deb packages please read the notes and/or ask the maintainer if he has added those modifications to the install routine.</para>
+  <para>There may be a bug within the database scheme which has been fixed. If you are upgrading from an older &name-idoutils;
+  version you also need to apply those fixes manually. If you are using rpm/deb packages please read the notes and/or ask the
+  maintainer if he has added those modifications to the install routine.</para>
 
-<para>The upgrade files can be found next to the database install files in</para>
+  <para>The upgrade files can be found next to the database install files in</para>
 
-<code>/path/to/icinga-src/module/idoutils/db/</code>
+  <code>/path/to/icinga-src/module/idoutils/db/</code>
 
-<para>The syntax is as follows</para>
+  <para>The syntax is as follows</para>
 
-<code>&lt;rdbm&gt;-upgrade-&lt;version&gt;.sql</code>
+  <code>&lt;rdbm&gt;-upgrade-&lt;version&gt;.sql</code>
 
-<para>where &lt;rdbm&gt; could be mysql, pgsql or oracle and &lt;version&gt; points to the version you want to upgrade to.</para>
+  <para>where &lt;rdbm&gt; could be mysql, pgsql or oracle and &lt;version&gt; points to the version you want to upgrade
+  to.</para>
 
-<note><para>If you are upgrading from an older version and there are other versions in between be advised that you need to apply those upgrade files with incremental steps!</para></note>
+  <note>
+    <para>If you are upgrading from an older version and there are other versions in between be advised that you need to apply
+    those upgrade files with incremental steps!</para>
+  </note>
 
-<para>E.g. you have 1.0RC1 installed and want to upgrade to 1.0.1 - you will have to upgrade to 1.0 Stable first and then apply the upgrade to 1.0.1</para>
+  <para>E.g. you have 1.0RC1 installed and want to upgrade to 1.0.1 - you will have to upgrade to 1.0 Stable first and then apply
+  the upgrade to 1.0.1</para>
 
-<orderedlist><listitem><para>Backup your current database before upgrading!</para></listitem>
-<listitem><para>Check current &name-idoutils; version and the target version. Check if there are any version in between and upgrade incremental if necessary.</para></listitem>
-<listitem><para>Apply the upgrade(s) using a rdbm user with appropriate rights. You may use the upgradedb script, but this is not recommended (for MySQL only).</para></listitem>
-</orderedlist>
-<emphasis role="bold">MySQL</emphasis>
-<programlisting> $ mysql -u root -p &lt;dbname&gt; &lt; /path/to/icinga-src/module/idoutils/db/mysql-upgrade-&lt;version&gt;.sql</programlisting>
+  <orderedlist>
+    <listitem>
+      <para>Backup your current database before upgrading!</para>
+    </listitem>
 
-<emphasis role="bold">Postgresql</emphasis>
-<programlisting> # su - postgres
- $ psql -U icinga -d icinga &lt; /path/to/icinga-src/module/idoutils/db/pgsql-upgrade-&lt;version&gt;.sql</programlisting> 
+    <listitem>
+      <para>Check current &name-idoutils; version and the target version. Check if there are any version in between and upgrade
+      incremental if necessary.</para>
+    </listitem>
 
-<emphasis role="bold">Oracle</emphasis>
-<programlisting> # su - oracle
+    <listitem>
+      <para>Apply the upgrade(s) using a rdbm user with appropriate rights. You may use the upgradedb script, but this is not
+      recommended (for MySQL only).</para>
+    </listitem>
+  </orderedlist>
+
+  <emphasis role="bold">MySQL</emphasis>
+
+  <programlisting> $ mysql -u root -p &lt;dbname&gt; &lt; /path/to/icinga-src/module/idoutils/db/mysql-upgrade-&lt;version&gt;.sql</programlisting>
+
+  <emphasis role="bold">Postgresql</emphasis>
+
+  <programlisting> # su - postgres
+ $ psql -U icinga -d icinga &lt; /path/to/icinga-src/module/idoutils/db/pgsql-upgrade-&lt;version&gt;.sql</programlisting>
+
+  <emphasis role="bold">Oracle</emphasis>
+
+  <programlisting> # su - oracle
  $ sqlplus dbuser/dbpass
- SQL> @oracle-upgrade-&lt;version&gt;.sql</programlisting>
+ SQL&gt; @oracle-upgrade-&lt;version&gt;.sql</programlisting>
 
- <indexterm zone="upgrading_idoutils">
+  <anchor xml:id="upgrading_idoutils_1.0" />
+
+  <emphasis role="bold">Upgrading &name-idoutils; to 1.0</emphasis>
+
+  <para>There was a unique key failure coming through the fork causing several tables to keep duplicated and useless rows. This
+  concerns the following tables:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>timedevents, timedeventqueue</para>
+    </listitem>
+
+    <listitem>
+      <para>servicechecks</para>
+    </listitem>
+
+    <listitem>
+      <para>systemcommands</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>If you look at the table creation e.g. servicechecks:</para>
+
+  <programlisting> mysql&gt; show create table icinga_servicechecks;</programlisting>
+
+  <para>you should see something like this</para>
+
+  <programlisting> PRIMARY KEY (`servicecheck_id`),
+ KEY `instance_id` (`instance_id`),
+ KEY `service_object_id` (`service_object_id`),
+ KEY `start_time` (`start_time`)</programlisting>
+
+  <para>Changing this to</para>
+
+  <programlisting> PRIMARY KEY (`servicecheck_id`),
+ UNIQUE KEY `instance_id` (`instance_id`,`service_object_id`,`start_time`,`start_time_usec`)</programlisting>
+
+  <para>will need your attention on the following procedure!</para>
+
+  <para>
+    <emphasis role="bold">If you are upgrading from 1.0RC please be advised to use module/idoutils/db/mysql-upgrade-1.0.sql - if
+    you are using an older version, please apply the incremential steps to get to 1.0RC first!</emphasis>
+  </para>
+
+  <para>Please backup your database and stop ido2db before applying this patch!</para>
+
+  <orderedlist>
+    <listitem>
+      <code>/etc/init.d/ido2db stop</code>
+    </listitem>
+
+    <listitem>
+      <code>mysql -u root -p icinga &lt; /path/to/icinga-src/module/idoutils/db/mysql-upgrade-1.0.sql</code>
+    </listitem>
+  </orderedlist>
+
+  <para>The patch will do the following through MySQL statements:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>add a temporary column named 'active' to mark the updated row</para>
+    </listitem>
+
+    <listitem>
+      <para>extract the needed information of two duplicate rows based on the unique constraint, update the second row and mark
+      first=inactive, second=active</para>
+    </listitem>
+
+    <listitem>
+      <para>delete all inactive marked rows</para>
+    </listitem>
+
+    <listitem>
+      <para>drop false keys</para>
+    </listitem>
+
+    <listitem>
+      <para>add unique key</para>
+    </listitem>
+
+    <listitem>
+      <para>drop temporary column 'active'</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>This procedure will be executed for each table, so it might take quite a long time depending on your table size and/or db
+  specs.</para>
+
+  <para>If you changed something on the keys before please make sure you'll have the same database scheme applied as in 1.0RC
+  otherwise the script will fail.</para>
+
+  <indexterm zone="upgrading_idoutils">
     <primary>Upgrading &name-idoutils;</primary>
   </indexterm>
 </section>
