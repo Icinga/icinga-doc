@@ -88,7 +88,7 @@
       Datenbank-Einstellungen innerhalb der Properties-Datei. Sie können auch den Root-Benutzer der Datenbank verwenden, um das
       Schema anzulegen. Rufen Sie phing auf mit:</para>
 
-      <para><programlisting># /usr/local/icinga-web/bin/phing -Dproperties=/usr/local/icinga-web/build.properties db-initialize</programlisting></para>
+      <para><programlisting># /usr/local/icinga-web/bin/phing -Dproperties=/usr/local/icinga-web/etc/build.properties db-initialize</programlisting></para>
 
       <para>Jetzt müssen Sie noch einen DB-User anlegen (mit den Rechten SELECT, UPDATE, INSERT, DELETE).</para>
     </listitem>
@@ -96,7 +96,7 @@
     <listitem>
       <para><emphasis role="bold">Icinga-Web Konfiguration</emphasis></para>
 
-      <para>Anpassen der Konfiguration: Editieren /var/www/icinga-web/app/config/databases.xml und ändern Sie die
+      <para>Anpassen der Konfiguration: Editieren /usr/local/icinga-web/app/config/databases.xml und ändern Sie die
       Datenbank-Einstellungen (ab Zeile 7, im Beispiel DB-User: icinga_user, PW: password):<programlisting>    &lt;database name="appkit_default" class="AgaviDoctrineDatabase"&gt;
        &lt;ae:parameter name="dsn"&gt;mysql://icinga_user:password@127.0.0.1:3306/icinga_web&lt;/ae:parameter&gt;
        &lt;ae:parameter name="username"&gt;icinga_user&lt;/ae:parameter&gt;
@@ -111,12 +111,12 @@
 
       <para>Ändern Sie die Werte für Ihre Datenbank-Verbindung.</para>
 
-      <para>Editieren Sie /var/www/icinga-web/app/config/icinga.xml und setzen Sie die Werte für die IDOUtils (ab Zeile
+      <para>Editieren Sie /usr/local/icinga-web/app/config/icinga.xml und setzen Sie die Werte für die IDOUtils (ab Zeile
       163):</para>
 
       <programlisting> &lt;parameter name="IcingaData"&gt;
      &lt;parameter name="class"&gt;IcingaData&lt;/parameter&gt;
-     &lt;parameter name="api_file"&gt;%core.root_dir%/lib/icinga-api/IcingaApi.php&lt;/parameter&gt;
+     &lt;parameter name="api_file"&gt;%core.root_dir%/share/icinga-api/IcingaApi.php&lt;/parameter&gt;
      &lt;parameter name="api_type"&gt;IcingaApi::CONNECTION_IDO&lt;/parameter&gt;
      &lt;parameter name="config_type"&gt;mysql&lt;/parameter&gt;
      &lt;parameter name="config_host"&gt;127.0.0.1&lt;/parameter&gt;
@@ -202,11 +202,11 @@
 
     ServerName icinga-web
 
-    DocumentRoot /var/www/icinga-web/pub/
+    DocumentRoot /usr/local/icinga-web/pub/
 
     DirectoryIndex index.php
 
-    &lt;Directory /var/www/icinga-web/pub/&gt;
+    &lt;Directory /usr/local/icinga-web/pub/&gt;
        Options -MultiViews -Indexes +FollowSymLinks
        AllowOverride none
        Order allow,deny
@@ -234,17 +234,17 @@
     &lt;/Location&gt;
 
     # JS frameworks
-    Alias /js/yui               /var/www/icinga-web/lib/yui
-    Alias /js/swfobject         /var/www/icinga-web/lib/swfobject
-    Alias /js/mootools          /var/www/icinga-web/lib/mootools
-    Alias /js/jquery            /var/www/icinga-web/lib/jquery
-    Alias /js/appkit            /var/www/icinga-web/lib/appkit/js
-    Alias /js/gc-prettify       /var/www/icinga-web/lib/gc-prettify
-    Alias /js/firebug           /var/www/icinga-web/lib/firebug
-    Alias /js/ext3              /var/www/icinga-web/lib/ext3
+    Alias /js/yui               /usr/local/icinga-web/lib/yui
+    Alias /js/swfobject         /usr/local/icinga-web/lib/swfobject
+    Alias /js/mootools          /usr/local/icinga-web/lib/mootools
+    Alias /js/jquery            /usr/local/icinga-web/lib/jquery
+    Alias /js/appkit            /usr/local/icinga-web/lib/appkit/js
+    Alias /js/gc-prettify       /usr/local/icinga-web/lib/gc-prettify
+    Alias /js/firebug           /usr/local/icinga-web/lib/firebug
+    Alias /js/ext3              /usr/local/icinga-web/lib/ext3
 
     # Flash frameworks
-    Alias /flash/flexchart      /var/www/icinga-web/lib/flexchart
+    Alias /flash/flexchart      /usr/local/icinga-web/lib/flexchart
 
     &lt;IfDefine APACHE2&gt;
        AcceptPathInfo On
