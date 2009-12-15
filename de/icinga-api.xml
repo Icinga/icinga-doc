@@ -3,17 +3,22 @@
 <!ENTITY % all.entities SYSTEM "all-entities.ent">
 %all.entities;
 ]>
-<section version="5.0" xml:id="icinga-web-scratch" xmlns="http://docbook.org/ns/docbook"
-         xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-         xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
-         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+<section version="5.0" xml:id="icinga-web-scratch"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
   <title>Installation und Benutzung der &name-icinga; API</title>
 
   <orderedlist>
     <listitem>
       <para><emphasis role="bold">Software</emphasis></para>
 
-      <para>Klonen Sie von icinga-api.git, um einen neuen Branch zu bekommen</para>
+      <para>Klonen Sie von icinga-api.git, um einen neuen Branch zu
+      bekommen</para>
 
       <programlisting> # git clone git://git.icinga.org/icinga-api.git</programlisting>
 
@@ -24,26 +29,31 @@
     <listitem>
       <para><emphasis role="bold">Die Installation</emphasis></para>
 
-      <para>Entpacken Sie die Software und verschieben Sie das Verzeichnis in die Icinga-Sourcecode-Struktur</para>
+      <para>Entpacken Sie die Software und verschieben Sie das Verzeichnis in
+      die Icinga-Sourcecode-Struktur</para>
 
       <programlisting> # tar xzvf icinga-api-(version).tar.gz
  # mv icinga-api/* /usr/src/icinga-core/module/icinga-api</programlisting>
 
-      <para>Rekompilieren Sie den Code (ggf. müssen Sie erneut ./configure ausführen).</para>
+      <para>Rekompilieren Sie den Code (ggf. müssen Sie erneut ./configure
+      ausführen).</para>
 
       <programlisting> # make all
  # make install</programlisting>
 
       <note>
-        <para>Falls Sie noch kein Icinga haben, dann folgen Sie den Anweisungen in der "<link
-        linkend="quickstart-idoutils">quickstart-idoutils</link>" Dokumentation.</para>
+        <para>Falls Sie noch kein Icinga haben, dann folgen Sie den
+        Anweisungen in der "<link
+        linkend="quickstart-idoutils">quickstart-idoutils</link>"
+        Dokumentation.</para>
       </note>
     </listitem>
 
     <listitem>
       <para><emphasis role="bold">Konfiguration</emphasis></para>
 
-      <para>Die Konfiguration besteht aus einem assoziativen Array. <programlisting> $idoConfig = array (
+      <para>Die Konfiguration besteht aus einem assoziativen Array.
+      <programlisting> $idoConfig = array (
     'type'         =&gt; '&lt;Type of database&gt;',
     'host'         =&gt; '&lt;Database hostname&gt;', 
     'database'     =&gt; '&lt;Databasename&gt;',
@@ -71,15 +81,16 @@
 
       <para>Erzeugen Sie eine Instant der Klasse IcingaApi:</para>
 
-      <para><programlisting> $api = IcingaApi::getConnection(IcingaApi::CONNECTION_IDO, $idoConfig);</programlisting>Erzeugen Sie
-      die Suchkriterien:</para>
+      <para><programlisting> $api = IcingaApi::getConnection(IcingaApi::CONNECTION_IDO, $idoConfig);</programlisting>Erzeugen
+      Sie die Suchkriterien:</para>
 
       <para><programlisting> $apiRes = $api-&gt;createSearch()
  -&gt;setSearchTarget(IcingaApi::TARGET_HOST)
  -&gt;setResultColumns(array(’HOST_NAME’, ‘HOST_CURRENT_STATE’))
  -&gt;fetch();</programlisting></para>
 
-      <para>Mit Hilfe von setSearchFilter() können Sie Filter benutzen, um die Suche einzuschränken:</para>
+      <para>Mit Hilfe von setSearchFilter() können Sie Filter benutzen, um die
+      Suche einzuschränken:</para>
 
       <para><programlisting> $apiRes = $api-&gt;createSearch()
  -&gt;setSearchTarget(IcingaApi::TARGET_HOST)
@@ -92,7 +103,7 @@
       <para><emphasis role="bold">Verarbeiten der Ergebnisse</emphasis></para>
 
       <para><programlisting> foreach($apiRes as $apiHandle){
-    echo ‘Host ‘.$apiHandle-&gt;host_name.’ has state ‘.$apiHandle-&gt;host_current_state.’&lt;br /&gt;’;
+    echo ‘Host ‘.$apiHandle-&gt;HOST_NAME.’ has state ‘.$apiHandle-&gt;HOST_CURRENT_STATE.’&lt;br /&gt;’;
  }</programlisting>Ausgabe ohne Filter:</para>
 
       <para><programlisting> Host localhost has state 0
@@ -112,7 +123,8 @@
     </listitem>
 
     <listitem>
-      <para><emphasis role="bold">Kompletter Code ohne die Nutzung von Filtern</emphasis></para>
+      <para><emphasis role="bold">Kompletter Code ohne die Nutzung von
+      Filtern</emphasis></para>
 
       <programlisting> &lt;?
  // Path to icinga api file
@@ -143,12 +155,12 @@
  
  // Create output
  foreach($apiRes as $apiHandle){
-    echo 'Host '.$apiHandle-&gt;host_name.' has the current state '.$apiHandle-&gt;host_current_state.'&lt;br /&gt;';
+    echo 'Host '.$apiHandle-&gt;HOST_NAME.' has the current state '.$apiHandle-&gt;HOST_CURRENT_STATE.'&lt;br /&gt;';
  }
  ?&gt;</programlisting>
 
-      <para>Für nähere Informationen werfen Sie bitte einen Blick in das <link xlink:arcrole="" xlink:href="???">git
-      repository</link>.</para>
+      <para>Für nähere Informationen werfen Sie bitte einen Blick in das <link
+      xlink:arcrole="" xlink:href="???">git repository</link>.</para>
     </listitem>
   </orderedlist>
 </section>
