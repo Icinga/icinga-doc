@@ -3,18 +3,23 @@
 <!ENTITY % all.entities SYSTEM "all-entities.ent">
 %all.entities;
 ]>
-<section version="5.0" xml:id="icinga-web-scratch" xmlns="http://docbook.org/ns/docbook"
-         xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-         xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
-         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+<section version="5.0" xml:id="icinga-web-scratch"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
   <title>Installation des neuen &name-icingaweb;</title>
 
   <orderedlist>
     <listitem>
       <para><emphasis role="bold">Voraussetzungen</emphasis></para>
 
-      <para>Die Pakete mysql und php5 sind installiert (mit PEAR und CLI), Icinga läuft, die IDOUtils ebenfalls, dann ab zu 2.,
-      ansonsten bitte:</para>
+      <para>Die Pakete mysql und php5 sind installiert (mit PEAR und CLI),
+      Icinga läuft, die IDOUtils ebenfalls, dann ab zu 2., ansonsten
+      bitte:</para>
 
       <para><emphasis>Ubuntu / Debian</emphasis></para>
 
@@ -26,12 +31,13 @@
 
       <para><emphasis>OpenSuSE</emphasis></para>
 
-      <para>Benutzer Sie yast, um die Pakete "php5-pear", "php5-xmlrpc" und "php5-xsl" zu installieren. Die CLI ist im php5-Paket
-      enthalten.</para>
+      <para>Benutzer Sie yast, um die Pakete "php5-pear", "php5-xmlrpc" und
+      "php5-xsl" zu installieren. Die CLI ist im php5-Paket enthalten.</para>
 
-      <para> </para>
+      <para></para>
 
-      <para>Clonen Sie von icinga-web.git, um mit der aktuellsten Version zu arbeiten:</para>
+      <para>Clonen Sie von icinga-web.git, um mit der aktuellsten Version zu
+      arbeiten:</para>
 
       <programlisting> # git clone git://git.icinga.org/icinga-web.git</programlisting>
     </listitem>
@@ -48,7 +54,8 @@
 
       <para>sehen Sie alle Konfigurationsmöglichkeiten.</para>
 
-      <para>Ohne weitere Optionen wird das &name-icingaweb; unter /usr/local/icinga-web installiert:</para>
+      <para>Ohne weitere Optionen wird das &name-icingaweb; unter
+      /usr/local/icinga-web installiert:</para>
 
       <programlisting> # ./configure
  # make install</programlisting>
@@ -61,9 +68,11 @@
 
       <programlisting> # make testdeps</programlisting>
 
-      <para>Alle "require"-Test sollten erfolgreich sein. Eventuell müssen Sie die php.ini anpassen:</para>
+      <para>Alle "require"-Test sollten erfolgreich sein. Eventuell müssen Sie
+      die php.ini anpassen:</para>
 
-      <para>Die "magic_quote_gpc" in der Apache- und der CLI-php.ini auf "Off" setzen!</para>
+      <para>Die "magic_quote_gpc" in der Apache- und der CLI-php.ini auf "Off"
+      setzen!</para>
 
       <programlisting> # vi /etc/php5/apache/php.ini
    magic_quotes_gpc = off
@@ -75,29 +84,37 @@
     <listitem>
       <para><emphasis role="bold">Datenbank-Installation</emphasis></para>
 
-      <para><emphasis role="bold">Manuelles Anlegen der Datenbank:</emphasis></para>
+      <para><emphasis role="bold">Manuelles Anlegen der
+      Datenbank:</emphasis></para>
 
-      <para>Legen Sie eine Datenbank und einen Benutzer Ihrer Wahl an. Der Benutzer benötigt folgende Berechtigungen auf die
-      Datenbank: SELECT, UPDATE, INSERT, DELETE. Importieren SIe die Schema etc/database/deploy/init.sql und
-      etc/database/deploy/db-deploy.sql in die Datenbank. Das war es auch schon.</para>
+      <para>Legen Sie eine Datenbank und einen Benutzer Ihrer Wahl an. Der
+      Benutzer benötigt folgende Berechtigungen auf die Datenbank: SELECT,
+      UPDATE, INSERT, DELETE. Importieren SIe die Schema
+      etc/database/deploy/init.sql und etc/database/deploy/db-deploy.sql in
+      die Datenbank. Das war es auch schon.</para>
 
       <para><emphasis role="bold">Automatische Installation:</emphasis></para>
 
-      <para>Angelegt wird eine Datenbank und ein User mit den entsprechenden Privilegien (CREATE, DROP, ALTER, INDEX). Gehen Sie
-      nach etc und kopieren Sie die build.properties an einen sicheren Ort (z.B. nach /tmp). Ändern Sie die
-      Datenbank-Einstellungen innerhalb der Properties-Datei. Sie können auch den Root-Benutzer der Datenbank verwenden, um das
-      Schema anzulegen. Rufen Sie phing auf mit:</para>
+      <para>Angelegt wird eine Datenbank und ein User mit den entsprechenden
+      Privilegien (CREATE, DROP, ALTER, INDEX). Gehen Sie nach etc und
+      kopieren Sie die build.properties an einen sicheren Ort (z.B. nach
+      /tmp). Ändern Sie die Datenbank-Einstellungen innerhalb der
+      Properties-Datei. Sie können auch den Root-Benutzer der Datenbank
+      verwenden, um das Schema anzulegen. Rufen Sie phing auf mit:</para>
 
       <para><programlisting># /usr/local/icinga-web/bin/phing -Dproperties=/usr/local/icinga-web/build.properties db-initialize</programlisting></para>
 
-      <para>Jetzt müssen Sie noch einen DB-User anlegen (mit den Rechten SELECT, UPDATE, INSERT, DELETE).</para>
+      <para>Jetzt müssen Sie noch einen DB-User anlegen (mit den Rechten
+      SELECT, UPDATE, INSERT, DELETE).</para>
     </listitem>
 
     <listitem>
       <para><emphasis role="bold">Icinga-Web Konfiguration</emphasis></para>
 
-      <para>Anpassen der Konfiguration: Editieren /var/www/icinga-web/app/config/databases.xml und ändern Sie die
-      Datenbank-Einstellungen (ab Zeile 7, im Beispiel DB-User: icinga_user, PW: password):<programlisting>    &lt;database name="appkit_default" class="AgaviDoctrineDatabase"&gt;
+      <para>Anpassen der Konfiguration: Editieren
+      /var/www/icinga-web/app/config/databases.xml und ändern Sie die
+      Datenbank-Einstellungen (ab Zeile 7, im Beispiel DB-User: icinga_user,
+      PW: password):<programlisting>    &lt;database name="appkit_default" class="AgaviDoctrineDatabase"&gt;
        &lt;ae:parameter name="dsn"&gt;mysql://icinga_user:password@127.0.0.1:3306/icinga_web&lt;/ae:parameter&gt;
        &lt;ae:parameter name="username"&gt;icinga_user&lt;/ae:parameter&gt;
        &lt;ae:parameter name="password"&gt;password&lt;/ae:parameter&gt;
@@ -111,8 +128,8 @@
 
       <para>Ändern Sie die Werte für Ihre Datenbank-Verbindung.</para>
 
-      <para>Editieren Sie /var/www/icinga-web/app/config/icinga.xml und setzen Sie die Werte für die IDOUtils (ab Zeile
-      163):</para>
+      <para>Editieren Sie /var/www/icinga-web/app/config/icinga.xml und setzen
+      Sie die Werte für die IDOUtils (ab Zeile 163):</para>
 
       <programlisting> &lt;parameter name="IcingaData"&gt;
      &lt;parameter name="class"&gt;IcingaData&lt;/parameter&gt;
@@ -139,7 +156,8 @@
          ) 
       </note>
 
-      <para>Gehen Sie zum appkit.factories - Bereich und ändern Sie den Pfad und die Konfiguration für die icinga-api.</para>
+      <para>Gehen Sie zum appkit.factories - Bereich und ändern Sie den Pfad
+      und die Konfiguration für die icinga-api.</para>
 
       <programlisting>
  &lt;!-- icinga-api data interface --&gt;
@@ -173,12 +191,14 @@
 
       <para>Voraussetzungen:</para>
 
-      <para>* mod_rewrite, vielleicht müssen Sie einen Verweis erstellen:</para>
+      <para>* mod_rewrite, vielleicht müssen Sie einen Verweis
+      erstellen:</para>
 
-      <para><programlisting> # ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enable/rewrite.load</programlisting></para>
+      <para><programlisting> # ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load</programlisting></para>
 
-      <para>Bei OpenSuSE gibt es in der Datei /etc/sysconfig/apache2 die Zeile "APACHE_MODULES=...", der das Modul "rewrite"
-      hinzugefügt werden muss.</para>
+      <para>Bei OpenSuSE gibt es in der Datei /etc/sysconfig/apache2 die Zeile
+      "APACHE_MODULES=...", der das Modul "rewrite" hinzugefügt werden
+      muss.</para>
 
       <para>* Any htaccess enabled alias settings</para>
 
@@ -252,7 +272,8 @@
 
  &lt;/VirtualHost&gt;</programlisting></para>
 
-      <para>Bitte passen Sie noch die .htaccess- Datei unter dem pub-Verzeichnis an.</para>
+      <para>Bitte passen Sie noch die .htaccess- Datei unter dem
+      pub-Verzeichnis an.</para>
 
       <para><programlisting> # vi /usr/local/icinga-web/pub/.htaccess
    RewriteBase /icinga-web/</programlisting></para>
@@ -273,11 +294,12 @@
     <listitem>
       <para><emphasis role="bold">Testen </emphasis></para>
 
-      <para><emphasis role="bold">Bitte achten Sie darauf, dass MySQL, Apache, IDOUtils und Icinga gestartet
-      sind!</emphasis></para>
+      <para><emphasis role="bold">Bitte achten Sie darauf, dass MySQL, Apache,
+      IDOUtils und Icinga gestartet sind!</emphasis></para>
 
-      <para>Öffnen Sie im Webbrowser: http://localhost/icinga-web und loggen Sie sich mit dem User 'root' und dem Passwort
-      'password' ein. Viel Spaß beim Entdecken....wir freuen uns auf Ihr Feedback.</para>
+      <para>Öffnen Sie im Webbrowser: http://localhost/icinga-web und loggen
+      Sie sich mit dem User 'root' und dem Passwort 'password' ein. Viel Spaß
+      beim Entdecken....wir freuen uns auf Ihr Feedback.</para>
     </listitem>
   </orderedlist>
 </section>
