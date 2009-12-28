@@ -107,6 +107,12 @@
 
   <programlisting> # /usr/sbin/groupadd icinga</programlisting>
 
+  <para>For sending commands from the webinterface to &name-icinga;, you'll need to create a new group icinga-cmd. Add the webuser and the &name-icinga;user to this group: </para>
+
+    <programlisting> # /usr/sbin/groupadd icinga-cmd
+ # /usr/sbin/usermod -a -G icinga-cmd icinga
+ # /usr/sbin/usermod -a -G icinga-cmd www-data (or www, wwwrun)</programlisting>
+
   <para><emphasis role="bold">Download &name-icinga; and the Plugins</emphasis></para>
 
   <para>Change to your local source directory i.e. /usr/src</para>
@@ -128,7 +134,7 @@
 
   <para>Run the &name-icinga; configure script. You will get help by using the --help flag.</para>
 
-  <programlisting> # ./configure</programlisting>
+  <programlisting> # ./configure --with-command-group=icinga-cmd</programlisting>
 
   <para>Compile the &name-icinga; source code. To see available options, only use "make".</para>
 
