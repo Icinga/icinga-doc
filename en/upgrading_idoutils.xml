@@ -7,7 +7,7 @@
          xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-  <title><anchor xml:id="upgrading_idoutils2" />Upgrading &name-idoutils; database</title>
+  <title><anchor xml:id="upgrading_idoutils2" />Upgrading &name-idoutils; Database</title>
 
   <para>There may be a bug within the database scheme which has been fixed. If you are upgrading from an older &name-idoutils;
   version you also need to apply those fixes manually. If you are using rpm/deb packages please read the notes and/or ask the
@@ -109,15 +109,8 @@
 
   <para>Please backup your database and stop ido2db before applying this patch!</para>
 
-  <orderedlist>
-    <listitem>
-      <code>/etc/init.d/ido2db stop</code>
-    </listitem>
-
-    <listitem>
-      <code>mysql -u root -p icinga &lt; /path/to/icinga-src/module/idoutils/db/mysql-upgrade-1.0.sql</code>
-    </listitem>
-  </orderedlist>
+  <programlisting># /etc/init.d/ido2db stop
+   # mysql -u root -p icinga &lt; /path/to/icinga-src/module/idoutils/db/mysql-upgrade-1.0.sql</programlisting>
 
   <para>The patch will do the following through MySQL statements:</para>
 

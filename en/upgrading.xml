@@ -20,7 +20,7 @@
   <para><link linkend="upgrading-rpm">Upgrading from an RPM installation</link></para>
 
   <para><emphasis role="bold"><anchor xml:id="upgrading-icinga" /> Upgrading from previous &name-icinga;
-  releases</emphasis></para>
+  Releases</emphasis></para>
 
   <para>During development there may be cases where the handling of bugfixes might touch the userspace. We try to avoid this as
   far as possible but sometimes it is inevitable.</para>
@@ -35,21 +35,22 @@
 
   <para>If you experience this problem then please use the following script to fix the file names</para>
 
-  <programlisting> cd /usr/local/icinga/var/archives
+  <programlisting># cd /usr/local/icinga/var/archives
+
  for oldfilename in `find ./ -name "Icinga-*"`
  do
    newfilename=`echo $oldfilename | sed -e 's/Icinga/icinga/g'`
    mv $oldfilename $newfilename
  done</programlisting>
 
-  <para><emphasis role="bold">Normal &name-icinga; update path</emphasis></para>
+  <para><emphasis role="bold">Normal &name-icinga; update Path</emphasis></para>
 
-  <para>Regular updates of &name-icinga; should be possible just by re-installing &name-icinga; using <screen> ./configure
- make all
- make install</screen> Please keep in mind that you have to call ./configure using the same options as during the first
+  <para>Regular updates of &name-icinga; should be possible just by re-installing &name-icinga; using <screen># ./configure
+# make all
+# make install</screen> Please keep in mind that you have to call ./configure using the same options as during the first
   time.</para>
 
-  <para><emphasis role="bold"><anchor xml:id="upgrading-nagios3x" /> Upgrading From &name-nagios; 3.x Releases</emphasis></para>
+  <para><emphasis role="bold"><anchor xml:id="upgrading-nagios3x" /> Upgrading from &name-nagios; 3.x Releases</emphasis></para>
 
   <para>We try to be compatible with the configuration files of the current &name-nagios; 3.x versions so there should be very
   little you have to do to "upgrade" from &name-nagios; 3.x to &name-icinga; &ver-icinga;. Assuming you've already installed
@@ -78,8 +79,8 @@
 
   <para>Verify your configuration files and restart &name-icinga;.</para>
 
-  <screen> &url-icinga-bin; -v &url-icinga-cfg;
- /etc/init.d/icinga restart</screen>
+  <screen># &url-icinga-bin; -v &url-icinga-cfg;
+ # /etc/init.d/icinga restart</screen>
 
   <para>That's it - you're done!</para>
 
@@ -95,7 +96,7 @@
     </listitem>
   </itemizedlist>
 
-  <para><emphasis role="bold"><anchor xml:id="upgrading-nagios2x" /> Upgrading From &name-nagios; 2.x Releases</emphasis></para>
+  <para><emphasis role="bold"><anchor xml:id="upgrading-nagios2x" /> Upgrading from &name-nagios; 2.x Releases</emphasis></para>
 
   <para>It shouldn't be too difficult to upgrade from &name-nagios; 2.x to &name-icinga; &ver-icinga;. The upgrade is essentially
   the same as what is described above for upgrading from &name-nagios; 3.x releases. You will, however, have to change your
