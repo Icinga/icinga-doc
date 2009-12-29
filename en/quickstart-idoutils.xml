@@ -253,8 +253,8 @@
  # mv ido2db.cfg-sample ido2db.cfg</programlisting>
 
     <para>If you want to enable SSL-encryption and you configured the &name-idoutils; with ./configure --enable-ssl, you have to change idomod.cfg and
-    ido2db.cfg: <programlisting> # use_ssl=1
- # socket_type=tcp </programlisting></para>
+    ido2db.cfg: <programlisting> use_ssl=1
+ socket_type=tcp </programlisting></para>
 
     <note>
         <para>If SSL is enabled in ido2db but not in the different idomod clients - data from those instances will be lost - that's guaranteed! SSL
@@ -266,6 +266,8 @@
     <para>Search for broker_module and uncomment the example or edit it matching your filenames in:</para>
 
     <programlisting> # vi &url-icinga-cfg;</programlisting>
+
+    <programlisting> broker_module=&url-icinga-base;/bin/idomod.o config_file=&url-icinga-base;/etc/idomod.cfg</programlisting>
 
     <para><emphasis role="bold">Creation of database and &name-idoutils;</emphasis></para>
 
