@@ -61,12 +61,65 @@
  $ sqlplus dbuser/dbpass
  SQL&gt; @oracle-upgrade-&lt;version&gt;.sql</programlisting>
 
+    <anchor xml:id="upgrading_idoutils_1.1" />
+
+    <emphasis role="bold">Upgrading &name-idoutils; to 1.1</emphasis>
+
+    <para>Please make sure that you already have upgraded to Icinga IDOUtils 1.0 before reading this section! There have been several (big) changes
+    made to all supported RDBMS to please be advised to read carefully! All database scripts are now reorganized within subfolders. Changes for all
+    RDBMS are setting more indexes and also size modifications for the command_line column in several tables which exceeded 255 characters. RDBMS
+    specific changes and howtos are listed below:</para>
+
+    <emphasis role="bold">MySQL</emphasis>
+
+    <para>Change of the database engine from MYISAM to InnoDB. Reason for that mainly is row locks/transactions/rollbacks instead of a bit more speed
+    at insert time.</para>
+
+    <para>The upgrade script performs an ALTER TABLE statement. If you don't like that idea, you can also do the following:</para>
+
+    <itemizedlist>
+        <listitem>
+            <para>Dump your existing database e.g.</para>
+
+            <programlisting># mysqldump -u root -p icinga &gt; icinga.sql</programlisting>
+        </listitem>
+
+        <listitem>
+            <para>Change all entries from "MYISAM" to "InnoDB"</para>
+        </listitem>
+
+        <listitem>
+            <para>Import the adapted dataset into a new database (if you want to use the old one make sure to drop that in the first place, and
+            recreate only the database)</para>
+        </listitem>
+    </itemizedlist>
+
+    <emphasis role="bold">PostgreSQL</emphasis>
+
+    <para>The systemcommands table was missing the column named output. This will be added during upgrading.</para>
+
+    <emphasis role="bold">Oracle</emphasis>
+
+    <para>First of all, make sure that you set open_cursors to more than the default 50. This will increase performance at several stages. The upgrade
+    scripts will add two new procedures needed for the delete stuff written in DML.</para>
+
+    <para>Furthermore there has been a rather huge change regarding the autoincrement sequence and after insert triggers (emulating the mysql
+    autoincrement on primary key). The old routine has been completely dropped meaning all triggers and the autoincrement sequence will we removed
+    during upgrading. As a replacement sequences for each table will be added and used in current IDOUTils Oracle.</para>
+
+    <para>With existing data sets this will lead into problems during importing - the sequences start at 1 while the primary key (id) will have a
+    maximum. For that reason there is a basic procedure available which does the following: By given a sequence name and a table name, it extracts the
+    maximum id value +1 from imported data and alters the sequence to start with this value instead.</para>
+
+    <para>Please be advised to use that procedure yourself for all tables or on seperated tables - it highly depends on your needs. The procedure is
+    commented out, and provided as is without any warranty regarding data loss. Ask your DBA in case of upgrading with existing data.</para>
+
     <anchor xml:id="upgrading_idoutils_1.0" />
 
     <emphasis role="bold">Upgrading &name-idoutils; to 1.0</emphasis>
 
-    <para>There was a unique key failure coming through the fork causing several tables to keep duplicated and useless rows. This concerns the
-    following tables:</para>
+    <para>There was a unique key failure in MySQL coming through the fork causing several tables to keep duplicated and useless rows. This concerns
+    the following tables:</para>
 
     <itemizedlist>
         <listitem>
