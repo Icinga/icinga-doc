@@ -7,17 +7,17 @@
          xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-  <title><anchor xml:id="escalation_cond" />Escalation Condition</title>
+  <title><anchor xml:id="escalation_cond" />Eskalations-Bedingung</title>
 
   <para><emphasis role="bold">Einleitung</emphasis></para>
 
-  <para>Mit Hilfe eines Patches ist es nun möglich, eine escalation_condition zu definieren (ähnlich wie escalation_options
+  <para>Ab &name-icinga; 1.0.1 ist ein Patch implementiert, so dass Sie nun eine Eskalations-Bedingung definieren können (ähnlich wie escalation_options
   [w,u,c,r]). Eine Eskalation mit einer definierten Bedingung wird nur dann eskalieren, wenn der aktuelle Zustand eines bestimmten
   Hosts/Services mit der angegebenen Bedingung übereinstimmt. Ein mögliches Anwendungsbeispiel könnte das folgende Szenario
   sein:</para>
 
   <para>Stellen Sie sich zwei verschiedene Eskalationen für den selben Service <emphasis>foo</emphasis> vor. Eine soll nur dann
-  eskalieren, wenn der Service <emphasis>bar</emphasis> OK ist, der andere soll eskalieren, wenn <emphasis>bar</emphasis> CRITICAL
+  eskalieren, wenn der Service <emphasis>bar</emphasis> OK ist, die andere soll eskalieren, wenn <emphasis>bar</emphasis> CRITICAL
   oder WARNING ist. Nun stellen Sie sich vor, dass <emphasis>foo</emphasis> der zentrale Service einer Firma ist und der Administrator sofort reagieren
   muss, wenn der Service down ist. <emphasis>bar</emphasis> könnte ein Service sein, der angibt, ob der Admin im Büro oder zu Hause ist. Die Eskalation
   würde wie folgt reagieren:</para>
@@ -33,7 +33,7 @@
     </listitem>
   </itemizedlist>
 
-  <para>Dies kann erreicht werden, ohne Nagios/Icinga neu zu starten bzw. die Konfiguration neu zu laden.</para>
+  <para>Dies kann erreicht werden, ohne Icinga neu zu starten bzw. die Konfiguration neu zu laden.</para>
 
   <para><emphasis role="bold">Syntax</emphasis></para>
 
@@ -45,8 +45,8 @@
   <para>wobei &lt;condition&gt; entweder <literal>host hostname = [u,d,o]</literal> oder <literal>service
   hostname.service_description = [w,u,c,o]</literal> ist.</para>
 
-  <para>Wie Sie sehen können, akzeptiert escalation_condition eine List von einer oder mehreren Bedingungen, die durch &amp;
-  (logisches UND) oder | (logisches ODER) getrennt sind. Die Bedeutungen von [w,u,c,o,d] unterscheiden sich geringfügig von denen,
+  <para>Wie Sie sehen können, akzeptiert escalation_condition eine Liste von einer oder mehreren Bedingungen, die durch "&amp;"
+  (logisches UND) oder "|" (logisches ODER) getrennt sind. Die Bedeutungen von [w,u,c,o,d] unterscheiden sich geringfügig von denen,
   die bei escalation_options benutzt werden: </para>
 
   <itemizedlist>
