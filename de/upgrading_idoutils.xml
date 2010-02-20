@@ -42,7 +42,7 @@
 
         <listitem>
             <para>Führen Sie die Aktualisierung(en) mit einem Benutzer durch, der über die notwendigen Berechtigungen verfügt. Sie können das
-            upgradedb-Script verwenden, aber das wird nicht empfehlen (betrifft nur MySQL).</para>
+            upgradedb-Script verwenden, aber das wird nicht empfohlen (betrifft nur MySQL).</para>
         </listitem>
     </orderedlist>
 
@@ -60,6 +60,62 @@
     <programlisting> # su - oracle
  $ sqlplus dbuser/dbpass
  SQL&gt; @oracle-upgrade-&lt;version&gt;.sql</programlisting>
+
+    <anchor xml:id="upgrading_idoutils_1.1" />
+
+    <emphasis role="bold">Aktualisieren der &name-idoutils; auf 1.1</emphasis>
+
+    <para>Bitte vergewissern Sie sich, dass Sie bereits auf Icinga &name-idoutils; 1.0 aktualisiert haben, bevor Sie diesen Abschnitt weierlesen! Es
+    gab einige (große) Veränderungen für alle unterstützten RDBMS, deshalb lesen Sie diesen Abschnitt bitte sehr sorgfältig. Alle Datenbank- Skripte
+    sind nun in entsprechenden Unterverzeichnissen zu finden. Für alle RDBMS wurden mehr Indizes gesetzt, außerdem wurde die Größe der command_line
+    Spalte in mehreren Tabellen, die 255 Zeichen überschritten, angepasst.</para>
+
+    <para>RDBMS spezifische Änderungen und HowTo's:</para>
+
+    <emphasis role="bold">MySQL</emphasis>
+
+    <para>Änderung der Datenbank- Engine von MYISAM zu InnoDB. Der Grund ist die Umgehung von Zeilen- Sperren/Transaktionen/Rollbacks im Gegensatz zu
+    einer kleinen Geschwindigkeitseinbuße während der Inserts.</para>
+
+    <para>Das Upgrade-Skript führt eine ALTER TABLE- Anweisung aus. Falls ihnen diese Idee nicht gefällt, können Sie auch folgendes tun:</para>
+
+    <itemizedlist>
+        <listitem>
+            <para>Dump erstellen der existierenden Datenbank:</para>
+
+            <programlisting># mysqldump -u root -p icinga &gt; icinga.sql</programlisting>
+        </listitem>
+
+        <listitem>
+            <para>Ändern Sie alle Einträge von "MYISAM" zu "InnoDB"</para>
+        </listitem>
+
+        <listitem>
+            <para>Import des angepassten Datensatzes in eine neue Datenbank (wenn Sie die alte Datenbank verwenden möchten, löschen Sie als erstes den
+            originalen Datensatz und rekreieren Sie die Datenbank).</para>
+        </listitem>
+    </itemizedlist>
+
+    <emphasis role="bold">PostgreSQL</emphasis>
+
+    <para>Der Tabelle systemcommands fehlte die Spalte der Namens Ausgabe. Diese wird während des Upgrades hinzugefügt.</para>
+
+    <emphasis role="bold">Oracle</emphasis>
+
+    <para>Um die Performance in mehreren Bereichen zu verbessern, muß der Wert für open_cursors höher gesetzt werden (Standardwert ist 50). Das
+    Aktualisierungsskript enthält zwei neue, in DML geschriebene, Prozeduren für die DELETE- Anweisungen.</para>
+
+    <para>Darüber hinaus gab es umfangreiche Änderungen bezüglich der Autoincrement- Sequenz und der AFTER INSERT- Trigger (Emulation des MySQL
+    Autoincrement auf Primärschlüssel). Die alte Routine wurde komplett verworfen, d.h. alle Trigger und die Autoincrement- Sequenz werden während des
+    Updates entfernt. Als Ersatz werden für jede Tabelle neue Sequenzen hinzugefügt und in den IDOUtils für Oracle verwendet.</para>
+
+    <para>Bei bestehenden Datensätzen wird dies beim Importieren zu Problemen führen. Die Sequenzen starten mit dem Wert 1 wo hingegen der primäre Key
+    (id) einen Maximalwert gesetzt hat. Aus diesem Grund wird eine Basisfunktion bereitgestellt, die das folgende tut: Diese extrahiert den maximalen
+    Wert der id plus eins aus der angegebenen Tabelle und verändert den jeweiligen Sequence Start auf diesen berechneten Wert.</para>
+
+    <para>Bitte verwenden Sie diese Prozedur so, wie Sie es benötigen - auf alle Tabellen und Sequenzen oder auf separierte Teile. Die Prozedur ist
+    auskommentiert, und wird ohne Garantie auf Datenkonsistenz zur Verfügung gestellt. Ziehen Sie Ihren DBA zu Rate, wenn Sie bestehende Datensätze
+    importieren wollen.</para>
 
     <anchor xml:id="upgrading_idoutils_1.0" />
 
@@ -139,7 +195,7 @@
         </listitem>
 
         <listitem>
-            <para>hinzüfen des Unique Key</para>
+            <para>hinzufügen des Unique Key</para>
         </listitem>
 
         <listitem>
