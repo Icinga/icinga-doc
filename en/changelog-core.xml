@@ -123,14 +123,14 @@
         </listitem>
 
         <listitem>
-            all other queries are prepared with their own statement handler 
-
-            <listitem>4x DELETE</listitem>
-            <listitem>52x MERGE</listitem>
-            <listitem>9x INSERT</listitem>
-            <listitem>9x UPDATE</listitem>
-            <listitem>5x SELECT</listitem>
-        </listitem>
+            all other queries are prepared with their own statement handler </listitem>
+<orderedlist>
+            <para>4x DELETE</para>
+            <para>52x MERGE</para>
+            <para>9x INSERT</para>
+            <para>9x UPDATE</para>
+            <para>5x SELECT</para>
+    </orderedlist>    
 
         <listitem>
             rewritten getting cached object_id using select
@@ -170,6 +170,7 @@
     <para>* idoutils: add initial debug output for idomod (to be set in idomod.cfg)</para>
 
     <para>* idoutils: add database name in connection msg to syslog</para>
+    <para>* idoutils: change mysql db engine to innodb (no table locking, better transcations)</para>
 <para><emphasis role="bold">FIXES</emphasis></para>
     <para>* core: fix segfault in cmd.cgi</para>
  <para>* core: fix event broker callback function self de-registering for callbacks (Sean Millichamp)</para>
@@ -187,6 +188,7 @@
  <para>* core: add tests against histogram.cgi</para>
  <para>* core: add $srcdir to paths</para>
  <para>* core: fix idomod doesn't de-initialize after config error</para>
+ <para>* core: fix make fullinstall/idoutils without enabled idoutils during configure</para>
  <para>* idoutils: modify string escaping for mysql and pgsql</para>
  <para>* idoutils: fix pgsql table systemcommands (missing column 'output')</para>
  <para>* idoutils: fix arraysize of es in save_custom_variables</para>

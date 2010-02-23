@@ -86,7 +86,13 @@
 
     <para><emphasis role="bold">Oracle Database Support</emphasis></para>
 
-    <para>If you want Oracle as RDBM you'll need to install ocilib instead to libdbi. Get it from &url-orclib; and point configure to your Oracle
+    <para>If you want Oracle as RDBM you'll need to install ocilib instead to libdbi. </para>
+<itemizedlist>
+<listitem>Oracle libraries and SDK (e.g. Instant Client)</listitem>
+<para>If you install from package, make sure the libraries are within PATH. Otherwise you need to set the Oracle libs during Icinga IDOUtils install using e.g. --with-oracle-lib=/path/to/instantclient</para>
+<listitem>ocilib instead to libdbi</listitem>
+</itemizedlist>
+<para>Get it from &url-orclib; and point configure to your Oracle
     libraries and header files e.g. from the Oracle instant client:</para>
 
     <para><programlisting> # ./configure --with-oracle-headers-path=/path/to/instantclient/sdk/include --with-oracle-lib-path=/path/to/instantclient/
@@ -217,10 +223,9 @@
     <programlisting> # ./configure --with-command-group=icinga-cmd --enable-idoutils --enable-ssl</programlisting>
 
     <para><emphasis role="bold">With Oracle Database Support:</emphasis></para>
-
-    <para><programlisting> # ./configure --with-command-group=icinga-cmd --enable-idoutils --enable-oracle </programlisting> If you didn't install
-    ocilib to the default path (/usr/local) you can point configure to the lib/inc directories:</para>
-
+    <para><programlisting> # ./configure --with-command-group=icinga-cmd --enable-idoutils --enable-oracle </programlisting> If you didn't install Oracle libraries to PATH, you can point configure there:</para>
+<programlisting># ./configure --with-command-group=icinga-cmd --enable-idoutils --enable-oracle --with-oracle-lib=/path/to/instantclient</programlisting>
+<para>If you didn't install ocilib to the default path (/usr/local) you can point configure to the lib/inc directories:</para>
     <para><programlisting> # ./configure --with-command-group=icinga-cmd --enable-idoutils --enable-oracle --with-ocilib-lib=/path/to/ocilib/lib --with-ocilib-inc=/path/to/ocilib/include</programlisting><note>
             <para>If you want to change RDBM from Oracle to others, you need to recompile and reinstall &name-idoutils;!</para>
         </note><programlisting> # make distclean

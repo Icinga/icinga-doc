@@ -93,8 +93,12 @@
 
     <para><emphasis role="bold">Oracle-Datenbankunterstützung</emphasis></para>
 
-    <para>Wenn Sie Oracle als RDBMS einsetzen möchten, müssen Sie anstatt libdbi die ocilib installieren. Holen Sie diese von &url-orclib; and
-    verweisen Sie bei configure auf Ihre Oracle-Libraries und Header-Files, z.B. die des Oracle Instant Client:</para>
+    <para>Wenn Sie Oracle als RDBMS einsetzen möchten, müssen Sie installieren:</para>
+<para>die Oracle Libraries und SDK (zum Beispiel den Oracle Instantclient)</para>
+<para>Stellen Sie sicher, dass die Libraries in der Path-Variablen enthalten sind. Oder setzen Sie die den Oracle Library Path mit --with-oracle-lib=/path/to/instantclient
+</para>
+<para>Installieren Sie anstatt dem libdbi-Treiber den ocilib-Treiber. Holen Sie diese von &url-orclib; und 
+    verweisen Sie bei configure auf Ihre Oracle-Libraries und die Header-Files, z.B. die des Oracle Instant-Client:</para>
 
     <para><programlisting> # ./configure --with-oracle-headers-path=/path/to/instantclient/sdk/include --with-oracle-lib-path=/path/to/instantclient/
  # make
@@ -226,8 +230,10 @@
 
     <para><emphasis role="bold">Mit Oracle-Datenbankunterstützung:</emphasis></para>
 
-    <para><programlisting> # ./configure --with-command-group=icinga-cmd --enable-idoutils --enable-oracle</programlisting> Wenn Sie die ocilib nicht
-    im Standardpfad (/usr/local) installiert haben, können Sie configure die lib/inc Verzeichnisse angeben:</para>
+    <para><programlisting> # ./configure --with-command-group=icinga-cmd --enable-idoutils --enable-oracle</programlisting>
+<para>Wenn ihre Oracle Libraries nicht in der Path-Variablen enthalten sind, können Sie sie im configure angeben:</para>
+<programlisting> # ./configure --with-command-group=icinga-cmd --enable-idoutils --enable-oracle --with-oracle-lib=/path/to/instantclient</programlisting>
+<para> Wenn Sie die ocilib nicht im Standardpfad (/usr/local) installiert haben, können Sie configure die lib/inc Verzeichnisse angeben:</para>
 
     <programlisting> # ./configure --with-command-group=icinga-cmd --enable-idoutils --enable-oracle --with-ocilib-lib=/path/to/ocilib/lib --with-ocilib-inc=/path/to/ocilib/include</programlisting>
 
@@ -541,5 +547,5 @@
     <para><emphasis role="bold">Fertig</emphasis></para>
 
     <para>Glückwunsch! Sie haben erfolgreich &name-icinga; installiert. Ihre Reise in die Überwachung hat gerade begonnen. Sie werden ohne Zweifel
-    mehr als nur Ihre lokale Maschine überwachen wollen, so dass Sie u.a. das folgende <link linkend="ch02">Kapitel </link> lesen sollten...</para>
+    mehr als nur Ihre lokale Maschine überwachen wollen, so dass Sie u.a. das folgende <link linkend="ch02">Kapitel </link> lesen sollten...</para></para>
 </section>
