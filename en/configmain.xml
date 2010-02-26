@@ -365,7 +365,11 @@
     <listitem>
       <para><link linkend="configmain-service_check_timeout">Service check timeout</link></para>
     </listitem>
-
+    <listitem>
+      <para><link linkend="configmain-service_check_timeout_state">Service check timeout state</link></para>
+    </listitem>
+</itemizedlist>
+<itemizedlist>
     <listitem>
       <para><link linkend="configmain-host_check_timeout">Host check timeout</link></para>
     </listitem>
@@ -3547,7 +3551,35 @@
   to kill off plugins which are misbehaving and not exiting in a timely manner. It should be set to something high (like 60
   seconds or more), so that each service check normally finishes executing within this time limit. If a service check runs longer
   than this limit, &name-icinga; will kill it off thinking it is a runaway processes.</para>
+<para><anchor xml:id="configmain-service_check_timeout_state" /> <emphasis role="bold">Service Check Timeout State</emphasis></para>
 
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">service_check_timeout_state=&lt;c/u/w/o&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">service_check_timeout_state=u</emphasis>
+          </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This setting determines the state &name-icinga; will report when a service check times out - that is does not respond within
+service_check_timeout seconds. This can be useful if a machine is running at too high a load and you do not want to consider a failed service check to be critical. The default was changed to service_check_timeout_state=u in &name-icinga;1.0.1
+</para>
+  
   <para><anchor xml:id="configmain-host_check_timeout" /> <emphasis role="bold">Host Check Timeout</emphasis></para>
 
   <informaltable frame="none">
@@ -5051,8 +5083,8 @@
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">broker_module=&url-icinga-base;/bin/ndomod.o
-          cfg_file=/usr/local/icinga/etc/ndomod.cfg</emphasis> </emphasis> </para></entry>
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">broker_module=&url-icinga-base;/bin/idomod.o
+          cfg_file=/usr/local/icinga/etc/idomod.cfg</emphasis> </emphasis> </para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -5331,6 +5363,7 @@
   <indexterm zone="configmain-high_host_flap_threshold"><primary>high_host_flap_threshold=</primary><secondary> High Host Flap Threshold</secondary></indexterm>
   <indexterm zone="configmain-soft_state_dependencies"><primary>soft_state_dependencies=</primary><secondary> Soft State Dependencies</secondary></indexterm>
   <indexterm zone="configmain-service_check_timeout"><primary>service_check_timeout=</primary><secondary> Service Check Timeout</secondary></indexterm>
+<indexterm zone="configmain-service_check_timeout_state"><primary>service_check_timeout_state=</primary><secondary> Service Check Timeout State</secondary></indexterm>
   <indexterm zone="configmain-host_check_timeout"><primary>host_check_timeout=</primary><secondary> Host Check Timeout</secondary></indexterm>
   <indexterm zone="configmain-event_handler_timeout"><primary>event_handler_timeout=</primary><secondary> Event Handler Timeout</secondary></indexterm>
   <indexterm zone="configmain-notification_timeout"><primary>notification_timeout=</primary><secondary> Notification Timeout</secondary></indexterm>
