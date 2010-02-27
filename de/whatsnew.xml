@@ -11,17 +11,36 @@
     <para></para>
 
     <para><emphasis role="bold">&name-core;:</emphasis></para>
+<para><emphasis role="bold">Erweiterungen:</emphasis></para>
+    <para>* core: neue Variable für Services service_check_timeout_state</para>
+<para>* core: neue escalation_condition- Definition
+    <para>* idoutils: ido2db mit threaded housekeeper</para>
+<para>* idoutils: Indizes für DELETE/SELECT- Anweisungen</para>
+<para>* idoutils: reorganisierte DB-Installationsdatei für MySQL/Postgresql/Oracle</para>
+<para>* idoutils: kompletter rewrite der Oracle-Parts zur Performance Verbesserung</para>
+    <para>* idoutils: neuer Pfad für die mysql/pgsql/oracle- Aktualisierungen - für mehr Informationen schauen Sie bitte in die Dokumentation<link linkend="upgrading_idoutils">upgrading_idoutils</link></para>
+    <para>* idoutils: initiale Debug-Ausgabe für idomod (zu setzen in der idomod.cfg)</para>
 
-    <para>* Verbesserte IDOUtils für Oracle</para>
+    <para>* idoutils: Hinzufügen des DB-Namens in der Verbindungsmeldung im Syslog</para>
 
-    <para>* idoutils: Entfernen von Duplikaten in den Tabellen: system commands, timed events und timed event queue (missing unique keys)</para>
+    <para>* idoutils: ändern der MySQL- Datenbank- Engine zu innodb (kein Tabellenlocking, bessere Transaktionen)</para>
+    <para>* idoutils: hinzugefügte Option im configure-Skript --with-oracle-lib=/path/to/instantclient, Export von LD_LIBRARY_PATH wenn der Instantclient nicht in PATH installiert wurde - bitte schauen Sie in Dokumentation für weiter Informationen: <link linkend="quickstart-idoutils">quickstart-idoutils</link></para>
+<para>* idoutils: Hinzufügen von max_logentries_age und max_acknowledgements_age zu ido2db
+(siehe ido2db.cfg)</para>
+<para><emphasis role="bold">Fixes:</emphasis></para>
 
-    <para>* idoutils: hinzufügen von upgrade Pfad/sql queries (Fehlen des primär Schlüssels) – weitere Informationen findest Du unter <link linkend="quickstart-idoutils">quickstart-idoutils</link></para>
-    <para>* idoutils: geänderter Standardwert der data_processing_options in der idomod.cfg</para>
+<para>* core: fix segfault in cmd.cgi</para>
+    <para>* core: fix event broker callback function self de-registering for callbacks</para>
+    <para>* core: fix idomod De-initialisierung nach Konfigurationsfehler</para>
+    <para>* core: fix make fullinstall/idoutils ohne enabled idoutils während des
+ configure</para>
+    <para>* core: fix für das senden von zwei identischen service_status events zu neb module</para>
+    <para>* idoutils: modify string escaping for mysql and pgsql</para>
+    <para>* idoutils: fix pgsql table systemcommands (missing column 'output')</para>
+    <para>* idoutils: fix acknowledgments query, wrong buffer freed/set as query to db</para>
+    <para>* idoutils: fix contactnotification data array, command args were not provided</para>
+    <para>* idoutils: fix custom_variables object_id type int = unsigned long</para>
 
-    <para>* idoutils: fixed this version and perl path generation in db install scripts</para>
-
-    <para>* idoutils: fixed save custom variables segfault</para>
 
     <para>Für detaillierte Information der einzelnen Releases schau bitte in den Changelog. </para>
      <itemizedlist>
