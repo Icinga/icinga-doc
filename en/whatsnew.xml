@@ -12,22 +12,37 @@
 
     <para><emphasis role="bold">&name-core;:</emphasis></para>
 
-    <para>* Improved IDOUtils with Oracle:</para>
+    <para><emphasis role="bold">Enhancements:</emphasis></para>
 
-    <para>Added prepared statements for most called queries</para>
+    <para>* core: add service_check_timeout_state configuration variable</para>
 
-    <para>Split code into ocilib OR libdbi, to allow oracle to decide which rdbm lib will be used during configuration</para>
+    <para>* core: add escalation_condition definition</para>
 
-    <para>* idoutils: fixed duplicate rows in table system commands, timed events, timed event queue (missing unique keys)</para>
-
-    <para>* idoutils: added upgrade path/sql queries for unique key failure – check docs for more information <link
+    <para>* idoutils: add ido2db threaded housekeeper</para>
+    <para>* idoutils: add indexes for delete/select statements</para>
+    <para>* idoutils: reorganize db setup files for MySQL/Postgresql/Oracle</para>
+    <para>* idoutils: complete oracle rewrite to improve performanceidoutils: add upgrade path for mysql/pgsql/oracle for 1.0.1 – check docs for more information <link
+    linkend="upgrading_idoutils">upgrading_idoutils</link></para>
+    <para>* idoutils: add initial debug output for idomod (to be set in idomod.cfg)</para>
+    <para>* idoutils: add database name in connection msg to syslog</para>
+    <para>* idoutils: change mysql db engine to innodb (no table locking, better
+ transcations)</para>
+    <para>* idoutils: add --with-oracle-lib=/path/to/instantclient for runtime, export of LD_LIBRARY_PATH if instantclient not installed to path – check docs for more information <link
     linkend="quickstart-idoutils">quickstart-idoutils</link></para>
-
-    <para>* idoutils: changed default data_processing_options in idomod.cfg</para>
-
-    <para>* idoutils: fixed this version and perl path generation in db install scripts</para>
-
-    <para>* idoutils: fixed save custom variables segfault</para>
+    <para>* idoutils: add max_logentries_age and max_acknowledgements_age to ido2db
+(check ido2db.cfg)</para>
+    <para><emphasis role="bold">Fixes:</emphasis></para>
+    <para>* core: fix segfault in cmd.cgi</para>
+    <para>* core: fix event broker callback function self de-registering for callbacks</para>
+    <para>* core: fix idomod doesn't de-initialize after config error</para>
+    <para>* core: fix make fullinstall/idoutils without enabled idoutils during
+ configure</para>
+    <para>* core: fix sending two identical service_status events to neb module</para>
+    <para>* idoutils: modify string escaping for mysql and pgsql</para>
+    <para>* idoutils: fix pgsql table systemcommands (missing column 'output')</para>
+    <para>* idoutils: fix acknowledgments query, wrong buffer freed/set as query to db</para>
+    <para>* idoutils: fix contactnotification data array, command args were not provided</para>
+    <para>* idoutils: fix custom_variables object_id type int = unsigned long</para>
 
     <para>To have a deeper look, please visit the Changelog</para>
   <itemizedlist>
@@ -38,27 +53,29 @@
 
     <para><emphasis role="bold">&name-web;:</emphasis></para>
 
-    <para>* Added makefile for easier installation</para>
+    <para>* Added some icinga specific principal target classes</para>
 
-    <para>* Fixed installation permission and cache problems</para>
+    <para>* Finished editing of principal targets for users and groups</para>
 
-    <para>* Modified .htaccess</para>
+    <para>* Added editing models for principals</para>
 
-    <para>* Removed yui</para>
+    <para>* Finished principal target filtering in xml temlates</para>
 
-    <para>* Removed php notice warnings (isset, undef vars)</para>
+    <para>* Added principal target toolkit for api search queries</para>
 
-    <para>* In the process of updating ExtJS to 3.0.3</para>
+    <para>* Added full command specification</para>
 
-    <para>* Changing API result keys to uppercase</para>
+    <para>* Added host- / service status filter</para>
 
-    <para>* Introducing commands through the web</para>
+    <para>* Added some more state (flapping, downtime)</para>
 
     <para>* Global xml replacements within the templates (view proc)</para>
 
-    <para>* Updating ExtJS to 3.0.3</para>
+    <para>* Updating ExtJS to 3.1</para>
 
-    <para>* Removed php notice warnings (isset, undef vars)</para>
+    <para>* Implemented categories for the cronks</para>
+    <para>* Cronks for usergroups only</para>
+    <para>* Tactical overview template engine</para>
 
     <para>To have a deeper look, please visit the changelog-web
 </para>
@@ -79,9 +96,9 @@
 
     <para>* Updates and fixes for quickstart guides</para>
 
-    <para>* New section on upgrading &name-icinga; and &name-idoutils;:</para>
+    <para>* Updates and fixes for upgrading &name-icinga; and &name-idoutils;:</para>
 
-    <para>* Revised section for Icinga Web</para>
+    <para>* New Api-section</para>
 
     <para>Should you find any issues, please report them to the following links:</para>
 
