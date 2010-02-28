@@ -23,15 +23,15 @@
     <para>* core: add service_check_timeout_state configuration variable This setting determines the state Icinga will report when a service check
     times out - it does not respond within service_check_timeout seconds.</para>
 
-    <orderedlist>
-        <para>c - Critical (default)</para>
+    <itemizedlist>
+        <listitem><para>c - Critical (default)</para></listitem>
 
-        <para>u - Unknown</para>
+       <listitem> <para>u - Unknown</para></listitem>
 
-        <para>w - Warning</para>
+        <listitem><para>w - Warning</para></listitem>
 
-        <para>o - OK</para>
-    </orderedlist>
+       <listitem> <para>o - OK</para></listitem>
+    </itemizedlist>
 
     <para>* core: add escalation_condition definition (Vitali Voroth DECOIT GmbH) The escalation_condition option is completely optional and can be
     defined for host escalations as well as for service escalations.</para>
@@ -41,51 +41,51 @@
 
     <para>The escalation_condition accepts a list of one or more conditions separated by &amp; (logical AND) or | (logical OR).</para>
 
-    <orderedlist>
-        <para>w = WARNING</para>
+    <itemizedlist>
+        <listitem><para>w = WARNING</para></listitem>
 
-        <para>u = UNKNOWN</para>
+        <listitem><para>u = UNKNOWN</para></listitem>
 
-        <para>c = CRITICAL</para>
+        <listitem><para>c = CRITICAL</para></listitem>
 
-        <para>o = OK for services or UP for hosts</para>
+        <listitem><para>o = OK for services or UP for hosts</para></listitem>
 
-        <para>d = DOWN for hosts</para>
-    </orderedlist>
+        <listitem><para>d = DOWN for hosts</para></listitem>
+    </itemizedlist>
 
     <para>* idoutils: add ido2db threaded housekeeper</para>
 
     <itemizedlist>
         <listitem>
-            periodic cleanup will now be performed in own thread
+            <para>periodic cleanup will now be performed in own thread</para>
         </listitem>
 
         <listitem>
-            startup blocking behavior removed
+            <para>startup blocking behavior removed</para>
         </listitem>
 
         <listitem>
-            housekeeper will wait for idomod instance, idle wait using und db_hello
+            <para>housekeeper will wait for idomod instance, idle wait using und db_hello</para>
         </listitem>
 
         <listitem>
-            creates own db connection and does its job
+            <para>creates own db connection and does its job</para>
         </listitem>
     </itemizedlist>
 
     <para>* idoutils: add indexes for delete/select statements</para>
 
     <itemizedlist>
-        <listitem>
-            delete/select will perform faster
+        <listitem><para>
+            delete/select will perform faster</para>
         </listitem>
 
         <listitem>
-            getting cached objects with select runs faster
+            <para>getting cached objects with select runs faster</para>
         </listitem>
 
         <listitem>
-            getting logentries within icinga-web is faster
+            <para>getting logentries within icinga-web is faster</para>
         </listitem>
     </itemizedlist>
 
@@ -93,15 +93,14 @@
 
     <itemizedlist>
         <listitem>
-            module/idoutils/db/&lt;rdbms&gt;/ holds needed files
+            <para>module/idoutils/db/&lt;rdbms&gt;/ holds needed files</para>
+        </listitem>
+        <listitem>
+            <para>module/idoutils/scripts/ with installdb/upgradedb for MySQL</para>
         </listitem>
 
         <listitem>
-            module/idoutils/scripts/ with installdb/upgradedb for MySQL
-        </listitem>
-
-        <listitem>
-            updated Makefile, README
+            <para>updated Makefile, README</para>
         </listitem>
     </itemizedlist>
 
@@ -111,57 +110,57 @@
         <para>query rewrite:</para>
 
         <listitem>
-            1x SELECT latest data time as is (called only at startup)
+            <para>1x SELECT latest data time as is (called only at startup)</para>
         </listitem>
 
         <listitem>
-            dynamic binded procedure for DELETE on table by instance_id called at startupfor cleaning config/status 
+            <para>dynamic binded procedure for DELETE on table by instance_id called at startupfor cleaning config/status</para> 
         </listitem>
 
         <listitem>
-            dynamic binded procedure for DELETE on tably by instance_id, field&lt;time called during periodic cleanup in threaded housekeeper
+            <para>dynamic binded procedure for DELETE on tably by instance_id, field&lt;time called during periodic cleanup in threaded housekeeper</para>
         </listitem>
 
         <listitem>
-            all other queries are prepared with their own statement handler </listitem>
-<orderedlist>
-            <para>4x DELETE</para>
-            <para>52x MERGE</para>
-            <para>9x INSERT</para>
-            <para>9x UPDATE</para>
-            <para>5x SELECT</para>
-    </orderedlist>    
+            <para>all other queries are prepared with their own statement handler</para> </listitem>
+<itemizedlist>
+           <listitem> <para>4x DELETE</para></listitem>
+            <listitem><para>52x MERGE</para></listitem>
+            <listitem><para>9x INSERT</para></listitem>
+            <listitem><para>9x UPDATE</para></listitem>
+            <listitem><para>5x SELECT</para></listitem>
+    </itemizedlist>    
 
         <listitem>
-            rewritten getting cached object_id using select
+            <para>rewritten getting cached object_id using select</para>
         </listitem>
 
         <listitem>
-            all queries use binded unixtimestamp instead of prepared query string
+            <para>all queries use binded unixtimestamp instead of prepared query string</para>
         </listitem>
 
         <listitem>
-            removed autoincrement sequence and insert triggers to update primary key
+            <para>removed autoincrement sequence and insert triggers to update primary key</para>
         </listitem>
 
         <listitem>
-            added sequence for each table
+            <para>added sequence for each table</para>
         </listitem>
 
         <listitem>
-            INSERT INTO ... (id, ...) VALUES (seq_name.nextval, ...) will do the trick
+            <para>INSERT INTO ... (id, ...) VALUES (seq_name.nextval, ...) will do the trick</para>
         </listitem>
 
         <listitem>
-            added RETURNING id INTO :id for INSERT statements to save one round trip
+            <para>added RETURNING id INTO :id for INSERT statements to save one round trip</para>
         </listitem>
 
         <listitem>
-            MERGE does not support returning INTO, added SELECT seq_name.currval query insteadfor fetching last inserted id
+            <para>MERGE does not support returning INTO, added SELECT seq_name.currval query insteadfor fetching last inserted id</para>
         </listitem>
 
         <listitem>
-            add explizit upgrade information and provided procedure to alter sequence startwhen importing data (check oracle-upgrade-1.0.1.sql for more info) 
+            <para>add explizit upgrade information and provided procedure to alter sequence startwhen importing data (check oracle-upgrade-1.0.1.sql for more info)</para> 
         </listitem>
     </itemizedlist>
 
