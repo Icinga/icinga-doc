@@ -6,9 +6,7 @@
 <section version="5.0" xml:id="icinga-web-scratch" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-  <title>Installation &name-icinga; web frontend from scratch</title>
-
-  <para><emphasis>Install icinga-web standalone from scratch</emphasis></para>
+  <title>Installation of the &name-icinga; web frontend from scratch</title>
 
   <orderedlist>
     <listitem>
@@ -27,12 +25,12 @@
 
       <para><emphasis role="bold">OpenSuSE</emphasis></para>
 
-      <para><emphasis>Please use yast to install the packages "php5-pear", "php5-xmlrpc" und "php5-xsl". The CLI is contained in the php5
-      package.</emphasis></para>
+      <para>Please use yast to install the packages "php5-pear", "php5-xmlrpc", "php5-xsl", "php5-&lt;rdbm&gt;",
+      "php5-soap", "php5-gettext", "php5-ldap" und "php5-gd". The CLI is contained in the php5 package.</para>
 
       <para><note>
           <para>At least in SLES10 SP2 the function "hash_hmac" is missing.</para>
-        </note><emphasis> </emphasis></para>
+        </note></para>
 
       <para>Take your clone from the icinga-web.git to get a fresh branch</para>
 
@@ -51,7 +49,7 @@
 
       <para>to see all configure options.</para>
 
-      <para>Default the &name-icingaweb; will be installed to /usr/local/icinga-web by:</para>
+      <para>Per default the &name-icingaweb; will be installed to /usr/local/icinga-web by:</para>
 
       <programlisting> # ./configure
  # make install</programlisting>
@@ -85,14 +83,14 @@
 
       <para><emphasis role="bold">Manual creation</emphasis></para>
 
-      <para>Create a database and a user you like. The user needs at least the following privileges: SELECT, UPDATE, INSERT, DELETE, CREATE,
-      DROP, ALTER, INDEX. Import the schemes etc/database/deploy/init.sql and etc/database/deploy/db-deploy.sql to your database. That's
-      all.</para>
+      <para>Create a database and a user of your choice. The user needs at least the following privileges: SELECT, UPDATE, INSERT, DELETE,
+      CREATE, DROP, ALTER, INDEX. Import the following schemes into your database: etc/database/rescue/&lt;rdbm&gt;/rescue_schema.sql and
+      etc/database/rescue/&lt;rdbm&gt;/rescue_data.sql. That's all.</para>
 
       <para><emphasis role="bold">Auto creation</emphasis></para>
 
       <para>Create a database user with scheme and data privileges (CREATE, DROP, ALTER, INDEX). Go to the etc dir and copy the
-      build.properties to a safe place (e.g. /tmp). Alter the database settings within the properties file. You can also set you database
+      build.properties to a safe place (e.g. /tmp). Alter the database settings within the properties file. You can also set your database
       root user to create your scheme. Go to /usr/local/icinga-web/etc and call the phing deploy task:</para>
 
       <para><programlisting> # cd /usr/local/icinga-web/etc
@@ -176,8 +174,8 @@
 
       <para><programlisting> # ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load</programlisting></para>
 
-      <para>Using OpenSuSE you have to edit the file "/etc/sysconfig/apache2". The module "rewrite" has to be appended to the line
-      "APACHE_MODULES=...".</para>
+      <para>Using OpenSuSE you can use "a2enmod rewrite" to activate the module. If that doesn't work you have to edit the file
+      "/etc/sysconfig/apache2". The module "rewrite" has to be appended to the line "APACHE_MODULES=...".</para>
 
       <itemizedlist>
         <listitem>
@@ -185,7 +183,7 @@
         </listitem>
       </itemizedlist>
 
-      <para>Edit your .htaccess in /usr/local/icinga-web/pub :</para>
+      <para>Edit your .htaccess in /usr/local/icinga-web/pub:</para>
 
       <para>At line 14, change the RewriteBase direction to suite your needs:<programlisting> DirectoryIndex index.php
 
