@@ -143,8 +143,8 @@
   <para><emphasis role="bold">&name-opensuse;:</emphasis></para>
 
   <para>Use yast to install the packages for the RDBMS you want to use, i.e. "mysql", "mysql-devel", "mysql-client" or "postgresql",
-  "postgresql-devel", "postgresql-server".</para>
-
+  "postgresql-devel", "postgresql-server". In OpenSuSE 11 (SLES 11) the name of the package was changed from "mysql-devel" to
+  "libmysqlclient-devel".</para>
   <para>It is most likely that there aren't any libdbi packages so you have to download and compile the sources. Replace &lt;rdbm&gt; with
   your desired RDBM like mysql or pgsql. Remember that the Oracle driver is not yet working and read the appropriate section with ocilib
   instead of libdbi.</para>
@@ -165,7 +165,7 @@
     <listitem>
       <para>Install libdbi. Maybe you have to specify additional options with configure (set --prefix=/usr ... )</para>
 
-      <para><programlisting> # cd libdbi
+      <para><programlisting> # cd libdbi-0.8.3
  # ./configure --disable-docs
  # make
  # make install</programlisting></para>
@@ -174,10 +174,14 @@
     <listitem>
       <para>Install libdbi-drivers</para>
 
-      <para><programlisting> # cd libdbi-drivers
+      <para><programlisting> # cd libdbi-drivers-0.8.3-1
  # ./configure --with-&lt;rdbm&gt; --disable-docs
  # make
- # make install</programlisting></para>
+ # make install</programlisting><note>
+          <para>Using the 64-bit-versions you have to specify the paths to the include- and lib-dir explicitly:</para>
+
+          <para><programlisting> # ./configure --with--&lt;rdbm&gt; --with-&lt;rdbm&gt;-incdir=/usr/include/&lt;rdbm&gt;/ --with-&lt;rdbm&gt;-libdir=/usr/lib64/ --disable-docs</programlisting></para>
+        </note></para>
     </listitem>
   </orderedlist>
 
@@ -204,7 +208,7 @@
  # /usr/sbin/usermod -a -G icinga-cmd www-data (or www, wwwrun)</programlisting>
 
   <para><note>
-      Some usermod-versions (e.g in OpenSuSE 11 and SLES 11, resp.) are lacking the option -a. In this case please omit the option -a.
+       Some usermod-versions (e.g in OpenSuSE 11 and SLES 11, resp.) are lacking the option -a. In this case please omit the option -a. 
     </note></para>
 
   <para><emphasis role="bold">Download &name-icinga; and the Plugins</emphasis></para>
@@ -232,7 +236,6 @@
   <para><emphasis role="bold">With SSL-Encryption:</emphasis></para>
 
   <programlisting> # ./configure --with-command-group=icinga-cmd --enable-idoutils --enable-ssl</programlisting>
-
   <para><emphasis role="bold">With Oracle Database Support:</emphasis></para>
 
   <para><programlisting> # ./configure --with-command-group=icinga-cmd --enable-idoutils --enable-oracle </programlisting> If you didn't
@@ -241,7 +244,6 @@
   <programlisting># ./configure --with-command-group=icinga-cmd --enable-idoutils --enable-oracle --with-oracle-lib=/path/to/instantclient</programlisting>
 
   <para>If you didn't install ocilib to the default path (/usr/local) you can point configure to the lib/inc directories:</para>
-
   <para><programlisting> # ./configure --with-command-group=icinga-cmd --enable-idoutils --enable-oracle --with-ocilib-lib=/path/to/ocilib/lib --with-ocilib-inc=/path/to/ocilib/include</programlisting><note>
       <para>If you want to change RDBM from Oracle to others, you need to recompile and reinstall &name-idoutils;!</para>
     </note><programlisting> # make distclean
@@ -435,8 +437,6 @@
 
   <para><emphasis role="bold">Start &name-idoutils; and &name-icinga;</emphasis></para>
 
-  <para><emphasis><emphasis role="bold">Start &name-idoutils;</emphasis></emphasis></para>
-
   <para>&name-idoutils; must be started and running <emphasis>before</emphasis> &name-icinga; is started.</para>
 
   <para><emphasis>Start &name-idoutils;:</emphasis></para>
@@ -485,20 +485,6 @@
   <para><emphasis role="bold">&name-debian;/&name-ubuntu;:</emphasis></para>
 
   <programlisting> # update-rc.d icinga defaults</programlisting>
-
-  <para><emphasis role="bold">Configure Ido2db Startup</emphasis></para>
-
-  <para><emphasis role="bold"><emphasis>Add Ido2db to the list of system services and have it automatically start when the system boots
-  (make sure you have installed the init script before).</emphasis></emphasis></para>
-
-  <para><emphasis role="bold"><emphasis role="bold">&name-fedora;/&name-rhel;/&name-centos;/&name-opensuse;:</emphasis></emphasis></para>
-
-  <programlisting><emphasis role="bold"><emphasis role="bold"><emphasis># chkconfig --add ido2db chkconfig ido2db on</emphasis></emphasis></emphasis></programlisting>
-
-  <para><emphasis role="bold"><emphasis role="bold"><emphasis
-  role="bold">&name-debian;/&name-ubuntu;:</emphasis></emphasis></emphasis></para>
-
-  <programlisting><emphasis role="bold"><emphasis role="bold"><emphasis role="bold"><emphasis># update-rc.d icinga defaults</emphasis></emphasis></emphasis></emphasis></programlisting>
 
   <para><emphasis role="bold">Login to the Web Interface</emphasis></para>
 
