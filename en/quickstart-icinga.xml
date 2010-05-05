@@ -4,30 +4,29 @@
 %all.entities;
 ]>
 <section version="5.0" xml:id="quickstart-icinga" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>&name-icinga; Quickstart</title>
 
   <para><emphasis role="bold"><anchor xml:id="introduction_icinga" />Introduction</emphasis></para>
 
-  <para>This guide is intended to provide you with simple instructions on how to install &name-icinga; from source (code) and have
-  it monitoring your local machine within 20 minutes.</para>
+  <para>This guide is intended to provide you with simple instructions on how to install &name-icinga; from source (code) and have it
+  monitoring your local machine within 20 minutes.</para>
 
   <para>No advanced installation options are discussed here - just the basics that will work for most of the users who want to get
   started.</para>
 
   <para>This guide will give you examples for currently three different Linux distributions: <link
-  xlink:href="http://fedoraproject.org/">&name-fedora;</link>, <link xlink:href="http://www.ubuntu.com/">&name-ubuntu;</link> and
-  <link xlink:href="http://www.opensuse.org/">&name-opensuse;</link>. Similar distributions may work as well. That should include
-  <link xlink:href="http://www.redhat.com/">&name-redhat;</link>, <link xlink:href="http://www.centos.org/">&name-centos;</link>,
-  <link xlink:href="http://www.debian.org/">&name-debian;</link> and <link
+  xlink:href="http://fedoraproject.org/">&name-fedora;</link>, <link xlink:href="http://www.ubuntu.com/">&name-ubuntu;</link> and <link
+  xlink:href="http://www.opensuse.org/">&name-opensuse;</link>. Similar distributions may work as well. That should include <link
+  xlink:href="http://www.redhat.com/">&name-redhat;</link>, <link xlink:href="http://www.centos.org/">&name-centos;</link>, <link
+  xlink:href="http://www.debian.org/">&name-debian;</link> and <link
   xlink:href="http://www.novell.com/products/server/">&name-sles;</link>.</para>
 
   <para>Other distributions may inherit from these examples.</para>
 
-  <para><emphasis role="bold">If you are planning to use a database with &name-idoutils; please read <xref
-  linkend="quickstart-idoutils" /> instead!</emphasis></para>
+  <para><emphasis role="bold">If you are planning to use a database with &name-idoutils; please read <xref linkend="quickstart-idoutils" />
+  instead!</emphasis></para>
 
   <para><emphasis role="bold">What You'll End Up With</emphasis></para>
 
@@ -50,8 +49,7 @@
 
   <para><emphasis role="bold">Prerequisites</emphasis></para>
 
-  <para>During portions of the installation you'll need to have <emphasis role="bold">root</emphasis> access to your
-  machine.</para>
+  <para>During portions of the installation you'll need to have <emphasis role="bold">root</emphasis> access to your machine.</para>
 
   <para>Make sure you've installed the following packages on your system before continuing.</para>
 
@@ -87,7 +85,10 @@
   <programlisting> # apt-get install apache2 build-essential libgd2-xpm-dev
  # apt-get install libjpeg62 libjpeg62-dev libpng12 libpng12-dev</programlisting>
 
-  <note><para>The numbers &lt;62/12&gt; might differ, depending on your distribution</para></note>
+  <note>
+    <para>The numbers &lt;62/12&gt; might differ, depending on your distribution</para>
+  </note>
+
   <para><emphasis>&name-opensuse;</emphasis></para>
 
   <para>Please use yast to install the packages</para>
@@ -107,12 +108,17 @@
 
   <programlisting> # /usr/sbin/groupadd icinga</programlisting>
 
-  <para>For sending commands from the webinterface to &name-icinga;, you'll need to create a new group icinga-cmd. Add the webuser and the &name-icinga;user to this group: </para>
+  <para>For sending commands from the webinterface to &name-icinga;, you'll need to create a new group icinga-cmd. Add the webuser and the
+  &name-icinga;user to this group:</para>
 
-    <programlisting> # /usr/sbin/groupadd icinga-cmd
+  <programlisting> # /usr/sbin/groupadd icinga-cmd
  # /usr/sbin/usermod -a -G icinga-cmd icinga
- # /usr/sbin/usermod -a -G icinga-cmd www-data (or www, wwwrun)</programlisting>
-  <para><note>Some usermod-versions (e.g. in OpenSuSE 11 and SLES 11, resp.) are lacking the option -a. In this case please omit the option -a.</note></para>
+ # /usr/sbin/usermod -a -G icinga-cmd www-data (or www, wwwrun, apache depending on the distribution)</programlisting>
+
+  <note>
+    <para>Some usermod-versions (e.g. in OpenSuSE 11 and SLES 11, resp.) are lacking the option -a. In this case please omit the option
+    -a.</para>
+  </note>
 
   <para><emphasis role="bold">Download &name-icinga; and the Plugins</emphasis></para>
 
@@ -123,7 +129,7 @@
   <para>Either fetch the current icinga-core snapshot from &name-icinga; GIT <programlisting> # git clone git://git.icinga.org/icinga-core.git</programlisting>
   or from the <link xlink:href="http://www.icinga.org/">&name-icinga; Website</link> .</para>
 
-  <para>Don't forget to download the <link xlink:href="&url-nagiosplug;">Nagios Plugins</link> .</para>
+  <para>Don't forget to download the <link xlink:href="http://www.nagiosplugins.org/">Nagios Plugins</link> .</para>
 
   <para><emphasis role="bold">Compile and install &name-icinga;</emphasis></para>
 
@@ -153,9 +159,9 @@
   <para>Sample configuration files have been installed by using <programlisting># make install-config</programlisting> into
   &url-icinga-base;/etc/. You'll need to make just one change before you proceed...</para>
 
-  <para>Edit the <emphasis>&url-icinga-base;/etc/objects/contacts.cfg</emphasis> config file with your favourite editor and change
-  the email address associated with the <emphasis>icingaadmin</emphasis> contact definition to the address you'd like to use for
-  receiving alerts.</para>
+  <para>Edit the <emphasis>&url-icinga-base;/etc/objects/contacts.cfg</emphasis> config file with your favourite editor and change the email
+  address associated with the <emphasis>icingaadmin</emphasis> contact definition to the address you'd like to use for receiving
+  alerts.</para>
 
   <programlisting> # vi &url-icinga-base;/etc/objects/contacts.cfg</programlisting>
 
@@ -165,8 +171,8 @@
 
   <programlisting> # make install-webconf</programlisting>
 
-  <para>Create an <emphasis>icingaadmin</emphasis> account for logging into the Icinga web interface. If you want to change it
-  later, use the same command. Remember the password you assign to this account - you'll need it later.</para>
+  <para>Create an <emphasis>icingaadmin</emphasis> account for logging into the Icinga web interface. If you want to change it later, use
+  the same command. Remember the password you assign to this account - you'll need it later.</para>
 
   <programlisting> # htpasswd -c &url-icinga-base;/etc/htpasswd.users icingaadmin</programlisting>
 
@@ -204,8 +210,8 @@
 
   <para><emphasis role="bold">Start &name-icinga;</emphasis></para>
 
-  <para>Add &name-icinga; to the list of system services and have it automatically start when the system boots (make sure you have
-  installed the init script before).</para>
+  <para>Add &name-icinga; to the list of system services and have it automatically start when the system boots (make sure you have installed
+  the init script before).</para>
 
   <para><emphasis>&name-fedora;/&name-rhel;/&name-centos;/&name-opensuse;</emphasis></para>
 
@@ -241,18 +247,18 @@
 
   <programlisting> http://yourdomain.com/icinga/</programlisting>
 
-  <para>Click on the "Service Detail" navbar link to see details of what's being monitored on your local machine. It will take a
-  few minutes for &name-icinga; to check all the services associated with your machine.</para>
+  <para>Click on the "Service Detail" navbar link to see details of what's being monitored on your local machine. It will take a few minutes
+  for &name-icinga; to check all the services associated with your machine.</para>
 
   <para><emphasis role="bold">Other Modifications</emphasis></para>
 
-  <para>Make sure your system's firewall rules are configured to allow access to the web server if you want to access the
-  &name-icinga; interface remotely.</para>
+  <para>Make sure your system's firewall rules are configured to allow access to the web server if you want to access the &name-icinga;
+  interface remotely.</para>
 
   <programlisting> # iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT</programlisting>
 
-  <para>Setting up your mail transfer agent (MTA) like exim, sendmail or postfix to allow &name-icinga; sending notification
-  emails won't be explained here.</para>
+  <para>Setting up your mail transfer agent (MTA) like exim, sendmail or postfix to allow &name-icinga; sending notification emails won't be
+  explained here.</para>
 
   <para>Please refer to the <link xlink:href="http://www.nagioswiki.org/">&name-nagioswiki;</link> for more resources.</para>
 
@@ -260,8 +266,8 @@
 
   <para>Congratulations! You successfully installed &name-icinga;. Your journey into monitoring has just begun.</para>
 
-  <para>You'll no doubt want to monitor more than just your local machine, so check out the chapter on <link
-  linkend="ch02">"Getting Started"</link> about "Monitoring ..."</para>
+  <para>You'll no doubt want to monitor more than just your local machine, so check out the chapter on <link linkend="ch02">"Getting
+  Started"</link> about "Monitoring ..."</para>
 
   <indexterm zone="quickstart-icinga">
     <primary>Quickstart &name-icinga;</primary>

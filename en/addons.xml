@@ -4,25 +4,36 @@
 %all.entities;
 ]>
 <section version="5.0" xml:id="addons" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="Icinga_addons" />&name-icinga; Addons</title>
 
   <para><emphasis role="bold">Introduction</emphasis></para>
 
-  <para>There are a lot of "addon" software packages that are available for &name-icinga;. Addons can be used to extend
-  &name-icinga;'s functionality or integrate &name-icinga; with other applications.</para>
+  <para>There are a lot of "addon" software packages that are available for &name-icinga;. Addons can be used to extend &name-icinga;'s
+  functionality or integrate &name-icinga; with other applications.</para>
 
   <para>Addons are available for:</para>
 
   <itemizedlist>
     <listitem>
       <para>Managing the config files through a web interface</para>
+
+      <itemizedlist>
+        <listitem>
+          <para><link xlink:href="&url-nconf;">&name-nconf;</link>, <link xlink:href="&url-nagiosql;">&name-nagiosql;</link>, ...</para>
+        </listitem>
+      </itemizedlist>
     </listitem>
 
     <listitem>
       <para>Monitoring remote hosts (*NIX, Windows, etc.)</para>
+
+      <itemizedlist>
+        <listitem>
+          <para><link xlink:href="&url-nsclient;">&name-nsclient;</link>, ...</para>
+        </listitem>
+      </itemizedlist>
     </listitem>
 
     <listitem>
@@ -34,6 +45,26 @@
     </listitem>
 
     <listitem>
+      <para>Visualizing the information</para>
+
+      <itemizedlist>
+        <listitem>
+          <para><link xlink:href="&url-nagvis;">&name-nagvis;</link></para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>alternative web interfaces</para>
+
+      <itemizedlist>
+        <listitem>
+          <para><link xlink:href="&url-thruk;">&name-thruk;</link></para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
       <para>...and much more</para>
     </listitem>
   </itemizedlist>
@@ -42,7 +73,7 @@
 
   <itemizedlist>
     <listitem>
-      <para><link xlink:href="http://www.nagios.org/">&name-nagios;.org</link></para>
+      <para><link xlink:href="&url-nagios;">&name-nagios;.org</link></para>
     </listitem>
 
     <listitem>
@@ -50,11 +81,11 @@
     </listitem>
 
     <listitem>
-      <para><link xlink:href="http://www.monitoringexchange.org">&url-monitoringexchange;</link></para>
+      <para><link xlink:href="&url-monitoringexchange;">&url-monitoringexchange;</link></para>
     </listitem>
   </itemizedlist>
 
-  <para>We'll give a brief introduction to a few of the addons that Ethan Galstad developed for &name-nagios;...</para>
+  <para>First we'll give a brief introduction to a few of the addons that Ethan Galstad developed for &name-nagios;...</para>
 
   <para><anchor xml:id="addons-nrpe" /><emphasis role="bold">NRPE</emphasis></para>
 
@@ -64,10 +95,10 @@
       </imageobject>
     </inlinemediaobject></para>
 
-  <para>NRPE is an addon that allows you to execute <link linkend="plugins">plugins</link> on remote Linux/Unix hosts. This is
-  useful if you need to monitor local resources/attributes like disk usage, CPU load, memory usage, etc. on a remote host.
-  Similiar functionality can be accomplished by using the <emphasis>check_by_ssh</emphasis> plugin, although it can impose a
-  higher CPU load on the monitoring machine - especially if you are monitoring hundreds or thousands of hosts.</para>
+  <para>NRPE is an addon that allows you to execute <link linkend="plugins">plugins</link> on remote Linux/Unix hosts. This is useful if you
+  need to monitor local resources/attributes like disk usage, CPU load, memory usage, etc. on a remote host. Similiar functionality can be
+  accomplished by using the <emphasis>check_by_ssh</emphasis> plugin, although it can impose a higher CPU load on the monitoring machine -
+  especially if you are monitoring hundreds or thousands of hosts.</para>
 
   <para>The NRPE addon and documentation can be found at <link xlink:href="http://www.nagios.org/">&url-nagios;</link>.</para>
 
@@ -79,9 +110,9 @@
       </imageobject>
     </inlinemediaobject></para>
 
-  <para>NSCA is an addon that allows you to send <link linkend="passivechecks">passive check</link> results from remote Linux/Unix
-  hosts to the &name-icinga; daemon running on the monitoring server. This is very useful in <link
-  linkend="distributed">distributed</link> and <link linkend="redundancy">redundant/failover</link> monitoring setups.</para>
+  <para>NSCA is an addon that allows you to send <link linkend="passivechecks">passive check</link> results from remote Linux/Unix hosts to
+  the &name-icinga; daemon running on the monitoring server. This is very useful in <link linkend="distributed">distributed</link> and <link
+  linkend="redundancy">redundant/failover</link> monitoring setups.</para>
 
   <para>The NSCA addon and documentation can be found at <link xlink:href="http://www.nagios.org/">&url-nagios;</link>.</para>
 
@@ -93,11 +124,12 @@
       </imageobject>
     </inlinemediaobject></para>
 
-  <para>IDOUtils is an addon that allows you to store all status information from &name-icinga; in a database. Multiple
-  instances of &name-icinga; can all store their information in a central database for centralized reporting. In the future it will probably be used as a basis for a &name-php; based web interface.</para>
+  <para>IDOUtils is an addon that allows you to store all status information from &name-icinga; in a database. Multiple instances of
+  &name-icinga; can all store their information in a central database for centralized reporting. In the future it will probably be used as a
+  basis for a &name-php; based web interface.</para>
 
-  <para>The IDOUtils addon install instructions can be found in the <link linkend="quickstart-idoutils">Quickstart-Idoutils</link>
-  and more documentation can be found at <link xlink:href="http://docs.icinga.org/latest/en/addons.html">&url-icingadocs;</link>.</para>
+  <para>The IDOUtils addon install instructions can be found in the <link linkend="quickstart-idoutils">Quickstart-Idoutils</link> and more
+  documentation can be found at <link xlink:href="http://docs.icinga.org/latest/en/">&url-icingadocs;</link>.</para>
 
   <indexterm zone="addons-nsca">
     <primary>Addons</primary>
@@ -116,16 +148,5 @@
 
     <secondary>IDOutils</secondary>
   </indexterm>
-<!-- FIXME
-<para><anchor xml:id="addons-others" /><emphasis role="bold">Nagios Exchange - Hundreds of other addons</emphasis></para>
 
-<para>
-<link xlink:href="http://exchange.nagios.org/"><img src="../images/nagiosexchange.png" border="0" alt="Nagios Exchange" title="Nagios Exchange" style="float: right; padding: 0 0 0 10px;"></a>
-
-</para>
-
-<para>
-Hundreds of community-developed Nagios addons can be found on the Nagios Exchange website at <link xlink:href="http://exchange.nagios.org">exchange.nagios.org</a>.
-</para>
--->
 </section>

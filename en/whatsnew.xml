@@ -6,158 +6,136 @@
 <section version="5.0" xml:id="whatsnew" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-    <title>What's New in &name-core; &ver-icinga; and &name-web; &ver-icingaweb;</title>
+  <title>What's New in &name-core; &ver-icinga; and &name-web; &ver-icingaweb;</title>
 
-    <para />
+  <para><emphasis role="bold">&name-core;:</emphasis></para>
 
-    <para>
-        <emphasis role="bold">&name-core;:</emphasis>
-    </para>
+  <para><emphasis role="bold">Enhancements:</emphasis></para>
 
-    <para>
-        <emphasis role="bold">Enhancements:</emphasis>
-    </para>
+  <para>* core: add service_check_timeout_state configuration variable</para>
 
-    <para>* core: add service_check_timeout_state configuration variable</para>
+  <para>* core: add escalation_condition definition</para>
 
-    <para>* core: add escalation_condition definition</para>
+  <para>* idoutils: add ido2db threaded housekeeper</para>
 
-    <para>* idoutils: add ido2db threaded housekeeper</para>
+  <para>* idoutils: add indexes for delete/select statements</para>
 
-    <para>* idoutils: add indexes for delete/select statements</para>
+  <para>* idoutils: reorganize db setup files for MySQL/Postgresql/Oracle</para>
 
-    <para>* idoutils: reorganize db setup files for MySQL/Postgresql/Oracle</para>
+  <para>* idoutils: complete oracle rewrite to improve performance</para>
 
-    <para>* idoutils: complete oracle rewrite to improve performance</para>
+  <para>* idoutils: add upgrade path for mysql/pgsql/oracle for 1.0.1 – check docs for more information <link
+  linkend="upgrading_idoutils">upgrading_idoutils</link></para>
 
-    <para>* idoutils: add upgrade path for mysql/pgsql/oracle for 1.0.1 – check docs for more information <link
-    linkend="upgrading_idoutils">upgrading_idoutils</link></para>
+  <para>* idoutils: add initial debug output for idomod (to be set in idomod.cfg)</para>
 
-    <para>* idoutils: add initial debug output for idomod (to be set in idomod.cfg)</para>
+  <para>* idoutils: add database name in connection msg to syslog</para>
 
-    <para>* idoutils: add database name in connection msg to syslog</para>
+  <para>* idoutils: change mysql db engine to innodb (no table locking, better transcations)</para>
 
-    <para>* idoutils: change mysql db engine to innodb (no table locking, better transcations)</para>
+  <para>* idoutils: add --with-oracle-lib=/path/to/instantclient for runtime, export of LD_LIBRARY_PATH if instantclient not installed to
+  path – check docs for more information <link linkend="quickstart-idoutils">quickstart-idoutils</link></para>
 
-    <para>* idoutils: add --with-oracle-lib=/path/to/instantclient for runtime, export of LD_LIBRARY_PATH if instantclient not installed to path –
-    check docs for more information <link linkend="quickstart-idoutils">quickstart-idoutils</link></para>
+  <para>* idoutils: add max_logentries_age and max_acknowledgements_age to ido2db (check ido2db.cfg)</para>
 
-    <para>* idoutils: add max_logentries_age and max_acknowledgements_age to ido2db (check ido2db.cfg)</para>
+  <para><emphasis role="bold">Fixes:</emphasis></para>
 
-    <para>
-        <emphasis role="bold">Fixes:</emphasis>
-    </para>
+  <para>* core: fix segfault in cmd.cgi</para>
 
-    <para>* core: fix segfault in cmd.cgi</para>
+  <para>* core: fix event broker callback function self de-registering for callbacks</para>
 
-    <para>* core: fix event broker callback function self de-registering for callbacks</para>
+  <para>* core: fix idomod doesn't de-initialize after config error</para>
 
-    <para>* core: fix idomod doesn't de-initialize after config error</para>
+  <para>* core: fix make fullinstall/idoutils without enabled idoutils during configure</para>
 
-    <para>* core: fix make fullinstall/idoutils without enabled idoutils during configure</para>
+  <para>* core: fix sending two identical service_status events to neb module</para>
 
-    <para>* core: fix sending two identical service_status events to neb module</para>
+  <para>* idoutils: modify string escaping for mysql and pgsql</para>
 
-    <para>* idoutils: modify string escaping for mysql and pgsql</para>
+  <para>* idoutils: fix pgsql table systemcommands (missing column 'output')</para>
 
-    <para>* idoutils: fix pgsql table systemcommands (missing column 'output')</para>
+  <para>* idoutils: fix acknowledgments query, wrong buffer freed/set as query to db</para>
 
-    <para>* idoutils: fix acknowledgments query, wrong buffer freed/set as query to db</para>
+  <para>* idoutils: fix contactnotification data array, command args were not provided</para>
 
-    <para>* idoutils: fix contactnotification data array, command args were not provided</para>
+  <para>* idoutils: fix custom_variables object_id type int = unsigned long</para>
 
-    <para>* idoutils: fix custom_variables object_id type int = unsigned long</para>
+  <para>To have a deeper look, please visit the Changelog</para>
 
-    <para>To have a deeper look, please visit the Changelog</para>
+  <itemizedlist>
+    <listitem>
+      <para>See: <xref linkend="changelog-core" /></para>
+    </listitem>
+  </itemizedlist>
 
-    <itemizedlist>
-        <listitem>
-            <para>See: <xref linkend="changelog-core" /></para>
-        </listitem>
-    </itemizedlist>
+  <para><emphasis role="bold">&name-web;:</emphasis></para>
 
-    <para>
-        <emphasis role="bold">&name-web;:</emphasis>
-    </para>
+  <para>* Added some icinga specific principal target classes</para>
 
-    <para>* Added some icinga specific principal target classes</para>
+  <para>* Finished editing of principal targets for users and groups</para>
 
-    <para>* Finished editing of principal targets for users and groups</para>
+  <para>* Added editing models for principals</para>
 
-    <para>* Added editing models for principals</para>
+  <para>* Finished principal target filtering in xml temlates</para>
 
-    <para>* Finished principal target filtering in xml temlates</para>
+  <para>* Added principal target toolkit for api search queries</para>
 
-    <para>* Added principal target toolkit for api search queries</para>
+  <para>* Added full command specification</para>
 
-    <para>* Added full command specification</para>
+  <para>* Added host- / service status filter</para>
 
-    <para>* Added host- / service status filter</para>
+  <para>* Added some more state (flapping, downtime)</para>
 
-    <para>* Added some more state (flapping, downtime)</para>
+  <para>* Global xml replacements within the templates (view proc)</para>
 
-    <para>* Global xml replacements within the templates (view proc)</para>
+  <para>* Updating ExtJS to 3.1</para>
 
-    <para>* Updating ExtJS to 3.1</para>
+  <para>* Implemented categories for the cronks</para>
 
-    <para>* Implemented categories for the cronks</para>
+  <para>* Cronks for usergroups only</para>
 
-    <para>* Cronks for usergroups only</para>
+  <para>* Tactical overview template engine</para>
 
-    <para>* Tactical overview template engine</para>
+  <para>To have a deeper look, please visit the changelog-web</para>
 
-    <para>To have a deeper look, please visit the changelog-web</para>
+  <itemizedlist>
+    <listitem>
+      <para>See: <xref linkend="changelog-web" /></para>
+    </listitem>
+  </itemizedlist>
 
-    <itemizedlist>
-        <listitem>
-            <para>See: <xref linkend="changelog-web"/></para>
-        </listitem>
-    </itemizedlist>
+  <para><emphasis role="bold">&name-api;:</emphasis></para>
 
-    <para>
-        <emphasis role="bold">&name-api;:</emphasis>
-    </para>
+  <para>* Restructured DB access for upcoming RDBM support</para>
 
-    <para>* Restructured DB access for upcoming RDBM support</para>
+  <para>* Made several fixes for table prefix, exception handling</para>
 
-    <para>* Made several fixes for table prefix, exception handling</para>
+  <para>* Started a ‘how-to’ guide for upcoming documentation</para>
 
-    <para>* Started a ‘how-to’ guide for upcoming documentation</para>
+  <para><emphasis role="bold">&name-docs;:</emphasis></para>
 
-    <para>
-        <emphasis role="bold">&name-docs;:</emphasis>
-    </para>
+  <para>* Updates and fixes for quickstart guides</para>
 
-    <para>* Updates and fixes for quickstart guides</para>
+  <para>* Updates and fixes for upgrading &name-icinga; and &name-idoutils;, visit the docs for more Information <link
+  linkend="upgrading_idoutils">upgrading_idoutils</link></para>
 
-    <para>* Updates and fixes for upgrading &name-icinga; and &name-idoutils;, visit the docs for more Information <link
-    linkend="upgrading_idoutils">upgrading_idoutils</link></para>
+  <para>* New Api-section</para>
 
-    <para>* New Api-section</para>
+  <para>Should you find any issues, please report them to the following links:</para>
 
-    <para>Should you find any issues, please report them to the following links:</para>
+  <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-core">Report Issue &name-core;</link></para>
 
-    <para>
-        <link xlink:href="https://dev.icinga.org/projects/show/icinga-core">Report Issue &name-core;</link>
-    </para>
+  <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-web">Report Issue &name-web;</link></para>
 
-    <para>
-        <link xlink:href="https://dev.icinga.org/projects/show/icinga-web">Report Issue &name-web;</link>
-    </para>
+  <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-api">Report Issue &name-api;</link></para>
 
-    <para>
-        <link xlink:href="https://dev.icinga.org/projects/show/icinga-api">Report Issue &name-api;</link>
-    </para>
+  <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-docs">Report Issue &name-docs;</link></para>
 
-    <para>
-        <link xlink:href="https://dev.icinga.org/projects/show/icinga-docs">Report Issue &name-docs;</link>
-    </para>
+  <indexterm zone="whatsnew">
+    <primary>What's new in &name-icinga;</primary>
+  </indexterm>
 
-    <xi:include href="changelog-core.xml" />
+  <xi:include href="changelog-core.xml" />
 
-    <xi:include href="changelog-web.xml" />
-
-    <indexterm zone="whatsnew">
-        <primary>What's new in &name-icinga;</primary>
-    </indexterm>
+  <xi:include href="changelog-web.xml" />
 </section>

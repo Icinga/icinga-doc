@@ -12,25 +12,37 @@
     <listitem>
       <para><emphasis role="bold">Voraussetzungen</emphasis></para>
 
-      <para>Die Pakete mysql und php5 sind installiert (mit PEAR und CLI), Icinga läuft, die IDOUtils ebenfalls, dann ab zu 2., ansonsten
-      bitte:</para>
+      <para>Die Pakete mysql und php5 sind installiert (mit PEAR und CLI), Icinga samt IDOUtils läuft, die Icinga-API ebenfalls, dann ab zu
+      2., ansonsten bitte:</para>
 
-      <para><emphasis role="bold">Ubuntu / Debian</emphasis></para>
+      <itemizedlist>
+        <listitem>
+          <para><emphasis role="bold">Ubuntu / Debian</emphasis></para>
 
-      <programlisting> # apt-get install php5-cli php-pear php5-xmlrpc php5-xsl</programlisting>
+          <programlisting> # apt-get install php5-cli php-pear php5-xmlrpc php5-xsl php5-pdo php5-ldap php5-gd</programlisting>
+        </listitem>
 
-      <para><emphasis>Fedora / RHEL / CentOS</emphasis></para>
+        <listitem>
+          <para><emphasis role="bold">Fedora / RHEL / CentOS</emphasis></para>
 
-      <para><programlisting> # yum install php-cli php-pear php-xmlrpc php-xsl</programlisting></para>
+          <para><programlisting> # yum install php-cli php-pear php-xmlrpc php-xsl php-pdo php-ldap php-gd</programlisting></para>
+        </listitem>
 
-      <para><emphasis role="bold">OpenSuSE</emphasis></para>
+        <listitem>
+          <para><emphasis role="bold">OpenSuSE</emphasis></para>
 
-      <para>Benutzen Sie yast, um die Pakete "php5-pear", "php5-xmlrpc", "php5-xsl", "php5-&lt;rdbm&gt;", "php5-soap", "php5-gettext",
-      "php5-ldap" und "php5-gd" zu installieren. Die CLI ist im php5-Paket enthalten.</para>
+          <para>Benutzen Sie yast, um die Pakete "php5-pear", "php5-xmlrpc", "php5-xsl", "php5-&lt;rdbm&gt;", "php5-soap", "php5-gettext",
+          "php5-pdo", "php5-ldap" und "php5-gd" zu installieren. Die CLI ist im php5-Paket enthalten.</para>
 
-      <note>
-        <para>Zumindest bei SLES10 SP2 fehlt die Funktion hash_hmac.</para>
-      </note>
+          <note>
+            <para>Zumindest bei SLES10 SP2 fehlt die Funktion hash_hmac.</para>
+          </note>
+        </listitem>
+      </itemizedlist>
+
+      <para>Die Installation von Icinga mit den IDOUtils bzw. der Icinga-API ist in der <link
+      linkend="quickstart-idoutils">Icinga-Schnellstartanleitung</link> und dem Abschnitt über die <link
+      linkend="icinga-api">Icinga-API</link> beschrieben.</para>
 
       <para>Klonen Sie von icinga-web.git, um mit der aktuellsten Version zu arbeiten:</para>
 
@@ -40,8 +52,13 @@
     <listitem>
       <para><emphasis role="bold">Die Installation</emphasis></para>
 
-      <programlisting> # tar xzvf icinga-web-&ver-icingaweb;.tar.gz
- # cd icinga-web</programlisting>
+      <para>Falls Sie ein Archiv heruntergeladen haben, dann entpacken Sie dieses zuerst:</para>
+
+      <programlisting> # tar xzvf icinga-web-&ver-icingaweb;.tar.gz</programlisting>
+
+      <para>Wechseln Sie in das entstandene Verzeichnis:</para>
+
+      <programlisting> # cd icinga-web</programlisting>
 
       <para>Nun können Sie schon den Installer bemühen, mit:</para>
 
@@ -53,6 +70,12 @@
 
       <programlisting> # ./configure
  # make install</programlisting>
+
+      <note>
+        <para>Bitte beachten Sie, dass das icinga-api-Verzeichnis in diesem Fall unter <emphasis>/usr/local/icinga-api</emphasis> erwartet
+        wird! Sie können aber mit Hilfe der Option "--with-icinga-api" einen anderen Ort angeben. Wenn Sie die o.g. Schnellstartanleitung
+        benutzt haben, dann verwenden Sie bitte folgenden Aufruf:<programlisting><code> ./configure --with-icinga-api=/usr/local/icinga/share/icinga-api</code></programlisting>.</para>
+      </note>
     </listitem>
 
     <listitem>
@@ -64,7 +87,8 @@
 
       <para>Alle "require"-Tests sollten erfolgreich sein. Eventuell müssen Sie die php.ini anpassen:</para>
 
-      <para>Die "magic_quote_gpc" in der Apache- und der CLI-php.ini auf "Off" setzen!</para>
+      <para>Die "magic_quote_gpc" in der Apache- und der CLI-php.ini auf "Off" setzen! Bitte beachten Sie, dass die Pfade von der
+      Distribution abhängig sind.</para>
 
       <programlisting> # vi /etc/php5/apache/php.ini
    magic_quotes_gpc = off
@@ -85,26 +109,52 @@
 
       <para>Legen Sie eine Datenbank und einen Benutzer Ihrer Wahl an. Der Benutzer benötigt mindestens folgende Berechtigungen auf die
       Datenbank: SELECT, UPDATE, INSERT, DELETE, CREATE, DROP, ALTER, INDEX. Importieren Sie die Schemata
-      etc/database/rescue/&lt;rdbm&gt;/rescue_schema.sql und etc/database/rescue/&lt;rdbm&gt;/rescue_data.sql in die Datenbank. Das war es
-      auch schon.</para>
+      etc/database/deploy/&lt;rdbm&gt;/init.sql und etc/database/deploy/&lt;rdbm&gt;/db-deploy.sql in die Datenbank. Das war es auch
+      schon.</para>
+
+      <programlisting> # mysql -u root -p
+  
+ mysql&gt; CREATE DATABASE icinga_web;
+  
+ GRANT USAGE ON *.* TO 'icinga_user'@'localhost' IDENTIFIED BY 'icinga_pass' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0;
+   
+ GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER, INDEX ON icinga_web.* TO 'icinga_user'@'localhost';
+ 
+ FLUSH PRIVILEGES ;
+
+ quit</programlisting>
+
+      <programlisting> # cd /path/to/icinga-web/etc/database/deploy/mysql
+ # mysql -u root -p icinga_web &lt; init.sql
+ # mysql -u root -p icinga_web &lt; db-deploy.sql</programlisting>
 
       <para><emphasis role="bold">Automatische Installation:</emphasis></para>
 
-      <para>Angelegt wird eine Datenbank und ein User mit den entsprechenden Privilegien (CREATE, DROP, ALTER, INDEX). Gehen Sie nach etc
-      und kopieren Sie die build.properties an einen sicheren Ort (z.B. nach /tmp). Ändern Sie die Datenbank-Einstellungen innerhalb der
-      Properties-Datei. Sie können auch den Root-Benutzer der Datenbank verwenden, um das Schema anzulegen. Wechseln Sie in das
-      etc-Verzeichnis vin icinga-web und rufen Sie phing auf mit:</para>
+      <para>Angelegt wird eine Datenbank und ein User mit den entsprechenden Privilegien (CREATE, DROP, ALTER, INDEX). Gehen Sie nach
+      <emphasis>etc</emphasis> und kopieren Sie die <emphasis>build.properties</emphasis> an einen sicheren Ort (z.B. nach /tmp). Ändern Sie
+      die Datenbank-Einstellungen innerhalb der properties-Datei. Sie können auch den Root-Benutzer der Datenbank verwenden, um das Schema
+      anzulegen. Wechseln Sie in das etc-Verzeichnis von icinga-web und rufen Sie phing auf mit:</para>
 
       <para><programlisting> # cd /usr/local/icinga-web/etc
  # /usr/local/icinga-web/bin/phing -Dproperties=/usr/local/icinga-web/etc/build.properties db-initialize</programlisting></para>
 
-      <para>Jetzt müssen Sie noch einen DB-User anlegen (mit den Rechten SELECT, UPDATE, INSERT, DELETE).</para>
+      <para>Jetzt müssen Sie noch einen DB-User anlegen (mit den Rechten SELECT, UPDATE, INSERT, DELETE):</para>
+
+      <programlisting> # mysql -u root -p
+  
+ mysql&gt; GRANT USAGE ON icinga_web.* TO 'icinga_user'@'localhost' IDENTIFIED BY 'icinga_pass' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0;
+   
+ GRANT SELECT, INSERT, UPDATE, DELETE ON icinga_web.* TO 'icinga_user'@'localhost';
+ 
+ FLUSH PRIVILEGES ;
+
+ quit</programlisting>
     </listitem>
 
     <listitem>
       <para><emphasis role="bold">Icinga-Web Konfiguration</emphasis></para>
 
-      <para>Anpassen der Konfiguration: Editieren Sie /usr/local/icinga-web/app/config/databases.xml und ändern Sie die
+      <para>Anpassen der Konfiguration: Editieren Sie <emphasis>/usr/local/icinga-web/app/config/databases.xml</emphasis> und ändern Sie die
       Datenbank-Einstellungen (ab Zeile 7, im Beispiel DB-User: icinga_user, PW: password):<programlisting>    &lt;database name="appkit_default" class="AgaviDoctrineDatabase"&gt;
        &lt;ae:parameter name="dsn"&gt;mysql://icinga_user:password@127.0.0.1:3306/icinga_web&lt;/ae:parameter&gt;
        &lt;ae:parameter name="username"&gt;icinga_user&lt;/ae:parameter&gt;
@@ -119,18 +169,14 @@
 
       <para>Ändern Sie die Werte für Ihre Datenbank-Verbindung.</para>
 
-      <para>Editieren Sie /usr/local/icinga-web/app/config/icinga.xml und ändern Sie die Werte für die IDOUtils (ab Zeile 163)</para>
+      <para>Editieren Sie <emphasis>/usr/local/icinga-web/app/config/icinga.xml</emphasis> und ändern Sie die Werte für die IDOUtils (ab
+      Zeile 163)</para>
+
       <note>
-         Denken Sie daran, vorher die 
-
-        &name-idoutils;
-
-         installiert zu haben (wie hier beschrieben: 
-
-        <xref linkend="quickstart-idoutils" />
-
-         ) 
+        <para>Denken Sie daran, vorher die &name-idoutils; installiert zu haben (wie <link linkend="quickstart-idoutils">hier</link>
+        beschrieben)</para>
       </note>
+
       <para>Gehen Sie zum appkit.factories - Bereich und ändern Sie den Pfad und die Konfiguration für die icinga-api.</para>
 
       <programlisting>
@@ -239,6 +285,10 @@
       <para>bzw.</para>
 
       <para><programlisting> # /etc/init.d/apache2 restart</programlisting></para>
+
+      <para>oder</para>
+
+      <programlisting> # /etc/init.d/httpd restart</programlisting>
     </listitem>
 
     <listitem>

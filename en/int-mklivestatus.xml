@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="int-mklivestatus" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="int_mklivestatus" />MKLiveStatus Integration</title>
+
+  <para><emphasis role="bold">Introduction</emphasis></para>
+
+  <para>MKLiveStatus is a module written by Mathias Kettner interfacing &name-icinga; (or &name-nagios;) with several addons like
+  &name-nagvis; or &name-thruk;. Unless you need a database for storing historical data this might be a good choice because it's quite small
+  and easy to install. Please have a look at the <link xlink:href="http://mathias-kettner.de/checkmk_livestatus.html">official
+  website</link> for a complete documentation as the following lines are just a very short guide on how to install and configure
+  &name-mklive; for &name-icinga;. We assume that you have installed &name-icinga; in /usr/local/icinga.</para>
+
+  <orderedlist>
+    <listitem>
+      <para>Download the software and compile it (please check the website for the latest version)</para>
+
+      <programlisting> wget http://mathias-kettner.de/download/mk-livestatus-1.1.3.tar.gz
+ tar xzvf mk-livestatus-1.1.3.tar.gz
+ cd mk-livestatus-1.1.3
+ ./configure --prefix =/usr/local/icinga --exec-prefix=/usr/local/icinga
+ make
+ cp src/livestatus.o /usr/local/icinga/bin</programlisting>
+    </listitem>
+
+    <listitem>
+      <para>Edit <emphasis>icinga.cfg</emphasis> to integrate the module. Please make sure that the directory
+      <emphasis>/usr/local/icinga/var/rw</emphasis> exists and is writable for the Icinga user. It should be the same directory used for the
+      command file (mostly icinga.cmd). "live" is a socket and it will only be present during runtime of the module.</para>
+
+      <para><code> broker_module=/usr/local/icinga/bin/livestatus.o /usr/local/icinga/var/rw/live</code></para>
+    </listitem>
+
+    <listitem>
+      <para>Restart &name-icinga;</para>
+
+      <programlisting>service icinga restart</programlisting>
+
+      <para>or</para>
+
+      <programlisting>/etc/init.d/icinga restart</programlisting>
+    </listitem>
+
+    <listitem>
+      <para>Check operation</para>
+
+      <programlisting> ps -ef | grep livestatus
+ ls -la /usr/local/icinga/var/rw/live</programlisting>
+
+      <para>If there is no running process and/or no socket then please check the &name-icinga; log file and resolve any errors.</para>
+    </listitem>
+  </orderedlist>
+
+  <indexterm zone="int-mklivestatus">
+    <primary>MKLiveStatus-Integration</primary>
+  </indexterm>
+  <indexterm zone="int-mklivestatus">
+    <primary>Addons</primary><secondary>MKLiveStatus-Integration</secondary>
+  </indexterm>
+</section>

@@ -3,22 +3,27 @@
 <!ENTITY % all.entities SYSTEM "all-entities.ent">
 %all.entities;
 ]>
-<section version="5.0" xml:id="icinga-api"
-         xmlns="http://docbook.org/ns/docbook"
-         xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude"
-         xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML"
-         xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
-  <title>Installation und Benutzung der &name-icinga; API</title>
+<section version="5.0" xml:id="icinga-api" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title>Installation und Benutzung der &name-api;</title>
+
+  <para><emphasis role="bold">Voraussetzungen</emphasis></para>
+
+  <para>Sie benötigen &name-icinga;, um die &name-api; nutzen zu können.</para>
+
+  <note>
+    <para>Falls Sie noch kein Icinga haben, dann folgen Sie den Anweisungen in der "<link
+    linkend="quickstart-idoutils">quickstart-idoutils</link>" Dokumentation.</para>
+  </note>
+
+  <para><anchor xml:id="icinga-api_installation" /><emphasis role="bold">Installation und Konfiguration</emphasis></para>
 
   <orderedlist>
     <listitem>
       <para><emphasis role="bold">Software</emphasis></para>
 
-      <para>Klonen Sie von icinga-api.git, um einen neuen Branch zu
-      bekommen</para>
+      <para>Klonen Sie von icinga-api.git, um einen neuen Branch zu bekommen</para>
 
       <programlisting> # git clone git://git.icinga.org/icinga-api.git</programlisting>
 
@@ -27,33 +32,23 @@
     </listitem>
 
     <listitem>
-      <para><emphasis role="bold">Die Installation</emphasis></para>
+      <para><emphasis role="bold">Installation</emphasis></para>
 
-      <para>Entpacken Sie die Software und verschieben Sie das Verzeichnis in
-      die Icinga-Sourcecode-Struktur</para>
+      <para>Entpacken Sie die Software und verschieben Sie das Verzeichnis in die Icinga-Sourcecode-Struktur</para>
 
       <programlisting> # tar xzvf icinga-api-(version).tar.gz
  # mv icinga-api/* /usr/src/icinga-core/module/icinga-api</programlisting>
 
-      <para>Rekompilieren Sie den Code (ggf. müssen Sie erneut ./configure
-      ausführen).</para>
+      <para>Rekompilieren Sie den Icinga-Code (ggf. müssen Sie erneut ./configure ausführen).</para>
 
       <programlisting> # make all
  # make install</programlisting>
-
-      <note>
-        <para>Falls Sie noch kein Icinga haben, dann folgen Sie den
-        Anweisungen in der "<link
-        linkend="quickstart-idoutils">quickstart-idoutils</link>"
-        Dokumentation.</para>
-      </note>
     </listitem>
 
     <listitem>
       <para><emphasis role="bold">Konfiguration</emphasis></para>
 
-      <para>Die Konfiguration besteht aus einem assoziativen Array.
-      <programlisting> $idoConfig = array (
+      <para>Die Konfiguration besteht aus einem assoziativen Array. <programlisting> $idoConfig = array (
     'type'         =&gt; '&lt;Type of database&gt;',
     'host'         =&gt; '&lt;Database hostname&gt;', 
     'database'     =&gt; '&lt;Databasename&gt;',
@@ -73,7 +68,11 @@
     'table_prefix' =&gt; 'icinga_',
  );</programlisting>
     </listitem>
+  </orderedlist>
 
+  <para><anchor xml:id="icinga-api_use" /> <emphasis role="bold">Benutzung</emphasis></para>
+
+  <orderedlist>
     <listitem>
       <para><emphasis role="bold">Datenermittlung</emphasis></para>
 
@@ -81,16 +80,15 @@
 
       <para>Erzeugen Sie eine Instant der Klasse IcingaApi:</para>
 
-      <para><programlisting> $api = IcingaApi::getConnection(IcingaApi::CONNECTION_IDO, $idoConfig);</programlisting>Erzeugen
-      Sie die Suchkriterien:</para>
+      <para><programlisting> $api = IcingaApi::getConnection(IcingaApi::CONNECTION_IDO, $idoConfig);</programlisting>Erzeugen Sie die
+      Suchkriterien:</para>
 
       <para><programlisting> $apiRes = $api-&gt;createSearch()
  -&gt;setSearchTarget(IcingaApi::TARGET_HOST)
  -&gt;setResultColumns(array(’HOST_NAME’, ‘HOST_CURRENT_STATE’))
  -&gt;fetch();</programlisting></para>
 
-      <para>Mit Hilfe von setSearchFilter() können Sie Filter benutzen, um die
-      Suche einzuschränken:</para>
+      <para>Mit Hilfe von setSearchFilter() können Sie Filter benutzen, um die Suche einzuschränken:</para>
 
       <para><programlisting> $apiRes = $api-&gt;createSearch()
  -&gt;setSearchTarget(IcingaApi::TARGET_HOST)
@@ -123,8 +121,7 @@
     </listitem>
 
     <listitem>
-      <para><emphasis role="bold">Kompletter Code ohne die Nutzung von
-      Filtern</emphasis></para>
+      <para><emphasis role="bold">Kompletter Code ohne die Nutzung von Filtern</emphasis></para>
 
       <programlisting> &lt;?
  // Path to icinga api file
@@ -159,10 +156,16 @@
  }
  ?&gt;</programlisting>
 
-      <para>Für nähere Informationen werfen Sie bitte einen Blick in das <link
-      xlink:href="&url-icingagit;">git repository</link>.</para>
+      <para>Für nähere Informationen werfen Sie bitte einen Blick in das <link xlink:href="http://git.icinga.org/">git repository</link>
+      oder die Beispiele im doc/examples-Verzeichnis.</para>
     </listitem>
   </orderedlist>
-  <indexterm zone="icinga-api"><primary>Icinga-API</primary></indexterm>
-  <indexterm zone="icinga-api"><primary>API/Icinga</primary></indexterm>
+
+  <indexterm zone="icinga-api">
+    <primary>Icinga-API</primary>
+  </indexterm>
+
+  <indexterm zone="icinga-api">
+    <primary>API/Icinga</primary>
+  </indexterm>
 </section>

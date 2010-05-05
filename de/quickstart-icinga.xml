@@ -6,317 +6,323 @@
 <section version="5.0" xml:id="quickstart-icinga" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-    <title>&name-icinga; Quickstart</title>
+  <title>&name-icinga; Quickstart</title>
 
-    <para><emphasis role="bold"><anchor xml:id="introduction_icinga" />Einführung</emphasis></para>
+  <para><emphasis role="bold"><anchor xml:id="introduction_icinga" />Einführung</emphasis></para>
 
-    <para>Diese Schnellstartanleitung ist dazu gedacht, Ihnen einfache Anweisungen zu liefern, wie Sie &name-icinga; innerhalb von 20 Minuten aus dem
-    Quellcode installieren und Ihren lokalen Rechner damit überwachen.</para>
+  <para>Diese Schnellstartanleitung ist dazu gedacht, Ihnen einfache Anweisungen zu liefern, wie Sie &name-icinga; innerhalb von 20 Minuten
+  aus dem Quellcode installieren und Ihren lokalen Rechner damit überwachen.</para>
 
-    <para>Hier werden keine fortgeschrittenen Installationsoptionen vorgestellt - lediglich die Grundlagen, die für 95% aller Benutzer funktionieren,
-    die anfangen wollen.</para>
+  <para>Hier werden keine fortgeschrittenen Installationsoptionen vorgestellt - lediglich die Grundlagen, die für 95% aller Benutzer
+  funktionieren, die anfangen wollen.</para>
 
-    <para>Diese Anleitung enthält momentan Anweisungen für drei verschiedene Linux-Distributionen: <link
-    xlink:href="http://fedoraproject.org/">&name-fedora;</link>, <link xlink:href="http://www.ubuntu.com/">&name-ubuntu;</link> and <link
-    xlink:href="http://www.opensuse.org/">&name-opensuse;</link>. Ähnliche Distributionen werden wahrscheinlich auch funktionieren, darunter <link
-    xlink:href="http://www.redhat.com/">&name-redhat;</link>, <link xlink:href="http://www.centos.org/">&name-centos;</link>, <link
-    xlink:href="http://www.debian.org/">&name-debian;</link> und <link xlink:href="http://www.novell.com/products/server/">&name-sles;</link>.</para>
+  <para>Diese Anleitung enthält momentan Anweisungen für drei verschiedene Linux-Distributionen: <link
+  xlink:href="http://fedoraproject.org/">&name-fedora;</link>, <link xlink:href="http://www.ubuntu.com/">&name-ubuntu;</link> and <link
+  xlink:href="http://www.opensuse.org/">&name-opensuse;</link>. Ähnliche Distributionen werden wahrscheinlich auch funktionieren, darunter
+  <link xlink:href="http://www.redhat.com/">&name-redhat;</link>, <link xlink:href="http://www.centos.org/">&name-centos;</link>, <link
+  xlink:href="http://www.debian.org/">&name-debian;</link> und <link
+  xlink:href="http://www.novell.com/products/server/">&name-sles;</link>.</para>
 
-    <para><emphasis role="bold">Wenn Sie planen, eine Datenbank zusammen mit &name-idoutils; zu nutzen, dann lesen Sie statt dessen <xref
-    linkend="quickstart-idoutils" />!</emphasis></para>
+  <para><emphasis role="bold">Wenn Sie planen, eine Datenbank zusammen mit &name-idoutils; zu nutzen, dann lesen Sie statt dessen <xref
+  linkend="quickstart-idoutils" />!</emphasis></para>
 
-    <para><emphasis role="bold">Was dabei herauskommt</emphasis></para>
+  <para><emphasis role="bold">Was dabei herauskommt</emphasis></para>
 
-    <para>Wenn Sie diesen Anweisungen folgen, werden Sie am Ende folgendes haben:</para>
+  <para>Wenn Sie diesen Anweisungen folgen, werden Sie am Ende folgendes haben:</para>
 
-    <itemizedlist>
-        <listitem>
-            <para>&name-icinga; und die Plugins werden unterhalb von &url-icinga-base; installiert sein</para>
-        </listitem>
+  <itemizedlist>
+    <listitem>
+      <para>&name-icinga; und die Plugins werden unterhalb von &url-icinga-base; installiert sein</para>
+    </listitem>
 
-        <listitem>
-            <para>&name-icinga; wird so konfiguriert sein, dass es einige Dinge auf Ihrem lokalen System überwacht (CPU-Auslastung, Plattenbelegung,
-            usw.)</para>
-        </listitem>
+    <listitem>
+      <para>&name-icinga; wird so konfiguriert sein, dass es einige Dinge auf Ihrem lokalen System überwacht (CPU-Auslastung,
+      Plattenbelegung, usw.)</para>
+    </listitem>
 
-        <listitem>
-            <para>Das &name-icinga;-Web-Interface ist erreichbar unter <uri>http://localhost/nagios/</uri> oder
-            <uri>http://yourdomain.com/icinga/</uri></para>
-        </listitem>
-    </itemizedlist>
+    <listitem>
+      <para>das &name-icinga;-Web-Interface ist erreichbar unter <uri>http://localhost/nagios/</uri> oder
+      <uri>http://yourdomain.com/icinga/</uri></para>
+    </listitem>
+  </itemizedlist>
 
-    <para><emphasis role="bold">Voraussetzungen</emphasis></para>
+  <para><emphasis role="bold">Voraussetzungen</emphasis></para>
 
-    <para>Während einiger Teile der Installation benötigen Sie <emphasis role="bold">root</emphasis>-Zugang zu Ihrer Maschine.</para>
+  <para>Während einiger Teile der Installation benötigen Sie <emphasis role="bold">root</emphasis>-Zugang zu Ihrer Maschine.</para>
 
-    <para>Stellen Sie sicher, dass die folgenden Pakete installiert sind, bevor Sie fortfahren.</para>
+  <para>Stellen Sie sicher, dass die folgenden Pakete installiert sind, bevor Sie fortfahren.</para>
 
-    <itemizedlist>
-        <listitem>
-            <para>&name-apache;</para>
-        </listitem>
+  <itemizedlist>
+    <listitem>
+      <para>&name-apache;</para>
+    </listitem>
 
-        <listitem>
-            <para>GCC-Compiler</para>
-        </listitem>
+    <listitem>
+      <para>GCC-Compiler</para>
+    </listitem>
 
-        <listitem>
-            <para>C/C++ development libraries</para>
-        </listitem>
+    <listitem>
+      <para>C/C++ development libraries</para>
+    </listitem>
 
-        <listitem>
-            <para><link xlink:href="http://www.boutell.com/gd/">&name-gd;</link> -Development-Libraries</para>
-        </listitem>
-    </itemizedlist>
+    <listitem>
+      <para><link xlink:href="http://www.boutell.com/gd/">&name-gd;</link> -Development-Libraries</para>
+    </listitem>
+  </itemizedlist>
 
-    <para><emphasis role="bold">Installation der Pakete</emphasis></para>
+  <para><emphasis role="bold">Installation der Pakete</emphasis></para>
 
-    <para>Sie können diese Pakete mit Hilfe der folgenden Befehle installieren (als root oder mit sudo):</para>
+  <para>Sie können diese Pakete mit Hilfe der folgenden Befehle installieren (als root oder mit sudo):</para>
 
-    <para><emphasis>&name-fedora; / &name-redhat; / &name-centos;</emphasis></para>
+  <para><emphasis>&name-fedora; / &name-redhat; / &name-centos;</emphasis></para>
 
-    <programlisting> # yum install httpd gcc glibc glibc-common gd gd-devel
+  <programlisting> # yum install httpd gcc glibc glibc-common gd gd-devel
  # yum install libjpeg libjpeg-devel libpng libpng-devel</programlisting>
 
-    <para><emphasis>&name-debian; / &name-ubuntu;</emphasis></para>
+  <para><emphasis>&name-debian; / &name-ubuntu;</emphasis></para>
 
-    <programlisting> # apt-get install apache2 build-essential libgd2-xpm-dev
+  <programlisting> # apt-get install apache2 build-essential libgd2-xpm-dev
  # apt-get install libjpeg62 libjpeg62-dev libpng12 libpng12-dev</programlisting>
 
-    <note>
-        <para>Die Zahlen &lt;62/12&gt; können je nach Distribution abweichen</para>
-    </note>
+  <note>
+    <para>Die Zahlen &lt;62/12&gt; können je nach Distribution abweichen</para>
+  </note>
 
-    <para><emphasis>&name-opensuse;</emphasis></para>
+  <para><emphasis>&name-opensuse;</emphasis></para>
 
-    <para>Bitte nutzen Sie yast für die Installation der Pakete</para>
+  <para>Bitte nutzen Sie yast für die Installation der Pakete</para>
 
-    <para><emphasis role="bold">Benutzerinformationen erstellen</emphasis></para>
+  <para><emphasis role="bold">Benutzerinformationen erstellen</emphasis></para>
 
-    <para>Werden Sie zum root-Benutzer.</para>
+  <para>Werden Sie zum root-Benutzer.</para>
 
-    <programlisting> # su -l</programlisting>
+  <programlisting> # su -l</programlisting>
 
-    <para>Erstellen Sie ein neues Benutzerkonto <emphasis>icinga</emphasis> und vergeben Sie ein Passwort:</para>
+  <para>Erstellen Sie ein neues Benutzerkonto <emphasis>icinga</emphasis> und vergeben Sie ein Passwort:</para>
 
-    <programlisting> # /usr/sbin/useradd -m icinga
+  <programlisting> # /usr/sbin/useradd -m icinga
  # passwd icinga  </programlisting>
 
-    <para>Bei einigen Distributionen müssen Sie die Gruppe in einem gesonderten Schritt anlegen:</para>
+  <para>Bei einigen Distributionen müssen Sie die Gruppe in einem gesonderten Schritt anlegen:</para>
 
-    <programlisting> # /usr/sbin/groupadd icinga</programlisting>
+  <programlisting> # /usr/sbin/groupadd icinga</programlisting>
 
-    <para>Damit Sie über das Webinterface Befehle an &name-icinga; senden können, legen Sie noch eine neue Gruppe icinga-cmd an und fügen Sie den
-    Webbenutzer und den Icingabenutzer dieser Gruppe hinzu.</para>
+  <para>Damit Sie über das Webinterface Befehle an &name-icinga; senden können, legen Sie noch eine neue Gruppe icinga-cmd an und fügen Sie
+  den Webbenutzer und den Icingabenutzer dieser Gruppe hinzu.</para>
 
-    <programlisting> # /usr/sbin/groupadd icinga-cmd
+  <programlisting> # /usr/sbin/groupadd icinga-cmd
  # /usr/sbin/usermod -a -G icinga-cmd icinga
- # /usr/sbin/usermod -a -G icinga-cmd www-data (oder www, wwwrun je nach Distribution)</programlisting>
+ # /usr/sbin/usermod -a -G icinga-cmd www-data (oder www, wwwrun, apache je nach Distribution)</programlisting>
 
-    <para><note>Bei einigen usermod-Versionen (z.B. bei OpenSuSE 11 bzw. SLES 11) fehlt die Option -a. In diesen Fällen kann sie entfallen.</note></para>
-    <para><emphasis role="bold">&name-icinga; und die Plugins herunterladen</emphasis></para>
+  <note>
+    <para>Bei einigen usermod-Versionen (z.B. bei OpenSuSE 11 bzw. SLES 11) fehlt die Option -a. In diesen Fällen kann sie entfallen.</para>
+  </note>
 
-    <para>Wechseln Sie in Ihr lokales Source-Verzeichnis, z.B. /usr/src</para>
+  <para><emphasis role="bold">&name-icinga; und die Plugins herunterladen</emphasis></para>
 
-    <programlisting> # cd /usr/src</programlisting>
+  <para>Wechseln Sie in Ihr lokales Source-Verzeichnis, z.B. /usr/src</para>
 
-    <para>Holen Sie den aktuellen icinga-core-Snapshot aus dem &name-icinga; GIT <programlisting> # git clone git://git.icinga.org/icinga-core.git</programlisting>
-    oder von der <link xlink:href="http://www.icinga.org/">&name-icinga; Website</link> .</para>
+  <programlisting> # cd /usr/src</programlisting>
 
-    <para>Vergessen Sie nicht die <link xlink:href="&url-nagiosplug;">Nagios-Plugins</link>.</para>
+  <para>Holen Sie den aktuellen icinga-core-Snapshot aus dem &name-icinga; GIT <programlisting> # git clone git://git.icinga.org/icinga-core.git</programlisting>
+  oder von der <link xlink:href="http://www.icinga.org/">&name-icinga; Website</link> .</para>
 
-    <para><emphasis role="bold">&name-icinga;</emphasis> kompilieren und installieren</para>
+  <para>Vergessen Sie nicht die <link xlink:href="http://www.nagiosplugins.org/">Nagios-Plugins</link>.</para>
 
-    <para>Entpacken Sie das &name-icinga;-Archiv (oder wechseln Sie in den GIT Snapshot)</para>
+  <para><emphasis role="bold">&name-icinga;</emphasis> kompilieren und installieren</para>
 
-    <programlisting> # cd /usr/src/
+  <para>Entpacken Sie das &name-icinga;-Archiv (oder wechseln Sie in den GIT Snapshot)</para>
+
+  <programlisting> # cd /usr/src/
  # tar xvzf icinga-&ver-icinga;.tar.gz
  # cd icinga-&ver-icinga;</programlisting>
 
-    <para>Führen Sie das &name-icinga;-configure-Script aus. Durch die Nutzung des --help-Flags erhalten Sie Hilfe zu den Optionen.</para>
+  <para>Führen Sie das &name-icinga;-configure-Script aus. Durch die Nutzung des --help-Flags erhalten Sie Hilfe zu den Optionen.</para>
 
-    <programlisting> # ./configure --with-command-group=icinga-cmd</programlisting>
+  <programlisting> # ./configure --with-command-group=icinga-cmd</programlisting>
 
-    <para>Kompilieren Sie den &name-icinga;-Source-Code. Um mögliche Optionen zu sehen, rufen Sie lediglich "make" auf.</para>
+  <para>Kompilieren Sie den &name-icinga;-Source-Code. Um mögliche Optionen zu sehen, rufen Sie lediglich "make" auf.</para>
 
-    <programlisting> # make all</programlisting>
+  <programlisting> # make all</programlisting>
 
-    <para>Installieren Sie die Binaries, das Init-Script, Beispiel-Konfigurationsdateien und setzen Sie die Berechtigungen für das
-    External-Command-Verzeichnis. <programlisting> # make install 
+  <para>Installieren Sie die Binaries, das Init-Script, Beispiel-Konfigurationsdateien und setzen Sie die Berechtigungen für das
+  External-Command-Verzeichnis. <programlisting> # make install 
  # make install-init 
  # make install-config 
  # make install-commandmode </programlisting> oder kürzer <programlisting> # make fullinstall</programlisting></para>
 
-    <para>Bitte starten Sie &name-icinga; noch nicht - es gibt noch ein paar Dinge zu tun...</para>
+  <para>Bitte starten Sie &name-icinga; noch nicht - es gibt noch ein paar Dinge zu tun...</para>
 
-    <para><emphasis role="bold">Anpassen der Konfiguration</emphasis></para>
+  <para><emphasis role="bold">Anpassen der Konfiguration</emphasis></para>
 
-    <para>Beispiel-Konfigurationsdateien werden durch <programlisting> # make install-config</programlisting>in &url-icinga-base;/etc/ installiert.
-    Nun fehlt nur noch eine Änderung, bevor Sie fortfahren können...</para>
+  <para>Beispiel-Konfigurationsdateien werden durch <programlisting> # make install-config</programlisting>in &url-icinga-base;/etc/
+  installiert. Nun fehlt nur noch eine Änderung, bevor Sie fortfahren können...</para>
 
-    <para>Ändern Sie die <emphasis>&url-icinga-base;/etc/objects/contacts.cfg</emphasis>-Konfigurationsdatei mit Ihrem bevorzugten Editor und passen
-    die e-Mail-Adresse in der <emphasis>icingaadmin</emphasis>-Kontaktdefinition an, so dass sie die Adresse enthält, die im Falle von Alarmen
-    benachrichtigt werden soll.</para>
+  <para>Ändern Sie die <emphasis>&url-icinga-base;/etc/objects/contacts.cfg</emphasis>-Konfigurationsdatei mit Ihrem bevorzugten Editor und
+  passen die e-Mail-Adresse in der <emphasis>icingaadmin</emphasis>-Kontaktdefinition an, so dass sie die Adresse enthält, die im Falle von
+  Alarmen benachrichtigt werden soll.</para>
 
-    <programlisting> # vi &url-icinga-base;/etc/objects/contacts.cfg</programlisting>
+  <programlisting> # vi &url-icinga-base;/etc/objects/contacts.cfg</programlisting>
 
-    <para><emphasis role="bold">Konfigurieren des Web-Interface</emphasis></para>
+  <para><emphasis role="bold">Konfigurieren des Web-Interface</emphasis></para>
 
-    <para>Installieren Sie die &name-icinga;-Web-Konfigurationsdatei im &name-apache; conf.d-Verzeichnis.</para>
+  <para>Installieren Sie die &name-icinga;-Web-Konfigurationsdatei im &name-apache; conf.d-Verzeichnis.</para>
 
-    <programlisting> # make install-webconf</programlisting>
+  <programlisting> # make install-webconf</programlisting>
 
-    <para>Legen Sie ein <emphasis>icingaadmin</emphasis>-Konto an, um sich am Web-Interface anmelden zu können. Merken Sie sich das Passwort, das Sie
-    diesem Konto geben - Sie brauchen es später.</para>
+  <para>Legen Sie ein <emphasis>icingaadmin</emphasis>-Konto an, um sich am Web-Interface anmelden zu können. Merken Sie sich das Passwort,
+  das Sie diesem Konto geben - Sie brauchen es später.</para>
 
-    <programlisting> # htpasswd -c &url-icinga-base;/etc/htpasswd.users icingaadmin</programlisting>
+  <programlisting> # htpasswd -c &url-icinga-base;/etc/htpasswd.users icingaadmin</programlisting>
 
-    <note>
-        <para>Abhängig von der Apache-Version müssen Sie ggf. <emphasis>htpasswd2 verwenden.</emphasis></para>
-    </note>
+  <note>
+    <para>Abhängig von der Apache-Version müssen Sie ggf. <emphasis>htpasswd2 verwenden.</emphasis></para>
+  </note>
 
-    <para>Wenn Sie das Passwort später ändern oder einen weiteren Benutzer hinzufügen möchten, verwenden Sie den folgenden Befehl:</para>
+  <para>Wenn Sie das Passwort später ändern oder einen weiteren Benutzer hinzufügen möchten, verwenden Sie den folgenden Befehl:</para>
 
-    <programlisting> # htpasswd &url-icinga-base;/etc/htpasswd.users &lt;USERNAME&gt;</programlisting>
+  <programlisting> # htpasswd &url-icinga-base;/etc/htpasswd.users &lt;USERNAME&gt;</programlisting>
 
-    <para>Starten Sie &name-apache; neu, damit die Änderungen wirksam werden.</para>
+  <para>Starten Sie &name-apache; neu, damit die Änderungen wirksam werden.</para>
 
-    <para><emphasis>&name-fedora;/&name-redhat;/&name-centos;</emphasis></para>
+  <para><emphasis>&name-fedora;/&name-redhat;/&name-centos;</emphasis></para>
 
-    <programlisting> # service httpd restart</programlisting>
+  <programlisting> # service httpd restart</programlisting>
 
-    <para><emphasis>&name-debian; / &name-ubuntu; / &name-opensuse;</emphasis></para>
+  <para><emphasis>&name-debian; / &name-ubuntu; / &name-opensuse;</emphasis></para>
 
-    <programlisting> # /etc/init.d/apache2 reload</programlisting>
+  <programlisting> # /etc/init.d/apache2 reload</programlisting>
 
-    <note>
-        <para>Prüfen Sie die Implementierung der verbesserten CGI-Sicherheitsmaßnahmen wie <link linkend="cgisecurity">hier</link> beschrieben, um
-        sicherzustellen, dass Ihre Web-Authentifizierungsinformationen nicht kompromittiert werden.</para>
-    </note>
+  <note>
+    <para>Prüfen Sie die Implementierung der verbesserten CGI-Sicherheitsmaßnahmen wie <link linkend="cgisecurity">hier</link> beschrieben,
+    um sicherzustellen, dass Ihre Web-Authentifizierungsinformationen nicht kompromittiert werden.</para>
+  </note>
 
-    <para><emphasis role="bold">Kompilieren und installieren der &name-nagios;-Plugins</emphasis></para>
+  <para><emphasis role="bold">Kompilieren und installieren der &name-nagios;-Plugins</emphasis></para>
 
-    <para>Entpacken Sie die &name-nagios;-Plugins-Quellcode-Archivdatei.</para>
+  <para>Entpacken Sie die &name-nagios;-Plugins-Quellcode-Archivdatei.</para>
 
-    <programlisting> # cd /usr/src
+  <programlisting> # cd /usr/src
  # tar xzf nagios-plugins-&ver-nagiosplug;.tar.gz
  # cd nagios-plugins-&ver-nagiosplug;</programlisting>
 
-    <para>Kompilieren und installieren Sie die Plugins.</para>
+  <para>Kompilieren und installieren Sie die Plugins.</para>
 
-    <programlisting> # ./configure --prefix=/usr/local/icinga --with-nagios-user=icinga
+  <programlisting> # ./configure --prefix=/usr/local/icinga --with-nagios-user=icinga
  # make
  # make install</programlisting>
 
-    <para><emphasis role="bold"> &name-icinga; starten</emphasis></para>
+  <para><emphasis role="bold"> &name-icinga; starten</emphasis></para>
 
-    <para>Fügen Sie &name-icinga; zu der Liste der System-Services hinzu und sorgen Sie für einen automatischen Start, wenn das System hochfährt
-    (stellen Sie sicher, dass Sie vorher das Init-Script installiert haben).</para>
+  <para>Fügen Sie &name-icinga; zu der Liste der System-Services hinzu und sorgen Sie für einen automatischen Start, wenn das System
+  hochfährt (stellen Sie sicher, dass Sie vorher das Init-Script installiert haben).</para>
 
-    <para><emphasis>&name-fedora; / &name-redhat; / &name-centos; / &name-opensuse;</emphasis></para>
+  <para><emphasis>&name-fedora; / &name-redhat; / &name-centos; / &name-opensuse;</emphasis></para>
 
-    <programlisting> # chkconfig --add icinga 
+  <programlisting> # chkconfig --add icinga 
  # chkconfig icinga on </programlisting>
 
-    <para><emphasis>&name-debian; / &name-ubuntu;</emphasis></para>
+  <para><emphasis>&name-debian; / &name-ubuntu;</emphasis></para>
 
-    <programlisting> # update-rc.d icinga defaults</programlisting>
+  <programlisting> # update-rc.d icinga defaults</programlisting>
 
-    <para>Überprüfen Sie die &name-icinga;-Beispielkonfigurationsdateien.</para>
+  <para>Überprüfen Sie die &name-icinga;-Beispielkonfigurationsdateien.</para>
 
-    <programlisting> # &url-icinga-bin; -v &url-icinga-cfg;</programlisting>
+  <programlisting> # &url-icinga-bin; -v &url-icinga-cfg;</programlisting>
 
-    <para>Wenn keine Fehler auftreten, starten Sie &name-icinga;.</para>
+  <para>Wenn keine Fehler auftreten, starten Sie &name-icinga;.</para>
 
-    <screen> # service icinga start</screen>
+  <screen> # service icinga start</screen>
 
-    <para><emphasis role="bold"> 8) Anpassen der SE&name-linux;-Einstellungen</emphasis></para>
+  <para><emphasis role="bold"> 8) Anpassen der SE&name-linux;-Einstellungen</emphasis></para>
 
-    <para><emphasis role="bold">Start &name-icinga;</emphasis></para>
+  <para><emphasis role="bold">Start &name-icinga;</emphasis></para>
 
-    <para>Fügen Sie &name-icinga; zur Liste der System-Services hinzu, damit es automatisch beim Start des Systems gestartet wird (stellen Sie sicher,
-    dass Sie das Init-Script vorher installiert haben).</para>
+  <para>Fügen Sie &name-icinga; zur Liste der System-Services hinzu, damit es automatisch beim Start des Systems gestartet wird (stellen Sie
+  sicher, dass Sie das Init-Script vorher installiert haben).</para>
 
-    <para>Überprüfen Sie die &name-icinga;-Beispielkonfigurationsdateien.</para>
+  <para>Überprüfen Sie die &name-icinga;-Beispielkonfigurationsdateien.</para>
 
-    <programlisting> # &url-icinga-bin; -v &url-icinga-cfg;</programlisting>
+  <programlisting> # &url-icinga-bin; -v &url-icinga-cfg;</programlisting>
 
-    <para>Wenn es dabei keine Fehler gibt, starten Sie &name-icinga;.</para>
+  <para>Wenn es dabei keine Fehler gibt, starten Sie &name-icinga;.</para>
 
-    <para><emphasis>&name-fedora; / &name-opensuse;</emphasis></para>
+  <para><emphasis>&name-fedora; / &name-opensuse;</emphasis></para>
 
-    <programlisting> # service icinga start</programlisting>
+  <programlisting> # service icinga start</programlisting>
 
-    <para><emphasis>&name-debian; / &name-ubuntu;</emphasis></para>
+  <para><emphasis>&name-debian; / &name-ubuntu;</emphasis></para>
 
-    <programlisting> # /etc/init.d/icinga start</programlisting>
+  <programlisting> # /etc/init.d/icinga start</programlisting>
 
-    <para>&name-fedora; wird mit installiertem SE&name-linux; (Security Enhanced &name-linux;) ausgeliefert und läuft im "Enforcing"-Modus. Dies kann
-    zu "Internal Server Error"-Fehlern führen, wenn Sie versuchen, die &name-icinga;-CGIs aufzurufen.</para>
+  <para>&name-fedora; wird mit installiertem SE&name-linux; (Security Enhanced &name-linux;) ausgeliefert und läuft im "Enforcing"-Modus.
+  Dies kann zu "Internal Server Error"-Fehlern führen, wenn Sie versuchen, die &name-icinga;-CGIs aufzurufen.</para>
 
-    <para>Schauen Sie, ob SE&name-linux; im Enforcing-Modus läuft.</para>
+  <para>Schauen Sie, ob SE&name-linux; im Enforcing-Modus läuft.</para>
 
-    <screen> # getenforce</screen>
+  <screen> # getenforce</screen>
 
-    <para>Setzen Sie SE&name-linux; in den "Permissive"-Modus.</para>
+  <para>Setzen Sie SE&name-linux; in den "Permissive"-Modus.</para>
 
-    <screen> # setenforce 0</screen>
+  <screen> # setenforce 0</screen>
 
-    <para>Damit diese Änderung dauerhaft wird, müssen Sie diese Einstellung in <emphasis>/etc/selinux/config</emphasis> anpassen und das System
-    neustarten.</para>
+  <para>Damit diese Änderung dauerhaft wird, müssen Sie diese Einstellung in <emphasis>/etc/selinux/config</emphasis> anpassen und das
+  System neustarten.</para>
 
-    <para>Statt SE&name-linux; zu deaktivieren oder es in den Permissive-Modus zu versetzen, können Sie den folgenden Befehl benutzen, um die CGIs im
-    Enforcing/Targeted-Modus laufen zu lassen:</para>
+  <para>Statt SE&name-linux; zu deaktivieren oder es in den Permissive-Modus zu versetzen, können Sie den folgenden Befehl benutzen, um die
+  CGIs im Enforcing/Targeted-Modus laufen zu lassen:</para>
 
-    <programlisting> # chcon -R -t httpd_sys_content_t &url-icinga-base;/sbin/
+  <programlisting> # chcon -R -t httpd_sys_content_t &url-icinga-base;/sbin/
  # chcon -R -t httpd_sys_content_t &url-icinga-base;/share/</programlisting>
 
-    <para>Besuchen Sie das &name-icinga;Community.org-Wiki unter <link xlink:href="http://www.nagioscommunity.org/wiki">&url-nagios-community;</link>,
-    um Informationen darüber zu erhalten, wie die &name-icinga;-CGIs im Enforcing-Modus mit einer Targeted-Richtlinie ausgeführt werden.</para>
+  <para>Besuchen Sie das &name-nagios;Community.org-Wiki unter <link
+  xlink:href="http://www.nagioscommunity.org/wiki">&url-nagios-community;</link>, um Informationen darüber zu erhalten, wie die
+  &name-icinga;-CGIs im Enforcing-Modus mit einer Targeted-Richtlinie ausgeführt werden.</para>
 
-    <para><emphasis role="bold">Anmelden am Web-Interface</emphasis></para>
+  <para><emphasis role="bold">Anmelden am Web-Interface</emphasis></para>
 
-    <para>Sie sollten nun auf das &name-icinga;-Web-Interface zugreifen können. Sie werden nach dem Benutzernamen (<emphasis>icingaadmin</emphasis>)
-    und Passwort gefragt, das Sie vorhin angegeben haben.</para>
+  <para>Sie sollten nun auf das &name-icinga;-Web-Interface zugreifen können. Sie werden nach dem Benutzernamen
+  (<emphasis>icingaadmin</emphasis>) und Passwort gefragt, das Sie vorhin angegeben haben.</para>
 
-    <programlisting> http://localhost/icinga/</programlisting>
+  <programlisting> http://localhost/icinga/</programlisting>
 
-    <para>oder</para>
+  <para>oder</para>
 
-    <programlisting> http://yourdomain.com/icinga/</programlisting>
+  <programlisting> http://yourdomain.com/icinga/</programlisting>
 
-    <para>Klicken Sie auf den "Service Detail"-Verweis in der Navigationsleiste, um Details darüber zu erhalten, was auf Ihrer lokalen Maschine
-    überwacht wird. Es wird ein paar Minuten dauern, bis &name-icinga; alle mit Ihrer Maschine verbundenen Services geprüft hat, weil die Prüfungen
-    über eine gewisse Zeit verteilt werden.</para>
+  <para>Klicken Sie auf den "Service Detail"-Verweis in der Navigationsleiste, um Details darüber zu erhalten, was auf Ihrer lokalen
+  Maschine überwacht wird. Es wird ein paar Minuten dauern, bis &name-icinga; alle mit Ihrer Maschine verbundenen Services geprüft hat, weil
+  die Prüfungen über eine gewisse Zeit verteilt werden.</para>
 
-    <para><emphasis role="bold">Andere Anpassungen</emphasis></para>
+  <para><emphasis role="bold">Andere Anpassungen</emphasis></para>
 
-    <para>Stellen Sie sicher, dass die Firewall-Einstellungen Ihrer Maschine einen Zugriff auf das Web-Interface ermöglichen, wenn Sie von anderen
-    Rechnern darauf zugreifen wollen.</para>
+  <para>Stellen Sie sicher, dass die Firewall-Einstellungen Ihrer Maschine einen Zugriff auf das Web-Interface ermöglichen, wenn Sie von
+  anderen Rechnern darauf zugreifen wollen.</para>
 
-    <programlisting> # iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT</programlisting>
+  <programlisting> # iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT</programlisting>
 
-    <para>Die Konfiguration von e-Mail-Benachrichtigungen ist nicht Gegenstand dieser Anleitung. &name-icinga; ist konfiguriert, um
-    e-Mail-Benachrichtigungen zu versenden, aber möglicherweise ist auf Ihrem System noch kein Mail-Programm installiert bzw. konfiguriert. Schauen
-    Sie in Ihre Systemdokumentation, suchen Sie im Web oder gucken Sie im <link
-    xlink:href="http://www.nagioscommunity.org/wiki">&name-icinga;Community.org-Wiki</link> nach genauen Anweisungen, wie Ihr System konfiguriert
-    werden muss, damit es e-Mail-Mitteilungen an externe Adressen versendet. Mehr Informationen zu Benachrichtigungen finden Sie <link
-    linkend="notifications">hier</link>.</para>
+  <para>Die Konfiguration von e-Mail-Benachrichtigungen ist nicht Gegenstand dieser Anleitung. &name-icinga; ist konfiguriert, um
+  e-Mail-Benachrichtigungen zu versenden, aber möglicherweise ist auf Ihrem System noch kein Mail-Programm installiert bzw. konfiguriert.
+  Schauen Sie in Ihre Systemdokumentation, suchen Sie im Web oder gucken Sie im <link
+  xlink:href="http://www.nagioscommunity.org/wiki">&name-icinga;Community.org-Wiki</link> nach genauen Anweisungen, wie Ihr System
+  konfiguriert werden muss, damit es e-Mail-Mitteilungen an externe Adressen versendet. Mehr Informationen zu Benachrichtigungen finden Sie
+  <link linkend="notifications">hier</link>.</para>
 
-    <para><emphasis role="bold">Fertig</emphasis></para>
+  <para><emphasis role="bold">Fertig</emphasis></para>
 
-    <para>Glückwunsch! Sie haben erfolgreich &name-icinga; installiert. Ihre Reise in die Überwachung hat gerade begonnen. Sie werden ohne Zweifel
-    mehr als nur Ihre lokale Maschine überwachen wollen, so dass Sie u.a. das folgende <link linkend="ch02">Kapitel</link> lesen sollten...</para>
+  <para>Glückwunsch! Sie haben erfolgreich &name-icinga; installiert. Ihre Reise in die Überwachung hat gerade begonnen. Sie werden ohne
+  Zweifel mehr als nur Ihre lokale Maschine überwachen wollen, so dass Sie u.a. das folgende <link linkend="ch02">Kapitel</link> lesen
+  sollten...</para>
 
-    <indexterm zone="quickstart-icinga">
-        <primary>Schnellstart</primary>
+  <indexterm zone="quickstart-icinga">
+    <primary>Schnellstart</primary>
 
-        <secondary>Schnellstart &name-icinga;</secondary>
-    </indexterm>
+    <secondary>Schnellstart &name-icinga;</secondary>
+  </indexterm>
 
-    <indexterm zone="quickstart-icinga">
-        <primary>Quickstart</primary>
+  <indexterm zone="quickstart-icinga">
+    <primary>Quickstart</primary>
 
-        <secondary>Quickstart &name-icinga;</secondary>
-    </indexterm>
+    <secondary>Quickstart &name-icinga;</secondary>
+  </indexterm>
 </section>
