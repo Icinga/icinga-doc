@@ -8,7 +8,9 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>&name-icinga; Quickstart</title>
 
-  <para><emphasis role="bold"><anchor xml:id="introduction_icinga" />Introduction</emphasis></para>
+  <para>
+    <emphasis role="bold"><anchor xml:id="introduction_icinga" />Introduction</emphasis>
+  </para>
 
   <para>This guide is intended to provide you with simple instructions on how to install &name-icinga; from source (code) and have it
   monitoring your local machine within 20 minutes.</para>
@@ -25,10 +27,14 @@
 
   <para>Other distributions may inherit from these examples.</para>
 
-  <para><emphasis role="bold">If you are planning to use a database with &name-idoutils; please read <xref linkend="quickstart-idoutils" />
-  instead!</emphasis></para>
+  <para>
+    <emphasis role="bold">If you are planning to use a database with &name-idoutils; please read <xref linkend="quickstart-idoutils" />
+    instead!</emphasis>
+  </para>
 
-  <para><emphasis role="bold">What You'll End Up With</emphasis></para>
+  <para>
+    <emphasis role="bold">What You'll End Up With</emphasis>
+  </para>
 
   <para>If you follow these instructions, here's what you'll end up with:</para>
 
@@ -47,7 +53,9 @@
     </listitem>
   </itemizedlist>
 
-  <para><emphasis role="bold">Prerequisites</emphasis></para>
+  <para>
+    <emphasis role="bold">Prerequisites</emphasis>
+  </para>
 
   <para>During portions of the installation you'll need to have <emphasis role="bold">root</emphasis> access to your machine.</para>
 
@@ -55,7 +63,9 @@
 
   <itemizedlist>
     <listitem>
-      <para><link xlink:href="http://www.apache.org">&name-apache;</link></para>
+      <para>
+        <link xlink:href="http://www.apache.org">&name-apache;</link>
+      </para>
     </listitem>
 
     <listitem>
@@ -71,29 +81,48 @@
     </listitem>
   </itemizedlist>
 
-  <para><emphasis role="bold">Install packages</emphasis></para>
+  <para>
+    <emphasis role="bold">Optional</emphasis>
+  </para>
+
+  <para>At one time or another you may need to use SNMP-based checks so it is a good idea to install the required packages now. Otherwise
+  some plugins are not compiled i.e. not available when you need them and it would require a recompile of the plugins.</para>
+
+  <para>
+    <emphasis role="bold">Install packages</emphasis>
+  </para>
 
   <para>You can install these packages by running the following commands (as root or sudo):</para>
 
-  <para><emphasis>&name-fedora;/&name-rhel;/&name-centos;</emphasis></para>
+  <para>
+    <emphasis>&name-fedora;/&name-rhel;/&name-centos;</emphasis>
+  </para>
 
   <programlisting> # yum install httpd gcc glibc glibc-common gd gd-devel
- # yum install libjpeg libjpeg-devel libpng libpng-devel</programlisting>
+ # yum install libjpeg libjpeg-devel libpng libpng-devel
+ # yum install net-snmp net-snmp-devel</programlisting>
 
-  <para><emphasis>&name-debian;/&name-ubuntu;</emphasis></para>
+  <para>
+    <emphasis>&name-debian;/&name-ubuntu;</emphasis>
+  </para>
 
   <programlisting> # apt-get install apache2 build-essential libgd2-xpm-dev
- # apt-get install libjpeg62 libjpeg62-dev libpng12 libpng12-dev</programlisting>
+ # apt-get install libjpeg62 libjpeg62-dev libpng12 libpng12-dev
+ # apt-get install snmp libsnmp5-dev</programlisting>
 
   <note>
     <para>The numbers &lt;62/12&gt; might differ, depending on your distribution</para>
   </note>
 
-  <para><emphasis>&name-opensuse;</emphasis></para>
+  <para>
+    <emphasis>&name-opensuse;</emphasis>
+  </para>
 
   <para>Please use yast to install the packages</para>
 
-  <para><emphasis role="bold">Create Account Information</emphasis></para>
+  <para>
+    <emphasis role="bold">Create Account Information</emphasis>
+  </para>
 
   <para>Become the root user.</para>
 
@@ -120,7 +149,9 @@
     -a.</para>
   </note>
 
-  <para><emphasis role="bold">Download &name-icinga; and the Plugins</emphasis></para>
+  <para>
+    <emphasis role="bold">Download &name-icinga; and the Plugins</emphasis>
+  </para>
 
   <para>Change to your local source directory i.e. /usr/src</para>
 
@@ -131,7 +162,9 @@
 
   <para>Don't forget to download the <link xlink:href="http://www.nagiosplugins.org/">Nagios Plugins</link> .</para>
 
-  <para><emphasis role="bold">Compile and install &name-icinga;</emphasis></para>
+  <para>
+    <emphasis role="bold">Compile and install &name-icinga;</emphasis>
+  </para>
 
   <para>Extract the &name-icinga; source code tarball (or change directory to the GIT snapshot)</para>
 
@@ -154,18 +187,22 @@
 
   <para>Don't start &name-icinga; yet - there's still more that needs to be done...</para>
 
-  <para><emphasis role="bold">Customize Configuration</emphasis></para>
+  <para>
+    <emphasis role="bold">Customize Configuration</emphasis>
+  </para>
 
   <para>Sample configuration files have been installed by using <programlisting># make install-config</programlisting> into
   &url-icinga-base;/etc/. You'll need to make just one change before you proceed...</para>
 
-  <para>Edit the <emphasis>&url-icinga-base;/etc/objects/contacts.cfg</emphasis> config file with your favourite editor and change the email
-  address associated with the <emphasis>icingaadmin</emphasis> contact definition to the address you'd like to use for receiving
+  <para>Edit the <emphasis>&url-icinga-base;/etc/objects/contacts.cfg</emphasis> config file with your favourite editor and change the
+  email address associated with the <emphasis>icingaadmin</emphasis> contact definition to the address you'd like to use for receiving
   alerts.</para>
 
   <programlisting> # vi &url-icinga-base;/etc/objects/contacts.cfg</programlisting>
 
-  <para><emphasis role="bold">Configure the Web Interface</emphasis></para>
+  <para>
+    <emphasis role="bold">Configure the Web Interface</emphasis>
+  </para>
 
   <para>Install the &name-icinga; web config file in the Apache conf.d directory.</para>
 
@@ -186,15 +223,21 @@
 
   <para>Reload/Restart Apache to make the new settings take effect.</para>
 
-  <para><emphasis>&name-fedora;/&name-rhel;/&name-centos;</emphasis></para>
+  <para>
+    <emphasis>&name-fedora;/&name-rhel;/&name-centos;</emphasis>
+  </para>
 
   <programlisting> # service httpd restart</programlisting>
 
-  <para><emphasis>&name-debian;/&name-ubuntu;/&name-opensuse;</emphasis></para>
+  <para>
+    <emphasis>&name-debian;/&name-ubuntu;/&name-opensuse;</emphasis>
+  </para>
 
   <programlisting> # /etc/init.d/apache2 reload</programlisting>
 
-  <para><emphasis role="bold">Compile and Install the Nagios Plugins</emphasis></para>
+  <para>
+    <emphasis role="bold">Compile and Install the Nagios Plugins</emphasis>
+  </para>
 
   <para>Extract the &name-nagios; plugins source code tarball.</para>
 
@@ -208,17 +251,23 @@
  # make 
  # make install </programlisting>
 
-  <para><emphasis role="bold">Start &name-icinga;</emphasis></para>
+  <para>
+    <emphasis role="bold">Start &name-icinga;</emphasis>
+  </para>
 
-  <para>Add &name-icinga; to the list of system services and have it automatically start when the system boots (make sure you have installed
-  the init script before).</para>
+  <para>Add &name-icinga; to the list of system services and have it automatically start when the system boots (make sure you have
+  installed the init script before).</para>
 
-  <para><emphasis>&name-fedora;/&name-rhel;/&name-centos;/&name-opensuse;</emphasis></para>
+  <para>
+    <emphasis>&name-fedora;/&name-rhel;/&name-centos;/&name-opensuse;</emphasis>
+  </para>
 
   <programlisting> # chkconfig --add icinga 
  # chkconfig icinga on </programlisting>
 
-  <para><emphasis>&name-debian;/&name-ubuntu;</emphasis></para>
+  <para>
+    <emphasis>&name-debian;/&name-ubuntu;</emphasis>
+  </para>
 
   <programlisting> # update-rc.d icinga defaults</programlisting>
 
@@ -228,15 +277,21 @@
 
   <para>If there are no errors, start &name-icinga;.</para>
 
-  <para><emphasis>&name-fedora;/&name-rhel;/&name-centos;/&name-ubuntu;</emphasis></para>
+  <para>
+    <emphasis>&name-fedora;/&name-rhel;/&name-centos;/&name-ubuntu;</emphasis>
+  </para>
 
   <programlisting> # service icinga start</programlisting>
 
-  <para><emphasis>&name-debian;/&name-opensuse;</emphasis></para>
+  <para>
+    <emphasis>&name-debian;/&name-opensuse;</emphasis>
+  </para>
 
   <programlisting> # /etc/init.d/icinga start</programlisting>
 
-  <para><emphasis role="bold">Login to the Web Interface</emphasis></para>
+  <para>
+    <emphasis role="bold">Login to the Web Interface</emphasis>
+  </para>
 
   <para>You should now be able to access the &name-icinga; web interface at the URL below. You'll be prompted for the username (
   <emphasis>icingaadmin</emphasis>) and password you specified earlier.</para>
@@ -247,22 +302,26 @@
 
   <programlisting> http://yourdomain.com/icinga/</programlisting>
 
-  <para>Click on the "Service Detail" navbar link to see details of what's being monitored on your local machine. It will take a few minutes
-  for &name-icinga; to check all the services associated with your machine.</para>
+  <para>Click on the "Service Detail" navbar link to see details of what's being monitored on your local machine. It will take a few
+  minutes for &name-icinga; to check all the services associated with your machine.</para>
 
-  <para><emphasis role="bold">Other Modifications</emphasis></para>
+  <para>
+    <emphasis role="bold">Other Modifications</emphasis>
+  </para>
 
   <para>Make sure your system's firewall rules are configured to allow access to the web server if you want to access the &name-icinga;
   interface remotely.</para>
 
   <programlisting> # iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT</programlisting>
 
-  <para>Setting up your mail transfer agent (MTA) like exim, sendmail or postfix to allow &name-icinga; sending notification emails won't be
-  explained here.</para>
+  <para>Setting up your mail transfer agent (MTA) like exim, sendmail or postfix to allow &name-icinga; sending notification emails won't
+  be explained here.</para>
 
   <para>Please refer to the <link xlink:href="http://www.nagioswiki.org/">&name-nagioswiki;</link> for more resources.</para>
 
-  <para><emphasis role="bold">You're Done</emphasis></para>
+  <para>
+    <emphasis role="bold">You're Done</emphasis>
+  </para>
 
   <para>Congratulations! You successfully installed &name-icinga;. Your journey into monitoring has just begun.</para>
 
@@ -270,6 +329,7 @@
   Started"</link> about "Monitoring ..."</para>
 
   <indexterm zone="quickstart-icinga">
-    <primary>Quickstart &name-icinga;</primary>
+    <primary>Quickstart</primary>
+    <secondary>&name-icinga; on &name-linux;</secondary>
   </indexterm>
 </section>
