@@ -358,7 +358,7 @@
   temporäre Dateien anlegen zu können. Sie sollten <emphasis>tmpwatch</emphasis> oder ein ähnliches Programm ausführen, um in diesem
   Verzeichnis Dateien zu löschen, die älter als 24 Stunden sind.</para>
 
-  <para><anchor xml:id="configmain-status_log" /><emphasis role="bold">Status-Datei</emphasis> (Status File)</para>
+  <para><anchor xml:id="configmain-status_file" /><emphasis role="bold">Status-Datei</emphasis> (Status File)</para>
 
   <informaltable frame="none">
     <tgroup cols="2">
@@ -1144,7 +1144,7 @@
   Services und Hosts zu setzen, bevor es mit der Überwachung beginnt. Damit &name-icinga; Statusinformationen zwischen Programmneustarts
   aufbewahrt, müssen Sie die <link linkend="configmain-retain_state_information">retain_state_information</link>-Option aktivieren.</para>
 
-  <para><anchor xml:id="configmain-sync_retention_file" /><emphasis role="bold">Statusaufbewahrungsdatei</emphasis> (Sync Retention
+  <para><anchor xml:id="configmain-sync_retention_file" /><emphasis role="bold">Sync-Aufbewahrungsdatei</emphasis> (Sync Retention
   File)</para>
 
   <informaltable frame="none">
@@ -1294,8 +1294,6 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-retained_host_attribute_mask" /></para>
-
   <para><anchor xml:id="configmain-retained_service_attribute_mask" /><emphasis role="bold">aufbewahrte Host- und
   Service-Attributmasken</emphasis> (Retained Host and Service Attribute Masks)</para>
 
@@ -1363,8 +1361,6 @@
   <para>Diese Option legt fest, welche Host- oder Service-Attribute NICHT über Programmneustarts hinweg aufbewahrt werden. Die Werte für
   diese Optionen sind ein bitweises AND der durch die "MODATTR_"-Definitionen angegebenen Werte in den include/common.h-Quellcode-Dateien.
   Per Default werden alle Host- und Service-Attribute aufbewahrt.</para>
-
-  <para><anchor xml:id="configmain-retained_process_host_attribute_mask" /></para>
 
   <para><anchor xml:id="configmain-retained_process_service_attribute_mask" /><emphasis role="bold">aufbewahrte
   Prozessattributmasken</emphasis> (Retained Process Attribute Masks)</para>
@@ -1435,8 +1431,6 @@
   deaktiviert werden, während Service-Prüfungen weiterhin aktiviert sind. Die Werte für diese Optionen sind ein bitweises AND der durch die
   "MODATTR_"-Definitionen angegebenen Werte in den include/common.h-Quellcode-Dateien. Per Default werden alle Prozessattribute
   aufbewahrt.</para>
-
-  <para><anchor xml:id="configmain-retained_contact_host_attribute_mask" /></para>
 
   <para><anchor xml:id="configmain-retained_contact_service_attribute_mask" /><emphasis role="bold">aufbewahrte
   Kontaktattributmasken</emphasis> (Retained Contact Attribute Masks)</para>
@@ -1543,6 +1537,74 @@
       <para>1 = Syslog nutzen [Default]</para>
     </listitem>
   </itemizedlist>
+
+  <para><anchor xml:id="configmain-use_syslog_local_facility" /> <emphasis role="bold">Syslog Local Facility Option</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">use_local_syslog_facility=&lt;0/1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry><para>Beispiel:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">use_syslog_local_facility=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Wenn Sie use_syslog aktiviert haben, dann können Sie &name-icinga; anweisen, eine local-Facility zu benutzen statt des Defaults.
+  Werte sind wie folgt:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>0 = Syslog Local Facility nicht nutzen</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = Syslog Local Facility benutzen</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>Diese Option gibt es seit &name-icinga; 1.0.2.</para>
+
+  <para><anchor xml:id="configmain-syslog_local_facility" /> <emphasis role="bold">Syslog Local Facility Wert</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">syslog_local_facility=&lt;0|1|2|3|4|5|6|7&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry><para>Beispiel:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">syslog_local_facility=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Wenn Sie use_syslog_local_facility aktiviert haben, können Sie auswählen, welche Local-Facility benutzt werden soll. Gültige Werte
+  sind von 0 bis 7. Diese Option gibt es seit &name-icinga; 1.0.2.</para>
 
   <para><anchor xml:id="configmain-log_notifications" /><emphasis role="bold">Benachrichtigungsprotokollierungsoption</emphasis>
   (Notification Logging Option)</para>
@@ -5094,6 +5156,18 @@
     <primary>use_syslog=</primary>
 
     <secondary>Syslog-Protokollierung</secondary>
+  </indexterm>
+
+  <indexterm zone="configmain-use_syslog_local_facility">
+    <primary>use_syslog_local_facility=</primary>
+
+    <secondary>Syslog-Local-Facility-Protokollierung</secondary>
+  </indexterm>
+
+  <indexterm zone="configmain-syslog_local_facility">
+    <primary>syslog_local_facility=</primary>
+
+    <secondary>Syslog-Local-Facility-Wert</secondary>
   </indexterm>
 
   <indexterm zone="configmain-log_notifications">

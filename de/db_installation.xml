@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="installation"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <title>Installation</title>
+
+  <section>
+    <title>Prerequisites</title>
+
+    <para>In order to use the &name-idoutils; addon you'll need to have the following
+    installed and working on your system:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>&name-icinga; or &name-nagios;</para>
+      </listitem>
+
+      <listitem>
+        <para>MySQL or Oracle or PostgreSQL</para>
+      </listitem>
+    </itemizedlist>
+  </section>
+
+  <section>
+    <title>Version Compatibility</title>
+
+    <para>In order to use the &name-idoutils; addon, you'll need to be running at
+    least &name-icinga; 1.0 (stable) or &name-nagios; 3.0 (stable). &name-idoutils; will not work with beta releases of
+    &name-nagios; 3.0.</para>
+  </section>
+
+  <section>
+    <title>Obtaining New Versions</title>
+
+    <para>You can always obtain the latest version of the &name-idoutils; addon by
+    visiting the &name-icinga; download site at:</para>
+
+    <para>http://www.&name-icinga;.org/download/</para>
+
+    <para>Bugs are bound to be present in this daemon and updates are always
+    being made to &name-icinga;, so its important that you stay up to date with the
+    latest version of &name-idoutils; that works with the version of &name-icinga; you
+    have.</para>
+  </section>
+
+  <section>
+    <title>Compiling</title>
+
+    <para>Compiling should be easy as pie.</para>
+
+    <para>If you haven't already, unpack the &name-idoutils; tarball:</para>
+
+    <programlisting>tar xzvf &name-idoutils;-1.4b9.tar.gz</programlisting>
+
+    <para>Change to the &name-idoutils;-&lt;version&gt; directory that has been
+    created and run the configure script:</para>
+
+    <programlisting>cd &name-idoutils;-1.4b9/
+./configure</programlisting>
+
+    <para>Compile the components of the addon with the following
+    command:</para>
+
+    <programlisting>make</programlisting>
+  </section>
+
+  <section>
+    <title>Installation</title>
+
+    <para>Since &name-idoutils; 1.4b9 you are able to install &name-idoutils; like your
+    &name-icinga; using a simple make target.</para>
+
+    <para>During this step all necessary binaries will be copied to your
+    --prefix path, especially to your --bindir which you specified during the
+    configure.</para>
+
+    <para><emphasis role="bold">To use with a &name-nagios; 3.x Installation</emphasis></para>
+
+      <para>Since &name-idoutils; 1.4b9 you are able to run</para>
+
+      <para>
+        <programlisting>make install</programlisting>
+      </para>
+
+      <para>direct after <code>make</code>.</para>
+
+      <para>This will install the different binary files which belongs to the
+      &name-idoutils; Project to your specified path (<code>--prefix</code> or
+      <code>--binddir</code>).</para>
+
+      <note>
+        <para><code>make install</code> will install ndomod and ndo2db for a
+        &name-nagios; 3.x installation per default.</para>
+
+        <para>If you would install &name-idoutils; for a &name-nagios; 2.x Version, read
+        Section 4.5.2</para>
+      </note>
+
+    <para><emphasis role="bold">To use with a &name-nagios; 2.x Installation</emphasis></para>
+
+      <note>
+        <para><code>make install-2x</code> will install ndomod and ndo2db for
+        a &name-nagios; 2.x installation.</para>
+
+        <para>If you would install &name-idoutils; for a &name-nagios; 3.x Version, read
+        Section 4.5.1</para>
+      </note>
+
+    <para>That's it! Now its time to configure everything...</para>
+  </section>
+
+  <section>
+    <title>Initializing the database</title>
+
+    <para>Currently, the &name-idoutils; addon only supports MySQL as a database
+    backed. Support for PostgresQL will likely be added in the future.</para>
+
+    <note>
+      <para>If you aren't already using it, I would suggest installing
+      phpMyAdmin (http://www.phpmyadmin.net) to help manage your MySQL server
+      and databases.</para>
+    </note>
+
+    <orderedlist>
+      <listitem>
+        <para>First, you'll need to create a new database called "&name-icinga;", or
+        whatever you'd like.</para>
+      </listitem>
+
+      <listitem>
+        <para>Next, add a user that as SELECT, INSERT, UPDATE, and DELETE
+        privileges on the database you just created. Keep this information
+        handy, as you'll need it when you configure things.</para>
+      </listitem>
+
+      <listitem>
+        <para>Finally, run the installation script to create the database
+        tables necessary to hold the data the NDO2DB daemon. The script for
+        doing this (installdb) can be found in the db/ subdirectory of the
+        &name-idoutils; distribution.</para>
+
+        <programlisting>cd db/
+./installdb</programlisting>
+      </listitem>
+    </orderedlist>
+  </section>
+
+  <section>
+    <title>Configuration</title>
+
+    <para>Its time to configure the &name-idoutils; addon components. Sample config
+    files are included in the config/ subdirectory of the &name-idoutils;
+    distribution.</para>
+
+    <orderedlist>
+      <listitem>
+        <para>First, add the following entry to your main &name-icinga; configuration
+        file (usually /usr/local/&name-icinga;/etc/&name-icinga;.cfg):</para>
+
+        <programlisting>broker_module=/usr/local/&name-icinga;/bin/ndomod.o config_file=/usr/local/&name-icinga;/etc/ndomod.cfg</programlisting>
+      </listitem>
+
+      <listitem>
+        <para>Next, install the sample NDOUilts config files:</para>
+
+        <programlisting>make install-config</programlisting>
+
+        <para>This will install the distribution configuration files to your
+        sysconfdir (usually /usr/local/&name-icinga;/etc/) as
+        &lt;filename&gt;-sample.cfg.</para>
+
+        <para>This will prevent to overwrite your personal changes. After
+        adapting your personal changes to the newly created config files and
+        rename them:</para>
+
+        <programlisting>mv /usr/local/&name-icinga;/etc/ndomod-sample.cfg /usr/local/&name-icinga;/etc/ndomod.cfg
+mv /usr/local/&name-icinga;/etc/ndo2db-sample.cfg /usr/local/&name-icinga;/etc/ndo2db.cfg</programlisting>
+      </listitem>
+
+      <listitem>
+        <para>Edit the ndomod.cfg and ndo2db.cfg config files to match your
+        setup. You'll need to specify things like the database name, prefix,
+        username/password, etc.</para>
+      </listitem>
+
+      <listitem>
+        <para>Make sure the following entry appears in your main &name-icinga;
+        configuration file (&name-icinga;.cfg).</para>
+
+        <para>If you don't specify this option, &name-icinga; may not pass any data
+        to the addon for storage in the database.</para>
+
+        <programlisting>event_broker_options=-1</programlisting>
+      </listitem>
+    </orderedlist>
+
+    <para><tip>
+        <para>To save some overall performance, you should think about which
+        data you really need from the &name-idoutils;.</para>
+
+        <para>&name-icinga; itself produces a lot of timed event data which
+        represents the &name-icinga; internal scheduling queue. You can safe yourself
+        some trouble if you unregister your ndomod.o from this events.</para>
+
+        <para>Just configure a less greedy ndo broker option like this:</para>
+
+        <para><programlisting>data_processing_options=1048573</programlisting></para>
+      </tip></para>
+  </section>
+
+  <section>
+    <title>Getting things running</title>
+
+    <para>Once things are configured, you can start things running.</para>
+
+    <orderedlist>
+      <listitem>
+        <para>Start the NDO2DB daemon:</para>
+
+        <programlisting>/usr/local/&name-icinga;/bin/ndo2db -c /usr/local/&name-icinga;/etc/ndo2db.cfg</programlisting>
+
+        <para>or just use the init script by execute:</para>
+
+        <programlisting>/etc/init.d/ndo2db start</programlisting>
+      </listitem>
+
+      <listitem>
+        <para>Check the system logs and make sure the daemon started up
+        okay</para>
+      </listitem>
+
+      <listitem>
+        <para>Start &name-icinga; if its not running.</para>
+
+        <programlisting>/usr/local/&name-icinga;/bin/&name-icinga; -d /usr/local/&name-icinga;/etc/&name-icinga;.cfg</programlisting>
+
+        <note>
+          <para>If &name-icinga; is already running, restart it by sending a SIGHUP
+          signal or using the &name-icinga; web interface.</para>
+        </note>
+      </listitem>
+
+      <listitem>
+        <para>Check the &name-icinga; logs to make sure it started okay.</para>
+
+        <para>You should see some log entries that say the ndomod.o module was
+        loaded successfully and connected to the data sink.</para>
+
+        <para>If the ndomod.o module didn't appear to load, check your &name-icinga;
+        config files to make sure you added the appropriate broker module
+        entries to your main config file.</para>
+
+        <para>If there are errors connecting to the data sink, make sure the
+        NDO2DB daemon is running.</para>
+      </listitem>
+
+      <listitem>
+        <para>Check the system logs to make sure the NDO2DB daemon is working
+        okay.</para>
+
+        <para>You should see some log entries telling you that a connection
+        was received (by the ndomod.o module loaded by &name-icinga;) and a
+        connection to the database was successfully make.</para>
+
+        <para>If there are errors, make sure you specified the appropriate
+        database, username, password, and table prefix in your ndo2db.cfg
+        config file.</para>
+
+        <para>If there are errors relating to being unable to run a specific
+        MySQL query, chances are that you either didn't create the appropriate
+        database tables (outlined above in the configuration section) or your
+        ndo2db.cfg config file entries don't match your setup.</para>
+
+        <para>You'll need to restart the NDO2DB daemon if you make changes to
+        the config file.</para>
+      </listitem>
+    </orderedlist>
+
+    <para>That's it - data from &name-icinga; should now be getting stored in
+    database!</para>
+  </section>
+</section>

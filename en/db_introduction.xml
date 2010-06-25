@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="db_intro" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title>Introduction</title>
+
+  <para>The &name-idoutils; addon is based on &name-ndoutils; originally written by Ethan Galstad, creator of &name-nagios;(R), so the fundamentals apply to
+  &name-nagios; as well as to &name-icinga;.</para>
+
+  <section>
+    <title>Purpose</title>
+
+    <para>The &name-idoutils; addon is designed to store all configuration and event data from &name-icinga; in a relational database. Storing information
+    from &name-icinga; in an RDBMS will allow for quicker retrieval and processing of that data. The &name-icinga;-API relies on that data.</para>
+
+    <para>Until now MySQL, Oracle and PostgreSQL are supported by the addon. Support for other database servers may be added if there is
+    sufficient user interest and even more user who are interested in testing.</para>
+  </section>
+
+  <section>
+    <title>Design Overview</title>
+
+    <para>The &name-idoutils; addon was designed to work for users who have:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Single &name-icinga; installations</para>
+      </listitem>
+
+      <listitem>
+        <para>Multiple standalone or "vanilla" &name-icinga; installations</para>
+      </listitem>
+
+      <listitem>
+        <para>Multiple &name-icinga; installations in distributed, redundant, and/or fail over environments</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Data from each &name-icinga; process (hereafter referred to as "instances") can be stored either in the same database or different
+    databases than data from other &name-icinga; instances.</para>
+
+    <figure>
+      <title>Multiple instances</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/fig1.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>Although not yet supported, future development should allow for data from any given &name-icinga; instance to be stored in multiple
+    databases if desired.</para>
+
+    <figure>
+      <title>Future development: One Instance, multiple databases</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/fig2.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </figure>
+  </section>
+
+  <section>
+    <title>Instances</title>
+
+    <para>Each &name-icinga; process, whether it is a standalone monitoring server, or part of a distributed, redundant, or fail over monitoring
+    setup, is referred to as an "instance". In order to maintain the integrity of stored data, each &name-icinga; instance must be labeled with a
+    unique identifier or name.</para>
+
+    <para>You can choose the name of each &name-icinga; instance to suit your needs. For instance, you could choose to name &name-icinga; instances based
+    on their geographical location...</para>
+
+    <figure>
+      <title>Instance names based on geographical locations</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/fig3.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>Or you could name &name-icinga; instances based on their purpose...</para>
+
+    <figure>
+      <title>Instance names based on their purpose</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/fig4.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>How you name &name-icinga; instances is up to you. The key point to remember is that each and every &name-icinga; process must have its own
+    unique instance name.</para>
+
+    <para>More information on how instance names come into play will be discussed in the next sections.</para>
+  </section>
+
+  <section>
+    <title>Installation</title>
+
+    <para>The installation of the &name-idoutils; is described in the <link linkend="quickstart-idoutils">Quickstart &name-idoutils;</link></para>
+  </section>
+</section>

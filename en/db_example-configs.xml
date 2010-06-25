@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="db_example-configs" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title>Example Configurations</title>
+
+  <section>
+    <title>Single Server, Single Instance Setup</title>
+
+    <para>The easiest configuration occurs when you have a single &name-icinga; instance running on your network. In this case, installing
+    and configuring the various components of the &name-idoutils; addon is fairly straightforward.</para>
+
+    <para>The following diagram illustrates how the various components can fit together in a single server, single &name-icinga; instance
+    setup...</para>
+
+    <figure>
+      <title>Single Server, Single Instance Setup</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/fig11.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>Here's a description of what's happening at each point in the diagram:</para>
+
+    <orderedlist>
+      <listitem>
+        <para>The IDOMOD module is configured with an instance name of "default" since there is only one instance of &name-icinga; that is
+        running on the network.</para>
+      </listitem>
+
+      <listitem>
+        <para>While the &name-icinga; daemon is running and performing its usual business of monitoring the network, the IDOMOD module is
+        sending configuration data and event information to the TCP or Unix domain socket that was created by the IDO2DB daemon.</para>
+      </listitem>
+
+      <listitem>
+        <para>The IDO2DB daemon reads data that is coming into the socket from the IDOMOD module.</para>
+      </listitem>
+
+      <listitem>
+        <para>The IDO2DB daemon processes and transforms data that has been received from the IDOMOD module.</para>
+      </listitem>
+
+      <listitem>
+        <para>The processed data is stored in a database for later retrieval and processing.</para>
+      </listitem>
+    </orderedlist>
+
+    <para>This example assumes that:</para>
+
+    <orderedlist>
+      <listitem>
+        <para>&name-icinga; is configured to load the IDOMOD module at startup.</para>
+      </listitem>
+
+      <listitem>
+        <para>The IDO2DB daemon (which is a separate process from the &name-icinga; daemon) is running.</para>
+      </listitem>
+    </orderedlist>
+  </section>
+
+  <section>
+    <title>Single Server, Multiple Instance Setup</title>
+
+    <para>Another simple configuration can be used when you have multiple &name-icinga; instances running on a single server. Installing and
+    configuring the various components of the &name-idoutils; addon is similiar as to what was shown in the previous example.</para>
+
+    <para>The following diagram illustrates how the various components can fit together in a single server, multiple &name-icinga; instance
+    setup...</para>
+
+    <figure>
+      <title>Single Server, Multiple Instance Setup</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/fig12.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>You'll notice that the diagram above is similiar to the one for the single-server, single instance configuration. The main
+    difference is that there are now three (3) different &name-icinga; daemons instead of just one.</para>
+
+    <orderedlist>
+      <listitem>
+        <para>Each &name-icinga; daemon loads the IDOMOD module at startup with a unique instance name. In this example the instances are
+        simply named "&name-icinga;1", "&name-icinga;2" and "&name-icinga;3".</para>
+      </listitem>
+
+      <listitem>
+        <para>Each IDOMOD module sends configuration data and event information for its specific instance of the &name-icinga; daemon to the
+        TCP or Unix domain socket that was created by the IDO2DB daemon.</para>
+      </listitem>
+
+      <listitem>
+        <para>The IDO2DB daemon reads data that is coming into the socket from the three IDOMOD modules.</para>
+      </listitem>
+
+      <listitem>
+        <para>The IDO2DB daemon processes and transforms data that has been received from the IDOMOD modules.</para>
+      </listitem>
+
+      <listitem>
+        <para>The processed data is stored in a database for later retrieval and processing. Data from each instance of &name-icinga; is
+        kept separate (using the instance names as unique identifiers) in the database.</para>
+      </listitem>
+    </orderedlist>
+  </section>
+
+  <section>
+    <title>Single Server, Single Instance Log File Import</title>
+
+    <para>There are two reasons you'll probably want to import your &name-icinga; log files into the same database that &name-icinga;
+    configuration and event data is stored in:</para>
+
+    <orderedlist>
+      <listitem>
+        <para>Historical log file data isn't imported into the database by default and having a record of events that occurred before you
+        implemented the &name-idoutils; addon is probably desireable.</para>
+      </listitem>
+
+      <listitem>
+        <para>The IDOMOD module is not able to process realtime log entries from the time right after the &name-icinga; daemon starts to the
+        time that the IDOMOD module is loaded by the &name-icinga; daemon. This "blackout period" is unavoidable and causing log entries
+        such as "&name-icinga; 1.0 starting..." to be missed by the IDOMOD module. Thus, importing day-old &name-icinga; log files on a
+        daily basis (via a cron job) is recommended.</para>
+      </listitem>
+    </orderedlist>
+
+    <figure>
+      <title>Single Server, Single Instance Log File Import</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/fig13.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>Here's a description of what's happening at each point in the diagram:</para>
+
+    <orderedlist>
+      <listitem>
+        <para>Historical &name-icinga; log files are read by the LOG2IDO utility.</para>
+      </listitem>
+
+      <listitem>
+        <para>The LOG2IDO utility processes the contents of the log files and tags them with an instance name of "default". This instance
+        name must match the same instance name used by the IDOMOD module in the &name-icinga; daemon.</para>
+      </listitem>
+
+      <listitem>
+        <para>Historical log file data is sent to the TCP or Unix domain socket in a format that the IDO2DB daemon can understand.</para>
+      </listitem>
+
+      <listitem>
+        <para>The IDO2DB daemon reads the log file data from the Unix domain socket.</para>
+      </listitem>
+
+      <listitem>
+        <para>The IDO2DB daemon processes the log file data.</para>
+      </listitem>
+
+      <listitem>
+        <para>Historical log file data is stored in a database for later retrieval and processing. The IDO2DB daemon will perform some
+        checks to make sure it doesn't re-import duplicate historical log entries, so running the LOG2IDO utility on the same historical log
+        file multiple times shouldn't have any negative side effects.</para>
+      </listitem>
+    </orderedlist>
+
+    <para>That's it! Pretty simple.</para>
+  </section>
+</section>

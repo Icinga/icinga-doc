@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="components" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title>Komponenten</title>
+
+  <section>
+    <title>Überblick</title>
+
+    <para>Es gibt vier Hauptkomponenten, aus denen die IDO-Utilities bestehen:</para>
+
+    <orderedlist>
+      <listitem>
+        <para>IDOMOD-Event-Broker-Modul</para>
+      </listitem>
+
+      <listitem>
+        <para>LOG2IDO-Utility</para>
+      </listitem>
+
+      <listitem>
+        <para>FILE2SOCK-Utility</para>
+      </listitem>
+
+      <listitem>
+        <para>IDO2DB-Daemon</para>
+      </listitem>
+    </orderedlist>
+
+    <para>Jede Komponente wird auf den folgenden Seiten genauer beschrieben.</para>
+  </section>
+
+  <section>
+    <title>IDOMOD</title>
+
+    <para>Die IDO-Utilities enthalten ein &name-icinga;-Event-Broker-Modul (IDOMOD.O), das die Daten des &name-icinga;-Daemon
+    exportiert.</para>
+
+    <para>Wenn wir annehmen, dass &name-icinga; mit aktivierten Event-Broker-Modul kompiliert wurde (das ist der Default), dann können Sie
+    &name-icinga; konfigurieren, dass das IDOMOD-Modul während der Laufzeit geladen wird. Sobald das Modul vom &name-icinga;-Daemon geladen
+    wird, kann es auf die Daten und die Logik des laufenden &name-icinga;-Prozesses zugreifen.</para>
+
+    <figure>
+      <title>Geladenes IDOMOD-Event-Broker-Modul</title>
+
+      <mediaobject>
+        <imageobject role="html">
+          <imagedata fileref="../images/fig5.png" format="PNG"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>Das IDOMOD-Modul wurde konzipiert, um sowohl Konfigurationsdaten als auch Informationen über verschiedene Laufzeitereignisse, die
+    während des Überwachungsprozesses auftreten, aus dem &name-icinga;-Daemon zu exportieren. Das Modul kann diese Daten an eine normale
+    Datei, einen Unix-Domain- oder einen TCP-Socket senden.</para>
+
+    <figure>
+      <title>IDOMOD-Möglichkeiten</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/fig6.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>Das IDOMOD-Modul schreibt die Daten in einem Format, dass der IDO2DB-Daemon (wird später beschrieben) verstehen kann.</para>
+
+    <para>Falls das IDOMOD-Modul die Daten in eine Datei schreibt, dann können Sie es so konfigurieren, die Ausgabedatei regelmäßig rotiert
+    und/oder mit einem vordefinierten &name-icinga;-Befehl verarbeitet wird. Dies kann nützlich sein, wenn Sie die Ausgabedatei zu einer
+    anderen Maschine übertragen möchten (mit SSH, etc.) oder den Inhalt mit dem FILE2SOCK-Utility (wird später beschrieben) an den
+    IDO2DB-Daemon senden möchten.</para>
+
+    <para>Falls dasIDOMOD-Modul die Daten an einen TCP- oder Unix-Domain-Socket schickt, dann gibt es ein wenig Schutz gegen
+    Verbindungsabbrüche. Das Modul wird versuchen, die Ausgaben zwischenzuspeichern, bis es sich (erneut) mit dem Socket verbinden kann.
+    Dies ist hilfreich, wenn der Prozess, der den Socket anlegt bzw. darauf lauscht, (erneut) gestartet werden muss.</para>
+  </section>
+
+  <section>
+    <title>LOG2IDO</title>
+
+    <para>Das LOG2IDO-Utility wurde entwickelt, damit Sie über den IDO2DB-Daemon (<link linkend="IDO2DB-description">wird später
+    beschrieben</link>) historische Datei aus &name-icinga;-, Nagios- und NetSaint-Log-Dateien in eine Datenbank importieren können. Das
+    Utility funktioniert, indem historische Log-Dateidaten in einem Format, das der IDO2DB-Daemon versteht, an eine normale Datei, ein
+    Unix-Domain- oder ein TCP-Socket geschickt werden. Der IDO2DB-Daemon kann dann genutzt werden, um diese Ausgaben zu verarbeiten und die
+    Informationen in einer Datenbank zu speichern.</para>
+
+    <figure>
+      <title>LOG2IDO-Utility</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/fig7.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </figure>
+  </section>
+
+  <section>
+    <title>FILE2SOCK</title>
+
+    <para>Das FILE2SOCK-Utility ist ziemlich simpel. Es liest Eingaben von einer normalen Daten (oder STDIN) und schickt diese Daten
+    entweder an einen Unix-Domain- oder einen TCP-Socket. Die gelesenen Datei werden nicht bearbeitet, bevor sie an den Socket geschickt
+    werden.</para>
+
+    <figure>
+      <title>FILE2SOCK-Utility</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/fig8.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>Dieses Utility ist nützlich, wenn Sie die Ausgaben den IDOMOD-Event-Broker-Moduls und/oder des LOG2IDO-Utilitys in eine normale
+    Datei umleiten. Sobald diese Komponenten ihre Ausgaben in eine Datei geschrieben haben, können Sie das FILE2SOCK-Utility nutzen, um den
+    Inhalt der Datei an den TCP- oder den Unix-Domain-Socket des IDO2DB-Daemons zu schicken.</para>
+  </section>
+
+  <section label="IDO2DB" xml:id="IDO2DB-description">
+    <title>IDO2DB</title>
+
+    <para>Das IDO2DB-Utility ist gedacht, um die Datenausgaben der IDOMOD- und LOG2IDO-Komponenten zu nehmen und in einer MySQL, Oracle-
+    oder PostgreSQL-Datenbank zu speichern.</para>
+
+    <para>Beim Start des IDO2DB-Daemons legt dieser entweder einen TCP- oder einen Unix-Domain-Socket an und warten auf Client, die sich
+    verbinden. IDO2DB kann entweder als einzelner, als Multiprozess-Daemon oder unter INETD laufen (wenn ein TCP-Socket verwendet
+    wird).</para>
+
+    <figure>
+      <title>IDO2DB-Daemon</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/fig9.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>Mehrere Clients können sich mit dem Socket des IDO2DB-Daemons verbinden und gleichzeitig Daten übertragen. Für jeden neuen Client,
+    der sich verbindet, wird ein separater IDO2DB-Prozess erzeugt. Die Daten jedes Clients werden gelesen und in einer benutzerdefinierten
+    Datenbank für spätere Abfragen und Verarbeitung gespeichert.</para>
+
+    <figure>
+      <title>IDO2DB mit mehreren Clients</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/fig10.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>Der IDO2DB-Daemon unterstützt im Moment MySQL-, Oracle- und PostgreSQL-Datenbanken.</para>
+  </section>
+</section>

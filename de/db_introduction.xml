@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="db_intro" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title>Einleitung</title>
+
+  <para>Das &name-idoutils;-Addon basiert auf den &name-ndoutils;, die ursprünglich vom &name-nagios; (R)-Entwickler Ethan Galstad erstellt
+  wurden, so dass die Grundlagen sowohl auf &name-nagios; als auch auf &name-icinga; zutreffen.</para>
+
+  <section>
+    <title>Zweck</title>
+
+    <para>Das &name-idoutils;-Addon dient dazu, alle Konfigurations- und Ereignisdaten von &name-icinga; in einer relationalen Datenbank zu
+    abzulegen. Das Speichern der Informationen von &name-icinga; in einem RDBMS erlaubt die schnellere Abfrage und Verarbeitun der Daten.
+    Die &name-icinga;-API nutzt diese Daten.</para>
+
+    <para>Bisher werden MySQL, Oracle und PostgreSQL von diesem Addon unterstützt. Andere Datenbanksysteme werden ggf. unterstützt, wenn
+    sich genügend interessierte Benutzer und vor allem Benutzer finden, die Tests durchführen.</para>
+  </section>
+
+  <section>
+    <title>Design-Überblick</title>
+
+    <para>Das &name-idoutils;-Addon wurde entwickelt für Benutzer mit:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>einer &name-icinga;-Installation</para>
+      </listitem>
+
+      <listitem>
+        <para>mehrere einzelnen oder "Vanilla"-&name-icinga;-Installationen</para>
+      </listitem>
+
+      <listitem>
+        <para>mehrere &name-icinga;-Installationen in verteilten, redundanten und/oder Umgebungen mit Ausfallsicherung</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Daten eines &name-icinga;-Prozesses (im weiteren als "Instanz" bezeichnet) können entweder in der gleichen oder in verschiedenen
+    Datenbanken wie die Daten von anderen &name-icinga;-Instanzen gespeichert werden.</para>
+
+    <figure>
+      <title>Mögliche Anordnungen</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/fig1.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>Obwohl es bisher nicht unterstützt wird, könnten in der Zukunft die Daten einer beliebigen Instanz in mehrere Datenbanken
+    gespeichert werden, falls das gewünscht wird..</para>
+
+    <figure>
+      <title>zukünfte Entwicklung: Eine Instanz, mehrere Datenbanken</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/fig2.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </figure>
+  </section>
+
+  <section>
+    <title>Instanzen</title>
+
+    <para>Jeder &name-icinga;-Prozess, egal ob es ein einzelner Überwachungsserver oder Teil eines verteilten, redundanten Setups ist, ggf.
+    mit Ausfallsicherung, wird als "Instanz" bezeichnet. Um die Integrität der gespeicherten Daten zu gewährleisten muss jede
+    &name-icinga;-Instanz mit einem eindeutigen Bezeichner oder Namen gekennzeichnet werden.</para>
+
+    <para>Sie können den Namen jeder &name-icinga;-Instanz Ihren Bedürfnissen anpassen. So können Sie z.B. die &name-icinga;-Instanzen
+    aufgrund des geografischen Standorts bezeichnen....</para>
+
+    <figure>
+      <title>Instanznamen basierend auf dem geografischen Standorts</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/fig3.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>Oder Sie können die &name-icinga;-Instanen nach dem Zweck benennen...</para>
+
+    <figure>
+      <title>Instanznamen basierend auf dem Zweck</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/fig4.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>Wie Sie die &name-icinga;-Instanzen nennen, bestimmen Sie. Wichtig ist dabei lediglich, dass jeder einzelne &name-icinga;-Prozess
+    einen eindeutigen Instanznamen erhält.</para>
+
+    <para>Mehr Informationen dazu, welche Rolle die Instanznamen spielen, gibt es in den nächsten Abschnitten.</para>
+  </section>
+
+  <section>
+    <title>Installation</title>
+
+    <para>Die installation der &name-idoutils; wird im <link linkend="quickstart-idoutils">Quickstart &name-idoutils;</link>
+    beschrieben.</para>
+  </section>
+</section>

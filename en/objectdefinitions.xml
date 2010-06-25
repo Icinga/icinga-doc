@@ -34,16 +34,15 @@
         </listitem>
     </orderedlist>
 
-    <para><anchor xml:id="objectdefinitions-retention_notes" /></para>
+  <para><anchor xml:id="objectdefinitions-retention_notes" /><emphasis role="bold">Retention Notes</emphasis></para>
 
-    <para><emphasis role="bold">Retention Notes</emphasis></para>
-
-    <para>It is important to point out that several directives in host, service, and contact definitions may not be picked up by &name-icinga; when
-    you change them in your configuration files. Object directives that can exhibit this behavior are marked with an asterisk (<link
-    linkend="objectdefinitions-retention_notes">*</link>). The reason for this behavior is due to the fact that &name-icinga; chooses to honour values
-    stored in the <link linkend="configmain-state_retention_file">state retention file</link> over values found in the config files, assuming you have
-    <link linkend="configmain-retain_state_information">state retention</link> enabled on a program-wide basis <emphasis>and</emphasis> the value of
-    the directive is changed during runtime with an <link linkend="configmain-check_external_commands">external command</link>.</para>
+  <para>It is important to point out that several directives in host, service, and contact definitions may not be picked up by &name-icinga;
+  when you change them in your configuration files. Object directives that can exhibit this behaviour are marked with an asterisk (<link
+  linkend="objectdefinitions-retention_notes">*</link>). The reason for this behaviour is due to the fact that &name-icinga; chooses to
+  honour values stored in the <link linkend="configmain-state_retention_file">state retention file</link> over values found in the config
+  files, assuming you have <link linkend="configmain-retain_state_information">state retention</link> enabled on a program-wide basis
+  <emphasis>and</emphasis> the value of the directive is changed during runtime with an <link
+  linkend="configmain-check_external_commands">external command</link>.</para>
 
     <para>One way to get around this problem is to disable the retention of non-status information using the
     <emphasis>retain_nonstatus_information</emphasis> directive in the host, service, and contact definitions. Disabling this directive will cause
@@ -1191,8 +1190,8 @@ This directive is used to determine whether or not failure prediction is enabled
 
                     <entry><para>is_volatile</para></entry>
 
-                    <entry><para>[0/1]</para></entry>
-                </row>
+          <entry><para>[0|1|2]</para></entry>
+        </row>
 
                 <row>
                     <entry><para></para></entry>
@@ -1541,19 +1540,20 @@ This directive is used to determine whether or not failure prediction is enabled
                 <row>
                     <entry align="left" valign="top"><para><emphasis role="bold">is_volatile</emphasis>:</para></entry>
 
-                    <entry><para>This directive is used to denote whether the service is "volatile". Services are normally <emphasis>not</emphasis>
-                    volatile. More information on volatile service and how they differ from normal services can be found <link
-                    linkend="volatileservices">here</link>. Value: 0 = service is not volatile, 1 = service is volatile.</para></entry>
-                </row>
+          <entry><para>This directive is used to denote whether the service is "volatile". Services are normally <emphasis>not</emphasis>
+          volatile. More information on volatile service and how they differ from normal services can be found <link
+          linkend="volatileservices">here</link>. Value: 0 = service is not volatile, 1 = service is volatile, 2 = service is volatile but
+          will respect the re-notification interval for notifications (option "2" was introduced in &name-icinga; 1.0.2).</para></entry>
+        </row>
 
-                <row>
-                    <entry align="left" valign="top"><para><emphasis role="bold">check_command</emphasis>:</para></entry>
+        <row>
+          <entry align="left" valign="top"><para><emphasis role="bold">check_command</emphasis>:</para></entry>
 
-                    <entry><para> This directive is used to specify the <emphasis>short name</emphasis> of the <link
-                    linkend="objectdefinitions-command">command</link> that &name-icinga; will run in order to check the status of the service. The
-                    maximum amount of time that the service check command can run is controlled by the <link
-                    linkend="configmain-service_check_timeout">service_check_timeout</link> option.</para></entry>
-                </row>
+          <entry><para> This directive is used to specify the <emphasis>short name</emphasis> of the <link
+          linkend="objectdefinitions-command">command</link> that &name-icinga; will run in order to check the status of the service. The
+          maximum amount of time that the service check command can run is controlled by the <link
+          linkend="configmain-service_check_timeout">service_check_timeout</link> option.</para></entry>
+        </row>
 
                 <row>
                     <entry align="left" valign="top"><para><emphasis role="bold">initial_state</emphasis>:</para></entry>

@@ -198,6 +198,14 @@
     </listitem>
 
     <listitem>
+      <para><link linkend="configmain-use_syslog_local_facility">Syslog local facility logging option</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="configmain-syslog_local_facility">Syslog local facility logging value</link></para>
+    </listitem>
+
+    <listitem>
       <para><link linkend="configmain-log_notifications">Notification logging option</link></para>
     </listitem>
 
@@ -1996,6 +2004,71 @@
       <para>1 = Use syslog facility</para>
     </listitem>
   </itemizedlist>
+
+  <para><anchor xml:id="configmain-use_syslog_local_facility" /> <emphasis role="bold">Local Syslog Facility Option</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">use_local_syslog_facility=&lt;0/1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">use_syslog_local_facility=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>If you enabled use_syslog you can set &name-icinga; to use a local facility instead of the default. Values are as follows:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>0 = Don't use syslog local facility</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = Use syslog local facility</para>
+    </listitem>
+  </itemizedlist>
+ <para>This option can be used starting with &name-icinga; 1.0.2.</para>
+  <para><anchor xml:id="configmain-syslog_local_facility" /> <emphasis role="bold">Syslog Local Facility Value</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">syslog_local_facility=&lt;0|1|2|3|4|5|6|7&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">syslog_local_facility=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>If you enabled use_syslog_local_facility you can choose which local facility to use. Valid values are from 0 to 7. This option can be used
+  starting with &name-icinga; 1.0.2.</para>
 
   <para><anchor xml:id="configmain-log_notifications" /> <emphasis role="bold">Notification Logging Option</emphasis></para>
 
@@ -5445,6 +5518,18 @@
     <primary>use_syslog=</primary>
 
     <secondary>Syslog Logging Option</secondary>
+  </indexterm>
+
+  <indexterm zone="configmain-use_syslog_local_facility">
+    <primary>use_syslog_local_facility=</primary>
+
+    <secondary>Syslog Local Facility Logging Option</secondary>
+  </indexterm>
+
+  <indexterm zone="configmain-syslog_local_facility">
+    <primary>syslog_local_facility=</primary>
+
+    <secondary>Syslog Local Facility Logging Value</secondary>
   </indexterm>
 
   <indexterm zone="configmain-log_notifications">
