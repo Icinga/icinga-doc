@@ -97,10 +97,10 @@
             <note>
                 <para>Using no options the installer expects the icinga-API to be found at /usr/local/icinga-api but you can use the option
                 "--with-icinga-api" to specify another location. If you installed Icinga using the quickstart guide you should use the following
-                syntax:</para></note>
+                syntax:</para>
+            </note>
 
-                <programlisting> # ./configure --with-icinga-api=/usr/local/icinga/share/icinga-api</programlisting>
-            
+            <programlisting> # ./configure --with-icinga-api=/usr/local/icinga/share/icinga-api</programlisting>
         </listitem>
 
         <listitem>
@@ -121,7 +121,8 @@
  # vi /etc/php5/cli/php.ini
    magic_quotes_gpc = off</programlisting>
 
-       <note><para>If one of these files is missing you'll get an agavi error complaining about the setting of "magic_quotes_qpc" because the
+            <note>
+                <para>If one of these files is missing you'll get an agavi error complaining about the setting of "magic_quotes_qpc" because the
                 default is "ON".</para>
             </note>
         </listitem>
@@ -141,8 +142,10 @@
             <programlisting>SQL&gt; GRANT USAGE ON *.* TO 'icinga_web'@'localhost' IDENTIFIED BY 'icinga_web';
 SQL&gt; GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER, INDEX ON icinga_web.* TO 'icinga_web'@'localhost';
 SQL&gt; FLUSH PRIVILEGES;</programlisting>
-<para><emphasis role="bold">&name-mysql;</emphasis></para>
-<programlisting># mysql -u root -p
+
+            <para><emphasis role="bold">&name-mysql;</emphasis></para>
+
+            <programlisting># mysql -u root -p
   
  mysql&gt; CREATE DATABASE icinga_web;
   
@@ -158,74 +161,158 @@ SQL&gt; FLUSH PRIVILEGES;</programlisting>
 
             <para>Icinga Web ships with Doctrine so you can initialize, upgrade or drop the database directly using 'make'.</para>
 
- <programlisting># make db-initialize      - creates a spick-and-span database</programlisting>
- <programlisting># make db-drop            - drops your database with a security query to avoid casualties</programlisting>
- <programlisting># make db-upgrade         - upgrades old tables to a newer version (Just the same as db-initialize with a better name ;-))</programlisting>
- <programlisting># make db-doc2sql         - if you require plain SQL scripts, use this option to generate SQL from Doctrine. This can be useful for packaging or manual db install</programlisting>
+            <programlisting># make db-initialize      - creates a spick-and-span database</programlisting>
 
-<para>To use the database creation commands you have to grant privileges to the user who will execute the commands on your dbms. If the user defined via configure is a low-privileged one, 'make' asks about a more privileged one e.g. a root user. If this does not work for you, alter 'etc/build.properties' to match the requirements of a root user.</para>
-<para>So a simple database install looks like this:</para>
+            <programlisting># make db-drop            - drops your database with a security query to avoid casualties</programlisting>
+
+            <programlisting># make db-upgrade         - upgrades old tables to a newer version (Just the same as db-initialize with a better name ;-))</programlisting>
+
+            <programlisting># make db-doc2sql         - if you require plain SQL scripts, use this option to generate SQL from Doctrine. This can be useful for packaging or manual db install</programlisting>
+
+            <para>To use the database creation commands you have to grant privileges to the user who will execute the commands on your dbms. If the
+            user defined via configure is a low-privileged one, 'make' asks about a more privileged one e.g. a root user. If this does not work for
+            you, alter 'etc/build.properties' to match the requirements of a root user.</para>
+
+            <para>So a simple database install looks like this:</para>
+
             <programlisting> # make db-initialize</programlisting>
-<para><emphasis role="bold">Manually create Database</emphasis></para>
+
+            <para><emphasis role="bold">Manually create Database</emphasis></para>
 
             <para>If you require manual database creation e.g. for package building, you can extract the plain SQL scripts using:</para>
 
             <programlisting> # make db-doc2sql</programlisting>
-	<para>and then use the generated scripts on the freshly created database.</para>
+
+            <para>and then use the generated scripts on the freshly created database.</para>
         </listitem>
 
         <listitem>
-            <para><emphasis role="bold">Icinga-web settings</emphasis></para>
+            <para><emphasis role="bold">Settings</emphasis></para>
 
-            <para>Alter the config files: Edit /usr/local/icinga-web/app/config/databases.xml and set database credentials (block should begin at line
-            7, in this Example: DB-User: icinga_user, PW: password):<programlisting>    &lt;database name="appkit_default" class="AgaviDoctrineDatabase"&gt;
-       &lt;ae:parameter name="dsn"&gt;mysql://icinga_user:password@127.0.0.1:3306/icinga_web&lt;/ae:parameter&gt;
-       &lt;ae:parameter name="username"&gt;icinga_user&lt;/ae:parameter&gt;
-       &lt;ae:parameter name="password"&gt;password&lt;/ae:parameter&gt;
-       &lt;ae:parameter name="charset"&gt;utf8&lt;/ae:parameter&gt;
-       &lt;ae:parameter name="manager_attributes"&gt;
-            <!-- This allows lazy loading of the models -->
-          &lt;ae:parameter name="MODEL_LOADING"&gt;CONSERVATIVE&lt;/ae:parameter&gt;
-       &lt;/ae:parameter&gt;
-       &lt;ae:parameter name="load_models"&gt;%de.icinga.appkit.doctrine_model_path%&lt;/ae:parameter&gt;
-       &lt;/database&gt;</programlisting></para>
+            <para>There are 2 different sections:</para>
 
-            <para>Change the credentials for your database connection</para>
+            <para>* Settings of Icinga Web, escpecially database settings</para>
 
-            <para>Edit /usr/local/icinga-web/app/config/icinga.xml and set database credentials to give access to ido-db</para>
+            <para>* Settings of the Icinga API which is mandatory as data source</para>
 
-            <note>
-                <para>Please keep in mind that you have to install &name-idoutils; before (according to the <link linkend="quickstart-idoutils">Icinga
-                IDOUtils Quickstart Guide</link> )</para>
-            </note>
+            <para><emphasis role="bold">Settings of &name-web;</emphasis></para>
 
-            <para>Go to the appkit.factories section and change the path and the credentials for the icinga-api.</para>
+            <para>Normally you can set the database credentials during configure, but if you want to recheck or even change them, please adapt those
+            for your needs.</para>
 
-            <programlisting>
- &lt;!-- icinga-api data interface --&gt;
+            <programlisting> # vi  app/config/databases.xml</programlisting>
+
+            <para><programlisting>    &lt;databases default="icinga_web"&gt;
+                        &lt;database name="icinga_web" class="AgaviDoctrineDatabase"&gt;
+
+                                &lt;!--
+                                        Doctrine dsn strings:
+
+                                        http://www.doctrine-project.org/documentation/manual/1_1/en/introduction-to-connections
+                                --&gt;
+                                &lt;ae:parameter name="dsn"&gt;mysql://icinga_web:icinga_web@127.0.0.1:3306/icinga_web&lt;/ae:parameter&gt;
+
+                                &lt;!-- Generic credentials  --&gt;
+                                &lt;!-- &lt;ae:parameter name="username"&gt;icinga_web&lt;/ae:parameter&gt; --&gt;
+                                &lt;!-- &lt;ae:parameter name="password"&gt;icinga_web&lt;/ae:parameter&gt; --&gt;
+
+                                &lt;!-- DB encoding type --&gt;
+                                &lt;ae:parameter name="charset"&gt;utf8&lt;/ae:parameter&gt;
+
+                                &lt;!--
+                                        Doctrine_Manager configuration
+                                --&gt;
+                                &lt;ae:parameter name="manager_attributes"&gt;
+                                        &lt;!-- This allows lazy loading of the models --&gt;
+                                        &lt;ae:parameter name="Doctrine_Core::ATTR_MODEL_LOADING"&gt;CONSERVATIVE&lt;/ae:parameter&gt;
+                                &lt;/ae:parameter&gt;
+
+                                &lt;!-- The path to our models --&gt;
+                                &lt;ae:parameter name="load_models"&gt;%core.module_dir%/AppKit/lib/database/models/generated&lt;/ae:parameter&gt;
+                                &lt;ae:parameter name="models_directory"&gt;%core.module_dir%/AppKit/lib/database/models&lt;/ae:parameter&gt;
+
+                        &lt;/database&gt;</programlisting></para>
+
+            <para><emphasis role="bold">Settings of &name-api;</emphasis></para>
+
+            <para>Those settings are directly within &name-web; which provides the given information in an appropriate way to the &name-api;. Keep a
+            look into app/modules/Web/config/module.xml for the IcingaApi factories: IcingaData and IcingaCommand.</para>
+
+            <programlisting># vi app/modules/Web/config/module.xml</programlisting>
+
+            <para>In IcingaData you can set the credentials for the Icinga API e.g. using the Icinga IDOUtils database.</para>
+
+            <para>Please keep in mind that you have to install &name-idoutils; before (according to the <link linkend="quickstart-idoutils">Icinga
+            IDOUtils Quickstart Guide</link> )</para>
+
+            <programlisting>  &lt;!-- icinga-api data interface --&gt;
                 &lt;parameter name="IcingaData"&gt;
                         &lt;parameter name="class"&gt;IcingaData&lt;/parameter&gt;
-                        &lt;parameter name="file"&gt;%core.module_dir%/Web/lib/icinga/factory/IcingaData.class.php &lt;/parameter&gt;
+                        &lt;parameter name="file"&gt;%core.root_dir%/app/lib/icinga/factory/IcingaData.class.php&lt;/parameter&gt;
 
-                         &lt;parameter name="requiredClasses"&gt;
+                        &lt;parameter name="requiredClasses"&gt;
                                 &lt;!-- NONE --&gt;
-                         &lt;/parameter&gt;
+                        &lt;/parameter&gt;
 
-                         &lt;parameter name="api_file"&gt;%core.root_dir%/icinga-api/IcingaApi.php/&lt;parameter&gt;
-                         &lt;parameter name="api_type"&gt;IcingaApi::CONNECTION_IDO&lt;/parameter&gt;
+                        &lt;parameter name="api_file"&gt;%core.root_dir%/lib/icinga-api/IcingaApi.php&lt;/parameter&gt;
 
-                         &lt;parameter name="config_type"&gt;mysql&lt;/parameter&gt;
-                         &lt;parameter name="config_host"&gt;127.0.0.1&lt;/parameter&gt;
+                        &lt;!--
+                                API connection type
+                        --&gt;
+                        &lt;parameter name="api_type"&gt;IcingaApi::CONNECTION_IDO&lt;/parameter&gt;
 
+                        &lt;parameter name="config_type"&gt;mysql&lt;/parameter&gt;
+                        &lt;parameter name="config_host"&gt;127.0.0.1&lt;/parameter&gt;
 
-                         &lt;parameter name="config_port"&gt;3306&lt;/parameter&gt;
-                         &lt;parameter name="config_database"&gt;icinga&lt;/parameter&gt;
+                        &lt;parameter name="config_port"&gt;3306&lt;/parameter&gt;
+                        &lt;parameter name="config_database"&gt;icinga&lt;/parameter&gt;
 
-                         &lt;parameter name="config_user"&gt;your-ido-user&lt;/parameter&gt;
-                         &lt;parameter name="config_password"&gt;your-ido-pw&lt;/parameter&gt;
+                        &lt;parameter name="config_user"&gt;icinga&lt;/parameter&gt;
+                        &lt;parameter name="config_password"&gt;icinga&lt;/parameter&gt;
 
-                         &lt;parameter name="config_table_prefix"&gt;icinga_&lt;/parameter&gt;
+                        &lt;parameter name="config_table_prefix"&gt;icinga_&lt;/parameter&gt;
                 &lt;/parameter&gt;</programlisting>
+
+            <para>In IcingaCommand you can specify the credentials for sending commands via Icinga Core command pipe - local or remote via SSH.
+            Depending on 'enabled' those interfaces can be used or not (default is the local pipe).</para>
+
+            <programlisting>&lt;parameter name="IcingaCommand"&gt;
+                        &lt;parameter name="class"&gt;IcingaCommand&lt;/parameter&gt;
+                        &lt;parameter name="file"&gt;%core.root_dir%/app/lib/icinga/factory/IcingaCommand.class.php&lt;/parameter&gt;
+
+                        &lt;parameter name="requiredClasses"&gt;
+                                &lt;!-- NONE --&gt;
+                        &lt;/parameter&gt;
+
+                        &lt;parameter name="api_file"&gt;%core.root_dir%/lib/icinga-api/IcingaApi.php&lt;/parameter&gt;
+
+                        &lt;parameter name="interfaces"&gt;
+
+                                &lt;parameter name="pipe1"&gt;
+                                        &lt;parameter name="enabled"&gt;true&lt;/parameter&gt;
+                                        &lt;parameter name="type"&gt;IcingaApi::COMMAND_PIPE&lt;/parameter&gt;
+
+                                        &lt;parameter name="pipe"&gt;/usr/local/icinga/var/rw/icinga.cmd&lt;/parameter&gt;
+                                &lt;/parameter&gt;
+
+                                &lt;parameter name="ssh1"&gt;
+                                        &lt;parameter name="enabled"&gt;false&lt;/parameter&gt;
+                                        &lt;parameter name="type"&gt;IcingaApi::COMMAND_SSH&lt;/parameter&gt;
+
+                                        &lt;parameter name="ssh_bin"&gt;/usr/bin/ssh&lt;/parameter&gt;
+                                        &lt;parameter name="ssh_user"&gt;icinga&lt;/parameter&gt;
+                                        &lt;parameter name="ssh_host"&gt;127.0.0.15&lt;/parameter&gt;
+                                        &lt;parameter name="ssh_port"&gt;22&lt;/parameter&gt;
+                                        &lt;parameter name="ssh_timeout"&gt;20&lt;/parameter&gt;
+                                        &lt;parameter name="ssh_pipe"&gt;/usr/local/icinga/var/rw/icinga.cmd&lt;/parameter&gt;
+                                &lt;/parameter&gt;
+                        &lt;/parameter&gt;</programlisting>
+
+            <note>
+                <para>After changing those configs you need to clear the config cache again!</para>
+            </note>
+
+            <programlisting># rm -rf app/cache/config/*.php</programlisting>
         </listitem>
 
         <listitem>
@@ -322,14 +409,63 @@ SQL&gt; FLUSH PRIVILEGES;</programlisting>
         </listitem>
 
         <listitem>
-            <para><emphasis role="bold">Try</emphasis></para>
+            <para><emphasis role="bold">Use It!</emphasis></para>
 
-            <para><emphasis role="bold">Please ensure mysql, apache, idoutils and icinga are running!</emphasis></para>
+            <para><emphasis role="bold">Please ensure that your RDBMS, Apache, IDOUtils and Icinga are running!</emphasis></para>
 
             <para>Go to the webpath (http://localhost/icinga-web/) and check if the webinterface starts without exceptions (database connections web
             and api). You can login with user 'root' and password 'password'.</para>
 
-            <para>If if doesn't work then please have a look at the Apache log files.</para>
+            <para>Have fun! :-)</para>
+        </listitem>
+
+        <listitem>
+            <para><emphasis role="bold">Errors ???</emphasis></para>
+
+            <para>The following collection shows some useful information how to resolve errors - and what you should provide when reporting an error
+            to the mailing lists or http://www.icinga-portal.org</para>
+
+            <para> * Always provide the version - actual tar.gz or GIT? </para>
+
+            <para>* Add your browser and the version </para>
+
+            <para>* If the problem is related to the data source, provide extensive information about API, IDOUtils, Core (version, debug logs)
+            </para>
+
+            <para>Where to look? </para>
+
+            <para>* Apache Error Logs, PHP Errors, PHP files cannot be found </para>
+
+            <para>* /var/log/messages, /path/to/icinga/var/icinga.log Changes on Icinga Web Config (e.g. API IDOUtils credentials changed) are not
+            used? </para>
+
+            <para>* Delete the config cache in app/cache/config/*.php </para>
+
+            <para>Icinga Web shows a blank page? </para>
+
+            <para>* Apache Error Logs =&gt; mod_rewrite enabled, php dependencies ok? 'make testdeps' </para>
+
+            <para>* .htaccess/vhost config =&gt; paths not correct? </para>
+
+            <para>Icinga Web does not show any data? </para>
+
+            <para>* Apache Error logs tell that IcingaApi.php was not found =&gt; recheck the install guide if Icinga API is installed and properly
+            configured </para>
+
+            <para>* DB access denied =&gt; check if the icinga web database connection settings are correct </para>
+
+            <para>IDOUtils DB does not get filled with data? </para>
+
+            <para>* "Error writing to data sink" =&gt; check IDOUtils (ido2db runs 2x - ok?), ido2db.cfg debug_level=-1, debug_verbosity=2, restart
+            IDOUtils and look for errors in ido2db.debug </para>
+
+            <para>* Nothing there =&gt; Check icinga.log if IDOMOD gets loaded if not enable the Event Broker Module in icinga.cfg like described in
+            the Icinga Core with IDOUtils install quickstart </para>
+
+            <para>* IDOUtils DB-Schema is the current one? =&gt; If not check the upgrade path and docs of IDOUtils </para>
+
+            <para>* Sockets correctly defined? =&gt; unix-socket or tcp-socket, the last one with or without SSL If you have any updates on that
+            please do not hesitate to report back! :-)</para>
         </listitem>
     </orderedlist>
 
