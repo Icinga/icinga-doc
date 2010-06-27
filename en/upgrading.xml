@@ -54,7 +54,7 @@
   <code>configure</code> requires the same parameters as before - look it up in <code>config.log</code> and save that in a safe
   location.</para>
 
-  <para>Become icinga user. Debian/Ubuntu users might use <code>sudo -s icinga</code>. <programlisting> $ su -l icinga</programlisting> Get
+  <para>Become icinga user. Debian/Ubuntu users might use <code>sudo -s icinga</code>. <programlisting> $&gt; su -l icinga</programlisting> Get
   the latest Icinga version from &url-icinga; and extract it. Then run configure like you did with the old version. <programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils</programlisting>
   Compile the source. <programlisting> #&gt; make all</programlisting> Please make sure that you don't overwrite your configs - always make
   a backup! Don't use <code>make install-config</code> and/or <code>make install-webconf</code> if you want to manually diff the config
@@ -79,12 +79,18 @@
   <itemizedlist>
     <listitem>
       <para>The filename of the main config file has changed from <emphasis>nagios.cfg</emphasis> to <emphasis>icinga.cfg</emphasis>.
-      <literal>mv nagios.cfg icinga.cfg</literal> should be sufficient to change that</para>
+      <literal> #&gt; mv nagios.cfg icinga.cfg</literal> should be sufficient to change that</para>
     </listitem>
 
     <listitem>
       <para>You have to edit the main config file (icinga.cfg) to change the directives named "nagios_user" and "nagios_group" to
       "icinga_user" and "icinga_group" respectively. Depending on the paths you're using you may have to change them as well.</para>
+	  <programlisting> #&gt; sed -i 's/nagios/icinga/g' ./icinga.cfg/</programlisting>
+    </listitem>
+
+    <listitem>
+      <para>You have to edit the CGI config file (cgi.cfg) to change the paths you're using.</para>
+	  <programlisting> #&gt; sed -i 's/nagios/icinga/g' ./cgi.cfg/</programlisting>
     </listitem>
   </itemizedlist>
 

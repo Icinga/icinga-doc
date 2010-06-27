@@ -32,7 +32,7 @@
 
   <para>Werden Sie der icinga-Benutzer. Debian/Ubuntu-Benutzer sollten sudo -s icinga benutzen.</para>
 
-  <programlisting> $ su -l icinga</programlisting>
+  <programlisting> $&gt; su -l icinga</programlisting>
 
   <para>Holen Sie sich das Quellcode-Archiv der letzten &name-icinga;-Version (besuchen Sie &url-icinga; für den Verweis auf die letzte
   Version) und entpacken Sie das Quellcode-Archiv.</para>
@@ -106,8 +106,12 @@
  #&gt; make install-init</screen>
 
   <para>Kopieren Sie Ihre Konfigurationsdateien nach &url-icinga-base;/etc bzw. &url-icinga-base;/etc/object. Benennen Sie die
-  Hauptkonfigurationsdatei <emphasis>nagios.conf</emphasis> in <emphasis>icinga.conf</emphasis> um und ändern Sie in &url-icinga-cfg; die
-  Namen der Direktiven "nagios_user" in "icinga_user" und "nagios_group" in "icinga_group".</para>
+  Hauptkonfigurationsdatei <emphasis>nagios.cfg</emphasis> in <emphasis>icinga.cfg</emphasis> um und ändern Sie in &url-icinga-cfg; die
+  Namen der Direktiven "nagios_user" in "icinga_user" und "nagios_group" in "icinga_group". Das betrifft ggf. auch die Pfade in der Datei.</para>
+  <programlisting> #&gt; sed -i 's/nagios/icinga/g' ./icinga.cfg/</programlisting>
+
+  <para>Ändern Sie in der CGI-Konfigurationsdatei <emphasis>cgi.cfg</emphasis> die Pfad-Angaben.</para>
+	  <programlisting> #&gt; sed -i 's/nagios/icinga/g' ./cgi.cfg/</programlisting>
 
   <para>Überprüfen Sie Ihre Konfigurationsdateien und starten Sie &name-icinga;.</para>
 
