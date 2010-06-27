@@ -4,9 +4,8 @@
 %all.entities;
 ]>
 <section version="5.0" xml:id="upgrading" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="upgrading_nagios" />Upgrading (to) &name-icinga;</title>
 
   <para><emphasis role="bold">Contents</emphasis></para>
@@ -19,23 +18,21 @@
 
   <para><link linkend="upgrading-rpm">Upgrading from an RPM installation</link></para>
 
-  <para><emphasis role="bold"><anchor xml:id="upgrading-icinga" /> Upgrading from previous &name-icinga;
-  Releases</emphasis></para>
+  <para><emphasis role="bold"><anchor xml:id="upgrading-icinga" /> Upgrading from previous &name-icinga; Releases</emphasis></para>
 
-  <para>During development there may be cases where the handling of bugfixes might touch the userspace. We try to avoid this as
-  far as possible but sometimes it is inevitable.</para>
+  <para>During development there may be cases where the handling of bugfixes might touch the userspace. We try to avoid this as far as
+  possible but sometimes it is inevitable.</para>
 
   <para><emphasis role="bold">&name-icinga; 0.8.0 to &name-icinga; &ver-icinga;</emphasis></para>
 
   <para>Archived Logfilename</para>
 
-  <para>There was a small misspelling bug in &name-icinga; 0.8.0 resulting in archived logfile names beginning with a capital
-  <emphasis role="bold">"I"</emphasis> like in <emphasis role="bold">'Icinga-$date'</emphasis>". This was fixed in version 0.8.1.
-  and newer.</para>
+  <para>There was a small misspelling bug in &name-icinga; 0.8.0 resulting in archived logfile names beginning with a capital <emphasis
+  role="bold">"I"</emphasis> like in <emphasis role="bold">'Icinga-$date'</emphasis>". This was fixed in version 0.8.1. and newer.</para>
 
   <para>If you experience this problem then please use the following script to fix the file names</para>
 
-  <programlisting># cd /usr/local/icinga/var/archives
+  <programlisting> #&gt; cd /usr/local/icinga/var/archives
 
  for oldfilename in `find ./ -name "Icinga-*"`
  do
@@ -45,42 +42,56 @@
 
   <para><emphasis role="bold">Normal &name-icinga; update Path</emphasis></para>
 
-  <para>Regular updates of &name-icinga; should be possible just by re-installing &name-icinga; using <screen># ./configure
-# make all
-# make install</screen> Please keep in mind that you have to call ./configure using the same options as during the first
-  time.</para>
+  <para>If there's a new &name-icinga; version available on &url-icinga; you should consider updating. Newer versions contain bugfixes,
+  minor or major, which makes it even more important to get the latest and the greatest. If you already installed &name-icinga; using the
+  quickstart guides it's rather easy to install newer versions. It's also possible to perform that without root privileges by doing an
+  install from source. It highly depends on your likings.</para>
+
+  <para>Make sure you'll have a safe backup of your &name-icinga; installation and configs. If anything goes wrong you can restore your old
+  setup rather easy.</para>
+
+  <para>Regular updates of &name-icinga; are possible by just by re-installing &name-icinga;. Please keep in mind that
+  <code>configure</code> requires the same parameters as before - look it up in <code>config.log</code> and save that in a safe
+  location.</para>
+
+  <para>Become icinga user. Debian/Ubuntu users might use <code>sudo -s icinga</code>. <programlisting> $ su -l icinga</programlisting> Get
+  the latest Icinga version from &url-icinga; and extract it. Then run configure like you did with the old version. <programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils</programlisting>
+  Compile the source. <programlisting> #&gt; make all</programlisting> Please make sure that you don't overwrite your configs - always make
+  a backup! Don't use <code>make install-config</code> and/or <code>make install-webconf</code> if you want to manually diff the config
+  files. <programlisting> #&gt; make install install-base install-cgis install-html install-init install-commandmode install-idoutils</programlisting>
+  or decide what you want to upgrade by just typing 'make' which shows all available options. Check your config and restart Icinga.
+  <programlisting> #&gt; /etc/init.d/icinga checkconfig
+ #&gt; /etc/init.d/icinga restart</programlisting> That's it!</para>
 
   <para><emphasis role="bold"><anchor xml:id="upgrading-nagios3x" /> Upgrading from &name-nagios; 3.x Releases</emphasis></para>
 
-  <para>We try to be compatible with the configuration files of the current &name-nagios; 3.x versions so there should be very
-  little you have to do to "upgrade" from &name-nagios; 3.x to &name-icinga; &ver-icinga;. Assuming you've already installed
-  &name-nagios; from source code as described in the &name-nagios; quickstart guide, you can install &name-icinga; quite
-  easily.</para>
+  <para>We try to be compatible with the configuration files of the current &name-nagios; 3.x versions so there should be very little you
+  have to do to "upgrade" from &name-nagios; 3.x to &name-icinga; &ver-icinga;. Assuming you've already installed &name-nagios; from source
+  code as described in the &name-nagios; quickstart guide, you can install &name-icinga; quite easily.</para>
 
-  <para>Make sure you have a good backup of your existing &name-nagios; installation and configuration files. If anything goes
-  wrong or doesn't work, this will allow you to rollback to your old version.</para>
+  <para>Make sure you have a good backup of your existing &name-nagios; installation and configuration files. If anything goes wrong or
+  doesn't work, this will allow you to rollback to your old version.</para>
 
-  <para>Please install &name-icinga; according to the <link xlink:href="quickstart">quickstart guide</link>. Instead of using
-  "make install-config" copy your configuration files from <emphasis>&lt;Nagios-path&gt;/etc/</emphasis> to
+  <para>Please install &name-icinga; according to the <link xlink:href="quickstart">quickstart guide</link>. Instead of using "make
+  install-config" copy your configuration files from <emphasis>&lt;Nagios-path&gt;/etc/</emphasis> to
   <emphasis>&lt;Icinga-path&gt;/etc/</emphasis>. Before starting &name-icinga; you have to alter some things:</para>
 
   <itemizedlist>
     <listitem>
-      <para>The filename of the main config file has changed from <emphasis>nagios.cfg</emphasis> to
-      <emphasis>icinga.cfg</emphasis>. <literal>mv nagios.cfg icinga.cfg</literal> should be sufficient to change that</para>
+      <para>The filename of the main config file has changed from <emphasis>nagios.cfg</emphasis> to <emphasis>icinga.cfg</emphasis>.
+      <literal>mv nagios.cfg icinga.cfg</literal> should be sufficient to change that</para>
     </listitem>
 
     <listitem>
       <para>You have to edit the main config file (icinga.cfg) to change the directives named "nagios_user" and "nagios_group" to
-      "icinga_user" and "icinga_group" respectively. Depending on the paths you're using you may have to change them as
-      well.</para>
+      "icinga_user" and "icinga_group" respectively. Depending on the paths you're using you may have to change them as well.</para>
     </listitem>
   </itemizedlist>
 
   <para>Verify your configuration files and restart &name-icinga;.</para>
 
-  <screen># &url-icinga-bin; -v &url-icinga-cfg;
- # /etc/init.d/icinga restart</screen>
+  <screen> #&gt; &url-icinga-bin; -v &url-icinga-cfg;
+ #&gt; /etc/init.d/icinga restart</screen>
 
   <para>That's it - you're done!</para>
 
@@ -98,9 +109,9 @@
 
   <para><emphasis role="bold"><anchor xml:id="upgrading-nagios2x" /> Upgrading from &name-nagios; 2.x Releases</emphasis></para>
 
-  <para>It shouldn't be too difficult to upgrade from &name-nagios; 2.x to &name-icinga; &ver-icinga;. The upgrade is essentially
-  the same as what is described above for upgrading from &name-nagios; 3.x releases. You will, however, have to change your
-  configuration files a bit so they work with &name-icinga; &ver-icinga;:</para>
+  <para>It shouldn't be too difficult to upgrade from &name-nagios; 2.x to &name-icinga; &ver-icinga;. The upgrade is essentially the same
+  as what is described above for upgrading from &name-nagios; 3.x releases. You will, however, have to change your configuration files a bit
+  so they work with &name-icinga; &ver-icinga;:</para>
 
   <itemizedlist>
     <listitem>
@@ -115,44 +126,41 @@
     </listitem>
 
     <listitem>
-      <para>The old <emphasis>parallelize</emphasis> directive in service definitions is now deprecated and no longer used, as all
-      service checks are run in parallel.</para>
+      <para>The old <emphasis>parallelize</emphasis> directive in service definitions is now deprecated and no longer used, as all service
+      checks are run in parallel.</para>
     </listitem>
 
     <listitem>
-      <para>The old <emphasis>aggregate_status_updates</emphasis> option has been removed. All status file updates are now
-      aggregated at a minimum interval of 1 second.</para>
+      <para>The old <emphasis>aggregate_status_updates</emphasis> option has been removed. All status file updates are now aggregated at a
+      minimum interval of 1 second.</para>
     </listitem>
 
     <listitem>
-      <para>Extended host and extended service definitions have been deprecated. They are still read and processed by
-      &name-icinga;, but it is recommended that you move the directives found in these definitions to your host and service
-      definitions, respectively.</para>
+      <para>Extended host and extended service definitions have been deprecated. They are still read and processed by &name-icinga;, but it
+      is recommended that you move the directives found in these definitions to your host and service definitions, respectively.</para>
     </listitem>
 
     <listitem>
-      <para>The old <emphasis>downtime_file</emphasis> file variable in the main config file is no longer supported, as scheduled
-      downtime entries are now saved in the <link linkend="configmain-state_retention_file">retention file</link>. To preserve
-      existing downtime entries, stop &name-nagios; 2.x and append the contents of your old downtime file to the retention
-      file.</para>
+      <para>The old <emphasis>downtime_file</emphasis> file variable in the main config file is no longer supported, as scheduled downtime
+      entries are now saved in the <link linkend="configmain-state_retention_file">retention file</link>. To preserve existing downtime
+      entries, stop &name-nagios; 2.x and append the contents of your old downtime file to the retention file.</para>
     </listitem>
 
     <listitem>
-      <para>The old <emphasis>comment_file</emphasis> file variable in the main config file is no longer supported, as comments
-      are now saved in the <link linkend="configmain-state_retention_file">retention file</link>. To preserve existing comments,
-      stop &name-nagios; 2.x and append the contents of your old comment file to the retention file.</para>
+      <para>The old <emphasis>comment_file</emphasis> file variable in the main config file is no longer supported, as comments are now
+      saved in the <link linkend="configmain-state_retention_file">retention file</link>. To preserve existing comments, stop &name-nagios;
+      2.x and append the contents of your old comment file to the retention file.</para>
     </listitem>
   </itemizedlist>
 
-  <para>Also make sure to read the "<link linkend="whatsnew">What's New</link>" section of the documentation. It describes all the
-  changes that were made to the &name-icinga; code since the latest stable release of &name-nagios; 3.0.6. Quite a bit has
-  changed, so make sure you read it over.</para>
+  <para>Also make sure to read the "<link linkend="whatsnew">What's New</link>" section of the documentation. It describes all the changes
+  that were made to the &name-icinga; code since the latest stable release of &name-nagios; 3.0.6. Quite a bit has changed, so make sure you
+  read it over.</para>
 
   <para><emphasis role="bold"><anchor xml:id="upgrading-rpm" /> Upgrading From an RPM Installation</emphasis></para>
 
-  <para>If you currently have an RPM- or Debian/Ubuntu APT package-based installation of &name-nagios; and you would like to
-  transition to installing &name-icinga; from the official source code distribution, here's the basic process you should
-  follow:</para>
+  <para>If you currently have an RPM- or Debian/Ubuntu APT package-based installation of &name-nagios; and you would like to transition to
+  installing &name-icinga; from the official source code distribution, here's the basic process you should follow:</para>
 
   <orderedlist>
     <listitem>
@@ -208,14 +216,13 @@
     </listitem>
 
     <listitem>
-      <para><link linkend="verifyconfig">Verify</link> your configuration and <link linkend="startstop">start</link>
-      &name-icinga;</para>
+      <para><link linkend="verifyconfig">Verify</link> your configuration and <link linkend="startstop">start</link> &name-icinga;</para>
     </listitem>
   </orderedlist>
 
-  <para>Note that different RPMs or APT packages may install &name-icinga; in different ways and in different locations. Make sure
-  you've backed up all your critical &name-nagios; files before removing the original RPM or APT package, so you can revert back
-  if you encounter problems.</para>
+  <para>Note that different RPMs or APT packages may install &name-icinga; in different ways and in different locations. Make sure you've
+  backed up all your critical &name-nagios; files before removing the original RPM or APT package, so you can revert back if you encounter
+  problems.</para>
 
   <indexterm zone="upgrading_nagios">
     <primary>Upgrading</primary>

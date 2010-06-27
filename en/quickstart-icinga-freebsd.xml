@@ -34,7 +34,7 @@
     </listitem>
 
     <listitem>
-      <para>The &name-icinga; web interface will be accessible at <uri>http://localhost/icinga/</uri> or
+      <para>The &name-icinga; classic web interface will be accessible at <uri>http://localhost/icinga/</uri> or
       <uri>http://yourdomain.com/icinga</uri></para>
     </listitem>
   </itemizedlist>
@@ -69,10 +69,10 @@
 
   <para>Please update your ports before doing so.</para>
 
-  <programlisting> # cd /usr/ports/devel/libtool22/ &amp;&amp; make deinstall &amp;&amp; make clean &amp;&amp; make &amp;&amp; make install 
- # cd /usr/ports/graphics/jpeg &amp;&amp; make deinstall &amp;&amp; make clean &amp;&amp; make &amp;&amp; make install
- # cd /usr/ports/graphics/png &amp;&amp; make deinstall &amp;&amp; make clean &amp;&amp; make &amp;&amp; make install
- # cd /usr/ports/graphics/gd &amp;&amp; make deinstall &amp;&amp; make clean &amp;&amp; make &amp;&amp; make install</programlisting>
+  <programlisting> #&gt; cd /usr/ports/devel/libtool22/ &amp;&amp; make deinstall &amp;&amp; make clean &amp;&amp; make &amp;&amp; make install 
+ #&gt; cd /usr/ports/graphics/jpeg &amp;&amp; make deinstall &amp;&amp; make clean &amp;&amp; make &amp;&amp; make install
+ #&gt; cd /usr/ports/graphics/png &amp;&amp; make deinstall &amp;&amp; make clean &amp;&amp; make &amp;&amp; make install
+ #&gt; cd /usr/ports/graphics/gd &amp;&amp; make deinstall &amp;&amp; make clean &amp;&amp; make &amp;&amp; make install</programlisting>
 
   <note>
     <para>Please make sure you have Apache installed - the process will not be discussed here, however the lead is <emphasis># cd
@@ -83,26 +83,26 @@
 
   <para>Become the root user.</para>
 
-  <programlisting> # su -l</programlisting>
+  <programlisting> $&gt; su -l</programlisting>
 
   <para>Create a new <emphasis>icinga</emphasis> user account without a password and without the ability to log-in (set no password when
   asked):</para>
 
-  <programlisting> # adduser -D -w no -s nologin</programlisting>
+  <programlisting> #&gt; adduser -D -w no -s nologin</programlisting>
 
-  <para>For sending commands from the web interface to &name-icinga;, you'll need to create a new group icinga-cmd and add the webuser (www)
-  and the &name-icinga;user to this group:</para>
+  <para>For sending commands from the classic web interface to &name-icinga;, you'll need to create a new group icinga-cmd and add the
+  webuser (www) and the &name-icinga;user to this group:</para>
 
-  <programlisting> # pw groupadd -n icinga-cmd -M icinga,www </programlisting>
+  <programlisting> #&gt; pw groupadd -n icinga-cmd -M icinga,www </programlisting>
 
   <para><emphasis role="bold">Download &name-icinga; and the Plugins</emphasis></para>
 
   <para>Change to your local source directory i.e. ~/src</para>
 
-  <programlisting> # mkdir ~/src
- # cd ~/src</programlisting>
+  <programlisting> #&gt; mkdir ~/src
+ #&gt; cd ~/src</programlisting>
 
-  <para>Either fetch the current icinga-core snapshot from &name-icinga; GIT <programlisting> # git clone git://git.icinga.org/icinga-core.git</programlisting>or
+  <para>Either fetch the current icinga-core snapshot from &name-icinga; GIT <programlisting> #&gt; git clone git://git.icinga.org/icinga-core.git</programlisting>or
   from the <link xlink:href="http://www.icinga.org/">&name-icinga; Website</link> .</para>
 
   <para>Don't forget to download the <link xlink:href="http://www.nagiosplugins.org/">Nagios Plugins</link> .</para>
@@ -111,41 +111,50 @@
 
   <para>Extract the &name-icinga; source code tarball (or change directory to the GIT snapshot)</para>
 
-  <programlisting> # cd ~/src/ 
- # tar xvzf icinga-&ver-icinga;.tar.gz 
- # cd icinga-&ver-icinga;</programlisting>
+  <programlisting> #&gt; cd ~/src/ 
+ #&gt; tar xvzf icinga-&ver-icinga;.tar.gz 
+ #&gt; cd icinga-&ver-icinga;</programlisting>
 
   <para>Run the &name-icinga; configure script. You will get help by using the --help flag.</para>
 
-  <programlisting> # ./configure --with-httpd-conf=/usr/local/etc/apache22/Includes/ --with-gd-lib=/usr/local/lib/ --with-gd-inc=/usr/local/include/ --with-command-group=icinga-cmd</programlisting>
+  <programlisting> #&gt; ./configure --with-httpd-conf=/usr/local/etc/apache22/Includes/ --with-gd-lib=/usr/local/lib/ --with-gd-inc=/usr/local/include/ --with-command-group=icinga-cmd</programlisting>
 
   <para>Compile the &name-icinga; source code. To see available options, only use "make".</para>
 
-  <programlisting> # make all</programlisting>
+  <programlisting> #&gt; make all</programlisting>
 
-  <para>Install binaries, init script, sample config files and set permissions on the external command directory. <programlisting> # make install 
- # make install-init 
- # make install-config 
- # make install-commandmode </programlisting> or shorter <programlisting> # make fullinstall</programlisting></para>
-<para>The Icinga API will be installed during "make install", if you are required to install it manually, try: <programlisting> # make install-api</programlisting>
-    This will be mandatory for Icinga Web.</para>
+  <para>Install binaries, init script, sample config files and set permissions on the external command directory. <programlisting> #&gt; make install 
+ #&gt; make install-init 
+ #&gt; make install-config 
+ #&gt; make install-commandmode </programlisting> or shorter <programlisting> #&gt; make fullinstall</programlisting></para>
+
+  <para>The Icinga-API will be installed during "make install" so if you are required to install it manually please try: <programlisting> #&gt; make install-api</programlisting>This
+  will be mandatory for Icinga Web.</para>
 
   <para>Don't start &name-icinga; yet - there's still more that needs to be done...</para>
 
-  <para><emphasis role="bold">Customize Configuration</emphasis></para>
+  <para><emphasis role="bold">Customise Configuration</emphasis></para>
 
-  <para>Sample configuration files have been installed using <programlisting> # make install-config</programlisting>into
+  <para>Sample configuration files have been installed using <programlisting> #&gt; make install-config</programlisting>into
   &url-icinga-base;/etc/. You'll need to make just one change before you proceed...</para>
 
   <para>Edit the <emphasis>&url-icinga-base;/etc/objects/contacts.cfg</emphasis> config file with your favourite editor and change the email
   address associated with the <emphasis>icingaadmin</emphasis> contact definition to the address you'd like to use for receiving
   alerts.</para>
 
-  <programlisting> # vi &url-icinga-base;/etc/objects/contacts.cfg</programlisting>
+  <programlisting> #&gt; vi &url-icinga-base;/etc/objects/contacts.cfg</programlisting>
 
-  <para><emphasis role="bold">Configure the Web Interface</emphasis></para>
+  <para><emphasis role="bold">Install and configure the Classic Web Interface</emphasis></para>
 
-  <para>Install the &name-icinga; web config file in the Apache configuration directory.</para>
+  <para>&name-icinga; ships with the Classic Web Interface ("the CGIs") which can be installed via</para>
+
+  <programlisting> #&gt; make cgis
+ #&gt; make install-cgis</programlisting>
+
+  <para>If you are interested in the new &name-icinga; Web, please refer to <link linkend="icinga-web-scratch">Install &name-icinga; Web
+  Interface</link>.</para>
+
+  <para>Install the Icinga Classic web config file in the Apache conf.d directory.</para>
 
   <note>
     <para>There is currently a bug in &name-icinga; Makefile which directly prevents this <emphasis>make</emphasis> command, please edit
@@ -153,53 +162,53 @@
     to <programlisting> $(INSTALL) -m 644 sample-config/httpd.conf $(DESTDIR)$(HTTPD_CONF)/icinga.conf</programlisting></para>
   </note>
 
-  <programlisting> # make install-webconf</programlisting>
+  <programlisting> #&gt; make install-webconf</programlisting>
 
-  <para>Create an <emphasis>icingaadmin</emphasis> account for logging into the Icinga web interface. If you want to change it later, use
-  the same command. Remember the password you assign to this account - you'll need it later.</para>
+  <para>Create an <emphasis>icingaadmin</emphasis> account for logging into the &name-icinga; classic web interface. If you want to change
+  it later, use the same command. Remember the password you assign to this account - you'll need it later.</para>
 
-  <programlisting> # htpasswd -c &url-icinga-base;/etc/htpasswd.users icingaadmin</programlisting>
+  <programlisting> #&gt; htpasswd -c &url-icinga-base;/etc/htpasswd.users icingaadmin</programlisting>
 
   <para>If you want to change it later or want to add another user, use the following command:</para>
 
-  <programlisting> # htpasswd &url-icinga-base;/etc/htpasswd.users &lt;USERNAME&gt;</programlisting>
+  <programlisting> #&gt; htpasswd &url-icinga-base;/etc/htpasswd.users &lt;USERNAME&gt;</programlisting>
 
   <para>Reload/Restart Apache to make the new settings take effect.</para>
 
-  <programlisting> # /usr/local/etc/rc.d/apache22 reload</programlisting>
+  <programlisting> #&gt; /usr/local/etc/rc.d/apache22 reload</programlisting>
 
   <para><emphasis role="bold">Compile and Install the Nagios Plugins</emphasis></para>
 
   <para>Extract the &name-nagios; plugins source code tarball.</para>
 
-  <programlisting> # cd ~/src 
- # tar xvzf nagios-plugins-&ver-nagiosplug;.tar.gz
- # cd nagios-plugins-&ver-nagiosplug; </programlisting>
+  <programlisting> #&gt; cd ~/src 
+ #&gt; tar xvzf nagios-plugins-&ver-nagiosplug;.tar.gz
+ #&gt; cd nagios-plugins-&ver-nagiosplug; </programlisting>
 
   <para>Compile and install the plugins by changing install directory to &url-icinga-base;</para>
 
-  <programlisting> # ./configure --prefix=&url-icinga-base; --with-nagios-user=icinga 
- # make 
- # make install </programlisting>
+  <programlisting> #&gt; ./configure --prefix=&url-icinga-base; --with-nagios-user=icinga 
+ #&gt; make 
+ #&gt; make install </programlisting>
 
   <para><emphasis role="bold">Start &name-icinga;</emphasis></para>
 
   <para>Add &name-icinga; to the list of system services and have it automatically start when the system boots (make sure you have installed
   the init script before).</para>
 
-  <programlisting> # echo icinga_enable=\"YES\" &gt;&gt; /etc/rc.conf</programlisting>
+  <programlisting> #&gt; echo icinga_enable=\"YES\" &gt;&gt; /etc/rc.conf</programlisting>
 
   <para>Verify the sample &name-icinga; configuration files.</para>
 
-  <programlisting> # &url-icinga-bin; -v &url-icinga-cfg;</programlisting>
+  <programlisting> #&gt; &url-icinga-bin; -v &url-icinga-cfg;</programlisting>
 
   <para>If there are no errors, start &name-icinga;.</para>
 
-  <programlisting> # /usr/local/etc/rc.d/icinga start</programlisting>
+  <programlisting> #&gt; /usr/local/etc/rc.d/icinga start</programlisting>
 
-  <para><emphasis role="bold">Login to the Web Interface</emphasis></para>
+  <para><emphasis role="bold">Login to the Classic Web Interface</emphasis></para>
 
-  <para>You should now be able to access the &name-icinga; web interface at the URL below. You'll be prompted for the username (
+  <para>You should now be able to access the &name-icinga; classic web interface at the URL below. You'll be prompted for the username (
   <emphasis>icingaadmin</emphasis>) and password you specified earlier.</para>
 
   <programlisting> http://localhost/icinga/</programlisting>
@@ -214,9 +223,9 @@
   <para><emphasis role="bold">Other Modifications</emphasis></para>
 
   <para>Make sure your system's firewall rules are configured to allow access to the web server if you want to access the &name-icinga;
-  interface remotely.</para>
+  classic interface remotely.</para>
 
-  <programlisting>TCP port 80</programlisting>
+  <programlisting> TCP port 80</programlisting>
 
   <para>Setting up your mail transfer agent (MTA) like exim, sendmail or postfix to allow &name-icinga; sending notification emails won't be
   explained here.</para>
@@ -232,6 +241,7 @@
 
   <indexterm zone="quickstart-icinga-freebsd">
     <primary>Quickstart</primary>
-	<secondary>&name-icinga; on &name-freebsd;</secondary>
+
+    <secondary>&name-icinga; on &name-freebsd;</secondary>
   </indexterm>
 </section>

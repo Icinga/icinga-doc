@@ -6,147 +6,147 @@
 <section version="5.0" xml:id="icinga-web-scratch" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-    <title>Installation of the &name-web;</title>
+  <title>Installation of the &name-web;</title>
 
-    <para><emphasis role="bold">Introducion</emphasis></para>
+  <para><emphasis role="bold">Introducion</emphasis></para>
 
-    <para>The new Icinga Web is under heavy development so please keep in mind that some information in this howto might change without any further
-    notice. If you require more detailed information about installing, please check doc/INSTALL. More information about the overall architecture can
-    be found on our website: <link xlink:href="http://www.icinga.org/architecture/">&url-icinga;architecture/</link> If you want know more about
-    Icinga web development and the module architecture, please check out the development wiki of Icinga Web: <link
-    xlink:href="https://dev.icinga.org/projects/icinga-web/wiki/">&url-icinga-wiki;</link></para>
+  <para>The new Icinga Web is under heavy development so please keep in mind that some information in this howto might change without any
+  further notice. If you require more detailed information about installing, please check doc/INSTALL. More information about the overall
+  architecture can be found on our website: <link xlink:href="http://www.icinga.org/architecture/">&url-icinga;architecture/</link>. If you
+  want know more about Icinga web development and the module architecture, please check out the development wiki of Icinga Web: <link
+  xlink:href="https://dev.icinga.org/projects/icinga-web/wiki/">&url-icinga-wiki;</link></para>
 
-    <orderedlist>
-        <listitem>
-            <para><emphasis role="bold">Prerequisites</emphasis></para>
+  <orderedlist>
+    <listitem>
+      <para><emphasis role="bold">Prerequisites</emphasis></para>
 
-            <para>Based on the fact that you have a running mysql and php (with PEAR and CLI) environment and Icinga, Icinga-API and IDOUtils are
-            running as well you can continue with the second step. Otherwise:</para>
+      <para>Based on the fact that you have a running MySQL and PHP (with PEAR and CLI) environment and Icinga, Icinga-API and IDOUtils are
+      running as well you can continue with the second step. Otherwise:</para>
 
-            <para><emphasis role="bold">Ubuntu / Debian</emphasis></para>
+      <para><emphasis role="bold">Ubuntu / Debian</emphasis></para>
 
-            <programlisting> # apt-get install php5-cli php-pear php5-xmlrpc php5-xsl</programlisting>
+      <programlisting> #&gt; apt-get install php5-cli php-pear php5-xmlrpc php5-xsl</programlisting>
 
-            <para><emphasis role="bold">Fedora / RHEL / CentOS</emphasis></para>
+      <para><emphasis role="bold">Fedora / RHEL / CentOS</emphasis></para>
 
-            <para><programlisting> # yum install php-cli php-pear php-xmlrpc php-xsl</programlisting></para>
+      <para><programlisting> #&gt; yum install php-cli php-pear php-xmlrpc php-xsl</programlisting></para>
 
-            <note>
-                <para>Currently, RHEL and CentOS provide old php 5.1.6 and pcre 6.6 packages. For running Icinga web you need at least php 5.2.3 and
-                pcre 7.6 - you can use an external repository, pre-built packages or compile php and pcre by yourself.Precompiled PCRE and PHP packages can be installed e.g. from <link xlink:href=http://www.jasonlitka.com/category/yum-repo-news/>http://www.jasonlitka.com/category/yum-repo-news/</link>
-</para>
-            </note>
+      <note>
+        <para>Currently, RHEL and CentOS provide old PHP 5.1.6 and PCRE 6.6 packages. For running Icinga web you need at least PHP 5.2.3 and
+        PCRE 7.6 - you can use an external repository, pre-built packages or compile PHP and PCRE by yourself. Precompiled PCRE and PHP
+        packages can be installed e.g. from <link
+        xlink:href="http://www.jasonlitka.com/category/yum-repo-news">http://www.jasonlitka.com/category/yum-repo-news/</link></para>
+      </note>
 
-            <para><emphasis role="bold">OpenSuSE</emphasis></para>
+      <para><emphasis role="bold">OpenSuSE</emphasis></para>
 
-            <para>Please use yast to install the packages "php5-pear", "php5-xmlrpc", "php5-xsl", "php5-&lt;rdbm&gt;", "php5-soap", "php5-gettext",
-            "php5-ldap" und "php5-gd". The CLI is contained in the php5 package.</para>
+      <para>Please use yast to install the packages "php5-pear", "php5-xmlrpc", "php5-xsl", "php5-&lt;rdbm&gt;", "php5-soap",
+      "php5-gettext", "php5-ldap" und "php5-gd". The CLI is contained in the php5 package.</para>
 
-            <para><note>
-                    <para>At least in SLES10 SP2 the function "hash_hmac" is missing.</para>
-                </note></para>
+      <para><note>
+          <para>At least in SLES10 SP2 the function "hash_hmac" is missing.</para>
+        </note></para>
 
-            <para>Installing Icinga with IDOUtils and Icinga-API is described in the <link linkend="quickstart">Icinga Quickstart Guide</link> and the
-            <link linkend="icinga-api">Icinga-API</link> section.</para>
+      <para>Installing Icinga with IDOUtils and Icinga-API is described in the <link linkend="quickstart">Icinga Quickstart Guide</link> and
+      the <link linkend="icinga-api">Icinga-API</link> section.</para>
 
-            <para>Take your clone from the icinga-web.git to get a fresh branch</para>
+      <para>Take your clone from the icinga-web.git to get a fresh branch</para>
 
-            <programlisting> # git clone git://git.icinga.org/icinga-web.git</programlisting>
-        </listitem>
+      <programlisting> #&gt; git clone git://git.icinga.org/icinga-web.git</programlisting>
+    </listitem>
 
-        <listitem>
-            <para><emphasis role="bold">The installation</emphasis></para>
+    <listitem>
+      <para><emphasis role="bold">The installation</emphasis></para>
 
-            <para>If you downloaded an archive (the tarball) then please unpack it first:</para>
+      <para>If you downloaded an archive (the tarball) then please unpack it first:</para>
 
-            <programlisting> # tar xzvf icinga-web-&ver-icingaweb;.tar.gz
-</programlisting>
+      <programlisting> #&gt; tar xzvf icinga-web-&ver-icingaweb;.tar.gz</programlisting>
 
-            <para>Then change to the directory:</para>
+      <para>Then change to the directory:</para>
 
-            <programlisting> # cd icinga-web</programlisting>
+      <programlisting> #&gt; cd icinga-web</programlisting>
 
-            <para>&name-web; provides several configure options e.g.</para>
+      <para>&name-web; provides several configure options e.g.</para>
 
-            <programlisting> # ./configure
-                        --prefix=/usr/local/icinga-web
-                        --with-web-user=www-data
-                        --with-web-group=www-data
-                        --with-db-type=mysql
-                        --with-db-host=localhost
-                        --with-db-port=3306
-                        --with-db-name=icinga_web
-                        --with-db-user=icinga_web
-                        --with-db-pass=icinga_web
-                        --with-icinga-api=/usr/local/icinga/share/icinga-api </programlisting>
+      <programlisting> #&gt; ./configure
+                --prefix=/usr/local/icinga-web
+                --with-web-user=www-data
+                --with-web-group=www-data
+                --with-db-type=mysql
+                --with-db-host=localhost
+                --with-db-port=3306
+                --with-db-name=icinga_web
+                --with-db-user=icinga_web
+                --with-db-pass=icinga_web
+                --with-icinga-api=/usr/local/icinga/share/icinga-api </programlisting>
 
-            <note>
-                <para>Keep in mind that you configure the Icinga Web database not the Icinga IDOUtils database!</para>
-            </note>
+      <note>
+        <para>Keep in mind that you configure the Icinga Web database not the Icinga IDOUtils database!</para>
+      </note>
 
-            <para>Please use:</para>
+      <para>Please use:</para>
 
-            <programlisting> # ./configure --help</programlisting>
+      <programlisting> #&gt; ./configure --help</programlisting>
 
-            <para>to see all configure options.</para>
+      <para>to see all configure options.</para>
 
-            <para>Per default the &name-icingaweb; will be installed to /usr/local/icinga-web using:</para>
+      <para>Per default the &name-icingaweb; will be installed to /usr/local/icinga-web using:</para>
 
-            <programlisting> # ./configure
- # make install</programlisting>
+      <programlisting> #&gt; ./configure
+ #&gt; make install</programlisting>
 
-            <note>
-                <para>Using no options the installer expects the icinga-API to be found at /usr/local/icinga-api but you can use the option
-                "--with-icinga-api" to specify another location. If you installed Icinga using the quickstart guide you should use the following
-                syntax:</para>
-            </note>
+      <note>
+        <para>Using no options the installer expects the icinga-API to be found at /usr/local/icinga-api but you can use the option
+        "--with-icinga-api" to specify another location. If you installed Icinga using the quickstart guide you should use the following
+        syntax:</para>
+      </note>
 
-            <programlisting> # ./configure --with-icinga-api=/usr/local/icinga/share/icinga-api</programlisting>
-        </listitem>
+      <programlisting> #&gt; ./configure --with-icinga-api=/usr/local/icinga/share/icinga-api</programlisting>
+    </listitem>
 
-        <listitem>
-            <para><emphasis role="bold">PHP dependencies</emphasis></para>
+    <listitem>
+      <para><emphasis role="bold">PHP dependencies</emphasis></para>
 
-            <para>Test the php dependencies with:</para>
+      <para>Test the php dependencies with:</para>
 
-            <programlisting> # make testdeps</programlisting>
+      <programlisting> #&gt; make testdeps</programlisting>
 
-            <para>All required tests should pass successfully. Maybe you have to alter the php.ini for the framework.</para>
+      <para>All required tests should pass successfully. Maybe you have to alter the php.ini for the framework.</para>
 
-            <para>In case of the gpc_magic_quote setting, you have to disable both entries (apache and cli php.ini). The locations depend on the
-            distributions used.</para>
+      <para>In case of the gpc_magic_quote setting, you have to disable both entries (apache and cli php.ini). The locations depend on the
+      distributions used.</para>
 
-            <programlisting> # vi /etc/php5/apache/php.ini
+      <programlisting> #&gt; vi /etc/php5/apache/php.ini
    magic_quotes_gpc = off
 
- # vi /etc/php5/cli/php.ini
+ #&gt; vi /etc/php5/cli/php.ini
    magic_quotes_gpc = off</programlisting>
 
-            <note>
-                <para>If one of these files is missing you'll get an agavi error complaining about the setting of "magic_quotes_qpc" because the
-                default is "ON".</para>
-            </note>
-        </listitem>
+      <note>
+        <para>If one of these files is missing you'll get an agavi error complaining about the setting of "magic_quotes_qpc" because the
+        default is "ON".</para>
+      </note>
+    </listitem>
 
-        <listitem>
-            <para><emphasis role="bold">Database creation</emphasis></para>
+    <listitem>
+      <para><emphasis role="bold">Database creation</emphasis></para>
 
-            <para>Icinga Web requires its own database e.g. icinga_web. You can use the one from Icinga IDOUtils but it is recommended to keep this
-            seperated for upgrading purposes.</para>
+      <para>Icinga Web requires its own database e.g. icinga_web. You can use the one from Icinga IDOUtils but it is recommended to keep
+      this separated for upgrading purposes.</para>
 
-            <para><emphasis role="bold">Create a database user</emphasis></para>
+      <para><emphasis role="bold">Create a database user</emphasis></para>
 
-            <para>The user must have default data privileges like SELECT, UPDATE, INSERT, DELETE.</para>
+      <para>The user must have default data privileges like SELECT, UPDATE, INSERT, DELETE.</para>
 
-            <para></para>
+      <para></para>
 
-            <programlisting>SQL&gt; GRANT USAGE ON *.* TO 'icinga_web'@'localhost' IDENTIFIED BY 'icinga_web';
-SQL&gt; GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER, INDEX ON icinga_web.* TO 'icinga_web'@'localhost';
-SQL&gt; FLUSH PRIVILEGES;</programlisting>
+      <programlisting> SQL&gt; GRANT USAGE ON *.* TO 'icinga_web'@'localhost' IDENTIFIED BY 'icinga_web';
+ SQL&gt; GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER, INDEX ON icinga_web.* TO 'icinga_web'@'localhost';
+ SQL&gt; FLUSH PRIVILEGES;</programlisting>
 
-            <para><emphasis role="bold">&name-mysql;</emphasis></para>
+      <para><emphasis role="bold">&name-mysql;</emphasis></para>
 
-            <programlisting># mysql -u root -p
+      <programlisting> #&gt; mysql -u root -p
   
  mysql&gt; CREATE DATABASE icinga_web;
   
@@ -158,52 +158,52 @@ SQL&gt; FLUSH PRIVILEGES;</programlisting>
 
  quit</programlisting>
 
-            <para><emphasis role="bold">Create Database</emphasis></para>
+      <para><emphasis role="bold">Create Database</emphasis></para>
 
-            <para>Icinga Web ships with Doctrine so you can initialize, upgrade or drop the database directly using 'make'.</para>
+      <para>Icinga Web ships with Doctrine so you can initialise, upgrade or drop the database directly using 'make'.</para>
 
-            <programlisting># make db-initialize      - creates a spick-and-span database</programlisting>
+      <programlisting> #&gt; make db-initialize      - creates a spick-and-span database</programlisting>
 
-            <programlisting># make db-drop            - drops your database with a security query to avoid casualties</programlisting>
+      <programlisting> #&gt; make db-drop            - drops your database with a security query to avoid casualties</programlisting>
 
-            <programlisting># make db-upgrade         - upgrades old tables to a newer version (Just the same as db-initialize with a better name ;-))</programlisting>
+      <programlisting> #&gt; make db-upgrade         - upgrades old tables to a newer version (Just the same as db-initialize with a better name ;-))</programlisting>
 
-            <programlisting># make db-doc2sql         - if you require plain SQL scripts, use this option to generate SQL from Doctrine. This can be useful for packaging or manual db install</programlisting>
+      <programlisting> #&gt; make db-doc2sql         - if you require plain SQL scripts, use this option to generate SQL from Doctrine. This can be useful for packaging or manual db install</programlisting>
 
-            <para>To use the database creation commands you have to grant privileges to the user who will execute the commands on your dbms. If the
-            user defined via configure is a low-privileged one, 'make' asks about a more privileged one e.g. a root user. If this does not work for
-            you, alter 'etc/build.properties' to match the requirements of a root user.</para>
+      <para>To use the database creation commands you have to grant privileges to the user who will execute the commands on your dbms. If
+      the user defined via configure is a low-privileged one, 'make' asks about a more privileged one e.g. a root user. If this does not
+      work for you, alter 'etc/build.properties' to match the requirements of a root user.</para>
 
-            <para>So a simple database install looks like this:</para>
+      <para>So a simple database install looks like this:</para>
 
-            <programlisting> # make db-initialize</programlisting>
+      <programlisting> #&gt; make db-initialize</programlisting>
 
-            <para><emphasis role="bold">Manually create Database</emphasis></para>
+      <para><emphasis role="bold">Manually create Database</emphasis></para>
 
-            <para>If you require manual database creation e.g. for package building, you can extract the plain SQL scripts using:</para>
+      <para>If you require manual database creation e.g. for package building, you can extract the plain SQL scripts using:</para>
 
-            <programlisting> # make db-doc2sql</programlisting>
+      <programlisting> #&gt; make db-doc2sql</programlisting>
 
-            <para>and then use the generated scripts on the freshly created database.</para>
-        </listitem>
+      <para>and then use the generated scripts on the freshly created database.</para>
+    </listitem>
 
-        <listitem>
-            <para><emphasis role="bold">Settings</emphasis></para>
+    <listitem>
+      <para><emphasis role="bold">Settings</emphasis></para>
 
-            <para>There are 2 different sections:</para>
+      <para>There are two different sections:</para>
 
-            <para>* Settings of Icinga Web, escpecially database settings</para>
+      <para>* Settings of Icinga Web, escpecially database settings</para>
 
-            <para>* Settings of the Icinga API which is mandatory as data source</para>
+      <para>* Settings of the Icinga API which is mandatory as data source</para>
 
-            <para><emphasis role="bold">Settings of &name-web;</emphasis></para>
+      <para><emphasis role="bold">Settings of &name-web;</emphasis></para>
 
-            <para>Normally you can set the database credentials during configure, but if you want to recheck or even change them, please adapt those
-            for your needs.</para>
+      <para>Normally you can set the database credentials during configure, but if you want to recheck or even change them, please adapt
+      those to your needs.</para>
 
-            <programlisting> # vi  app/config/databases.xml</programlisting>
+      <programlisting> #&gt; vi  app/config/databases.xml</programlisting>
 
-            <para><programlisting>    &lt;databases default="icinga_web"&gt;
+      <para><programlisting>    &lt;databases default="icinga_web"&gt;
                         &lt;database name="icinga_web" class="AgaviDoctrineDatabase"&gt;
 
                                 &lt;!--
@@ -234,19 +234,19 @@ SQL&gt; FLUSH PRIVILEGES;</programlisting>
 
                         &lt;/database&gt;</programlisting></para>
 
-            <para><emphasis role="bold">Settings of &name-api;</emphasis></para>
+      <para><emphasis role="bold">Settings of &name-api;</emphasis></para>
 
-            <para>Those settings are directly within &name-web; which provides the given information in an appropriate way to the &name-api;. Keep a
-            look into app/modules/Web/config/module.xml for the IcingaApi factories: IcingaData and IcingaCommand.</para>
+      <para>Those settings are directly within &name-web; which provides the given information in an appropriate way to the &name-api;. Keep
+      a look into app/modules/Web/config/module.xml for the IcingaApi factories: IcingaData and IcingaCommand.</para>
 
-            <programlisting># vi app/modules/Web/config/module.xml</programlisting>
+      <programlisting> #&gt; vi app/modules/Web/config/module.xml</programlisting>
 
-            <para>In IcingaData you can set the credentials for the Icinga API e.g. using the Icinga IDOUtils database.</para>
+      <para>In IcingaData you can set the credentials for the Icinga API e.g. using the Icinga IDOUtils database.</para>
 
-            <para>Please keep in mind that you have to install &name-idoutils; before (according to the <link linkend="quickstart-idoutils">Icinga
-            IDOUtils Quickstart Guide</link> )</para>
+      <para>Please keep in mind that you have to install &name-idoutils; before (according to the <link linkend="quickstart-idoutils">Icinga
+      IDOUtils Quickstart Guide</link> )</para>
 
-            <programlisting>  &lt;!-- icinga-api data interface --&gt;
+      <programlisting>  &lt;!-- icinga-api data interface --&gt;
                 &lt;parameter name="IcingaData"&gt;
                         &lt;parameter name="class"&gt;IcingaData&lt;/parameter&gt;
                         &lt;parameter name="file"&gt;%core.root_dir%/app/lib/icinga/factory/IcingaData.class.php&lt;/parameter&gt;
@@ -274,10 +274,10 @@ SQL&gt; FLUSH PRIVILEGES;</programlisting>
                         &lt;parameter name="config_table_prefix"&gt;icinga_&lt;/parameter&gt;
                 &lt;/parameter&gt;</programlisting>
 
-            <para>In IcingaCommand you can specify the credentials for sending commands via Icinga Core command pipe - local or remote via SSH.
-            Depending on 'enabled' those interfaces can be used or not (default is the local pipe).</para>
+      <para>In IcingaCommand you can specify the credentials for sending commands via Icinga Core command pipe - local or remote via SSH.
+      Depending on 'enabled' those interfaces can be used or not (default is the local pipe).</para>
 
-            <programlisting>&lt;parameter name="IcingaCommand"&gt;
+      <programlisting> &lt;parameter name="IcingaCommand"&gt;
                         &lt;parameter name="class"&gt;IcingaCommand&lt;/parameter&gt;
                         &lt;parameter name="file"&gt;%core.root_dir%/app/lib/icinga/factory/IcingaCommand.class.php&lt;/parameter&gt;
 
@@ -309,38 +309,38 @@ SQL&gt; FLUSH PRIVILEGES;</programlisting>
                                 &lt;/parameter&gt;
                         &lt;/parameter&gt;</programlisting>
 
-            <note>
-                <para>After changing those configs you need to clear the config cache again!</para>
-            </note>
+      <note>
+        <para>After changing those configs you need to clear the config cache again!</para>
+      </note>
 
-            <programlisting># rm -rf app/cache/config/*.php</programlisting>
-        </listitem>
+      <programlisting> #&gt; rm -rf app/cache/config/*.php</programlisting>
+    </listitem>
 
+    <listitem>
+      <para><emphasis role="bold">Apache settings</emphasis></para>
+
+      <para>This should be prepared:</para>
+
+      <itemizedlist>
         <listitem>
-            <para><emphasis role="bold">Apache settings</emphasis></para>
+          <para>mod_rewrite enabled, maybe you have to create a link:</para>
+        </listitem>
+      </itemizedlist>
 
-            <para>This should be prepared:</para>
+      <para><programlisting> #&gt; ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load</programlisting></para>
 
-            <itemizedlist>
-                <listitem>
-                    <para>mod_rewrite enabled, maybe you have to create a link:</para>
-                </listitem>
-            </itemizedlist>
+      <para>Using OpenSuSE you can use "a2enmod rewrite" to activate the module. If that doesn't work you have to edit the file
+      "/etc/sysconfig/apache2". The module "rewrite" has to be appended to the line "APACHE_MODULES=...".</para>
 
-            <para><programlisting> # ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load</programlisting></para>
+      <itemizedlist>
+        <listitem>
+          <para>Any htaccess enabled alias settings</para>
+        </listitem>
+      </itemizedlist>
 
-            <para>Using OpenSuSE you can use "a2enmod rewrite" to activate the module. If that doesn't work you have to edit the file
-            "/etc/sysconfig/apache2". The module "rewrite" has to be appended to the line "APACHE_MODULES=...".</para>
+      <para>Edit your .htaccess in /usr/local/icinga-web/pub:</para>
 
-            <itemizedlist>
-                <listitem>
-                    <para>Any htaccess enabled alias settings</para>
-                </listitem>
-            </itemizedlist>
-
-            <para>Edit your .htaccess in /usr/local/icinga-web/pub:</para>
-
-            <para>At line 14, change the RewriteBase direction to suit your needs:<programlisting> DirectoryIndex index.php
+      <para>At line 14, change the RewriteBase direction to suit your needs:<programlisting> DirectoryIndex index.php
 
  Options -MultiViews -Indexes +FollowSymLinks
  Order allow,deny
@@ -384,97 +384,97 @@ SQL&gt; FLUSH PRIVILEGES;</programlisting>
  #       require valid-user
  #&lt;/IfModule&gt;</programlisting></para>
 
-            <para>Go to the webservers configuration directory and create a new alias (maybe in /etc/apache2/conf.d/icinga-web.conf) :</para>
+      <para>Go to the webservers configuration directory and create a new alias (maybe in /etc/apache2/conf.d/icinga-web.conf) :</para>
 
-            <para><programlisting> # vi /etc/apache2/conf.d/icinga-web.conf
+      <para><programlisting> #&gt; vi /etc/apache2/conf.d/icinga-web.conf
   Alias /icinga-web /usr/local/icinga-web/pub
   &lt;directory /usr/local/icinga-web/pub&gt;
         AllowOverride All
   &lt;/directory&gt;</programlisting></para>
 
-            <para>Clear cache:</para>
+      <para>Clear cache:</para>
 
-            <para><programlisting> # rm /usr/local/icinga-web/app/cache/config/*.php</programlisting></para>
+      <para><programlisting> #&gt; rm /usr/local/icinga-web/app/cache/config/*.php</programlisting></para>
 
-            <para>Restart your Webserver:</para>
+      <para>Restart your Webserver:</para>
 
-            <para><programlisting> # service apache2 restart</programlisting></para>
+      <para><programlisting> #&gt; service apache2 restart</programlisting></para>
 
-            <para>or</para>
+      <para>or</para>
 
-            <para><programlisting> # /etc/init.d/apache2 restart</programlisting></para>
+      <para><programlisting> #&gt; /etc/init.d/apache2 restart</programlisting></para>
 
-            <para>or</para>
+      <para>or</para>
 
-            <programlisting> # /etc/init.d/httpd restart</programlisting>
-        </listitem>
+      <programlisting> #&gt; /etc/init.d/httpd restart</programlisting>
+    </listitem>
 
-        <listitem>
-            <para><emphasis role="bold">Use It!</emphasis></para>
+    <listitem>
+      <para><emphasis role="bold">Use It!</emphasis></para>
 
-            <para><emphasis role="bold">Please ensure that your RDBMS, Apache, IDOUtils and Icinga are running!</emphasis></para>
+      <para><emphasis role="bold">Please ensure that your RDBMS, Apache, IDOUtils and Icinga are running!</emphasis></para>
 
-            <para>Go to the webpath (http://localhost/icinga-web/) and check if the webinterface starts without exceptions (database connections web
-            and api). You can login with user 'root' and password 'password'.</para>
+      <para>Go to the webpath (http://localhost/icinga-web/) and check if the webinterface starts without exceptions (database connections
+      web and api). You can login with user 'root' and password 'password'.</para>
 
-            <para>Have fun! :-)</para>
-        </listitem>
+      <para>Have fun! :-)</para>
+    </listitem>
 
-        <listitem>
-            <para><emphasis role="bold">Errors ???</emphasis></para>
+    <listitem>
+      <para><emphasis role="bold">Errors ???</emphasis></para>
 
-            <para>The following collection shows some useful information how to resolve errors - and what you should provide when reporting an error
-            to the mailing lists or http://www.icinga-portal.org</para>
+      <para>The following collection shows some useful information how to resolve errors - and what you should provide when reporting an
+      error to the mailing lists or http://www.icinga-portal.org</para>
 
-            <para> * Always provide the version - actual tar.gz or GIT? </para>
+      <para>* Always provide the version - actual tar.gz or GIT?</para>
 
-            <para>* Add your browser and the version </para>
+      <para>* Add your browser and the version</para>
 
-            <para>* If the problem is related to the data source, provide extensive information about API, IDOUtils, Core (version, debug logs)
-            </para>
+      <para>* If the problem is related to the data source, provide extensive information about API, IDOUtils, Core (version, debug
+      logs)</para>
 
-            <para>Where to look? </para>
+      <para>Where to look?</para>
 
-            <para>* Apache Error Logs, PHP Errors, PHP files cannot be found </para>
+      <para>* Apache Error Logs, PHP Errors, PHP files cannot be found</para>
 
-            <para>* /var/log/messages, /path/to/icinga/var/icinga.log Changes on Icinga Web Config (e.g. API IDOUtils credentials changed) are not
-            used? </para>
+      <para>* /var/log/messages, /path/to/icinga/var/icinga.log Changes on Icinga Web Config (e.g. API IDOUtils credentials changed) are not
+      used?</para>
 
-            <para>* Delete the config cache in app/cache/config/*.php </para>
+      <para>* Delete the config cache in app/cache/config/*.php</para>
 
-            <para>Icinga Web shows a blank page? </para>
+      <para>Icinga Web shows a blank page?</para>
 
-            <para>* Apache Error Logs =&gt; mod_rewrite enabled, php dependencies ok? 'make testdeps' </para>
+      <para>* Apache Error Logs =&gt; mod_rewrite enabled, php dependencies ok? 'make testdeps'</para>
 
-            <para>* .htaccess/vhost config =&gt; paths not correct? </para>
+      <para>* .htaccess/vhost config =&gt; paths not correct?</para>
 
-            <para>Icinga Web does not show any data? </para>
+      <para>Icinga Web does not show any data?</para>
 
-            <para>* Apache Error logs tell that IcingaApi.php was not found =&gt; recheck the install guide if Icinga API is installed and properly
-            configured </para>
+      <para>* Apache Error logs tell that IcingaApi.php was not found =&gt; recheck the install guide if Icinga API is installed and
+      properly configured</para>
 
-            <para>* DB access denied =&gt; check if the icinga web database connection settings are correct </para>
+      <para>* DB access denied =&gt; check if the icinga web database connection settings are correct</para>
 
-            <para>IDOUtils DB does not get filled with data? </para>
+      <para>IDOUtils DB does not get filled with data?</para>
 
-            <para>* "Error writing to data sink" =&gt; check IDOUtils (ido2db runs 2x - ok?), ido2db.cfg debug_level=-1, debug_verbosity=2, restart
-            IDOUtils and look for errors in ido2db.debug </para>
+      <para>* "Error writing to data sink" =&gt; check IDOUtils (ido2db runs 2x - ok?), ido2db.cfg debug_level=-1, debug_verbosity=2,
+      restart IDOUtils and look for errors in ido2db.debug</para>
 
-            <para>* Nothing there =&gt; Check icinga.log if IDOMOD gets loaded if not enable the Event Broker Module in icinga.cfg like described in
-            the Icinga Core with IDOUtils install quickstart </para>
+      <para>* Nothing there =&gt; Check icinga.log if IDOMOD gets loaded if not enable the Event Broker Module in icinga.cfg like described
+      in the Icinga Core with IDOUtils install quickstart</para>
 
-            <para>* IDOUtils DB-Schema is the current one? =&gt; If not check the upgrade path and docs of IDOUtils </para>
+      <para>* IDOUtils DB-Schema is the current one? =&gt; If not check the upgrade path and docs of IDOUtils</para>
 
-            <para>* Sockets correctly defined? =&gt; unix-socket or tcp-socket, the last one with or without SSL If you have any updates on that
-            please do not hesitate to report back! :-)</para>
-        </listitem>
-    </orderedlist>
+      <para>* Sockets correctly defined? =&gt; unix-socket or tcp-socket, the last one with or without SSL If you have any updates on that
+      please do not hesitate to report back! :-)</para>
+    </listitem>
+  </orderedlist>
 
-    <indexterm zone="icinga-web-scratch">
-        <primary>Webinterface (new)</primary>
-    </indexterm>
+  <indexterm zone="icinga-web-scratch">
+    <primary>Webinterface (new)</primary>
+  </indexterm>
 
-    <indexterm zone="icinga-web-scratch">
-        <primary>Installation of the new Webinterface</primary>
-    </indexterm>
+  <indexterm zone="icinga-web-scratch">
+    <primary>Installation of the new Webinterface</primary>
+  </indexterm>
 </section>

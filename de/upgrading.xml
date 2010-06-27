@@ -20,47 +20,40 @@
 
   <para><anchor xml:id="upgrading-icinga" /> <emphasis role="bold">Aktualisierung von &name-icinga;</emphasis></para>
 
-  <para>Sobald neuere Alpha-, Beta- oder stabile Versionen von &name-icinga; herauskommen, sollten Sie dringend über eine Aktualisierung
-  nachdenken. Neuere Ausgaben enthalten Behebungen kritischer Fehler, so dass es wichtig ist, aktuell zu sein. Wenn Sie bereits
-  &name-icinga; wie in den <link linkend="quickstart">Schnellstartanleitungen</link> beschrieben aus dem Quellcode installiert haben, dann
-  können Sie einfach neuere Versionen installieren. Sie müssen dazu noch nicht einmal root-Berechtigungen haben, weil bereits alles passiert
-  ist, was als root-Benutzer getan werden muss. Hier der Aktualisierungsprozess...</para>
+  <para>Sobald neuere Versionen von &name-icinga; herauskommen, sollten Sie dringend über eine Aktualisierung nachdenken. Neuere Ausgaben
+  enthalten Behebungen kritischer Fehler, so dass es wichtig ist, aktuell zu sein. Wenn Sie bereits &name-icinga;, wie in den
+  Schnellstartanleitungen beschrieben, aus dem Quellcode installiert haben, dann können Sie einfach neuere Versionen installieren. Sie
+  müssen dazu noch nicht einmal root-Berechtigungen haben, weil bereits alles passiert ist, was als root-Benutzer getan werden muss. Das ist
+  allerdings abhängig davon, welche Präferenzen Sie diesbezüglich haben.</para>
 
   <para>Stellen Sie sicher, dass Sie eine gute Datensicherung Ihrer bestehenden &name-icinga;-Installation und der Konfigurationsdateien
   haben. Wenn irgendetwas schief geht oder nicht funktioniert, dann können Sie auf diese Weise schnell Ihre alte &name-icinga;-Version
   wiederherstellen.</para>
 
-  <para>Werden Sie der icinga-Benutzer. &name-debian;/&name-ubuntu;-Benutzer sollten <emphasis>sudo -s icinga</emphasis> benutzen.</para>
+  <para>Werden Sie der icinga-Benutzer. Debian/Ubuntu-Benutzer sollten sudo -s icinga benutzen.</para>
 
-  <screen> su -l icinga</screen>
+  <programlisting> $ su -l icinga</programlisting>
 
-  <para>Holen Sie sich das Quellcode-Archiv der letzten &name-icinga;-Version (besuchen Sie <link
-  xlink:href="http://www.icinga.org/">&url-icinga;</link> für den Verweis auf die letzte Version).</para>
-
-  <screen> wget http://osdn.dl.sourceforge.net/sourceforge/icinga/icinga-<emphasis>&ver-icinga;</emphasis>.tar.gz</screen>
-
-  <para>Entpacken Sie das Quellcode-Archiv.</para>
-
-  <screen> tar xzf icinga-<emphasis>&ver-icinga;</emphasis>.tar.gz
- cd icinga-<emphasis>&ver-icinga;</emphasis> </screen>
+  <para>Holen Sie sich das Quellcode-Archiv der letzten &name-icinga;-Version (besuchen Sie &url-icinga; für den Verweis auf die letzte
+  Version) und entpacken Sie das Quellcode-Archiv.</para>
 
   <para>Starten Sie das &name-icinga;-configure-Script mit den gleichen Optionen wie bei der letzten Installation, z.B. so:</para>
 
-  <screen> ./configure --with-command-group=nagcmd</screen>
+  <programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils</programlisting>
 
   <para>Kompilieren Sie den &name-icinga;-Quellcode.</para>
 
-  <screen> make all</screen>
+  <programlisting> #&gt; make all</programlisting>
 
   <para>Installieren Sie aktualisierte Programme, Dokumentation und Web-Interface. Ihre vorhandenen Konfigurationsdaten werden in diesem
   Schritt nicht überschrieben.</para>
 
-  <screen> make install</screen>
+  <programlisting> #&gt; make install install-base install-cgis install-html install-init install-commandmode install-idoutils</programlisting>
 
   <para>Überprüfen Sie Ihre Konfigurationsdateien und starten Sie &name-icinga; erneut.</para>
 
-  <screen> &url-icinga-bin; -v &url-icinga-cfg;
- /etc/init.d/icinga restart</screen>
+  <programlisting> #&gt; /etc/init.d/icinga checkconfig
+ #&gt; /etc/init.d/icinga restart</programlisting>
 
   <para>Das war's - Sie sind fertig!</para>
 
@@ -70,11 +63,11 @@
 
   <para>Falls Sie einen Upgrade von &name-nagios;-Version 3.0.x durchführen, dann fehlt Ihnen ggf. PHP.</para>
 
-  <para><emphasis>Debian / Ubuntu</emphasis> <screen> apt-get install php5 libapache2-mod-php5</screen></para>
+  <para><emphasis>Debian / Ubuntu</emphasis> <screen> #&gt; apt-get install php5 libapache2-mod-php5</screen></para>
 
   <para><emphasis>Fedora / RedHat</emphasis></para>
 
-  <screen> yum install php mod_php</screen>
+  <screen> #&gt; yum install php mod_php</screen>
 
   <para><emphasis>openSuSE / SLES:</emphasis> Nutzen Sie yast zur Installation der Pakete <emphasis>php5</emphasis> und
   <emphasis>apache2-mod_php5</emphasis>.</para>
@@ -85,32 +78,32 @@
 
   <para>Werden Sie der nagios-Benutzer. &name-debian;/&name-ubuntu;-Benutzer sollten <emphasis>sudo -s nagios</emphasis> benutzen.</para>
 
-  <screen> su -l nagios</screen>
+  <screen> $ su -l nagios</screen>
 
   <para>Holen Sie sich das Quellcode-Archiv der letzten &name-icinga;-Version (besuchen Sie <link
   xlink:href="http://www.icinga.org//">&url-icinga;</link> für den Verweis auf die letzte Version).</para>
 
-  <screen> wget http://osdn.dl.sourceforge.net/sourceforge/icinga/icinga-<emphasis>&ver-icinga;</emphasis>.tar.gz</screen>
+  <screen> #&gt; wget http://osdn.dl.sourceforge.net/sourceforge/icinga/icinga-<emphasis>&ver-icinga;</emphasis>.tar.gz</screen>
 
   <para>Entpacken Sie das Quellcode-Archiv.</para>
 
-  <screen> tar xzf icinga-<emphasis>&ver-icinga;</emphasis>.tar.gz
- cd icinga-<emphasis>&ver-icinga;</emphasis> </screen>
+  <screen> #&gt; tar xzf icinga-<emphasis>&ver-icinga;</emphasis>.tar.gz
+ #&gt; cd icinga-<emphasis>&ver-icinga;</emphasis> </screen>
 
   <para>Starten Sie das &name-icinga;-configure-Script mit den Optionen, die Sie beim ./configure von &name-nagios; benutzt haben. Den
   Aufruf finden Sie in der Datei config.log. Beispiel:</para>
 
-  <screen> ./configure --with-command-group=nagcmd</screen>
+  <screen> #&gt; ./configure --with-command-group=nagcmd</screen>
 
   <para>Kompilieren Sie den &name-icinga;-Quellcode.</para>
 
-  <screen> make all</screen>
+  <screen> #&gt; make all</screen>
 
   <para>Installieren Sie aktualisierte Programme, Dokumentation, Web-Interface und das Init-Script. Ihre vorhandenen Konfigurationsdaten
   werden in diesem Schritt nicht überschrieben.</para>
 
-  <screen> make install
- make install-init</screen>
+  <screen> #&gt; make install
+ #&gt; make install-init</screen>
 
   <para>Kopieren Sie Ihre Konfigurationsdateien nach &url-icinga-base;/etc bzw. &url-icinga-base;/etc/object. Benennen Sie die
   Hauptkonfigurationsdatei <emphasis>nagios.conf</emphasis> in <emphasis>icinga.conf</emphasis> um und ändern Sie in &url-icinga-cfg; die
@@ -118,8 +111,8 @@
 
   <para>Überprüfen Sie Ihre Konfigurationsdateien und starten Sie &name-icinga;.</para>
 
-  <screen> &url-icinga-bin; -v &url-icinga-cfg;
- /etc/init.d/icinga start</screen>
+  <screen> #&gt; &url-icinga-bin; -v &url-icinga-cfg;
+ #&gt; /etc/init.d/icinga start</screen>
 
   <para>Das war's - Sie sind fertig!</para>
 
