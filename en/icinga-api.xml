@@ -6,49 +6,67 @@
 <section version="5.0" xml:id="icinga-api" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-  <title>Installation and use of the &name-icinga; API</title>
+    <title>Installation and use of the &name-icinga; API</title>
 
-  <para><emphasis role="bold">Prerequisites</emphasis></para>
+    <para><emphasis role="bold">Prerequisites</emphasis></para>
 
-  <para>You need &name-icinga; to run the API.</para>
+    <para>You need &name-icinga; Core and &name-idoutils; or <link xlink:href="http://mathias-kettner.de/checkmk_livestatus.html">&name-mklive;</link>
+    installed and running in order to use the API.</para>
 
-  <note>
-    <para>If you don't have &name-icinga; yet please follow the instructions given in the "<link
-    linkend="quickstart-idoutils">quickstart-idoutils</link>" documentation.</para>
-  </note>
+    <note>
+        <para>If you don't have &name-icinga; yet please follow the instructions given in the "<link
+        linkend="quickstart-idoutils">quickstart-idoutils</link>" documentation.</para>
+    </note>
 
-  <para><emphasis role="bold">Installation and Configuration</emphasis></para>
+    <para>If you are using &name-idoutils; database as data source, install PHP-PDO.</para>
 
-  <orderedlist>
-    <listitem>
-      <para><emphasis role="bold">Download</emphasis></para>
+    <para><emphasis role="bold">&name-rhel;/&name-fedora;/&name-centos;</emphasis></para>
 
-      <para>Take your clone from the icinga-api.git to get a fresh branch</para>
+    <para>Make sure you have a repository/packages for PHP 5.2.x - RHEL/CentOS only support 5.1.6 out of the box.</para>
 
-      <programlisting> # git clone git://git.icinga.org/icinga-api.git</programlisting>
+    <programlisting># yum install php-pdo php-mysql|pgsql</programlisting>
 
-      <para>or download the software using <link
-      xlink:href="https://git.icinga.org/index?p=icinga-api.git;a=snapshot;h=refs/heads/master;sf=tgz">https://git.icinga.org/index?p=icinga-api.git;a=snapshot;h=refs/heads/master;sf=tgz</link>.</para>
-    </listitem>
+    <para><emphasis role="bold">&name-debian;/&name-ubuntu;</emphasis></para>
 
-    <listitem>
-      <para><emphasis role="bold">Installation</emphasis></para>
+    <programlisting># apt-get install php5 php5-mysql|pgsql</programlisting>
 
-      <para>Unpack the software and move it to the Icinga source code tree</para>
+    <para><emphasis role="bold">Installation and Configuration</emphasis></para>
 
-      <programlisting> # tar xzvf icinga-api-(version).tar.gz
- # mv icinga-api/* /usr/src/icinga-core/module/icinga-api</programlisting>
+    <orderedlist>
+        <listitem>
+            <para><emphasis role="bold">Download</emphasis></para>
 
-      <para>Recompile the Icinga code (you may have to rerun ./configure again).</para>
+            <para>Take your clone from the icinga-api.git to get a fresh branch</para>
 
-      <programlisting> # make all
- # make install</programlisting>
-    </listitem>
+            <programlisting> # git clone git://git.icinga.org/icinga-api.git</programlisting>
 
-    <listitem>
-      <para><emphasis role="bold">Configuration</emphasis></para>
+            <para>or if you just need an update:</para>
 
-      <para>Configuration is simply done by using an associative array. <programlisting> $idoConfig = array (
+            <programlisting># cd icinga-api &amp;&amp; git pull origin master</programlisting>
+
+            <para>or download the software using <link
+            xlink:href="https://git.icinga.org/index?p=icinga-api.git;a=snapshot;h=refs/heads/master;sf=tgz">https://git.icinga.org/index?p=icinga-api.git;a=snapshot;h=refs/heads/master;sf=tgz</link>.</para>
+        </listitem>
+
+        <listitem>
+            <para><emphasis role="bold">Installation</emphasis></para>
+
+            <para>Unpack &name-api; run configure and install it.</para>
+
+            <programlisting> # tar xzvf icinga-api-(version).tar.gz
+ # ./configure</programlisting>
+<para>You can set the prefix where it will be installed, and point Icinga API where your Icinga and IDOUtils config is located and which users are required to run (those settings are directly applied when installing the API through Icinga Core Installation).</para>
+<programlisting># ./configure --datarootdir=/usr/local/icinga/share --sysconfdir=/usr/local/icinga/etc --with-command-user=icinga-cmd --with-command-group=icinga-cmd --with-icinga-user=icinga --with-icinga-group=icinga</programlisting>
+
+<programlisting># make install</programlisting>
+
+        </listitem>
+
+        <listitem>
+            <para><emphasis role="bold">Configuration</emphasis></para>
+
+            <para>If you are developing you own Addon based on the Icinga API, you need the following associative array.
+<programlisting> $idoConfig = array (
     'type'         =&gt; '&lt;Type of database&gt;',
     'host'         =&gt; '&lt;Database hostname&gt;', 
     'database'     =&gt; '&lt;Databasename&gt;',
@@ -58,7 +76,7 @@
     'table_prefix' =&gt; '&lt;table prefix&gt;', 
  );</programlisting> Example:</para>
 
-      <programlisting> $idoConfig = array (
+            <programlisting> $idoConfig = array (
     'type'         =&gt; 'mysql',
     'host'         =&gt; 'localhost',
     'database'     =&gt; 'ido',
@@ -67,50 +85,50 @@
     'persistent'   =&gt; true,
     'table_prefix' =&gt; 'icinga_',
  );</programlisting>
-    </listitem>
-  </orderedlist>
+        </listitem>
+    </orderedlist>
 
-  <para><emphasis role="bold">Use of the API</emphasis></para>
+    <para><emphasis role="bold">Use of the API</emphasis></para>
+<para>Examples can be found in doc/examples</para>
 
-  <orderedlist>
-    <listitem>
-      <para><emphasis role="bold">Fetching data</emphasis></para>
+    <orderedlist>
+        <listitem>
+            <para><emphasis role="bold">Fetching data</emphasis></para>
 
-      <para>hostnames and corresponding states</para>
+            <para>hostnames and corresponding states</para>
 
-      <para>Create an instance of class IcingaApi:</para>
+            <para>Create an instance of class IcingaApi:</para>
 
-      <para><programlisting> $api = IcingaApi::getConnection(IcingaApi::CONNECTION_IDO, $idoConfig);</programlisting>Create your
-      search:</para>
+            <para><programlisting> $api = IcingaApi::getConnection(IcingaApi::CONNECTION_IDO, $idoConfig);</programlisting>Create your search:</para>
 
-      <para><programlisting> $apiRes = $api-&gt;createSearch()
+            <para><programlisting> $apiRes = $api-&gt;createSearch()
  -&gt;setSearchTarget(IcingaApi::TARGET_HOST)
  -&gt;setResultColumns(array(’HOST_NAME’, ‘HOST_CURRENT_STATE’))
  -&gt;fetch();</programlisting></para>
 
-      <para>By using setSearchFilter() you can define filters to narrow down the result set:</para>
+            <para>By using setSearchFilter() you can define filters to narrow down the result set:</para>
 
-      <para><programlisting> $apiRes = $api-&gt;createSearch()
+            <para><programlisting> $apiRes = $api-&gt;createSearch()
  -&gt;setSearchTarget(IcingaApi::TARGET_HOST)
  -&gt;setResultColumns(array(’HOST_NAME’, ‘HOST_CURRENT_STATE’))
  -&gt;setSearchFilter(HOST_NAME, ‘Switch%’, IcingaApi::MATCH_LIKE)
  -&gt;fetch();</programlisting></para>
-    </listitem>
+        </listitem>
 
-    <listitem>
-      <para><emphasis role="bold">Processing results</emphasis></para>
+        <listitem>
+            <para><emphasis role="bold">Processing results</emphasis></para>
 
-      <para><programlisting> foreach($apiRes as $apiHandle){
+            <para><programlisting> foreach($apiRes as $apiHandle){
     echo ‘Host ‘.$apiHandle-&gt;HOST_NAME.’ has state ‘.$apiHandle-&gt;HOST_CURRENT_STATE.’&lt;br /&gt;’;
  }</programlisting>Output without filter:</para>
 
-      <para><programlisting> Host localhost has state 0
+            <para><programlisting> Host localhost has state 0
  Host MySql has state 0
  Host router-01 has state 0
  Host windows100 has state 0
  Host Apache_01 has state 0</programlisting>Output with filter:</para>
 
-      <para><programlisting> Host switch70 has the current state 0
+            <para><programlisting> Host switch70 has the current state 0
  Host switch71 has the current state 0
  Host switch72 has the current state 0
  Host switch73 has the current state 0
@@ -118,12 +136,12 @@
  Host switch75 has the current state 0
  Host switch76 has the current state 0
  Host switch77 has the current state 0</programlisting></para>
-    </listitem>
+        </listitem>
 
-    <listitem>
-      <para><emphasis role="bold">Complete code without use of filters</emphasis></para>
+        <listitem>
+            <para><emphasis role="bold">Complete code without use of filters</emphasis></para>
 
-      <programlisting> &lt;?
+            <programlisting> &lt;?
  // Path to icinga api file
  $apiFile = ‘icinga-api/IcingaApi.php’;
  
@@ -156,16 +174,16 @@
  }
  ?&gt;</programlisting>
 
-      <para>Please have a look at the <link xlink:href="http://git.icinga.org/">git repository</link> for further information or consult the
-      exmaples in the doc/examples folder.</para>
-    </listitem>
-  </orderedlist>
+            <para>Please have a look at the <link xlink:href="http://git.icinga.org/">git repository</link> for further information or consult the
+            exmaples in the doc/examples folder.</para>
+        </listitem>
+    </orderedlist>
 
-  <indexterm zone="icinga-api">
-    <primary>Icinga-API</primary>
-  </indexterm>
+    <indexterm zone="icinga-api">
+        <primary>Icinga-API</primary>
+    </indexterm>
 
-  <indexterm zone="icinga-api">
-    <primary>API/Icinga</primary>
-  </indexterm>
+    <indexterm zone="icinga-api">
+        <primary>API/Icinga</primary>
+    </indexterm>
 </section>
