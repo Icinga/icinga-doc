@@ -10,11 +10,11 @@
 
     <para><emphasis role="bold">Einleitung</emphasis></para>
 
-    <para>Das neue Icinga Web wird aktuell sehr stark weiterentwickelt sodass sich diese Dokumentation unter Umständen noch ändern kann/wird. Falls
-    Sie eine detaillierte Installationsanleitung benötigen, konsultieren Sie bitte doc/INSTALL aus dem Sourcepaket. Mehr Informationen über die
+    <para>Das neue &name-web; wird aktuell sehr stark weiterentwickelt, sodass sich diese Dokumentation unter Umständen noch ändern kann/wird. Falls
+    Sie eine detaillierte Installationsanleitung benötigen, konsultieren Sie bitte doc/INSTALL aus dem Source-Paket. Mehr Informationen über die
     gesamte Architektur können Sie auf unserer Webseite nachlesen: <link
-    xlink:href="http://www.icinga.org/architecture/">&url-icinga;architecture/</link> Falls Sie mehr über das Icinga Web development und die
-    Modularchitektur wissen wollen, verfolgen Sie bitte stetig aktualisierte Einträge im Development Wiki von Icinga Web: <link
+    xlink:href="http://www.icinga.org/architecture/">&url-icinga;architecture/</link> Falls Sie mehr über das &name-web; development und die
+    Modularchitektur wissen wollen, verfolgen Sie bitte stetig aktualisierte Einträge im Development-Wiki von &name-web;: <link
     xlink:href="https://dev.icinga.org/projects/icinga-web/wiki/">&url-icinga-wiki;</link></para>
 
     <orderedlist>
@@ -75,29 +75,19 @@
             <para>&name-web; stellt verschiedene configure Optionen zur Verfügung z.B.</para>
 
             <programlisting># ./configure
-
                         --prefix=/usr/local/icinga-web
-
                         --with-web-user=www-data
-
                         --with-web-group=www-data
-
                         --with-db-type=mysql
-
                         --with-db-host=localhost
-
                         --with-db-port=3306
- 
                         --with-db-name=icinga_web
-
                         --with-db-user=icinga_web
-
                         --with-db-pass=icinga_web
-
                         --with-icinga-api=/usr/local/icinga/share/icinga-api</programlisting>
 
             <note>
-                <para>Bitte beachten Sie, dass Sie hier die &name-web; Datenbank konfigurieren, und nicht die Icinga IDOUtils Datenbank!</para>
+                <para>Bitte beachten Sie, dass Sie hier die &name-web;-Datenbank konfigurieren, und nicht die Icinga-IDOUtils-Datenbank!</para>
             </note>
 
             <para>Alle Konfigurationsmöglichkeiten sehen Sie mit:</para>
@@ -427,9 +417,9 @@ SQL&gt; FLUSH PRIVILEGES;</programlisting>
  #       require valid-user
  #&lt;/IfModule&gt;</programlisting></para>
 
-            <para>Bitte erstellen Sie noch einen neuen Alias im Konfigurationsverzeichnis des Webservers (hier in der icinga.conf):</para>
+            <para>Bitte erstellen Sie noch einen neuen Alias im Konfigurationsverzeichnis des Webservers (hier in der icinga-web.conf):</para>
 
-            <para><programlisting># vi /etc/apache2/conf.d/icinga.conf
+            <para><programlisting> # vi /etc/apache2/conf.d/icinga-web.conf
    Alias /icinga-web /usr/local/icinga-web/pub
   &lt;directory /usr/local/icinga-web/pub&gt;
         AllowOverride All
@@ -437,26 +427,26 @@ SQL&gt; FLUSH PRIVILEGES;</programlisting>
 
             <para>Leeren Sie den Cache:</para>
 
-            <para><programlisting># rm /usr/local/icinga-web/app/cache/config/*.php</programlisting></para>
+            <para><programlisting> # rm /usr/local/icinga-web/app/cache/config/*.php</programlisting></para>
 
             <para>und starten Sie den Webserver neu:</para>
 
-            <para><programlisting># service apache2 restart</programlisting></para>
+            <para><programlisting> # service apache2 restart</programlisting></para>
 
             <para>bzw.</para>
 
-            <para><programlisting># /etc/init.d/apache2 restart</programlisting></para>
+            <para><programlisting> # /etc/init.d/apache2 restart</programlisting></para>
 
             <para>oder</para>
 
-            <programlisting># /etc/init.d/httpd restart</programlisting>
+            <programlisting> # /etc/init.d/httpd restart</programlisting>
         </listitem>
 
         <listitem>
             <para><emphasis role="bold">Testen</emphasis></para>
 
             <note>
-                <para>Bitte achten Sie darauf, dass ihre Datenbank, Apache, &name-idoutils; und &name-icinga; gestartet sind!</para>
+                <para>Bitte achten Sie darauf, dass Ihre Datenbank, Apache, &name-idoutils; und &name-icinga; gestartet sind!</para>
             </note>
 
             <para>Öffnen Sie im Webbrowser http://localhost/icinga-web und loggen Sie sich mit dem User 'root' und dem Passwort 'password' ein</para>
