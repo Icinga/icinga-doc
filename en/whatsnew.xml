@@ -6,136 +6,127 @@
 <section version="5.0" xml:id="whatsnew" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-  <title>What's New in &name-core; &ver-icinga; and &name-web; &ver-icingaweb;</title>
+    <title>What's New in &name-core; &ver-icinga; and &name-web; &ver-icingaweb;</title>
 
-  <para><emphasis role="bold">&name-core;:</emphasis></para>
+    <para><emphasis role="bold">&name-core;:</emphasis></para>
 
-  <para><emphasis role="bold">Enhancements:</emphasis></para>
+    <para><emphasis role="bold">Enhancements:</emphasis></para>
 
-  <para>* core: add service_check_timeout_state configuration variable</para>
+    <para>* core: Schedule Downtime for host and all services now works as expected</para>
 
-  <para>* core: add escalation_condition definition</para>
+    <para>* core: Servicechecks with excluded timeperiods are correctly re-scheduled</para>
 
-  <para>* idoutils: add ido2db threaded housekeeper</para>
+    <para>* core: Error out if service_description is missing in service definition</para>
 
-  <para>* idoutils: add indexes for delete/select statements</para>
+    <para>* core: Added syslogd local facility</para>
 
-  <para>* idoutils: reorganize db setup files for MySQL/Postgresql/Oracle</para>
+    <para>* core: Use execv for active checks w/o metacharacters</para>
 
-  <para>* idoutils: complete oracle rewrite to improve performance</para>
+    <para>* core: Speed up loading retention.dat into the Core</para>
 
-  <para>* idoutils: add upgrade path for mysql/pgsql/oracle for 1.0.1 – check docs for more information <link
-  linkend="upgrading_idoutils">upgrading_idoutils</link></para>
+    <para>* core: Initscripts handle the lock file now correctly and outputs config errors</para>
 
-  <para>* idoutils: add initial debug output for idomod (to be set in idomod.cfg)</para>
+    <para>* core: Better Solaris detection (in progress)</para>
 
-  <para>* idoutils: add database name in connection msg to syslog</para>
+    <para>* core: Add event profiling option and dumping entire scheduling queue</para>
 
-  <para>* idoutils: change mysql db engine to innodb (no table locking, better transcations)</para>
+    <para>* cgis: display_name on host/service definition will be displayed in classical UI</para>
 
-  <para>* idoutils: add --with-oracle-lib=/path/to/instantclient for runtime, export of LD_LIBRARY_PATH if instantclient not installed to
-  path – check docs for more information <link linkend="quickstart-idoutils">quickstart-idoutils</link></para>
+    <para>* cgis: multiple urls for notes|action_url on host|service definition in classical UI</para>
 
-  <para>* idoutils: add max_logentries_age and max_acknowledgements_age to ido2db (check ido2db.cfg)</para>
+    <para>* cgis: removing a comment on the classical UI does not delete all of them anymore</para>
 
-  <para><emphasis role="bold">Fixes:</emphasis></para>
+    <para>* idoutils: IDOMOD now has it's own object version on the NEB API, this requires both Icinga and IDOUtils to be upgraded to 1.0.2 – check
+    docs for more information <link linkend="upgrading_idoutils">upgrading_idoutils</link></para>
 
-  <para>* core: fix segfault in cmd.cgi</para>
+    <para>* idoutils: Performance improvements on SQL queries and objects hash list</para>
 
-  <para>* core: fix event broker callback function self de-registering for callbacks</para>
+    <para><emphasis role="bold">Fixes:</emphasis></para>
 
-  <para>* core: fix idomod doesn't de-initialize after config error</para>
+    <para>* core: Fixes for Notification not/incorrectly being sent/calculated</para>
 
-  <para>* core: fix make fullinstall/idoutils without enabled idoutils during configure</para>
+    <para>* core: A long list of patches pending on mailinglists and trackers, check the Changelog for more information</para>
 
-  <para>* core: fix sending two identical service_status events to neb module</para>
+    <para>* idoutils: Fixed major bug on IDOUtils object relations, causing huge performance issues - added upgrade scripts too</para>
 
-  <para>* idoutils: modify string escaping for mysql and pgsql</para>
+    <para>To have a deeper look, please visit the Changelog</para>
 
-  <para>* idoutils: fix pgsql table systemcommands (missing column 'output')</para>
+    <itemizedlist>
+        <listitem>
+            <para>See: <xref linkend="changelog-core" /></para>
+        </listitem>
+    </itemizedlist>
 
-  <para>* idoutils: fix acknowledgments query, wrong buffer freed/set as query to db</para>
+    <para><emphasis role="bold">&name-web;:</emphasis></para>
 
-  <para>* idoutils: fix contactnotification data array, command args were not provided</para>
+    <para>* Core code reduced and made more robust</para>
 
-  <para>* idoutils: fix custom_variables object_id type int = unsigned long</para>
+    <para>* Core code detatached to its owning modules</para>
 
-  <para>To have a deeper look, please visit the Changelog</para>
+    <para>* Module framework defined, extractor and installer</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>See: <xref linkend="changelog-core" /></para>
-    </listitem>
-  </itemizedlist>
+    <para>* Principals now works in one step (one function code)</para>
 
-  <para><emphasis role="bold">&name-web;:</emphasis></para>
+    <para>* Instances included</para>
 
-  <para>* Added some icinga specific principal target classes</para>
+    <para>* Ajax driven filters, made some new filters</para>
 
-  <para>* Finished editing of principal targets for users and groups</para>
+    <para>* REST/Json api interface (web/api, <link xlink:href="https://dev.icinga.org/issues/305">&url-icinga-dev;issues/305</link>)</para>
 
-  <para>* Added editing models for principals</para>
+    <para>* New summary cronk (faster, faster, faster)</para>
 
-  <para>* Finished principal target filtering in xml temlates</para>
+    <para>* New cronk list (also categories, faster, faster, faster)</para>
 
-  <para>* Added principal target toolkit for api search queries</para>
+    <para>* Single click in the web interface</para>
 
-  <para>* Added full command specification</para>
+    <para>* Translation (not complete)</para>
 
-  <para>* Added host- / service status filter</para>
+ <para> Insidertips and more Documentation for Icinga-Web: <link xlink:href="&url-icinga-wiki;">Icinga-Wiki</link></para>
 
-  <para>* Added some more state (flapping, downtime)</para>
+    <para>To have a deeper look, please visit the changelog-web</para>
 
-  <para>* Global xml replacements within the templates (view proc)</para>
+    <itemizedlist>
+        <listitem>
+            <para>See: <xref linkend="changelog-web" /></para>
+        </listitem>
+    </itemizedlist>
 
-  <para>* Updating ExtJS to 3.1</para>
+    <para><emphasis role="bold">&name-docs;:</emphasis></para>
 
-  <para>* Implemented categories for the cronks</para>
+    <para>* Updates and fixes for quickstart guides</para>
 
-  <para>* Cronks for usergroups only</para>
+    <para>* Updates and fixes for upgrading &name-icinga; and &name-idoutils;, visit the docs for more Information <link
+    linkend="upgrading_idoutils">upgrading_idoutils</link></para>
 
-  <para>* Tactical overview template engine</para>
+    <para>* Updates and fixes for Api-section</para>
 
-  <para>To have a deeper look, please visit the changelog-web</para>
+    <para>* Updates and fixes for Web-Install-Section</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>See: <xref linkend="changelog-web" /></para>
-    </listitem>
-  </itemizedlist>
+    <para>* Updates for objectdefinitions</para>
 
-  <para><emphasis role="bold">&name-api;:</emphasis></para>
+    <para>* New extended docs for the IDOUtils, Chapter 11.</para>
 
-  <para>* Restructured DB access for upcoming RDBM support</para>
+    <para>* New section Running icinga - "Diagnostics"</para>
 
-  <para>* Made several fixes for table prefix, exception handling</para>
+<para>* New testing guides for Icinga: <link xlink:href="&url-icinga-test;">Icinga-Development</link></para>
 
-  <para>* Started a ‘how-to’ guide for upcoming documentation</para>
+<para> Insidertips and more Documentation for Icinga-Web: <link xlink:href="&url-icinga-wiki;">Icinga-Wiki</link></para>
 
-  <para><emphasis role="bold">&name-docs;:</emphasis></para>
+    <para>Should you find any issues, please report them to the following links:</para>
 
-  <para>* Updates and fixes for quickstart guides</para>
+    <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-core">Report Issue &name-core;</link></para>
 
-  <para>* Updates and fixes for upgrading &name-icinga; and &name-idoutils;, visit the docs for more Information <link
-  linkend="upgrading_idoutils">upgrading_idoutils</link></para>
+    <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-web">Report Issue &name-web;</link></para>
 
-  <para>* New Api-section</para>
+    <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-api">Report Issue &name-api;</link></para>
 
-  <para>Should you find any issues, please report them to the following links:</para>
+    <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-docs">Report Issue &name-docs;</link></para>
 
-  <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-core">Report Issue &name-core;</link></para>
+    <indexterm zone="whatsnew">
+        <primary>What's new in &name-icinga;</primary>
+    </indexterm>
 
-  <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-web">Report Issue &name-web;</link></para>
+    <xi:include href="changelog-core.xml" />
 
-  <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-api">Report Issue &name-api;</link></para>
-
-  <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-docs">Report Issue &name-docs;</link></para>
-
-  <indexterm zone="whatsnew">
-    <primary>What's new in &name-icinga;</primary>
-  </indexterm>
-
-  <xi:include href="changelog-core.xml" />
-
-  <xi:include href="changelog-web.xml" />
+    <xi:include href="changelog-web.xml" />
 </section>

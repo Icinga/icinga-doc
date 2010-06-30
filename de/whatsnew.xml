@@ -12,54 +12,36 @@
 
   <para><emphasis role="bold">Erweiterungen:</emphasis></para>
 
-  <para>* core: neue Variable für Services service_check_timeout_state</para>
+  <para>* core: Scheduled Downtimes für Host und alle Services arbeiten nun wie gewünscht</para>
 
-  <para>* core: neue escalation_condition-Definition</para>
+  <para>* core: Scheduling für Servicechecks mit ausgenommenen Timezones funktionieren nun wie erwartet</para>
 
-  <para>* idoutils: ido2db mit threaded housekeeper</para>
+  <para>* core: Geschwindigkeitsverbesserungen beim Einlesen der retention.dat</para>
 
-  <para>* idoutils: Indizes für DELETE/SELECT- Anweisungen</para>
+  <para>* core: Bessere Installation unter Solaris</para>
 
-  <para>* idoutils: reorganisierte DB-Installationsdatei für MySQL/Postgresql/Oracle</para>
+  <para>* core: Verbesserungen beim Logging nach Syslog</para>
 
-  <para>* idoutils: kompletter rewrite der Oracle-Parts zur Performance-Verbesserung</para>
+  <para>* core: Implementierung verschiedenster Patches von Mailinglist und Tracker</para>
 
-  <para>* idoutils: neuer Pfad für die mysql/pgsql/oracle-Aktualisierungen - für mehr Informationen schauen Sie bitte in die Dokumentation
-  <link linkend="upgrading_idoutils">Upgrading der IDOUtils</link></para>
+  <para>* core: Fehlermeldung beim Fehlen der service_description in der Servicedefinition</para>
 
-  <para>* idoutils: initiale Debug-Ausgabe für idomod (zu setzen in der idomod.cfg)</para>
+  <para>* core: Überarbeitetes Init-Skript, Ausgabe von Konfigurationsfehlern</para>
 
-  <para>* idoutils: Hinzufügen des DB-Namens in der Verbindungsmeldung im Syslog</para>
+  <para>* cgis: Mehrere URLs bei notes und action URLs möglich im Classic UI</para>
 
-  <para>* idoutils: ändern der MySQL-Datenbank-Engine zu innodb (kein Tabellen-Locking, bessere Transaktionen)</para>
-
-  <para>* idoutils: hinzugefügte Option im configure-Skript --with-oracle-lib=/path/to/instantclient, Export von LD_LIBRARY_PATH wenn der
-  Instantclient nicht in PATH installiert wurde - bitte schauen Sie in die Dokumentation für weitere Informationen: <link
-  linkend="quickstart-idoutils">quickstart-idoutils</link></para>
-
-  <para>* idoutils: Hinzufügen von max_logentries_age und max_acknowledgements_age zu ido2db (siehe ido2db.cfg)</para>
+  <para>* cgis: Anzeige von display_name in host/service-Definition im Classic UI </para>
+  
+  <para>* idoutils: Performanceverbesserungen von SQL queries und objects hash list</para>
 
   <para><emphasis role="bold">Fixes:</emphasis></para>
 
-  <para>* core: Fix segfault in cmd.cgi</para>
+  <para>* core: Fehler bei der Erzeugung von Benachrichtigungen</para>
 
-  <para>* core: Fix event broker callback function self de-registering for callbacks</para>
+  <para>* core: A long list of patches pending on mailinglists and trackers, check the
+Changelog for more information</para>
 
-  <para>* core: Fix idomod De-Initialisierung nach Konfigurationsfehler</para>
-
-  <para>* core: Fix make fullinstall/idoutils ohne enabled idoutils während des configure</para>
-
-  <para>* core: Fix für das Senden von zwei identischen service_status-Events zu neb module</para>
-
-  <para>* idoutils: geändertes string escaping für mysql und pgsql</para>
-
-  <para>* idoutils: Fix für pgsql Tabelle systemcommands (fehlende Spalte 'output')</para>
-
-  <para>* idoutils: Fix für acknowledgments Queries, wrong buffer freed/set as query to db</para>
-
-  <para>* idoutils: Fix contactnotification data array, command args were not provided</para>
-
-  <para>* idoutils: Fix custom_variables object_id type int = unsigned long</para>
+  <para>* idoutils: Fehlerbehebungen und massive Geschwindigkeitsverbesserungen in den IDOUtils</para>
 
   <para>Für detaillierte Information der einzelnen Releases schauen Sie bitte in den Changelog.</para>
 
@@ -71,33 +53,29 @@
 
   <para><emphasis role="bold">&name-web;:</emphasis></para>
 
-  <para>* Added some icinga specific principal target classes</para>
+  <para>* Neue, schnellere Cronk Liste inkl. Kategorien</para>
 
-  <para>* Finished editing of principal targets for users and groups</para>
+  <para>* Umstellung Doppelklick auf Einfachklick</para>
 
-  <para>* Added editing models for principals</para>
+  <para>* Modularer Aufbau von Code und Konfiguration</para>
 
-  <para>* Finished principal target filtering in xml temlates</para>
+  <para>* Implementierung Framework für Agavi/Icinga-web Module</para>
 
-  <para>* Added principal target toolkit for api search queries</para>
+  <para>* Verbessertes Berechtigungsmodell</para>
 
-  <para>* Hinzugefügte volle command-Spezifikation</para>
+  <para>* Unterstützung für mehrere Icinga Instanzen im Webinterface</para>
 
-  <para>* Filter für host/service hinzugefügt</para>
+  <para>* Verbesserte Filter auf Ajax Basis</para>
 
-  <para>* Hinzufügen von mehr Statis (flapping, downtime)</para>
+  <para>* REST/Json Schnittstelle für die IcingaApi</para>
 
-  <para>* Globale xml-Ersetzungen durch die Templates (view proc)</para>
+  <para>* Implementierung des neuen, schnelleren Dashboard Cronk</para>
 
-  <para>* Aktualisierung von ExtJS to 3.1</para>
+  <para>* Mehrsprachige Benutzeroberfläche (unvollständig)</para>
 
-  <para>* Implementierung von Kategorien für die Cronks</para>
+<para> Insidertips und mehr Dokumentation rund ums Webinterface finden Sie hier: <link xlink:href="&url-icinga-wiki;">Icinga-Wiki</link></para>
 
-  <para>* Cronks für Usergruppen</para>
-
-  <para>* Tactical overview template engine</para>
-
-  <para>Für detaillierte Information der einzelnen Releases schauen Sie bitte in den Changelog:</para>
+    <para>Für detaillierte Information der einzelnen Releases schauen Sie bitte in den Changelog:</para>
 
   <itemizedlist>
     <listitem>
@@ -105,23 +83,25 @@
     </listitem>
   </itemizedlist>
 
-  <para><emphasis role="bold">&name-api;:</emphasis></para>
-
-  <para>* Restrukturierter Datenbank-Zugriff für die zukünftige Unterstützung von weiteren RDBM's</para>
-
-  <para>* Diverse Fixes für Tabellen prefix und Ausnahmebehandlung</para>
-
   <para><emphasis role="bold">&name-docs;:</emphasis></para>
 
   <para>* Aktualisierung der Schnellstart-Anleitungen</para>
 
   <para>* Aktualisierung der Upgrade-Anleitung von &name-icinga; und &name-idoutils;</para>
 
-  <para>* Aktualisierung der Anleitung für die Installation des neuen Webinterfaces</para>
+  <para>* Aktualisierung der Anleitung für die Installation des Webinterfaces</para>
 
-  <para>* neue Dokumente für Thanks und README</para>
+  <para>* Neue erweiterte Dokumentation zu den IDOUtils (Kapitel 11)</para>
 
-  <para>* neues Dokument zur API</para>
+  <para>* Aktualisierung der Anleitung zur Icinga Api</para>
+
+  <para>* Aktualisierung der Objektdefinitionen</para>
+
+ <para>* Neues Dokument zu Running icinga - "Diagnostics"</para>
+
+<para> Neue Testanleitungen für Icinga finden Sie hier: <link xlink:href="&url-icinga-test;">Icinga-Development</link></para>
+
+<para> Insidertips und mehr Dokumentation rund ums Webinterface finden Sie hier: <link xlink:href="&url-icinga-wiki;">Icinga-Wiki</link></para>
 
   <para>Bitte berichten Sie Probleme hier:</para>
 
