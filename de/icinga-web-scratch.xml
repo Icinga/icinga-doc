@@ -37,8 +37,7 @@
                     <para><programlisting># yum install php-cli php-pear php-xmlrpc php-xsl php-pdo php-ldap php-gd</programlisting></para>
 
                     <note>
-                        <para>Aktuelle Pakete für PHP und PRCE finden Sie beispielsweise hier:
-                        <link
+                        <para>Aktuelle Pakete für PHP und PRCE finden Sie beispielsweise hier: <link
                         xlink:href="http://www.jasonlitka.com/category/yum-repo-news">http://www.jasonlitka.com/category/yum-repo-news/</link></para>
                     </note>
                 </listitem>
@@ -58,20 +57,25 @@
             <para>Die Installation von Icinga mit den IDOUtils bzw. der Icinga-API ist in der <link
             linkend="quickstart-idoutils">Icinga-Schnellstartanleitung</link> und dem Abschnitt über die <link linkend="icinga-api">Icinga-API</link>
             beschrieben.</para>
-                        
         </listitem>
 
         <listitem>
             <para><emphasis role="bold">Die Installation</emphasis></para>
 
-            <para>Laden Sie das Archiv herunter von <link xlink:href="http://sourceforge.net/projects/icinga/files/">http://sourceforge.net/projects/icinga/files/</link> oder klonen Sie von icinga-web.git, um mit der aktuellsten Version zu arbeiten:</para>
-<programlisting># git clone git://git.icinga.org/icinga-web.git</programlisting>
-<para>Extrahieren Sie das Archiv (tarball) wie folgt:</para>
+            <para>Laden Sie das Archiv herunter von <link
+            xlink:href="http://sourceforge.net/projects/icinga/files/">http://sourceforge.net/projects/icinga/files/</link> oder klonen Sie von
+            icinga-web.git, um mit der aktuellsten Version zu arbeiten:</para>
+
+            <programlisting># git clone git://git.icinga.org/icinga-web.git</programlisting>
+
+            <para>Extrahieren Sie das Archiv (tarball) wie folgt:</para>
+
             <programlisting># tar xzvf icinga-web-&ver-icingaweb;.tar.gz</programlisting>
 
             <para>Wechseln Sie in das Verzeichnis:</para>
-	
-	<programlisting># cd icinga-web</programlisting>
+
+            <programlisting># cd icinga-web</programlisting>
+
             <para>&name-web; stellt verschiedene configure Optionen zur Verfügung z.B.</para>
 
             <programlisting># ./configure
@@ -449,7 +453,8 @@ SQL&gt; FLUSH PRIVILEGES;</programlisting>
                 <para>Bitte achten Sie darauf, dass Ihre Datenbank, Apache, &name-idoutils; und &name-icinga; gestartet sind!</para>
             </note>
 
-            <para>Öffnen Sie im Webbrowser http://localhost/icinga-web. Überprüfen Sie ob das Webinterface ohne Fehler "exceptions" startet, und loggen Sie sich mit dem User 'root' und dem Passwort 'password' ein, </para>
+            <para>Öffnen Sie im Webbrowser http://localhost/icinga-web. Überprüfen Sie ob das Webinterface ohne Fehler "exceptions" startet, und
+            loggen Sie sich mit dem User 'root' und dem Passwort 'password' ein.</para>
 
             <para>Viel Spaß :-)</para>
         </listitem>
@@ -465,41 +470,40 @@ SQL&gt; FLUSH PRIVILEGES;</programlisting>
 
             <para>* Browser, Version</para>
 
-            <para>* Falls das Problem mit der Datenquelle besteht: Ausführliche Informationen zu API, IDOUtils, Core (Version, Debug Logs). </para>
+            <para>* Falls das Problem mit der Datenquelle besteht: Ausführliche Informationen zu API, IDOUtils, Core (Version, Debug Logs).</para>
 
-            <para>Wo können Sie nachsehen? </para>
+            <para>Wo können Sie nachsehen?</para>
 
-            <para>* Apache Error Logs, PHP Errors, PHP Dateien können nicht gefunden werden </para>
+            <para>* Apache Error Logs, PHP Errors, PHP Dateien können nicht gefunden werden</para>
 
-            <para>* /var/log/messages, /path/to/icinga/var/icinga.log </para>
+            <para>* /var/log/messages, /path/to/icinga/var/icinga.log</para>
 
-            <para>Änderungen an der Icinga Web Konfiguration (z.B. API IDOUtils Einstellungen geändert) werden nicht aktualisiert? </para>
+            <para>Änderungen an der Icinga Web Konfiguration (z.B. API IDOUtils Einstellungen geändert) werden nicht aktualisiert?</para>
 
-            <para>* Löschen Sie den Konfigurationscache in app/cache/config/*.php </para>
+            <para>* Löschen Sie den Konfigurationscache in app/cache/config/*.php</para>
 
-            <para>Icinga Web zeigt eine blanke Seite? </para>
+            <para>Icinga Web zeigt eine blanke Seite?</para>
 
-            <para>* Apache Errors Logs =&gt; mod_rewrite enabled, php Abhängigkeiten ok? 'make testdeps' </para>
+            <para>* Apache Errors Logs =&gt; mod_rewrite enabled, php Abhängigkeiten ok? 'make testdeps'</para>
 
-            <para>* .htaccess/VHost Konfiguration =&gt; Pfade nicht korrekt? Icinga Web zeigt keine Daten? </para>
+            <para>* .htaccess/VHost Konfiguration =&gt; Pfade nicht korrekt? Icinga Web zeigt keine Daten?</para>
 
             <para>* Sehen Sie in den Apache Error Logs nach, ob dort ein Fehler bezüglich fehlender IcingaApi.php auftritt =&gt; Überprüfen Sie anhand
-            des Installationguides ob Sie die Icinga API korrekt installiert haben. </para>
+            des Installationguides ob Sie die Icinga API korrekt installiert haben.</para>
 
-            <para>* Datenbankzugriff verweigert =&gt; Überprüfen Sie ob die Datenbankeinstellungen für Icinga Web korrekt sind. </para>
+            <para>* Datenbankzugriff verweigert =&gt; Überprüfen Sie ob die Datenbankeinstellungen für Icinga Web korrekt sind.</para>
 
-            <para>IDOUtils Datenbank wird nicht gefüllt? </para>
+            <para>IDOUtils Datenbank wird nicht gefüllt?</para>
 
             <para>* "Error writing to data sink" =&gt; Überprüfen Sie die IDOUtils (ido2db runs 2x - ok?), ido2db.cfg debug_level=-1,
-            debug_verbosity=2, restarten Sie IDOUtils und suchen Sie Fehler in ido2db.debug </para>
+            debug_verbosity=2, restarten Sie IDOUtils und suchen Sie Fehler in ido2db.debug</para>
 
             <para>* Keine Daten vorhanden =&gt; Überprüfen Sie icinga.log ob IDOMOD zu Beginn geladen wird. Falls nicht, enablen Sie das Event Broker
-            Modul in icinga.cfg so wie im Icinga Core mit . <link
-            linkend="quickstart-idoutils">IDOUtils Quickstart Guide</link></para>
+            Modul in icinga.cfg so wie im Icinga Core mit . <link linkend="quickstart-idoutils">IDOUtils Quickstart Guide</link></para>
 
-            <para>* IDOUtils DB-Schema ist die aktuellste Version? =&gt; Falls nicht, überprüfen Sie mögliche Upgrades anhand der Docs dafür. </para>
+            <para>* IDOUtils DB-Schema ist die aktuellste Version? =&gt; Falls nicht, überprüfen Sie mögliche Upgrades anhand der Docs dafür.</para>
 
-            <para>* Sockets sind korrekt definiert? =&gt; Unix oder TCP Socket, TCP wahlweise mit oder ohne SSL </para>
+            <para>* Sockets sind korrekt definiert? =&gt; Unix oder TCP Socket, TCP wahlweise mit oder ohne SSL</para>
 
             <para>Sofern Sie Fragen oder Updates haben, zögern Sie bitte nicht uns diese mitzuteilen! :-)</para>
         </listitem>
