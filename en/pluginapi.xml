@@ -234,10 +234,12 @@
 
   <para><emphasis role="bold">Plugin Output Length Restrictions</emphasis></para>
 
-  <para>&name-icinga; will only read the first 4 KB of data that a plugin returns. This is done in order to prevent runaway
-  plugins from dumping megs or gigs of data back to &name-icinga;. This 4 KB output limit is fairly easy to change if you need.
+  <para>&name-icinga; will only read the first 8 KB of data that a plugin returns. This is done in order to prevent runaway
+  plugins from dumping megs or gigs of data back to &name-icinga;. This 8 KB output limit is fairly easy to change if you need.
   Simply edit the value of the MAX_PLUGIN_OUTPUT_LENGTH definition in the <emphasis>include/icinga.h.in</emphasis> file of the
-  source code distribution and recompile &name-icinga;. There's nothing else you need to change!</para>
+  source code distribution and recompile &name-icinga;. If you increase the 8k cap by modifying this value make sure that you also 
+  increase the value of MAX_EXTERNAL_COMMAND_LENGTH in include/common.h before you compile to allow for passive checks results 
+  of this length to be received through the external command file.</para>
 
   <para><emphasis role="bold">Examples</emphasis></para>
 

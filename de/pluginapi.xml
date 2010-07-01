@@ -241,11 +241,13 @@
 
   <para><emphasis role="bold">Längenbeschränkungen von Plugin-Ausgaben</emphasis></para>
 
-  <para>&name-icinga; wird nur die ersten vier KB an Daten lesen, die ein Plugin zurückliefert. Dies wird getan, um durchgedrehte
-  Plugins davon abzuhalten, Megabyte oder Gigabyte an Daten an &name-icinga; zurückzuliefern. Diese Beschränkung von vier KB kann
+  <para>&name-icinga; wird nur die ersten acht KB an Daten lesen, die ein Plugin zurückliefert. Dies wird getan, um durchgedrehte
+  Plugins davon abzuhalten, Megabyte oder Gigabyte an Daten an &name-icinga; zurückzuliefern. Diese Beschränkung von acht KB kann
   einfach geändert werden, wenn Sie das brauchen. Ändern Sie einfach den Wert der MAX_PLUGIN_OUTPUT_LENGTH-Definition in der
-  <emphasis>include/nagios.h.in</emphasis>-Datei der Source-Code-Distribution und rekompilieren Sie &name-icinga;. Mehr müssen Sie
-  nicht tun!</para>
+  <emphasis>include/nagios.h.in</emphasis>-Datei der Source-Code-Distribution und rekompilieren Sie &name-icinga;.
+  Wenn Sie die Kapazität von acht KB durch Anpassung dieses Wertes ändern, dann stellen Sie sicht, dass Sie vor dem Kompilieren
+  auch den Wert von MAX_EXTERNAL_COMMAND_LENGTH in include/common.h erhöhen, damit Resultate von passiven Prüfungen in dieser Länge
+  durch das External Command File empfangen werden können.</para>
 
   <para><emphasis role="bold">Beispiele</emphasis></para>
 
