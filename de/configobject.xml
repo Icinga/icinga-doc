@@ -64,6 +64,25 @@
   <link linkend="configmain-cfg_file">cfg_file</link>- und/oder <link linkend="configmain-cfg_dir">cfg_dir</link>-Direktiven in
   der Hauptkonfigurationsdatei angeben.</para>
 
+  <para><anchor xml:id="configobject-include_file" /></para>
+  <para><anchor xml:id="configobject-include_dir" /></para>
+
+  <para><emphasis role="bold">include_file / include_dir</emphasis></para>
+
+  <para>Eine Objektdefinitionsdatei kann andere Objektdefinitionsdateien einschließen mit Hilfe der
+  <emphasis role="bold">include_file=&lt; file_name&gt;</emphasis>- und <emphasis role="bold">include_dir=&lt;directory_name&gt;</emphasis>
+  -Direktiven. Die erste schließt nur die einzelne angegebene Datei ein, die zweite wird im angegebenen Verzeichnis alle Dateien
+  mit der Endung <emphasis>.cfg</emphasis> einschließen. Diese Direktiven können mehrfach angegeben werden, um mehrere Dateien und/oder
+  Verzeichnisse einzuschließen.</para>
+  <para>Die Direktiven sind nicht in den eigentlichen Definitionen eines Objektes erlaubt, sondern sollten vor, nach oder zwischen
+  Objektdefinitionen auftreten. Sie sind eng mit den <link linkend="configmain-cfg_file">cfg_file=</link>- und
+  <link linkend="configmain-cfg_dir">cfg_dir=</link>-Direktiven in der Hauptkonfigurationsdatei verwandt.</para>
+  <para>Diese Direktiven können verkettet werden, d.h. eine Objektdefinitionsdatei, die in der Hauptkonfigurationsdatei durch eine
+  <emphasis role="bold">cfg_file=</emphasis>- oder <emphasis role="bold">cfg_dir=</emphasis>-Direktive eingeschlossen wird, kann
+  <emphasis role="bold">include_file=</emphasis> oder <emphasis role="bold">include_dir=</emphasis> enthalten, um eine weitere
+  Objektdefinitionsdatei einzuschließen, die ebenfalls <emphasis role="bold">include_file=</emphasis> oder
+  <emphasis role="bold">include_dir=</emphasis> enthält, um eine weitere Datei einzuschließen, und so fort.</para>
+
   <para><inlinemediaobject>
       <imageobject>
         <imagedata fileref="../images/tip.gif" format="GIF"></imagedata>
@@ -96,7 +115,7 @@
 
       <tbody>
         <row>
-          <entry align="center" valign="top"><para> <link linkend="objectdefinitions-host">
+          <entry align="left" valign="top"><para> <link linkend="objectdefinitions-host">
                
 
               <emphasis role="bold">Hosts</emphasis>

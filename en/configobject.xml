@@ -63,6 +63,24 @@
   linkend="configmain-cfg_file">cfg_file</link> and/or <link linkend="configmain-cfg_dir">cfg_dir</link> directives in the main
   configuration file.</para>
 
+  <para><anchor xml:id="configobject-include_file" /></para>
+  <para><anchor xml:id="configobject-include_dir" /></para>
+
+  <para><emphasis role="bold">include_file / include_dir</emphasis></para>
+
+  <para>An object definition file can include other object definition files with the use of the <emphasis role="bold">include_file=&lt;
+  file_name&gt;</emphasis> and <emphasis role="bold">include_dir=&lt;directory_name&gt;</emphasis> directives. The former includes
+  the single file specified, the latter will process all files ending in the <emphasis>.cfg</emphasis> extension in the directory
+  specified. These directives may be repeated to include multiple files/directories.</para>
+  <para>The directives are not allowed within the actual definition of an object, and should appear before, after, or in between any
+  object definitions. They are closely related to the <link linkend="configmain-cfg_file">cfg_file=</link> and
+  <link linkend="configmain-cfg_dir">cfg_dir=</link> directives in the main configuration file.</para>
+  <para>These directives may be chained; e.g. an object definition file included from the main configuration file with a
+  <emphasis role="bold">cfg_file=</emphasis> or <emphasis role="bold">cfg_dir=</emphasis> directive can use
+  <emphasis role="bold">include_file=</emphasis> or <emphasis role="bold">include_dir=</emphasis> to include another object definition
+  file, which in turn can also use <emphasis role="bold">include_file=</emphasis> or <emphasis role="bold">include_dir=</emphasis> to
+  include yet another object definition file, and so on.</para>
+
   <tip>
     <para>When you follow <link linkend="quickstart">quickstart installation guide</link>, several sample object configuration
     files are placed in <emphasis>&url-icinga-base;/etc/objects/</emphasis>. You can use these sample files to see how object
