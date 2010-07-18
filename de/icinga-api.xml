@@ -6,113 +6,101 @@
 <section version="5.0" xml:id="icinga-api" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-     
+  <title>Installation und Benutzung der &name-api;</title>
 
-    <title>Installation und Benutzung der &name-api;</title>
+  <para><emphasis role="bold">Voraussetzungen</emphasis></para>
 
-     
+  <para>Sie benötigen installierte und lauffähige Versionen von &name-icinga; und &name-idoutils; oder &name-mklive;, um die &name-api;
+  nutzen zu können. <note>
+      <para>Falls Sie &name-icinga; noch nicht installiert haben, folgen Sie den Anweisungen in der "<link
+      linkend="quickstart-idoutils">quickstart-idoutils</link>-Dokumentation.</para>
+    </note> Wenn Sie die &name-idoutils; Datenbank als Datenquelle verwenden, installieren Sie bitte PHP-PDO.</para>
 
-    <para>
-        <emphasis role="bold">Voraussetzungen</emphasis>
-    </para>
+  <itemizedlist>
+    <listitem>
+      <para><emphasis role="bold">&name-rhel;/&name-fedora;/&name-centos;</emphasis></para>
 
-     
+      <para>Stellen Sie sicher, dass Sie ein Repository/Packages für PHP 5.2.x zur Verfügung haben - RHEL/CentOS unterstützen lediglich
+      5.1.6.</para>
 
-    <para>Sie benötigen installierte und gestartete Versionen von &name-icinga; und &name-idoutils; oder &name-mklive;, um die &name-api; nutzen zu
-    können. <note>
-            <para>Falls Sie &name-icinga; noch nicht installiert haben, folgen Sie den Anweisungen in der "<link
-            linkend="quickstart-idoutils">quickstart-idoutils</link>- Dokumentation.</para>
-        </note> Wenn Sie die &name-idoutils; Datenbank als Datenquelle verwenden, installieren Sie bitte PHP-PDO.</para>
+      <programlisting> # yum install php-pdo php-mysql|pgsql </programlisting>
+    </listitem>
 
-     
+    <listitem>
+      <para><emphasis role="bold">&name-debian;/&name-ubuntu;</emphasis></para>
 
-    <para>
-        <emphasis role="bold">&name-rhel;/&name-fedora;/&name-centos;</emphasis>
-    </para>
-Stellen Sie sicher, dass Sie ein Repository/Packages für PHP 5.2.x zur Verfügung haben - RHEL/CentOS unterstützen lediglich 5.1.6
+      <programlisting> # apt-get install php5 php5-mysql|pgsql </programlisting>
+    </listitem>
 
-     
+    <listitem>
+      <para><emphasis role="bold">&name-opensuse;;</emphasis></para>
 
-    <programlisting># yum install php-pdo php-mysql|pgsql </programlisting>
+      <para>Bitte benutzen Sie yast zur Installation der Pakete php5, php5-pdo und php5-mysql bzw. php5-pgsql.</para>
+    </listitem>
+  </itemizedlist>
 
-     
+  <para><anchor xml:id="icinga-api_installation" /> <emphasis role="bold">Installation und Konfiguration</emphasis></para>
 
-    <para>
-        <emphasis role="bold">&name-debian;/&name-ubuntu;</emphasis>
-    </para>
+  <orderedlist>
+    <listitem>
+      <para><emphasis role="bold">Software</emphasis></para>
 
-     # apt-get install php5 php5-mysql|pgsql 
+      <para>Klonen Sie von icinga-api.git, um einen neuen Branch zu bekommen:</para>
 
-    <para>
-        <anchor xml:id="icinga-api_installation"/>
+      <programlisting> # git clone git://git.icinga.org/icinga-api.git</programlisting>
 
-        <emphasis role="bold">Installation und Konfiguration</emphasis>
-    </para>
+      <para>oder laden Sie die Software von <link
+      xlink:href="https://git.icinga.org/index?p=icinga-api.git;a=snapshot;h=refs/heads/master;sf=tgz">https://git.icinga.org/index?p=icinga-api.git;a=snapshot;h=refs/heads/master;sf=tgz</link>.</para>
+    </listitem>
 
-     
+    <listitem>
+      <para><emphasis role="bold">Installation</emphasis></para>
 
-    <orderedlist>
-        <listitem>
-            <para>
-                <emphasis role="bold">Software</emphasis>
-            </para>
+      <note>
+        <para>Die &name-api; ist innerhalb des Pakets von &name-icinga; Core, &name-idoutils; und Docs enthalten und wird während 'make
+        install' mit installiert. Sofern Sie das schon durchgeführt haben, befindet sich die API standardmäßig in
+        /usr/local/icinga/share/icinga-api/ und Sie können diesen Abschnitt überspringen.</para>
+      </note>
 
-            <para>Klonen Sie von icinga-api.git, um einen neuen Branch zu bekommen:</para>
+      <note>
+        <para>Wenn Sie die &name-api; für das neue &name-web; benötigen und schon &name-icinga; Core mit den &name-idoutils; installiert
+        haben, können Sie diesen Guide verlassen und direkt <link linkend="icinga-web-scratch">&name-web;</link> installieren.</para>
+      </note>
 
-            <programlisting> # git clone git://git.icinga.org/icinga-api.git</programlisting>
+      <para><emphasis role="bold">Download</emphasis></para>
 
-            <para>oder laden Sie die Software von <link
-            xlink:href="https://git.icinga.org/index?p=icinga-api.git;a=snapshot;h=refs/heads/master;sf=tgz">https://git.icinga.org/index?p=icinga-api.git;a=snapshot;h=refs/heads/master;sf=tgz</link>.</para>
-        </listitem>
+      <para>Sie können die &name-api; direkt aus dem GIT Repository beziehen, für einen frischen Clone führen Sie folgenden Befehl
+      aus:</para>
 
-        <listitem>
-            <para>
-                <emphasis role="bold">Installation</emphasis>
-            </para>
+      <programlisting> # git clone git://git.icinga.org/icinga-api.git</programlisting>
 
-            <para>Die &name-api; ist innerhalb des Pakets von &name-icinga; Core, &name-idoutils; und Docs enthalten und wird während 'make install'
-            mit installiert. Sofern Sie das schon durchgeführt haben, befindet sich die API standardmässig in /usr/local/icinga/share/icinga-api/ und
-            Sie können diesen Abschnitt überspringen.</para>
+      <para>Sofern Sie lediglich ein Update benötigen:</para>
 
-            <note>
-                <para>Wenn Sie die &name-api; für das neue &name-web; benötigen und schon &name-icinga; Core mit den &name-idoutils; installiert
-                haben, können Sie diesen Guide verlassen und direkt <link
-                linkend="icinga-web-scratch">&name-web;</link> installieren.</para>
-            </note>
-            <para>
-                <emphasis role="bold">Download</emphasis>
-            </para>
+      <programlisting> # cd icinga-api &amp;&amp; git pull origin master</programlisting>
 
-            <para>Sie können die &name-api; direkt aus dem GIT Repository beziehen, für einen frischen Clone führen Sie folgenden Befehl aus:</para>
+      <para>Oder laden Sie einen Snapshot direkt über das Gitweb: <link
+      xlink:href="https://git.icinga.org/index?p=icinga-api.git;a=snapshot;h=refs/heads/master;sf=tgz">https://git.icinga.org/index?p=icinga-api.git;a=snapshot;h=refs/heads/master;sf=tgz</link>.</para>
 
-            <programlisting># git clone git://git.icinga.org/icinga-api.git</programlisting>
+      <para><emphasis role="bold">Installation</emphasis></para>
 
-            <para>Sofern Sie lediglich ein Update benötigen:</para>
+      <para>Entpacken Sie die &name-api;, führen Sie configure aus und installieren Sie die &name-api; <programlisting> # tar xzvf icinga-api-(version).tar.gz</programlisting>
+      <programlisting> # ./configure</programlisting></para>
 
-            <programlisting># cd icinga-api &amp;&amp; git pull origin master</programlisting>
+      <para>Sie können den Präfix definieren, wohin die &name-api; installiert wird sowie den Ort der Systemkonfiguration für &name-icinga;
+      Core und &name-idoutils; und die ausführenden Benutzer. All diese Informationen werden bei einer Installation durch das Core Paket
+      direkt gesetzt. <programlisting> # ./configure --datarootdir=/usr/local/icinga/share \
+    --sysconfdir=/usr/local/icinga/etc \
+    --with-command-user=icinga-cmd \
+    --with-command-group=icinga-cmd \
+    --with-icinga-user=icinga \
+    --with-icinga-group=icinga</programlisting><programlisting> # make install</programlisting></para>
+    </listitem>
+  </orderedlist>
 
-            <para>Oder laden Sie einen Snapshot direkt über das Gitweb: <link
-            xlink:href="https://git.icinga.org/index?p=icinga-api.git;a=snapshot;h=refs/heads/master;sf=tgz">https://git.icinga.org/index?p=icinga-api.git;a=snapshot;h=refs/heads/master;sf=tgz</link>.</para>
-            <para>
-                <emphasis role="bold">Installation</emphasis>
-            </para>
+  <para><emphasis role="bold">Konfiguration</emphasis></para>
 
-            <para>Entpacken Sie die &name-api;, führen Sie configure aus und installieren Sie die &name-api; <programlisting># tar xzvf icinga-api-(version).tar.gz</programlisting>
-            <programlisting># ./configure</programlisting></para>
-
-            <para>Sie können den Präfix definieren, wohin die &name-api; installiert wird sowie den Ort der Systemkonfiguration für &name-icinga; Core
-            und &name-idoutils; und die ausführenden Benutzer. All diese Informationen werden bei einer Installation durch das Core Paket direkt
-            gesetzt. <programlisting># ./configure --datarootdir=/usr/local/icinga/share --sysconfdir=/usr/local/icinga/etc --with-command-user=icinga-cmd --with-command-group=icinga-cmd --with-icinga-user=icinga --with-icinga-group=icinga</programlisting>
-            <programlisting># make install</programlisting></para>
-        </listitem>
-
-        <listitem>
-            <para>
-                <emphasis role="bold">Konfiguration</emphasis>
-            </para>
-
-            <para>Wenn Sie ihr eigenes Addon auf Basis der &name-api; entwickeln möchten, benötigen Sie das folgende assoziative Array. $idoConfig =
-            array ( <programlisting> $idoConfig = array (
+  <para>Wenn Sie Ihr eigenes Addon auf Basis der &name-api; entwickeln möchten, benötigen Sie das folgende assoziative Array. $idoConfig =
+  array ( <programlisting> $idoConfig = array (
     'type'         =&gt; '&lt;Type of database&gt;',
     'host'         =&gt; '&lt;Database hostname&gt;', 
     'database'     =&gt; '&lt;Databasename&gt;',
@@ -122,7 +110,7 @@ Stellen Sie sicher, dass Sie ein Repository/Packages für PHP 5.2.x zur Verfügu
     'table_prefix' =&gt; '&lt;table prefix&gt;', 
  );</programlisting> Beispiel:</para>
 
-            <programlisting> $idoConfig = array (
+  <programlisting> $idoConfig = array (
     'type'         =&gt; 'mysql',
     'host'         =&gt; 'localhost',
     'database'     =&gt; 'ido',
@@ -131,83 +119,61 @@ Stellen Sie sicher, dass Sie ein Repository/Packages für PHP 5.2.x zur Verfügu
     'persistent'   =&gt; true,
     'table_prefix' =&gt; 'icinga_',
  );</programlisting>
-        </listitem>
-    </orderedlist>
 
-     
+  <para><anchor xml:id="icinga-api_use" /> <emphasis role="bold">Benutzung</emphasis></para>
 
-    <para>
-        <anchor xml:id="icinga-api_use" />
+  <orderedlist>
+    <listitem>
+      <para><emphasis role="bold">Datenermittlung</emphasis></para>
 
-        <emphasis role="bold">Benutzung</emphasis>
-    </para>
+      <para>Host-Namen und zugehörige Zustände</para>
 
-     
+      <para>Erzeugen Sie eine Instant der Klasse IcingaApi:</para>
 
-    <orderedlist>
-        <listitem>
-            <para>
-                <emphasis role="bold">Datenermittlung</emphasis>
-            </para>
+      <para><programlisting> $api = IcingaApi::getConnection(IcingaApi::CONNECTION_IDO, $idoConfig);</programlisting>Erzeugen Sie die
+      Suchkriterien:</para>
 
-            <para>Host-Namen und zugehörige Zustände</para>
-
-            <para>Erzeugen Sie eine Instant der Klasse IcingaApi:</para>
-
-            <para><programlisting> $api = IcingaApi::getConnection(IcingaApi::CONNECTION_IDO, $idoConfig);</programlisting>Erzeugen Sie die
-            Suchkriterien:</para>
-
-            <para>
-                <programlisting> $apiRes = $api-&gt;createSearch()
+      <para><programlisting> $apiRes = $api-&gt;createSearch()
  -&gt;setSearchTarget(IcingaApi::TARGET_HOST)
  -&gt;setResultColumns(array(’HOST_NAME’, ‘HOST_CURRENT_STATE’))
- -&gt;fetch();</programlisting>
-            </para>
+ -&gt;fetch();</programlisting></para>
 
-            <para>Mit Hilfe von setSearchFilter() können Sie Filter benutzen, um die Suche einzuschränken:</para>
+      <para>Mit Hilfe von setSearchFilter() können Sie Filter benutzen, um die Suche einzuschränken:</para>
 
-            <para>
-                <programlisting> $apiRes = $api-&gt;createSearch()
+      <para><programlisting> $apiRes = $api-&gt;createSearch()
  -&gt;setSearchTarget(IcingaApi::TARGET_HOST)
  -&gt;setResultColumns(array(’HOST_NAME’, ‘HOST_CURRENT_STATE’))
  -&gt;setSearchFilter(HOST_NAME, ‘Switch%’, IcingaApi::MATCH_LIKE)
- -&gt;fetch();</programlisting>
-            </para>
-        </listitem>
+ -&gt;fetch();</programlisting></para>
+    </listitem>
 
-        <listitem>
-            <para>
-                <emphasis role="bold">Verarbeiten der Ergebnisse</emphasis>
-            </para>
+    <listitem>
+      <para><emphasis role="bold">Verarbeiten der Ergebnisse</emphasis></para>
 
-            <para><programlisting> foreach($apiRes as $apiHandle){
+      <para><programlisting> foreach($apiRes as $apiHandle){
     echo ‘Host ‘.$apiHandle-&gt;HOST_NAME.’ has state ‘.$apiHandle-&gt;HOST_CURRENT_STATE.’&lt;br /&gt;’;
  }</programlisting>Ausgabe ohne Filter:</para>
 
-            <para><programlisting> Host localhost has state 0
+      <para><programlisting> Host localhost has state 0
  Host MySql has state 0
  Host router-01 has state 0
  Host windows100 has state 0
  Host Apache_01 has state 0</programlisting>Ausgabe mit Filter:</para>
 
-            <para>
-                <programlisting> Host switch70 has the current state 0
+      <para><programlisting> Host switch70 has the current state 0
  Host switch71 has the current state 0
  Host switch72 has the current state 0
  Host switch73 has the current state 0
  Host switch74 has the current state 0
  Host switch75 has the current state 0
  Host switch76 has the current state 0
- Host switch77 has the current state 0</programlisting>
-            </para>
-        </listitem>
+ Host switch77 has the current state 0</programlisting></para>
+    </listitem>
 
-        <listitem>
-            <para>
-                <emphasis role="bold">Kompletter Code ohne die Nutzung von Filtern</emphasis>
-            </para>
+    <listitem>
+      <para><emphasis role="bold">Kompletter Code ohne die Nutzung von Filtern</emphasis></para>
 
-          <para><programlisting> &lt;?
+      <para><programlisting> &lt;?
  // Path to icinga api file
  $apiFile = ‘icinga-api/IcingaApi.php’;
  
@@ -240,19 +206,16 @@ Stellen Sie sicher, dass Sie ein Repository/Packages für PHP 5.2.x zur Verfügu
  }
  ?&gt;</programlisting></para>
 
-            <para>Für nähere Informationen werfen Sie bitte einen Blick in das <link xlink:href="http://git.icinga.org/">git repository</link> oder
-            die Beispiele im doc/examples-Verzeichnis.</para>
-        </listitem>
-    </orderedlist>
+      <para>Für nähere Informationen werfen Sie bitte einen Blick in das <link xlink:href="http://git.icinga.org/">git repository</link>
+      oder die Beispiele im doc/examples-Verzeichnis.</para>
+    </listitem>
+  </orderedlist>
 
-    <indexterm zone="icinga-api">
-        <primary>Icinga-API</primary>
-    </indexterm>
+  <indexterm zone="icinga-api">
+    <primary>Icinga-API</primary>
+  </indexterm>
 
-     
-
-    <indexterm zone="icinga-api">
-        <primary>API/Icinga</primary>
-    </indexterm>
-    
+  <indexterm zone="icinga-api">
+    <primary>API/Icinga</primary>
+  </indexterm>
 </section>
