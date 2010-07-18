@@ -242,6 +242,7 @@
   <programlisting> #&gt; cd /usr/src/ 
  #&gt; tar xvzf icinga-&ver-icinga;.tar.gz 
  #&gt; cd icinga-&ver-icinga;</programlisting>
+  <note><para>Dieser absolute Pfad ist gemeint, wenn im Nachfolgenden von '/path/to/icinga-src/' die Rede ist.</para></note>
 
   <para>Führen Sie das &name-icinga;-configure-Script aus. Durch die Nutzung des --help-Flags erhalten Sie Hilfe zu den Optionen.</para>
 
@@ -268,14 +269,16 @@
       <para>Wenn Sie von einer Oracle-Datenbank auf ein anderes RDBMS wechseln möchten, dann müssen Sie die &name-idoutils; erneut
       kompilieren und installieren!</para>
     </note> <programlisting> #&gt; make distclean
- #&gt; ./configure --enable-idoutils</programlisting> Kompilieren Sie den &name-icinga;-Source-Code. Es gibt auch eine extra Option für
+ #&gt; ./configure --enable-idoutils</programlisting> 
+  <para><emphasis role="bold">Kompilieren / Installieren</emphasis></para>
+  Kompilieren Sie den &name-icinga;-Source-Code. Es gibt auch eine extra Option für
   &name-idoutils; (<emphasis>make idoutils</emphasis>), wenn Sie nur dieses Module erneut kompilieren möchten. Um mögliche Optionen zu
   sehen, rufen Sie lediglich "make" auf.<programlisting> #&gt; make all</programlisting> Installieren Sie die Binaries, das Init-Script,
   Beispiel-Konfigurationsdateien und setzen Sie die Berechtigungen für das External-Command-Verzeichnis. <programlisting> #&gt; make install 
  #&gt; make install-init 
  #&gt; make install-config 
  #&gt; make install-commandmode 
- # make install-idoutils</programlisting> oder kürzer <programlisting> #&gt; make fullinstall</programlisting></para>
+ #&gt; make install-idoutils</programlisting> oder kürzer <programlisting> #&gt; make fullinstall</programlisting></para>
 
   <para>Die Icinga-API wird beim Aufruf von "make install" installiert, wenn Sie nur die Icinga-API (nach)installieren möchten, nutzen Sie:
   <programlisting> #&gt; make install-api</programlisting>Die Icinga-API ist Voraussetzung für das Icinga Web-Interface (nicht für die
@@ -329,6 +332,7 @@
   <para><emphasis role="bold">&name-mysql;:</emphasis></para>
 
   <para><emphasis>Anlegen von Datenbank, Benutzer und Berechtigungen</emphasis></para>
+    <note><para>Falls Sie gerade ein neues Datenbanksystem installiert haben, dann müssen Sie den Datenbank-Server-Prozess starten, bevor Sie eine Datenbank anlegen können. Im Falle von &name-mysql; benutzen Sie <code>/etc/init.d/mysqld start</code>.</para></note>
 
   <programlisting> #&gt; mysql -u root -p
   
@@ -423,7 +427,8 @@
   <para>Icinga stellt das klassische Web-Interface zur Verfügung ("Classic Web", "die CGIs"). Sie können dieses wie folgt
   installieren:</para>
 
-  <programlisting> #&gt; make cgis
+  <programlisting> #&gt; cd /path/to/icinga-src
+ #&gt; make cgis
  #&gt; make install-cgis</programlisting>
 
   <para>Wenn Sie stattdessen das neue Icinga Web installieren wollen, lesen Sie bitte <link linkend="icinga-web-scratch">Installation des
@@ -431,8 +436,8 @@
 
   <para>Installieren Sie die &name-icinga;-Web-Konfigurationsdatei im &name-apache; conf.d-Verzeichnis.</para>
 
-  <screen> #&gt; cd /path/to/icinga-src
- #&gt; make install-webconf</screen>
+  <programlisting> #&gt; cd /path/to/icinga-src
+ #&gt; make install-webconf</programlisting>
 
   <para>Legen Sie ein <emphasis>icingaadmin</emphasis>-Konto an, um sich am klassischen Web-Interface anmelden zu können. Merken Sie sich
   das Passwort, das Sie diesem Konto geben - Sie brauchen es später.</para>
