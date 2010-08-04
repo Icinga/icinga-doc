@@ -230,7 +230,19 @@
     </listitem>
 
     <listitem>
+      <para><link linkend="configmain-log_external_commands_user">External commands user logging option</link></para>
+    </listitem>
+
+    <listitem>
       <para><link linkend="configmain-log_passive_checks">Passive check logging option</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="configmain-log_current_states">Current state logging option</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="configmain-log_long_plugin_output">Long plugin output logging option</link></para>
     </listitem>
   </itemizedlist>
 
@@ -2309,6 +2321,47 @@
     </listitem>
   </itemizedlist>
 
+  <para><anchor xml:id="configmain-log_external_commands_user" /> <emphasis role="bold">External Commands User Logging Option</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">log_external_commands_user=&lt;0/1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">log_external_commands_user=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option allows you to enable the logging of the current user of external commands.  The syntax will be CMD;username;cmdargs 
+  instead of CMD;cmdargs written to the logs, if the external application sends that correctly.
+  Since this will break compatibility with existing log parsers, it is intentionally disabled by default.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>0 = Don't log user name using external commands (default)</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = Log user name using external commands</para>
+    </listitem>
+  </itemizedlist>
+
+  <note><para>This option is available starting with &name-icinga; 1.0.3.</para></note>
+
   <para><anchor xml:id="configmain-log_passive_checks" /> <emphasis role="bold">Passive Check Logging Option</emphasis></para>
 
   <informaltable frame="none">
@@ -2348,6 +2401,87 @@
       <para>1 = Log passive checks (default)</para>
     </listitem>
   </itemizedlist>
+
+  <para><anchor xml:id="configmain-log_current_states" /> <emphasis role="bold">Current State Logging Option</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">log_current_states=&lt;0/1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">log_current_states=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This variable determines whether or not &name-icinga; will log the current states of hosts and services after a log rotation.
+  If you set the value of log_current_states to 0 the current states will not be written to the main log file after a log rotation.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>0 = Don't log current host and service states</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = Log current host and service states (default)</para>
+    </listitem>
+  </itemizedlist>
+
+  <note><para>This option is available starting with &name-icinga; 1.0.3.</para></note>
+
+  <para><anchor xml:id="configmain-log_long_plugin_output" /> <emphasis role="bold">Long Plugin Output Logging Option</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">log_current_states=&lt;0/1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">log_current_states=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This variable determines whether or not &name-icinga; will log the complete output of a plugin (not only the first line).
+  If you set the value of log_long_plugin_output to 1 the complete plugin output will be logged.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>0 = Only log the first line of plugin output (default)</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = Log complete plugin output</para>
+    </listitem>
+  </itemizedlist>
+
+  <note><para>This option is available starting with &name-icinga; 1.0.3.</para></note>
+
 
   <para><anchor xml:id="configmain-global_host_event_handler" /> <emphasis role="bold">Global Host Event Handler Option</emphasis></para>
 
@@ -4584,11 +4718,11 @@
 
   <itemizedlist>
     <listitem>
-      <para>0 = Don't check host freshness</para>
+      <para>0 = Don't check host freshness (default)</para>
     </listitem>
 
     <listitem>
-      <para>1 = Check host freshness (default)</para>
+      <para>1 = Check host freshness</para>
     </listitem>
   </itemizedlist>
 

@@ -1852,6 +1852,47 @@
     </listitem>
   </itemizedlist>
 
+  <para><anchor xml:id="configmain-log_external_commands_user" /> <emphasis role="bold">Option Benutzer von externen Kommandos protokollieren</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">log_external_commands_user=&lt;0/1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry><para>Beispiel:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">log_external_commands_user=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Diese Option erlaubt es Ihnen, den Namen des Benutzers zu protokollieren, der aktuell externe Kommandos ausführt.
+  Anstatt CMD;cmdargs wird nun CMD;username;cmdargs in die Log-Datei geschrieben, wenn die externe Applikation das korrekt sendet.
+  Weil dies die Kompatibilität mit bestehenden Log-Parsern gefährdet, ist diese Option per Default deaktiviert.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>0 = Den Namen des aktuellen Benutzers von externen Kommandos nicht protokollieren (default)</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = Den Namen des aktuellen Benutzers von externen Kommandos protokollieren</para>
+    </listitem>
+  </itemizedlist>
+
+  <note><para>Diese Option ist verfügbar ab &name-icinga; 1.0.3.</para></note>
+
   <para><anchor xml:id="configmain-log_passive_checks" /><emphasis role="bold">Option passive Prüfungen protokollieren</emphasis> (Passive
   Check Logging Option)</para>
 
@@ -1892,6 +1933,86 @@
       <para>1 = passive Prüfungen protokollieren (Default)</para>
     </listitem>
   </itemizedlist>
+
+  <para><anchor xml:id="configmain-log_current_states" /> <emphasis role="bold">Option Aktuelle Zustände protokollieren</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">log_current_states=&lt;0/1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry><para>Beispiel:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">log_current_states=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Diese Variable legt fest, ob &name-icinga; die aktuellen Host- und Service-Zustände nach einer Log-Datei-Rotation protokolliert.
+  Wenn Sie den Wert von log_current_states auf 0 setzen, werden die aktuellen Zustände nach einer Rotation der Log-Datei nicht protokolliert.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>0 = die aktuellen Host- und Service-Zustände nicht protokollieren</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = die aktuellen Host- und Service-Zustände protokollieren (Default)</para>
+    </listitem>
+  </itemizedlist>
+
+  <note><para>Diese Option ist verfügbar ab &name-icinga; 1.0.3.</para></note>
+
+  <para><anchor xml:id="configmain-log_long_plugin_output" /> <emphasis role="bold">Option langen Plugin-Output protokollieren</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">log_long_plugin_output=&lt;0/1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry><para>Beispiel:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">log_long_plugin_output=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Diese Variable legt fest, ob &name-icinga; die komplette Ausgabe von Plugin (und nicht nur die erste Zeile) protokolliert.
+  Wenn Sie den Wert von log_long_plugin_output auf 1 setzen, werden die kompletten Ausgaben von Plugins protokolliert.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>0 = nur die erste Zeile von Plugin-Ausgaben protokollieren (Default)</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = die kompletten Plugin-Ausgaben protokollieren</para>
+    </listitem>
+  </itemizedlist>
+
+  <note><para>Diese Option ist verfügbar ab &name-icinga; 1.0.3.</para></note>
 
   <para><anchor xml:id="configmain-global_host_event_handler" /><emphasis role="bold">globale Host-Eventhandler Option</emphasis> (Global
   Host Event Handler Option)</para>
@@ -4202,11 +4323,11 @@
 
   <itemizedlist>
     <listitem>
-      <para>0 = Host-Frische nicht prüfen</para>
+      <para>0 = Host-Frische nicht prüfen (Default)</para>
     </listitem>
 
     <listitem>
-      <para>1 = Host-Frische prüfen (Default)</para>
+      <para>1 = Host-Frische prüfen</para>
     </listitem>
   </itemizedlist>
 
