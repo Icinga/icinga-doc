@@ -1220,6 +1220,45 @@
   <para>This option is used to define the base URL to your Splunk interface. This URL is used by the CGIs when creating links if the <link
   linkend="configcgi-enable_splunk_integration">enable_splunk_integration</link> option is enabled.</para>
 
+  <para><anchor xml:id="configcgi-persistent_ack_comments" /> <emphasis role="bold">Persistent Acknowledge Comments</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">persistent_ack_comments=&lt;0|1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">persistent_ack_comments=1</emphasis>
+          </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option controls the initial state of the check box "persistent comment" to acknowledge problem hosts or services.
+  It can be used to reinstate the behaviour of &name-nagios; 2. Default is "0" to be compatible with &name-nagios; 3.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>0 = Leave check box "persistent comment" unchecked (default)</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = Set check box "persistent comment"</para>
+    </listitem>
+  </itemizedlist>
+  <note><para>This option is available starting with &name-icinga; 1.0.3.</para></note>
+
   <indexterm zone="config_cgi">
     <primary>CGI Configuration File Options</primary>
   </indexterm>
@@ -1360,5 +1399,11 @@
     <primary>splunk_url=</primary>
 
     <secondary>Splunk URL</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-persistent_ack_comments">
+    <primary>persistent_ack_comments=</primary>
+
+    <secondary>Persistent Acknowledge Comments</secondary>
   </indexterm>
 </section>

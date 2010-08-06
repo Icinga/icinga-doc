@@ -254,6 +254,11 @@
     <listitem>
       <para><link linkend="configmain-global_service_event_handler">Global service event handler</link></para>
     </listitem>
+
+    <listitem>
+      <para><link linkend="configmain-stalking_event_handlers_for_hosts">Stalking event handlers for hosts</link></para>
+      <para><link linkend="configmain-stalking_event_handlers_for_services">Stalking event handlers for services</link></para>
+    </listitem>
   </itemizedlist>
 
   <itemizedlist>
@@ -2547,6 +2552,46 @@
   configuration file</link>. The maximum amount of time that this command can run is controlled by the <link
   linkend="configmain-event_handler_timeout">event_handler_timeout</link> option. More information on event handlers can be found <link
   linkend="eventhandlers">here</link>.</para>
+
+  <para><anchor xml:id="configmain-stalking_event_handlers_for_hosts" /> <emphasis role="bold"> Event handlers for stalked hosts</emphasis></para>
+  <para><anchor xml:id="configmain-stalking_event_handlers_for_services" /> <emphasis role="bold"> Event handlers for stalked services</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">stalking_event_handlers_for_hosts=&lt;0|1&gt;</emphasis> </para>
+          <para> <emphasis role="bold">stalking_event_handlers_for_services=&lt;0|1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis
+          role="bold">stalking_event_handlers_for_hosts=1</emphasis> </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>These options allow you to specify whether or not &name-icinga; executes event handlers for stalked hosts or services, respectively.
+  This way it is possible to forward status information changes to external systems.</para>
+  <itemizedlist>
+    <listitem>
+      <para>0 = Event handler disabled (default)</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = Event handler enabled</para>
+    </listitem>
+  </itemizedlist>
+  <note><para>This option is available starting with &name-icinga; 1.0.3.</para></note>
 
   <para><anchor xml:id="configmain-sleep_time" /> <emphasis role="bold">Inter-Check Sleep Time</emphasis></para>
 
@@ -5718,6 +5763,18 @@
     <primary>global_service_event_handler=</primary>
 
     <secondary>Global Service Event Handler</secondary>
+  </indexterm>
+
+  <indexterm zone="configmain-stalking_event_handlers_for_hosts">
+    <primary>stalking_event_handlers_for_hosts=</primary>
+
+    <secondary>Stalking Event Handlers for Hosts</secondary>
+  </indexterm>
+
+  <indexterm zone="configmain-stalking_event_handlers_for_services">
+    <primary>stalking_event_handlers_for_services=</primary>
+
+    <secondary>Stalking Event Handlers for Services</secondary>
   </indexterm>
 
   <indexterm zone="configmain-sleep_time">
