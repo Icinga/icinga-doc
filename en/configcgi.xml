@@ -163,7 +163,11 @@
       <para><link linkend="configcgi-action_url_target">Action URL target</link></para>
     </listitem>
   </itemizedlist>
-
+<itemizedlist>
+    <listitem>
+      <para><link linkend="configcgi-show_only_hard_states">Tac Show Only Hard State</link></para>
+    </listitem>
+</itemizedlist>
   <itemizedlist>
     <listitem>
       <para><link linkend="configcgi-enable_splunk_integration">Splunk integration option</link></para>
@@ -1161,6 +1165,32 @@
   <para>This option determines the name of the frame target that action URLs should be displayed in. Valid options include
   <emphasis>_blank</emphasis>, <emphasis>_self</emphasis>, <emphasis>_top</emphasis>, <emphasis>_parent</emphasis>, or any other valid
   target name.</para>
+<para><anchor xml:id="configcgi-show_only_hard_states" /><emphasis role="bold">Tac Show Only Hard State</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">tac_show_only_hard_state=[0/1]</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">tac_show_only_hard_state=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+<para>This options allows you to specify if the tactical overview should only show hard states on hosts and services. If you set this option to 1 the tactical overview shows only states on hosts and services.
+By default disabled, all states will be shown.</para>
 
   <para><anchor xml:id="configcgi-enable_splunk_integration" /> <emphasis role="bold">Splunk Integration Option</emphasis></para>
 
@@ -1388,7 +1418,11 @@
 
     <secondary>Action URL Target</secondary>
   </indexterm>
+<indexterm zone="configcgi-show_only_hard_states">
+<primary>tac_show_only_hard_state=</primary>
 
+    <secondary>Tac Show Only Hard State</secondary>
+  </indexterm>
   <indexterm zone="configcgi-enable_splunk_integration">
     <primary>enable_splunk_integration=</primary>
 
