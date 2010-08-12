@@ -6,241 +6,259 @@
 <section version="5.0" xml:id="upgrading_idoutils" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-  <title><anchor xml:id="upgrading_idoutils2" />&name-idoutils;-Datenbank aktualisieren</title>
+    <title><anchor xml:id="upgrading_idoutils2" />&name-idoutils;-Datenbank aktualisieren</title>
 
-  <para>Es mag einen Bug im Datenbankschema geben, der behoben wurde. Wenn Sie eine ältere &name-idoutils;-Version aktualisieren, dann
-  müssen Sie außerdem diese Anpassungen manuell ausführen. Wenn Sie rpm/deb-Pakete benutzen, lesen Sie bitte die Hinweise und/oder fragen
-  Sie den Maintainer, ob er diese Anpassungen in der Installationsroutine hinzugefügt hat.</para>
+    <para>Es mag einen Bug im Datenbankschema geben, der behoben wurde. Wenn Sie eine ältere &name-idoutils;-Version aktualisieren, dann müssen Sie
+    außerdem diese Anpassungen manuell ausführen. Wenn Sie rpm/deb-Pakete benutzen, lesen Sie bitte die Hinweise und/oder fragen Sie den Maintainer,
+    ob er diese Anpassungen in der Installationsroutine hinzugefügt hat.</para>
 
-  <para>Die Update-Dateien finden Sie zusammen mit den Datenbank-Installationsdateien in
-  <code>/path/to/icinga-src/module/idoutils/db/DeineDB/</code></para>
+    <para>Die Update-Dateien finden Sie zusammen mit den Datenbank-Installationsdateien in
+    <code>/path/to/icinga-src/module/idoutils/db/DeineDB/</code></para>
 
-  <para>Die Syntax ist wie folgt</para>
+    <para>Die Syntax ist wie folgt</para>
 
-  <para><code>&lt;rdbm&gt;-upgrade-&lt;version&gt;.sql</code></para>
+    <para><code>&lt;rdbm&gt;-upgrade-&lt;version&gt;.sql</code></para>
 
-  <para>wobei &lt;rdbm&gt; mysql, pgsql oder oracle sein kann und &lt;version&gt; zeigt auf die Version, auf die Sie aktualisieren
-  wollen.</para>
+    <para>wobei &lt;rdbm&gt; mysql, pgsql oder oracle sein kann und &lt;version&gt; zeigt auf die Version, auf die Sie aktualisieren wollen.</para>
 
-  <note>
-    <para>Wenn Sie eine ältere Version aktualisieren wollen und zwischen dieser und der aktuellen noch andere Versionen liegen, dann sollten
-    Sie beachten, dass Sie auch die dazwischen liegenden Updates inkrementell installieren müssen!</para>
-  </note>
+    <note>
+        <para>Wenn Sie eine ältere Version aktualisieren wollen und zwischen dieser und der aktuellen noch andere Versionen liegen, dann sollten Sie
+        beachten, dass Sie auch die dazwischen liegenden Updates inkrementell installieren müssen!</para>
+    </note>
 
-  <para>Sie haben z.B. 1.0RC1 installiert und möchten auf 1.0.1 aktualisieren - Sie müssen dann zuerst auf 1.0 Stable updaten und dann die
-  Aktualierung auf 1.0.1 durchführen.</para>
+    <para>Sie haben z.B. 1.0RC1 installiert und möchten auf 1.0.1 aktualisieren - Sie müssen dann zuerst auf 1.0 Stable updaten und dann die
+    Aktualierung auf 1.0.1 durchführen.</para>
 
-  <orderedlist>
-    <listitem>
-      <para>Sichern Sie Ihre aktuelle Datenbank vor der Aktualisierung!</para>
-    </listitem>
+    <orderedlist>
+        <listitem>
+            <para>Sichern Sie Ihre aktuelle Datenbank vor der Aktualisierung!</para>
+        </listitem>
 
-    <listitem>
-      <para>Prüfen Sie die laufende &name-idoutils;-Version und die Zielversion. Prüfen Sie, ob zwischen diesen beiden Versionen noch andere
-      Versionen liegen und aktualisieren Sie ggf. schrittweise.</para>
-    </listitem>
+        <listitem>
+            <para>Prüfen Sie die laufende &name-idoutils;-Version und die Zielversion. Prüfen Sie, ob zwischen diesen beiden Versionen noch andere
+            Versionen liegen und aktualisieren Sie ggf. schrittweise.</para>
+        </listitem>
 
-    <listitem>
-      <para>Führen Sie die Aktualisierung(en) mit einem Benutzer durch, der über die notwendigen Berechtigungen verfügt. Sie können das
-      upgradedb-Script verwenden, aber das wird nicht empfohlen (betrifft nur MySQL).</para>
-    </listitem>
-  </orderedlist>
+        <listitem>
+            <para>Führen Sie die Aktualisierung(en) mit einem Benutzer durch, der über die notwendigen Berechtigungen verfügt. Sie können das
+            upgradedb-Script verwenden, aber das wird nicht empfohlen (betrifft nur MySQL).</para>
+        </listitem>
+    </orderedlist>
 
-  <para><emphasis role="bold">MySQL:</emphasis> <programlisting> $ mysql -u root -p &lt;dbname&gt; &lt; /path/to/icinga-src/module/idoutils/db/mysql/mysql-upgrade-&lt;version&gt;.sql</programlisting>
-  <emphasis role="bold">PostgreSQL:</emphasis> <programlisting> # su - postgres
+    <para><emphasis role="bold">MySQL:</emphasis> <programlisting> $ mysql -u root -p &lt;dbname&gt; &lt; /path/to/icinga-src/module/idoutils/db/mysql/mysql-upgrade-&lt;version&gt;.sql</programlisting>
+    <emphasis role="bold">PostgreSQL:</emphasis> <programlisting> # su - postgres
  $ psql -U icinga -d icinga &lt; /path/to/icinga-src/module/idoutils/db/pgsql/pgsql-upgrade-&lt;version&gt;.sql</programlisting> <emphasis
-  role="bold">Oracle:</emphasis> <programlisting> # su - oracle
+    role="bold">Oracle:</emphasis> <programlisting> # su - oracle
  $ sqlplus dbuser/dbpass
  SQL&gt; @oracle-upgrade-&lt;version&gt;.sql</programlisting></para>
 
-  <anchor xml:id="upgrading_idoutils_1.0.2" />
+    <anchor xml:id="upgrading_idoutils_1.0.3" />
 
-  <para><emphasis role="bold">Aktualisieren der &name-idoutils; auf 1.0.2</emphasis></para>
+    <para><emphasis role="bold">Aktualisieren der &name-idoutils; auf 1.0.3</emphasis></para>
 
-  <para>Es gab einen signifikanten Bug in den &name-idoutils;, der erst in &name-icinga; 1.0.2 bereinigt werden konnte.</para>
+    <para>Es gab ein paar kleinere Änderungen:</para>
 
-  <para>Bei jedem Core Restart wurde die gesamte Menge an Objekten in der Objekttabelle erneut hinzugefuegt, anstelle die alten weiterhin zu
-  verwenden und wie Relationen auf den neuesten Stand zu bringen.</para>
+    <itemizedlist>
+        <listitem>
+            <para>display_name wurde geändert zu varchar(255) für mysql/oracle</para>
+        </listitem>
 
-  <para>Beispielsweise bei 4000 Objekten (Hosts, Services, Contacts, etc) hat ein zweimaliger Core Restartet 4000+4000+4000 = 12000 Objekte
-  bedeutet.</para>
+        <listitem>
+            <para>Update des pgsql schema, ersetzen von varchar(n) durch text</para>
+        </listitem>
 
-  <para>In Bezug auf die Konfiguration und die Statusdaten ist dies nicht relevant, da deren Relationen zur Objekttabelle bei jeden Neustart
-  bereinigt werden.</para>
+        <listitem>
+            <para>Geänderter Wert für Konfigdateivariablen bis 1024 Länge für MySQL/Oracle.</para>
+        </listitem>
+    </itemizedlist>
 
-  <para>Historische Daten allerdings behalten diese unterschiedliche Beziehung zur Objekttabelle bei - vor und nach dem Restart sind die
-  Relationen unterschiedlich.</para>
+    <para>Bitte verwenden Sie das Update-Skript für ihre Datenbank wie oben beschrieben.</para>
 
-  <para>Diese Dateninkonsistenz ist natürlich nicht wünschenswert und es wurde dementsprechend versucht, eine einfache Lösungsmöglichkeit zu
-  finden.</para>
+    <anchor xml:id="upgrading_idoutils_1.0.2" />
 
-  <para>Neben den normale SQL Scripts für 1.0.2 (z.B. mysql-upgrade-1.0.2.sql) stehen erweiterte SQL Scripts zur Verfügung.</para>
+    <para><emphasis role="bold">Aktualisieren der &name-idoutils; auf 1.0.2</emphasis></para>
 
-  <para>Das Script arbeitet jeweils auf einer historischen Tabelle und holt sich mit Hilfe einer gestaffelten Query die notwendigen Daten
-  aus den beiden Tabellen - historisch 1..1 Objekte. Desweiteren werden kaputte Eintraege zur Zeit des Restarts bereinigt.</para>
+    <para>Es gab einen signifikanten Bug in den &name-idoutils;, der erst in &name-icinga; 1.0.2 bereinigt werden konnte.</para>
 
-  <para>Bitte verwenden Sie diese Scripts wie Sie möchten - wahlweise direkt ausgeführt oder Schritt für Schritt, wie der Ablauf innerhalb
-  des Scripts ist. Beachten Sie allerdings bitte, dass diese Scripts ohne Garantie auf ihr eigenes Risiko verwendet werden können.</para>
+    <para>Bei jedem Core Restart wurde die gesamte Menge an Objekten in der Objekttabelle erneut hinzugefuegt, anstelle die alten weiterhin zu
+    verwenden und wie Relationen auf den neuesten Stand zu bringen.</para>
 
-  <para>Falls Sie lediglich Livedaten verwenden, ist unter Umständen eine Neuinstallation des Datenbankschemas die einfachere Option.</para>
+    <para>Beispielsweise bei 4000 Objekten (Hosts, Services, Contacts, etc) hat ein zweimaliger Core Restartet 4000+4000+4000 = 12000 Objekte
+    bedeutet.</para>
 
-  <para>* &lt;rdbms&gt;-upgrade-1.0.2-fix-object-relations.sql</para>
+    <para>In Bezug auf die Konfiguration und die Statusdaten ist dies nicht relevant, da deren Relationen zur Objekttabelle bei jeden Neustart
+    bereinigt werden.</para>
 
-  <para>Das "normale" Upgrade Script ist in 1.0.2 nur für MySQL verfügbar. Es wurden binäre Casts entfernt, da case sensistives Vergleichen
-  auch mit einer Anpassung der Collation erreicht werden kann und so massive Performanceeinbrüche verhindert werden können.</para>
+    <para>Historische Daten allerdings behalten diese unterschiedliche Beziehung zur Objekttabelle bei - vor und nach dem Restart sind die Relationen
+    unterschiedlich.</para>
 
-  <para>* mysql-upgrade-1.0.2.sql</para>
+    <para>Diese Dateninkonsistenz ist natürlich nicht wünschenswert und es wurde dementsprechend versucht, eine einfache Lösungsmöglichkeit zu
+    finden.</para>
 
-  <anchor xml:id="upgrading_idoutils_1.0.1" />
+    <para>Neben den normale SQL Scripts für 1.0.2 (z.B. mysql-upgrade-1.0.2.sql) stehen erweiterte SQL Scripts zur Verfügung.</para>
 
-  <para><emphasis role="bold">Aktualisieren der &name-idoutils; auf 1.0.1</emphasis></para>
+    <para>Das Script arbeitet jeweils auf einer historischen Tabelle und holt sich mit Hilfe einer gestaffelten Query die notwendigen Daten aus den
+    beiden Tabellen - historisch 1..1 Objekte. Desweiteren werden kaputte Eintraege zur Zeit des Restarts bereinigt.</para>
 
-  <para>Bitte vergewissern Sie sich, dass Sie bereits auf Icinga &name-idoutils; 1.0 aktualisiert haben, bevor Sie diesen Abschnitt
-  weierlesen! Es gab einige (große) Veränderungen für alle unterstützten RDBMS, deshalb lesen Sie diesen Abschnitt bitte sehr sorgfältig.
-  Alle Datenbank- Skripte sind nun in entsprechenden Unterverzeichnissen zu finden. Für alle RDBMS wurden mehr Indizes gesetzt, außerdem
-  wurde die Größe der command_line Spalte in mehreren Tabellen, die 255 Zeichen überschritten, angepasst.</para>
+    <para>Bitte verwenden Sie diese Scripts wie Sie möchten - wahlweise direkt ausgeführt oder Schritt für Schritt, wie der Ablauf innerhalb des
+    Scripts ist. Beachten Sie allerdings bitte, dass diese Scripts ohne Garantie auf ihr eigenes Risiko verwendet werden können.</para>
 
-  <para>RDBMS spezifische Änderungen und HowTo's:</para>
+    <para>Falls Sie lediglich Livedaten verwenden, ist unter Umständen eine Neuinstallation des Datenbankschemas die einfachere Option.</para>
 
-  <para><emphasis role="bold">MySQL:</emphasis></para>
+    <para>* &lt;rdbms&gt;-upgrade-1.0.2-fix-object-relations.sql</para>
 
-  <para>Änderung der Datenbank- Engine von MYISAM zu InnoDB. Der Grund ist die Umgehung von Zeilen- Sperren/Transaktionen/Rollbacks im
-  Gegensatz zu einer kleinen Geschwindigkeitseinbuße während der Inserts.</para>
+    <para>Das "normale" Upgrade Script ist in 1.0.2 nur für MySQL verfügbar. Es wurden binäre Casts entfernt, da case sensistives Vergleichen auch mit
+    einer Anpassung der Collation erreicht werden kann und so massive Performanceeinbrüche verhindert werden können.</para>
 
-  <para>Das Upgrade-Skript führt eine ALTER TABLE- Anweisung aus. Falls ihnen diese Idee nicht gefällt, können Sie auch folgendes
-  tun:</para>
+    <para>* mysql-upgrade-1.0.2.sql</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>Dump erstellen der existierenden Datenbank:</para>
+    <anchor xml:id="upgrading_idoutils_1.0.1" />
 
-      <programlisting># mysqldump -u root -p icinga &gt; icinga.sql</programlisting>
-    </listitem>
+    <para><emphasis role="bold">Aktualisieren der &name-idoutils; auf 1.0.1</emphasis></para>
 
-    <listitem>
-      <para>Ändern Sie alle Einträge von "MYISAM" zu "InnoDB"</para>
-    </listitem>
+    <para>Bitte vergewissern Sie sich, dass Sie bereits auf Icinga &name-idoutils; 1.0 aktualisiert haben, bevor Sie diesen Abschnitt weierlesen! Es
+    gab einige (große) Veränderungen für alle unterstützten RDBMS, deshalb lesen Sie diesen Abschnitt bitte sehr sorgfältig. Alle Datenbank- Skripte
+    sind nun in entsprechenden Unterverzeichnissen zu finden. Für alle RDBMS wurden mehr Indizes gesetzt, außerdem wurde die Größe der command_line
+    Spalte in mehreren Tabellen, die 255 Zeichen überschritten, angepasst.</para>
 
-    <listitem>
-      <para>Import des angepassten Datensatzes in eine neue Datenbank (wenn Sie die alte Datenbank verwenden möchten, löschen Sie als erstes
-      den originalen Datensatz und rekreieren Sie die Datenbank).</para>
-    </listitem>
-  </itemizedlist>
+    <para>RDBMS spezifische Änderungen und HowTo's:</para>
 
-  <para><emphasis role="bold">PostgreSQL:</emphasis></para>
+    <para><emphasis role="bold">MySQL:</emphasis></para>
 
-  <para>Der Tabelle systemcommands fehlte die Spalte der Namens Ausgabe. Diese wird während des Upgrades hinzugefügt.</para>
+    <para>Änderung der Datenbank- Engine von MYISAM zu InnoDB. Der Grund ist die Umgehung von Zeilen- Sperren/Transaktionen/Rollbacks im Gegensatz zu
+    einer kleinen Geschwindigkeitseinbuße während der Inserts.</para>
 
-  <para><emphasis role="bold">Oracle:</emphasis></para>
+    <para>Das Upgrade-Skript führt eine ALTER TABLE- Anweisung aus. Falls ihnen diese Idee nicht gefällt, können Sie auch folgendes tun:</para>
 
-  <para>Um die Performance in mehreren Bereichen zu verbessern, muß der Wert für open_cursors höher gesetzt werden (Standardwert ist 50).
-  Das Aktualisierungsskript enthält zwei neue, in DML geschriebene, Prozeduren für die DELETE- Anweisungen.</para>
+    <itemizedlist>
+        <listitem>
+            <para>Dump erstellen der existierenden Datenbank:</para>
 
-  <para>Darüber hinaus gab es umfangreiche Änderungen bezüglich der Autoincrement- Sequenz und der AFTER INSERT- Trigger (Emulation des
-  MySQL Autoincrement auf Primärschlüssel). Die alte Routine wurde komplett verworfen, d.h. alle Trigger und die Autoincrement- Sequenz
-  werden während des Updates entfernt. Als Ersatz werden für jede Tabelle neue Sequenzen hinzugefügt und in den IDOUtils für Oracle
-  verwendet.</para>
+            <programlisting># mysqldump -u root -p icinga &gt; icinga.sql</programlisting>
+        </listitem>
 
-  <para>Bei bestehenden Datensätzen wird dies beim Importieren zu Problemen führen. Die Sequenzen starten mit dem Wert 1 wo hingegen der
-  primäre Key (id) einen Maximalwert gesetzt hat. Aus diesem Grund wird eine Basisfunktion bereitgestellt, die das folgende tut: Diese
-  extrahiert den maximalen Wert der id plus eins aus der angegebenen Tabelle und verändert den jeweiligen Sequence Start auf diesen
-  berechneten Wert.</para>
+        <listitem>
+            <para>Ändern Sie alle Einträge von "MYISAM" zu "InnoDB"</para>
+        </listitem>
 
-  <para>Bitte verwenden Sie diese Prozedur so, wie Sie es benötigen - auf alle Tabellen und Sequenzen oder auf separierte Teile. Die
-  Prozedur ist auskommentiert, und wird ohne Garantie auf Datenkonsistenz zur Verfügung gestellt. Ziehen Sie Ihren DBA zu Rate, wenn Sie
-  bestehende Datensätze importieren wollen.</para>
+        <listitem>
+            <para>Import des angepassten Datensatzes in eine neue Datenbank (wenn Sie die alte Datenbank verwenden möchten, löschen Sie als erstes den
+            originalen Datensatz und rekreieren Sie die Datenbank).</para>
+        </listitem>
+    </itemizedlist>
 
-  <anchor xml:id="upgrading_idoutils_1.0" />
+    <para><emphasis role="bold">PostgreSQL:</emphasis></para>
 
-  <para><emphasis role="bold">Aktualisieren der &name-idoutils; auf 1.0</emphasis></para>
+    <para>Der Tabelle systemcommands fehlte die Spalte der Namens Ausgabe. Diese wird während des Upgrades hinzugefügt.</para>
 
-  <para>Es gab einen Unique-Key-Fehler durch den Fork, der bei einigen Tabellen zu doppelten und nutzlosen Zeilen führt. Dies betrifft die
-  folgenden Tabellen:</para>
+    <para><emphasis role="bold">Oracle:</emphasis></para>
 
-  <itemizedlist>
-    <listitem>
-      <para>timedevents, timedeventqueue</para>
-    </listitem>
+    <para>Um die Performance in mehreren Bereichen zu verbessern, muß der Wert für open_cursors höher gesetzt werden (Standardwert ist 50). Das
+    Aktualisierungsskript enthält zwei neue, in DML geschriebene, Prozeduren für die DELETE- Anweisungen.</para>
 
-    <listitem>
-      <para>servicechecks</para>
-    </listitem>
+    <para>Darüber hinaus gab es umfangreiche Änderungen bezüglich der Autoincrement- Sequenz und der AFTER INSERT- Trigger (Emulation des MySQL
+    Autoincrement auf Primärschlüssel). Die alte Routine wurde komplett verworfen, d.h. alle Trigger und die Autoincrement- Sequenz werden während des
+    Updates entfernt. Als Ersatz werden für jede Tabelle neue Sequenzen hinzugefügt und in den IDOUtils für Oracle verwendet.</para>
 
-    <listitem>
-      <para>systemcommands</para>
-    </listitem>
-  </itemizedlist>
+    <para>Bei bestehenden Datensätzen wird dies beim Importieren zu Problemen führen. Die Sequenzen starten mit dem Wert 1 wo hingegen der primäre Key
+    (id) einen Maximalwert gesetzt hat. Aus diesem Grund wird eine Basisfunktion bereitgestellt, die das folgende tut: Diese extrahiert den maximalen
+    Wert der id plus eins aus der angegebenen Tabelle und verändert den jeweiligen Sequence Start auf diesen berechneten Wert.</para>
 
-  <para>Wenn Sie sich z.B. Definition der Tabelle servicechecks ansehen:</para>
+    <para>Bitte verwenden Sie diese Prozedur so, wie Sie es benötigen - auf alle Tabellen und Sequenzen oder auf separierte Teile. Die Prozedur ist
+    auskommentiert, und wird ohne Garantie auf Datenkonsistenz zur Verfügung gestellt. Ziehen Sie Ihren DBA zu Rate, wenn Sie bestehende Datensätze
+    importieren wollen.</para>
 
-  <programlisting> mysql&gt; show create table icinga_servicechecks;</programlisting>
+    <anchor xml:id="upgrading_idoutils_1.0" />
 
-  <para>sollten Sie etwa folgendes sehen</para>
+    <para><emphasis role="bold">Aktualisieren der &name-idoutils; auf 1.0</emphasis></para>
 
-  <programlisting> PRIMARY KEY (`servicecheck_id`),
+    <para>Es gab einen Unique-Key-Fehler durch den Fork, der bei einigen Tabellen zu doppelten und nutzlosen Zeilen führt. Dies betrifft die folgenden
+    Tabellen:</para>
+
+    <itemizedlist>
+        <listitem>
+            <para>timedevents, timedeventqueue</para>
+        </listitem>
+
+        <listitem>
+            <para>servicechecks</para>
+        </listitem>
+
+        <listitem>
+            <para>systemcommands</para>
+        </listitem>
+    </itemizedlist>
+
+    <para>Wenn Sie sich z.B. Definition der Tabelle servicechecks ansehen:</para>
+
+    <programlisting> mysql&gt; show create table icinga_servicechecks;</programlisting>
+
+    <para>sollten Sie etwa folgendes sehen</para>
+
+    <programlisting> PRIMARY KEY (`servicecheck_id`),
  KEY `instance_id` (`instance_id`),
  KEY `service_object_id` (`service_object_id`),
  KEY `start_time` (`start_time`)</programlisting>
 
-  <para>Um die o.g. Definition zu etwas wie diesem</para>
+    <para>Um die o.g. Definition zu etwas wie diesem</para>
 
-  <programlisting> PRIMARY KEY (`servicecheck_id`),
+    <programlisting> PRIMARY KEY (`servicecheck_id`),
  UNIQUE KEY `instance_id` (`instance_id`,`service_object_id`,`start_time`,`start_time_usec`)</programlisting>
 
-  <para>zu ändern, befolgen Sie bitte den folgenden Ablauf!</para>
+    <para>zu ändern, befolgen Sie bitte den folgenden Ablauf!</para>
 
-  <para><emphasis role="bold">Wenn Sie von &name-idoutils; 1.0RC aktualisieren, dann benutzen Sie bitte
-  module/idoutils/db/mysql/mysql-upgrade-1.0.sql - wenn Sie von einer älteren Version aktualisieren, dann führen Sie vorher die notwendigen
-  Schritte durch, um auf 1.0RC zu aktualisieren!</emphasis></para>
+    <para><emphasis role="bold">Wenn Sie von &name-idoutils; 1.0RC aktualisieren, dann benutzen Sie bitte
+    module/idoutils/db/mysql/mysql-upgrade-1.0.sql - wenn Sie von einer älteren Version aktualisieren, dann führen Sie vorher die notwendigen Schritte
+    durch, um auf 1.0RC zu aktualisieren!</emphasis></para>
 
-  <para>Bitte sichern Sie Ihre Datenbank und stoppen Sie ido2db vor der Ausführung des Patches!</para>
+    <para>Bitte sichern Sie Ihre Datenbank und stoppen Sie ido2db vor der Ausführung des Patches!</para>
 
-  <orderedlist>
-    <listitem>
-      <para><code>/etc/init.d/ido2db stop</code></para>
-    </listitem>
+    <orderedlist>
+        <listitem>
+            <para><code>/etc/init.d/ido2db stop</code></para>
+        </listitem>
 
-    <listitem>
-      <para><code>mysql -u root -p icinga &lt; /path/to/icinga-src/module/idoutils/db/mysql/mysql-upgrade-1.0.sql</code></para>
-    </listitem>
-  </orderedlist>
+        <listitem>
+            <para><code>mysql -u root -p icinga &lt; /path/to/icinga-src/module/idoutils/db/mysql/mysql-upgrade-1.0.sql</code></para>
+        </listitem>
+    </orderedlist>
 
-  <para>Der Patch erledigt das Folgende mit Hilfe von MySQL-Befehlen:</para>
+    <para>Der Patch erledigt das Folgende mit Hilfe von MySQL-Befehlen:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>hinzufügen einer temporären Spalte 'active', um die aktualisierte Zeile zu kennzeichnen</para>
-    </listitem>
+    <itemizedlist>
+        <listitem>
+            <para>hinzufügen einer temporären Spalte 'active', um die aktualisierte Zeile zu kennzeichnen</para>
+        </listitem>
 
-    <listitem>
-      <para>ermitteln der benötigten Informationen zweier doppelter Zeilen basierend auf dem unique contraint, aktualisieren der zweiten
-      Zeile und markieren durch first=inactive, second=active</para>
-    </listitem>
+        <listitem>
+            <para>ermitteln der benötigten Informationen zweier doppelter Zeilen basierend auf dem unique contraint, aktualisieren der zweiten Zeile
+            und markieren durch first=inactive, second=active</para>
+        </listitem>
 
-    <listitem>
-      <para>löschen aller als 'inactive' gekennzeichneten Zeilen</para>
-    </listitem>
+        <listitem>
+            <para>löschen aller als 'inactive' gekennzeichneten Zeilen</para>
+        </listitem>
 
-    <listitem>
-      <para>entfernen der fehlerhaften Key-Definitionen</para>
-    </listitem>
+        <listitem>
+            <para>entfernen der fehlerhaften Key-Definitionen</para>
+        </listitem>
 
-    <listitem>
-      <para>hinzufügen des Unique Key</para>
-    </listitem>
+        <listitem>
+            <para>hinzufügen des Unique Key</para>
+        </listitem>
 
-    <listitem>
-      <para>entfernen der temporären Spalte 'active'</para>
-    </listitem>
-  </itemizedlist>
+        <listitem>
+            <para>entfernen der temporären Spalte 'active'</para>
+        </listitem>
+    </itemizedlist>
 
-  <para>Diese Prozedur wird für jede Tabelle durchgeführt, so dass es eine Weile dauern kann, abhängig von Ihren Tabellengrößen und/oder
-  DB-Spezifikationen.</para>
+    <para>Diese Prozedur wird für jede Tabelle durchgeführt, so dass es eine Weile dauern kann, abhängig von Ihren Tabellengrößen und/oder
+    DB-Spezifikationen.</para>
 
-  <para>Falls Sie vorher etwas an den Keys verändert haben, dann stellen Sie sicher, dass Sie das gleiche DB-Schema wie in &name-idoutils;
-  1.0RC benutzen, andernfalls wird das Script fehlschlagen.</para>
+    <para>Falls Sie vorher etwas an den Keys verändert haben, dann stellen Sie sicher, dass Sie das gleiche DB-Schema wie in &name-idoutils; 1.0RC
+    benutzen, andernfalls wird das Script fehlschlagen.</para>
 
-  <indexterm zone="upgrading_idoutils">
-    <primary>Upgrading &name-idoutils;</primary>
-  </indexterm>
+    <indexterm zone="upgrading_idoutils">
+        <primary>Upgrading &name-idoutils;</primary>
+    </indexterm>
 </section>
