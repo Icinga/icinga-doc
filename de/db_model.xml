@@ -17,20 +17,26 @@
 
   <para><emphasis role="bold">Table Names</emphasis></para>
 
-  <para>#FIXME The IDOUtils addon allows users to specify a custom prefix to each table name in the database. By default, this prefix is not
-  set. The tables documented here are listed without any prefix, so the "instances" table as referenced in this documentation may be called
-  "instances" in the database as well.</para>
+  <para>The IDOUtils addon allows users to specify a custom prefix to each table name in the database. By default, this prefix is set
+  to "_icinga" in ido2db.cfg. The tables documented here are listed without any prefix, so the "instances" table as referenced in this
+  documentation may be called "instances" in the database as well.</para>
 
   <note>
-    <para>Due to limitations in Oracle the length of table names cannot exceed 30 characters so 2(?) table names have been shortened:
-    serviceescalation_contactgroups -&gt; serviceescalationcontactgroups, serviceescalation_contactgroups -&gt;
-    serviceescalationcontactgroups</para>
+    <para>Due to limitations in Oracle the length of table names cannot exceed 30 characters so 
+    <itemizedlist>
+      <listitem>The name of one table has been shortened: serviceescalation_contactgroups -&gt; serviceescalationcontactgroups
+      </listitem>
+      <listitem>
+        The table prefix is ignored
+      </listitem>
+    </itemizedlist>
+    </para>
   </note>
 
   <para><emphasis role="bold">Keys</emphasis></para>
 
   <para>Every table has a primary key (designated as "PK"). Most tables have a unique key consisting of one ("UK") or more columns ("UKn"
-  whereas n shows the position in the key). Some tables have a non-unique key ("NK") which may composed of several columns as well
+  whereas n shows the position in the key). Some tables have a non-unique key ("NK") which may be composed of several columns as well
   ("NKn").</para>
 
   <para>There are a lot of tables containing different information so the description is divided into five parts: <itemizedlist>
