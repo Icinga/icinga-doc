@@ -34,28 +34,33 @@
             <para><programlisting># yum install php php-cli php-pear php-xmlrpc php-xsl php-pdo php-gd php-ldap</programlisting></para>
 
             <note>
-                <para> Currently, RHEL and CentOS provide old php 5.1.6 and pcre 6.6 packages. For running Icinga web you need at least php 5.2.3 and pcre 7.6 - you can use an external repository, pre-built packages or compile php and pcre yourself. Precompiled PCRE and PHP packages can be installed e.g. from<link
+                <para>Currently, RHEL and CentOS provide old php 5.1.6 and pcre 6.6 packages. For running Icinga web you need at least php 5.2.3 and
+                pcre 7.6 - you can use an external repository, pre-built packages or compile php and pcre yourself. Precompiled PCRE and PHP packages
+                can be installed e.g. from<link
                 xlink:href="http://www.jasonlitka.com/category/yum-repo-news">http://www.jasonlitka.com/category/yum-repo-news/</link></para>
             </note>
 
             <para><emphasis role="bold">OpenSuSE</emphasis></para>
 
-            <para>Please use yast to install the packages "php5", "php5-pear", "php5-xmlrpc", "php5-xsl", "php5-&lt;rdbm&gt;", "php5-soap", "php5-gettext",
-            "php5-ldap" und "php5-gd". The CLI is contained in the php5 package.</para>
+            <para>Please use yast to install the packages "php5", "php5-pear", "php5-xmlrpc", "php5-xsl", "php5-&lt;rdbm&gt;", "php5-soap",
+            "php5-gettext", "php5-ldap" und "php5-gd". The CLI is contained in the php5 package.</para>
 
             <para><note>
                     <para>At least in SLES10 SP2 the function "hash_hmac" is missing.</para>
                 </note></para>
 
-            <para>Installing Icinga with IDOUtils and Icinga-API is described in the <link linkend="quickstart-idoutils">Icinga with IDOUtils 
-        Quickstart Guide</link> and the <link linkend="icinga-api">Icinga-API</link> section.</para>
-                    
+            <para>Installing Icinga with IDOUtils and Icinga-API is described in the <link linkend="quickstart-idoutils">Icinga with IDOUtils
+            Quickstart Guide</link> and the <link linkend="icinga-api">Icinga-API</link> section.</para>
         </listitem>
 
         <listitem>
             <para><emphasis role="bold">The installation</emphasis></para>
- <para>Please download the archive from <link xlink:href="http://sourceforge.net/projects/icinga/files/">http://sourceforge.net/projects/icinga/files/</link> or take your clone from the icinga-web.git to get the freshest branch:</para>
-<programlisting># git clone git://git.icinga.org/icinga-web.git</programlisting>
+
+            <para>Please download the archive from <link
+            xlink:href="http://sourceforge.net/projects/icinga/files/">http://sourceforge.net/projects/icinga/files/</link> or take your clone from
+            the icinga-web.git to get the freshest branch:</para>
+
+            <programlisting># git clone git://git.icinga.org/icinga-web.git</programlisting>
 
             <para>Unpack your tarball:</para>
 
@@ -420,7 +425,7 @@
         </listitem>
 
         <listitem>
-            <para><emphasis role="bold">Errors ?</emphasis></para>
+            <para><emphasis role="bold">Test &amp; Errors ?</emphasis></para>
 
             <para>The following collection shows some useful information how to resolve errors - and what you should provide when reporting an error
             to the mailing lists or http://www.icinga-portal.org</para>
@@ -459,12 +464,46 @@
             IDOUtils and look for errors in ido2db.debug</para>
 
             <para>* Nothing there =&gt; Check icinga.log if IDOMOD gets loaded if not enable the Event Broker Module in icinga.cfg like described in
-            the Icinga Core with <link
-            linkend="quickstart-idoutils">IDOUtils Quickstart Guide</link></para>
+            the Icinga Core with <link linkend="quickstart-idoutils">IDOUtils Quickstart Guide</link></para>
 
             <para>* IDOUtils DB-Schema is the current one? =&gt; If not check the upgrade path and docs of IDOUtils</para>
 
-            <para>* Sockets correctly defined? =&gt; unix-socket or tcp-socket, the last one with or without SSL </para>
+            <para>* Sockets correctly defined? =&gt; unix-socket or tcp-socket, the last one with or without SSL</para>
+
+            <para><emphasis role="bold">Testing the Web: </emphasis></para>
+
+            <para><programlisting># cd etc/tests/
+# php icingaWebTesting.php</programlisting></para>
+
+            <note>
+                <para>Remember - changing the php settings in php.ini requires an apache reload/restart!</para>
+            </note>
+
+            <para>* PHP Fatal error: Allowed memory size of ... bytes exhausted (tried to allocate ... bytes) =&gt; Check your php.ini (both apache2
+            and cli) and adjust memory_limit to 128M or higher.</para>
+
+            <para>* Could not connect to API. The API Connector returned the following message: getConnection failed: Database connection failed:
+            SQLSTATE[28000] [1045] Access denied for user 'icinga'@'localhost' (using password: YES)) </para>
+
+            <para>=&gt; check your IDOUtils DB credentials in ido2db.cfg and add those to app/module/Web/config/module.xml as API credentials. With
+            1.0.3 you can set those values directly during configure</para>
+
+            <para>* touch: cannot touch `/usr/local/icinga-web/.../cache/testfile.txt': Permission denied =&gt; Your configuration in the xml files
+            will be pre-cached by the framework. It therefore needs special permissions on the caching directories. By running icingaWebTesting.php in
+            etc/tests you will be asked to automatically fix this.</para>
+
+            <para>* PHP Fatal error: Uncaught exception '...' with message 'Couldn't locate driver named mysql' =&gt; Make sure that the php pdo is
+            installed and loaded in an appropriate way, even if make testdeps tells everything is fine.</para>
+
+            <para>* Login is not shown =&gt; enable short_open_tag in your php.ini </para>
+
+            <para>=&gt; edit open_basedir in your php.ini and add icinga web location and parent location of icinga api (e.g.
+            /usr/local/icinga/share/).</para>
+
+            <para>* Empty Icinga Web? =&gt; If mod_rewrite is enabled and 'index.php' appears in the request url the portal does not work. Try to
+            remove the index.php from your url and everything should work</para>
+
+            <para>* Counts do not match? =&gt; Check with the Backend, e.g. IDOUtils DB, selecting the counts for the status tables.</para>
 
             <para>If you have any updates on that please do not hesitate to report back! :-)</para>
         </listitem>

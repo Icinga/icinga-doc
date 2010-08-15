@@ -7,7 +7,65 @@
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
     <title>Changelog of the &name-core;</title>
-
+<para><emphasis role="bold">&name-core; 1.0.3 - 18/08/2010 </emphasis></para>
+<para>* core: new config option to set initial state of persistence for acknowledgements</para>
+<para>* core: add opt-in log_external_commands_user in icinga.cfg, user will be logged by the core if enabled and sent through icinga.cmd</para>
+<para>* core: add config option to disable the logging of current state in log after rotation (Ricardo Bartels)</para>
+<para>* core: add config option to log long plugin output (Ricardo Bartels)</para>
+<para>* core: add config option to enable event handlers for stalked hosts/services (Petya Kohts)</para>
+<para>* core: scheduled downtime can now start on SOFT error states</para>
+<para>* idoutils: add syslog output for start/stop, client connecting</para>
+<para>* idoutils: add db trimming thread startup delay config option</para>
+<para>* classic ui: cgi config option to show long_plugin_output in status.cgi (Ricardo Bartels)</para>
+<para>* classic ui: add config option to only show HARD states in tac.cgi</para>
+<para>* classic ui: add multiple selection/command sending to host/service status page
+<itemizedlist><listitem>added extra column in host and service status with checkboxes using jquery</listitem>
+<listitem>It is now possible to check off the hosts you want to send commands to Icinga.</listitem>
+<listitem>Ex: schedule downtime for a custom selection of hosts or X number of services.</listitem>
+</itemizedlist></para>
+<para>* classic ui: add a pause/continue update button (main parts by Steve Koenig). Affects status.cgi and allows to select and run commands w/o page reload</para>
+<para><emphasis role="bold">FIXES:</emphasis></para>
+<para>* core: fix temp_path overwritten by check_result_path in base/config.c</para>
+<para>* core: modify execv to execvp, accepting 4096 cmd args, for both host and service checks with adapted error handling</para>
+<para>* core: execvp searches in PATH too like popen, and returns if error, outputting the errno string</para>
+<para>* core: fix possible overflows and increase command length limit in mini_epn's (Thomas Guyot-Sionnest)</para>
+<para>* core: fix new_mini_epn to allow any command line length without breaking on extra trailing or leading whitespace (Ray Bengen)</para>
+<para>* core: fix wrong is_volatile conditions causing wrong service alerts in the logs</para>
+<para>* core: fix notify-service-by-email command from the stock template cuts off service check output</para>
+<para>* core: fix service checks should recognize that exit code 126 means plugin is not executable</para>
+<para>* core: fix service event handlers when service problem becomes hard during host down</para>
+<para>* core: fix service in soft state after hard state without recovery</para>
+<para>* core: fix all comments disappear after restart if one user comment is non-persistent (Ricardo Bartels)</para>
+<para>* core: fix macro processing (Jochen Bern)</para>
+<para>* core: fix non-scheduled hosts/services not being updated in IDO*</para>
+<para>* core: move the malloc block in insert_skiplist below dupcheck to avoid memory leaks (Thomas Guyot-Sionnest, Holger Weiss)</para>
+<para>* classic ui: fix image urls in stylesheets</para>
+<para>* classic ui: remove check_daemon_running, remains useless</para>
+<para>* classic ui: fix multiurl action/status icon wrong name</para>
+<para>* classic ui: cmd.cgi "his" instead of "its" in command description</para>
+<para>* classic ui: fix customers can see machines from other customers when entering a downtime</para>
+<para>* classic ui: fix invalid pointer in extinfo.cgi type=7</para>
+<para>* classic ui: for new Splunk integration query parameters</para>
+<para>* classic ui: fix for incorrect host state counts in status CGI when viewing servicegroups</para>
+<para>* classic ui: fix for extra colum in CSV export</para>
+<para>* install: fix api not installed using make install-unstripped</para>
+<para>* install: enable debuginfo in spec file</para>
+<para>* install: remove daemonchk.cgi from init-script</para>
+<para>* install: improve output of rhel init-script</para>
+<para>* install: add config checks for start, reload and restart on rhel init script</para>
+<para>* install: fix duplicated configcheck on restart in init-script</para>
+<para>* install: fix specfile for idoutils description</para>
+<para>* install: fix Makefile output if Icinga API not available</para>
+<para>* install: fix t/ and daemon-ini-redhat in distclean</para>
+<para>* install: add note about api installed successfully</para>
+<para>* idoutils: adapt oracle-drop.sql for current schema</para>
+<para>* idoutils: fix binding null values to name1/name2 in oracle</para>
+<para>* idoutils: fix typo in servicedepencies query for oracle</para>
+<para>* idoutils: fix oracle prep statement contactnotifmethoddata</para>
+<para>* idoutils: full rewrite of binding NULL values for oracle with ocilib</para>
+<para>* idoutils: change display_name to varchar(255) for mysql/oracle</para>
+<para>* idoutils: update pgsql schema, replace varchar(n) by text</para>
+<para>* idoutils: change configfilevariables varvalue to 1024 length for mysql/oracle</para>
     <para><emphasis role="bold">&name-core; 1.0.2 - 30/06/2010 </emphasis></para>
 
     <para>* core: init script shows config errors option; don't remove pidfile if icinga did not stop in a timely manner</para>
