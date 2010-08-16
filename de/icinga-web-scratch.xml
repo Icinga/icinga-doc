@@ -266,96 +266,86 @@ SQL&gt; FLUSH PRIVILEGES;</programlisting>
             um beispielsweise die &name-icinga; &name-idoutils; Datenbank als Datenquelle einzustellen. <note>
                     <para>Bitte beachten Sie, dass Sie zuvor &name-idoutils; installieren müssen (so wie im Icinga IDOUtils Quickstart <link
                     linkend="quickstart-idoutils">hier</link> beschrieben).</para>
-                </note> <programlisting> &lt;!-- icinga-api data interface --&gt;
+                </note> <programlisting>                                &lt;!--
+                                        See doc/icinga-api-types.txt for options
+                                --/&gt;
+                                &lt;setting name="api.interfaces.data"/&gt;
+                                        &lt;!-- IcingaApi connection interface --/&gt;
+                                        &lt;ae:parameter name="api_type"/&gt;IcingaApi::CONNECTION_IDO&lt;/ae:parameter/&gt;
 
-                &lt;parameter name="IcingaData"&gt;
+                                        &lt;!-- Suits for all interfaes --/&gt;
+                                        &lt;ae:parameter name="config_type"/&gt;mysql&lt;/ae:parameter/&gt;
+                                        &lt;ae:parameter name="config_host"/&gt;localhost&lt;/ae:parameter/&gt;
+                                        &lt;ae:parameter name="config_port"/&gt;3306&lt;/ae:parameter/&gt;
 
-                        &lt;parameter name="class"&gt;IcingaData&lt;/parameter&gt;
+                                        &lt;!-- ###BEGIN_CONNECTION_IDO### --/&gt;
+                                        &lt;!-- Database specific (IcingaApi::CONNECTION_IDO) --/&gt;
+                                        &lt;ae:parameter name="config_database"/&gt;icinga&lt;/ae:parameter/&gt;
+                                        &lt;ae:parameter name="config_user"/&gt;icinga&lt;/ae:parameter/&gt;
+                                        &lt;ae:parameter name="config_password"/&gt;icinga&lt;/ae:parameter/&gt;
+                                        &lt;ae:parameter name="config_table_prefix"/&gt;icinga_&lt;/ae:parameter/&gt;
+                                        &lt;!-- ###END_CONNECTION_IDO### --/&gt;
 
-                        &lt;parameter name="file"&gt;%core.root_dir%/app/lib/icinga/factory/IcingaData.class.php&lt;/parameter&gt;
-
-                        &lt;parameter name="requiredClasses"&gt;
-
-                                &lt;!-- NONE --&gt;
-
-                        &lt;/parameter&gt;
-
-                        &lt;parameter name="api_file"&gt;%core.root_dir%/lib/icinga-api/IcingaApi.php&lt;/parameter&gt;
-
-                        &lt;!--
-
-                                API connection type
-
-                        --&gt;
-
-                        &lt;parameter name="api_type"&gt;IcingaApi::CONNECTION_IDO&lt;/parameter&gt;
-
-                         &lt;parameter name="config_type"&gt;mysql&lt;/parameter&gt;
-
-                         &lt;parameter name="config_host"&gt;127.0.0.1&lt;/parameter&gt;
-
-                         &lt;parameter name="config_port"&gt;3306&lt;/parameter&gt;
-
-                         &lt;parameter name="config_database"&gt;icinga&lt;/parameter&gt;
-
-                         &lt;parameter name="config_user"&gt;your-ido-user&lt;/parameter&gt;
-
-                         &lt;parameter name="config_password"&gt;your-ido-pw&lt;/parameter&gt;
-
-                         &lt;parameter name="config_table_prefix"&gt;icinga_&lt;/parameter&gt;
-                &lt;/parameter&gt;</programlisting></para>
+                                &lt;/setting/&gt;</programlisting></para>
 
             <para>In IcingaCommand können Sie einstellen, wie Befehle an die Icinga Core command pipe gesendet werden - lokal or remote via SSH.
-            Abhängig davon, ob die jeweilige Option 'enabled' ist, wird diese verwendet/nicht verwendet. Standardmässig wird die lokale Pipe
+            Abhängig davon, ob die jeweilige Option 'enabled' ist, wird diese verwendet/nicht verwendet. Standardmäßig wird die lokale Pipe
             verwendet.</para>
 
-            <programlisting> &lt;parameter name="IcingaCommand"&gt;
+            <programlisting>                                &lt;setting name="api.interfaces.command"&gt;
+                                        &lt;ae:parameter name="pipe1"&gt;
+                                                &lt;ae:parameter name="type"&gt;IcingaApi::COMMAND_PIPE&lt;/ae:parameter&gt;
+                                                &lt;ae:parameter name="enabled"&gt;true&lt;/ae:parameter&gt;
 
-                        &lt;parameter name="class"&gt;IcingaCommand&lt;/parameter&gt;
+                                                &lt;ae:parameter name="pipe"&gt;/usr/local/icinga/var/rw/icinga.cmd&lt;/ae:parameter&gt;
 
-                        &lt;parameter name="file"&gt;%core.root_dir%/app/lib/icinga/factory/IcingaCommand.class.php&lt;/parameter&gt;
+                                                &lt;ae:parameter name="instance"&gt;default&lt;/ae:parameter&gt;
+                                                &lt;ae:parameter name="broadcast"&gt;false&lt;/ae:parameter&gt;
+                                        &lt;/ae:parameter&gt;
 
-                        &lt;parameter name="requiredClasses"&gt;
+                                        &lt;!--
 
-                                &lt;!-- NONE --&gt;
+                                                * This examples show how to send commands to specific instances
+                                                * Use 'instance' to send commands to this instance only
+                                                * Use 'brodcast' to send all commands to this instances!
 
-                        &lt;/parameter&gt;
+                                        &lt;ae:parameter name="pipe1-instance-test"&gt;
+                                                &lt;ae:parameter name="type"&gt;IcingaApi::COMMAND_PIPE&lt;/ae:parameter&gt;
+                                                &lt;ae:parameter name="enabled"&gt;true&lt;/ae:parameter&gt;
 
-                        &lt;parameter name="api_file"&gt;%core.root_dir%/lib/icinga-api/IcingaApi.php&lt;/parameter&gt;
+                                                &lt;ae:parameter name="pipe"&gt;/usr/local/icinga/var/rw/icinga.cmd&lt;/ae:parameter&gt;
 
-                        &lt;parameter name="interfaces"&gt;
+                                                &lt;ae:parameter name="instance"&gt;test&lt;/ae:parameter&gt;
+                                                &lt;ae:parameter name="broadcast"&gt;false&lt;/ae:parameter&gt;
+                                        &lt;/ae:parameter&gt;
 
-                                &lt;parameter name="pipe1"&gt;
+                                        &lt;ae:parameter name="pipe1-broadcast"&gt;
+                                                &lt;ae:parameter name="type"&gt;IcingaApi::COMMAND_PIPE&lt;/ae:parameter&gt;
+                                                &lt;ae:parameter name="enabled"&gt;false&lt;/ae:parameter&gt;
 
-                                        &lt;parameter name="enabled"&gt;true&lt;/parameter&gt;
+                                                &lt;ae:parameter name="pipe"&gt;/usr/local/icinga/var/rw/icinga.cmd&lt;/ae:parameter&gt;
 
-                                        &lt;parameter name="type"&gt;IcingaApi::COMMAND_PIPE&lt;/parameter&gt;
+                                                &lt;ae:parameter name="instance"&gt;&lt;/ae:parameter&gt;
+                                                &lt;ae:parameter name="broadcast"&gt;true&lt;/ae:parameter&gt;
+                                        &lt;/ae:parameter&gt;
 
-                                        &lt;parameter name="pipe"&gt;/usr/local/icinga/var/rw/icinga.cmd&lt;/parameter&gt;
+                                        --&gt;
 
-                                &lt;/parameter&gt;
+                                        &lt;ae:parameter name="ssh1"&gt;
+                                                &lt;ae:parameter name="type"&gt;IcingaApi::COMMAND_SSH&lt;/ae:parameter&gt;
+                                                &lt;ae:parameter name="enabled"&gt;false&lt;/ae:parameter&gt;
 
-                                &lt;parameter name="ssh1"&gt;
+                                                &lt;ae:parameter name="ssh_bin"&gt;/usr/bin/ssh&lt;/ae:parameter&gt;
+                                                &lt;ae:parameter name="ssh_user"&gt;icinga&lt;/ae:parameter&gt;
+                                                &lt;ae:parameter name="ssh_host"&gt;127.0.0.15&lt;/ae:parameter&gt;
+                                                &lt;ae:parameter name="ssh_port"&gt;22&lt;/ae:parameter&gt;
+                                                &lt;ae:parameter name="ssh_timeout"&gt;20&lt;/ae:parameter&gt;
+                                                &lt;ae:parameter name="ssh_pipe"&gt;/usr/local/icinga/var/rw/icinga.cmd&lt;/ae:parameter&gt;
 
-                                        &lt;parameter name="enabled"&gt;false&lt;/parameter&gt;
-
-                                        &lt;parameter name="type"&gt;IcingaApi::COMMAND_SSH&lt;/parameter&gt;
-
-                                        &lt;parameter name="ssh_bin"&gt;/usr/bin/ssh&lt;/parameter&gt;
-
-                                        &lt;parameter name="ssh_user"&gt;icinga&lt;/parameter&gt;
-
-                                        &lt;parameter name="ssh_host"&gt;127.0.0.15&lt;/parameter&gt;
-
-                                        &lt;parameter name="ssh_port"&gt;22&lt;/parameter&gt;
-
-                                        &lt;parameter name="ssh_timeout"&gt;20&lt;/parameter&gt;
-
-                                        &lt;parameter name="ssh_pipe"&gt;/usr/local/icinga/var/rw/icinga.cmd&lt;/parameter&gt;
-
-                                &lt;/parameter&gt;
-
-                        &lt;/parameter&gt;</programlisting>
+                                                &lt;ae:parameter name="instance"&gt;default&lt;/ae:parameter&gt;
+                                                &lt;ae:parameter name="broadcast"&gt;false&lt;/ae:parameter&gt;
+                                        &lt;/ae:parameter&gt;
+                                &lt;/setting&gt; </programlisting>
 
             <note>
                 <para>Nachdem Sie Änderungen an diesen Konfigurationen vorgenommen haben, müssen sie den Cache leeren!</para>
