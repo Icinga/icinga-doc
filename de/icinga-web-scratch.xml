@@ -40,7 +40,8 @@
                     <para><programlisting># yum install php php-cli php-pear php-xmlrpc php-xsl php-pdo php-ldap php-gd</programlisting></para>
 
                     <note>
-                        <para>Aktuelle Pakete für PHP und PRCE finden Sie beispielsweise hier: <link
+                        <para>Aktuelle Pakete für PHP und PRCE finden Sie beispielsweise unter: <link
+                        xlink:href="http://blog.famillecollet.com/pages/Config-en">Les RPM de Remi</link> oder <link
                         xlink:href="http://www.jasonlitka.com/category/yum-repo-news">http://www.jasonlitka.com/category/yum-repo-news/</link></para>
                     </note>
                 </listitem>
@@ -507,33 +508,34 @@ SQL&gt; FLUSH PRIVILEGES;</programlisting>
                 <para>Nicht vergessen - Ändern von php- Einstellungen in der php.ini erfordert einen apache reload/restart!</para>
             </note>
 
-            <para>* PHP Fatal error: Allowed memory size of ... bytes exhausted (tried to allocate ... bytes) =&gt; Überprüfe Deine php.ini (apache2
-            und cli) und setze den Wert memory_limit auf 128M oder höher.</para>
+            <para>* PHP Fatal error: Allowed memory size of ... bytes exhausted (tried to allocate ... bytes) =&gt; Überprüfen Sie ihre php.ini
+            (apache2 und cli) und setzen Sie den Wert memory_limit auf 128M oder höher.</para>
 
             <para>* Keine Verbindung zur API. The API Connector returned the following message: getConnection failed: Database connection failed:
             SQLSTATE[28000] [1045] Access denied for user 'icinga'@'localhost' (using password: YES))</para>
 
-            <para>=&gt; Überprüfe Deine IDOUtils DB Referenzen in der ido2db.cfg und füge diese in app/module/Web/config/module.xml als API Referenzen
-            ein. Ab &name-web;1.0.3 können die Werte direkt während des configure gesetzt werden.</para>
+            <para>=&gt; Überprüfen Sie ihre IDOUtils DB Referenzen in der ido2db.cfg und fügen Sie diese in app/module/Web/config/module.xml als API
+            Referenzen ein. Ab &name-web;1.0.3 können die Werte direkt während des configure gesetzt werden.</para>
 
-            <para>* touch: cannot touch `/usr/local/icinga-web/.../cache/testfile.txt': Permission denied </para>
+            <para>* touch: cannot touch `/usr/local/icinga-web/.../cache/testfile.txt': Permission denied</para>
 
-            <para>=&gt; Deine Konfiguration in den xml Dateien wird vom Framework ge-'pre-cached'. Daher müssen spezielle Berechtigungen für den
+            <para>=&gt; Die Konfiguration in den xml Dateien wird vom Framework ge-'pre-cached'. Daher müssen spezielle Berechtigungen für den
             Caching-Verzeichnisse gesetzt werden. Durch die Ausführung von icingaWebTesting.php in etc/tests können die richtigen Berechtigungen
             automatisch gesetzt werden.</para>
 
             <para>* PHP Fatal error: Uncaught exception '...' with message 'Couldn't locate driver named mysql' =&gt; Stellen Sie sicher, dass php pdo
             installiert und geladen ist, auch wenn testdeps sagt, dass alles in Ordnung ist.</para>
 
-            <para>* Das Login wird nicht angezeigt =&gt; aktiviere short_open_tag in Deiner php.ini</para>
+            <para>* Das Login wird nicht angezeigt =&gt; Aktivieren Sie short_open_tag in ihrer php.ini</para>
 
-            <para>=&gt; editiere open_basedir in Deiner php.ini und füge die Installationsverzeichnisse von &name-web; und von &name-api; (z.B.
-            /usr/local/icinga/share/) hinzu.</para>
+            <para>=&gt; Editieren Sie open_basedir in ihrer php.ini und fügen Sie die Installationsverzeichnisse von &name-web; und von &name-api;
+            (z.B. /usr/local/icinga/share/) hinzu.</para>
 
             <para>* Leeres &name-web;? =&gt; Wenn mod_rewrite aktiviert ist und 'index.php' erscheint in der angefragten URL dann funktioniert das
-            Portal nicht. Entferne index.php aus Deiner URL und alles sollte funktionieren</para>
+            Portal nicht. Entfernen Sie index.php aus ihrer URL und alles sollte funktionieren</para>
 
-            <para>* Counts do not match? =&gt; Check with the Backend, e.g. IDOUtils DB, selecting the counts for the status tables.</para>
+            <para>* Die Ergebnisse in den Status Cronks passen nicht zu ihrer Konfiguration? =&gt; Überprüfen Sie in ihrem Backend, e.g. IDOUtils DB,
+            welche Werte für die Status Tabellen selektiert werden.</para>
 
             <para>Sofern Sie Fragen oder Updates haben, zögern Sie bitte nicht uns diese mitzuteilen! :-)</para>
         </listitem>

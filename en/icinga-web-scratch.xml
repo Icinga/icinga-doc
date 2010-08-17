@@ -36,7 +36,8 @@
             <note>
                 <para>Currently, RHEL and CentOS provide old php 5.1.6 and pcre 6.6 packages. For running Icinga web you need at least php 5.2.3 and
                 pcre 7.6 - you can use an external repository, pre-built packages or compile php and pcre yourself. Precompiled PCRE and PHP packages
-                can be installed e.g. from<link
+                can be installed e.g. from 
+<link xlink:href="http://blog.famillecollet.com/pages/Config-en">Les RPM de Remi</link> or <link
                 xlink:href="http://www.jasonlitka.com/category/yum-repo-news">http://www.jasonlitka.com/category/yum-repo-news/</link></para>
             </note>
 
@@ -500,7 +501,7 @@
             and cli) and adjust memory_limit to 128M or higher.</para>
 
             <para>* Could not connect to API. The API Connector returned the following message: getConnection failed: Database connection failed:
-            SQLSTATE[28000] [1045] Access denied for user 'icinga'@'localhost' (using password: YES)) </para>
+            SQLSTATE[28000] [1045] Access denied for user 'icinga'@'localhost' (using password: YES))</para>
 
             <para>=&gt; check your IDOUtils DB credentials in ido2db.cfg and add those to app/module/Web/config/module.xml as API credentials. With
             1.0.3 you can set those values directly during configure</para>
@@ -512,7 +513,7 @@
             <para>* PHP Fatal error: Uncaught exception '...' with message 'Couldn't locate driver named mysql' =&gt; Make sure that the php pdo is
             installed and loaded in an appropriate way, even if make testdeps tells everything is fine.</para>
 
-            <para>* Login is not shown =&gt; enable short_open_tag in your php.ini </para>
+            <para>* Login is not shown =&gt; enable short_open_tag in your php.ini</para>
 
             <para>=&gt; edit open_basedir in your php.ini and add icinga web location and parent location of icinga api (e.g.
             /usr/local/icinga/share/).</para>
@@ -520,7 +521,8 @@
             <para>* Empty Icinga Web? =&gt; If mod_rewrite is enabled and 'index.php' appears in the request url the portal does not work. Try to
             remove the index.php from your url and everything should work</para>
 
-            <para>* Counts do not match? =&gt; Check with the Backend, e.g. IDOUtils DB, selecting the counts for the status tables.</para>
+            <para>* Counts in the Status Cronk do not match your configuration? =&gt; Check with the Backend, e.g. IDOUtils DB, selecting the counts
+            for the status tables.</para>
 
             <para>If you have any updates on that please do not hesitate to report back! :-)</para>
         </listitem>
