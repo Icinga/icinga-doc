@@ -6,118 +6,141 @@
 <section version="5.0" xml:id="whatsnew" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-  <title>Was gibt es Neues in &name-core; &ver-icinga; und &name-web; &ver-icingaweb;</title>
+    <title>Was gibt es Neues in &name-core; &ver-icinga; und &name-web; &ver-icingaweb;</title>
 
-  <para><emphasis role="bold">&name-core;:</emphasis></para>
+    <para><emphasis role="bold">&name-core;:</emphasis></para>
 
-  <para><emphasis role="bold">Erweiterungen:</emphasis></para>
+    <para>* Konfigurationsoptionen: <itemizedlist>
+            <listitem>
+                <para>Setzen des initialen Zustandes für die Beständigkeit von Acknowledgements</para>
+            </listitem>
 
-  <para>* core: Scheduled Downtimes für Host und alle Services arbeiten nun wie gewünscht</para>
+            <listitem>
+                <para>log_external_commands_user, Core Protokollierung von Benutzern, die an die Kommando-Pipe senden.</para>
+            </listitem>
 
-  <para>* core: Scheduling für Servicechecks mit ausgenommenen Timezones funktionieren nun wie erwartet</para>
+            <listitem>
+                <para>Deaktivieren der Protokollierung des aktuellen Standes nach Rotation</para>
+            </listitem>
 
-  <para>* core: Geschwindigkeitsverbesserungen beim Einlesen der retention.dat</para>
+            <listitem>
+                <para>Protokollierung der gesamten Plugin- Ausgabe</para>
+            </listitem>
 
-  <para>* core: Bessere Installation unter Solaris</para>
+            <listitem>
+                <para>Aktivieren von Eventhandlern für Hosts/Services mit Statusverfolgung</para>
+            </listitem>
+        </itemizedlist></para>
 
-  <para>* core: Verbesserungen beim Logging nach Syslog</para>
+    <para>* Geplante Ausfallzeiten können bereits bei Erreichen des SOFT- Fehlerstatus beginnen</para>
 
-  <para>* core: Implementierung verschiedenster Patches von Mailinglist und Tracker</para>
+    <para>* Rewrite von execv check- Ausführung zu execvp, dies erlaubt Plugins in $PATH und die Annahme von 4k Befehlsargumenten, mit angepasster
+    Fehlerbehandlung</para>
 
-  <para>* core: Fehlermeldung beim Fehlen der service_description in der Servicedefinition</para>
+    <para>* Fix: alle Kommentare verschwinden nach einem Neustart wenn ein Kommentar nicht-persistent ist.</para>
 
-  <para>* core: Überarbeitetes Init-Skript, Ausgabe von Konfigurationsfehlern</para>
+    <para>* Fix: is_volatile- Bedingungen verursachen falsche Service-Alarme in den Log-Dateien</para>
 
-  <para>* cgis: Mehrere URLs bei notes und action URLs möglich im Classic UI</para>
+    <para><emphasis role="bold">&name-icinga; &name-idoutils;:</emphasis></para>
 
-  <para>* cgis: Anzeige von display_name in host/service-Definition im Classic UI </para>
-  
-  <para>* idoutils: Performanceverbesserungen von SQL queries und objects hash list</para>
+    <para>* Syslog Ausgabe für start/stop, client- Verbindung</para>
 
-  <para><emphasis role="bold">Fixes:</emphasis></para>
+    <para>* Hinzugefügte Datenbank trimming-thread-startup-delay Option</para>
 
-  <para>* core: Fehler bei der Erzeugung von Benachrichtigungen</para>
+    <para>* Komplettes Rewrite von binding NULL Werten für Oracle mit ocilib; Fix: select name1/name2</para>
 
-  <para>* core: Implementierung verschiedenster Patches von Mailinglist und Tracker
-</para>
+    <para>* Modifizieren und erweitern der Spaltenlänge für mysql/pgsql/oracle</para>
 
-  <para>* idoutils: Fehlerbehebungen und massive Geschwindigkeitsverbesserungen in den IDOUtils</para>
+    <para><emphasis role="bold">&name-ui;</emphasis></para>
 
-  <para>Für detaillierte Information der einzelnen Releases schauen Sie bitte in den Changelog.</para>
+    <para>* Vielfache Befehlsübergabe an die cmd.cgi</para>
 
-  <itemizedlist>
-    <listitem>
-      <para><xref linkend="changelog-core" /></para>
-    </listitem>
-  </itemizedlist>
+    <para>* Senden von Befehlen über Checkbox-Auswahl für mehrere Host/Services</para>
 
-  <para><emphasis role="bold">&name-web;:</emphasis></para>
+    <para>* Pause/Weiter für die Seitenaktualisierung</para>
 
-  <para>* Neue, schnellere Cronk Liste inkl. Kategorien</para>
+    <para>* Hinzugefügte Konfigurationsoptionen: Anzeige von long_output in status.cgi; Anzeige von NUR HARD states in tac.cgi</para>
 
-  <para>* Umstellung Doppelklick auf Einfachklick</para>
+    <para>* Fix: Anzeige falscher Name bei mehreren (multi) URL's und Makro Verarbeitung</para>
 
-  <para>* Modularer Aufbau von Code und Konfiguration</para>
+    <para>Für detaillierte Information der einzelnen Releases schauen Sie bitte in den Changelog.</para>
 
-  <para>* Implementierung Framework für Agavi/Icinga-web Module</para>
+    <itemizedlist>
+        <listitem>
+            <para><xref linkend="changelog-core" /></para>
+        </listitem>
+    </itemizedlist>
 
-  <para>* Verbessertes Berechtigungsmodell</para>
+    <para><emphasis role="bold">&name-web;:</emphasis></para>
 
-  <para>* Unterstützung für mehrere Icinga Instanzen im Webinterface</para>
+    <para>* Neue, schnellere Cronk Liste inkl. Kategorien</para>
 
-  <para>* Verbesserte Filter auf Ajax Basis</para>
+    <para>* Umstellung Doppelklick auf Einfachklick</para>
 
-  <para>* REST/Json Schnittstelle für die IcingaApi</para>
+    <para>* Modularer Aufbau von Code und Konfiguration</para>
 
-  <para>* Implementierung des neuen, schnelleren Dashboard Cronk</para>
+    <para>* Implementierung Framework für Agavi/Icinga-web Module</para>
 
-  <para>* Mehrsprachige Benutzeroberfläche (unvollständig)</para>
+    <para>* Verbessertes Berechtigungsmodell</para>
 
-<para> Insidertips und mehr Dokumentation rund ums Webinterface finden Sie hier: <link xlink:href="&url-icinga-wiki;">Icinga-Wiki</link></para>
+    <para>* Unterstützung für mehrere Icinga Instanzen im Webinterface</para>
+
+    <para>* Verbesserte Filter auf Ajax Basis</para>
+
+    <para>* REST/Json Schnittstelle für die IcingaApi</para>
+
+    <para>* Implementierung des neuen, schnelleren Dashboard Cronk</para>
+
+    <para>* Mehrsprachige Benutzeroberfläche (unvollständig)</para>
+
+    <para>Insidertips und mehr Dokumentation rund ums Webinterface finden Sie hier: <link
+    xlink:href="https://dev.icinga.org/projects/icinga-web/wiki/">Icinga-Wiki</link></para>
 
     <para>Für detaillierte Information der einzelnen Releases schauen Sie bitte in den Changelog:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para><xref linkend="changelog-web" /></para>
-    </listitem>
-  </itemizedlist>
+    <itemizedlist>
+        <listitem>
+            <para><xref linkend="changelog-web" /></para>
+        </listitem>
+    </itemizedlist>
 
-  <para><emphasis role="bold">&name-docs;:</emphasis></para>
+    <para><emphasis role="bold">&name-docs;:</emphasis></para>
 
-  <para>* Aktualisierung der Schnellstart-Anleitungen</para>
+    <para>* Aktualisierung der Schnellstart-Anleitungen</para>
 
-  <para>* Aktualisierung der Upgrade-Anleitung von &name-icinga; und &name-idoutils;</para>
+    <para>* Aktualisierung der Upgrade-Anleitung von &name-icinga; und &name-idoutils;</para>
 
-  <para>* Aktualisierung der Anleitung für die Installation des Webinterfaces</para>
+    <para>* Aktualisierung der Anleitung für die Installation des Webinterfaces</para>
 
-  <para>* Neue erweiterte Dokumentation zu den IDOUtils (Kapitel 11)</para>
+    <para>* Aktualisierung der erweiterten Dokumentation zu den IDOUtils (Kapitel 11)</para>
 
-  <para>* Aktualisierung der Anleitung zur Icinga Api</para>
+    <para>* Aktualisierung der Anleitung zur Icinga Api</para>
 
-  <para>* Aktualisierung der Objektdefinitionen</para>
+    <para>* Aktualisierung der Konfigurationsoptionen, Classical UI</para>
 
- <para>* Neues Dokument zu Running icinga - "Diagnostics"</para>
+    <para>* Neues Dokument zu weiteren HowTos</para>
 
-<para> Neue Testanleitungen für Icinga finden Sie hier: <link xlink:href="&url-icinga-test;">Icinga-Development</link></para>
+    <para>Neue Testanleitungen für Icinga finden Sie hier: <link
+    xlink:href="https://dev.icinga.org/projects/icinga-development/wiki/">Icinga-Development</link></para>
 
-<para> Insidertips und mehr Dokumentation rund ums Webinterface finden Sie hier: <link xlink:href="&url-icinga-wiki;">Icinga-Wiki</link></para>
+    <para>Insidertips und mehr Dokumentation rund ums Webinterface finden Sie hier: <link
+    xlink:href="https://dev.icinga.org/projects/icinga-web/wiki/">Icinga-Wiki</link></para>
 
-  <para>Bitte berichten Sie Probleme hier:</para>
+    <para>Bitte berichten Sie Probleme hier:</para>
 
-  <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-core">Problembericht &name-core;</link></para>
+    <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-core">Problembericht &name-core;</link></para>
 
-  <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-web">Problembericht &name-web;</link></para>
+    <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-web">Problembericht &name-web;</link></para>
 
-  <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-api">Problembericht &name-api;</link></para>
+    <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-api">Problembericht &name-api;</link></para>
 
-  <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-docs">Problembericht &name-docs;</link></para>
+    <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-docs">Problembericht &name-docs;</link></para>
 
-  <indexterm zone="whatsnew">
-    <primary>Was ist neu in &name-icinga;</primary>
-  </indexterm>
+    <indexterm zone="whatsnew">
+        <primary>Was ist neu in &name-icinga;</primary>
+    </indexterm>
 
-  <xi:include href="changelog-core.xml" />
+    <xi:include href="changelog-core.xml" />
 
-  <xi:include href="changelog-web.xml" />
+    <xi:include href="changelog-web.xml" />
 </section>

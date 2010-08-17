@@ -10,44 +10,60 @@
 
     <para><emphasis role="bold">&name-core;:</emphasis></para>
 
-    <para><emphasis role="bold">Enhancements:</emphasis></para>
+    <para>* Config options: <itemizedlist>
+            <listitem>
+                <para>set initial state of persistence for acknowledgements</para>
+            </listitem>
 
-    <para>* core: Schedule Downtime for host and all services now works as expected</para>
+            <listitem>
+                <para>log_external_commands_user, user will be logged by core if sent through cmd pipe</para>
+            </listitem>
 
-    <para>* core: Servicechecks with excluded timeperiods are correctly re-scheduled</para>
+            <listitem>
+                <para>disable logging of current state after rotation</para>
+            </listitem>
 
-    <para>* core: Error out if service_description is missing in service definition</para>
+            <listitem>
+                <para>log long plugin output</para>
+            </listitem>
 
-    <para>* core: Added syslogd local facility</para>
+            <listitem>
+                <para>enable event handlers for stalked hosts/services</para>
+            </listitem>
+        </itemizedlist></para>
 
-    <para>* core: Use execv for active checks w/o metacharacters</para>
+    <para>* Scheduled downtime can now start on SOFT error states</para>
 
-    <para>* core: Speed up loading retention.dat into the Core</para>
+    <para>* Rewrite execv check execution into execvp, allowing plugins in PATH and accepting 4k cmd args, with adapted error handling</para>
 
-    <para>* core: Initscripts handle the lock file now correctly and outputs config errors</para>
+    <para>* Fix all comments disappear after restart if one comment is non-persistent</para>
 
-    <para>* core: Better Solaris detection (in progress)</para>
+    <para>* Fix wrong is_volatile conditions causing wrong service alerts in the logs</para>
 
-    <para>* core: Add event profiling option and dumping entire scheduling queue</para>
+    <para>* Fixes for mini_epn's; temp_path overwritten by check_result_path; service event handlers when service problem becomes hard during host
+    down</para>
 
-    <para>* cgis: display_name on host/service definition will be displayed in classical UI</para>
+    <para><emphasis role="bold">&name-icinga; &name-idoutils;:</emphasis></para>
 
-    <para>* cgis: multiple urls for notes|action_url on host|service definition in classical UI</para>
+    <para>* Add syslog output for start/stop, client connecting</para>
 
-    <para>* cgis: removing a comment on the classical UI does not delete all of them anymore</para>
+    <para>* Add database trimming thread startup delay option</para>
 
-    <para>* idoutils: IDOMOD now has it's own object version on the NEB API, this requires both Icinga and IDOUtils to be upgraded to 1.0.2 – check
-    docs for more information <link linkend="upgrading_idoutils">upgrading_idoutils</link></para>
+    <para>* Full rewrite of binding NULL values for oracle with ocilib; fix select name1/name2</para>
 
-    <para>* idoutils: Performance improvements on SQL queries and objects hash list</para>
+    <para>* Modifiy and extend columns length for mysql/pgsql/oracle</para>
 
-    <para><emphasis role="bold">Fixes:</emphasis></para>
+    <para><emphasis role="bold">&name-ui;</emphasis></para>
 
-    <para>* core: Fixes for Notification not/incorrectly being sent/calculated</para>
+    <para>* Multiple commands sending to cmd.cgi</para>
 
-    <para>* core: A long list of patches pending on mailinglists and trackers, check the Changelog for more information</para>
+    <para>* Multiple host/service checkbox selection in status pages and sending commands from dropdown</para>
 
-    <para>* idoutils: Fixed major bug on IDOUtils object relations, causing huge performance issues - added upgrade scripts too</para>
+    <para>* Pause and continue page reload, useful for multiple commands sending</para>
+
+    <para>* Add config options to: show long_output in status.cgi; show only HARD states in tac.cgi</para>
+
+    <para>* Fix multiurl wrong names and macro processing</para>
 
     <para>To have a deeper look, please visit the Changelog</para>
 
@@ -81,7 +97,8 @@
 
     <para>* Translation (not complete)</para>
 
- <para> Insidertips and more Documentation for Icinga-Web: <link xlink:href="&url-icinga-wiki;">Icinga-Wiki</link></para>
+    <para>Insidertips and more Documentation for Icinga-Web: <link
+    xlink:href="https://dev.icinga.org/projects/icinga-web/wiki/">Icinga-Wiki</link></para>
 
     <para>To have a deeper look, please visit the changelog-web</para>
 
@@ -102,15 +119,15 @@
 
     <para>* Updates and fixes for Web-Install-Section</para>
 
-    <para>* Updates for objectdefinitions</para>
+    <para>* Updates for objectdefinitions and Classic UI configuration options.</para>
 
-    <para>* New extended docs for the IDOUtils, Chapter 11.</para>
+    <para>* Updates for extended docs for the IDOUtils, Chapter 11.</para>
 
-    <para>* New section Running icinga - "Diagnostics"</para>
+    <para>* New testing guides for Icinga: <link
+    xlink:href="https://dev.icinga.org/projects/icinga-development/wiki/">Icinga-Development</link></para>
 
-<para>* New testing guides for Icinga: <link xlink:href="&url-icinga-test;">Icinga-Development</link></para>
-
-<para> Insidertips and more Documentation for Icinga-Web: <link xlink:href="&url-icinga-wiki;">Icinga-Wiki</link></para>
+    <para>Insidertips and more Documentation for Icinga-Web: <link
+    xlink:href="https://dev.icinga.org/projects/icinga-web/wiki/">Icinga-Wiki</link></para>
 
     <para>Should you find any issues, please report them to the following links:</para>
 
