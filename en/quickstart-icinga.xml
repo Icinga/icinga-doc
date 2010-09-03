@@ -28,8 +28,8 @@
 
   <para>Other distributions may inherit from these examples.</para>
 
-  <para><emphasis role="bold">If you are planning to use a database with &name-idoutils;, or wish to use the new web interface
-   then please read <link linkend="quickstart-idoutils">&name-icinga; with &name-idoutils;</link> instead!</emphasis></para>
+  <para><emphasis role="bold">If you are planning to use a database with &name-idoutils;, or wish to use the new web interface then please
+  read <link linkend="quickstart-idoutils">&name-icinga; with &name-idoutils;</link> instead!</emphasis></para>
 
   <para><emphasis role="bold">What You'll End Up With</emphasis></para>
 
@@ -99,9 +99,15 @@
     <para>The numbers &lt;62/12&gt; might differ, depending on your distribution</para>
   </note>
 
-  <para><emphasis>&name-opensuse;</emphasis></para>
+  <para><emphasis>&name-opensuse;/&name-sles;</emphasis></para>
 
-  <para>Please use yast to install the packages</para>
+  <para>Please use YaST to install at least the packages gd, gd-devel, libjpeg, libjpeg-devel, libpng, libpng-devel and, optionally,
+  net-snmp, net-snmp-devel and perl-net-snmp.</para>
+
+  <note>
+    <para>Depending on the software selection during the installation of the OS you may need to install additional packages (i.e. apache2,
+    gcc). The devel packages might be placed on the SDK DVDs.</para>
+  </note>
 
   <para><emphasis role="bold">Create Account Information</emphasis></para>
 
@@ -123,13 +129,17 @@
 
   <programlisting> #&gt; /usr/sbin/groupadd icinga-cmd
  #&gt; /usr/sbin/usermod -a -G icinga-cmd icinga
- #&gt; /usr/sbin/usermod -a -G icinga-cmd www-data (or www, wwwrun, apache depending on the distribution)</programlisting>
+ #&gt; /usr/sbin/usermod -a -G icinga-cmd www-data (or www, wwwrun, apache, depending on the distribution)</programlisting>
 
   <note>
     <para>Some usermod-versions (e.g. in OpenSuSE 11 and SLES 11, resp.) are lacking the option -a. In this case please omit the option
     -a.</para>
   </note>
-<note><para>Solaris only supports groupnames with max. 8 characters, please use icingcmd instead of icinga-cmd.</para></note>
+
+  <note>
+    <para>Solaris only supports groupnames with max. 8 characters, please use icingcmd instead of icinga-cmd.</para>
+  </note>
+
   <para><emphasis role="bold">Download &name-icinga; and the Plugins</emphasis></para>
 
   <para>Change to your local source directory i.e. /usr/src</para>
@@ -245,6 +255,9 @@
 
   <programlisting> #&gt; &url-icinga-bin; -v &url-icinga-cfg;</programlisting>
 
+  <para>Instead of specifying the paths to binary and config file you can issue <programlisting> #&gt; /etc/init.d/icinga show-errors</programlisting>which
+  results in an OK message if everything is fine or several lines which show the location of the error(s).</para>
+
   <para>If there are no errors, start &name-icinga;.</para>
 
   <para><emphasis>&name-fedora;/&name-rhel;/&name-centos;/&name-ubuntu;</emphasis></para>
@@ -254,6 +267,31 @@
   <para><emphasis>&name-debian;/&name-opensuse;</emphasis></para>
 
   <programlisting> #&gt; /etc/init.d/icinga start</programlisting>
+
+  <para><emphasis role="bold">Adjusting the SE&name-linux; settings</emphasis></para>
+
+  <para>&name-fedora; is shipped with activated SE&name-linux; (Security Enhanced &name-linux;) running in "enforcing" mode. This may lead
+  to "Internal Server Error" messages when you try to invoke the &name-icinga;-CGIs.</para>
+
+  <para>Check if SE&name-linux; runs in enforcing mode</para>
+
+  <screen> #&gt; getenforce</screen>
+
+  <para>Set SE&name-linux; in "permissive" mode</para>
+
+  <screen> #&gt; setenforce 0</screen>
+
+  <para>To make this change permanent you have to adjust this setting in <emphasis>/etc/selinux/config</emphasis> and restart the
+  system.</para>
+
+  <para>Instead of deactivating SE&name-linux; or setting it into permissive mode you can use the following commands to run the CGIs in
+  enforcing/targeted mode:</para>
+
+  <programlisting> #&gt; chcon -R -t httpd_sys_script_exec_t &url-icinga-base;/sbin/
+ #&gt; chcon -R -t httpd_sys_content_t &url-icinga-base;/share/</programlisting>
+
+  <para>Visit the &name-nagios;Community.org-Wiki at <link xlink:href="http://www.nagioscommunity.org/wiki">&url-nagios-community;</link> to
+  get information how to run the &name-icinga;-CGIs in enforcing mode with a targeted policy.</para>
 
   <para><emphasis role="bold">Login to the Classic Web Interface</emphasis></para>
 

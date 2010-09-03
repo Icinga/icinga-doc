@@ -23,8 +23,9 @@
   xlink:href="http://www.debian.org/">&name-debian;</link> und <link
   xlink:href="http://www.novell.com/products/server/">&name-sles;</link>.</para>
 
-  <para><emphasis role="bold">Wenn Sie planen, eine Datenbank zusammen mit &name-idoutils; zu nutzen oder wenn Sie das neue 
-  Web-Interface einsetzen möchten, dann lesen Sie statt dessen <xref linkend="quickstart-idoutils"/>!</emphasis></para>
+  <para><emphasis role="bold">Wenn Sie planen, eine Datenbank zusammen mit &name-idoutils; zu nutzen oder wenn Sie das neue Web-Interface
+  einsetzen möchten, dann lesen Sie statt dessen die <link linkend="quickstart-idoutils"> Schnellstartanleitung mit
+  IDOUtils</link>!</emphasis></para>
 
   <para><emphasis role="bold">Was dabei herauskommt</emphasis></para>
 
@@ -41,7 +42,7 @@
     </listitem>
 
     <listitem>
-      <para>das klassische &name-icinga;-Web-Interface ist erreichbar unter <uri>http://localhost/nagios/</uri> oder
+      <para>das klassische &name-icinga;-Web-Interface ist erreichbar unter <uri>http://localhost/icinga/</uri> oder
       <uri>http://yourdomain.com/icinga/</uri></para>
     </listitem>
   </itemizedlist>
@@ -66,7 +67,7 @@
     </listitem>
 
     <listitem>
-      <para><link xlink:href="http://www.boutell.com/gd/">&name-gd;</link> -Development-Libraries</para>
+      <para><link xlink:href="http://www.boutell.com/gd/">&name-gd;</link>-Development-Libraries</para>
     </listitem>
   </itemizedlist>
 
@@ -95,9 +96,15 @@
     <para>Die Zahlen &lt;62/12&gt; können je nach Distribution abweichen</para>
   </note>
 
-  <para><emphasis>&name-opensuse;</emphasis></para>
+  <para><emphasis>&name-opensuse; / &name-sles;</emphasis></para>
 
-  <para>Bitte nutzen Sie yast für die Installation der Pakete</para>
+  <para>Bitte nutzen Sie YaST für die Installation der Pakete gd, gd-devel, libjpeg, libjpeg-devel, libpng, libpng-devel und -optional-
+  net-snmp, net-snmp-devel und perl-net-snmp.</para>
+
+  <note>
+    <para>Abhängig von der Softwareauswahl bei der Installation des Betriebssystems benötigen Sie evtl. weitere Pakete (z.B. apache2, gcc).
+    Die devel-Pakete sind ggf. auf den SDK-DVDs zu finden.</para>
+  </note>
 
   <para><emphasis role="bold">Benutzerinformationen erstellen</emphasis></para>
 
@@ -124,7 +131,11 @@
   <note>
     <para>Bei einigen usermod-Versionen (z.B. bei OpenSuSE 11 bzw. SLES 11) fehlt die Option -a. In diesen Fällen kann sie entfallen.</para>
   </note>
-<note><para>Solaris unterstützt nur Gruppennamen bis max. 8 Zeichen, verwenden Sie icingcmd anstelle von icinga-cmd.</para></note>
+
+  <note>
+    <para>Solaris unterstützt nur Gruppennamen bis max. 8 Zeichen, verwenden Sie icingcmd anstelle von icinga-cmd.</para>
+  </note>
+
   <para><emphasis role="bold">&name-icinga; und die Plugins herunterladen</emphasis></para>
 
   <para>Wechseln Sie in Ihr lokales Source-Verzeichnis, z.B. /usr/src</para>
@@ -158,10 +169,11 @@
  #&gt; make install-config 
  #&gt; make install-commandmode </programlisting> oder kürzer <programlisting> #&gt; make fullinstall</programlisting></para>
 
-<para>Die Icinga-API wird beim Aufruf von "make install" installiert, wenn Sie nur die Icinga-Api (nach)installieren möchten, nutzen Sie: <programlisting> # make install-api</programlisting>
-    Die Icinga-API ist Voraussetzung für das &name-icinga;-Web-Interface (nicht für die klassische Ansicht!).</para>
+  <para>Die Icinga-API wird beim Aufruf von "make install" installiert, wenn Sie nur die Icinga-Api (nach)installieren möchten, nutzen Sie:
+  <programlisting> # make install-api</programlisting> Die Icinga-API ist Voraussetzung für das &name-icinga;-Web-Interface (nicht für die
+  klassische Ansicht!).</para>
 
-	<para>Bitte starten Sie &name-icinga; noch nicht - es gibt noch ein paar Dinge zu tun...</para>
+  <para>Bitte starten Sie &name-icinga; noch nicht - es gibt noch ein paar Dinge zu tun...</para>
 
   <para><emphasis role="bold">Anpassen der Konfiguration</emphasis></para>
 
@@ -196,7 +208,7 @@
   <programlisting> #&gt; htpasswd -c &url-icinga-base;/etc/htpasswd.users icingaadmin</programlisting>
 
   <note>
-    <para>Abhängig von der Apache-Version müssen Sie ggf. <emphasis>htpasswd2 verwenden.</emphasis></para>
+    <para>Abhängig von der Apache-Version müssen Sie ggf. <emphasis>htpasswd2</emphasis> verwenden.</para>
   </note>
 
   <para>Wenn Sie das Passwort später ändern oder einen weiteren Benutzer hinzufügen möchten, verwenden Sie den folgenden Befehl:</para>
@@ -250,20 +262,9 @@
 
   <programlisting> #&gt; &url-icinga-bin; -v &url-icinga-cfg;</programlisting>
 
-  <para>Wenn keine Fehler auftreten, starten Sie &name-icinga;.</para>
-
-  <screen> #&gt; service icinga start</screen>
-
-  <para><emphasis role="bold"> 8) Anpassen der SE&name-linux;-Einstellungen</emphasis></para>
-
-  <para><emphasis role="bold">Start &name-icinga;</emphasis></para>
-
-  <para>Fügen Sie &name-icinga; zur Liste der System-Services hinzu, damit es automatisch beim Start des Systems gestartet wird (stellen Sie
-  sicher, dass Sie das Init-Script vorher installiert haben).</para>
-
-  <para>Überprüfen Sie die &name-icinga;-Beispielkonfigurationsdateien.</para>
-
-  <programlisting> #&gt; &url-icinga-bin; -v &url-icinga-cfg;</programlisting>
+  <para>Anstatt die Pfade für das Binary und die Konfigurationsdatei anzugeben können Sie auch den folgenden Befehl eingeben:
+  <programlisting> #&gt; /etc/init.d/icinga show-errors</programlisting>Die Ausführung ergibt einen OK-Meldung, wenn alles in Ordnung ist,
+  oder eine Reihe von Zeilen, die zeigen, wo der/die Fehler zu finden sind.</para>
 
   <para>Wenn es dabei keine Fehler gibt, starten Sie &name-icinga;.</para>
 
@@ -274,6 +275,8 @@
   <para><emphasis>&name-debian; / &name-ubuntu;</emphasis></para>
 
   <programlisting> #&gt; /etc/init.d/icinga start</programlisting>
+
+  <para><emphasis role="bold">Anpassen der SE&name-linux;-Einstellungen</emphasis></para>
 
   <para>&name-fedora; wird mit installiertem SE&name-linux; (Security Enhanced &name-linux;) ausgeliefert und läuft im "Enforcing"-Modus.
   Dies kann zu "Internal Server Error"-Fehlern führen, wenn Sie versuchen, die &name-icinga;-CGIs aufzurufen.</para>
@@ -292,7 +295,7 @@
   <para>Statt SE&name-linux; zu deaktivieren oder es in den Permissive-Modus zu versetzen, können Sie den folgenden Befehl benutzen, um die
   CGIs im Enforcing/Targeted-Modus laufen zu lassen:</para>
 
-  <programlisting> #&gt; chcon -R -t httpd_sys_content_t &url-icinga-base;/sbin/
+  <programlisting> #&gt; chcon -R -t httpd_sys_script_exec_t &url-icinga-base;/sbin/
  #&gt; chcon -R -t httpd_sys_content_t &url-icinga-base;/share/</programlisting>
 
   <para>Besuchen Sie das &name-nagios;Community.org-Wiki unter <link
