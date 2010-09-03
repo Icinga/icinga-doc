@@ -223,7 +223,9 @@
   <note>
     <para>Bei einigen usermod-Versionen (z.B. OpenSuSE 11 bzw. SLES 11) fehlt die Option -a. In diesen Fällen kann sie entfallen.</para>
   </note>
-<note><para>Solaris unterstützt nur Gruppennamen bis max. 8 Zeichen, verwenden Sie icingcmd anstelle von icinga-cmd.</para></note>
+  <important>
+    <para>Solaris unterstützt nur Gruppennamen bis max. 8 Zeichen, verwenden Sie icingcmd anstelle von icinga-cmd.</para>
+  </important>
 
   <para><emphasis role="bold">&name-icinga; und die Plugins herunterladen</emphasis></para>
 
@@ -249,12 +251,12 @@
 
   <programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils</programlisting>
 
-  <caution>
+  <important>
     <para>Das Kompilieren auf Solaris kann wegen unerfüllten Bibliotheksabhängigkeiten von gethostbyname fehlschlagen. Wenn dies der Fall
     ist, führen Sie folgenden Befehl vor configure aus:</para>
 
     <programlisting> #&gt; export LIBS=-lsocket -lnsl</programlisting>
-  </caution>
+  </important>
 
   <para><emphasis role="bold">Mit <emphasis role="bold">SSL</emphasis>-Verschlüsselung:</emphasis></para>
 

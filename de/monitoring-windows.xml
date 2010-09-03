@@ -163,12 +163,7 @@
 
   <screen> nsclient++ /install</screen>
 
-  <para>5. Installieren Sie ein &name-nsclient;-Icon im Infobereich (Systray) mit dem folgenden Befehl (Groß- und Kleinschreibung
-  ist wichtig!)</para>
-
-  <screen> nsclient++ SysTray</screen>
-
-  <para>6. Öffnen Sie die Dienste-Applikation und stellen Sie sicher, dass der &name-nsclient;-Dienst mit dem Desktop
+  <para>5. Öffnen Sie die Dienste-Applikation und stellen Sie sicher, dass der &name-nsclient;-Dienst mit dem Desktop
   kommunizieren darf (Reiter "Anmelden", Häkchen bei "Datenaustausch zwischen Dienst und Desktop zulassen" gesetzt). Setzen Sie
   ggf. das Häkchen.</para>
 
@@ -178,7 +173,7 @@
       </imageobject>
     </inlinemediaobject></para>
 
-  <para>7. Editieren Sie die NSC.INI-Datei (im C:\&name-nsclient;-Verzeichnis) und machen Sie folgende Änderungen:</para>
+  <para>6. Editieren Sie die NSC.INI-Datei (im C:\&name-nsclient;-Verzeichnis) und machen Sie folgende Änderungen:</para>
 
   <itemizedlist>
     <listitem>
@@ -193,7 +188,8 @@
 
     <listitem>
       <para>entfernen Sie das Kommentarzeichen (;) vor der 'allowed_hosts'-Option im [Settings]-Abschnitt. Fügen Sie die
-      IP-Adresse des &name-icinga;-Servers ein oder lassen Sie diese Angabe leer, so dass sich alle Hosts verbinden können.</para>
+      IP-Adresse des &name-icinga;-Servers ein, mit ip.add.ress/Bits einen Bereich oder lassen Sie diese Angabe leer, so
+      dass sich alle Hosts verbinden können.</para>
     </listitem>
 
     <listitem>
@@ -202,14 +198,11 @@
     </listitem>
   </itemizedlist>
 
-  <para>8. Starten Sie den &name-nsclient;-Dienst mit dem folgenden Befehl:</para>
+  <para>7. Starten Sie den &name-nsclient;-Dienst mit dem folgenden Befehl:</para>
 
   <screen> nsclient++ /start</screen>
 
-  <para>9. Wenn es sauber installiert ist, sollte ein neues Icon in Ihrem Infobereich auftauchen, ein gelber Kreis mit einem
-  schwarzen 'M'.</para>
-
-  <para>10. Geschafft! Der Windows-Rechner kann nun der &name-icinga;-Überwachungskonfiguration hinzugefügt werden...</para>
+  <para>8. Geschafft! Der Windows-Rechner kann nun der &name-icinga;-Überwachungskonfiguration hinzugefügt werden...</para>
 
   <para><emphasis role="bold">&name-icinga; konfigurieren</emphasis></para>
 
@@ -236,13 +229,10 @@
   mitzuteilen, welche Dinge auf dem Windows-Server zu überwachen sind. Wenn dies der *erste* Windows-Rechner ist, den Sie
   überwachen, dann können Sie einfach die Beispiel-Definitionen in der <emphasis>windows.cfg</emphasis>-Datei anpassen.</para>
 
-  <para><inlinemediaobject>
-      <imageobject>
-        <imagedata fileref="../images/note.gif" format="GIF"></imagedata>
-      </imageobject>
-    </inlinemediaobject> Anmerkung: Ersetzen Sie "<emphasis>winserver</emphasis>" in den folgenden Beispiel-Definitionen durch den
-  Namen, den Sie in der <emphasis>host_name</emphasis>-Direktive der Host-Definitionen angegeben haben, die Sie gerade hinzugefügt
-  haben.</para>
+  <note>
+    <para>Ersetzen Sie "<emphasis>winserver</emphasis>" in den folgenden Beispiel-Definitionen durch den Namen, den Sie in der
+    <emphasis>host_name</emphasis>-Direktive der Host-Definitionen angegeben haben, die Sie gerade hinzugefügt haben.</para>
+  </note>
 
   <para>Fügen Sie die folgende Service-Definition hinzu, um die Version des &name-nsclient;-Addons zu überwachen, das auf dem
   Windows-Rechner läuft. Dies ist nützlich, wenn Sie Ihre Windows-Server mit einer neueren Version des Addons aktualisieren
@@ -318,6 +308,8 @@
         check_command           check_nt!PROCSTATE!-d SHOWALL -l Explorer.exe
         }</screen>
 
+  <note><para>Nun ja. Eigentlich ist es ziemlich unsinnig, zu überwachen, ob der Explorer läuft. Allerdings läßt sich auf
+  diese Weise sehr einfach prüfen, ob alles wie gewünscht funktioniert ;-)</para></note>
   <para>Das war es vorerst. Sie haben einige grundlegende Dienste hinzugefügt, die auf dem Windows-Rechner überwacht werden
   sollen. Speichern Sie die Konfigurationsdatei.</para>
 

@@ -64,14 +64,14 @@
   Without installing an agent on the Windows box, &name-icinga; would be unable to monitor private services or attributes of the
   Windows box.</para>
 
-  <para>For this example, we will be installing the <link xlink:href="http://sourceforge.net/projects/nscplus">NSClient++</link>
-  addon on the Windows machine and using the <emphasis>check_nt</emphasis> plugin to communicate with the NSClient++ addon. The
+  <para>For this example, we will be installing the <link xlink:href="http://sourceforge.net/projects/nscplus">&name-nsclient;</link>
+  addon on the Windows machine and using the <emphasis>check_nt</emphasis> plugin to communicate with the &name-nsclient; addon. The
   <emphasis>check_nt</emphasis> plugin should already be installed on the &name-icinga; server if you followed the quickstart
   guide.</para>
 
   <para>Other Windows agents (like <link xlink:href="http://sourceforge.net/projects/nc-net">NC_Net</link>) could be used instead
-  of NSClient++ if you wish - provided you change command and service definitions, etc. a bit. For the sake of simplicity we will
-  only cover using the NSClient++ addon in these instructions.</para>
+  of &name-nsclient; if you wish - provided you change command and service definitions, etc. a bit. For the sake of simplicity we will
+  only cover using the &name-nsclient; addon in these instructions.</para>
 
   <para><emphasis role="bold">Steps</emphasis></para>
 
@@ -125,7 +125,7 @@
 
   <screen># vi &url-icinga-cfg;</screen>
 
-  <para>Remove the leading pound (#) sign from the following line in the main configuration file:</para>
+  <para>Remove the leading hash (#) sign from the following line in the main configuration file:</para>
 
   <screen> #cfg_file=&url-icinga-base;/etc/objects/windows.cfg</screen>
 
@@ -139,27 +139,23 @@
   <para><emphasis role="bold">Installing the Windows Agent</emphasis></para>
 
   <para>Before you can begin monitoring private services and attributes of Windows machines, you'll need to install an agent on
-  those machines. We recommend using the NSClient++ addon, which can be found at <link
+  those machines. We recommend using the &name-nsclient; addon, which can be found at <link
   xlink:href="http://sourceforge.net/projects/nscplus">http://sourceforge.net/projects/nscplus</link>. These instructions will
-  take you through a basic installation of the NSClient++ addon, as well as the configuration of &name-icinga; for monitoring the
+  take you through a basic installation of the &name-nsclient; addon, as well as the configuration of &name-icinga; for monitoring the
   Windows machine.</para>
 
-  <para>1. Download the latest stable version of the NSClient++ addon from <link
+  <para>1. Download the latest stable version of the &name-nsclient; addon from <link
   xlink:href="http://sourceforge.net/projects/nscplus">http://sourceforge.net/projects/nscplus</link></para>
 
-  <para>2. Unzip the NSClient++ files into a new C:\NSClient++ directory</para>
+  <para>2. Unzip the &name-nsclient; files into a new C:\NSClient++ directory</para>
 
   <para>3. Open a command prompt and change to the C:\NSClient++ directory</para>
 
-  <para>4. Register the NSClient++ system service with the following command:</para>
+  <para>4. Register the &name-nsclient; system service with the following command:</para>
 
   <screen> nsclient++ /install</screen>
 
-  <para>5. Install the NSClient++ systray with the following command ('SysTray' is case-sensitive):</para>
-
-  <screen> nsclient++ SysTray</screen>
-
-  <para>6. Open the services manager and make sure the NSClientpp service is allowed to interact with the desktop (see the 'Log
+  <para>5. Open the services manager and make sure the NSClientpp service is allowed to interact with the desktop (see the 'Log
   On' tab of the services manager). If it isn't already allowed to interact with the desktop, check the box to allow it to.</para>
 
   <para><inlinemediaobject>
@@ -168,7 +164,7 @@
       </imageobject>
     </inlinemediaobject></para>
 
-  <para>7. Edit the NSC.INI file (located in the C:\NSClient++ directory) and make the following changes:</para>
+  <para>6. Edit the NSC.INI file (located in the C:\NSClient++ directory) and make the following changes:</para>
 
   <itemizedlist>
     <listitem>
@@ -181,7 +177,7 @@
 
     <listitem>
       <para>Uncomment the 'allowed_hosts' option in the [Settings] section. Add the IP address of the &name-icinga; server to this
-      line, or leave it blank to allow all hosts to connect.</para>
+      line, ip.add.ress/bits for a range or leave it blank to allow all hosts to connect.</para>
     </listitem>
 
     <listitem>
@@ -189,14 +185,11 @@
     </listitem>
   </itemizedlist>
 
-  <para>8. Start the NSClient++ service with the following command:</para>
+  <para>7. Start the &name-nsclient; service with the following command:</para>
 
   <screen> nsclient++ /start</screen>
 
-  <para>9. If installed properly, a new icon should appear in your system tray. It will be a yellow circle with a black 'M'
-  inside.</para>
-
-  <para>10. Success! The Windows server can now be added to the &name-icinga; monitoring configuration...</para>
+  <para>8. Success! The Windows server can now be added to the &name-icinga; monitoring configuration...</para>
 
   <para><emphasis role="bold">Configuring &name-icinga;</emphasis></para>
 
@@ -228,9 +221,9 @@
     <emphasis>host_name</emphasis> directive of the host definition you just added.</para>
   </note>
 
-  <para>Add the following service definition to monitor the version of the NSClient++ addon that is running on the Windows server.
+  <para>Add the following service definition to monitor the version of the &name-nsclient; addon that is running on the Windows server.
   This is useful when it comes time to upgrade your Windows servers to a newer version of the addon, as you'll be able to tell
-  which Windows machines still need to be upgraded to the latest version of NSClient++.</para>
+  which Windows machines still need to be upgraded to the latest version of &name-nsclient;.</para>
 
   <screen> define service{
         use                     generic-service
@@ -306,7 +299,7 @@
 
   <para><emphasis role="bold">Password Protection</emphasis></para>
 
-  <para>If you specified a password in the NSClient++ configuration file on the Windows machine, you'll need to modify the
+  <para>If you specified a password in the &name-nsclient; configuration file on the Windows machine, you'll need to modify the
   <emphasis>check_nt</emphasis> command definition to include the password. Open the <emphasis>commands.cfg</emphasis> file for
   editing.</para>
 
@@ -335,5 +328,5 @@
   <para>If the verification process produces any errors messages, fix your configuration file before continuing. Make sure that
   you don't (re)start &name-icinga; until the verification process completes without any errors!</para>
   <indexterm zone="monitoring_windows"><primary>Monitoring</primary><secondary>Monitoring Windows Machines</secondary></indexterm>
-  <indexterm zone="monitoring_windows"><primary>NSClient++</primary><secondary>Monitoring Windows Machines</secondary></indexterm>
+  <indexterm zone="monitoring_windows"><primary>&name-nsclient;</primary><secondary>Monitoring Windows Machines</secondary></indexterm>
 </section>
