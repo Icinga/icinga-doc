@@ -76,6 +76,7 @@
     <listitem>
       <para><emphasis role="bold">Web-Interface:</emphasis> You can stop &name-icinga; using the Web-Interface Click on the "Process Info"
       navigation link and select "Shutdown the Icinga Process"</para>
+
       <para><inlinemediaobject>
           <imageobject>
             <imagedata fileref="../images/stoprestart.png" format="PNG"></imagedata>
@@ -88,6 +89,18 @@
     </listitem>
   </orderedlist>
 
+  <para><emphasis role="bold">Loggin Options in /usr/local/icinga/etc/icinga.cfg</emphasis></para>
+
+  <para>Logging options for daemon:</para>
+
+  <para>If you want messages to be logged to the daemon log file (usually icinga.log). Default option is 1 (yes), the other valid option is
+  0 (no) <programlisting>use_daemon_log=0/1</programlisting></para>
+
+  <para>Logging options for syslog:</para>
+
+  <para>If you want messages to be logged to the syslog facility, as well as the &name-icinga; log file set this option to 1. If not, set it
+  to 0.<programlisting>use_syslog=0/1</programlisting></para>
+
   <para><emphasis role="bold">Miscellaneous options</emphasis></para>
 
   <para>If you experience long delays between starting &name-icinga; and the first checks you can use several other options which are shown
@@ -95,8 +108,8 @@
 
   <indexterm zone="start_stop">
     <primary>Starting and Stopping &name-icinga;</primary>
-
   </indexterm>
+
   <indexterm zone="start_stop">
     <primary>&name-icinga; command line options</primary>
 
