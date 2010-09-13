@@ -24,39 +24,31 @@
       <para>Die Pakete mysql und php5 sind installiert (mit PEAR und CLI), Icinga samt IDOUtils läuft, die Icinga-API ebenfalls, dann ab zu
       2., ansonsten bitte:</para>
 
-      <itemizedlist>
-        <listitem>
-          <para><emphasis role="bold">Ubuntu / Debian</emphasis></para>
+      <para><emphasis role="bold">Ubuntu / Debian</emphasis></para>
 
-          <programlisting> #&gt; apt-get install php5 php5-cli php-pear php5-xmlrpc php5-xsl php5-pdo php5-ldap php5-gd php5-mysql</programlisting>
-        </listitem>
+      <programlisting> #&gt; apt-get install php5 php5-cli php-pear php5-xmlrpc php5-xsl php5-pdo php5-ldap php5-gd php5-mysql</programlisting>
 
-        <listitem>
-          <para><emphasis role="bold">Fedora / RHEL / CentOS</emphasis></para>
+      <para><emphasis role="bold">Fedora / RHEL / CentOS</emphasis></para>
 
-          <para>Stellen Sie sicher, dass Sie ein Repository bzw. Pakete für PHP 5.2.3 und PCRE 7.6 haben - RHEL/CentOS enthalten bisher
-          lediglich PHP 5.1.6 und PCRE 6.6.</para>
+      <para>Stellen Sie sicher, dass Sie ein Repository bzw. Pakete für PHP 5.2.3 und PCRE 7.6 haben - RHEL/CentOS enthalten bisher
+      lediglich PHP 5.1.6 und PCRE 6.6.</para>
 
-          <para><programlisting> #&gt; yum install php php-cli php-pear php-xmlrpc php-xsl php-pdo php-ldap php-gd php-mysql</programlisting></para>
+      <para><programlisting> #&gt; yum install php php-cli php-pear php-xmlrpc php-xsl php-pdo php-ldap php-gd php-mysql</programlisting></para>
 
-          <note>
-            <para>Aktuelle Pakete für PHP und PRCE finden Sie beispielsweise unter: <link
-            xlink:href="http://blog.famillecollet.com/pages/Config-en">Les RPM de Remi</link> oder <link
-            xlink:href="http://www.jasonlitka.com/category/yum-repo-news">http://www.jasonlitka.com/category/yum-repo-news/</link></para>
-          </note>
-        </listitem>
+      <note>
+        <para>Aktuelle Pakete für PHP und PRCE finden Sie beispielsweise unter: <link
+        xlink:href="http://blog.famillecollet.com/pages/Config-en">Les RPM de Remi</link> oder <link
+        xlink:href="http://www.jasonlitka.com/category/yum-repo-news">http://www.jasonlitka.com/category/yum-repo-news/</link></para>
+      </note>
 
-        <listitem>
-          <para><emphasis role="bold">OpenSuSE</emphasis></para>
+      <para><emphasis role="bold">OpenSuSE</emphasis></para>
 
-          <para>Benutzen Sie yast, um die Pakete "php5", "php5-pear", "php5-xmlrpc", "php5-xsl", "php5-&lt;rdbm&gt;", "php5-soap",
-          "php5-gettext", "php5-pdo", "php5-ldap", "php5-gd" und "php5-mysql" zu installieren. Die CLI ist im php5-Paket enthalten.</para>
+      <para>Benutzen Sie yast, um die Pakete "php5", "php5-pear", "php5-xmlrpc", "php5-xsl", "php5-&lt;rdbm&gt;", "php5-soap",
+      "php5-gettext", "php5-pdo", "php5-ldap", "php5-gd" und "php5-mysql" zu installieren. Die CLI ist im php5-Paket enthalten.</para>
 
-          <note>
-            <para>Zumindest bei SLES10 SP2 fehlt die Funktion hash_hmac.</para>
-          </note>
-        </listitem>
-      </itemizedlist>
+      <note>
+        <para>Zumindest bei SLES10 SP2 fehlt die Funktion hash_hmac.</para>
+      </note>
 
       <para>Die Installation von Icinga mit den IDOUtils bzw. der Icinga-API ist in der <link
       linkend="quickstart-idoutils">Icinga-Schnellstartanleitung</link> und dem Abschnitt über die <link
@@ -82,16 +74,18 @@
 
       <para>&name-web; stellt verschiedene configure Optionen zur Verfügung z.B.</para>
 
-      <programlisting> #&gt; ./configure \
-                        --prefix=/usr/local/icinga-web \
-                        --with-web-user=www-data \
-                        --with-web-group=www-data \
-                        --with-db-type=mysql \
-                        --with-db-host=localhost \
-                        --with-db-port=3306 \
-                        --with-db-name=icinga_web \
-                        --with-db-user=icinga_web \
-                        --with-db-pass=icinga_web \
+      <programlisting> #&gt; ./configure 
+                        --prefix=/usr/local/icinga-web 
+                        --with-web-user=www-data 
+                        --with-web-group=www-data 
+                        --with-web-path=/icinga-web 
+                        --with-web-apache-path=/etc/apache2/conf.d 
+                        --with-db-type=mysql 
+                        --with-db-host=localhost 
+                        --with-db-port=3306 
+                        --with-db-name=icinga_web 
+                        --with-db-user=icinga_web 
+                        --with-db-pass=icinga_web 
                         --with-icinga-api=/usr/local/icinga/share/icinga-api</programlisting>
 
       <note>
@@ -103,13 +97,6 @@
 
       <programlisting> #&gt; ./configure --help</programlisting>
 
-      <para>Ohne weitere Optionen wird das &name-icingaweb; mit:</para>
-
-      <programlisting> #&gt; ./configure
- #&gt; make install</programlisting>
-
-      <para>unter /usr/local/icinga-web installiert.</para>
-
       <note>
         <para>Falls Sie keine Optionen angeben, erwartet der Installer die &name-api; in /usr/local/icinga-api. Allerdings können Sie die
         Option "--with-icinga-api" verwenden um einen anderen Ort anzugeben. Sofern Sie &name-icinga; mit Hilfe des Quickstart Guides
@@ -117,6 +104,36 @@
       </note>
 
       <programlisting> #&gt; ./configure --with-icinga-api=/usr/local/icinga/share/icinga-api</programlisting>
+
+      <para>Ohne weitere Optionen wird das &name-icingaweb; mit:</para>
+
+      <programlisting> #&gt; ./configure
+ #&gt; make install</programlisting>
+
+      <para>unter /usr/local/icinga-web installiert.</para>
+
+      <para>Installation der neuen Apache Konfiguration</para>
+
+      <programlisting>#&gt; make install-apache-config</programlisting>
+
+      <para>Wenn Sie das nicht möchten, können Sie das bisherige Verfahren nutzen, durch die Eingabe von:</para>
+
+      <programlisting>#&gt; make install-javascript</programlisting>
+
+      <para>Dies installiert die bisherigen Symlinks.</para>
+
+      <para>Erzeugen des Installationsberichtes:</para>
+
+      <para><programlisting>#&gt; make install-done
+
+Installation of icinga-web succeeded. 
+Please check the new Apache2 configuration (etc/apache2/icinga-web.conf).</programlisting></para>
+
+      <para>Passwort zurücksetzen:</para>
+
+      <programlisting>#&gt; make icinga-reset-password</programlisting>
+
+      <para>Setzt das Passwort für jeden Account auf icinga-web zurück.</para>
     </listitem>
 
     <listitem>
@@ -176,11 +193,9 @@
       <para>&name-web; bringt Doctrine mit, womit in Zukunft die Datenbank verwaltet wird. Mittels 'make' kann diese initialisiert,
       upgegradet oder gelöscht werden.</para>
 
-      <programlisting> #&gt; make db-initialize      - legt eine Icinga web Datenbank an und füllt diese mit initialen Werten
-</programlisting>
+      <programlisting> #&gt; make db-initialize      - legt eine Icinga web Datenbank an und füllt diese mit initialen Werten</programlisting>
 
-      <programlisting> #&gt; make db-drop            - löscht die komplette Datenbank, inklusive Securityabfrage um ungewolltes Löschen zu verhindern
-</programlisting>
+      <programlisting> #&gt; make db-drop            - löscht die komplette Datenbank, inklusive Securityabfrage um ungewolltes Löschen zu verhindern</programlisting>
 
       <programlisting> #&gt; make db-upgrade         - führt ein Upgrade von einer alten Version durch (ähnlich wie db-initialize)</programlisting>
 
@@ -416,13 +431,27 @@
  #       require valid-user
  #&lt;/IfModule&gt;</programlisting></para>
 
-      <para>Bitte erstellen Sie noch einen neuen Alias im Konfigurationsverzeichnis des Webservers (hier in der icinga-web.conf):</para>
+      <para>Bitte wechseln Sie in das Konfigurationsverzeichnis Ihres Webservers. Überprüfen Sie, ob die, mit <emphasis role="bold">make
+      install-apache-config</emphasis> erstellte Konfiguration Ihren Anforderungen entspricht, oder erstellen Sie noch einen neuen Alias im
+      Konfigurationsverzeichnis des Webservers (hier in der icinga-web.conf):</para>
 
-      <para><programlisting> #&gt; vi /etc/apache2/conf.d/icinga-web.conf
+      <para><programlisting>#&gt; vi /etc/apache2/conf.d/icinga-web.conf
+#&gt;
+#&gt; icinga-web apache configuration
+#&gt; - Enable all options .htaccess
+#&gt; - Add extjs library to alias
+#&gt;
+
+Alias /icinga-web/js/ext3 /usr/local/icinga-web/lib/ext3
+Alias /icinga-web /usr/local/icinga-web/pub
+&lt;Directory /usr/local/icinga-web/lib/ext3&gt;
+    Order allow,deny
+    Allow from all
+&lt;/Directory&gt;
    Alias /icinga-web /usr/local/icinga-web/pub
-  &lt;directory /usr/local/icinga-web/pub&gt;
+  &lt;Directory /usr/local/icinga-web/pub&gt;
         AllowOverride All
-  &lt;/directory&gt;</programlisting></para>
+  &lt;/Directory&gt;</programlisting></para>
 
       <para>Leeren Sie den Cache:</para>
 
@@ -457,8 +486,8 @@
     <listitem>
       <para><emphasis role="bold">Test &amp;Fehler?</emphasis></para>
 
-      <para>Diese Sammlung beinhaltet einige nützliche Informationen, wie Sie Fehler finden und lösen können. Ebenso wird darauf hingewiesen,
-      welche Informationen Sie im Fehlerfall angeben sollen, wenn Sie eine Frage auf den Mailinglisten oder auf <link
+      <para>Diese Sammlung beinhaltet einige nützliche Informationen, wie Sie Fehler finden und lösen können. Ebenso wird darauf
+      hingewiesen, welche Informationen Sie im Fehlerfall angeben sollen, wenn Sie eine Frage auf den Mailinglisten oder auf <link
       xlink:href="http://www.icinga-portal.org">http://www.icinga-portal.org</link> stellen.</para>
 
       <para>* Geben Sie immer die verwendete Version an - tar.gz oder GIT?</para>
@@ -494,7 +523,8 @@
       debug_verbosity=2, restarten Sie IDOUtils und suchen Sie Fehler in ido2db.debug</para>
 
       <para>* Keine Daten vorhanden =&gt; Überprüfen Sie icinga.log, ob IDOMOD zu Beginn geladen wird. Falls nicht, enablen Sie das Event
-      Broker Modul in icinga.cfg so wie im Icinga Core im <link linkend="quickstart-idoutils">IDOUtils Quickstart Guide</link> beschrieben.</para>
+      Broker Modul in icinga.cfg so wie im Icinga Core im <link linkend="quickstart-idoutils">IDOUtils Quickstart Guide</link>
+      beschrieben.</para>
 
       <para>* IDOUtils DB-Schema ist die aktuellste Version? =&gt; Falls nicht, überprüfen Sie mögliche Upgrades anhand der Docs
       dafür.</para>
@@ -533,8 +563,8 @@
       <para>=&gt; Editieren Sie open_basedir in Ihrer php.ini und fügen Sie die Installationsverzeichnisse von &name-web; und von &name-api;
       (z.B. /usr/local/icinga/share/) hinzu.</para>
 
-      <para>* Leeres &name-web;? =&gt; Wenn mod_rewrite aktiviert ist und 'index.php' erscheint in der angefragten URL, dann funktioniert das
-      Portal nicht. Entfernen Sie index.php aus Ihrer URL und alles sollte funktionieren</para>
+      <para>* Leeres &name-web;? =&gt; Wenn mod_rewrite aktiviert ist und 'index.php' erscheint in der angefragten URL, dann funktioniert
+      das Portal nicht. Entfernen Sie index.php aus Ihrer URL und alles sollte funktionieren</para>
 
       <para>* Die Ergebnisse in den Status Cronks passen nicht zu Ihrer Konfiguration? =&gt; Überprüfen Sie in Ihrem Backend, d.h. IDOUtils
       DB, welche Werte für die Status-Tabellen selektiert werden.</para>
