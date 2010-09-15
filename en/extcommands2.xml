@@ -1095,7 +1095,7 @@
 
   <para>Schedules the next active check of a particular host at "check_time". The "check_time" argument is specified in time_t format
   (seconds since the UNIX epoch). Note that the host may not actually be checked at the time you specify. This could occur for a number of
-  reasons: active checks are disabled on a program-wide or service-specific basis, the host is already scheduled to be checked at an earlier
+  reasons: active checks are disabled on a program-wide or host-specific basis, the host is already scheduled to be checked at an earlier
   time, etc. If you want to force the host check to occur at the time you specify, look at the SCHEDULE_FORCED_HOST_CHECK command.</para>
 
   <para><anchor xml:id="extcmd2_schedule_host_downtime" /> <emphasis role="bold">SCHEDULE_HOST_DOWNTIME</emphasis></para>
@@ -1144,7 +1144,7 @@
 
   <para>SCHEDULE_HOSTGROUP_SVC_DOWNTIME;&lt;hostgroup_name&gt;;&lt;start_time&gt;;&lt;end_time&gt;;&lt;fixed&gt;;&lt;trigger_id&gt;;&lt;duration&gt;;&lt;author&gt;;&lt;comment&gt;</para>
 
-  <para>Schedules downtime for all services associated with hosts in a specified servicegroup. If the "fixed" argument is set to one (1),
+  <para>Schedules downtime for all services associated with hosts in a specified hostgroup. If the "fixed" argument is set to one (1),
   downtime will start and end at the times specified by the "start" and "end" arguments. Otherwise, downtime will begin between the "start"
   and "end" times and last for "duration" seconds. The "start" and "end" arguments are specified in time_t format (seconds since the UNIX
   epoch). The service downtime entries can be triggered by another downtime entry if the "trigger_id" is set to the ID of another scheduled
@@ -1340,949 +1340,943 @@
 
   <para>Disables processing of service checks via the OCSP command on a program-wide basis.</para>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-acknowledge_host_problem">
     <primary>External commands</primary>
 
     <secondary>ACKNOWLEDGE_HOST_PROBLEM</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-acknowledge_svc_problem">
     <primary>External commands</primary>
 
     <secondary>ACKNOWLEDGE_SVC_PROBLEM</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-add_host_comment">
     <primary>External commands</primary>
 
     <secondary>ADD_HOST_COMMENT</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-add_svc_comment">
     <primary>External commands</primary>
 
     <secondary>ADD_SVC_COMMENT</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-change_contact_host_notification_timeperiod">
     <primary>External commands</primary>
 
     <secondary>CHANGE_CONTACT_HOST_NOTIFICATION_TIMEPERIOD</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-change_contact_modattr">
     <primary>External commands</primary>
 
     <secondary>CHANGE_CONTACT_MODATTR</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-change_contact_modhattr">
     <primary>External commands</primary>
 
     <secondary>CHANGE_CONTACT_MODHATTR</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-change_contact_modsattr">
     <primary>External commands</primary>
 
     <secondary>CHANGE_CONTACT_MODSATTR</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-change_contact_svc_notifications_timeperiod">
     <primary>External commands</primary>
 
     <secondary>CHANGE_CONTACT_SVC_NOTIFICATION_TIMEPERIOD</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-custom_contact_var">
     <primary>External commands</primary>
 
     <secondary>CHANGE_CUSTOM_CONTACT_VAR</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-custom_host_var">
     <primary>External commands</primary>
 
     <secondary>CHANGE_CUSTOM_HOST_VAR</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-custom_svc_var">
     <primary>External commands</primary>
 
     <secondary>CHANGE_CUSTOM_SVC_VAR</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-change_global_host_event_handler">
     <primary>External commands</primary>
 
     <secondary>CHANGE_GLOBAL_HOST_EVENT_HANDLER</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-change_global_svc_event_handler">
     <primary>External commands</primary>
 
     <secondary>CHANGE_GLOBAL_SVC_EVENT_HANDLER</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-change_host_check_command">
     <primary>External commands</primary>
 
     <secondary>CHANGE_HOST_CHECK_COMMAND</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-change_host_check_timeperiod">
     <primary>External commands</primary>
 
     <secondary>CHANGE_HOST_CHECK_TIMEPERIOD</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-change_host_event_handler">
     <primary>External commands</primary>
 
     <secondary>CHANGE_HOST_EVENT_HANDLER</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-change_host_modattr">
     <primary>External commands</primary>
 
     <secondary>CHANGE_HOST_MODATTR</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-change_host_notification_timeperiod">
     <primary>External commands</primary>
 
     <secondary>CHANGE_HOST_NOTIFICATION_TIMEPERIOD</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-change_max_host_check_attempts">
     <primary>External commands</primary>
 
     <secondary>CHANGE_MAX_HOST_CHECK_ATTEMPTS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-change_max_svc_check_attempts">
     <primary>External commands</primary>
 
     <secondary>CHANGE_MAX_SVC_CHECK_ATTEMPTS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-change_normal_host_check_interval">
     <primary>External commands</primary>
 
     <secondary>CHANGE_NORMAL_HOST_CHECK_INTERVAL</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-change_normal_svc_check_interval">
     <primary>External commands</primary>
 
     <secondary>CHANGE_NORMAL_SVC_CHECK_INTERVAL</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-change_retry_host_check_interval">
     <primary>External commands</primary>
 
     <secondary>CHANGE_RETRY_HOST_CHECK_INTERVAL</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-change_retry_svc_check_interval">
     <primary>External commands</primary>
 
     <secondary>CHANGE_RETRY_SVC_CHECK_INTERVAL</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-change_svc_check_command">
     <primary>External commands</primary>
 
     <secondary>CHANGE_SVC_CHECK_COMMAND</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-change_svc_check_timeperiod">
     <primary>External commands</primary>
 
     <secondary>CHANGE_SVC_CHECK_TIMEPERIOD</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-change_svc_event_handler">
     <primary>External commands</primary>
 
     <secondary>CHANGE_SVC_EVENT_HANDLER</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-change_svc_modattr">
     <primary>External commands</primary>
 
     <secondary>CHANGE_SVC_MODATTR</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-change_svc_notification_timeperiod">
     <primary>External commands</primary>
 
     <secondary>CHANGE_SVC_NOTIFICATION_TIMEPERIOD</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-del_all_host_comments">
     <primary>External commands</primary>
 
     <secondary>DEL_ALL_HOST_COMMENTS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-del_all_svc_comments">
     <primary>External commands</primary>
 
     <secondary>DEL_ALL_SVC_COMMENTS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-del_host_comment">
     <primary>External commands</primary>
 
     <secondary>DEL_HOST_COMMENT</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-del_host_downtime">
     <primary>External commands</primary>
 
     <secondary>DEL_HOST_DOWNTIME</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-del_svc_comment">
     <primary>External commands</primary>
 
     <secondary>DEL_SVC_COMMENT</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-del_svc_downtime">
     <primary>External commands</primary>
 
     <secondary>DEL_SVC_DOWNTIME</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-delay_host_notification">
     <primary>External commands</primary>
 
     <secondary>DELAY_HOST_NOTIFICATION</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-delay_svc_notification">
     <primary>External commands</primary>
 
     <secondary>DELAY_SVC_NOTIFICATION</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_all_notifications_beyond_host">
     <primary>External commands</primary>
 
     <secondary>DISABLE_ALL_NOTIFICATIONS_BEYOND_HOST</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_contact_host_notifications">
     <primary>External commands</primary>
 
     <secondary>DISABLE_CONTACT_HOST_NOTIFICATIONS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_contact_svc_notifications">
     <primary>External commands</primary>
 
     <secondary>DISABLE_CONTACT_SVC_NOTIFICATIONS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_contactgroup_host_notifications">
     <primary>External commands</primary>
 
     <secondary>DISABLE_CONTACTGROUP_HOST_NOTIFICATIONS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_contactgroup_svc_notifications">
     <primary>External commands</primary>
 
     <secondary>DISABLE_CONTACTGROUP_SVC_NOTIFICATIONS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_event_handlers">
     <primary>External commands</primary>
 
     <secondary>DISABLE_EVENT_HANDLERS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_failure_prediction">
     <primary>External commands</primary>
 
     <secondary>DISABLE_FAILURE_PREDICTION</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_flap_detection">
     <primary>External commands</primary>
 
     <secondary>DISABLE_FLAP_DETECTION</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_host_and_child_notifications">
     <primary>External commands</primary>
 
     <secondary>DISABLE_HOST_AND_CHILD_NOTIFICATIONS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_host_check">
     <primary>External commands</primary>
 
     <secondary>DISABLE_HOST_CHECK</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_host_event_handler">
     <primary>External commands</primary>
 
     <secondary>DISABLE_HOST_EVENT_HANDLER</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_host_flap_detection">
     <primary>External commands</primary>
 
     <secondary>DISABLE_HOST_FLAP_DETECTION</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_host_freshness_checks">
     <primary>External commands</primary>
 
     <secondary>DISABLE_HOST_FRESHNESS_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_host_notifications">
     <primary>External commands</primary>
 
     <secondary>DISABLE_HOST_NOTIFICATIONS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_host_svc_checks">
     <primary>External commands</primary>
 
     <secondary>DISABLE_HOST_SVC_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_host_svc_notifications">
     <primary>External commands</primary>
 
     <secondary>DISABLE_HOST_SVC_NOTIFICATIONS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_hostgroup_host_checks">
     <primary>External commands</primary>
 
     <secondary>DISABLE_HOSTGROUP_HOST_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_hostgroup_host_notifications">
     <primary>External commands</primary>
 
     <secondary>DISABLE_HOSTGROUP_HOST_NOTIFICATIONS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_hostgroup_passive_host_checks">
     <primary>External commands</primary>
 
     <secondary>DISABLE_HOSTGROUP_PASSIVE_HOST_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_hostgroup_passive_svc_checks">
     <primary>External commands</primary>
 
     <secondary>DISABLE_HOSTGROUP_PASSIVE_SVC_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_hostgroup_svc_checks">
     <primary>External commands</primary>
 
     <secondary>DISABLE_HOSTGROUP_SVC_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_hostgroup_svc_notifications">
     <primary>External commands</primary>
 
     <secondary>DISABLE_HOSTGROUP_SVC_NOTIFICATIONS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_notifications">
     <primary>External commands</primary>
 
     <secondary>DISABLE_NOTIFICATIONS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_passive_host_checks">
     <primary>External commands</primary>
 
     <secondary>DISABLE_PASSIVE_HOST_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_passive_svc_checks">
     <primary>External commands</primary>
 
     <secondary>DISABLE_PASSIVE_SVC_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_performance_data">
     <primary>External commands</primary>
 
     <secondary>DISABLE_PERFORMANCE_DATA</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_service_flap_detection">
     <primary>External commands</primary>
 
     <secondary>DISABLE_SERVICE_FLAP_DETECTION</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_service_freshness_checks">
     <primary>External commands</primary>
 
     <secondary>DISABLE_SERVICE_FRESHNESS_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_servicegroup_host_checks">
     <primary>External commands</primary>
 
     <secondary>DISABLE_SERVICEGROUP_HOST_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_servicegroup_host_notifications">
     <primary>External commands</primary>
 
     <secondary>DISABLE_SERVICEGROUP_HOST_NOTIFICATIONS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_servicegroup_passive_host_checks">
     <primary>External commands</primary>
 
     <secondary>DISABLE_SERVICEGROUP_PASSIVE_HOST_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_servicegroup_passive_svc_checks">
     <primary>External commands</primary>
 
     <secondary>DISABLE_SERVICEGROUP_PASSIVE_SVC_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_servicegroup_svc_checks">
     <primary>External commands</primary>
 
     <secondary>DISABLE_SERVICEGROUP_SVC_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_servicegroup_svc_notifications">
     <primary>External commands</primary>
 
     <secondary>DISABLE_SERVICEGROUP_SVC_NOTIFICATIONS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_svc_check">
     <primary>External commands</primary>
 
     <secondary>DISABLE_SVC_CHECK</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_svc_event_handler">
     <primary>External commands</primary>
 
     <secondary>DISABLE_SVC_EVENT_HANDLER</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_svc_flap_detection">
     <primary>External commands</primary>
 
     <secondary>DISABLE_SVC_FLAP_DETECTION</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-disable_svc_notifications">
     <primary>External commands</primary>
 
     <secondary>DISABLE_SVC_NOTIFICATIONS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_all_notifications_beyond_host">
     <primary>External commands</primary>
 
     <secondary>ENABLE_ALL_NOTIFICATIONS_BEYOND_HOST</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_contact_host_notifications">
     <primary>External commands</primary>
 
     <secondary>ENABLE_CONTACT_HOST_NOTIFICATIONS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_contact_svc_notifications">
     <primary>External commands</primary>
 
     <secondary>ENABLE_CONTACT_SVC_NOTIFICATIONS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_contactgroup_host_notifications">
     <primary>External commands</primary>
 
     <secondary>ENABLE_CONTACTGROUP_HOST_NOTIFICATIONS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_contact_svc_notifications">
     <primary>External commands</primary>
 
     <secondary>ENABLE_CONTACTGROUP_SVC_NOTIFICATIONS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_event_handlers">
     <primary>External commands</primary>
 
     <secondary>ENABLE_EVENT_HANDLERS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_failure_prediction">
     <primary>External commands</primary>
 
     <secondary>ENABLE_FAILURE_PREDICTION</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_flap_detection">
     <primary>External commands</primary>
 
     <secondary>ENABLE_FLAP_DETECTION</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_host_and_child_notifications">
     <primary>External commands</primary>
 
     <secondary>ENABLE_HOST_AND_CHILD_NOTIFICATIONS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_host_check">
     <primary>External commands</primary>
 
     <secondary>ENABLE_HOST_CHECK</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_host_event_handler">
     <primary>External commands</primary>
 
     <secondary>ENABLE_HOST_EVENT_HANDLER</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_host_flap_detection">
     <primary>External commands</primary>
 
     <secondary>ENABLE_HOST_FLAP_DETECTION</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_host_freshness_checks">
     <primary>External commands</primary>
 
     <secondary>ENABLE_HOST_FRESHNESS_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_host_notifications">
     <primary>External commands</primary>
 
     <secondary>ENABLE_HOST_NOTIFICATIONS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_host_svc_checks">
     <primary>External commands</primary>
 
     <secondary>ENABLE_HOST_SVC_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_host_svc_notifications">
     <primary>External commands</primary>
 
     <secondary>ENABLE_HOST_SVC_NOTIFICATIONS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_hostgroup_host_checks">
     <primary>External commands</primary>
 
     <secondary>ENABLE_HOSTGROUP_HOST_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_hostgroup_host_notifications">
     <primary>External commands</primary>
 
     <secondary>ENABLE_HOSTGROUP_HOST_NOTIFICATIONS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_hostgroup_passive_host_checks">
     <primary>External commands</primary>
 
     <secondary>ENABLE_HOSTGROUP_PASSIVE_HOST_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_hostgroup_passive_svc_checks">
     <primary>External commands</primary>
 
     <secondary>ENABLE_HOSTGROUP_PASSIVE_SVC_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_hostgroup_svc_checks">
     <primary>External commands</primary>
 
     <secondary>ENABLE_HOSTGROUP_SVC_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_hostgroup_svc_notifications">
     <primary>External commands</primary>
 
     <secondary>ENABLE_HOSTGROUP_SVC_NOTIFICATIONS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_notifications">
     <primary>External commands</primary>
 
     <secondary>ENABLE_NOTIFICATIONS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_passice_host_checks">
     <primary>External commands</primary>
 
     <secondary>ENABLE_PASSIVE_HOST_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_passive_svc_checks">
     <primary>External commands</primary>
 
     <secondary>ENABLE_PASSIVE_SVC_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_performance_data">
     <primary>External commands</primary>
 
     <secondary>ENABLE_PERFORMANCE_DATA</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_service_freshness_checks">
     <primary>External commands</primary>
 
     <secondary>ENABLE_SERVICE_FRESHNESS_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_servicegroup_host_checks">
     <primary>External commands</primary>
 
     <secondary>ENABLE_SERVICEGROUP_HOST_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_servicegroup_host_notifications">
     <primary>External commands</primary>
 
     <secondary>ENABLE_SERVICEGROUP_HOST_NOTIFICATIONS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_servicegroup_passive_host_checks">
     <primary>External commands</primary>
 
     <secondary>ENABLE_SERVICEGROUP_PASSIVE_HOST_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_servicegroup_passive_svc_checks">
     <primary>External commands</primary>
 
     <secondary>ENABLE_SERVICEGROUP_PASSIVE_SVC_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_servicegroup_svc_checks">
     <primary>External commands</primary>
 
     <secondary>ENABLE_SERVICEGROUP_SVC_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_servicegroup_svc_notifications">
     <primary>External commands</primary>
 
     <secondary>ENABLE_SERVICEGROUP_SVC_NOTIFICATIONS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_svc_check">
     <primary>External commands</primary>
 
     <secondary>ENABLE_SVC_CHECK</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_svc_event_handler">
     <primary>External commands</primary>
 
     <secondary>ENABLE_SVC_EVENT_HANDLER</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_svc_flap_detection">
     <primary>External commands</primary>
 
     <secondary>ENABLE_SVC_FLAP_DETECTION</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-enable_svc_notifications">
     <primary>External commands</primary>
 
     <secondary>ENABLE_SVC_NOTIFICATIONS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
-    <primary>External commands</primary>
-
-    <secondary>ERROR</secondary>
-  </indexterm>
-
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-process_file">
     <primary>External commands</primary>
 
     <secondary>PROCESS_FILE</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-process_host_check_result">
     <primary>External commands</primary>
 
     <secondary>PROCESS_HOST_CHECK_RESULT</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-process_svc_check_result
     <primary>External commands</primary>
 
     <secondary>PROCESS_SERVICE_CHECK_RESULT</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-read_state_information">
     <primary>External commands</primary>
 
     <secondary>READ_STATE_INFORMATION</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-remove_host_acknowledgement">
     <primary>External commands</primary>
 
     <secondary>REMOVE_HOST_ACKNOWLEDGEMENT</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-remove_svc_acknowledgement">
     <primary>External commands</primary>
 
     <secondary>REMOVE_SVC_ACKNOWLEDGEMENT</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-restart_program">
     <primary>External commands</primary>
 
     <secondary>RESTART_PROGRAM</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2_save_state_information">
     <primary>External commands</primary>
 
     <secondary>SAVE_STATE_INFORMATION</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-schedule_and_propagate_host_downtime">
     <primary>External commands</primary>
 
     <secondary>SCHEDULE_AND_PROPAGATE_HOST_DOWNTIME</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-schedule_and_propagate_triggered_host_downtime">
     <primary>External commands</primary>
 
     <secondary>SCHEDULE_AND_PROPAGATE_TRIGGERED_HOST_DOWNTIME</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-schedule_forced_host_check">
     <primary>External commands</primary>
 
     <secondary>SCHEDULE_FORCED_HOST_CHECK</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-schedule_force_host_check">
     <primary>External commands</primary>
 
     <secondary>SCHEDULE_FORCED_HOST_SVC_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-schedule_force_svc_check">
     <primary>External commands</primary>
 
     <secondary>SCHEDULE_FORCED_SVC_CHECK</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-schedule_host_checks">
     <primary>External commands</primary>
 
     <secondary>SCHEDULE_HOST_CHECK</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-schedule_host_downtime">
     <primary>External commands</primary>
 
     <secondary>SCHEDULE_HOST_DOWNTIME</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-schedule_host_svc_checks">
     <primary>External commands</primary>
 
     <secondary>SCHEDULE_HOST_SVC_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-schedule_host_svc_downtime">
     <primary>External commands</primary>
 
     <secondary>SCHEDULE_HOST_SVC_DOWNTIME</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-schedule_hostgroup_host_downtime">
     <primary>External commands</primary>
 
     <secondary>SCHEDULE_HOSTGROUP_HOST_DOWNTIME</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-schedule_hostgroup_svc_downtime">
     <primary>External commands</primary>
 
     <secondary>SCHEDULE_HOSTGROUP_SVC_DOWNTIME</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-schedule_servicegroup_host_downtime">
     <primary>External commands</primary>
 
     <secondary>SCHEDULE_SERVICEGROUP_HOST_DOWNTIME</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-schedule_servicegroup_svc_downtime">
     <primary>External commands</primary>
 
     <secondary>SCHEDULE_SERVICEGROUP_SVC_DOWNTIME</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-schedule_svc_check">
     <primary>External commands</primary>
 
     <secondary>SCHEDULE_SVC_CHECK</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-schedule_svc_downtime">
     <primary>External commands</primary>
 
     <secondary>SCHEDULE_SVC_DOWNTIME</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-send_custom_host_notification">
     <primary>External commands</primary>
 
     <secondary>SEND_CUSTOM_HOST_NOTIFICATION</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-send_custom_svc_notification">
     <primary>External commands</primary>
 
     <secondary>SEND_CUSTOM_SVC_NOTIFICATION</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-set_host_notification_number">
     <primary>External commands</primary>
 
     <secondary>SET_HOST_NOTIFICATION_NUMBER</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-set_svc_notification_number">
     <primary>External commands</primary>
 
     <secondary>SET_SVC_NOTIFICATION_NUMBER</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-shutdown_program">
     <primary>External commands</primary>
 
     <secondary>SHUTDOWN_PROGRAM</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-start_accepting_passive_host_checks">
     <primary>External commands</primary>
 
     <secondary>START_ACCEPTING_PASSIVE_HOST_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-start_accepting_passive_svc_checks">
     <primary>External commands</primary>
 
     <secondary>START_ACCEPTING_PASSIVE_SVC_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-start_executing_host_checks">
     <primary>External commands</primary>
 
     <secondary>START_EXECUTING_HOST_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-start_executing_svc_checks">
     <primary>External commands</primary>
 
     <secondary>START_EXECUTING_SVC_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-start_obsessing_over_host">
     <primary>External commands</primary>
 
     <secondary>START_OBSESSING_OVER_HOST</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-start_obsessing_over_host_checks">
     <primary>External commands</primary>
 
     <secondary>START_OBSESSING_OVER_HOST_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-start_obsessing_over_svc">
     <primary>External commands</primary>
 
     <secondary>START_OBSESSING_OVER_SVC</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-start_obsessing_over_svc_checks">
     <primary>External commands</primary>
 
     <secondary>START_OBSESSING_OVER_SVC_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-stop_accepting_passive_host_checks">
     <primary>External commands</primary>
 
     <secondary>STOP_ACCEPTING_PASSIVE_HOST_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-stop_accepting_passive_svc_checks">
     <primary>External commands</primary>
 
     <secondary>STOP_ACCEPTING_PASSIVE_SVC_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-stop_executing_host_checks">
     <primary>External commands</primary>
 
     <secondary>STOP_EXECUTING_HOST_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-stop_executing_svc_checks">
     <primary>External commands</primary>
 
     <secondary>STOP_EXECUTING_SVC_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-stop_obsessing_over_host">
     <primary>External commands</primary>
 
     <secondary>STOP_OBSESSING_OVER_HOST</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-stop_obsessing_over_host_checks">
     <primary>External commands</primary>
 
     <secondary>STOP_OBSESSING_OVER_HOST_CHECKS</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-stop_obsessing_over_svc">
     <primary>External commands</primary>
 
     <secondary>STOP_OBSESSING_OVER_SVC</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2">
+  <indexterm zone="extcmd2-stop_obsessing_over_svc_checks">
     <primary>External commands</primary>
 
     <secondary>STOP_OBSESSING_OVER_SVC_CHECKS</secondary>
