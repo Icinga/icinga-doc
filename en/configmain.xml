@@ -257,6 +257,9 @@
 
     <listitem>
       <para><link linkend="configmain-stalking_event_handlers_for_hosts">Stalking event handlers for hosts</link></para>
+    </listitem>
+
+    <listitem>
       <para><link linkend="configmain-stalking_event_handlers_for_services">Stalking event handlers for services</link></para>
     </listitem>
   </itemizedlist>
@@ -1533,6 +1536,64 @@
     read more on how to configure graphing <link linkend="mrtggraphs">here</link>.</para>
   </note>
 
+  <para><anchor xml:id="configmain-Update-Checks" /><emphasis role="bold">Update Checks</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">check_for_updates=&lt;0/1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry><para>Example:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"> <emphasis role="bold">check_for_updates=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option determines whether &name-nagios; will check for automatic updates.</para>
+
+  <para>&name-icinga; ignores this option. Starting with version 1.2 you will receive a warning.</para>
+
+  <para><anchor xml:id="configmain-Bare-Update-Checks" /><emphasis role="bold">Bare Update Checks</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">bare_update_checks=&lt;0/1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry><para>Example:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"> <emphasis role="bold">bare_update_checks=0</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option determines what data &name-nagios; will be sent to api.nagios.org.</para>
+
+  <para>&name-icinga; ignores this option. Starting with version 1.2 you will receive a warning.</para>
+
   <para><anchor xml:id="configmain-lock_file" /> <emphasis role="bold">Lock File</emphasis></para>
 
   <informaltable frame="none">
@@ -2058,7 +2119,9 @@
       <para>1 = Use syslog local facility</para>
     </listitem>
   </itemizedlist>
- <para>This option can be used starting with &name-icinga; 1.0.2.</para>
+
+  <para>This option can be used starting with &name-icinga; 1.0.2.</para>
+
   <para><anchor xml:id="configmain-syslog_local_facility" /> <emphasis role="bold">Syslog Local Facility Value</emphasis></para>
 
   <informaltable frame="none">
@@ -2084,8 +2147,8 @@
     </tgroup>
   </informaltable>
 
-  <para>If you enabled use_syslog_local_facility you can choose which local facility to use. Valid values are from 0 to 7. This option can be used
-  starting with &name-icinga; 1.0.2.</para>
+  <para>If you enabled use_syslog_local_facility you can choose which local facility to use. Valid values are from 0 to 7. This option can
+  be used starting with &name-icinga; 1.0.2.</para>
 
   <para><anchor xml:id="configmain-log_notifications" /> <emphasis role="bold">Notification Logging Option</emphasis></para>
 
@@ -2326,7 +2389,8 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-log_external_commands_user" /> <emphasis role="bold">External Commands User Logging Option</emphasis></para>
+  <para><anchor xml:id="configmain-log_external_commands_user" /> <emphasis role="bold">External Commands User Logging
+  Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
@@ -2351,9 +2415,9 @@
     </tgroup>
   </informaltable>
 
-  <para>This option allows you to enable the logging of the current user of external commands.  The syntax will be CMD;username;cmdargs 
-  instead of CMD;cmdargs written to the logs, if the external application sends that correctly.
-  Since this will break compatibility with existing log parsers, it is intentionally disabled by default.</para>
+  <para>This option allows you to enable the logging of the current user of external commands. The syntax will be CMD;username;cmdargs
+  instead of CMD;cmdargs written to the logs, if the external application sends that correctly. Since this will break compatibility with
+  existing log parsers, it is intentionally disabled by default.</para>
 
   <itemizedlist>
     <listitem>
@@ -2365,7 +2429,9 @@
     </listitem>
   </itemizedlist>
 
-  <note><para>This option is available starting with &name-icinga; 1.0.3.</para></note>
+  <note>
+    <para>This option is available starting with &name-icinga; 1.0.3.</para>
+  </note>
 
   <para><anchor xml:id="configmain-log_passive_checks" /> <emphasis role="bold">Passive Check Logging Option</emphasis></para>
 
@@ -2432,8 +2498,8 @@
     </tgroup>
   </informaltable>
 
-  <para>This variable determines whether or not &name-icinga; will log the current states of hosts and services after a log rotation.
-  If you set the value of log_current_states to 0 the current states will not be written to the main log file after a log rotation.</para>
+  <para>This variable determines whether or not &name-icinga; will log the current states of hosts and services after a log rotation. If you
+  set the value of log_current_states to 0 the current states will not be written to the main log file after a log rotation.</para>
 
   <itemizedlist>
     <listitem>
@@ -2445,7 +2511,9 @@
     </listitem>
   </itemizedlist>
 
-  <note><para>This option is available starting with &name-icinga; 1.0.3.</para></note>
+  <note>
+    <para>This option is available starting with &name-icinga; 1.0.3.</para>
+  </note>
 
   <para><anchor xml:id="configmain-log_long_plugin_output" /> <emphasis role="bold">Long Plugin Output Logging Option</emphasis></para>
 
@@ -2472,8 +2540,8 @@
     </tgroup>
   </informaltable>
 
-  <para>This variable determines whether or not &name-icinga; will log the complete output of a plugin (not only the first line).
-  If you set the value of log_long_plugin_output to 1 the complete plugin output will be logged.</para>
+  <para>This variable determines whether or not &name-icinga; will log the complete output of a plugin (not only the first line). If you set
+  the value of log_long_plugin_output to 1 the complete plugin output will be logged.</para>
 
   <itemizedlist>
     <listitem>
@@ -2485,8 +2553,9 @@
     </listitem>
   </itemizedlist>
 
-  <note><para>This option is available starting with &name-icinga; 1.0.3.</para></note>
-
+  <note>
+    <para>This option is available starting with &name-icinga; 1.0.3.</para>
+  </note>
 
   <para><anchor xml:id="configmain-global_host_event_handler" /> <emphasis role="bold">Global Host Event Handler Option</emphasis></para>
 
@@ -2553,8 +2622,11 @@
   linkend="configmain-event_handler_timeout">event_handler_timeout</link> option. More information on event handlers can be found <link
   linkend="eventhandlers">here</link>.</para>
 
-  <para><anchor xml:id="configmain-stalking_event_handlers_for_hosts" /> <emphasis role="bold"> Event handlers for stalked hosts</emphasis></para>
-  <para><anchor xml:id="configmain-stalking_event_handlers_for_services" /> <emphasis role="bold"> Event handlers for stalked services</emphasis></para>
+  <para><anchor xml:id="configmain-stalking_event_handlers_for_hosts" /> <emphasis role="bold"> Event handlers for stalked
+  hosts</emphasis></para>
+
+  <para><anchor xml:id="configmain-stalking_event_handlers_for_services" /> <emphasis role="bold"> Event handlers for stalked
+  services</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
@@ -2566,15 +2638,26 @@
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">stalking_event_handlers_for_hosts=&lt;0|1&gt;</emphasis> </para>
-          <para> <emphasis role="bold">stalking_event_handlers_for_services=&lt;0|1&gt;</emphasis> </para></entry>
+          <entry><para>
+               
+
+              <emphasis role="bold">stalking_event_handlers_for_hosts=&lt;0|1&gt;</emphasis>
+
+               
+            </para> <para>
+               
+
+              <emphasis role="bold">stalking_event_handlers_for_services=&lt;0|1&gt;</emphasis>
+
+               
+            </para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis
-          role="bold">stalking_event_handlers_for_hosts=1</emphasis> </emphasis> </para></entry>
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">stalking_event_handlers_for_hosts=1</emphasis>
+          </emphasis> </para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -2582,6 +2665,7 @@
 
   <para>These options allow you to specify whether or not &name-icinga; executes event handlers for stalked hosts or services, respectively.
   This way it is possible to forward status information changes to external systems.</para>
+
   <itemizedlist>
     <listitem>
       <para>0 = Event handler disabled (default)</para>
@@ -2591,7 +2675,10 @@
       <para>1 = Event handler enabled</para>
     </listitem>
   </itemizedlist>
-  <note><para>This option is available starting with &name-icinga; 1.0.3.</para></note>
+
+  <note>
+    <para>This option is available starting with &name-icinga; 1.0.3.</para>
+  </note>
 
   <para><anchor xml:id="configmain-sleep_time" /> <emphasis role="bold">Inter-Check Sleep Time</emphasis></para>
 

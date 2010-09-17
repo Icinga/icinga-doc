@@ -429,13 +429,13 @@
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para><emphasis role="bold">nagios_user=&lt;username/UID&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">icinga_user=&lt;username/UID&gt;</emphasis> </para></entry>
         </row>
 
         <row>
           <entry><para>Beispiel:</para></entry>
 
-          <entry><para><emphasis condition="red" role="color"> <emphasis role="bold">nagios_user=nagios</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"> <emphasis role="bold">icinga_user=nagios</emphasis> </emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -458,13 +458,13 @@
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para><emphasis role="bold">nagios_group=&lt;groupname/GID&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">icinga_group=&lt;groupname/GID&gt;</emphasis> </para></entry>
         </row>
 
         <row>
           <entry><para>Beispiel:</para></entry>
 
-          <entry><para><emphasis condition="red" role="color"> <emphasis role="bold">nagios_group=nagios</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"> <emphasis role="bold">icinga_group=nagios</emphasis> </emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -1007,11 +1007,10 @@
     </tgroup>
   </informaltable>
 
-  <para>Diese Option legt fest, ob &name-icinga; automatisch prüft, ob neue Updates (Versionen) verfügbar sind. Es wird empfohlen, dass Sie
-  diese Option aktivieren, damit Sie immer über die letzten kritischen Patches für &name-icinga; informiert sind. &name-icinga; ist kritisch
-  für Sie - stellen Sie sicher, dass es sich in guter Form befindet. &name-icinga; wird einmal am Tag auf neue Updates prüfen. Daten, die
-  von &name-icinga; Enterprises für den Update-Check gesammelt werden, werden gemäß unserer Privacy-Policy verarbeitet (Details siehe
-  http://api.nagios.org).</para>
+  <para>Diese Option legt bei &name-nagios; fest, ob automatisch geprüft werden soll, ob neue Updates/Versionen verfügbar sind. Es wird bei
+  &name-nagios; empfohlen, dass Sie diese Option aktivieren.</para>
+
+  <para>Bei &name-icinga; hat diese Option keine Funktion, ab Version 1.2 wird eine entsprechende Warnung ausgegeben.</para>
 
   <para><anchor xml:id="configmain-Bare-Update-Checks" /><emphasis role="bold">Nur Update-Prüfungen</emphasis> (Bare Update Checks)</para>
 
@@ -1038,10 +1037,10 @@
     </tgroup>
   </informaltable>
 
-  <para>Diese Option legt fest, welche Daten &name-icinga; an api.nagios.org schickt, wenn es auf Updates prüft. Als Standard wird
-  &name-icinga; Informationen über die aktuell installierte Version schicken sowie einen Hinweis, ob es sich hierbei um eine neue oder eine
-  aktualisierte Version handelt. &name-icinga; Enterprises nutzt diese Daten, um die Anzahl der Nutzer bestimmter Versionen zu ermitteln.
-  Aktivieren Sie diese Option, wenn Sie diese Informationen nicht senden möchten.</para>
+  <para>Diese Option legt bei &name-nagios; fest, welche Daten an api.nagios.org gesandt werden. Es wird bei &name-nagios; empfohlen, dass
+  Sie diese Option aktivieren.</para>
+
+  <para>Bei &name-icinga; hat diese Option keine Funktion, ab Version 1.2 wird eine entsprechende Warnung ausgegeben.</para>
 
   <para><anchor xml:id="configmain-lock_file" /><emphasis role="bold">Sperrdatei</emphasis> (Lock File)</para>
 
@@ -1852,7 +1851,8 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-log_external_commands_user" /> <emphasis role="bold">Option Benutzer von externen Kommandos protokollieren</emphasis></para>
+  <para><anchor xml:id="configmain-log_external_commands_user" /> <emphasis role="bold">Option Benutzer von externen Kommandos
+  protokollieren</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
@@ -1877,9 +1877,9 @@
     </tgroup>
   </informaltable>
 
-  <para>Diese Option erlaubt es Ihnen, den Namen des Benutzers zu protokollieren, der aktuell externe Kommandos ausführt.
-  Anstatt CMD;cmdargs wird nun CMD;username;cmdargs in die Log-Datei geschrieben, wenn die externe Applikation das korrekt sendet.
-  Weil dies die Kompatibilität mit bestehenden Log-Parsern gefährdet, ist diese Option per Default deaktiviert.</para>
+  <para>Diese Option erlaubt es Ihnen, den Namen des Benutzers zu protokollieren, der aktuell externe Kommandos ausführt. Anstatt
+  CMD;cmdargs wird nun CMD;username;cmdargs in die Log-Datei geschrieben, wenn die externe Applikation das korrekt sendet. Weil dies die
+  Kompatibilität mit bestehenden Log-Parsern gefährdet, ist diese Option per Default deaktiviert.</para>
 
   <itemizedlist>
     <listitem>
@@ -1891,7 +1891,9 @@
     </listitem>
   </itemizedlist>
 
-  <note><para>Diese Option ist verfügbar ab &name-icinga; 1.0.3.</para></note>
+  <note>
+    <para>Diese Option ist verfügbar ab &name-icinga; 1.0.3.</para>
+  </note>
 
   <para><anchor xml:id="configmain-log_passive_checks" /><emphasis role="bold">Option passive Prüfungen protokollieren</emphasis> (Passive
   Check Logging Option)</para>
@@ -1960,7 +1962,8 @@
   </informaltable>
 
   <para>Diese Variable legt fest, ob &name-icinga; die aktuellen Host- und Service-Zustände nach einer Log-Datei-Rotation protokolliert.
-  Wenn Sie den Wert von log_current_states auf 0 setzen, werden die aktuellen Zustände nach einer Rotation der Log-Datei nicht protokolliert.</para>
+  Wenn Sie den Wert von log_current_states auf 0 setzen, werden die aktuellen Zustände nach einer Rotation der Log-Datei nicht
+  protokolliert.</para>
 
   <itemizedlist>
     <listitem>
@@ -1972,9 +1975,12 @@
     </listitem>
   </itemizedlist>
 
-  <note><para>Diese Option ist verfügbar ab &name-icinga; 1.0.3.</para></note>
+  <note>
+    <para>Diese Option ist verfügbar ab &name-icinga; 1.0.3.</para>
+  </note>
 
-  <para><anchor xml:id="configmain-log_long_plugin_output" /> <emphasis role="bold">Option langen Plugin-Output protokollieren</emphasis></para>
+  <para><anchor xml:id="configmain-log_long_plugin_output" /> <emphasis role="bold">Option langen Plugin-Output
+  protokollieren</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
@@ -1999,8 +2005,8 @@
     </tgroup>
   </informaltable>
 
-  <para>Diese Variable legt fest, ob &name-icinga; die komplette Ausgabe von Plugin (und nicht nur die erste Zeile) protokolliert.
-  Wenn Sie den Wert von log_long_plugin_output auf 1 setzen, werden die kompletten Ausgaben von Plugins protokolliert.</para>
+  <para>Diese Variable legt fest, ob &name-icinga; die komplette Ausgabe von Plugin (und nicht nur die erste Zeile) protokolliert. Wenn Sie
+  den Wert von log_long_plugin_output auf 1 setzen, werden die kompletten Ausgaben von Plugins protokolliert.</para>
 
   <itemizedlist>
     <listitem>
@@ -2012,7 +2018,9 @@
     </listitem>
   </itemizedlist>
 
-  <note><para>Diese Option ist verfügbar ab &name-icinga; 1.0.3.</para></note>
+  <note>
+    <para>Diese Option ist verfügbar ab &name-icinga; 1.0.3.</para>
+  </note>
 
   <para><anchor xml:id="configmain-global_host_event_handler" /><emphasis role="bold">globale Host-Eventhandler Option</emphasis> (Global
   Host Event Handler Option)</para>
@@ -2080,8 +2088,11 @@
   linkend="configmain-event_handler_timeout">event_handler_timeout</link>-Option angegeben werden. Mehr Informationen zu Eventhandlern
   finden Sie <link linkend="eventhandlers">hier</link>.</para>
 
-  <para><anchor xml:id="configmain-stalking_event_handlers_for_hosts" /> <emphasis role="bold">Eventhandler für "verfolgte" Hosts (Event handlers for stalked hosts)</emphasis></para>
-  <para><anchor xml:id="configmain-stalking_event_handlers_for_services" /> <emphasis role="bold">Eventhandler für "verfolgte" Services (Event handlers for stalked services)</emphasis></para>
+  <para><anchor xml:id="configmain-stalking_event_handlers_for_hosts" /> <emphasis role="bold">Eventhandler für "verfolgte" Hosts (Event
+  handlers for stalked hosts)</emphasis></para>
+
+  <para><anchor xml:id="configmain-stalking_event_handlers_for_services" /> <emphasis role="bold">Eventhandler für "verfolgte" Services
+  (Event handlers for stalked services)</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
@@ -2093,22 +2104,34 @@
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">stalking_event_handlers_for_hosts=&lt;0|1&gt;</emphasis> </para>
-          <para> <emphasis role="bold">stalking_event_handlers_for_services=&lt;0|1&gt;</emphasis> </para></entry>
+          <entry><para>
+               
+
+              <emphasis role="bold">stalking_event_handlers_for_hosts=&lt;0|1&gt;</emphasis>
+
+               
+            </para> <para>
+               
+
+              <emphasis role="bold">stalking_event_handlers_for_services=&lt;0|1&gt;</emphasis>
+
+               
+            </para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis
-          role="bold">stalking_event_handlers_for_hosts=1</emphasis> </emphasis> </para></entry>
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">stalking_event_handlers_for_hosts=1</emphasis>
+          </emphasis> </para></entry>
         </row>
       </tbody>
     </tgroup>
   </informaltable>
 
-  <para>Diese Optionen erlauben Ihnen festzulegen, ob &name-icinga; Eventhandler für "stalked" Host oder Services ausführt.
-  Auf diese Weise können Statusinformationsänderungen an externe System weitergeleitet werden.</para>
+  <para>Diese Optionen erlauben Ihnen festzulegen, ob &name-icinga; Eventhandler für "stalked" Host oder Services ausführt. Auf diese Weise
+  können Statusinformationsänderungen an externe System weitergeleitet werden.</para>
+
   <itemizedlist>
     <listitem>
       <para>0 = Eventhandler deaktivieren (Default)</para>
@@ -2118,7 +2141,10 @@
       <para>1 = Eventhandler aktivieren</para>
     </listitem>
   </itemizedlist>
-  <note><para>Diese Option ist verfügbar ab &name-icinga; 1.0.3.</para></note>
+
+  <note>
+    <para>Diese Option ist verfügbar ab &name-icinga; 1.0.3.</para>
+  </note>
 
   <para><anchor xml:id="configmain-sleep_time" /><emphasis role="bold">Ruhezeit zwischen Prüfungen</emphasis> (Inter-Check Sleep
   Time)</para>
