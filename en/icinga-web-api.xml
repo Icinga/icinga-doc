@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="icinga-web-api" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title>The &name-web; REST API</title>
+
+  <para>In this document we'll describe the &name-web; REST API which allows you to request your monitoring information via GET or POST
+  requests (in the future (&gt;1.2), you will also be able to send commands via PUT).</para>
+
+  <para><emphasis role="bold">Why should I use the API?</emphasis></para>
+
+  <para>For most people, the combination &name-icinga;/&name-web; will fit most needs. You can see your monitoring status, act on problems
+  and extend it to suit your needs (Modules/Cronks). But sometimes, you have another piece of software that is interested in some monitoring
+  data (for example, Icinga-Chromed-Status:http://www.icinga.org/2010/07/16/icinga-chromed-status-for-google-chrome/chromium/). You could
+  parse the cgi output of &name-icinga; (many programs do that at this time), but that's not really a high performance solution - and
+  certainly no fun for the developer. The goal of the REST API is to return the data you want (and only the data you want) in a
+  standardized, machine-readable format like JSON or XML</para>
+
+  <para><emphasis role="bold">Features of the &name-web; REST API </emphasis></para>
+
+  <para>Currently supported (v1.2): <itemizedlist>
+      <listitem>
+        <para>Availability of almost all monitoring fields via GET or POST.</para>
+      </listitem>
+
+      <listitem>
+        <para>Return data as xml or json.</para>
+      </listitem>
+
+      <listitem>
+        <para>AND &amp; OR search filtergroups with unlimited nesting levels (AND)).</para>
+      </listitem>
+
+      <listitem>
+        <para>You choose which columns you want returned, not the API (less overhead).</para>
+      </listitem>
+
+      <listitem>
+        <para>Support of limit, offset, order, group by.</para>
+      </listitem>
+
+      <listitem>
+        <para>Return an additional total count field.</para>
+      </listitem>
+
+      <listitem>
+        <para>Authorization via auth_key in request or cookies.</para>
+      </listitem>
+
+      <listitem>
+        <para>Respects Icinga-web principals (for example, limit to specific hostgroups).</para>
+      </listitem>
+    </itemizedlist></para>
+
+  <para>Planned in future(&gt; 1.2): <itemizedlist>
+      <listitem>
+        <para>Send commands via PUT</para>
+      </listitem>
+    </itemizedlist></para>
+
+  <para><emphasis role="bold">What's the Difference between the &name-api; and the &name-web; REST API? </emphasis></para>
+
+  <para>The &name-api; can at this point considered as an internal toolkit to access the database informations. In fact, the REST API acts
+  on top of this API and extends it via the HTTP Protocol. In the future, the &name-api; will be merged into &name-web;.</para>
+
+  <para><emphasis role="bold">Prerequisites</emphasis></para>
+
+  <para>In order to use the api, you first have to enable the Auth provider for it. This can be done under
+  icinga-web/app/modules/AppKit/config/auth.xml.</para>
+
+  <para>Change "auth_enabled" to 'true' in this section: <programlisting>&lt;ae:parameter name="auth_key"&gt;
+    &lt;ae:parameter name="auth_module"&gt;AppKit&lt;/ae:parameter&gt;
+    &lt;ae:parameter name="auth_provider"&gt;Auth.Provider.AuthKey&lt;/ae:parameter&gt;
+    &lt;ae:parameter name="auth_enable"&gt;true&lt;/ae:parameter&gt;
+    &lt;ae:parameter name="auth_authoritative"&gt;true&lt;/ae:parameter&gt;
+&lt;/ae:parameter&gt;</programlisting> Afterwards, clear the cache (icinga-web/bin/clearcache.sh).</para>
+
+  <para>Now, in &name-web;, you have to add an user with Api access: <itemizedlist>
+      <listitem>
+        <para>Create a new user</para>
+      </listitem>
+
+      <listitem>
+        <para>Choose auth_key in the Auth_via field</para>
+      </listitem>
+
+      <listitem>
+        <para>Insert an API Key to use</para>
+      </listitem>
+
+      <listitem>
+        <para>Under principals, add the appkit.api.access principal</para>
+      </listitem>
+    </itemizedlist></para>
+</section>
