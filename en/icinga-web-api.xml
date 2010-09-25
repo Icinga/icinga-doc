@@ -96,4 +96,41 @@
         <para>Under principals, add the appkit.api.access principal</para>
       </listitem>
     </itemizedlist></para>
+<para>That's it, now you can start.</para>
+<para><emphasis role="bold">Reference</emphasis>
+So, here are the goodies. In the next few points we'll explain you how the API can be accessed</para>
+<para><emphasis role="bold">GET</emphasis>
+        <para>Advantages:</para>
+<itemizedlist>
+      <listitem><para>Easy to use, it's just an URL!</para>
+      </listitem>
+<listitem><para>You always see what parameters have been requested.</para></listitem>
+<para>Disadvantages:</para>
+  <listitem><para>If you request it in a browser your API Key could be in the browser history.</para></listitem>
+   <listitem><para>In a browser, you cannot add URLs with unlimited size (2,083 Characters for Internet explorer, for example).</para></listitem>
+   <listitem><para>Especially when parameters are escaped, the parameter list lacks a bit of clarity.</para></listitem>
+</itemizedlist>
+<para><emphasis role="bold">The structure of the URL</emphasis>
+<para>To access the api, the URL should look as in the following (italics are optional, bold ones are required)
+host.com/icinga-web/web/api/ TARGET / COLUMNS / FILTER / ORDER / GROUPING / LIMIT / COUNTFIELD / OUTPUT_TYPE</para>
+<para><emphasis role="bold">The Parameters in detail:</emphasis>
+<itemizedlist>
+      <listitem><para>TARGET: Which field to request, is a simple string like host.</para></listitem>
+<listitem><para>COLUMNS: A listing of columns to return, must look like this: columns[COL1|COL2|COL3|...]</para></listitem>
+<listitem><para>FILTER: Defines which filters to use in the request. Must always be nested in AND or OR groups. The filter itself looks like this:</para>
+<programlisting>filters[AND/OR(COLUMN|OPERATOR|VALUE;COLUMN2|OPERATOR2|VALUE2;OR(...),AND]</programlisting>
+<para>Example: Select all services with smtp in the name, but only if they're ok or unknown
+Wrong: <programlisting>filters[SERVICE_NAME|like|*smtp*;OR(SERVICE_CURRENT_STATE|=|0;SERVICE_CURRENT_STATE|=|3)]</programlisting></para>
+<para>You always need a nesting level at the beginning, see:
+    Correct: <programlisting>filters[AND ( SERVICE_NAME|like|*smtp*;OR ( SERVICE_CURRENT_STATE|=|0;SERVICE_CURRENT_STATE|=|3 ) )]
+</programlisting>
+</listitem>
+<listitem><para>ORDER: Defines which field to use for ordering and if ascending or descending ordering should be used.
+Example: order[COLUMN| ASC or DESC]</para></listitem>
+<listitem><para>GROUPING : Defines a field to group by: group[COL]</para></listitem>
+<listitem><para> LIMIT : Defines a starting offset and/or a limit: limit[START;END ( if needed ) ]</para></listitem>
+<listitem><para>COUNTFIELD : Adds a total field to the result which counts by this field (in most cases, the id): countColumn=COL</para></listitem>
+<listitem><para>OUTPUT : At this time either json or xml
+</para></listitem>
+</itemizedlist></para>
 </section>
