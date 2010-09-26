@@ -1990,12 +1990,14 @@ This directive is used to determine whether or not failure prediction is enabled
         <row>
           <entry align="left" valign="top"><para><emphasis role="bold">members</emphasis>:</para></entry>
 
-          <entry><para> This is a list of the <emphasis>descriptions</emphasis> of <link linkend="objectdefinitions-service">services</link>
+          <entry><para>This is a list of the <emphasis>descriptions</emphasis> of <link linkend="objectdefinitions-service">services</link>
           (and the names of their corresponding hosts) that should be included in this group. Host and service names should be separated by
           commas. This directive may be used as an alternative to the <emphasis>servicegroups</emphasis> directive in <link
           linkend="objectdefinitions-service">service definitions</link>. The format of the member directive is as follows (note that a host
           name must precede a service name/description):</para> <para>
-          members=&lt;host1&gt;,&lt;service1&gt;,&lt;host2&gt;,&lt;service2&gt;,...,&lt;host<emphasis>n</emphasis>&gt;,&lt;service<emphasis>n</emphasis>&gt;</para></entry>
+          members=&lt;host1&gt;,&lt;service1&gt;,&lt;host2&gt;,&lt;service2&gt;,...,&lt;host<emphasis>n</emphasis>&gt;,&lt;service<emphasis>n</emphasis>&gt;</para>
+          <para>Starting with &name-icinga; 1.2 it is possible to use "*" as a wildcard for all hosts. Please note that it is NOT possible
+          to exclude neither hosts nor services using the "!" at the beginning of the host or service.</para></entry>
         </row>
 
         <row>
@@ -3328,8 +3330,8 @@ This directive is used to determine whether or not failure prediction is enabled
 
           <entry><para>This directive is used to specify the <emphasis>short name(s)</emphasis> of the <link
           linkend="objectdefinitions-servicegroup">servicegroup(s)</link> that the service escalation should apply to or is associated with.
-          Multiple servicegroups should be separated by commas. The servicegroup_name may be used instead of, or in addition to, the service_name
-          directive.</para></entry>
+          Multiple servicegroups should be separated by commas. The servicegroup_name may be used instead of, or in addition to, the
+          service_name directive.</para></entry>
         </row>
 
         <row>
@@ -3462,8 +3464,8 @@ This directive is used to determine whether or not failure prediction is enabled
 
           <entry><para>This directive is a number that identifies the <emphasis>last</emphasis><emphasis> unknown</emphasis> notification
           for which this escalation is effective. For instance, if you set this value to 5, this escalation will not be used if more than
-          five unknown notifications are sent out for the service. Setting this value to 0 means to keep using this escalation entry
-          forever (no matter how many notifications go out).</para></entry>
+          five unknown notifications are sent out for the service. Setting this value to 0 means to keep using this escalation entry forever
+          (no matter how many notifications go out).</para></entry>
         </row>
       </tbody>
     </tgroup>
