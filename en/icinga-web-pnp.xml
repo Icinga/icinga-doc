@@ -8,19 +8,20 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>Integration of &name-pnp; into &name-web;</title>
 
-  <para>Here we'll give you a little instruction how to integrate &name-pnp; to the &name-web; Frontend. If you want to integrate &name-pnp; to the &name-ui; please follow the &name-pnp; <link
-      xlink:href="http://docs.pnp4nagios.org/en/pnp-0.6/start">documentation</link> </para>
-<para>
-  <figure>
-    <title>&name-pnp; integrated in &name-web;</title>
-    <mediaobject>
-      <imageobject role="html">
-        <imagedata fileref="../images/MyServiceStatus.png" format="PNG"></imagedata>
-      </imageobject>
-    </mediaobject>
-  </figure>
-</para>
-  <para><emphasis role="bold"> Install &name-pnp;</emphasis></para>
+  <para>Here we'll give you a little instruction how to integrate &name-pnp; to the &name-web; Frontend. If you want to integrate &name-pnp;
+  to the &name-ui; please follow the &name-pnp; <link xlink:href="http://docs.pnp4nagios.org/en/pnp-0.6/start">documentation</link></para>
+
+  <para><figure>
+      <title>&name-pnp; integrated in &name-web;</title>
+
+      <mediaobject>
+        <imageobject role="html">
+          <imagedata fileref="../images/MyServiceStatus.png" format="PNG"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </figure></para>
+
+  <para><emphasis role="bold">Install &name-pnp;</emphasis></para>
 
   <orderedlist>
     <listitem>
@@ -39,7 +40,6 @@
 LOG_FILE = /var/log/icinga/perfdata.log</programlisting> <programlisting>#&gt; vi config.php 
 $conf['nagios_base'] = "/icinga/cgi-bin";</programlisting></para>
     </listitem>
-   
   </orderedlist>
 
   <para><emphasis role="bold">Create a configuration to include &name-pnp; host pages in &name-web;</emphasis></para>
@@ -122,9 +122,22 @@ $conf['nagios_base'] = "/icinga/cgi-bin";</programlisting></para>
 &lt;/ae:parameter&gt;</programlisting></para>
     </listitem>
   </orderedlist>
-<indexterm zone="icinga-web-pnp">
-        <primary>&name-pnp;</primary>
 
-        <secondary>&name-pnp; with &name-web;</secondary>
-    </indexterm>
+  <note>
+    <para>If you edit any *.xml-File you have to clear the cache afterwards!</para>
+  </note>
+
+  <programlisting>rm -f app/cache/config/*.php</programlisting>
+
+  <para>or</para>
+
+  <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
+
+  <para>That's all, you're done!</para>
+
+  <indexterm zone="icinga-web-pnp">
+    <primary>&name-pnp;</primary>
+
+    <secondary>&name-pnp; with &name-web;</secondary>
+  </indexterm>
 </section>
