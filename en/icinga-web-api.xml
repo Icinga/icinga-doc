@@ -14,8 +14,9 @@
   <para><emphasis role="bold">Why should I use the API?</emphasis></para>
 
   <para>For most people, the combination &name-icinga;/&name-web; will fit most needs. You can see your monitoring status, act on problems
-  and extend it to suit your needs (Modules/Cronks). But sometimes, you have another piece of software that is interested in some monitoring
-  data (for example: <link
+  and extend it to suit your needs (Modules/Cronks). </para>
+
+  <para>But sometimes, you have another piece of software that is interested in some monitoring data (for example: <link
   xlink:href="http://www.icinga.org/2010/07/16/icinga-chromed-status-for-google-chrome/chromium/">Icinga-Chromed-Status</link>). You could
   parse the cgi output of &name-icinga; (many programs do that at this time), but that's not really a high performance solution - and
   certainly no fun for the developer. The goal of the REST API is to return the data you want (and only the data you want) in a
@@ -79,12 +80,14 @@
     &lt;ae:parameter name="auth_enable"&gt;true&lt;/ae:parameter&gt;
     &lt;ae:parameter name="auth_authoritative"&gt;true&lt;/ae:parameter&gt;
 &lt;/ae:parameter&gt;</programlisting></para>
-<note>
+
+  <note>
     <para>If you edit any *.xml-File you have to clear the cache afterwards!</para>
   </note>
 
   <programlisting>rm -f app/cache/config/*.php</programlisting>
-<para>or</para>
+
+  <para>or</para>
 
   <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
 
@@ -145,7 +148,7 @@
   <para><emphasis role="bold">The structure of the URL:</emphasis></para>
 
   <para>To access the api, the URL should look as in the following (italics are optional, bold ones are required)
-  host.com/icinga-web/web/api/ TARGET / COLUMNS / FILTER / ORDER / GROUPING / LIMIT / COUNTFIELD / OUTPUT_TYPE</para>
+  host.com/icinga-web/web/api/ <emphasis role="bold">TARGET</emphasis> / <emphasis role="bold">COLUMNS</emphasis> / FILTER / ORDER / GROUPING / LIMIT / COUNTFIELD / <emphasis role="bold">OUTPUT_TYPE</emphasis></para>
 
   <para><emphasis role="bold">The Parameters en Detail:</emphasis></para>
 
