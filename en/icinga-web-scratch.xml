@@ -73,7 +73,7 @@
 
       <para>&name-web; provides several configure options e.g.</para>
 
-      <programlisting> #&gt; ./configure \
+      <programlisting> #&gt; ./configure 
                 --prefix=/usr/local/icinga-web 
                 --with-web-user=www-data 
                 --with-web-group=www-data 
@@ -85,7 +85,12 @@
                 --with-db-name=icinga_web 
                 --with-db-user=icinga_web 
                 --with-db-pass=icinga_web 
-                --with-icinga-api=/usr/local/icinga/share/icinga-api </programlisting>
+                --with-icinga-api=/usr/local/icinga/share/icinga-api 
+                --with-api-type=APICON API type (default CONNECTION_IDO)
+                --with-api-subtype=TYPE DB driver or network connection
+                --with-api-host=HOST Host to connect (DB or other) (default localhost)
+                --with-api-port=PORT Port for connection (default 3306)
+                --with-api-socket=PATH Path to socket (default none)</programlisting>
 
       <note>
         <para>Keep in mind that you configure the Icinga Web database not the Icinga IDOUtils database! User and group name of the web
@@ -262,9 +267,9 @@
       <para><emphasis role="bold">Settings of &name-api;</emphasis></para>
 
       <para>Those settings are directly within &name-web; which provides the given information in an appropriate way to the &name-api;. Keep
-      a look into app/modules/Web/config/module.xml for the IcingaApi factories: IcingaData and IcingaCommand.</para>
+      a look into app/modules/Web/config/icinga-io.xml.xml for the IcingaApi factories: IcingaData and IcingaCommand.</para>
 
-      <programlisting> # vi app/modules/Web/config/module.xml</programlisting>
+      <programlisting> # vi app/modules/Web/config/icinga-io.xml</programlisting>
 
       <para>In IcingaData you can set the credentials for the Icinga API e.g. using the Icinga IDOUtils database.</para>
 
