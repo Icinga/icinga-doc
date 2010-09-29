@@ -6,136 +6,154 @@
 <section version="5.0" xml:id="whatsnew" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-    <title>What's New in &name-core; &ver-icinga; and &name-web; &ver-icingaweb;</title>
+  <title>What's New in &name-core; &ver-icinga; and &name-web; &ver-icingaweb;</title>
 
-    <para><emphasis role="bold">&name-core;:</emphasis></para>
+  <para><emphasis role="bold">&name-core;:</emphasis></para>
 
-    <para>* Config options: <itemizedlist>
-            <listitem>
-                <para>set initial state of persistence for acknowledgements</para>
-            </listitem>
+  <para>* Config options: <itemizedlist>
+      <listitem>
+        <para>set initial state of persistence for acknowledgements</para>
+      </listitem>
 
-            <listitem>
-                <para>log_external_commands_user, user will be logged by core if sent through cmd pipe</para>
-            </listitem>
+      <listitem>
+        <para>log_external_commands_user, user will be logged by core if sent through cmd pipe</para>
+      </listitem>
 
-            <listitem>
-                <para>disable logging of current state after rotation</para>
-            </listitem>
+      <listitem>
+        <para>disable logging of current state after rotation</para>
+      </listitem>
 
-            <listitem>
-                <para>log long plugin output</para>
-            </listitem>
+      <listitem>
+        <para>log long plugin output</para>
+      </listitem>
 
-            <listitem>
-                <para>enable event handlers for stalked hosts/services</para>
-            </listitem>
-        </itemizedlist></para>
+      <listitem>
+        <para>enable event handlers for stalked hosts/services</para>
+      </listitem>
+    </itemizedlist></para>
 
-    <para>* Scheduled downtime can now start on SOFT error states</para>
+  <para>* Scheduled downtime can now start on SOFT error states</para>
 
-    <para>* Rewrite execv check execution into execvp, allowing plugins in PATH and accepting 4k cmd args, with adapted error handling</para>
+  <para>* Rewrite execv check execution into execvp, allowing plugins in PATH and accepting 4k cmd args, with adapted error handling</para>
 
-    <para>* Fix all comments disappear after restart if one comment is non-persistent</para>
+  <para>* Fix all comments disappear after restart if one comment is non-persistent</para>
 
-    <para>* Fix wrong is_volatile conditions causing wrong service alerts in the logs</para>
+  <para>* Fix wrong is_volatile conditions causing wrong service alerts in the logs</para>
 
-    <para>* Fixes for mini_epn's; temp_path overwritten by check_result_path; service event handlers when service problem becomes hard during host
-    down</para>
+  <para>* Fixes for mini_epn's; temp_path overwritten by check_result_path; service event handlers when service problem becomes hard during
+  host down</para>
 
-    <para><emphasis role="bold">&name-icinga; &name-idoutils;:</emphasis></para>
+  <para><emphasis role="bold">&name-icinga; &name-idoutils;:</emphasis></para>
 
-    <para>* Add syslog output for start/stop, client connecting</para>
+  <para>* Add syslog output for start/stop, client connecting</para>
 
-    <para>* Add database trimming thread startup delay option</para>
+  <para>* Add database trimming thread startup delay option</para>
 
-    <para>* Full rewrite of binding NULL values for oracle with ocilib; fix select name1/name2</para>
+  <para>* Full rewrite of binding NULL values for oracle with ocilib; fix select name1/name2</para>
 
-    <para>* Modifiy and extend columns length for mysql/pgsql/oracle</para>
+  <para>* Modifiy and extend columns length for mysql/pgsql/oracle</para>
 
-    <para><emphasis role="bold">&name-ui;</emphasis></para>
+  <para><emphasis role="bold">&name-ui;</emphasis></para>
 
-    <para>* Multiple commands sending to cmd.cgi</para>
+  <para>* Tooltips for comments in status.cgi </para>
 
-    <para>* Multiple host/service checkbox selection in status pages and sending commands from dropdown</para>
+  <para> – you don’t have to open the host/service anymore to see the comments, just move your mouse over. </para>
 
-    <para>* Pause and continue page reload, useful for multiple commands sending</para>
+  <para>* Multiple delete of comments and downtimes </para>
 
-    <para>* Add config options to: show long_output in status.cgi; show only HARD states in tac.cgi</para>
+  <para> – now you can tick the items you want to delete and click the delete button </para>
 
-    <para>* Fix multiurl wrong names and macro processing</para>
+  <para> – just like multiple commands support in status.cgi.</para>
 
-    <para>To have a deeper look, please visit the Changelog</para>
+  <para>* CVS export on pretty much every page </para>
 
-    <itemizedlist>
-        <listitem>
-            <para>See: <xref linkend="changelog-core" /></para>
-        </listitem>
-    </itemizedlist>
+  <para> – you can now export various lists and status data directly. There is a small “Export to CSV” link bringing up a page with the
+  current content in csv format. Adding two new config options where you can decide which characters are used for output format completes
+  this nifty enhancement</para>
 
-    <para><emphasis role="bold">&name-web;:</emphasis></para>
+  <para>* Commands expander for config display. This will help at $ARGn$ substitution and showing the exact command line the core will
+  attempt to execute. Long awaited feature, big thanks to Jochen Bern!</para>
 
-    <para>* Adding new TacticalOverview template implementation</para>
+  <para>* Combined fixes including a slightly modified menu, adding unhandled host/service problems, javascript library updates, fixed
+  segfaults on Solaris in status.cgi without query_string and also complete drop of php as dependency for the classic ui</para>
 
-    <para>* Several IE compatibility fixes</para>
+  <para>To have a deeper look, please visit the Changelog</para>
 
-    <para>* Better commands, sending commands to its instances </para>
+  <itemizedlist>
+    <listitem>
+      <para>See: <xref linkend="changelog-core" /></para>
+    </listitem>
+  </itemizedlist>
 
-    <para>* Check for valid session and warn if expired</para>
+  <para><emphasis role="bold">&name-web;:</emphasis></para>
 
-    <para>* Adding default welcome cronk setting</para>
+  <para>* Adding new TacticalOverview template implementation</para>
 
-    <para>* Reorganized icon structure</para>
+  <para>* Several IE compatibility fixes</para>
 
-    <para>* Rewritten config namespace</para>
+  <para>* Better commands, sending commands to its instances</para>
 
-    <para>Insidertips and more documentation for Icinga-Web: <link
-    xlink:href="https://dev.icinga.org/projects/icinga-web/wiki/">Icinga-Wiki</link></para>
+  <para>* Check for valid session and warn if expired</para>
 
-    <para>To have a deeper look, please visit the changelog-web</para>
+  <para>* Adding default welcome cronk setting</para>
 
-    <itemizedlist>
-        <listitem>
-            <para>See: <xref linkend="changelog-web" /></para>
-        </listitem>
-    </itemizedlist>
+  <para>* Reorganized icon structure</para>
 
-    <para><emphasis role="bold">&name-docs;:</emphasis></para>
+  <para>* Rewritten config namespace</para>
 
-    <para>* Updates and fixes for quickstart guides</para>
+  <para>Insidertips and more documentation for Icinga-Web: <link
+  xlink:href="https://dev.icinga.org/projects/icinga-web/wiki/">Icinga-Wiki</link></para>
 
-    <para>* Updates and fixes for upgrading &name-icinga; and &name-idoutils;, visit the docs for more Information <link
-    linkend="upgrading_idoutils">upgrading_idoutils</link></para>
+  <para>To have a deeper look, please visit the changelog-web</para>
 
-    <para>* Updates and fixes for API-section</para>
+  <itemizedlist>
+    <listitem>
+      <para>See: <xref linkend="changelog-web" /></para>
+    </listitem>
+  </itemizedlist>
 
-    <para>* Updates and fixes for Web-Install-Section</para>
+  <para><emphasis role="bold">&name-docs;:</emphasis></para>
 
-    <para>* Updates for objectdefinitions and Classic UI configuration options.</para>
+  <para>* New Document for integrating PNP4Nagios to Icinga-Web</para>
 
-    <para>* Updates for extended docs for the IDOUtils, Chapter 11.</para>
+  <para>* New Document for the Icinga-Web API</para>
 
-    <para>* New testing guides for Icinga: <link
-    xlink:href="https://dev.icinga.org/projects/icinga-development/wiki/">Icinga-Development</link></para>
+  <para>* New Documents for the external Commands</para>
 
-    <para>Insidertips and more documentation for Icinga-Web: <link
-    xlink:href="https://dev.icinga.org/projects/icinga-web/wiki/">Icinga-Wiki</link></para>
+  <para>* New Images</para>
 
-    <para>Should you find any issues, please report them to one of the following links:</para>
+  <para>* Updates and fixes for upgrading &name-icinga; and &name-idoutils;, visit the docs for more Information <link
+  linkend="upgrading_idoutils">upgrading_idoutils</link></para>
 
-    <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-core">Report Issue &name-core;</link></para>
+  <para>* Updates and fixes for API-section</para>
 
-    <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-web">Report Issue &name-web;</link></para>
+  <para>* Updates and fixes for Web-Install-Section</para>
 
-    <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-api">Report Issue &name-api;</link></para>
+  <para>* Updates for objectdefinitions and Classic UI configuration options.</para>
 
-    <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-docs">Report Issue &name-docs;</link></para>
+  <para>* Updates for extended docs for the IDOUtils, Chapter 11.</para>
 
-    <indexterm zone="whatsnew">
-        <primary>What's new in &name-icinga;</primary>
-    </indexterm>
+  <para>* New testing guides for Icinga: <link
+  xlink:href="https://dev.icinga.org/projects/icinga-development/wiki/">Icinga-Development</link></para>
 
-    <xi:include href="changelog-core.xml" />
+  <para>Insidertips and more documentation for Icinga-Web: <link
+  xlink:href="https://dev.icinga.org/projects/icinga-web/wiki/">Icinga-Wiki</link></para>
 
-    <xi:include href="changelog-web.xml" />
+  <para>Should you find any issues, please report them to one of the following links:</para>
+
+  <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-core">Report Issue &name-core;</link></para>
+
+  <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-web">Report Issue &name-web;</link></para>
+
+  <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-api">Report Issue &name-api;</link></para>
+
+  <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-docs">Report Issue &name-docs;</link></para>
+
+  <indexterm zone="whatsnew">
+    <primary>What's new in &name-icinga;</primary>
+  </indexterm>
+
+  <xi:include href="changelog-core.xml" />
+
+  <xi:include href="changelog-web.xml" />
 </section>
