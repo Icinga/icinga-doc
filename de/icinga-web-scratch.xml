@@ -86,7 +86,12 @@
                         --with-db-name=icinga_web 
                         --with-db-user=icinga_web 
                         --with-db-pass=icinga_web 
-                        --with-icinga-api=/usr/local/icinga/share/icinga-api</programlisting>
+                        --with-icinga-api=/usr/local/icinga/share/icinga-api
+                        --with-api-type=APICON API type (default CONNECTION_IDO)
+                        --with-api-subtype=TYPE DB driver or network connection
+                        --with-api-host=HOST Host to connect (DB or other) (default localhost)
+                        --with-api-port=PORT Port for connection (default 3306)
+                        --with-api-socket=PATH Path to socket (default none)</programlisting>
 
       <note>
         <para>Bitte beachten Sie, dass Sie hier die &name-web;-Datenbank konfigurieren, und nicht die Icinga-IDOUtils-Datenbank! User- und
@@ -278,8 +283,8 @@ Please check the new Apache2 configuration (etc/apache2/icinga-web.conf).</progr
       <para><emphasis role="bold">Konfiguration von &name-api; Parametern</emphasis></para>
 
       <para>Diese Einstellungen werden direkt in Icinga Web vorgenommen das diese Informationen dann entsprechend aufbereitet an die Icinga
-      API weitergibt. Öffnen Sie app/modules/Web/config/module.xml um die IcingaApi factories zu sehen: IcingaData und IcingaCommand.
-      <programlisting> #&gt; vi app/modules/Web/config/module.xml</programlisting> In IcingaData werden die Parameter für die &name-api;
+      API weitergibt. Öffnen Sie app/modules/Web/config/icinga-io.xml um die IcingaApi factories zu sehen: IcingaData und IcingaCommand.
+      <programlisting> #&gt; vi app/modules/Web/config/icinga-io.xml</programlisting> In IcingaData werden die Parameter für die &name-api;
       festgelegt, um beispielsweise die &name-icinga; &name-idoutils; Datenbank als Datenquelle einzustellen. <note>
           <para>Bitte beachten Sie, dass Sie zuvor &name-idoutils; installieren müssen (so wie im Icinga IDOUtils Quickstart <link
           linkend="quickstart-idoutils">hier</link> beschrieben).</para>
