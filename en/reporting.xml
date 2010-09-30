@@ -8,48 +8,152 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>Installation of &name-rep;</title>
 
-  <para>Icinga Reporting is based on the &name-idoutils; backend and just like the &name-core;, it will support all major database platforms. </para>
-<para>Here we'll give you a little instruction how to install the &name-rep;</para>
-<para><emphasis role="bold">Prerequisites</emphasis></para>
+  <para>The &name-rep; is based on the &name-idoutils; backend and just like the &name-core;, it will support all major database
+  platforms.</para>
 
-    <para>You need &name-core; and &name-idoutils; installed and running. &name-rep; also requires a system to run the jasper-server based on tomcat.</para>
+  <para>Here we'll give you a little instruction how to install the &name-rep;</para>
 
-    <note>
-        <para>If you don't have &name-icinga; yet please follow the instructions given in the "<link
-        linkend="quickstart-idoutils">quickstart-idoutils</link>" documentation.</para>
-    </note>
-<orderedlist>
-        <listitem>
-            <para><emphasis role="bold">Download</emphasis></para>
-<para>You can download all templates and the actual servlet implementation in our <link
-  xlink:href="&url-icingagit-rep;">:&url-icingagit-rep;</link>.</para>
+  <para><emphasis role="bold">Prerequisites</emphasis></para>
 
-            <para>Take your clone from the icinga-reports.git to get a fresh branch</para>
+  <para>You need &name-core; and &name-idoutils; installed and running. &name-rep; also requires a system to run the <link
+  xlink:href="http://jasperforge.org/projects/jasperserver">&name-jasper;</link> based on <link
+  xlink:href="http://tomcat.apache.org">&name-tomcat;</link>.</para>
 
-            <programlisting> # git clone git://git.icinga.org/icinga-reports.git</programlisting>
+  <note>
+    <para>If you don't have &name-icinga; yet please follow the instructions given in the "<link
+    linkend="quickstart-idoutils">quickstart-idoutils</link>" documentation.</para>
+  </note>
 
-            <para>or download the software using <link
-            xlink:href="https://git.icinga.org/index?p=icinga-reports.git;a=snapshot;h=refs/heads/master;sf=tgz">https://git.icinga.org/index?p=icinga-reports.git;a=snapshot;h=refs/heads/master;sf=tgz</link>.</para>
-        </listitem>
-</orderedlist>
+  <para><emphasis role="bold">Install the &name-jasper;</emphasis></para>
+
+  <para>You can use the &name-jasper; installation binary or the specific WAR-Archive to deploy the software in an exisiting engine.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Install from binary</para>
+
+      <para>You can use the &name-jasper;-ce-linux-installer provided on <link
+      xlink:href="http://sourceforge.net/projects/jasperserver/files/">Sourceforge</link> with included the &name-mysql;-Database and the
+      &name-tomcat; Server. Just execute the installer-binary which leads you through the install process.</para>
+    </listitem>
+
+    <listitem>
+      <para>Install WAR-Archive</para>
+
+      <para>You can deploy the &name-jasper;-CE WAR into an existing &name-tomcat;6 Server and use the existing &name-icinga; Database for
+      the repository. Here we describe the WAR-installation into a &name-tomcat;6 Server. Also checkout the official
+      &name-jasper;-Installation Guide <link xlink:href="http://sourceforge.net/projects/jasperserver/files/">here.</link></para>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis role="bold">Install &name-tomcat; using your OS repositories</emphasis></para>
+
+  <para><emphasis>&name-fedora;/&name-rhel;/&name-centos;/&name-opensuse;/&name-sles;</emphasis></para>
+
+  <programlisting> #&gt; yum install tomcat6</programlisting>
+
+  <para><emphasis>&name-debian;/&name-ubuntu;</emphasis></para>
+
+  <programlisting>#&gt; apt-get install tomcat6</programlisting>
+
+  <para><emphasis role="bold">Install &name-jasper; CE into your &name-tomcat; Server</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Download jasperserver-ce-x.x.x-bin.zip from <link
+      xlink:href="http://sourceforge.net/projects/jasperserver/files/">Sourceforge/Jasper</link></para>
+    </listitem>
+
+    <listitem>
+      <para>Follow the installation documentation published on<link
+      xlink:href="http://sourceforge.net/projects/jasperserver/files/">Sourceforge/Jasper</link> (&name-jasper;-CE-Install-Guide.pdf)</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>After sucessfull &name-jasper; installation the interface is reachable on http://&lt;yourhost&gt;:8080/jasperserver and you are able
+  to login with jasperadmin/jasperadmin go the next step. Please change the default password as soon as possible.</para>
+
+  <para>In case of any error consult the &name-jasper; Troubleshooting Guide</para>
+
+  <para><emphasis role="bold">Download the Templates</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Download the &name-rep; package from <link
+      xlink:href="http://sourceforge.net/projects/icinga/files/">Sourceforge/Icinga</link></para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis role="bold">Or</emphasis> using GIT: you can also download all templates and the actual servlet implementation in our
+      <link xlink:href="git://git.icinga.org/icinga-reports.git/">:&url-icingagit-rep;</link>.</para>
+
+      <para>Take your clone from the icinga-reports.git to get a fresh branch</para>
+
+      <programlisting>#&gt; git clone git://git.icinga.org/icinga-reports.git</programlisting>
+    </listitem>
+
+    <listitem>
+      <para><emphasis role="bold">Or</emphasis> download the software using <link
+      xlink:href="https://git.icinga.org/index?p=icinga-reports.git;a=snapshot;h=refs/heads/master;sf=tgz">https://git.icinga.org/index?p=icinga-reports.git;a=snapshot;h=refs/heads/master;sf=tgz</link>.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis role="bold">Install the &name-rep;- Package</emphasis></para>
+
+  <para>Importing the whole reporting package requires just one command: <programlisting>#&gt; ./js-import.sh --input-zip icinga_report_package.zip</programlisting></para>
+
+  <para>If you want to update an existing repository please use the following command: <programlisting>#&gt; ./js-import.sh --input-zip icinga_report_package.zip --update</programlisting></para>
+
+  <para>You can export the whole &name-icinga; part of the repository with the following command: <programlisting>#&gt; ./js-export.sh --uris /Icinga --output-zip icinga_report_package.zip</programlisting></para>
+
+  <note>
+    <para>If the import scripts fails, please check your jasperserver.xml for the current user and password. You can change the default user
+    and password in &lt;jasperserver-ce-dir&gt;/scripts/config/js.jdbc.properties</para>
+  </note>
+
+  <para><emphasis role="bold">Configure quartz the scheduler</emphasis></para>
+
+  <para>The reporting distribution is done via quartz scheduler. To configure the sender mail and your local gateways please edit the
+  following file &lt;tomcat_home&gt;/webapps/jasperserver/WEB-INF/js.quartz.properties. Please restart the tomcat server to activate the new
+  settings. <programlisting>service tomcat restart or /etc/init.d/tomcat restart</programlisting></para>
+
+  <note>
+    <para>The export-/import-process is explained in detail at chapter 5.12 of the &name-jasper; CE-Install-Guide</para>
+  </note>
+
+  <para><emphasis role="bold">Configure your database connection</emphasis></para>
+
+  <para>After a successfull package installation you will find the datasource here: </para>
+
+  <para>/root/Icinga/datasources (don't forget to configure the view objects to all types at the bottom) </para>
+
+  <para>- Edit the existing datasource and configure your values. </para>
+
+  <para>- Test the configuration and save the connection. </para>
+
+  <para>- All reports in our package point to this datasource and should be able to run know </para>
+
+  <para>Known Bugs: If you don't see any graph labels in a pdf export please switch from OpenJDK to SUNJava</para>
+
   <para><figure>
       <title>&name-rep; integrated in &name-web;</title>
 
       <mediaobject>
         <imageobject role="html">
-          <imagedata fileref="../images/rep_avail.png" format="PNG"></imagedata>
+          <imagedata align="left" fileref="../images/rep_avail.png" format="PNG"></imagedata>
         </imageobject>
       </mediaobject>
-    </figure></para>
-<para><figure>
-      <title>&name-rep; TOP10</title>
+    </figure>
 
+  <figure>
+      <title>&name-rep; TOP10</title>
       <mediaobject>
         <imageobject role="html">
-          <imagedata fileref="../images/reptop10.png" format="PNG"></imagedata>
+          <imagedata align="right" fileref="../images/reptop10.png" format="PNG"></imagedata>
         </imageobject>
       </mediaobject>
-    </figure></para>
+    </figure>
+</para>
   <para><emphasis role="bold">Install &name-pnp;</emphasis></para>
 
   <orderedlist>
