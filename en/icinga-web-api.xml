@@ -14,7 +14,7 @@
 
   <para><emphasis role="bold">Why should I use the API?</emphasis></para>
 
-  <para>For most people, the combination &name-icinga;/&name-web; will fit most needs. You can see your monitoring status, act on problems
+  <para>For most people, the combination &name-icinga;/&name-web; will fit most needs. You can watch your monitoring status, act on problems
   and extend it to suit your needs (Modules/Cronks).</para>
 
   <para>But sometimes, you have another piece of software that is interested in some monitoring data (for example: <link
@@ -65,10 +65,10 @@
       </listitem>
     </itemizedlist></para>
 
-  <para><emphasis role="bold">What's the Difference between the &name-api; and the &name-web; REST API? </emphasis></para>
+  <para><emphasis role="bold">What's the difference between the &name-api; and the &name-web; REST API? </emphasis></para>
 
   <para>The &name-api; can at this point considered as an internal toolkit to access the database informations. In fact, the REST API acts
-  on top of this API and extends it via the HTTP Protocol. In the future, the &name-api; will be merged into &name-web;.</para>
+  on top of this API and extends it via the HTTP protocol. In the future, the &name-api; will be merged into &name-web;.</para>
 
   <para><emphasis role="bold">Prerequisites</emphasis></para>
 
@@ -83,7 +83,7 @@
 &lt;/ae:parameter&gt;</programlisting></para>
 
   <note>
-    <para>If you edit any *.xml-File you have to clear the cache afterwards!</para>
+    <para>If you edit any *.xml file you have to clear the cache afterwards!</para>
   </note>
 
   <programlisting>rm -f app/cache/config/*.php</programlisting>
@@ -92,7 +92,7 @@
 
   <programlisting>icinga-web/bin/clearcache.sh</programlisting>
 
-  <para>Now, in &name-web;, you have to add an user with Api access: <itemizedlist>
+  <para>Now, in &name-web;, you have to add a user with API access: <itemizedlist>
       <listitem>
         <para>Create a new user</para>
       </listitem>
@@ -102,7 +102,7 @@
       </listitem>
 
       <listitem>
-        <para>Insert an API Key to use</para>
+        <para>Insert an API key to use</para>
       </listitem>
 
       <listitem>
@@ -114,7 +114,7 @@
 
   <para><emphasis role="bold">Reference</emphasis></para>
 
-  <para>So, here are the goodies. In the next few points we'll explain ou how the API can be accessed:</para>
+  <para>So, here are the goodies. In the next few points we'll explain how the API can be accessed:</para>
 
   <para><emphasis role="bold">GET</emphasis></para>
 
@@ -134,11 +134,11 @@
 
   <itemizedlist>
     <listitem>
-      <para>If you request it in a browser your API Key could be in the browser history.</para>
+      <para>If you request it in a browser your API key could be in the browser history.</para>
     </listitem>
 
     <listitem>
-      <para>In a browser, you cannot add URLs with unlimited size (2,083 Characters for Internet explorer, for example).</para>
+      <para>In a browser, you cannot add URLs with unlimited size (2,083 characters for Internet explorer, for example).</para>
     </listitem>
 
     <listitem>
@@ -152,7 +152,7 @@
   host.com/icinga-web/web/api/ <emphasis role="bold">TARGET</emphasis> / <emphasis role="bold">COLUMNS</emphasis> / FILTER / ORDER /
   GROUPING / LIMIT / COUNTFIELD / <emphasis role="bold">OUTPUT_TYPE</emphasis></para>
 
-  <para><emphasis role="bold">The Parameters en Detail:</emphasis></para>
+  <para><emphasis role="bold">The Parameters en detail:</emphasis></para>
 
   <itemizedlist>
     <listitem>
@@ -204,8 +204,8 @@
 
   <para><emphasis role="bold">Example for GET</emphasis></para>
 
-  <para>Get all Services that are critical or warning, but have an host that is ok. Sort descending by the service state and count the
-  services. Authentification is done via authkey (here APITEST123456). The request is broken in pieces for better readability, XML:</para>
+  <para>Get all services that are critical or warning, but have a host that is ok. Sort descending by the service state and count the
+  services. Authentification is done via authkey (here APITEST123456). The request is broken into pieces for better readability, XML:</para>
 
   <programlisting>http://localhost/icinga-web/web/api/service/filter[AND(HOST_CURRENT_STATE|=|0;OR(SERVICE_CURRENT_STATE|=|1;SERVICE_CURRENT_STATE|=|2))]/
 columns(SERVICE_NAME|HOST_NAME|SERVICE_CURRENT_STATE|HOST_NAME|HOST_CURRENT_STATE|HOSTGROUP_NAME)/
@@ -279,7 +279,7 @@ order(SERVICE_CURRENT_STATE;DESC)/countColumn=SERVICE_ID/authkey=APITEST123456/x
     </listitem>
 
     <listitem>
-      <para>You're parameters don't appear in the browser history, only the base url.</para>
+      <para>Your parameters don't appear in the browser history, only the base url.</para>
     </listitem>
 
     <listitem>
@@ -295,9 +295,9 @@ order(SERVICE_CURRENT_STATE;DESC)/countColumn=SERVICE_ID/authkey=APITEST123456/x
     </listitem>
   </itemizedlist>
 
-  <para><emphasis role="bold">Parameters en Detail</emphasis></para>
+  <para><emphasis role="bold">Parameters en detail</emphasis></para>
 
-  <para>The link is almost the same like the GET Baselink, but with the output type in it: For example, host.com/icinga-web/web/api/json.
+  <para>The link is almost the same like the GET baselink, but with the output type in it: For example, host.com/icinga-web/web/api/json.
   The following parameters are supported:</para>
 
   <itemizedlist>
@@ -390,7 +390,7 @@ order(SERVICE_CURRENT_STATE;DESC)/countColumn=SERVICE_ID/authkey=APITEST123456/x
 -d 'authkey=API123456' 
 http://localhost/icinga-web/web/api/xml </programlisting>
 
-  <para>This would return the same result as the GET Request shown before.</para>
+  <para>This would return the same result as the GET request shown before.</para>
 
   <indexterm zone="icinga-web-api">
     <primary>&name-api;</primary>
