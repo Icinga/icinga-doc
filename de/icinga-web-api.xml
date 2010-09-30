@@ -14,13 +14,18 @@
   <para><emphasis role="bold">Warum sollten Sie die API benutzen?</emphasis></para>
 
   <para>Den meisten Anwendern genügt der Einsatz von &name-icinga; und &name-web;. Sie können den Status Ihres Monitoring sehen, auf
-  aktuelle Probleme reagieren und &name-web; um gewünschte Module und Cronks erweitern. Wenn Sie allerdings eine zusätzliche Software
-  einsetzen möchten, die Ihre Monitoring- Daten abfragen soll (zum Beispiel: <link
-  xlink:href="http://www.icinga.org/2010/07/16/icinga-chromed-status-for-google-chrome/chromium/">Icinga-Chromed-Status</link>).Sie können
-  natürlich die Ausgabe des &name-ui; analysieren (parsen) (so verfahren zur Zeit viele Programme, wie zum Beispiel nagstamon oder das
-  Firefox Plugin Nagios Checker),aber das keine wirklich performante Lösung- und außerdem keine Freude für den Entwickler :-) Die &name-web;
-  REST API stellt Ihnen die Daten zur Verfügung, die Sie benötigen (und auch nur diese). Die Daten werden in einem standardisierten,
-  maschinen- lesbarem Format wie JSON oder XML zur Verfügung gestellt.</para>
+  aktuelle Probleme reagieren und &name-web; um gewünschte Module und Cronks erweitern.</para>
+
+  <para>Wenn Sie allerdings eine zusätzliche Software einsetzen möchten, die Ihre Monitoring- Daten abfragen soll (zum Beispiel: <link
+  xlink:href="http://www.icinga.org/2010/07/16/icinga-chromed-status-for-google-chrome/chromium/">Icinga-Chromed-Status</link>), kann Ihnen
+  die &name-web; API sehr dienlich sein.</para>
+
+  <para>Sie können natürlich die Ausgabe des &name-ui; analysieren (parsen) (so verfahren zur Zeit viele Programme, wie zum Beispiel
+  nagstamon oder das Firefox Plugin Nagios Checker),aber das keine wirklich performante Lösung- und außerdem keine Freude für den Entwickler
+  :-)</para>
+
+  <para>Die &name-web; REST API stellt Ihnen die Daten zur Verfügung, die Sie benötigen (und auch nur diese). Die Daten werden in einem
+  standardisierten, maschinen- lesbarem Format wie JSON oder XML zur Verfügung gestellt.</para>
 
   <para><emphasis role="bold">Features der &name-web; REST API </emphasis></para>
 
@@ -83,9 +88,17 @@
     &lt;ae:parameter name="auth_provider"&gt;Auth.Provider.AuthKey&lt;/ae:parameter&gt;
     &lt;ae:parameter name="auth_enable"&gt;true&lt;/ae:parameter&gt;
     &lt;ae:parameter name="auth_authoritative"&gt;true&lt;/ae:parameter&gt;
-&lt;/ae:parameter&gt;</programlisting> <note>
-      <para>Danach müssen Sie den Cache leeren (icinga-web/bin/clearcache.sh)!</para>
-    </note></para>
+&lt;/ae:parameter&gt;</programlisting></para>
+
+  <note>
+    <para>Wenn Sie ein *.xml-File editieren, müssen Sie anschließend den Cache leeren!</para>
+  </note>
+
+  <programlisting>rm -f app/cache/config/*.php</programlisting>
+
+  <para>oder</para>
+
+  <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
 
   <para>Nun brauchen Sie in &name-web; einen Benutzer mit API Zugriffsberechtigung, bitte anlegen in Ihrem &name-web; : <itemizedlist>
       <listitem>
@@ -196,9 +209,9 @@
 
   <para><emphasis role="bold">Beispiele für GET</emphasis></para>
 
-  <para>GET alle Dienste die kritisch oder warning sind, deren Host im Status ok ist. Absteigend sortiert nach Dienst Status und Hochzählen
-  der Services. Authentifikation via authkey (hier: APITEST123456). Für die bessere Lesbarkeit ist die Anfrage in mehrere Zeilen aufgeteilt,
-  XML:</para>
+  <para>GET alle Dienste die kritisch oder warning sind und deren Host im Status ok ist. Absteigend sortiert nach Dienst Status und
+  Hochzählen der Services. Authentifikation via authkey (hier: APITEST123456). Für die bessere Lesbarkeit ist die Anfrage in mehrere Zeilen
+  aufgeteilt, XML:</para>
 
   <programlisting>http://localhost/icinga-web/web/api/service/filter[AND(HOST_CURRENT_STATE|=|0;OR(SERVICE_CURRENT_STATE|=n|1;SERVICE_CURRENT_STATE|=|2))]/
 columns(SERVICE_NAME|HOST_NAME|SERVICE_CURRENT_STATE|HOST_NAME|HOST_CURRENT_STATE|HOSTGROUP_NAME)/
@@ -259,8 +272,11 @@ order(SERVICE_CURRENT_STATE;DESC)/countColumn=SERVICE_ID/authkey=APITEST123456/x
    }],
    "success":"true",
    "total":"2" 
-}
-*Achtung*: Wenn Sie den countField Parameter nicht verwenden, bekommen Sie eine json-Datei mit diesem Ergebnis.</programlisting>
+}</programlisting>
+
+  <note>
+    <para>Wenn Sie den countField Parameter nicht verwenden, bekommen Sie eine "flat" json-Datei mit diesem Ergebnis.</para>
+  </note>
 
   <para><emphasis role="bold">POST</emphasis></para>
 
@@ -284,22 +300,23 @@ order(SERVICE_CURRENT_STATE;DESC)/countColumn=SERVICE_ID/authkey=APITEST123456/x
 
   <itemizedlist>
     <listitem>
-      <para>POST will be send via the header, so you can't request it easily from the browser's address field.</para>
+      <para>Der POST wird über den Header gesendet, deshalb können Sie den Request nicht einfach über das Addressfeld des Browsers
+      absetzen.</para>
     </listitem>
   </itemizedlist>
 
-  <para><emphasis role="bold">Parameters en Detail</emphasis></para>
+  <para><emphasis role="bold">Die Parameter en Detail</emphasis></para>
 
-  <para>The link is almost the same like the GET Baselink, but with the output type in it: For example, host.com/icinga-web/web/api/json.
-  The following parameters are supported:</para>
+  <para>Der Link entspricht dem GET Basislink, allerdings mit der Angabe des Ausgabeformates: Zum Beispiel:
+  host.com/icinga-web/web/api/json. Folgende Parameter werden unterstützt:</para>
 
   <itemizedlist>
     <listitem>
-      <para>'target': The search target, like host</para>
+      <para>'target': Welches Feld wird angesprochen, es ist ein einfacher String wie "host"</para>
     </listitem>
 
     <listitem>
-      <para>'columns[]': An array of columns</para>
+      <para>'columns[]': Ein Array von Spalten</para>
 
       <para>Example:</para>
 
@@ -309,11 +326,11 @@ order(SERVICE_CURRENT_STATE;DESC)/countColumn=SERVICE_ID/authkey=APITEST123456/x
     </listitem>
 
     <listitem>
-      <para>'groups[]' : Group by this field</para>
+      <para>'groups[]' : nach diesem Feld gruppieren</para>
     </listitem>
 
     <listitem>
-      <para>'filters_json' : A json describing how to filter</para>
+      <para>'filters_json' : Ein json beschreibender "how to" Filter</para>
 
       <para>Example:</para>
 
@@ -344,30 +361,30 @@ order(SERVICE_CURRENT_STATE;DESC)/countColumn=SERVICE_ID/authkey=APITEST123456/x
     </listitem>
 
     <listitem>
-      <para>'order_col' : Column to order by</para>
+      <para>'order_col' : Spalte nach der sortiert wird</para>
     </listitem>
 
     <listitem>
-      <para>'order_dir' : Order direction (asc oder desc)</para>
+      <para>'order_dir' : Sortierungsreihenfolge (asc oder desc)</para>
     </listitem>
 
     <listitem>
-      <para>'limit_start' : The offset of the records to start</para>
+      <para>'limit_start' : Start-Offset des Records</para>
     </listitem>
 
     <listitem>
-      <para>'limit' : Limits the result to x responses</para>
+      <para>'limit' : Begrenzt das Ergebnis auf x Antworten</para>
     </listitem>
 
     <listitem>
-      <para>'countColumn' : Add a total field with this column</para>
+      <para>'countColumn' : Fügt ein INSGESAMT- Feld dem Ergebnis hinzu</para>
     </listitem>
   </itemizedlist>
 
-  <para><emphasis role="bold">Example for POST</emphasis></para>
+  <para><emphasis role="bold">Beispiele für POST</emphasis></para>
 
-  <para>Lets take the example from Example for GET and use a post request this time. We're going to use curl, so the example can be repeated
-  from the console:</para>
+  <para>Nehmen wir das Beispiel aus "Beispiel für GET" und benutzen nun eine POST- Anfrage. Wir werden curl verwenden, so dass das Beispiel
+  auf der Konsole wiederholt werden kann:</para>
 
   <programlisting>curl 
 -d target=service 
@@ -383,17 +400,7 @@ order(SERVICE_CURRENT_STATE;DESC)/countColumn=SERVICE_ID/authkey=APITEST123456/x
 -d 'authkey=API123456' 
 http://localhost/icinga-web/web/api/xml </programlisting>
 
-  <para>This would return the same result as the GET Request shown before.</para>
-
-  <note>
-    <para>If you edit any *.xml-File please you have to clear the cache afterwards!</para>
-  </note>
-
-  <programlisting>rm -f app/cache/config/*.php</programlisting>
-
-  <para>or</para>
-
-  <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
+  <para>Dies gibt uns das gleiche Ergebnis zurück, wie zuvor in der GET-Anfrage.</para>
 
   <indexterm zone="icinga-web-api">
     <primary>&name-api;</primary>

@@ -8,13 +8,14 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>The &name-web; REST API</title>
 
-  <para>In this document we'll describe the &name-web; REST API which allows you to request your monitoring information via GET or POST
-  requests (in the future (&gt;1.2), you will also be able to send commands via PUT).</para>
+  <para>In this document we'll describe the &name-web; REST API (yes, we know that the term is not yet completed) which allows you to
+  request your monitoring information via GET or POST requests (in the future (&gt;1.2), you will also be able to send commands via
+  PUT).</para>
 
   <para><emphasis role="bold">Why should I use the API?</emphasis></para>
 
   <para>For most people, the combination &name-icinga;/&name-web; will fit most needs. You can see your monitoring status, act on problems
-  and extend it to suit your needs (Modules/Cronks). </para>
+  and extend it to suit your needs (Modules/Cronks).</para>
 
   <para>But sometimes, you have another piece of software that is interested in some monitoring data (for example: <link
   xlink:href="http://www.icinga.org/2010/07/16/icinga-chromed-status-for-google-chrome/chromium/">Icinga-Chromed-Status</link>). You could
@@ -71,7 +72,7 @@
 
   <para><emphasis role="bold">Prerequisites</emphasis></para>
 
-  <para>In order to use the api, you first have to enable the Auth provider for it. This can be done under
+  <para>In order to use the API, you first have to enable the Auth provider for it. This can be done under
   icinga-web/app/modules/AppKit/config/auth.xml.</para>
 
   <para>Change "auth_enabled" to 'true' in this section: <programlisting>&lt;ae:parameter name="auth_key"&gt;
@@ -148,7 +149,8 @@
   <para><emphasis role="bold">The structure of the URL:</emphasis></para>
 
   <para>To access the api, the URL should look as in the following (italics are optional, bold ones are required)
-  host.com/icinga-web/web/api/ <emphasis role="bold">TARGET</emphasis> / <emphasis role="bold">COLUMNS</emphasis> / FILTER / ORDER / GROUPING / LIMIT / COUNTFIELD / <emphasis role="bold">OUTPUT_TYPE</emphasis></para>
+  host.com/icinga-web/web/api/ <emphasis role="bold">TARGET</emphasis> / <emphasis role="bold">COLUMNS</emphasis> / FILTER / ORDER /
+  GROUPING / LIMIT / COUNTFIELD / <emphasis role="bold">OUTPUT_TYPE</emphasis></para>
 
   <para><emphasis role="bold">The Parameters en Detail:</emphasis></para>
 
@@ -259,7 +261,7 @@ order(SERVICE_CURRENT_STATE;DESC)/countColumn=SERVICE_ID/authkey=APITEST123456/x
        "SERVICE_INSTANCE_ID":"1",
        "SERVICE_NAME":"POP3",
        "SERVICE_DISPLAY_NAME":"POP3",
-       "SERVICE_OUTPUT":"Verbindungsaufbau abgelehnt",
+       "SERVICE_OUTPUT":"Connection refused",
        "SERVICE_PERFDATA":"" 
    }],
    "success":"true",
