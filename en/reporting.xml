@@ -135,142 +135,43 @@
 
   <para>Known Bugs: If you don't see any graph labels in a pdf export please switch from OpenJDK to SUNJava</para>
 
-  <para><figure>
-      <title>&name-rep; integrated in &name-web;</title>
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="50*" />
 
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry>
+<para><figure>
       <mediaobject>
-        <imageobject role="html">
-          <imagedata align="left" fileref="../images/rep_avail.png" format="PNG"></imagedata>
+        <imageobject role="html"> 
+          <imagedata fileref="../images/rep_avail.png" format="PNG"></imagedata>
         </imageobject>
       </mediaobject>
-    </figure>
+    </figure></para>
+</entry>
 
-  <figure>
-      <title>&name-rep; TOP10</title>
+       <entry>
+<para><figure>
       <mediaobject>
-        <imageobject role="html">
-          <imagedata align="right" fileref="../images/reptop10.png" format="PNG"></imagedata>
+        <imageobject role="html"> 
+          <imagedata fileref="../images/reptop10.png" format="PNG"></imagedata>
         </imageobject>
       </mediaobject>
-    </figure>
-</para>
-  <para><emphasis role="bold">Install &name-pnp;</emphasis></para>
-
-  <orderedlist>
-    <listitem>
-      <para>Install &name-pnp; as described in the &name-pnp; <link
-      xlink:href="http://docs.pnp4nagios.org/en/pnp-0.6/start">documentation</link></para>
-    </listitem>
-
-    <listitem>
-      <para>Change the &name-pnp; configuration to match your &name-icinga; configuration. You probably may want to change these:
-      <programlisting>#&gt; vi npcd.cfg
-    user = icinga
-    group = icinga
-    log_file = /var/log/icinga/npcd.log
-    perfdata_spool_dir = /var/icinga/spool/
-    perfdata_file = /var/icinga/perfdata.dump</programlisting> <programlisting>#&gt; vi process_perfdata.cfg
-LOG_FILE = /var/log/icinga/perfdata.log</programlisting> <programlisting>#&gt; vi config.php 
-$conf['nagios_base'] = "/icinga/cgi-bin";</programlisting></para>
-    </listitem>
-  </orderedlist>
-
-  <para><emphasis role="bold">Create a configuration to include &name-pnp; host pages in &name-web;</emphasis></para>
-
-  <orderedlist>
-    <listitem>
-      <para>Create a new grid view</para>
-
-      <para>Make a copy of the default icinga-host-template.xml in app/modules/Cronks/data/xml/grid under your &name-web; installation path,
-      example: <programlisting>cp /usr/share/icinga-web/app/modules/Cronks/data/xml/grid/icinga-host-template.xml /usr/share/icinga-web/app/modules/Cronks/data/xml/grid/icinga-my-host-template.xml</programlisting>
-      In the new file we just created add a new field definition: <programlisting>&lt;field name="pnp4nagios_host_link"&gt;
-            &lt;!-- datasource maps a data field from api call --&gt;
-            &lt;datasource&gt;
-                &lt;parameter name="field"&gt;HOST_NAME&lt;/parameter&gt;
-            &lt;/datasource&gt;
-
-            &lt;display&gt;
-                &lt;parameter name="visible"&gt;true&lt;/parameter&gt;
-                &lt;parameter name="label"&gt;Perfdata&lt;/parameter&gt;
-                &lt;parameter name="width"&gt;55&lt;/parameter&gt;
-
-                &lt;parameter name="Ext.grid.Column"&gt;
-                        &lt;parameter name="menuDisabled"&gt;true&lt;/parameter&gt;
-                        &lt;parameter name="fixed"&gt;true&lt;/parameter&gt;
-                &lt;/parameter&gt;
-
-                &lt;parameter name="jsFunc"&gt;
-                       &lt;!-- fnuction to display column with icon in host status grid view --&gt;
-                        &lt;parameter&gt;
-                                &lt;parameter name="namespace"&gt;Cronk.grid.ColumnRenderer&lt;/parameter&gt;
-                                &lt;parameter name="function"&gt;columnImage&lt;/parameter&gt;
-                                &lt;parameter name="type"&gt;renderer&lt;/parameter&gt;
-
-                                &lt;parameter name="arguments"&gt;
-                                                        &lt;parameter name="image"&gt;images/icons/application_view_gallery.png&lt;/parameter&gt;
-                                                        &lt;parameter name="css"&gt;x-icinga-grid-link&lt;/parameter&gt;
-                                                        &lt;parameter name="attr"&gt;
-                                                                &lt;parameter name="qtip"&gt;Show host perfdata for this host&lt;/parameter&gt;
-                                                        &lt;/parameter&gt;
-                                &lt;/parameter&gt;
-                        &lt;/parameter&gt;
-
-                        &lt;!-- create cell click event for the previously defined column --&gt;
-                        &lt;parameter&gt;
-                                &lt;parameter name="namespace"&gt;Cronk.grid.IcingaColumnRenderer&lt;/parameter&gt;
-                                &lt;parameter name="function"&gt;iFrameCronk&lt;/parameter&gt;
-                                &lt;parameter name="type"&gt;cellclick&lt;/parameter&gt;
-                                &lt;parameter name="arguments"&gt;
-                                        &lt;parameter name="title"&gt;Host perfdata for {host_name}&lt;/parameter&gt;
-                                        &lt;parameter name="url"&gt;&lt;![CDATA[/pnp4nagios/index.php/graph?host={host_name}&amp;srv=_HOST_]]&gt;&lt;/parameter&gt;
-                                        &lt;parameter name="activateOnClick"&gt;true&lt;/parameter&gt;
-                                &lt;/parameter&gt;
-                        &lt;/parameter&gt;
-                &lt;/parameter&gt;
-           &lt;/display&gt;
-
-            &lt;filter&gt;
-               &lt;parameter name="enabled"&gt;false&lt;/parameter&gt;
-            &lt;/filter&gt;
-
-            &lt;order&gt;
-                &lt;parameter name="enabled"&gt;false&lt;/parameter&gt;
-           &lt;/order&gt;
-        &lt;/field&gt;</programlisting></para>
-    </listitem>
-
-    <listitem>
-      <para>Add the new grid view to the "Data" cronk-container</para>
-
-      <para>Edit cronks.xml in directory app/modules/Cronks/config/ under your icinga-web add a section: <programlisting>&lt;ae:parameter name="gridMyServiceView"&gt;
-    &lt;ae:parameter name="module"&gt;Cronks&lt;/ae:parameter&gt;
-    &lt;ae:parameter name="action"&gt;System.ViewProc&lt;/ae:parameter&gt;
-    &lt;ae:parameter name="hide"&gt;false&lt;/ae:parameter&gt;
-    &lt;ae:parameter name="description"&gt;Viewing service status in a grid including perfdata link&lt;/ae:parameter&gt;
-    &lt;ae:parameter name="name"&gt;MyServiceStatus&lt;/ae:parameter&gt;
-    &lt;ae:parameter name="categories"&gt;data&lt;/ae:parameter&gt;
-    &lt;ae:parameter name="ae:parameter"&gt;
-        &lt;ae:parameter name="template"&gt;icinga-my-service-template&lt;/ae:parameter&gt;
-    &lt;/ae:parameter&gt;
-&lt;/ae:parameter&gt;</programlisting></para>
-    </listitem>
-  </orderedlist>
-
-  <note>
-    <para>If you edit any *.xml-File you have to clear the cache afterwards!</para>
-  </note>
-
-  <programlisting>rm -f app/cache/config/*.php</programlisting>
-
-  <para>or</para>
-
-  <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
-
+    </figure></para>
+</entry>    
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+ 
   <para>That's all, you're done!</para>
 
-  <indexterm zone="icinga-web-pnp">
-    <primary>&name-pnp;</primary>
+  <indexterm zone="icinga-reporting">
+    <primary>&name-rep;/&name-web;</primary>
 
-    <secondary>pnp with &name-web;</secondary>
+    <secondary>&name-rep;</secondary>
   </indexterm>
 </section>
