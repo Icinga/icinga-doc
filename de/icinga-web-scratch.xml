@@ -15,7 +15,7 @@
   über die gesamte Architektur können Sie auf unserer Webseite nachlesen: <link
   xlink:href="http://www.icinga.org/architecture/">&url-icinga;architecture/</link> Falls Sie mehr über das &name-web; development und die
   Modularchitektur wissen wollen, verfolgen Sie bitte stetig aktualisierte Einträge im Development-Wiki von &name-web;: <link
-  xlink:href="&url-icinga-wiki;">&url-icinga-wiki;</link></para>
+  xlink:href="https://dev.icinga.org/projects/icinga-development/wiki#24-Icinga-Web">&url-icinga-wiki;</link></para>
 
   <orderedlist>
     <listitem>
@@ -284,8 +284,12 @@ Please check the new Apache2 configuration (etc/apache2/icinga-web.conf).</progr
 
       <para>Diese Einstellungen werden direkt in Icinga Web vorgenommen das diese Informationen dann entsprechend aufbereitet an die Icinga
       API weitergibt. Öffnen Sie app/modules/Web/config/icinga-io.xml um die IcingaApi factories zu sehen: IcingaData und IcingaCommand.
-      <programlisting> #&gt; vi app/modules/Web/config/icinga-io.xml</programlisting> In IcingaData werden die Parameter für die &name-api;
-      festgelegt, um beispielsweise die &name-icinga; &name-idoutils; Datenbank als Datenquelle einzustellen. <note>
+      <programlisting> #&gt; vi app/modules/Web/config/icinga-io.xml</programlisting>
+<note><para>Optional: Ihre spezifischen &name-icinga;
+      Verbindungseinstellungen, wie die API-Anmeldeinformationen, können Sie vornehmen in app / modules / Web / config / icinga-io.site.xml. Diese Informationen bleiben während eines Update- Prozesses erhalten. </para></note> </para>
+
+      <para>In IcingaData werden die Parameter für die &name-api; festgelegt, um beispielsweise die &name-icinga; &name-idoutils; Datenbank
+      als Datenquelle einzustellen. <note>
           <para>Bitte beachten Sie, dass Sie zuvor &name-idoutils; installieren müssen (so wie im Icinga IDOUtils Quickstart <link
           linkend="quickstart-idoutils">hier</link> beschrieben).</para>
         </note> <programlisting>                                &lt;!--
