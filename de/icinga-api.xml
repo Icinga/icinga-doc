@@ -93,7 +93,14 @@
     --with-command-user=icinga-cmd \
     --with-command-group=icinga-cmd \
     --with-icinga-user=icinga \
-    --with-icinga-group=icinga</programlisting><programlisting> # make install</programlisting></para>
+    --with-icinga-group=icinga \
+    --with-web-user=www-data \
+    --with-web-group=www-data</programlisting>
+      <note><para>Die --with-web...-Direktiven müssen gesetzt sein. Anderenfalls werden die Web-Logs nicht korrekt erstellt. Außerdem kann
+      dies zu einem leeren Haupt-Cronk führen. Bitte beachten Sie, dass die Werte von 'user' und 'group' abhängig von der Distribution
+      sind.</para></note>
+
+    <programlisting> # make install</programlisting></para>
     </listitem>
   </orderedlist>
 
