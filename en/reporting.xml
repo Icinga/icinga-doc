@@ -65,8 +65,8 @@
     </listitem>
 
     <listitem>
-      <para>Follow the installation documentation published on<link
-      xlink:href="http://sourceforge.net/projects/jasperserver/files/">Sourceforge/Jasper</link> (&name-jasper;-CE-Install-Guide.pdf)</para>
+      <para>Follow the installation documentation published on<link xlink:href="http://sourceforge.net/projects/jasperserver/files/">
+      Sourceforge/Jasper</link> (&name-jasper;-CE-Install-Guide.pdf)</para>
     </listitem>
   </itemizedlist>
 
@@ -100,6 +100,12 @@
 
   <para><emphasis role="bold">Install the &name-rep;- Package</emphasis></para>
 
+  <para>Unpack the downloaded file and copy it to your &name-jasper;-Directory.</para>
+
+  <programlisting>#&gt; tar xzvf icinga-reports-xxx.tar.gz
+#&gt; cp icinga-reports/ReportPackage/icinga_report_package.zip /opt/jasperserver/scripts/
+#&gt; cd /opt/jasperserver/scripts/</programlisting>
+
   <para>Importing the whole reporting package requires just one command: <programlisting>#&gt; ./js-import.sh --input-zip icinga_report_package.zip</programlisting></para>
 
   <para>If you want to update an existing repository please use the following command: <programlisting>#&gt; ./js-import.sh --input-zip icinga_report_package.zip --update</programlisting></para>
@@ -123,9 +129,11 @@
 
   <para><emphasis role="bold">Configure your database connection</emphasis></para>
 
+  <para>Login to http://localhost:8080/jasperserver with jasperadmin/jasperadmin</para>
+
   <para>After a successfull package installation you will find the datasource here:</para>
 
-  <para>/root/Icinga/datasources (don't forget to configure the view objects to all types at the bottom)</para>
+  <para>/root/Icinga/datasource (be sure that <emphasis role="bold">Refine </emphasis>contains "changed by anyone").</para>
 
   <para>- Edit the existing datasource and configure your values.</para>
 
