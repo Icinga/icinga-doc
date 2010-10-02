@@ -6,133 +6,150 @@
 <section version="5.0" xml:id="whatsnew" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-    <title>Was gibt es Neues in &name-core; &ver-icinga; und &name-web; &ver-icingaweb;</title>
+  <title>Was gibt es Neues in &name-icinga; &ver-icinga;</title>
+<para>Erste einheitliche Version von &name-core; und &name-web;.</para>
+  <para><emphasis role="bold">&name-core;:</emphasis></para>
 
-    <para><emphasis role="bold">&name-core;:</emphasis></para>
+  <para>* Konfigurationsoptionen: <itemizedlist>
+      <listitem>
+        <para>Setzen des initialen Zustandes für die Beständigkeit von Acknowledgements</para>
+      </listitem>
 
-    <para>* Konfigurationsoptionen: <itemizedlist>
-            <listitem>
-                <para>Setzen des initialen Zustandes für die Beständigkeit von Acknowledgements</para>
-            </listitem>
+      <listitem>
+        <para>log_external_commands_user, Core Protokollierung von Benutzern, die an die Kommando-Pipe senden.</para>
+      </listitem>
 
-            <listitem>
-                <para>log_external_commands_user, Core Protokollierung von Benutzern, die an die Kommando-Pipe senden.</para>
-            </listitem>
+      <listitem>
+        <para>Deaktivieren der Protokollierung des aktuellen Standes nach Rotation</para>
+      </listitem>
 
-            <listitem>
-                <para>Deaktivieren der Protokollierung des aktuellen Standes nach Rotation</para>
-            </listitem>
+      <listitem>
+        <para>Protokollierung der gesamten Plugin- Ausgabe</para>
+      </listitem>
 
-            <listitem>
-                <para>Protokollierung der gesamten Plugin- Ausgabe</para>
-            </listitem>
+      <listitem>
+        <para>Aktivieren von Eventhandlern für Hosts/Services mit Statusverfolgung</para>
+      </listitem>
+    </itemizedlist></para>
 
-            <listitem>
-                <para>Aktivieren von Eventhandlern für Hosts/Services mit Statusverfolgung</para>
-            </listitem>
-        </itemizedlist></para>
+  <para>* Geplante Ausfallzeiten können bereits bei Erreichen des SOFT- Fehlerstatus beginnen</para>
 
-    <para>* Geplante Ausfallzeiten können bereits bei Erreichen des SOFT- Fehlerstatus beginnen</para>
+  <para>* Rewrite von execv check- Ausführung zu execvp, dies erlaubt Plugins in $PATH und die Annahme von 4k Befehlsargumenten, mit
+  angepasster Fehlerbehandlung</para>
 
-    <para>* Rewrite von execv check- Ausführung zu execvp, dies erlaubt Plugins in $PATH und die Annahme von 4k Befehlsargumenten, mit angepasster
-    Fehlerbehandlung</para>
+  <para>* Fix: alle Kommentare verschwinden nach einem Neustart wenn ein Kommentar nicht-persistent ist.</para>
 
-    <para>* Fix: alle Kommentare verschwinden nach einem Neustart wenn ein Kommentar nicht-persistent ist.</para>
+  <para>* Fix: is_volatile- Bedingungen verursachen falsche Service-Alarme in den Log-Dateien</para>
 
-    <para>* Fix: is_volatile- Bedingungen verursachen falsche Service-Alarme in den Log-Dateien</para>
+  <para><emphasis role="bold">&name-icinga; &name-idoutils;:</emphasis></para>
 
-    <para><emphasis role="bold">&name-icinga; &name-idoutils;:</emphasis></para>
+  <para>* Syslog Ausgabe für start/stop, client- Verbindung</para>
 
-    <para>* Syslog Ausgabe für start/stop, client- Verbindung</para>
+  <para>* Hinzugefügte Datenbank trimming-thread-startup-delay Option</para>
 
-    <para>* Hinzugefügte Datenbank trimming-thread-startup-delay Option</para>
+  <para>* Komplettes Rewrite von binding NULL Werten für Oracle mit ocilib; Fix: select name1/name2</para>
 
-    <para>* Komplettes Rewrite von binding NULL Werten für Oracle mit ocilib; Fix: select name1/name2</para>
+  <para>* Modifizieren und erweitern der Spaltenlänge für mysql/pgsql/oracle</para>
 
-    <para>* Modifizieren und erweitern der Spaltenlänge für mysql/pgsql/oracle</para>
+  <para><emphasis role="bold">&name-ui;</emphasis></para>
 
-    <para><emphasis role="bold">&name-ui;</emphasis></para>
+  <para>* Tooltips für Kommentare in der status.cgi</para>
 
-    <para>* Vielfache Befehlsübergabe an die cmd.cgi</para>
+  <para>– Sie müssen nicht mehr den Host/Service öffnen um die Kommentare zu sehen.</para>
 
-    <para>* Senden von Befehlen über Checkbox-Auswahl für mehrere Host/Services</para>
+  <para>* Gleichzeitiges Löschen von mehreren Downtimes und Kommentaren</para>
 
-    <para>* Pause/Weiter für die Seitenaktualisierung</para>
+  <para>* CVS Export, auf fast jeder Seite möglich</para>
 
-    <para>* Hinzugefügte Konfigurationsoptionen: Anzeige von long_output in status.cgi; Anzeige von NUR HARD states in tac.cgi</para>
+  <para>– Direkter Export von verschiedenen Listen und Zustandsdaten. Es gibt einen kleinen "Export to CSV"-Link, dieser erzeugt eine Seite
+  mit dem aktuellen Inhalt im cvs-Format. Zwei neue Konfigurationseinstellungen erlauben die Auswahl, welche Zeichen für das Ausgabeformat
+  verwendet werden sollen und vervollständigen diese raffinierte Erweiterung.</para>
 
-    <para>* Fix: Anzeige falscher Name bei mehreren (multi) URL's und Makro Verarbeitung</para>
+  <para>* Commands expander für die Konfigurationsanzeige. Dies hilft $ARGn$- Substitutionen und zeigt die exakte Befehlsfolge, die der Core
+  auszuführen versucht. Lange erwartetes Feature, vielen Dank an Jochen Bern!</para>
 
-    <para>Für detaillierte Information der einzelnen Releases schauen Sie bitte in den Changelog.</para>
+  <para>* Diverse Fixes, leicht modifiziertes Menü, erweitert um unbehandelte Host/Service- Probleme. JavaScript-Bibliothek
+  Aktualisierungen, Fixed Segfaults auf Solaris in der status.cgi, Entfernen von PHP als Abhängigkeit für das Classic UI.</para>
 
-    <itemizedlist>
-        <listitem>
-            <para><xref linkend="changelog-core" /></para>
-        </listitem>
-    </itemizedlist>
+  <para>Für detaillierte Information der einzelnen Releases schauen Sie bitte in den Changelog.</para>
 
-    <para><emphasis role="bold">&name-web;:</emphasis></para>
+  <itemizedlist>
+    <listitem>
+      <para>doc/Changelog</para>
+    </listitem>
+  </itemizedlist>
 
-    <para>* Neue Technical Overview Template Implementierung</para>
+  <para><emphasis role="bold">&name-web;:</emphasis></para>
 
-    <para>* Diverse Internet Explorer Fixes</para>
+  <para>* Pending Status: zeigt einen speziellen Status, für Checks die noch nicht ausgeführt wurden.</para>
 
-    <para>* Verbesserung des Senden von Befehlen an mehrere Instanzen</para>
+  <para>* Bessere Protokollierung: Mehr über das, was Icinga-Web macht.</para>
 
-    <para>* Überprüfen der Gültigkeit von Sessions und entsprechende Warnung</para>
+  <para>* Webseiten-Konfiguration: Legen Sie Ihre eigene Konfiguration in XML-Dateien ab, keine Überschreibung bei Aktualisierungen.</para>
 
-    <para>* Neuer standard Welcome Cronk</para>
+  <para>* Integrierte Kommentare für Host und Services</para>
 
-    <para>* Reorganisierte Icon Struktur</para>
+  <para>* PNP4Nagios integriert "on the Fly", wenn Sie möchten.</para>
 
-    <para>Insidertips und mehr Dokumentation rund ums Webinterface finden Sie hier: <link
-    xlink:href="&url-icinga-wiki;">Icinga-Wiki</link></para>
+  <para>* Die Suche nach Objekten skaliert hervorragend!</para>
 
-    <para>Für detaillierte Information der einzelnen Releases schauen Sie bitte in den Changelog:</para>
+  <para>* Device Icons aus der Icinga- Konfiguration.</para>
 
-    <itemizedlist>
-        <listitem>
-            <para><xref linkend="changelog-web" /></para>
-        </listitem>
-    </itemizedlist>
+  <para>Insidertips und mehr Dokumentation rund ums Webinterface finden Sie hier: <link
+  xlink:href="https://dev.icinga.org/projects/icinga-development/wiki#24-Icinga-Web">Icinga-Wiki</link></para>
 
-    <para><emphasis role="bold">&name-docs;:</emphasis></para>
+  <para>Für detaillierte Information der einzelnen Releases schauen Sie bitte in den Changelog:</para>
 
-    <para>* Aktualisierung der Schnellstart-Anleitungen</para>
+  <itemizedlist>
+    <listitem>
+      <para>doc/CHANGELOG</para>
+    </listitem>
+  </itemizedlist>
 
-    <para>* Aktualisierung der Upgrade-Anleitung von &name-icinga; und &name-idoutils;</para>
+  <para><emphasis role="bold">&name-rep;:</emphasis></para>
 
-    <para>* Aktualisierung der Anleitung für die Installation des Webinterfaces</para>
+  <para>* Komplettes &name-rep;- Paket im Git, download von <link
+  xlink:href="git://git.icinga.org/icinga-reports.git/">:&url-icingagit-rep;</link></para>
 
-    <para>* Aktualisierung der erweiterten Dokumentation zu den IDOUtils (Kapitel 11)</para>
+  <para>* Installationsanleitung im Wiki: <link
+  xlink:href="https://dev.icinga.org/projects/icinga-development/wiki#25-Icinga-Reporting">Icinga-Wiki</link></para>
 
-    <para>* Aktualisierung der Anleitung zur Icinga Api</para>
+  <para><emphasis role="bold">&name-docs;:</emphasis></para>
 
-    <para>* Aktualisierung der Konfigurationsoptionen, Classical UI</para>
+  <para>* Neues Dokument für die Integration von &name-pnp; in &name-web;</para>
+<para>* Neues Dokument über die Icinga-Web API</para>
+<para>* Neues Dokument für externen Kommandos</para>
+<para>* Neue Bilder</para>
+  <para>* Neues Dokument zum &name-rep;</para>
 
-    <para>* Neues Dokument zu weiteren HowTos</para>
+  <para>* Aktualisierung der Anleitung für die Installation des Webinterfaces</para>
 
-    <para>Neue Testanleitungen für Icinga finden Sie hier: <link
-    xlink:href="&url-icinga-test;">Icinga-Development</link></para>
+  
+  <para>* Aktualisierung der Anleitung zur Icinga Api</para>
 
-    <para>Insidertips und mehr Dokumentation rund ums Webinterface finden Sie hier: <link
-    xlink:href="&url-icinga-wiki;">Icinga-Wiki</link></para>
+  <para>* Aktualisierung der Konfigurationsoptionen, Classical UI</para>
 
-    <para>Bitte berichten Sie Probleme hier:</para>
+  <para>* Neues Dokument zu weiteren HowTos</para>
 
-    <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-core">Problembericht &name-core;</link></para>
+  <para>Neue Testanleitungen für Icinga finden Sie hier: <link
+  xlink:href="https://dev.icinga.org/projects/icinga-development/wiki#2-Development">Icinga-Development</link></para>
 
-    <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-web">Problembericht &name-web;</link></para>
+  <para>Insidertips und mehr Dokumentation rund ums Webinterface finden Sie hier: <link
+  xlink:href="https://dev.icinga.org/projects/icinga-development/wiki#24-Icinga-Web">Icinga-Wiki</link></para>
 
-    <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-api">Problembericht &name-api;</link></para>
+  <para>Bitte berichten Sie Probleme hier:</para>
 
-    <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-docs">Problembericht &name-docs;</link></para>
+  <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-core">Problembericht &name-core;</link></para>
 
-    <indexterm zone="whatsnew">
-        <primary>Was ist neu in &name-icinga;</primary>
-    </indexterm>
+  <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-web">Problembericht &name-web;</link></para>
 
-    <xi:include href="changelog-core.xml" />
+  <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-api">Problembericht &name-api;</link></para>
 
-    <xi:include href="changelog-web.xml" />
+  <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-reporting">Report Issue &name-rep;</link></para>
+
+  <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-docs">Problembericht &name-docs;</link></para>
+
+  <indexterm zone="whatsnew">
+    <primary>Was ist neu in &name-icinga;</primary>
+  </indexterm>
 </section>
