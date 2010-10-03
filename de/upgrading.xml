@@ -76,6 +76,27 @@
   haben. Wenn irgendetwas schief geht oder nicht funktioniert, dann können Sie auf diese Weise schnell Ihre alte &name-nagios;-Version
   wiederherstellen.</para>
 
+  <para>Bitte installieren Sie &name-icinga; anhand der <link xlink:href="quickstart">Schnellstart-Anleitung</link>. Bitte beachten Sie,
+  dass</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>der Default-Präfix nun "/usr/local/icinga" heißt</para>
+    </listitem>
+
+    <listitem>
+      <para>die Umgebungs-Makros nun mit ICINGA_ beginnen</para>
+
+      <para>PNP4Nagios berücksichtigt das seit 0.6rc1 (2009.09.20). check_multi bietet Unterstützung seit 0.21 (2010.06.03), aber Sie müssen
+      dazu die Installation mit beginnend mit dem Schritt 'configure --with-nagios_name=icinga' erneut durchführen, damit die
+      check_multi-Prozedur mit geänderten Werten erstellt wird.</para>
+    </listitem>
+
+    <listitem>
+      <para>die Konfigurationsdateien der (verbesserten) IDOUtils heißen nun idomod.cfg/ido2db.cfg anstatt ndomod.cfg/ndo2db.cfg</para>
+    </listitem>
+  </itemizedlist>
+
   <para>Werden Sie der nagios-Benutzer. &name-debian;/&name-ubuntu;-Benutzer sollten <emphasis>sudo -s nagios</emphasis> benutzen.</para>
 
   <screen> $ su -l nagios</screen>
@@ -102,16 +123,29 @@
   <para>Installieren Sie aktualisierte Programme, Dokumentation, Web-Interface und das Init-Script. Ihre vorhandenen Konfigurationsdaten
   werden in diesem Schritt nicht überschrieben.</para>
 
-  <screen> #&gt; make install
+  <screen> #&gt; make cgis
+ #&gt; make install
+ #&gt; make install-cgis
  #&gt; make install-init</screen>
 
-  <para>Kopieren Sie Ihre Konfigurationsdateien nach &url-icinga-base;/etc bzw. &url-icinga-base;/etc/object. Benennen Sie die
-  Hauptkonfigurationsdatei <emphasis>nagios.cfg</emphasis> in <emphasis>icinga.cfg</emphasis> um und ändern Sie in &url-icinga-cfg; die
-  Namen der Direktiven "nagios_user" in "icinga_user" und "nagios_group" in "icinga_group". Das betrifft ggf. auch die Pfade in der Datei.</para>
-  <programlisting> #&gt; sed -i 's/nagios/icinga/g' ./icinga.cfg/</programlisting>
+  <para>Kopieren Sie Ihre Konfigurationsdateien nach &url-icinga-base;/etc bzw. &url-icinga-base;/etc/object. Vor dem Start von
+  &name-icinga; müssen Sie noch ein paar Dinge anpassen:</para>
 
-  <para>Ändern Sie in der CGI-Konfigurationsdatei <emphasis>cgi.cfg</emphasis> die Pfad-Angaben.</para>
-	  <programlisting> #&gt; sed -i 's/nagios/icinga/g' ./cgi.cfg/</programlisting>
+  <itemizedlist>
+    <listitem>
+      <para>Benennen Sie die Hauptkonfigurationsdatei <emphasis>nagios.cfg</emphasis> in <emphasis>icinga.cfg</emphasis> um und ändern Sie
+      in &url-icinga-cfg; die Namen der Direktiven "nagios_user" in "icinga_user" und "nagios_group" in "icinga_group". Das betrifft ggf.
+      auch die Pfade in der Datei.</para>
+
+      <para><programlisting> #&gt; sed -i 's/nagios/icinga/g' ./icinga.cfg/</programlisting></para>
+    </listitem>
+
+    <listitem>
+      <para>Ändern Sie in der CGI-Konfigurationsdatei <emphasis>cgi.cfg</emphasis> die Pfad-Angaben.</para>
+
+      <programlisting> #&gt; sed -i 's/nagios/icinga/g' ./cgi.cfg/</programlisting>
+    </listitem>
+  </itemizedlist>
 
   <para>Überprüfen Sie Ihre Konfigurationsdateien und starten Sie &name-icinga;.</para>
 
@@ -119,6 +153,18 @@
  #&gt; /etc/init.d/icinga start</screen>
 
   <para>Das war's - Sie sind fertig!</para>
+
+  <para>Bitte beachten Sie, dass</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>der Aufruf im Browser nun http://localhost/icinga/ lautet (für das klassische UI)</para>
+    </listitem>
+
+    <listitem>
+      <para>der Name des Admin-Benutzers nun icingaadmin lautet</para>
+    </listitem>
+  </itemizedlist>
 
   <para><anchor xml:id="upgrading-nagios2x" /> <emphasis role="bold">Upgrade von &name-nagios; 2.x</emphasis></para>
 
