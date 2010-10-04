@@ -54,8 +54,8 @@
   <code>configure</code> requires the same parameters as before - look it up in <code>config.log</code> and save that in a safe
   location.</para>
 
-  <para>Become icinga user. Debian/Ubuntu users might use <code>sudo -s icinga</code>. <programlisting> $&gt; su -l icinga</programlisting> Get
-  the latest Icinga version from &url-icinga; and extract it. Then run configure like you did with the old version. <programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils</programlisting>
+  <para>Become the icinga user. Debian/Ubuntu users might use <code>sudo -s icinga</code>. <programlisting> $&gt; su -l icinga</programlisting>
+  Get the latest Icinga version from &url-icinga; and extract it. Then run configure like you did with the old version. <programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils</programlisting>
   Compile the source. <programlisting> #&gt; make all</programlisting> Please make sure that you don't overwrite your configs - always make
   a backup! Don't use <code>make install-config</code> and/or <code>make install-webconf</code> if you want to manually diff the config
   files. <programlisting> #&gt; make install install-base install-cgis install-html install-init install-commandmode install-idoutils</programlisting>
@@ -69,11 +69,70 @@
   have to do to "upgrade" from &name-nagios; 3.x to &name-icinga; &ver-icinga;. Assuming you've already installed &name-nagios; from source
   code as described in the &name-nagios; quickstart guide, you can install &name-icinga; quite easily.</para>
 
+  <para>If you are upgrading from &name-nagios; 3.0.x you might need to install PHP:</para>
+
+  <para><emphasis>Debian / Ubuntu</emphasis> <screen> #&gt; apt-get install php5 libapache2-mod-php5</screen></para>
+
+  <para><emphasis>Fedora / RedHat</emphasis></para>
+
+  <screen> #&gt; yum install php mod_php</screen>
+
+  <para><emphasis>openSuSE / SLES:</emphasis> Use Yast to install the packages <emphasis>php5</emphasis> and
+  <emphasis>apache2-mod_php5</emphasis>.</para>
+
   <para>Make sure you have a good backup of your existing &name-nagios; installation and configuration files. If anything goes wrong or
   doesn't work, this will allow you to rollback to your old version.</para>
 
-  <para>Please install &name-icinga; according to the <link xlink:href="quickstart">quickstart guide</link>. Instead of using "make
-  install-config" copy your configuration files from <emphasis>&lt;Nagios-path&gt;/etc/</emphasis> to
+  <para>Please install &name-icinga; according to the <link xlink:href="quickstart">quickstart guide</link>. Please note that</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>the default prefix has changed to "/usr/local/icinga"</para>
+    </listitem>
+
+    <listitem>
+      <para>the environment macros start with ICINGA_</para>
+
+      <para>PNP4Nagios is aware of that since 0.6rc1 (2009.09.20). check_multi includes support since v0.21 (2010.06.03), but you have to
+      rerun the installation using 'configure --with-nagios_name=icinga' so that check_multi contains the correct values.</para>
+    </listitem>
+
+    <listitem>
+      <para>the configuration file names of the (enhanced) IDOUtils are named idomod.cfg/ido2db.cfg instead of ndomod.cfg/ndo2db.cfg</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>Become the icinga user. Debian/Ubuntu users might use <code>sudo -s icinga</code>.</para>
+
+  <screen> $ su -l nagios</screen>
+
+  <para>Get the latest &name-icinga; version from <link xlink:href="http://www.icinga.org//">&url-icinga;</link> </para>
+
+  <screen> #&gt; wget http://osdn.dl.sourceforge.net/sourceforge/icinga/icinga-<emphasis>&ver-icinga;</emphasis>.tar.gz</screen>
+
+  <para>Extract the tarball and change to the directory just created</para>
+
+  <screen> #&gt; tar xzf icinga-<emphasis>&ver-icinga;</emphasis>.tar.gz
+ #&gt; cd icinga-<emphasis>&ver-icinga;</emphasis> </screen>
+
+  <para>Start the &name-icinga;-configure-script with the options you used the last time with &name-nagios;. You'll find the call in the
+  file config.log. Example:</para>
+
+  <screen> #&gt; ./configure --with-command-group=nagcmd</screen>
+
+  <para>Compile the &name-icinga; source code.</para>
+
+  <screen> #&gt; make all</screen>
+
+  <para>Install the programs, documentation, classic web interface and the init script. Your existing config files will not be
+  overwritten.</para>
+
+  <screen> #&gt; make cgis 
+ #&gt; make install
+ #&gt; make install-cgis
+ #&gt; make install-init</screen>
+
+  <para>Instead of using "make install-config" copy your configuration files from <emphasis>&lt;Nagios-path&gt;/etc/</emphasis> to
   <emphasis>&lt;Icinga-path&gt;/etc/</emphasis>. Before starting &name-icinga; you have to alter some things:</para>
 
   <itemizedlist>
@@ -85,12 +144,14 @@
     <listitem>
       <para>You have to edit the main config file (icinga.cfg) to change the directives named "nagios_user" and "nagios_group" to
       "icinga_user" and "icinga_group" respectively. Depending on the paths you're using you may have to change them as well.</para>
-	  <programlisting> #&gt; sed -i 's/nagios/icinga/g' ./icinga.cfg/</programlisting>
+
+      <programlisting> #&gt; sed -i 's/nagios/icinga/g' ./icinga.cfg/</programlisting>
     </listitem>
 
     <listitem>
       <para>You have to edit the CGI config file (cgi.cfg) to change the paths you're using.</para>
-	  <programlisting> #&gt; sed -i 's/nagios/icinga/g' ./cgi.cfg/</programlisting>
+
+      <programlisting> #&gt; sed -i 's/nagios/icinga/g' ./cgi.cfg/</programlisting>
     </listitem>
   </itemizedlist>
 
@@ -105,7 +166,7 @@
 
   <itemizedlist>
     <listitem>
-      <para>the URL has changed to http://localhost/icinga/</para>
+      <para>the URL has changed to http://localhost/icinga/ (for the classic UI)</para>
     </listitem>
 
     <listitem>

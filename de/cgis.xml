@@ -4,17 +4,16 @@
 %all.entities;
 ]>
 <section version="5.0" xml:id="cgis" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>&name-ui;: Informationen über die CGIs</title>
 
   <para><emphasis role="bold">Einführung in das &name-ui;</emphasis></para>
 
   <para>Die verschiedenen mit dem &name-icinga; Core gelieferten CGIs werden hier beschrieben, zusammen mit den Autorisierungsanforderungen
-  für den Zugriff und den Gebrauch jedes CGIs. Im Grundzustand erwarten die CGIs, dass Sie sich dem Web-Server gegenüber
-  authentifiziert haben und autorisiert sind, jede Information zu sehen, die Sie anfordern. Mehr Informationen über die
-  Konfiguration der Autorisierung finden Sie <link linkend="cgiauth">hier</link>.</para>
+  für den Zugriff und den Gebrauch jedes CGIs. Im Grundzustand erwarten die CGIs, dass Sie sich dem Web-Server gegenüber authentifiziert
+  haben und autorisiert sind, jede Information zu sehen, die Sie anfordern. Mehr Informationen über die Konfiguration der Autorisierung
+  finden Sie <link linkend="cgiauth">hier</link>.</para>
 
   <para><emphasis role="bold">Index</emphasis></para>
 
@@ -47,6 +46,8 @@
   <para><link linkend="cgis-histogram_cgi">Alert histogram CGI</link></para>
 
   <para><link linkend="cgis-summary_cgi">Alert summary CGI</link></para>
+
+  <para><link linkend="cgis-changes">Änderungen am Classic UI</link></para>
 
   <para><anchor xml:id="cgis-status_cgi" /><emphasis role="bold">Status CGI</emphasis></para>
 
@@ -94,26 +95,26 @@
 
   <para><emphasis role="bold">Beschreibung:</emphasis></para>
 
-  <para>Dies ist das wichtigste mit &name-icinga; gelieferte CGI. Es erlaubt Ihnen den aktuellen Status aller überwachten Hosts
-  und Services zu sehen. Das Status-CGI kann zwei Arten von Ausgaben liefern - einen Status-Überblick aller Hostgruppen (oder
-  einer bestimmten Hostgruppe) und eine detaillierte Anzeige aller Services (oder diese bezogen auf einen bestimmten Host).</para>
+  <para>Dies ist das wichtigste mit &name-icinga; gelieferte CGI. Es erlaubt Ihnen den aktuellen Status aller überwachten Hosts und Services
+  zu sehen. Das Status-CGI kann zwei Arten von Ausgaben liefern - einen Status-Überblick aller Hostgruppen (oder einer bestimmten
+  Hostgruppe) und eine detaillierte Anzeige aller Services (oder diese bezogen auf einen bestimmten Host).</para>
 
   <para><emphasis role="bold">Autorisierungsanforderungen:</emphasis></para>
 
   <itemizedlist>
     <listitem>
-      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_hosts"> <emphasis>für alle Hosts autorisiert</emphasis> </link>
-      sind, können Sie alle Hosts <emphasis role="bold">und</emphasis> alle Services ansehen.</para>
+      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_hosts"> <emphasis>für alle Hosts autorisiert</emphasis> </link> sind,
+      können Sie alle Hosts <emphasis role="bold">und</emphasis> alle Services ansehen.</para>
     </listitem>
 
     <listitem>
-      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_services"> <emphasis>für alle Services autorisiert</emphasis>
-      </link> sind, können Sie alle Services ansehen.</para>
+      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_services"> <emphasis>für alle Services autorisiert</emphasis> </link> sind,
+      können Sie alle Services ansehen.</para>
     </listitem>
 
     <listitem>
-      <para>Wenn Sie ein <emphasis>authentifizierter Kontakt</emphasis> sind, können Sie alle Hosts und Services ansehen, deren
-      Kontakt Sie sind.</para>
+      <para>Wenn Sie ein <emphasis>authentifizierter Kontakt</emphasis> sind, können Sie alle Hosts und Services ansehen, deren Kontakt Sie
+      sind.</para>
     </listitem>
   </itemizedlist>
 
@@ -140,17 +141,16 @@
   <para>Dieses CGI erstellt eine Karte aller Hosts, die Sie in Ihrem Netzwerk definiert haben. Das CGI nutzt Thomas Boutells <link
   xlink:href="http://www.boutell.com/gd/">gd</link>-Library (Version 1.6.3 oder höher), um ein PNG-Bild Ihrer Netzwerk-Struktur zu
   erstellen. Die verwendeten Koordinaten (zusammen mit den optionalen Icons) werden aus den <link
-  linkend="objectdefinitions-host">Host</link>-Definitionen genommen. Wenn Sie es vorziehen, dass das CGI automatisch für Sie
-  Koordinaten generiert, nutzen Sie die <link
-  linkend="configcgi-default_statusmap_layout">default_statusmap_layout</link>-Direktive, um einen Layout-Algorithmus zu
-  definieren.</para>
+  linkend="objectdefinitions-host">Host</link>-Definitionen genommen. Wenn Sie es vorziehen, dass das CGI automatisch für Sie Koordinaten
+  generiert, nutzen Sie die <link linkend="configcgi-default_statusmap_layout">default_statusmap_layout</link>-Direktive, um einen
+  Layout-Algorithmus zu definieren.</para>
 
   <para><emphasis role="bold">Autorisierungsanforderungen:</emphasis></para>
 
   <itemizedlist>
     <listitem>
-      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_hosts"><emphasis>für alle Hosts autorisiert</emphasis></link>
-      sind, können Sie alle Hosts <emphasis role="bold">und</emphasis> alle Services ansehen.</para>
+      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_hosts"><emphasis>für alle Hosts autorisiert</emphasis></link> sind, können
+      Sie alle Hosts <emphasis role="bold">und</emphasis> alle Services ansehen.</para>
     </listitem>
 
     <listitem>
@@ -160,9 +160,9 @@
   </itemizedlist>
 
   <note>
-    <para>Anmerkung: Benutzer, die nicht autorisiert sind, bestimmte Hosts zu sehen, werden <emphasis>unbekannte</emphasis> Knoten
-    an diesen Stellen sehen. Uns ist klar, dass sie eigentlich <emphasis>überhaupt nichts</emphasis> dort sehen sollten, aber es
-    ist nicht sinnvoll, eine Karte zu generieren, wenn man nicht die ganzen Host-Abhängigkeiten sehen kann.</para>
+    <para>Anmerkung: Benutzer, die nicht autorisiert sind, bestimmte Hosts zu sehen, werden <emphasis>unbekannte</emphasis> Knoten an diesen
+    Stellen sehen. Uns ist klar, dass sie eigentlich <emphasis>überhaupt nichts</emphasis> dort sehen sollten, aber es ist nicht sinnvoll,
+    eine Karte zu generieren, wenn man nicht die ganzen Host-Abhängigkeiten sehen kann.</para>
   </note>
 
   <para><anchor xml:id="cgis-statuswml_cgi" /><emphasis role="bold">WAP Interface CGI</emphasis></para>
@@ -187,33 +187,33 @@
 
   <para><emphasis role="bold">Beschreibung:</emphasis></para>
 
-  <para>Dieses CGI dient als WAP-Interface für Netzwerk-Status-Informationen. Wenn Sie ein Gerät mit WAP-Unterstützung haben (z.B.
-  ein Internet-fähiges Handy), können Sie Statusinformationen ansehen, während Sie unterwegs sind. Verschiedene Status-Anzeigen
-  enthalten Hostgruppen-Zusammenfassung, Hostgruppen-Übersicht, Host-Details, Service-Details, alle Probleme und alle
-  unbehandelten Probleme. Zusätzlich zur Ansicht von Statusinformationen können Sie mit Ihrem Handy auch Benachrichtigungen und
-  Prüfungen deaktivieren und Probleme bestätigen. Ziemlich cool, oder?</para>
+  <para>Dieses CGI dient als WAP-Interface für Netzwerk-Status-Informationen. Wenn Sie ein Gerät mit WAP-Unterstützung haben (z.B. ein
+  Internet-fähiges Handy), können Sie Statusinformationen ansehen, während Sie unterwegs sind. Verschiedene Status-Anzeigen enthalten
+  Hostgruppen-Zusammenfassung, Hostgruppen-Übersicht, Host-Details, Service-Details, alle Probleme und alle unbehandelten Probleme.
+  Zusätzlich zur Ansicht von Statusinformationen können Sie mit Ihrem Handy auch Benachrichtigungen und Prüfungen deaktivieren und Probleme
+  bestätigen. Ziemlich cool, oder?</para>
 
   <para><emphasis role="bold">Autorisierungsanforderungen:</emphasis></para>
 
   <itemizedlist>
     <listitem>
-      <para>Wenn Sie <link linkend="configcgi-authorized_for_system_information"> <emphasis>für Systeminformationen
-      autorisiert</emphasis> </link> sind, können Sie &name-icinga;-Prozess-Informationen ansehen.</para>
+      <para>Wenn Sie <link linkend="configcgi-authorized_for_system_information"> <emphasis>für Systeminformationen autorisiert</emphasis>
+      </link> sind, können Sie &name-icinga;-Prozess-Informationen ansehen.</para>
     </listitem>
 
     <listitem>
-      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_hosts"> <emphasis>für alle Hosts autorisiert</emphasis> </link>
-      sind, können Sie Zustandsdaten für alle Hosts <emphasis role="bold">und</emphasis> alle Services ansehen.</para>
+      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_hosts"> <emphasis>für alle Hosts autorisiert</emphasis> </link> sind,
+      können Sie Zustandsdaten für alle Hosts <emphasis role="bold">und</emphasis> alle Services ansehen.</para>
     </listitem>
 
     <listitem>
-      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_services"> <emphasis>für alle Services autorisiert</emphasis>
-      </link> sind, können Sie Zustandsdaten für alle Services ansehen.</para>
+      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_services"> <emphasis>für alle Services autorisiert</emphasis> </link> sind,
+      können Sie Zustandsdaten für alle Services ansehen.</para>
     </listitem>
 
     <listitem>
-      <para>Wenn Sie ein <emphasis>authentifizierter Kontakt</emphasis> sind, können Sie Zustandsdaten für alle Hosts und Services
-      ansehen, deren Kontakt Sie sind.</para>
+      <para>Wenn Sie ein <emphasis>authentifizierter Kontakt</emphasis> sind, können Sie Zustandsdaten für alle Hosts und Services ansehen,
+      deren Kontakt Sie sind.</para>
     </listitem>
   </itemizedlist>
 
@@ -238,27 +238,27 @@
   <para><emphasis role="bold">Beschreibung:</emphasis></para>
 
   <para>Dieses CGI dient als Sicht aus der "Vogelperspektive" auf alle Netzwerk-Überwachungs-Aktivitäten. Es erlaubt Ihnen schnell
-  Netzwerkausfälle sowie Host- und Service-Zustände zu erkennen. Es unterscheidet zwischen Problemen, die auf irgendeine Weise
-  "behandelt" wurden (z.B. bestätigt oder Benachrichtigungen deaktiviert) und solchen, die nicht behandelt wurden und die deshalb
-  Beachtung erfordern. Das ist sehr hilfreich, wenn Sie viele zu überwachende Hosts und Services haben und einen einzelnen
-  Bildschirm zur Alarmierung �ber Probleme einsetzen möchten.</para>
+  Netzwerkausfälle sowie Host- und Service-Zustände zu erkennen. Es unterscheidet zwischen Problemen, die auf irgendeine Weise "behandelt"
+  wurden (z.B. bestätigt oder Benachrichtigungen deaktiviert) und solchen, die nicht behandelt wurden und die deshalb Beachtung erfordern.
+  Das ist sehr hilfreich, wenn Sie viele zu überwachende Hosts und Services haben und einen einzelnen Bildschirm zur Alarmierung über
+  Probleme einsetzen möchten.</para>
 
   <para><emphasis role="bold">Autorisierungsanforderungen:</emphasis></para>
 
   <itemizedlist>
     <listitem>
-      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_hosts"> <emphasis>für alle Hosts autorisiert</emphasis> </link>
-      sind, können Sie alle Hosts <emphasis role="bold">und</emphasis> alle Services ansehen.</para>
+      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_hosts"> <emphasis>für alle Hosts autorisiert</emphasis> </link> sind,
+      können Sie alle Hosts <emphasis role="bold">und</emphasis> alle Services ansehen.</para>
     </listitem>
 
     <listitem>
-      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_services"> <emphasis>für alle Services autorisiert</emphasis>
-      </link> sind, können Sie alle Services ansehen.</para>
+      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_services"> <emphasis>für alle Services autorisiert</emphasis> </link> sind,
+      können Sie alle Services ansehen.</para>
     </listitem>
 
     <listitem>
-      <para>Wenn Sie ein <emphasis>authentifizierter Kontakt</emphasis> sind, können Sie alle Hosts und Services ansehen, deren
-      Kontakt Sie sind.</para>
+      <para>Wenn Sie ein <emphasis>authentifizierter Kontakt</emphasis> sind, können Sie alle Hosts und Services ansehen, deren Kontakt Sie
+      sind.</para>
     </listitem>
   </itemizedlist>
 
@@ -284,19 +284,18 @@
 
   <para><emphasis role="bold">Beschreibung:</emphasis></para>
 
-  <para>Dieses CGI zeigt eine Liste von "Problem"-Hosts, die Netzwerkausfälle hervorrufen. Dies kann besonders dann hilfreich
-  sein, wenn Sie ein großes Netzwerk haben und schnell die Quelle des Problems identifizieren möchten. Hosts werden sortiert nach
-  der Schwere des Ausfalls, den sie bewirken.</para>
+  <para>Dieses CGI zeigt eine Liste von "Problem"-Hosts, die Netzwerkausfälle hervorrufen. Dies kann besonders dann hilfreich sein, wenn Sie
+  ein großes Netzwerk haben und schnell die Quelle des Problems identifizieren möchten. Hosts werden sortiert nach der Schwere des Ausfalls,
+  den sie bewirken.</para>
 
   <itemizedlist>
     <listitem>
-      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_hosts"> <emphasis>für alle Hosts autorisiert</emphasis> </link>
-      sind, können Sie alle Hosts ansehen.</para>
+      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_hosts"> <emphasis>für alle Hosts autorisiert</emphasis> </link> sind,
+      können Sie alle Hosts ansehen.</para>
     </listitem>
 
     <listitem>
-      <para>Wenn Sie ein <emphasis>authentifizierter Kontakt</emphasis> sind, können Sie alle Hosts ansehen, deren Kontakt Sie
-      sind.</para>
+      <para>Wenn Sie ein <emphasis>authentifizierter Kontakt</emphasis> sind, können Sie alle Hosts ansehen, deren Kontakt Sie sind.</para>
     </listitem>
   </itemizedlist>
 
@@ -322,16 +321,15 @@
 
   <para><emphasis role="bold">Beschreibung:</emphasis></para>
 
-  <para>Dieses CGI erlaubt es Ihnen, Objekte (z.B. Hosts, Hostgruppen, Kontakte, Kontaktgruppen, Zeitfenster, Services, etc.)
-  anzusehen, die Sie in Ihrer/Ihren <link linkend="configobject">Objekt-Konfigurationsdatei(en)</link> definiert haben.</para>
+  <para>Dieses CGI erlaubt es Ihnen, Objekte (z.B. Hosts, Hostgruppen, Kontakte, Kontaktgruppen, Zeitfenster, Services, etc.) anzusehen, die
+  Sie in Ihrer/Ihren <link linkend="configobject">Objekt-Konfigurationsdatei(en)</link> definiert haben.</para>
 
   <para><emphasis role="bold">Autorisierungsanforderungen:</emphasis></para>
 
   <itemizedlist>
     <listitem>
-      <para>Sie müssen <link linkend="configcgi-authorized_for_configuration_information"> <emphasis>für
-      Konfigurationsinformationen autorisiert</emphasis> </link> sein, um jegliche Konfigurationsinformationen ansehen zu
-      können.</para>
+      <para>Sie müssen <link linkend="configcgi-authorized_for_configuration_information"> <emphasis>für Konfigurationsinformationen
+      autorisiert</emphasis> </link> sein, um jegliche Konfigurationsinformationen ansehen zu können.</para>
     </listitem>
   </itemizedlist>
 
@@ -357,32 +355,31 @@
 
   <para><emphasis role="bold">Beschreibung:</emphasis></para>
 
-  <para>Dieses CGI erlaubt es Ihnen, Befehle an den &name-icinga;-Prozess zu senden. Obwohl dieses CGI mehrere Argumente hat,
-  sollten Sie besser darauf verzichten. Die meisten wechseln zwischen verschiedenen Revisionen von &name-icinga;. Nutzen Sie das
-  <link linkend="cgis-extinfo_cgi">extended information CGI</link> als Startpunkt, um Befehle zu erteilen.</para>
+  <para>Dieses CGI erlaubt es Ihnen, Befehle an den &name-icinga;-Prozess zu senden. Obwohl dieses CGI mehrere Argumente hat, sollten Sie
+  besser darauf verzichten. Die meisten wechseln zwischen verschiedenen Revisionen von &name-icinga;. Nutzen Sie das <link
+  linkend="cgis-extinfo_cgi">extended information CGI</link> als Startpunkt, um Befehle zu erteilen.</para>
 
   <para><emphasis role="bold">Autorisierungsanforderungen:</emphasis></para>
 
   <itemizedlist>
     <listitem>
-      <para>Sie müssen <link linkend="configcgi-authorized_for_system_commands"> <emphasis>für System-Befehle
-      autorisiert</emphasis> </link> sein, um Befehle zu erteilen, die den &name-icinga;-Prozess beeinflussen (Start, Stop,
-      Modus-Wechsel, etc.).</para>
+      <para>Sie müssen <link linkend="configcgi-authorized_for_system_commands"> <emphasis>für System-Befehle autorisiert</emphasis> </link>
+      sein, um Befehle zu erteilen, die den &name-icinga;-Prozess beeinflussen (Start, Stop, Modus-Wechsel, etc.).</para>
     </listitem>
 
     <listitem>
-      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_hosts"> <emphasis>für alle Hosts-Befehle autorisiert</emphasis>
-      </link> sind, können Sie Befehle für alle Hosts <emphasis role="bold">und</emphasis> alle Services erteilen.</para>
+      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_hosts"> <emphasis>für alle Hosts-Befehle autorisiert</emphasis> </link>
+      sind, können Sie Befehle für alle Hosts <emphasis role="bold">und</emphasis> alle Services erteilen.</para>
     </listitem>
 
     <listitem>
-      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_services"> <emphasis>für alle Service-Befehle
-      autorisiert</emphasis> </link> sind, können Sie Befehle für alle Services erteilen.</para>
+      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_services"> <emphasis>für alle Service-Befehle autorisiert</emphasis>
+      </link> sind, können Sie Befehle für alle Services erteilen.</para>
     </listitem>
 
     <listitem>
-      <para>Wenn Sie ein <emphasis>authentifizierter Kontakt</emphasis> sind, können Sie Befehle für alle Hosts und Services
-      erteilen, deren Kontakt Sie sind.</para>
+      <para>Wenn Sie ein <emphasis>authentifizierter Kontakt</emphasis> sind, können Sie Befehle für alle Hosts und Services erteilen, deren
+      Kontakt Sie sind.</para>
     </listitem>
   </itemizedlist>
 
@@ -390,10 +387,9 @@
 
   <itemizedlist>
     <listitem>
-      <para>Wenn Sie sich entschieden haben, die Option <link linkend="configcgi-use_authentication">use_authentication</link> für
-      die CGIs nicht zu nutzen, wird dieses CGI <emphasis>jedem</emphasis> die Möglichkeit verweigern, Befehle zu erteilen. Dies
-      geschieht zu Ihrem eigenen Schutz. Wir würden empfehlen, dieses CGI komplett zu entfernen, wenn Sie die Authentifizierung
-      für CGI nicht nutzen.</para>
+      <para>Wenn Sie sich entschieden haben, die Option <link linkend="configcgi-use_authentication">use_authentication</link> für die CGIs
+      nicht zu nutzen, wird dieses CGI <emphasis>jedem</emphasis> die Möglichkeit verweigern, Befehle zu erteilen. Dies geschieht zu Ihrem
+      eigenen Schutz. Wir würden empfehlen, dieses CGI komplett zu entfernen, wenn Sie die Authentifizierung für CGI nicht nutzen.</para>
     </listitem>
   </itemizedlist>
 
@@ -444,33 +440,33 @@
   <para><emphasis role="bold">Beschreibung:</emphasis></para>
 
   <para>Dieses CGI erlaubt es Ihnen, &name-icinga;-Prozess-Informationen, Host- und Service-Zustandsstatistiken, Host- und
-  Service-Kommentare und mehr anzusehen. Es dient auch als Startpunkt, um über das <link linkend="cgis-cmd_cgi">command CGI</link>
-  Befehle an &name-icinga; zu erteilen. Obwohl dieses CGI mehrere Argumente hat, sollten Sie besser darauf verzichten. Die meisten
-  wechseln zwischen verschiedenen Revisionen von &name-icinga;. Sie können dieses CGI erreichen, indem Sie auf 'Network Health'
-  bzw. 'Process Information' in der setilichen Navigationsleiste klicken oder auf einen Host- oder Service-Link in der Ausgabe des
-  <link linkend="cgis-status_cgi">status CGI</link>.</para>
+  Service-Kommentare und mehr anzusehen. Es dient auch als Startpunkt, um über das <link linkend="cgis-cmd_cgi">command CGI</link> Befehle
+  an &name-icinga; zu erteilen. Obwohl dieses CGI mehrere Argumente hat, sollten Sie besser darauf verzichten. Die meisten wechseln zwischen
+  verschiedenen Revisionen von &name-icinga;. Sie können dieses CGI erreichen, indem Sie auf 'Network Health' bzw. 'Process Information' in
+  der setilichen Navigationsleiste klicken oder auf einen Host- oder Service-Link in der Ausgabe des <link linkend="cgis-status_cgi">status
+  CGI</link>.</para>
 
   <para><emphasis role="bold">Autorisierungsanforderungen:</emphasis></para>
 
   <itemizedlist>
     <listitem>
-      <para>Sie müssen <link linkend="configcgi-authorized_for_system_information"> <emphasis>für Systeminformationen
-      autorisiert</emphasis> </link> sein, um &name-icinga;-Prozess-Informationen ansehen zu können.</para>
+      <para>Sie müssen <link linkend="configcgi-authorized_for_system_information"> <emphasis>für Systeminformationen autorisiert</emphasis>
+      </link> sein, um &name-icinga;-Prozess-Informationen ansehen zu können.</para>
     </listitem>
 
     <listitem>
-      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_hosts"> <emphasis>für lle Hosts autorisiert</emphasis> </link>
-      sind, können Sie erweiterte Informationen für alle Hosts <emphasis role="bold">und</emphasis> alle Services ansehen.</para>
+      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_hosts"> <emphasis>für lle Hosts autorisiert</emphasis> </link> sind, können
+      Sie erweiterte Informationen für alle Hosts <emphasis role="bold">und</emphasis> alle Services ansehen.</para>
     </listitem>
 
     <listitem>
-      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_services"> <emphasis>für alle Services autorisiert</emphasis>
-      </link> sind, können Sie erweiterte Informationen für alle Services ansehen.</para>
+      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_services"> <emphasis>für alle Services autorisiert</emphasis> </link> sind,
+      können Sie erweiterte Informationen für alle Services ansehen.</para>
     </listitem>
 
     <listitem>
-      <para>Wenn Sie ein <emphasis>authentifizierter Kontakt</emphasis> sind, können Sie erweiterte Informationen für alle Hosts
-      und Services ansehen, deren Kontakt Sie sind.</para>
+      <para>Wenn Sie ein <emphasis>authentifizierter Kontakt</emphasis> sind, können Sie erweiterte Informationen für alle Hosts und
+      Services ansehen, deren Kontakt Sie sind.</para>
     </listitem>
   </itemizedlist>
 
@@ -497,15 +493,15 @@
   <para><emphasis role="bold">Beschreibung:</emphasis></para>
 
   <para>Dieses CGI zeigt das <link linkend="configmain-log_file">log file</link>. Wenn Sie die <link
-  linkend="configmain-log_rotation_method">log rotation</link> aktiviert haben, können Sie in archivierten Log-Dateien blättern,
-  indem Sie die Navigations-Links oben auf der Seite benutzen.</para>
+  linkend="configmain-log_rotation_method">log rotation</link> aktiviert haben, können Sie in archivierten Log-Dateien blättern, indem Sie
+  die Navigations-Links oben auf der Seite benutzen.</para>
 
   <para><emphasis role="bold">Autorisierungsanforderungen:</emphasis></para>
 
   <itemizedlist>
     <listitem>
-      <para>Sie müssen <link linkend="configcgi-authorized_for_system_information"> <emphasis>für Systeminformationen
-      autorisiert</emphasis> </link> sein, um das Logfile ansehen zu können.</para>
+      <para>Sie müssen <link linkend="configcgi-authorized_for_system_information"> <emphasis>für Systeminformationen autorisiert</emphasis>
+      </link> sein, um das Logfile ansehen zu können.</para>
     </listitem>
   </itemizedlist>
 
@@ -531,29 +527,28 @@
 
   <para><emphasis role="bold">Beschreibung:</emphasis></para>
 
-  <para>Dieses CGI wird benutzt, um die Problem-Historie für einen oder alle Hosts anzuzeigen. Die Ausgabe ist grundsätzlich ein
-  Auszug der Informationen, die über das <link linkend="cgis-showlog_cgi">log file CGI</link> angezeigt werden. Sie haben die
-  Möglichkeit, die Ausgabe zu filtern, um nur die Problemtypen anzuzeigen, die Sie sehen wollen (z.B. Hard- und/oder Soft-Alarme,
-  verschiedene Typen von Service- und Host-Alarmen, alle Arten von Alarmen, usw.). Wenn Sie die <link
-  linkend="configmain-log_rotation_method">log rotation</link> aktiviert haben, können Sie in archivierten Log-Dateien blättern,
-  indem Sie die Navigations-Links oben auf der Seite benutzen.</para>
+  <para>Dieses CGI wird benutzt, um die Problem-Historie für einen oder alle Hosts anzuzeigen. Die Ausgabe ist grundsätzlich ein Auszug der
+  Informationen, die über das <link linkend="cgis-showlog_cgi">log file CGI</link> angezeigt werden. Sie haben die Möglichkeit, die Ausgabe
+  zu filtern, um nur die Problemtypen anzuzeigen, die Sie sehen wollen (z.B. Hard- und/oder Soft-Alarme, verschiedene Typen von Service- und
+  Host-Alarmen, alle Arten von Alarmen, usw.). Wenn Sie die <link linkend="configmain-log_rotation_method">log rotation</link> aktiviert
+  haben, können Sie in archivierten Log-Dateien blättern, indem Sie die Navigations-Links oben auf der Seite benutzen.</para>
 
   <para><emphasis role="bold">Autorisierungsanforderungen:</emphasis></para>
 
   <itemizedlist>
     <listitem>
-      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_hosts"> <emphasis>für alle Hosts autorisiert</emphasis> </link>
-      sind, können Sie historische Informationen für alle Hosts <emphasis role="bold">und</emphasis> alle Services ansehen.</para>
+      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_hosts"> <emphasis>für alle Hosts autorisiert</emphasis> </link> sind,
+      können Sie historische Informationen für alle Hosts <emphasis role="bold">und</emphasis> alle Services ansehen.</para>
     </listitem>
 
     <listitem>
-      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_services"> <emphasis>für alle Services autorisiert</emphasis>
-      </link> sind, können Sie historische Informationen für alle Services ansehen.</para>
+      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_services"> <emphasis>für alle Services autorisiert</emphasis> </link> sind,
+      können Sie historische Informationen für alle Services ansehen.</para>
     </listitem>
 
     <listitem>
-      <para>Wenn Sie ein <emphasis>authentifizierter Kontakt</emphasis> sind, können Sie historische Informationen für alle Hosts
-      und Services ansehen, deren Kontakt Sie sind.</para>
+      <para>Wenn Sie ein <emphasis>authentifizierter Kontakt</emphasis> sind, können Sie historische Informationen für alle Hosts und
+      Services ansehen, deren Kontakt Sie sind.</para>
     </listitem>
   </itemizedlist>
 
@@ -579,29 +574,29 @@
 
   <para><emphasis role="bold">Beschreibung:</emphasis></para>
 
-  <para>Dieses CGI wird genutzt, um Host- und Service-Benachrichtigungen anzuzeigen, die an verschiedene Kontakte versandt wurden.
-  Die Ausgabe ist grundsätzlich ein Auszug der Informationen, die über das <link linkend="cgis-showlog_cgi">log file CGI</link>
-  angezeigt werden. Sie haben die Möglichkeit, die Ausgabe zu filtern, um nur die Benachrichtigungen anzuzeigen, die Sie sehen
-  wollen (z.B. Service-Benachrichtigungen, Host-Benachrichtigungen, Benachrichtigungen, die an bestimmte Kontakte versandt wurden,
-  usw.). Wenn Sie die <link linkend="configmain-log_rotation_method">log rotation</link> aktiviert haben, können Sie in
-  archivierten Log-Dateien blättern, indem Sie die Navigations-Links oben auf der Seite benutzen.</para>
+  <para>Dieses CGI wird genutzt, um Host- und Service-Benachrichtigungen anzuzeigen, die an verschiedene Kontakte versandt wurden. Die
+  Ausgabe ist grundsätzlich ein Auszug der Informationen, die über das <link linkend="cgis-showlog_cgi">log file CGI</link> angezeigt
+  werden. Sie haben die Möglichkeit, die Ausgabe zu filtern, um nur die Benachrichtigungen anzuzeigen, die Sie sehen wollen (z.B.
+  Service-Benachrichtigungen, Host-Benachrichtigungen, Benachrichtigungen, die an bestimmte Kontakte versandt wurden, usw.). Wenn Sie die
+  <link linkend="configmain-log_rotation_method">log rotation</link> aktiviert haben, können Sie in archivierten Log-Dateien blättern, indem
+  Sie die Navigations-Links oben auf der Seite benutzen.</para>
 
   <para><emphasis role="bold">Autorisierungsanforderungen:</emphasis></para>
 
   <itemizedlist>
     <listitem>
-      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_hosts"> <emphasis>für alle Hosts autorisiert</emphasis> </link>
-      sind, können Sie Benachrichtigungen für alle Hosts <emphasis role="bold">und</emphasis> alle Services ansehen.</para>
+      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_hosts"> <emphasis>für alle Hosts autorisiert</emphasis> </link> sind,
+      können Sie Benachrichtigungen für alle Hosts <emphasis role="bold">und</emphasis> alle Services ansehen.</para>
     </listitem>
 
     <listitem>
-      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_services"> <emphasis>für alle Services autorisiert</emphasis>
-      </link> sind, können Sie Benachrichtigungen für alle Services ansehen.</para>
+      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_services"> <emphasis>für alle Services autorisiert</emphasis> </link> sind,
+      können Sie Benachrichtigungen für alle Services ansehen.</para>
     </listitem>
 
     <listitem>
-      <para>Wenn Sie ein <emphasis>authentifizierter Kontakt</emphasis> sind, können Sie Benachrichtigungen für alle Hosts und
-      Services ansehen, deren Kontakt Sie sind.</para>
+      <para>Wenn Sie ein <emphasis>authentifizierter Kontakt</emphasis> sind, können Sie Benachrichtigungen für alle Hosts und Services
+      ansehen, deren Kontakt Sie sind.</para>
     </listitem>
   </itemizedlist>
 
@@ -627,28 +622,28 @@
 
   <para><emphasis role="bold">Beschreibung:</emphasis></para>
 
-  <para>Dieses CGI wird genutzt, um einen Graphen über Host- oder Service-Zustände für einen beliebigen Zeitraum zu erstellen.
-  Damit dieses CGI von Wert ist, sollten Sie <link xlink:href="configmain-log_rotation_method">log rotation</link> aktivieren und
-  archivierte Logs in dem Verzeichnis lagern, das durch die <link
-  xlink:href="configmain-log_archive_path">log_archive_path</link>-Direktive angegeben wird. Das CGI nutzt Thomas Boutells <link
-  xlink:href="http://www.boutell.com/gd/">gd</link>-Library (Version 1.6.3 oder höher), um die Trend-Grafiken zu erstellen.</para>
+  <para>Dieses CGI wird genutzt, um einen Graphen über Host- oder Service-Zustände für einen beliebigen Zeitraum zu erstellen. Damit dieses
+  CGI von Wert ist, sollten Sie <link xlink:href="configmain-log_rotation_method">log rotation</link> aktivieren und archivierte Logs in dem
+  Verzeichnis lagern, das durch die <link xlink:href="configmain-log_archive_path">log_archive_path</link>-Direktive angegeben wird. Das CGI
+  nutzt Thomas Boutells <link xlink:href="http://www.boutell.com/gd/">gd</link>-Library (Version 1.6.3 oder höher), um die Trend-Grafiken zu
+  erstellen.</para>
 
   <para><emphasis role="bold">Autorisierungsanforderungen:</emphasis></para>
 
   <itemizedlist>
     <listitem>
-      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_hosts"> <emphasis>für alle Hosts autorisiert</emphasis> </link>
-      sind, können Sie Trends für alle Hosts <emphasis role="bold">und</emphasis> alle Services ansehen.</para>
+      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_hosts"> <emphasis>für alle Hosts autorisiert</emphasis> </link> sind,
+      können Sie Trends für alle Hosts <emphasis role="bold">und</emphasis> alle Services ansehen.</para>
     </listitem>
 
     <listitem>
-      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_services"> <emphasis>für alle Services autorisiert</emphasis>
-      </link> sind, können Sie Trends für alle Services ansehen.</para>
+      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_services"> <emphasis>für alle Services autorisiert</emphasis> </link> sind,
+      können Sie Trends für alle Services ansehen.</para>
     </listitem>
 
     <listitem>
-      <para>Wenn Sie ein <emphasis>authentifizierter Kontakt</emphasis> sind, können Sie Trends für alle Hosts und Services
-      ansehen, deren Kontakt Sie sind.</para>
+      <para>Wenn Sie ein <emphasis>authentifizierter Kontakt</emphasis> sind, können Sie Trends für alle Hosts und Services ansehen, deren
+      Kontakt Sie sind.</para>
     </listitem>
   </itemizedlist>
 
@@ -682,27 +677,27 @@
 
   <para><emphasis role="bold">Beschreibung:</emphasis></para>
 
-  <para>Dieses CGI wird genutzt, um einen Bericht über die Verfügbarkeit von Hosts oder Service für einen benutzerdefinierten
-  Zeitraum zu erstellen. Damit dieses CGI von Wert ist, sollten Sie <link linkend="configmain-log_rotation_method">log
-  rotation</link> aktivieren und archivierte Logs in dem Verzeichnis lagern, das durch die <link
-  linkend="configmain-log_archive_path">log_archive_path</link>-Direktive angegeben wird.</para>
+  <para>Dieses CGI wird genutzt, um einen Bericht über die Verfügbarkeit von Hosts oder Service für einen benutzerdefinierten Zeitraum zu
+  erstellen. Damit dieses CGI von Wert ist, sollten Sie <link linkend="configmain-log_rotation_method">log rotation</link> aktivieren und
+  archivierte Logs in dem Verzeichnis lagern, das durch die <link linkend="configmain-log_archive_path">log_archive_path</link>-Direktive
+  angegeben wird.</para>
 
   <para><emphasis role="bold">Autorisierungsanforderungen:</emphasis></para>
 
   <itemizedlist>
     <listitem>
-      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_hosts"> <emphasis>für alle Hosts autorisiert</emphasis> </link>
-      sind, können Sie Verfügbarkeitsdaten für alle Hosts <emphasis role="bold">und</emphasis> alle Services ansehen.</para>
+      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_hosts"> <emphasis>für alle Hosts autorisiert</emphasis> </link> sind,
+      können Sie Verfügbarkeitsdaten für alle Hosts <emphasis role="bold">und</emphasis> alle Services ansehen.</para>
     </listitem>
 
     <listitem>
-      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_services"> <emphasis>für alle Services autorisiert</emphasis>
-      </link> sind, können Sie Verfügbarkeitsdaten für alle Services ansehen.</para>
+      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_services"> <emphasis>für alle Services autorisiert</emphasis> </link> sind,
+      können Sie Verfügbarkeitsdaten für alle Services ansehen.</para>
     </listitem>
 
     <listitem>
-      <para>Wenn Sie ein <emphasis>authentifizierter Kontakt</emphasis> sind, können Sie Verfügbarkeitsdaten für alle Hosts und
-      Services ansehen, deren Kontakt Sie sind.</para>
+      <para>Wenn Sie ein <emphasis>authentifizierter Kontakt</emphasis> sind, können Sie Verfügbarkeitsdaten für alle Hosts und Services
+      ansehen, deren Kontakt Sie sind.</para>
     </listitem>
   </itemizedlist>
 
@@ -728,29 +723,28 @@
 
   <para><emphasis role="bold">Beschreibung:</emphasis></para>
 
-  <para>Dieses CGI wird genutzt, um einen Bericht über die Verfügbarkeit von Hosts oder Service für einen benutzerdefinierten
-  Zeitraum zu erstellen. Damit dieses CGI von Wert ist, sollten Sie <link xlink:href="configmain-log_rotation_method">log
-  rotation</link> aktivieren und archivierte Logs in dem Verzeichnis lagern, das durch die <link
-  xlink:href="configmain-log_archive_path">log_archive_path</link>-Direktive angegeben wird. Das CGI nutzt Thomas Boutells <link
-  xlink:href="http://www.boutell.com/gd/">gd</link>-Library (Version 1.6.3 oder höher), um die Histogramm-Grafiken zu
-  erstellen.</para>
+  <para>Dieses CGI wird genutzt, um einen Bericht über die Verfügbarkeit von Hosts oder Service für einen benutzerdefinierten Zeitraum zu
+  erstellen. Damit dieses CGI von Wert ist, sollten Sie <link xlink:href="configmain-log_rotation_method">log rotation</link> aktivieren und
+  archivierte Logs in dem Verzeichnis lagern, das durch die <link xlink:href="configmain-log_archive_path">log_archive_path</link>-Direktive
+  angegeben wird. Das CGI nutzt Thomas Boutells <link xlink:href="http://www.boutell.com/gd/">gd</link>-Library (Version 1.6.3 oder höher),
+  um die Histogramm-Grafiken zu erstellen.</para>
 
   <para><emphasis role="bold">Autorisierungsanforderungen:</emphasis></para>
 
   <itemizedlist>
     <listitem>
-      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_hosts"> <emphasis>für alle Hosts autorisiert</emphasis> </link>
-      sind, können Sie Histogramme für alle Hosts <emphasis role="bold">und</emphasis> alle Services ansehen.</para>
+      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_hosts"> <emphasis>für alle Hosts autorisiert</emphasis> </link> sind,
+      können Sie Histogramme für alle Hosts <emphasis role="bold">und</emphasis> alle Services ansehen.</para>
     </listitem>
 
     <listitem>
-      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_services"> <emphasis>für alle Services autorisiert</emphasis>
-      </link> sind, können Sie Histogramme für alle Services ansehen.</para>
+      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_services"> <emphasis>für alle Services autorisiert</emphasis> </link> sind,
+      können Sie Histogramme für alle Services ansehen.</para>
     </listitem>
 
     <listitem>
-      <para>Wenn Sie ein <emphasis>authentifizierter Kontakt</emphasis> sind, können Sie Histogramme für alle Hosts und Services
-      ansehen, deren Kontakt Sie sind.</para>
+      <para>Wenn Sie ein <emphasis>authentifizierter Kontakt</emphasis> sind, können Sie Histogramme für alle Hosts und Services ansehen,
+      deren Kontakt Sie sind.</para>
     </listitem>
   </itemizedlist>
 
@@ -783,20 +777,86 @@
 
   <itemizedlist>
     <listitem>
-      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_hosts"> <emphasis>für alle Hosts autorisiert</emphasis> </link>
-      sind, können Sie Summary-Informationen für alle Hosts <emphasis role="bold">und</emphasis> alle Services ansehen.</para>
+      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_hosts"> <emphasis>für alle Hosts autorisiert</emphasis> </link> sind,
+      können Sie Summary-Informationen für alle Hosts <emphasis role="bold">und</emphasis> alle Services ansehen.</para>
     </listitem>
 
     <listitem>
-      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_services"> <emphasis>für alle Services autorisiert</emphasis>
-      </link> sind, können Sie Summary-Informationen für alle Services ansehen.</para>
+      <para>Wenn Sie <link linkend="configcgi-authorized_for_all_services"> <emphasis>für alle Services autorisiert</emphasis> </link> sind,
+      können Sie Summary-Informationen für alle Services ansehen.</para>
     </listitem>
 
     <listitem>
-      <para>Wenn Sie ein <emphasis>authentifizierter Kontakt</emphasis> sind, können Sie Summary-Informationen für alle Hosts und
-      Services ansehen, deren Kontakt Sie sind.</para>
+      <para>Wenn Sie ein <emphasis>authentifizierter Kontakt</emphasis> sind, können Sie Summary-Informationen für alle Hosts und Services
+      ansehen, deren Kontakt Sie sind.</para>
     </listitem>
   </itemizedlist>
+
+  <para><anchor xml:id="cgis-changes" /><emphasis role="bold">Änderungen am Classic UI</emphasis></para>
+
+  <para>Diese Änderungen sind im Laufe der Zeit eingeflossen, so dass sie ggf. nicht in Ihrer Version von &name-icinga; verfügbar
+  sind.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Das Aussehen des "General"-Abschnitts auf der linke Seite hat sich erneut geändert</para>
+
+      <screenshot>
+        <imageobject>
+          <imagedata fileref="../images/cgi-general.png" format="PNG" />
+        </imageobject>
+      </screenshot>
+
+      <para>Beim Klick auf die entsprechende Flagge können Sie weiterhin auf die Dokumentation in der dargestellten Sprache zugreifen. <note>
+          <para>Es gibt keine Option, um die Sprache im Classic UI zu ändern. Dafür sind Anpassungen im Source-Code notwendig.</para>
+        </note>Nun können Sie wieder nach Hosts suchen, ohne weitere Dinge anzuklicken.</para>
+    </listitem>
+
+    <listitem>
+      <para>Das klassische Interface wird in regelmäßigen Intervallen aktualisiert. Manchmal ist das nicht erwünscht, z.B. wenn Sie ein
+      bestimmtes Objekt betrachten möchten. In diesem Fall können Sie die automatische Aktualisierung durch Klicken auf [pause] deaktivieren
+      (direkt neben dem Text "Updated every 90 seconds" links oben im Status-Fenster). Klicken auf [continue] aktiviert die Aktualisierung
+      wieder.</para>
+
+      <screenshot>
+        <imageobject>
+          <imagedata fileref="../images/cgi-pause.png" format="PNG" />
+        </imageobject>
+      </screenshot>
+
+      <screenshot>
+        <imageobject>
+          <imagedata fileref="../images/cgi-continue.png" format="PNG" />
+        </imageobject>
+      </screenshot>
+    </listitem>
+
+    <listitem>
+      <para>Die Seiten "Host Detail" und "Service Detail" wurden erweitert, so dass Sie nun Befehle für mehrere Objekte gleichzeitig
+      erteilen können (ab &name-icinga; 1.2). Nun können Sie ein oder mehrere Objekte durch Check-Boxen neben den Objekten auswählen. Durch
+      aktivieren der Check-Box neben "Status information" werden alle Services eines Hosts ausgewählt.</para>
+
+      <screenshot>
+        <imageobject>
+          <imagedata fileref="../images/cgi-statusinfo.png" format="PNG" />
+        </imageobject>
+      </screenshot>
+
+      <screenshot>
+        <imageobject>
+          <imagedata fileref="../images/cgi-commands.png" format="PNG" />
+        </imageobject>
+      </screenshot>
+
+      <para>Nach dem Klick auf "Select command" zeigt eine Drop-Down-Liste die verfügbaren Befehle. Nach der Auswahl einer Aktion und dem
+      anschließenden Klick auf "Submit" wird der Befehl für die ausgewählten Objekte ausgeführt.</para>
+    </listitem>
+
+    <listitem>
+      <para>"Export to CSV" wurde auf verschiedenen Seiten hinzugefügt (ab &name-icinga; 1.2).</para>
+    </listitem>
+  </itemizedlist>
+
   <indexterm zone="cgis-status_cgi">
     <primary>CGIs</primary>
 
@@ -885,4 +945,11 @@
     <primary>CGIs</primary>
 
     <secondary>Alert Summary CGI</secondary>
-  </indexterm></section>
+  </indexterm>
+
+  <indexterm zone="cgis-summary_cgi">
+    <primary>CGIs</primary>
+
+    <secondary>Änderungen am Classic UI</secondary>
+  </indexterm>
+</section>
