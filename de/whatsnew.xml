@@ -10,46 +10,27 @@
 <para>Erste einheitliche Version von &name-core; und &name-web;.</para>
   <para><emphasis role="bold">&name-core;:</emphasis></para>
 
-  <para>* Konfigurationsoptionen: <itemizedlist>
-      <listitem>
-        <para>Setzen des initialen Zustandes für die Beständigkeit von Acknowledgements</para>
-      </listitem>
+  <para><emphasis role="bold">&name-core;:</emphasis></para>
 
-      <listitem>
-        <para>log_external_commands_user, Core Protokollierung von Benutzern, die an die Kommando-Pipe senden.</para>
-      </listitem>
+  <para>* Eventprofiler unter Solaris mit gcc3 disabled, verhindert Core Dumps</para>
 
-      <listitem>
-        <para>Deaktivieren der Protokollierung des aktuellen Standes nach Rotation</para>
-      </listitem>
+  <para>* Scheduled Downtimes Notification werden beim Restart nicht mehr gesendet</para>
 
-      <listitem>
-        <para>Protokollierung der gesamten Plugin- Ausgabe</para>
-      </listitem>
+  <para>* Ein * als Wildcard für die Zuweisung von Hosts in Servicegroup Definitionen hinzugefügt</para>
 
-      <listitem>
-        <para>Aktivieren von Eventhandlern für Hosts/Services mit Statusverfolgung</para>
-      </listitem>
-    </itemizedlist></para>
+  <para>* Konfigurationsoption um das Logging des Core Daemon zu deaktivieren</para>
 
-  <para>* Geplante Ausfallzeiten können bereits bei Erreichen des SOFT- Fehlerstatus beginnen</para>
+  <para>* Eventhandler override hinzugefügt</para>
 
-  <para>* Rewrite von execv check- Ausführung zu execvp, dies erlaubt Plugins in $PATH und die Annahme von 4k Befehlsargumenten, mit
-  angepasster Fehlerbehandlung</para>
+  <para>* Entfernen des automatischen Programmupdatecheckers</para>
 
-  <para>* Fix: alle Kommentare verschwinden nach einem Neustart wenn ein Kommentar nicht-persistent ist.</para>
-
-  <para>* Fix: is_volatile- Bedingungen verursachen falsche Service-Alarme in den Log-Dateien</para>
+  <para>* Hostchecks werden nicht mehr ausgelassen, wenn Servicechecks disabled sind</para>
 
   <para><emphasis role="bold">&name-icinga; &name-idoutils;:</emphasis></para>
 
-  <para>* Syslog Ausgabe für start/stop, client- Verbindung</para>
+  <para>* ido2db forkt nun nicht mehr unendlich, wenn keine Datenbankverbindung zur Verfügung steht, sondern disconnected den Client sofort</para>
 
-  <para>* Hinzugefügte Datenbank trimming-thread-startup-delay Option</para>
-
-  <para>* Komplettes Rewrite von binding NULL Werten für Oracle mit ocilib; Fix: select name1/name2</para>
-
-  <para>* Modifizieren und erweitern der Spaltenlänge für mysql/pgsql/oracle</para>
+  <para>* Datenbankport in ido2db.cfg wird nun richtig verwendet mit der libdbi</para>
 
   <para><emphasis role="bold">&name-ui;</emphasis></para>
 

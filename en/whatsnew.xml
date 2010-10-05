@@ -11,48 +11,26 @@
 
   <para><emphasis role="bold">&name-core;:</emphasis></para>
 
-  <para>* Config options: <itemizedlist>
-      <listitem>
-        <para>set initial state of persistence for acknowledgements</para>
-      </listitem>
+  <para>* disable eventprofiler on Solaris gcc3, preventing core dumps</para>
 
-      <listitem>
-        <para>log_external_commands_user, user will be logged by core if sent through cmd pipe</para>
-      </listitem>
+  <para>* fix scheduled downtime notifications resent on restart/reload</para>
 
-      <listitem>
-        <para>disable logging of current state after rotation</para>
-      </listitem>
+  <para>* add the possibility to use * as a wildcard for all hosts in servicegroup definition</para>
 
-      <listitem>
-        <para>log long plugin output</para>
-      </listitem>
+  <para>* add config option to disable logging into the daemon log file</para>
 
-      <listitem>
-        <para>enable event handlers for stalked hosts/services</para>
-      </listitem>
-    </itemizedlist></para>
+  <para>* add eventhandler override</para>
 
-  <para>* Scheduled downtime can now start on SOFT error states</para>
+  <para>* remove program update checks</para>
 
-  <para>* Rewrite execv check execution into execvp, allowing plugins in PATH and accepting 4k cmd args, with adapted error handling</para>
-
-  <para>* Fix all comments disappear after restart if one comment is non-persistent</para>
-
-  <para>* Fix wrong is_volatile conditions causing wrong service alerts in the logs</para>
-
-  <para>* Fixes for mini_epn's; temp_path overwritten by check_result_path; service event handlers when service problem becomes hard during
-  host down</para>
+  <para>* don't skip hostchecks when servicechecks are disabled</para>
 
   <para><emphasis role="bold">&name-icinga; &name-idoutils;:</emphasis></para>
 
-  <para>* Add syslog output for start/stop, client connecting</para>
+  <para>* fix ido2db forking if database connection failed, now immediately disconnecting the client</para>
 
-  <para>* Add database trimming thread startup delay option</para>
+  <para>* fix database port in ido2db.cfg not honoured using libdbi</para>
 
-  <para>* Full rewrite of binding NULL values for oracle with ocilib; fix select name1/name2</para>
-
-  <para>* Modifiy and extend columns length for mysql/pgsql/oracle</para>
 
   <para><emphasis role="bold">&name-ui;</emphasis></para>
 
