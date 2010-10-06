@@ -11,10 +11,12 @@
   <para><emphasis role="bold">Introducion</emphasis></para>
 
   <para>The new Icinga Web is under heavy development so please keep in mind that some information in this howto might change without any
-  further notice. If you require more detailed information about installing, please check doc/INSTALL. More information about the overall
-  architecture can be found on our website: <link xlink:href="http://www.icinga.org/architecture/">&url-icinga;architecture/</link>. If you
-  want know more about Icinga web development and the module architecture, please check out the development wiki of Icinga Web: <link
-  xlink:href="&url-icinga-wiki;">&name-icingawiki;</link></para>
+  further notice. If you require more detailed information about installing, please check doc/INSTALL. </para>
+
+  <para>More information about the overall architecture can be found on our website: <link
+  xlink:href="http://www.icinga.org/architecture/">&url-icinga;architecture/</link>. If you want know more about Icinga web development and
+  the module architecture, please check out the development wiki of Icinga Web: <link
+  xlink:href="https://dev.icinga.org/projects/icinga-development/wiki#24-Icinga-Web">&name-icingawiki;</link></para>
 
   <orderedlist>
     <listitem>
@@ -29,6 +31,11 @@
       box.</para>
 
       <programlisting> #&gt; apt-get install php5 php5-cli php-pear php5-xmlrpc php5-xsl php5-pdo php5-gd php5-ldap php5-mysql</programlisting>
+
+      <note>
+        <para>For &name-ubuntu; you install the required PDO extensions with php5 and php5-mysql! There is no php5-pdo package
+        available.</para>
+      </note>
 
       <para><emphasis role="bold">Fedora / RHEL / CentOS</emphasis></para>
 
@@ -116,8 +123,7 @@
 
       <programlisting> #&gt; make install-apache-config</programlisting>
 
-      <para>If you don't need an alias, you can alternatively use the old behavior setting a symlink instead:
-<programlisting> #&gt; make install-javascript</programlisting></para>
+      <para>If you don't need an alias, you can alternatively use the old behavior setting a symlink instead: <programlisting> #&gt; make install-javascript</programlisting></para>
 
       <para>Make reports after install:</para>
 
@@ -186,13 +192,11 @@
 
       <para><emphasis role="bold">Create Database</emphasis></para>
 
-      <para>Icinga Web ships with Doctrine so you can initialise, upgrade or drop the database directly using 'make'.</para>
+      <para>Icinga Web ships with Doctrine so you can initialise or drop the database directly using 'make'.</para>
 
       <programlisting> #&gt; make db-initialize      - creates a spick-and-span database</programlisting>
 
       <programlisting> #&gt; make db-drop            - drops your database with a security query to avoid casualties</programlisting>
-
-      <programlisting> #&gt; make db-upgrade         - upgrades old tables to a newer version (Just the same as db-initialize with a better name ;-))</programlisting>
 
       <programlisting> #&gt; make db-doc2sql         - if you require plain SQL scripts, use this option to generate SQL from Doctrine. This can be useful for packaging or manual db install</programlisting>
 
@@ -267,9 +271,11 @@
 
       <programlisting> # vi app/modules/Web/config/icinga-io.xml</programlisting>
 
-     <note> <para>Optional: Your specific Icinga connection settings like api credentials config can be set in
-      app/modules/Web/config/icinga-io.site.xml and will be used in the first place. This won't get overwritten during upgrade process.
-      </para></note>
+      <note>
+        <para>Optional: Your specific Icinga connection settings like api credentials config can be set in
+        app/modules/Web/config/icinga-io.site.xml and will be used in the first place. This won't get overwritten during upgrade
+        process.</para>
+      </note>
 
       <para>In IcingaData you can set the credentials for the Icinga API e.g. using the Icinga IDOUtils database.</para>
 
@@ -568,7 +574,8 @@ Alias /icinga-web /usr/local/icinga-web/pub
 
       <para>* Counts in the Status Cronk do not match your configuration? =&gt; Check with the Backend, e.g. IDOUtils DB, selecting the
       counts for the status tables.</para>
-<para>* No Data shwon in Cronks? =&gt; Make sure that all permissions are set correctly, escecially the log/</para>
+
+      <para>* No Data shwon in Cronks? =&gt; Make sure that all permissions are set correctly, escecially the log/</para>
 
       <para>If you have any updates on that please do not hesitate to report back! :-)</para>
     </listitem>

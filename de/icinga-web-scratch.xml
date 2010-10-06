@@ -27,7 +27,7 @@
       <para><emphasis role="bold">Ubuntu / Debian</emphasis></para>
 
       <programlisting> #&gt; apt-get install php5 php5-cli php-pear php5-xmlrpc php5-xsl php5-pdo php5-ldap php5-gd php5-mysql</programlisting>
-
+<note><para>Für &name-ubuntu; gibt es kein php5-pdo- Packet, die benötigten PDO- Extensions sind in den Paketen php5 und php5-mysql enthalten!</para></note>
       <para><emphasis role="bold">Fedora / RHEL / CentOS</emphasis></para>
 
       <para>Stellen Sie sicher, dass Sie ein Repository bzw. Pakete für PHP 5.2.3 und PCRE 7.6 haben - RHEL/CentOS enthalten bisher
@@ -191,14 +191,11 @@ Please check the new Apache2 configuration (etc/apache2/icinga-web.conf).</progr
 
       <para><emphasis role="bold">Anlegen der Datenbank</emphasis></para>
 
-      <para>&name-web; bringt Doctrine mit, womit in Zukunft die Datenbank verwaltet wird. Mittels 'make' kann diese initialisiert,
-      upgegradet oder gelöscht werden.</para>
+      <para>&name-web; bringt Doctrine mit, womit in Zukunft die Datenbank verwaltet wird. Mittels 'make' kann diese initialisiert oder gelöscht werden.</para>
 
       <programlisting> #&gt; make db-initialize      - legt eine Icinga web Datenbank an und füllt diese mit initialen Werten</programlisting>
 
       <programlisting> #&gt; make db-drop            - löscht die komplette Datenbank, inklusive Securityabfrage um ungewolltes Löschen zu verhindern</programlisting>
-
-      <programlisting> #&gt; make db-upgrade         - führt ein Upgrade von einer alten Version durch (ähnlich wie db-initialize)</programlisting>
 
       <programlisting> #&gt; make db-doc2sql         - falls Sie SQL scripts beispielsweise für Packaging oder manuelles Setup benötigen, können Sie diese Option verwenden um die SQL scripts aus Doctrine zu extrahieren
 </programlisting>
