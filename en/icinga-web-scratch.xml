@@ -11,7 +11,7 @@
   <para><emphasis role="bold">Introducion</emphasis></para>
 
   <para>The new Icinga Web is under heavy development so please keep in mind that some information in this howto might change without any
-  further notice. If you require more detailed information about installing, please check doc/INSTALL. </para>
+  further notice. If you require more detailed information about installing, please check doc/INSTALL.</para>
 
   <para>More information about the overall architecture can be found on our website: <link
   xlink:href="http://www.icinga.org/architecture/">&url-icinga;architecture/</link>. If you want know more about Icinga web development and
@@ -145,11 +145,12 @@
 
       <para>All required tests should pass successfully. Maybe you have to alter the php.ini for the framework.</para>
 
-      <para>In case of the gpc_magic_quote setting, you have to disable both entries (apache and cli php.ini). The locations depend on the
-      distributions used.</para>
+      <para>In case of the gpc_magic_quote setting, you have to disable both entries (apache and cli php.ini). If you use php &lt; 5.3.0,
+      you have to set "safe_mode" to "off". The locations depend on the distributions used.</para>
 
       <programlisting> #&gt; vi /etc/php5/apache/php.ini
    magic_quotes_gpc = off
+   safe_mode = off
 
  #&gt; vi /etc/php5/cli/php.ini
    magic_quotes_gpc = off</programlisting>
@@ -173,8 +174,7 @@
       <para></para>
 
       <programlisting> SQL&gt; GRANT USAGE ON *.* TO 'icinga_web'@'localhost' IDENTIFIED BY 'icinga_web';
- SQL&gt; GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER, INDEX ON icinga_web.* TO 'icinga_web'@'localhost';
- SQL&gt; FLUSH PRIVILEGES;</programlisting>
+ SQL&gt; GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER, INDEX ON icinga_web.* TO 'icinga_web'@'localhost';</programlisting>
 
       <para><emphasis role="bold">&name-mysql;</emphasis></para>
 
@@ -185,8 +185,6 @@
         GRANT USAGE ON *.* TO 'icinga_web'@'localhost' IDENTIFIED BY 'icinga_web' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0;
    
         GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER, INDEX ON icinga_web.* TO 'icinga_web'@'localhost';
- 
-        FLUSH PRIVILEGES ;
 
         quit</programlisting>
 
@@ -212,7 +210,7 @@
 
       <para>If you require manual database creation e.g. for package building, you can extract the plain SQL scripts using:</para>
 
-      <programlisting> # make db-doc2sql</programlisting>
+      <programlisting> #&gt; make db-doc2sql</programlisting>
 
       <para>and then use the generated scripts on the freshly created database.</para>
     </listitem>
@@ -231,7 +229,7 @@
       <para>Normally you can set the database credentials during configure, but if you want to recheck or even change them, please adapt
       those to your needs.</para>
 
-      <programlisting> # vi app/config/databases.xml</programlisting>
+      <programlisting> #&gt; vi app/config/databases.xml</programlisting>
 
       <para><programlisting>    &lt;databases default="icinga_web"&gt;
                         &lt;database name="icinga_web" class="AgaviDoctrineDatabase"&gt;
@@ -269,7 +267,7 @@
       <para>Those settings are directly within &name-web; which provides the given information in an appropriate way to the &name-api;. Keep
       a look into app/modules/Web/config/icinga-io.xml.xml for the IcingaApi factories: IcingaData and IcingaCommand.</para>
 
-      <programlisting> # vi app/modules/Web/config/icinga-io.xml</programlisting>
+      <programlisting> #&gt; vi app/modules/Web/config/icinga-io.xml</programlisting>
 
       <note>
         <para>Optional: Your specific Icinga connection settings like api credentials config can be set in
@@ -366,7 +364,7 @@
         <para>After changing those configs you need to clear the config cache again!</para>
       </note>
 
-      <programlisting> # rm -rf app/cache/config/*.php</programlisting>
+      <programlisting> #&gt; rm -rf app/cache/config/*.php</programlisting>
     </listitem>
 
     <listitem>
@@ -380,7 +378,7 @@
         </listitem>
       </itemizedlist>
 
-      <para><programlisting> # ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load</programlisting></para>
+      <para><programlisting> #&gt; ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load</programlisting></para>
 
       <para>Using OpenSuSE you can use "a2enmod rewrite" to activate the module. If that doesn't work you have to edit the file
       "/etc/sysconfig/apache2". The module "rewrite" has to be appended to the line "APACHE_MODULES=...".</para>
@@ -442,7 +440,7 @@
       :</para>
 
       <para><programlisting>#&gt; cat /etc/apache2/icinga-web.conf
-#
+
 # icinga-web apache configuration
 # - Enable all options .htaccess
 # - Add extjs library to alias

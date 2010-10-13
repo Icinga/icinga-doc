@@ -15,7 +15,7 @@
   über die gesamte Architektur können Sie auf unserer Webseite nachlesen: <link
   xlink:href="http://www.icinga.org/architecture/">&url-icinga;architecture/</link> Falls Sie mehr über das &name-web; development und die
   Modularchitektur wissen wollen, verfolgen Sie bitte stetig aktualisierte Einträge im Development-Wiki von &name-web;: <link
-  xlink:href="&url-icinga-wiki;">&name-icingawiki;</link></para>
+  xlink:href="https://dev.icinga.org/projects/icinga-development/wiki#24-Icinga-Web">&name-icingawiki;</link></para>
 
   <orderedlist>
     <listitem>
@@ -27,7 +27,12 @@
       <para><emphasis role="bold">Ubuntu / Debian</emphasis></para>
 
       <programlisting> #&gt; apt-get install php5 php5-cli php-pear php5-xmlrpc php5-xsl php5-pdo php5-ldap php5-gd php5-mysql</programlisting>
-<note><para>Für &name-ubuntu; gibt es kein php5-pdo- Packet, die benötigten PDO- Extensions sind in den Paketen php5 und php5-mysql enthalten!</para></note>
+
+      <note>
+        <para>Für &name-ubuntu; gibt es kein php5-pdo- Packet, die benötigten PDO- Extensions sind in den Paketen php5 und php5-mysql
+        enthalten!</para>
+      </note>
+
       <para><emphasis role="bold">Fedora / RHEL / CentOS</emphasis></para>
 
       <para>Stellen Sie sicher, dass Sie ein Repository bzw. Pakete für PHP 5.2.3 und PCRE 7.6 haben - RHEL/CentOS enthalten bisher
@@ -146,12 +151,12 @@ Please check the new Apache2 configuration (etc/apache2/icinga-web.conf).</progr
 
       <para>Alle "require"-Tests sollten erfolgreich sein. Eventuell müssen Sie die php.ini anpassen:</para>
 
-      <para>Die "magic_quote_gpc" in der Apache- und der CLI-php.ini auf "Off" setzen! Bitte beachten Sie, dass die Pfade von der
-      Distribution abhängig sind.</para>
+      <para>Die "magic_quote_gpc" in der Apache- und der CLI-php.ini auf "Off" setzen! Evtl. müssen Sie auch "safe_mode" auf "off" setzen
+      (php&lt; 5.3.0). Bitte beachten Sie, dass die Pfade von der Distribution abhängig sind.</para>
 
       <programlisting> #&gt; vi /etc/php5/apache/php.ini
    magic_quotes_gpc = off
-
+   safe_mode = off
  #&gt; vi /etc/php5/cli/php.ini
    magic_quotes_gpc = off</programlisting>
 
@@ -173,27 +178,24 @@ Please check the new Apache2 configuration (etc/apache2/icinga-web.conf).</progr
 
       <programlisting> SQL&gt; GRANT USAGE ON *.* TO 'icinga_web'@'localhost' IDENTIFIED BY 'icinga_web';
 
- SQL&gt; GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER, INDEX ON icinga_web.* TO 'icinga_web'@'localhost';
-
- SQL&gt; FLUSH PRIVILEGES;</programlisting>
+ SQL&gt; GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER, INDEX ON icinga_web.* TO 'icinga_web'@'localhost';</programlisting>
 
       <para><emphasis role="bold">&name-mysql;</emphasis></para>
 
       <programlisting> #&gt; mysql -u root -p
   
- mysql&gt; GRANT USAGE ON icinga_web.* TO 'icinga_user'@'localhost' IDENTIFIED BY 'icinga_pass' WITH MAX_QUERIES_PER_HOUR 0      MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0;
+ mysql&gt; GRANT USAGE ON icinga_web.* TO 'icinga_web'@'localhost' IDENTIFIED BY 'icinga_web' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0;
    
-        GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER, INDEX ON icinga_web.* TO 'icinga_user'@'localhost';
- 
-        FLUSH PRIVILEGES ;
+        GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER, INDEX ON icinga_web.* TO 'icinga_web'@'localhost';
 
         quit</programlisting>
 
       <para><emphasis role="bold">Anlegen der Datenbank</emphasis></para>
 
-      <para>&name-web; bringt Doctrine mit, womit in Zukunft die Datenbank verwaltet wird. Mittels 'make' kann diese initialisiert oder gelöscht werden.</para>
+      <para>&name-web; bringt Doctrine mit, womit in Zukunft die Datenbank verwaltet wird. Mittels 'make' kann diese initialisiert oder
+      gelöscht werden.</para>
 
-      <programlisting> #&gt; make db-initialize      - legt eine Icinga web Datenbank an und füllt diese mit initialen Werten</programlisting>
+      <programlisting> #&gt; make db-initialize      - legt eine Icinga Web Datenbank an und füllt diese mit initialen Werten</programlisting>
 
       <programlisting> #&gt; make db-drop            - löscht die komplette Datenbank, inklusive Securityabfrage um ungewolltes Löschen zu verhindern</programlisting>
 
@@ -277,9 +279,10 @@ Please check the new Apache2 configuration (etc/apache2/icinga-web.conf).</progr
 
       <para>Diese Einstellungen werden direkt in Icinga Web vorgenommen das diese Informationen dann entsprechend aufbereitet an die Icinga
       API weitergibt. Öffnen Sie app/modules/Web/config/icinga-io.xml um die IcingaApi factories zu sehen: IcingaData und IcingaCommand.
-      <programlisting> #&gt; vi app/modules/Web/config/icinga-io.xml</programlisting>
-<note><para>Optional: Ihre spezifischen &name-icinga;
-      Verbindungseinstellungen, wie die API-Anmeldeinformationen, können Sie vornehmen in app / modules / Web / config / icinga-io.site.xml. Diese Informationen bleiben während eines Update- Prozesses erhalten. </para></note> </para>
+      <programlisting> #&gt; vi app/modules/Web/config/icinga-io.xml</programlisting> <note>
+          <para>Optional: Ihre spezifischen &name-icinga; Verbindungseinstellungen, wie die API-Anmeldeinformationen, können Sie vornehmen
+          in app / modules / Web / config / icinga-io.site.xml. Diese Informationen bleiben während eines Update- Prozesses erhalten.</para>
+        </note></para>
 
       <para>In IcingaData werden die Parameter für die &name-api; festgelegt, um beispielsweise die &name-icinga; &name-idoutils; Datenbank
       als Datenquelle einzustellen. <note>
@@ -570,7 +573,8 @@ Alias /icinga-web /usr/local/icinga-web/pub
 
       <para>* Die Ergebnisse in den Status Cronks passen nicht zu Ihrer Konfiguration? =&gt; Überprüfen Sie in Ihrem Backend, d.h. IDOUtils
       DB, welche Werte für die Status-Tabellen selektiert werden.</para>
-<para>* Keine Daten in den Cronks ? =&gt; Überprüfen Sie ob alle Berechtigungen korrekt gesetzt sind, insbesondere von log/</para>
+
+      <para>* Keine Daten in den Cronks ? =&gt; Überprüfen Sie ob alle Berechtigungen korrekt gesetzt sind, insbesondere von log/</para>
 
       <para>Sofern Sie Fragen oder Updates haben, zögern Sie bitte nicht, uns diese mitzuteilen! :-)</para>
     </listitem>
