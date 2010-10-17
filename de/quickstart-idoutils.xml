@@ -223,6 +223,7 @@
   <note>
     <para>Bei einigen usermod-Versionen (z.B. OpenSuSE 11 bzw. SLES 11) fehlt die Option -a. In diesen Fällen kann sie entfallen.</para>
   </note>
+
   <important>
     <para>Solaris unterstützt nur Gruppennamen bis max. 8 Zeichen, verwenden Sie icingcmd anstelle von icinga-cmd.</para>
   </important>
@@ -235,8 +236,7 @@
 
   <para>Holen Sie den aktuellen icinga-core-Snapshot aus dem &name-icinga; GIT <programlisting> #&gt; git clone git://git.icinga.org/icinga-core.git
  #&gt; git submodule init
- #&gt; git submodule update</programlisting>
-  oder von der <link xlink:href="http://www.icinga.org/">&name-icinga;-Website</link>.</para>
+ #&gt; git submodule update</programlisting> oder von der <link xlink:href="http://www.icinga.org/">&name-icinga;-Website</link>.</para>
 
   <para>Vergessen Sie nicht die <link xlink:href="http://www.nagiosplugins.org/">Nagios Plugins</link>.</para>
 
@@ -247,7 +247,10 @@
   <programlisting> #&gt; cd /usr/src/ 
  #&gt; tar xvzf icinga-&ver-icinga;.tar.gz 
  #&gt; cd icinga-&ver-icinga;</programlisting>
-  <note><para>Dieser absolute Pfad ist gemeint, wenn im Nachfolgenden von '/path/to/icinga-src/' die Rede ist.</para></note>
+
+  <note>
+    <para>Dieser absolute Pfad ist gemeint, wenn im Nachfolgenden von '/path/to/icinga-src/' die Rede ist.</para>
+  </note>
 
   <para>Führen Sie das &name-icinga;-configure-Script aus. Durch die Nutzung des --help-Flags erhalten Sie Hilfe zu den Optionen.</para>
 
@@ -275,11 +278,13 @@
       kompilieren und installieren!</para>
     </note> <programlisting> #&gt; make distclean
  #&gt; ./configure --enable-idoutils</programlisting></para>
-<para><emphasis role="bold">Kompilieren und Installieren</emphasis></para>
-<para>Kompilieren Sie den &name-icinga;-Source-Code. Es gibt auch eine extra Option für
-  &name-idoutils; (<emphasis>make idoutils</emphasis>), wenn Sie nur dieses Module erneut kompilieren möchten. Um mögliche Optionen zu
-  sehen, rufen Sie lediglich "make" auf.<programlisting> #&gt; make all</programlisting> Installieren Sie die Binaries, das Init-Script,
-  Beispiel-Konfigurationsdateien und setzen Sie die Berechtigungen für das External-Command-Verzeichnis. <programlisting> #&gt; make install 
+
+  <para><emphasis role="bold">Kompilieren und Installieren</emphasis></para>
+
+  <para>Kompilieren Sie den &name-icinga;-Source-Code. Es gibt auch eine extra Option für &name-idoutils; (<emphasis>make
+  idoutils</emphasis>), wenn Sie nur dieses Module erneut kompilieren möchten. Um mögliche Optionen zu sehen, rufen Sie lediglich "make"
+  auf.<programlisting> #&gt; make all</programlisting> Installieren Sie die Binaries, das Init-Script, Beispiel-Konfigurationsdateien und
+  setzen Sie die Berechtigungen für das External-Command-Verzeichnis. <programlisting> #&gt; make install 
  #&gt; make install-init 
  #&gt; make install-config 
  #&gt; make install-commandmode 
@@ -337,7 +342,11 @@
   <para><emphasis role="bold">&name-mysql;:</emphasis></para>
 
   <para><emphasis>Anlegen von Datenbank, Benutzer und Berechtigungen</emphasis></para>
-    <note><para>Falls Sie gerade ein neues Datenbanksystem installiert haben, dann müssen Sie den Datenbank-Server-Prozess starten, bevor Sie eine Datenbank anlegen können. Im Falle von &name-mysql; benutzen Sie <code>/etc/init.d/mysqld start</code>.</para></note>
+
+  <note>
+    <para>Falls Sie gerade ein neues Datenbanksystem installiert haben, dann müssen Sie den Datenbank-Server-Prozess starten, bevor Sie eine
+    Datenbank anlegen können. Im Falle von &name-mysql; benutzen Sie <code>/etc/init.d/mysqld start</code>.</para>
+  </note>
 
   <programlisting> #&gt; mysql -u root -p
   
@@ -487,7 +496,7 @@
 
   <para>Kompilieren und installieren Sie die Plugins.</para>
 
-  <screen> #&gt; ./configure --prefix=/usr/local/icinga --with-nagios-user=icinga
+  <screen> #&gt; ./configure --prefix=/usr/local/icinga --with-cgiurl=/icinga/cgi-bin --with-htmurl=/icinga --with-nagios-user=icinga --with-nagios-group=icinga
  #&gt; make
  #&gt; make install</screen>
 

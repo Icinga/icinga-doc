@@ -216,9 +216,11 @@
     <para>Some usermod-versions (e.g in OpenSuSE 11 and SLES 11, resp.) are lacking the option -a. In this case please omit the option
     -a.</para>
   </note>
+
   <important>
     <para>Solaris only supports groupnames with max. 8 characters, please use icingcmd instead of icinga-cmd.</para>
   </important>
+
   <para><emphasis role="bold">Download &name-icinga; and the Plugins</emphasis></para>
 
   <para>Change to your local source directory i.e. /usr/src</para>
@@ -227,9 +229,8 @@
 
   <para>Either fetch the actual icinga-core snapshot from &name-icinga; GIT <programlisting> #&gt; git clone git://git.icinga.org/icinga-core.git
  #&gt; git submodule init
- #&gt; git submodule update</programlisting>
-  or from the <link xlink:href="http://www.icinga.org/">&name-icinga; Website</link> . Don't forget to download the <link
-  xlink:href="http://www.nagiosplugins.org/">Nagios Plugins</link></para>
+ #&gt; git submodule update</programlisting> or from the <link xlink:href="http://www.icinga.org/">&name-icinga; Website</link> . Don't
+  forget to download the <link xlink:href="http://www.nagiosplugins.org/">Nagios Plugins</link></para>
 
   <para><emphasis role="bold">Compile and Install &name-icinga; with &name-idoutils;</emphasis></para>
 
@@ -238,7 +239,10 @@
   <programlisting xml:space="preserve"> #&gt; cd /usr/src/ 
  #&gt; tar xvzf icinga-&ver-icinga;.tar.gz 
  #&gt; cd icinga-&ver-icinga;</programlisting>
-  <note><para>This absolute path is meant when we refer to '/path/to/icinga-src/' in the following text.</para></note>
+
+  <note>
+    <para>This absolute path is meant when we refer to '/path/to/icinga-src/' in the following text.</para>
+  </note>
 
   <para>Run the &name-icinga; configure script and enable &name-idoutils;. You will get help by using the --help flag:</para>
 
@@ -267,11 +271,12 @@
   <para><programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils --enable-oracle --with-ocilib-lib=/path/to/ocilib/lib --with-ocilib-inc=/path/to/ocilib/include</programlisting><note>
       <para>If you want to change RDBM from Oracle to others, you need to recompile and reinstall &name-idoutils;!</para>
     </note><programlisting> #&gt; make distclean
- #&gt; ./configure --enable-idoutils</programlisting> </para>
+ #&gt; ./configure --enable-idoutils</programlisting></para>
+
   <para><emphasis role="bold">Compile and Install</emphasis></para>
- <para> Compile the &name-icinga; source code. There is also an extra option for
-  &name-idoutils; (<emphasis>make idoutils</emphasis>) if you need to recompile only this module. To see available options, only use
-  "make".</para>
+
+  <para>Compile the &name-icinga; source code. There is also an extra option for &name-idoutils; (<emphasis>make idoutils</emphasis>) if you
+  need to recompile only this module. To see available options, only use "make".</para>
 
   <programlisting> #&gt; make all</programlisting>
 
@@ -476,7 +481,7 @@
 
   <para>Compile and install the plugins by changing install directory to &url-icinga-base;</para>
 
-  <programlisting> #&gt; ./configure --prefix=&url-icinga-base; --with-nagios-user=icinga 
+  <programlisting> #&gt; ./configure --prefix=&url-icinga-base; --with-cgiurl=/icinga/cgi-bin --with-htmurl=/icinga --with-nagios-user=icinga --with-nagios-group=icinga
  #&gt; make 
  #&gt; make install </programlisting>
 
