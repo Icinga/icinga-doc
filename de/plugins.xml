@@ -4,27 +4,26 @@
 %all.entities;
 ]>
 <section version="5.0" xml:id="plugins" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>&name-icinga; Plugins</title>
 
   <para><emphasis role="bold">Einführung</emphasis></para>
 
-  <para>&name-icinga; enthält nicht, wie viele andere Überwachungs-Tools, interne Mechanismen zur Prüfung des Zustands von Hosts
-  und Services in Ihrem Netzwerk. &name-icinga; verlässt sich statt dessen auf externe Programme (Plugins genannt), die all die
-  schmutzige Arbeit tun.</para>
+  <para>&name-icinga; enthält nicht, wie viele andere Überwachungs-Tools, interne Mechanismen zur Prüfung des Zustands von Hosts und
+  Services in Ihrem Netzwerk. &name-icinga; verlässt sich statt dessen auf externe Programme (Plugins genannt), die all die schmutzige
+  Arbeit tun.</para>
 
   <para><emphasis role="bold">Was sind Plugins?</emphasis></para>
 
-  <para>Plugins sind kompilierte Programme oder Scripts (Perl-Scripts, Shell-Scripts, usw.), die von einer Kommandozeile aus
-  laufen können, um den Status eines Hosts oder Service zu prüfen. &name-icinga; benutzt die Ergebnisse von Plugins, um den
-  aktuellen Status von Hosts oder Services in Ihrem Netzwerk zu ermitteln.</para>
+  <para>Plugins sind kompilierte Programme oder Scripts (Perl-Scripts, Shell-Scripts, usw.), die von einer Kommandozeile aus laufen können,
+  um den Status eines Hosts oder Service zu prüfen. &name-icinga; benutzt die Ergebnisse von Plugins, um den aktuellen Status von Hosts oder
+  Services in Ihrem Netzwerk zu ermitteln.</para>
 
-  <para>&name-icinga; wird ein Plugin immer dann ausführen, wenn die Notwendigkeit besteht, den Status eines Hosts oder Service zu
-  prüfen. Das Plugin tut <emphasis>etwas</emphasis> (beachten Sie den sehr allgemeinen Ausdruck), um die Prüfung auszuführen und
-  dann einfach die Ergebnisse an &name-icinga; zurückzuliefern. &name-icinga; wird die Ergebnisse verarbeiten, die es vom Plugin
-  erhält, und dann notwendige Aktionen ausführen (starten von <link linkend="eventhandlers">Eventhandlern</link>, senden von <link
+  <para>&name-icinga; wird ein Plugin immer dann ausführen, wenn die Notwendigkeit besteht, den Status eines Hosts oder Service zu prüfen.
+  Das Plugin tut <emphasis>etwas</emphasis> (beachten Sie den sehr allgemeinen Ausdruck), um die Prüfung auszuführen und dann einfach die
+  Ergebnisse an &name-icinga; zurückzuliefern. &name-icinga; wird die Ergebnisse verarbeiten, die es vom Plugin erhält, und dann notwendige
+  Aktionen ausführen (starten von <link linkend="eventhandlers">Eventhandlern</link>, senden von <link
   linkend="notifications">Benachrichtigungen</link>, etc).</para>
 
   <para><emphasis role="bold">Plugins als eine Abstraktionsschicht</emphasis></para>
@@ -35,21 +34,21 @@
     </imageobject>
   </mediaobject>
 
-  <para>Plugins arbeiten wie eine Abstraktionsschicht zwischen der Überwachungslogik im &name-icinga;-Dämon und den eigentlichen
-  Services und Hosts, die überwacht werden.</para>
+  <para>Plugins arbeiten wie eine Abstraktionsschicht zwischen der Überwachungslogik im &name-icinga;-Dämon und den eigentlichen Services
+  und Hosts, die überwacht werden.</para>
 
-  <para>Der Vorteil dieses Typs von Plugin-Architektur ist, dass Sie fast alles überwachen können, was Ihnen einfällt. Wenn Sie
-  den Prozess der Überwachung automatisieren können, können Sie es mit &name-icinga; überwachen. Es gibt bereits eine Menge von
-  Plugins, die erzeugt wurden, um grundlegende Ressourcen wie z.B. Prozessorauslastung, Plattenbelegung, Ping-Raten usw. zu
-  überwachen. Wenn Sie etwas anderes überwachen möchten, werfen Sie einen Blick in die Dokumentation zu <link
-  linkend="pluginapi">Plugins schreiben</link> und erstellen Sie ein eigenes. Es ist einfach!</para>
+  <para>Der Vorteil dieses Typs von Plugin-Architektur ist, dass Sie fast alles überwachen können, was Ihnen einfällt. Wenn Sie den Prozess
+  der Überwachung automatisieren können, können Sie es mit &name-icinga; überwachen. Es gibt bereits eine Menge von Plugins, die erzeugt
+  wurden, um grundlegende Ressourcen wie z.B. Prozessorauslastung, Plattenbelegung, Ping-Raten usw. zu überwachen. Wenn Sie etwas anderes
+  überwachen möchten, werfen Sie einen Blick in die Dokumentation zu <link linkend="pluginapi">Plugins schreiben</link> und erstellen Sie
+  ein eigenes. Es ist einfach!</para>
 
-  <para>Der Nachteil dieses Typs von Plugin-Architektur ist die Tatsache, dass &name-icinga; absolut keine Ahnung davon hat, was
-  Sie überwachen. Sie könnten Netzwerkverkehr-Statistiken, Datenfehler-Raten, Raumtemperatur, CPU-Spannung, Lüftergeschwindigkeit,
-  Prozessorauslastung, Plattenbelegung überwachen oder die Fähigkeit Ihres superphantastischen Toasters, am Morgen Ihr Brot
-  ordnungsgemäß zu bräunen... &name-icinga; versteht nicht die Besonderheiten dessen, was überwacht wird - es verfolgt lediglich
-  Veränderungen des <emphasis>Zustands</emphasis> dieser Ressourcen. Nur die Plugins selbst wissen genau, was sie überwachen und
-  wie die eigentlichen Prüfungen auszuführen sind.</para>
+  <para>Der Nachteil dieses Typs von Plugin-Architektur ist die Tatsache, dass &name-icinga; absolut keine Ahnung davon hat, was Sie
+  überwachen. Sie könnten Netzwerkverkehr-Statistiken, Datenfehler-Raten, Raumtemperatur, CPU-Spannung, Lüftergeschwindigkeit,
+  Prozessorauslastung, Plattenbelegung überwachen oder die Fähigkeit Ihres superphantastischen Toasters, am Morgen Ihr Brot ordnungsgemäß zu
+  bräunen... &name-icinga; versteht nicht die Besonderheiten dessen, was überwacht wird - es verfolgt lediglich Veränderungen des
+  <emphasis>Zustands</emphasis> dieser Ressourcen. Nur die Plugins selbst wissen genau, was sie überwachen und wie die eigentlichen
+  Prüfungen auszuführen sind.</para>
 
   <para><emphasis role="bold">Welche Plugins sind verfügbar?</emphasis></para>
 
@@ -79,13 +78,12 @@
 
   <para><emphasis role="bold">Plugins beschaffen</emphasis></para>
 
-  <para>Plugins werden nicht mit &name-icinga; verteilt, aber Sie finden die offiziellen &name-nagios;-Plugins zum Download und
-  viele weitere Plugins, die von &name-nagios;-Benutzern erstellt und gewartet werden, an folgenden Stellen:</para>
+  <para>Plugins werden nicht mit &name-icinga; verteilt, aber Sie finden die offiziellen &name-nagios;-Plugins zum Download und viele
+  weitere Plugins, die von &name-nagios;-Benutzern erstellt und gewartet werden, an folgenden Stellen:</para>
 
   <itemizedlist>
     <listitem>
-      <para>&name-nagios; Plugins Project: <link
-      xlink:href="http://sourceforge.net/projects/nagiosplug">&url-nagiosplug-sf;</link></para>
+      <para>&name-nagios; Plugins Project: <link xlink:href="http://sourceforge.net/projects/nagiosplug">&url-nagiosplug-sf;</link></para>
     </listitem>
 
     <listitem>
@@ -99,17 +97,120 @@
 
   <para><anchor xml:id="plugins-howto" /><emphasis role="bold">Wie benutze ich Plugin X?</emphasis></para>
 
-  <para>Fast alle Plugins zeigen grundlegende Bedienungshinweise an, wenn sie von der Kommandozeile mit der Option '-h' oder
-  '--help' aufgerufen werden. Wenn Sie z.B. wissen möchten, wie das Plugins check_http arbeitet bzw. welche Optionen es
-  akzeptiert, sollten Sie folgenden Befehl ausprobieren:</para>
+  <para>Fast alle Plugins zeigen grundlegende Bedienungshinweise an, wenn sie von der Kommandozeile mit der Option '-h' oder '--help'
+  aufgerufen werden. Wenn Sie z.B. wissen möchten, wie das Plugins check_http arbeitet bzw. welche Optionen es akzeptiert, sollten Sie
+  folgenden Befehl ausprobieren:</para>
 
   <screen> ./check_http --help</screen>
+
+  <anchor xml:id="plugins-hints" />
+
+  <important>
+    <para>Führen Sie Plugins immer mit dem &name-icinga;-Benutzer aus, denn einige Plugins erstellen temporäre Dateien. Wenn Sie Plugins mit
+    einem anderen Benutzer ausführen, dann kann der &name-icinga;-Benutzer diese Dateien ggf. nicht überschreiben.</para>
+
+    <para>Rufen Sie das Plugin nicht mit einem relativen Pfad auf (z.B. <emphasis>./check_test_plugin</emphasis>). Benutzen Sie immer
+    absolute Pfade, denn so macht es auch &name-icinga; (z.B. <emphasis>&url-icinga-libexec;/check_test_plugin</emphasis>).</para>
+  </important>
+
+  <para><emphasis role="bold">Integration eines neuen Plugins</emphasis></para>
+
+  <para>Wenn Sie ein neues Plugin integrieren möchten, dann lesen Sie die Dokumentation (falls vorhanden). Sie könnte wichtige Informationen
+  über die Voraussetzungen wie z.B. zusätzliche Pakete oder (Perl-) Module enthalten, wie das Plugin zu installieren ist bzw.
+  distributionsabhängige Hinweise. </para>
+
+  <para>Manchmal müssen Sie das Plugin kompilieren, wobei Sie den Vorgang durch den Aufruf von "./configure" mit oder ohne Optionen
+  vorbereiten. Bitte prüfen Sie die Datei config.log auf mögliche Fehler zu fehlenden (devel-)Paketen vor dem Aufuf des eigentlichen
+  Compile-Vorgangs (meistens "make" oder "make all"). In den meisten Fällen wird das Plugin durch den Aufruf von "make install" in das
+  Plugins-Verzeichnis (z.B. <emphasis>&url-icinga-libexec;</emphasis>) kopiert.</para>
+
+  <para>Manchmal müssen Sie das Plugin auf Ihre Umgebung anpassen (z.B. den Pfad zu "utils.pm"). Normalerweise ist das Plugin manuell in das
+  Plugins-Verzeichnis (z.B. <emphasis>&url-icinga-libexec;</emphasis>) zu kopieren.</para>
+
+  <para>Nach der Installation des Plugins rufen Sie es mit den nötigen Optionen von der Kommandozeile aus auf. Wenn dies funktioniert,
+  können Sie es in &name-icinga; integrieren.</para>
+
+  <para>Stellen Sie sich vor, dass Sie den folgenden Aufruf benutzt haben:</para>
+
+  <programlisting> &url-icinga-libexec;/sample-plugin.pl -H 192.168.1.2 -a argument1 -p parameter -n 5</programlisting>
+
+  <para>Die command-Definition enthält zwei Direktiven</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>command_name: dies ist ein Kurzname, der den Befehl identifiziert. Lassen Sie uns <emphasis>check_sample</emphasis>
+      benutzen</para>
+    </listitem>
+
+    <listitem>
+      <para>command_line: hier definieren Sie den auszuführenden Befehl. Sie könnten den Befehl angeben, den Sie auf der Kommandozeile
+      benutzen, aber das wäre zu unflexibel. Normalerweise ändert sich das Plugin-Verzeichnis (&url-icinga-libexec;) nicht, so dass wir eine
+      <link linkend="macrolist-user">$USERn$</link>-Variable benutzen können, die in der resource.cfg definiert werden. Die IP-Adresse
+      ändert sich von Host zu Host. Es gibt das Makro <link linkend="macrolist-hostaddress">$HOSTADDRESS$</link>, das wir dafür nutzen
+      können. Die Werte der Optionen können sich ändern, so dass auch sie flexibel sein sollten. Das könnte zu folgender Definition
+      führen:</para>
+    </listitem>
+  </itemizedlist>
+
+  <programlisting> define command{ 
+    command_name check_sample
+    command_line $USER1$/sample-plugin.pl -H $HOSTADDRESS$ -a $ARG1$ -p $ARG2$ -n $ARG3$
+    }</programlisting>
+
+  <para>Dann müssen wir die check_command-Direktive definieren, die Teil der Host-/Service-Definition ist. Es beginnt mit dem Kurznamen
+  gefolgt von den Argumenten, die jeweils durch Ausrufezeichen voneinander getrennt sind:</para>
+
+  <programlisting> check_command check_sample!argument1!parameter!5</programlisting>
+
+  <para>Wie Sie sehen, wird die IP-Adresse nicht angegeben, denn sie wird aus der Host-Definition genommen.</para>
+
+  <para>Prüfen Sie die Konfiguration mit "/etc/init.d/icinga show-errors" und bereinigen Sie eventuelle Fehler, bevor Sie &name-icinga; mit
+  "/etc/init.d/icinga restart" neu starten. Warten Sie, bis das Objekt geprüft wurde und betrachten Sie die Status-Details. Vielleicht gibt
+  es Fehler.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>"...resulted in a return code of 127"</para>
+
+      <para>Das bedeutet, dass das Plugin nicht an der angegebenen Position gefunden wurde oder innerhalb des Plugins eine Datei aufgerufen
+      wurde, die nicht gefunden wurde. Wenn Sie $USERn$-Makros beim Aufruf des Plugins benutzen, dann stellen Sie sicher, dass das Makros
+      wirklich auf die Position verweist, wo das Plugin zu finden ist (ist das Makro in resource.cfg definiert?). Benachrichtigungsbefehle
+      rufen oft ein Mail-Programm auf. Stellen Sie sicher, dass der Pfad zum Mail-Programm korrekt ist.</para>
+    </listitem>
+
+    <listitem>
+      <para>"...resulted in a return code of 13"</para>
+
+      <para>Meistens handelt es sich um ein Berechtigungsproblem. Der Benutzer kann ggf. das Plugin nicht ausführen bzw. darauf und/oder auf
+      zugehörige Dateien zugreifen. Das kann passieren, wenn Sie als root ein Plugin ausgeführt haben, das temporäre Dateien anlegt. Der
+      &name-icinga;-Benutzer ist nicht berechtigt, diese Dateien zu überschreiben.</para>
+    </listitem>
+  </itemizedlist>
 
   <para><emphasis role="bold">Plugin API</emphasis></para>
 
   <para>Informationen zu technischen Aspekten von Plugins sowie zur Erstellung Ihrer eigenen Plugins finden Sie <link
   linkend="pluginapi">hier</link>.</para>
-  <indexterm zone="plugins"><primary>Plugins</primary><secondary>&name-icinga;-Plugins</secondary></indexterm>
-  <indexterm zone="plugins-howto"><primary>Wie benutze ich Plugin X?</primary></indexterm>
-  <indexterm zone="plugins-howto"><primary>Plugins</primary><secondary>Wie benutze ich Plugin X?</secondary></indexterm>
+
+  <indexterm zone="plugins">
+    <primary>Plugins</primary>
+
+    <secondary>&name-icinga;-Plugins</secondary>
+  </indexterm>
+
+  <indexterm zone="plugins-howto">
+    <primary>Wie benutze ich Plugin X?</primary>
+  </indexterm>
+
+  <indexterm zone="plugins-howto">
+    <primary>Plugins</primary>
+
+    <secondary>Wie benutze ich Plugin X?</secondary>
+  </indexterm>
+
+  <indexterm zone="plugins-hints">
+    <primary>Plugins</primary>
+
+    <secondary>Integration eines neuen Plugins</secondary>
+  </indexterm>
 </section>

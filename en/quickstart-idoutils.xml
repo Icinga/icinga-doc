@@ -392,9 +392,9 @@
  # "local" is for Unix domain socket connections only
  local    all        all                       trust
  # IPv4 local connections
- local    all        all        127.0.0.1/32   trust
+ host     all        all        127.0.0.1/32   trust
  # IPV6 local connections
- local    all        all        ::1/128        trust</programlisting>
+ host     all        all        ::1/128        trust</programlisting>
 
   <para>Reload and configure database scheme.</para>
 
@@ -484,6 +484,28 @@
   <programlisting> #&gt; ./configure --prefix=&url-icinga-base; --with-cgiurl=/icinga/cgi-bin --with-htmurl=/icinga --with-nagios-user=icinga --with-nagios-group=icinga
  #&gt; make 
  #&gt; make install </programlisting>
+
+  <para><emphasis role="bold">Adjusting the SE&name-linux; settings</emphasis></para>
+
+  <para>&name-rhel; and derived distributions like &name-fedora; and &name-centos; are shipped with activated SE&name-linux; (Security Enhanced 
+  &name-linux;) running in "enforcing" mode. This may lead to "Internal Server Error" messages when you try to invoke the &name-icinga;-CGIs.</para>
+
+  <para>Check if SE&name-linux; runs in enforcing mode</para>
+
+  <screen> #&gt; getenforce</screen>
+
+  <para>Set SE&name-linux; in "permissive" mode</para>
+
+  <screen> #&gt; setenforce 0</screen>
+
+  <para>To make this change permanent you have to adjust this setting in <emphasis>/etc/selinux/config</emphasis> and restart the
+  system.</para>
+
+  <para>Instead of deactivating SE&name-linux; or setting it into permissive mode you can use the following commands to run the CGIs in
+  enforcing/targeted mode:</para>
+
+  <programlisting> #&gt; chcon -R -t httpd_sys_script_exec_t &url-icinga-base;/sbin/
+ #&gt; chcon -R -t httpd_sys_content_t &url-icinga-base;/share/</programlisting>
 
   <para><emphasis role="bold">Start &name-idoutils; and &name-icinga;</emphasis></para>
 

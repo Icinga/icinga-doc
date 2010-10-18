@@ -244,6 +244,32 @@
  #&gt; make
  #&gt; make install</programlisting>
 
+  <para><emphasis role="bold">Anpassen der SE&name-linux;-Einstellungen</emphasis></para>
+
+  <para>&name-rhel; und ähnliche Distributionen wie &name-fedora; oder &name-centos; werden mit installiertem SE&name-linux; (Security Enhanced 
+  &name-linux;) ausgeliefert und laufen im "Enforcing"-Modus. Dies kann zu "Internal Server Error"-Fehlern führen, wenn Sie versuchen, die  &name-icinga;-CGIs aufzurufen.</para>
+
+  <para>Schauen Sie, ob SE&name-linux; im Enforcing-Modus läuft.</para>
+
+  <screen> #&gt; getenforce</screen>
+
+  <para>Setzen Sie SE&name-linux; in den "Permissive"-Modus.</para>
+
+  <screen> #&gt; setenforce 0</screen>
+
+  <para>Damit diese Änderung dauerhaft wird, müssen Sie diese Einstellung in <emphasis>/etc/selinux/config</emphasis> anpassen und das
+  System neustarten.</para>
+
+  <para>Statt SE&name-linux; zu deaktivieren oder es in den Permissive-Modus zu versetzen, können Sie den folgenden Befehl benutzen, um die
+  CGIs im Enforcing/Targeted-Modus laufen zu lassen:</para>
+
+  <programlisting> #&gt; chcon -R -t httpd_sys_script_exec_t &url-icinga-base;/sbin/
+ #&gt; chcon -R -t httpd_sys_content_t &url-icinga-base;/share/</programlisting>
+
+  <para>Besuchen Sie das &name-nagios;Community.org-Wiki unter <link
+  xlink:href="http://www.nagioscommunity.org/wiki">&url-nagios-community;</link>, um Informationen darüber zu erhalten, wie die
+  &name-icinga;-CGIs im Enforcing-Modus mit einer Targeted-Richtlinie ausgeführt werden.</para>
+
   <para><emphasis role="bold"> &name-icinga; starten</emphasis></para>
 
   <para>Fügen Sie &name-icinga; zu der Liste der System-Services hinzu und sorgen Sie für einen automatischen Start, wenn das System
@@ -275,32 +301,6 @@
   <para><emphasis>&name-debian; / &name-ubuntu;</emphasis></para>
 
   <programlisting> #&gt; /etc/init.d/icinga start</programlisting>
-
-  <para><emphasis role="bold">Anpassen der SE&name-linux;-Einstellungen</emphasis></para>
-
-  <para>&name-fedora; wird mit installiertem SE&name-linux; (Security Enhanced &name-linux;) ausgeliefert und läuft im "Enforcing"-Modus.
-  Dies kann zu "Internal Server Error"-Fehlern führen, wenn Sie versuchen, die &name-icinga;-CGIs aufzurufen.</para>
-
-  <para>Schauen Sie, ob SE&name-linux; im Enforcing-Modus läuft.</para>
-
-  <screen> #&gt; getenforce</screen>
-
-  <para>Setzen Sie SE&name-linux; in den "Permissive"-Modus.</para>
-
-  <screen> #&gt; setenforce 0</screen>
-
-  <para>Damit diese Änderung dauerhaft wird, müssen Sie diese Einstellung in <emphasis>/etc/selinux/config</emphasis> anpassen und das
-  System neustarten.</para>
-
-  <para>Statt SE&name-linux; zu deaktivieren oder es in den Permissive-Modus zu versetzen, können Sie den folgenden Befehl benutzen, um die
-  CGIs im Enforcing/Targeted-Modus laufen zu lassen:</para>
-
-  <programlisting> #&gt; chcon -R -t httpd_sys_script_exec_t &url-icinga-base;/sbin/
- #&gt; chcon -R -t httpd_sys_content_t &url-icinga-base;/share/</programlisting>
-
-  <para>Besuchen Sie das &name-nagios;Community.org-Wiki unter <link
-  xlink:href="http://www.nagioscommunity.org/wiki">&url-nagios-community;</link>, um Informationen darüber zu erhalten, wie die
-  &name-icinga;-CGIs im Enforcing-Modus mit einer Targeted-Richtlinie ausgeführt werden.</para>
 
   <para><emphasis role="bold">Anmelden am klassischen Web-Interface</emphasis></para>
 

@@ -4,28 +4,25 @@
 %all.entities;
 ]>
 <section version="5.0" xml:id="plugins" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="Icinga_plugins" />&name-icinga; Plugins</title>
 
   <para><emphasis role="bold">Introduction</emphasis></para>
 
-  <para>Unlike many other monitoring tools, &name-icinga; does not include any internal mechanisms for checking the status of
-  hosts and services on your network. Instead, &name-icinga; relies on external programs (called plugins) to do all the dirty
-  work.</para>
+  <para>Unlike many other monitoring tools, &name-icinga; does not include any internal mechanisms for checking the status of hosts and
+  services on your network. Instead, &name-icinga; relies on external programs (called plugins) to do all the dirty work.</para>
 
   <para><emphasis role="bold">What Are Plugins?</emphasis></para>
 
-  <para>Plugins are compiled executables or scripts (Perl scripts, shell scripts, etc.) that can be run from a command line to
-  check the status or a host or service. &name-icinga; uses the results from plugins to determine the current status of hosts and
-  services on your network.</para>
+  <para>Plugins are compiled executables or scripts (Perl scripts, shell scripts, etc.) that can be run from a command line to check the
+  status or a host or service. &name-icinga; uses the results from plugins to determine the current status of hosts and services on your
+  network.</para>
 
   <para>&name-icinga; will execute a plugin whenever there is a need to check the status of a service or host. The plugin does
-  <emphasis>something</emphasis> (notice the very general term) to perform the check and then simply returns the results to
-  &name-icinga;. &name-icinga; will process the results that it receives from the plugin and take any necessary actions (running
-  <link linkend="eventhandlers">event handlers</link>, sending out <link linkend="notifications">notifications</link>,
-  etc).</para>
+  <emphasis>something</emphasis> (notice the very general term) to perform the check and then simply returns the results to &name-icinga;.
+  &name-icinga; will process the results that it receives from the plugin and take any necessary actions (running <link
+  linkend="eventhandlers">event handlers</link>, sending out <link linkend="notifications">notifications</link>, etc).</para>
 
   <para><emphasis role="bold">Plugins As An Abstraction Layer</emphasis></para>
 
@@ -35,21 +32,19 @@
       </imageobject>
     </inlinemediaobject></para>
 
-  <para>Plugins act as an abstraction layer between the monitoring logic present in the &name-icinga; daemon and the actual
-  services and hosts that are being monitored.</para>
+  <para>Plugins act as an abstraction layer between the monitoring logic present in the &name-icinga; daemon and the actual services and
+  hosts that are being monitored.</para>
 
-  <para>The upside of this type of plugin architecture is that you can monitor just about anything you can think of. If you can
-  automate the process of checking something, you can monitor it with &name-icinga;. There are already a lot of plugins that have
-  been created in order to monitor basic resources such as processor load, disk usage, ping rates, etc. If you want to monitor
-  something else, take a look at the documentation on <link linkend="pluginapi">writing plugins</link> and roll your own. Its
-  simple!</para>
+  <para>The upside of this type of plugin architecture is that you can monitor just about anything you can think of. If you can automate the
+  process of checking something, you can monitor it with &name-icinga;. There are already a lot of plugins that have been created in order
+  to monitor basic resources such as processor load, disk usage, ping rates, etc. If you want to monitor something else, take a look at the
+  documentation on <link linkend="pluginapi">writing plugins</link> and roll your own. Its simple!</para>
 
-  <para>The downside to this type of plugin architecture is the fact that &name-icinga; has absolutely no idea what it is that
-  you're monitoring. You could be monitoring network traffic statistics, data error rates, room temperate, CPU voltage, fan speed,
-  processor load, disk space, or the ability of your super-fantastic toaster to properly brown your bread in the morning...
-  &name-icinga; doesn't understand the specifics of what's being monitored - it just tracks changes in the
-  <emphasis>state</emphasis> of those resources. Only the plugins themselves know exactly what they're monitoring and how to
-  perform the actual checks.</para>
+  <para>The downside to this type of plugin architecture is the fact that &name-icinga; has absolutely no idea what it is that you're
+  monitoring. You could be monitoring network traffic statistics, data error rates, room temperate, CPU voltage, fan speed, processor load,
+  disk space, or the ability of your super-fantastic toaster to properly brown your bread in the morning... &name-icinga; doesn't understand
+  the specifics of what's being monitored - it just tracks changes in the <emphasis>state</emphasis> of those resources. Only the plugins
+  themselves know exactly what they're monitoring and how to perform the actual checks.</para>
 
   <para><emphasis role="bold">What Plugins Are Available?</emphasis></para>
 
@@ -79,8 +74,8 @@
 
   <para><emphasis role="bold">Obtaining Plugins</emphasis></para>
 
-  <para>Plugins are not distributed with &name-icinga;, but you can download the official &name-nagios; plugins and many
-  additional plugins created and maintained by &name-nagios; and &name-icinga; users from the following locations:</para>
+  <para>Plugins are not distributed with &name-icinga;, but you can download the official &name-nagios; plugins and many additional plugins
+  created and maintained by &name-nagios; and &name-icinga; users from the following locations:</para>
 
   <itemizedlist>
     <listitem>
@@ -89,8 +84,7 @@
     </listitem>
 
     <listitem>
-      <para>&name-nagios; Downloads Page: <link
-      xlink:href="http://www.nagios.org/download/">http://www.nagios.org/download/</link></para>
+      <para>&name-nagios; Downloads Page: <link xlink:href="http://www.nagios.org/download/">http://www.nagios.org/download/</link></para>
     </listitem>
 
     <listitem>
@@ -100,24 +94,109 @@
 
   <para><anchor xml:id="plugins-howto" /><emphasis role="bold">How Do I Use Plugin X?</emphasis></para>
 
-  <para>Most all plugins will display basic usage information when you execute them using '-h' or '--help' on the command line.
-  For example, if you want to know how the check_http plugin works or what options it accepts, you should try executing the
-  following command:</para>
+  <para>Most all plugins will display basic usage information when you execute them using '-h' or '--help' on the command line. For example,
+  if you want to know how the check_http plugin works or what options it accepts, you should try executing the following command:</para>
 
   <screen> ./check_http --help</screen>
 
-  <note>
-    <para>Always execute the plugin using the &name-icinga; user because some plugins will create temporary files. If you're
-    testing plugins with another user then the &name-icinga; user may not have the permissions to overwrite existing files.</para>
+  <anchor xml:id="plugins-hints" />
 
-    <para>Don't call the plugin using relative paths (i.e <emphasis>./check_test_plugin</emphasis>). Always use absolute paths
-    because that's the way $name-icinga; does it (i.e. <emphasis>&url-icinga-libexec;/check_test_plugin</emphasis>).</para>
-  </note>
+  <important>
+    <para>Always execute the plugin using the &name-icinga; user because some plugins will create temporary files. If you're testing plugins
+    with another user then the &name-icinga; user may not have the permissions to overwrite existing files.</para>
+
+    <para>Don't call the plugin using relative paths (i.e <emphasis>./check_test_plugin</emphasis>). Always use absolute paths because
+    that's the way &name-icinga; does it (i.e. <emphasis>&url-icinga-libexec;/check_test_plugin</emphasis>).</para>
+  </important>
+
+  <para><emphasis role="bold">Integrating a new plugin</emphasis></para>
+
+  <para>If you want to integrate a new plugin then please read the documentation (if any) before installing it. It may contain important
+  information about the prerequisites like additional packages, (perl) modules and on how to install the plugin together with hints for your
+  distribution.</para>
+
+  <para>Sometimes you have to compile the plugin preparing the compile process using "./configure" with or without options. Please check the
+  file config.log for errors regarding missing (devel) packages before issuing the actual compile command (mostly "make" or "make all"). In
+  most cases the plugin is copied to the plugins directory (i.e. <emphasis>&url-icinga-libexec;</emphasis>) during "make install".</para>
+
+  <para>Sometimes you have to alter the plugin to reflect your environment (i.e. path to "utils.pm", ...). Normally you have to copy it
+  manually to the plugins directory (i.e. <emphasis>&url-icinga-libexec;</emphasis>).</para>
+
+  <para>After the installation of the plugin call it from the command line using the appropriate options. If this works then you can
+  integrate it into &name-icinga;.</para>
+
+  <para>Let's imagine you used the following call on the command line</para>
+
+  <programlisting> &url-icinga-libexec;/sample-plugin.pl -H 192.168.1.2 -a argument1 -p parameter -n 5</programlisting>
+
+  <para>The command definition has to contain two directives</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>command_name: this is a short name identifying the command, let's use <emphasis>check_sample</emphasis></para>
+    </listitem>
+
+    <listitem>
+      <para>command_line: here you define the command to execute. You can specify the command you executed on the command line but that
+      would be very inflexible. Normally the plugin directory (&url-icinga-libexec;) remains the same so we can use a <link
+      linkend="macrolist-user">$USERn$</link> variable which is defined in resource.cfg. The IP-address changes from host to host. There is
+      a macro called <link linkend="macrolist-hostaddress">$HOSTADDRESS$</link> which we can use for that purpose. The value of the
+      arguments may vary so these should be flexible, too. This may lead to the following definition:</para>
+    </listitem>
+  </itemizedlist>
+
+  <programlisting> define command{ 
+    command_name check_sample
+    command_line $USER1$/sample-plugin.pl -H $HOSTADDRESS$ -a $ARG1$ -p $ARG2$ -n $ARG3$
+    }</programlisting>
+
+  <para>Then we have to define the check_command directive which is part of the host/service definition starting with the short name
+  followed by the arguments separated by exclamation marks (!):</para>
+
+  <programlisting> check_command check_sample!argument1!parameter!5</programlisting>
+
+  <para>As you can see the IP-address is not specified because it is taken from the host definition.</para>
+
+  <para>Check the configuration using "/etc/init.d/icinga show-errors" and resolve any errors before issuing "/etc/init.d/icinga restart".
+  Wait until the object is checked and look at the status details. There might be errors.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>"...resulted in a return code of 127"</para>
+
+      <para>This means the plugin was not found at the specified location or that a file called from within the plugin was not found. If you
+      use $USERn$ macros calling the plugin then make sure that the macro really points to the location where the plugin is (is the macro
+      defined in resource.cfg?). Notification commands often call a mail program. Make sure that the path to the mail program is
+      correct.</para>
+    </listitem>
+
+    <listitem>
+      <para>"...resulted in a return code of 13"</para>
+
+      <para>Mostly this indicates a permissions problem. The user might not be able to access / execute the plugin and/or other related
+      files. This might happen if you tested a plugin as root which creates temporary files. The &name-icinga; user is not allowed to
+      overwrite these files.</para>
+    </listitem>
+  </itemizedlist>
 
   <para><emphasis role="bold">Plugin API</emphasis></para>
 
-  <para>You can find information on the technical aspects of plugins, as well as how to go about creating your own custom plugins
-  <link linkend="pluginapi">here</link>.</para>
-  <indexterm zone="Icinga_plugins"><primary>Plugins</primary><secondary>&name-icinga; Plugins</secondary></indexterm>
-  <indexterm zone="plugins-howto"><primary>How Do I Use Plugin X?</primary></indexterm>
+  <para>You can find information on the technical aspects of plugins, as well as how to go about creating your own custom plugins <link
+  linkend="pluginapi">here</link>.</para>
+
+  <indexterm zone="Icinga_plugins">
+    <primary>Plugins</primary>
+
+    <secondary>&name-icinga; Plugins</secondary>
+  </indexterm>
+
+  <indexterm zone="plugins-howto">
+    <primary>How Do I Use Plugin X?</primary>
+  </indexterm>
+
+  <indexterm zone="plugins-hints">
+    <primary>Plugins</primary>
+
+    <secondary>Integrating a new plugin</secondary>
+  </indexterm>
 </section>

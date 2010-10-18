@@ -238,6 +238,31 @@
  #&gt; make 
  #&gt; make install </programlisting>
 
+  <para><emphasis role="bold">Adjusting the SE&name-linux; settings</emphasis></para>
+
+  <para>&name-rhel; and derived distributions like &name-fedora; and &name-centos; are shipped with activated SE&name-linux; (Security Enhanced 
+  &name-linux;) running in "enforcing" mode. This may lead to "Internal Server Error" messages when you try to invoke the &name-icinga;-CGIs.</para>
+
+  <para>Check if SE&name-linux; runs in enforcing mode</para>
+
+  <screen> #&gt; getenforce</screen>
+
+  <para>Set SE&name-linux; in "permissive" mode</para>
+
+  <screen> #&gt; setenforce 0</screen>
+
+  <para>To make this change permanent you have to adjust this setting in <emphasis>/etc/selinux/config</emphasis> and restart the
+  system.</para>
+
+  <para>Instead of deactivating SE&name-linux; or setting it into permissive mode you can use the following commands to run the CGIs in
+  enforcing/targeted mode:</para>
+
+  <programlisting> #&gt; chcon -R -t httpd_sys_script_exec_t &url-icinga-base;/sbin/
+ #&gt; chcon -R -t httpd_sys_content_t &url-icinga-base;/share/</programlisting>
+
+  <para>Visit the &name-nagios;Community.org-Wiki at <link xlink:href="http://www.nagioscommunity.org/wiki">&url-nagios-community;</link> to
+  get information how to run the &name-icinga;-CGIs in enforcing mode with a targeted policy.</para>
+
   <para><emphasis role="bold">Start &name-icinga;</emphasis></para>
 
   <para>Add &name-icinga; to the list of system services and have it automatically start when the system boots (make sure you have installed
@@ -268,31 +293,6 @@
   <para><emphasis>&name-debian;/&name-opensuse;</emphasis></para>
 
   <programlisting> #&gt; /etc/init.d/icinga start</programlisting>
-
-  <para><emphasis role="bold">Adjusting the SE&name-linux; settings</emphasis></para>
-
-  <para>&name-fedora; is shipped with activated SE&name-linux; (Security Enhanced &name-linux;) running in "enforcing" mode. This may lead
-  to "Internal Server Error" messages when you try to invoke the &name-icinga;-CGIs.</para>
-
-  <para>Check if SE&name-linux; runs in enforcing mode</para>
-
-  <screen> #&gt; getenforce</screen>
-
-  <para>Set SE&name-linux; in "permissive" mode</para>
-
-  <screen> #&gt; setenforce 0</screen>
-
-  <para>To make this change permanent you have to adjust this setting in <emphasis>/etc/selinux/config</emphasis> and restart the
-  system.</para>
-
-  <para>Instead of deactivating SE&name-linux; or setting it into permissive mode you can use the following commands to run the CGIs in
-  enforcing/targeted mode:</para>
-
-  <programlisting> #&gt; chcon -R -t httpd_sys_script_exec_t &url-icinga-base;/sbin/
- #&gt; chcon -R -t httpd_sys_content_t &url-icinga-base;/share/</programlisting>
-
-  <para>Visit the &name-nagios;Community.org-Wiki at <link xlink:href="http://www.nagioscommunity.org/wiki">&url-nagios-community;</link> to
-  get information how to run the &name-icinga;-CGIs in enforcing mode with a targeted policy.</para>
 
   <para><emphasis role="bold">Login to the Classic Web Interface</emphasis></para>
 
