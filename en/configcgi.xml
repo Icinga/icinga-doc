@@ -1289,6 +1289,178 @@ By default disabled, all states will be shown.</para>
   </itemizedlist>
   <note><para>This option is available starting with &name-icinga; 1.0.3.</para></note>
 
+  <para><anchor xml:id="configcgi-showlog_initial_states" /> <emphasis role="bold">Show initial states</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">showlog_initial_states=&lt;0|1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">showlog_initial_states=1</emphasis>
+          </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option allows you to specify if initial states of hosts and services should be shown in showlog.cgi.
+  <note>This option only works if the option "log_initial_states" in icinga.cfg is set to 1.</note>
+  </para>
+
+  <itemizedlist>
+    <listitem>
+      <para>0 = Don't show initial states in showlog.cgi</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = Show initial states in showlog.cgi (default)</para>
+    </listitem>
+  </itemizedlist>
+  <note><para>This option is available starting with &name-icinga; 1.3.</para></note>
+
+  <para><anchor xml:id="configcgi-showlog_current_states" /> <emphasis role="bold">Show current states</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">showlog_current_states=&lt;0|1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">showlog_current_states=1</emphasis>
+          </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option allows you to specify if current states of hosts and services should be shown in showlog.cgi.
+  <note>This option only works if the option "log_current_states" in icinga.cfg is set to 1.</note>
+  </para>
+
+  <itemizedlist>
+    <listitem>
+      <para>0 = Don't show current states in showlog.cgi</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = Show current states in showlog.cgi (default)</para>
+    </listitem>
+  </itemizedlist>
+  <note><para>This option is available starting with &name-icinga; 1.3.</para></note>
+
+  <para><anchor xml:id="configcgi-tab_friendly_titles" /> <emphasis role="bold">Show object type in tab title</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">tab_friendly_titles=&lt;0|1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">tab_friendly_titles=1</emphasis>
+          </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Activating this option changes the &lt;title&gt; of status.cgi and extinfo.cgi when they refer to a single host, service, or group.</para>
+  <para>They will then read:</para>
+      <itemizedlist>
+        <listitem>[Host]</listitem>
+        <listitem>{HostGroup}</listitem>
+        <listitem>ServiceDesc @ Host</listitem>
+        <listitem>(ServiceGroup)</listitem>
+     </itemizedlist>
+  <para>These are easier to read and find if you use (many) tabs in your browser.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>0 = Don't show object type in tab title</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = Show object type in tab title (default)</para>
+    </listitem>
+  </itemizedlist>
+  <note><para>This option is available starting with &name-icinga; 1.3.</para></note>
+
+  <para><anchor xml:id="configcgi-add_notif_num" /> <emphasis role="bold">Show service state and notification number</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">add_notif_num_hard=n</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para></para></entry>
+
+          <entry><para> <emphasis role="bold">add_notif_num_soft=n</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">add_notif_num_hard=28</emphasis>
+          </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Set this to an OR of the service state identifiers for which status.cgi should not only report "attempts" (e.g., "3/3" for a HARD
+    non-OK state with max_check_attempts=3) but also the current notification number ("(#0)" if no problem notification has been sent yet,
+    etc.). This is helpful to identify services which switched between different non-OK states a lot, or services which have a
+    first_notification_delay set and are "not yet officially" considered in trouble.</para>
+    <para>Relevant values from include/statusdata.h (look them up *there* if you want to be *really* sure):
+      <programlisting> #define    SERVICE_PENDING     1
+ #define    SERVICE_OK          2
+ #define    SERVICE_WARNING     4
+ #define    SERVICE_UNKNOWN     8
+ #define    SERVICE_CRITICAL   16</programlisting>
+  </para>
+  <para>You'll likely want to use add_notif_num_hard=0 (default) or add_notif_num_hard=28 (warn+crit+unknown).</para>
+   <para>There's an add_notif_num_soft affecting services in a SOFT state for sake of completeness, too.</para> 
+  <note><para>These options are available starting with &name-icinga; 1.3.</para></note>
+
   <indexterm zone="config_cgi">
     <primary>CGI Configuration File Options</primary>
   </indexterm>
@@ -1439,5 +1611,35 @@ By default disabled, all states will be shown.</para>
     <primary>persistent_ack_comments=</primary>
 
     <secondary>Persistent Acknowledge Comments</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-showlog_initial_states">
+    <primary>showlog_initial_states=</primary>
+
+    <secondary>Show initial states</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-showlog_current_states">
+    <primary>showlog_current_states=</primary>
+
+    <secondary>Show current states</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-tab_friendly_titles">
+    <primary>tab_friendly_titles=</primary>
+
+    <secondary>Show object type in tab title</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-add_notif_num_hard">
+    <primary>add_notif_num_hard=</primary>
+
+    <secondary>Show service state and notification number (hard)</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-add_notif_num_soft">
+    <primary>add_notif_num_soft=</primary>
+
+    <secondary>Show service state and notification number (soft)</secondary>
   </indexterm>
 </section>
