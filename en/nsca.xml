@@ -95,8 +95,23 @@
 
   <para>Afterwards two programs (send and send_nsca) are created in the <literal>src</literal> directory.</para>
 
+  <caution>
+     If the libmcrypt packages are not found "./configure" will complain but will NOT end with a non-zero return code so please check 
+
+    <emphasis>config.log</emphasis>
+
+     using 
+
+    <programlisting> #&gt; grep mcrypt.h: config.log</programlisting>
+
+     This command should return no lines.
+  </caution>
+
   <para>If the libmcrypt modules are not found, the user or group deviate from "icinga" or the port to be used is not the default 5667 you
   can use several options to specify different values. Call "<literal>./configure -h</literal>" to see the options available.</para>
+
+  <para>After changing to "nsca_tests" you can try to execute "./runtests". Please note that these tests require several Perl modules
+  described in the README file.</para>
 
   <para><emphasis role="bold">Customise</emphasis></para>
 

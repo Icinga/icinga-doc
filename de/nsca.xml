@@ -52,7 +52,7 @@
 
     <listitem>
       <para><emphasis><link linkend="configmain-log_passive_checks">log_passive_checks = 1</link></emphasis> sollte während der Testphase in
-      <literal>icinga.cfg</literal> gesetzt sein, anderenfalls gibt es keine Meldungen über eintreffenen passive Prüfungen</para>
+      <literal>icinga.cfg</literal> gesetzt sein, anderenfalls gibt es keine Meldungen über eintreffende passive Prüfungen</para>
     </listitem>
 
     <listitem>
@@ -97,9 +97,24 @@
 
   <para>Anschließend gibt es zwei Programme (send and send_nsca) im <literal>src</literal>-Verzeichnis.</para>
 
+  <caution>
+     Wenn die libmcrypt-Dateien nicht gefunden werden, dann wird "./configure" sich beschweren, aber NICHT mit einem Return-Code ungleich Null enden, so dass Sie 
+
+    <emphasis>config.log</emphasis>
+
+     mit dem folgenden Befehl prüfen sollten 
+
+    <programlisting> #&gt; grep mcrypt.h: config.log</programlisting>
+
+     Dieser Befehl sollte keine Zeilen ausgeben.
+  </caution>
+
   <para>Falls die libmcrypt-Module nicht gefunden werden, Benutzer oder Gruppe vom Wert "icinga" abweichen oder der zu benutzende Port nicht
   dem Default 5667 entspricht, dann können Sie dies über verschiedene Optionen beeinflussen. Rufen Sie "<literal>./configure -h</literal>"
-  auf, um mehr über die verfügbaren Optionen zu erfahren..</para>
+  auf, um mehr über die verfügbaren Optionen zu erfahren.</para>
+
+  <para>Nach dem Wechsel in "nsca_tests" können Sie versuchen, "./runtests" auszuführen. Bitte beachten Sie, dass diese Tests verschiedene
+  Perl-Module benötigen, die in der Datei README beschrieben sind.</para>
 
   <para><emphasis role="bold">Anpassen</emphasis></para>
 
