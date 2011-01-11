@@ -159,21 +159,27 @@
 
   <para>Bitte nutzen Sie YaST für die Installation der Pakete gd, gd-devel, libjpeg, libjpeg-devel, libpng, libpng-devel und -optional-
   net-snmp, net-snmp-devel und perl-net-snmp.</para>
-  <note><para>Die devel-Pakete sind ggf. auf den SDK-DVDs zu finden.</para></note>
+
+  <note>
+    <para>Die devel-Pakete sind ggf. auf den SDK-DVDs zu finden.</para>
+  </note>
 
   <para><emphasis role="bold">&name-mysql;:</emphasis></para>
+
   <para>Benutzen Sie yast zur Installation der Pakete für das RDBMS, das Sie verwenden möchten, also "mysql", "mysql-devel" sowie die
   libdbi-Pakete "libdbi", "libdbi-devel", "libdbi-drivers" und "libdbi-dbd-mysql".</para>
+
   <para>Bei OpenSuSE 11 (SLES 11) lautet der Name des Packages statt "mysql-devel" nun "libmysqlclient-devel".</para>
 
   <para><emphasis role="bold">&name-postgres;:</emphasis></para>
+
   <para>Benutzen Sie yast zur Installation der Pakete für das RDBMS, das Sie verwenden möchten, also "postgresql", "postgresql-devel" und
   "postgresql-server" sowie die libdbi-Pakete "libdbi", "libdbi-devel" und "libdbi-drivers".</para>
 
-  <para>Bei alten OpenSuSE- (SLES) Version einschließlich Version 10 ist es ziemlich wahrscheinlich, dass es keine libdbi-Packages gibt,
-  so dass Sie die Sourcen herunterladen und kompilieren müssen.
-  Ersetzen Sie dabei &lt;rdbm&gt; durch Ihr RDBM wie mysql oder pgsql. Bitte beachten Sie, dass der Oracle-Treiber noch nicht funktioniert.
-  Lesen Sie daher den entsprechenden Abschnitt zu ocilib (anstatt libdbi).</para>
+  <para>Bei alten OpenSuSE- (SLES) Version einschließlich Version 10 ist es ziemlich wahrscheinlich, dass es keine libdbi-Packages gibt, so
+  dass Sie die Sourcen herunterladen und kompilieren müssen. Ersetzen Sie dabei &lt;rdbm&gt; durch Ihr RDBM wie mysql oder pgsql. Bitte
+  beachten Sie, dass der Oracle-Treiber noch nicht funktioniert. Lesen Sie daher den entsprechenden Abschnitt zu ocilib (anstatt
+  libdbi).</para>
 
   <orderedlist>
     <listitem>
@@ -304,6 +310,13 @@
  #&gt; make install-config 
  #&gt; make install-commandmode 
  #&gt; make install-idoutils</programlisting> oder kürzer <programlisting> #&gt; make fullinstall</programlisting></para>
+
+  <note>
+    <para>Installieren Sie die IDOUtils und andere Ereignis-Broker-Module nur mit dem primären Ziel <emphasis role="bold">make
+    instal</emphasis><emphasis role="bold">l</emphasis>. Manuelles Kopieren und Überschreiben des vorhandenen Moduls erzeugt einen Segfault
+    des Icinga Kerns mit Hilfe von idomod.o, da eine Verwendung einer temporären Kopie explizit verhindert werden soll. Dies ist nützlich
+    für <link xlink:href="http://omdistro.org/">OMD</link></para>
+  </note>
 
   <para>Die Icinga-API wird beim Aufruf von "make install" installiert, wenn Sie nur die Icinga-API (nach)installieren möchten, nutzen Sie:
   <programlisting> #&gt; make install-api</programlisting>Die Icinga-API ist Voraussetzung für das Icinga Web-Interface (nicht für die
@@ -517,9 +530,9 @@
 
   <para><emphasis role="bold">Anpassen der SE&name-linux;-Einstellungen</emphasis></para>
 
-  <para>&name-rhel; und ähnliche Distributionen wie &name-fedora; oder &name-centos; werden mit installiertem SE&name-linux; (Security Enhanced
-  &name-linux;) ausgeliefert und laufen im "Enforcing"-Modus. Dies kann zu "Internal Server Error"-Fehlern führen, wenn Sie versuchen, die
-  &name-icinga;-CGIs aufzurufen.</para>
+  <para>&name-rhel; und ähnliche Distributionen wie &name-fedora; oder &name-centos; werden mit installiertem SE&name-linux; (Security
+  Enhanced &name-linux;) ausgeliefert und laufen im "Enforcing"-Modus. Dies kann zu "Internal Server Error"-Fehlern führen, wenn Sie
+  versuchen, die &name-icinga;-CGIs aufzurufen.</para>
 
   <para>Schauen Sie, ob SE&name-linux; im Enforcing-Modus läuft.</para>
 

@@ -301,6 +301,7 @@
  #&gt; make install-commandmode 
  #&gt; make install-idoutils </programlisting> or shorter <programlisting> #&gt; make fullinstall</programlisting></para>
 
+<note><para>Install IDOUtils and applicable event broker modules only using the primary make install target. Do not manually copy and overwrite the existing module as this will result in a segfault on icinga core which is using idomod.o directly preventing usage of a temporary copy explicitely. This is useful for <link xlink:href="&url-omd;">OMD.</link></para></note>
   <para>The &name-icinga;-API will be installed during "make install" so if you are required to install it manually please try:
   <programlisting> #&gt; make install-api</programlisting>This will be mandatory for Icinga-Web.</para>
 
@@ -599,6 +600,7 @@
   <para>Congratulations! You successfully installed &name-icinga; with &name-idoutils;. Your journey into monitoring has just begun. You'll
   no doubt want to monitor more than just your local machine, so check out the chapter on <link linkend="ch02">"Getting Started"</link>
   about "Monitoring ..."</para>
+
 
   <indexterm zone="quickstart-idoutils">
     <primary>Quickstart</primary>
