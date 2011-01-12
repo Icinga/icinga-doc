@@ -365,6 +365,9 @@
       </note>
 
       <programlisting> #&gt; rm -rf app/cache/config/*.php</programlisting>
+<para>or</para>
+
+  <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
     </listitem>
 
     <listitem>
@@ -380,7 +383,7 @@
 
       <para><programlisting> #&gt; ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load</programlisting></para>
 
-      <para>Using OpenSuSE you can use "a2enmod rewrite" to activate the module. If that doesn't work you have to edit the file
+      <para>Using OpenSuSE or SLES you can use "a2enmod rewrite" to activate the module. If that doesn't work you have to edit the file
       "/etc/sysconfig/apache2". The module "rewrite" has to be appended to the line "APACHE_MODULES=...".</para>
 
       <itemizedlist>
@@ -465,6 +468,9 @@ Alias /icinga-web /usr/local/icinga-web/pub
       <para>Clear cache:</para>
 
       <para><programlisting>#&gt; rm /usr/local/icinga-web/app/cache/config/*.php</programlisting></para>
+<para>or</para>
+
+  <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
 
       <para>Restart your Webserver:</para>
 
@@ -511,11 +517,14 @@ Alias /icinga-web /usr/local/icinga-web/pub
       used?</para>
 
       <para>* Delete the config cache in app/cache/config/*.php</para>
+<para>use</para>
+
+  <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
 
       <para>Icinga Web shows a blank page?</para>
 
       <para>* Apache Error Logs =&gt; mod_rewrite enabled, php dependencies ok? 'make testdeps'</para>
-
+ 
       <para>* .htaccess/vhost config =&gt; paths not correct?</para>
 
       <para>Icinga Web does not show any data?</para>
@@ -542,6 +551,10 @@ Alias /icinga-web /usr/local/icinga-web/pub
       <para><programlisting> #&gt; cd etc/tests/
  #&gt; php icingaWebTesting.php</programlisting></para>
 
+<note>
+        <para>Using your root account for testing results in wrong logfile permissions in /usr/local/icinga-web/app/data/log and Icinga-Web loads anymore!</para>
+      </note>
+
       <note>
         <para>Remember - changing the php settings in php.ini requires an apache reload/restart!</para>
       </note>
@@ -553,6 +566,8 @@ Alias /icinga-web /usr/local/icinga-web/pub
       /usr/local/icinga-web/app/cache/config/config_handlers.xml_development__xxxx.php" generated from configuration file
       /usr/local/icinga-web/app/config/config_handlers.xml". Please make sure you have set correct write permissions for directory
       /usr/local/icinga-web/app/cache.... = &gt; Check /etc/php5/apache/php.ini, set safe_mode = off.</para>
+
+       
 
       <para>* Could not connect to API. The API Connector returned the following message: getConnection failed: Database connection failed:
       SQLSTATE[28000] [1045] Access denied for user 'icinga'@'localhost' (using password: YES))</para>
@@ -574,7 +589,10 @@ Alias /icinga-web /usr/local/icinga-web/pub
 
       <para>* Empty Icinga Web? =&gt; If mod_rewrite is enabled and 'index.php' appears in the request url the portal does not work. Try to
       remove the index.php from your url and everything should work</para>
-<para>* Request failed, Ressource /icinga-web/appkit/ext/applicationState could not be loaded - is the url correct? =&gt; mod_rewrite enabled ?</para>
+      
+
+<para>* Login possible but Icinga Web keeps loading data....</para>
+<para>* Request failed, Ressource /icinga-web/appkit/ext/application State could not be loaded - is the url correct? =&gt; mod_rewrite enabled ?</para>
 
       <para>* Counts in the Status Cronk do not match your configuration? =&gt; Check with the Backend, e.g. IDOUtils DB, selecting the
       counts for the status tables.</para>

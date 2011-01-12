@@ -13,7 +13,7 @@
   <para>Das neue &name-web; wird aktuell sehr stark weiterentwickelt, sodass sich diese Dokumentation unter Umständen noch ändern kann/wird.
   Falls Sie eine detaillierte Installationsanleitung benötigen, konsultieren Sie bitte doc/INSTALL aus dem Source-Paket. Mehr Informationen
   über die gesamte Architektur können Sie auf unserer Webseite nachlesen: <link
-  xlink:href="http://www.icinga.org/architecture/">&url-icinga;architecture/</link> Falls Sie mehr über das &name-web; development und die
+  xlink:href="http://www.icinga.org/architecture/">&url-icinga;architecture/</link> Falls Sie mehr über das &name-web; Development und die
   Modularchitektur wissen wollen, verfolgen Sie bitte stetig aktualisierte Einträge im Development-Wiki von &name-web;: <link
   xlink:href="https://dev.icinga.org/projects/icinga-development/wiki#24-Icinga-Web">&name-icingawiki;</link></para>
 
@@ -374,6 +374,9 @@ Please check the new Apache2 configuration (etc/apache2/icinga-web.conf).</progr
       </note>
 
       <programlisting> #&gt; rm -rf app/cache/config/*.php</programlisting>
+<para>oder</para>
+
+  <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
     </listitem>
 
     <listitem>
@@ -389,7 +392,7 @@ Please check the new Apache2 configuration (etc/apache2/icinga-web.conf).</progr
 
       <para><programlisting> #&gt; ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load</programlisting></para>
 
-      <para>Bei OpenSuSE können Sie das Modul mit "a2enmod rewrite" aktivieren. Falls das nicht funktioniert, gibt es in der Datei
+      <para>Bei OpenSuSE und SLES können Sie das Modul mit "a2enmod rewrite" aktivieren. Falls das nicht funktioniert, gibt es in der Datei
       /etc/sysconfig/apache2 die Zeile "APACHE_MODULES=...", der das Modul "rewrite" hinzugefügt werden muss.</para>
 
       <para>Editieren Sie die .htaccess unter /usr/local/icinga-web/pub und ändern Sie die RewriteBase (ab Zeile 14): <programlisting> DirectoryIndex index.php
@@ -461,6 +464,9 @@ Alias /icinga-web /usr/local/icinga-web/pub
       <para>Leeren Sie den Cache:</para>
 
       <para><programlisting> #&gt; rm /usr/local/icinga-web/app/cache/config/*.php</programlisting></para>
+<para>oder</para>
+
+  <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
 
       <para>und starten Sie den Webserver neu:</para>
 
@@ -511,10 +517,14 @@ Alias /icinga-web /usr/local/icinga-web/pub
 
       <para>* Löschen Sie den Konfigurationscache in app/cache/config/*.php</para>
 
+  <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
+
       <para>Icinga Web zeigt eine leere Seite?</para>
 
       <para>* Apache Errors Logs =&gt; mod_rewrite enabled, PHP-Abhängigkeiten ok? 'make testdeps'</para>
-<para>* Request failed, Ressource /icinga-web/appkit/ext/applicationState could not be loaded - is the url correct? =&gt; mod_rewrite enabled ?</para>
+<para> Icinga Web - Login erfolgt- aber die Seite lädt und lädt...</para>
+
+<para>* Request failed, Ressource /icinga-web/appkit/ext/application State could not be loaded - is the url correct? =&gt; mod_rewrite enabled ?</para>
 
 
       <para>* .htaccess/VHost-Konfiguration =&gt; Pfade nicht korrekt? Icinga-Web zeigt keine Daten?</para>
@@ -542,7 +552,9 @@ Alias /icinga-web /usr/local/icinga-web/pub
 
       <para><programlisting> #&gt; cd etc/tests/
  #&gt; php icingaWebTesting.php</programlisting></para>
-
+<note>
+        <para>Bitte benutzen Sie nicht Ihren root- Benutzer zum Testen, Ihr Icinga-Web lädt sonst nicht mehr, da die Log-Datei unter /usr/local/icinga-web/app/data/log die falschen Berechtigungen hat!</para>
+      </note>
       <note>
         <para>Nicht vergessen - Ändern von PHP-Einstellungen in der php.ini erfordert einen Apache reload/restart!</para>
       </note>
