@@ -6,1200 +6,1249 @@
 <section version="5.0" xml:id="configcgi" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-    <title>Optionen CGI-Konfigurationsdatei</title>
+  <title>Optionen CGI-Konfigurationsdatei</title>
 
-    <para><emphasis role="bold">Anmerkungen</emphasis></para>
+  <para><emphasis role="bold">Anmerkungen</emphasis></para>
 
-    <para>Wenn Sie Konfigurationsdateien erstellen oder anpassen, beachten Sie bitte folgendes:</para>
+  <para>Wenn Sie Konfigurationsdateien erstellen oder anpassen, beachten Sie bitte folgendes:</para>
 
-    <orderedlist>
-        <listitem>
-            <para>Zeilen, die mit einem '#'-Zeichen beginnen, werden als Kommentar betrachtet und nicht verarbeitet</para>
-        </listitem>
+  <orderedlist>
+    <listitem>
+      <para>Zeilen, die mit einem '#'-Zeichen beginnen, werden als Kommentar betrachtet und nicht verarbeitet</para>
+    </listitem>
 
-        <listitem>
-            <para>Variablennamen müssen am Zeilenanfang beginnen - "white space" sind vor dem Namen NICHT erlaubt</para>
-        </listitem>
+    <listitem>
+      <para>Variablennamen müssen am Zeilenanfang beginnen - "white space" sind vor dem Namen NICHT erlaubt</para>
+    </listitem>
 
-        <listitem>
-            <para>Variablennamen sind abhängig von Groß- und Kleinschreibung</para>
-        </listitem>
-    </orderedlist>
+    <listitem>
+      <para>Variablennamen sind abhängig von Groß- und Kleinschreibung</para>
+    </listitem>
+  </orderedlist>
 
-    <para><emphasis role="bold">Beispielkonfiguration</emphasis></para>
+  <para><emphasis role="bold">Beispielkonfiguration</emphasis></para>
 
-    <para><inlinemediaobject>
-            <imageobject>
-                <imagedata fileref="../images/tip.gif" format="GIF"></imagedata>
-            </imageobject>
-        </inlinemediaobject> Hinweis: eine Beispiel-CGI-Konfigurationsdatei (<emphasis>&url-icinga-base;/etc/cgi.cfg</emphasis>) wird für Sie
-    installiert, wenn Sie der <link linkend="quickstart">Schnellstart-Anleitung</link> folgen.</para>
+  <para><inlinemediaobject>
+      <imageobject>
+        <imagedata fileref="../images/tip.gif" format="GIF"></imagedata>
+      </imageobject>
+    </inlinemediaobject> Hinweis: eine Beispiel-CGI-Konfigurationsdatei (<emphasis>&url-icinga-base;/etc/cgi.cfg</emphasis>) wird für Sie
+  installiert, wenn Sie der <link linkend="quickstart">Schnellstart-Anleitung</link> folgen.</para>
 
-    <para><emphasis role="bold">Position der Konfigurationsdatei</emphasis></para>
+  <para><emphasis role="bold">Position der Konfigurationsdatei</emphasis></para>
 
-    <para>Als Standard erwartet &name-icinga;, dass die CGI-Konfigurationsdatei <emphasis role="bold">cgi.cfg</emphasis> heißt und zusammen mit der
-    <link linkend="configmain">Hauptkonfigurationsdatei</link> im Verzeichnis für die Konfigurationsdateien liegt. Wenn Sie den Namen der Datei oder
-    die Position ändern müssen, dann können Sie &name-apache; so konfigurieren, dass eine Umgebungsvariable namens NAGIOS_CGI_CONFIG übergeben wird
-    (die auf die korrekte Position der CGIs verweist). Lesen Sie in der &name-apache;-Dokumentation nach, wie das zu tun ist.</para>
+  <para>Als Standard erwartet &name-icinga;, dass die CGI-Konfigurationsdatei <emphasis role="bold">cgi.cfg</emphasis> heißt und zusammen
+  mit der <link linkend="configmain">Hauptkonfigurationsdatei</link> im Verzeichnis für die Konfigurationsdateien liegt. Wenn Sie den Namen
+  der Datei oder die Position ändern müssen, dann können Sie &name-apache; so konfigurieren, dass eine Umgebungsvariable namens
+  ICINGA_CGI_CONFIG übergeben wird (die auf die korrekte Position der CGIs verweist). Lesen Sie in der &name-apache;-Dokumentation nach, wie
+  das zu tun ist.</para>
 
-    <para><emphasis role="bold">Variablen der Konfigurationsdatei</emphasis></para>
+  <para><emphasis role="bold">Variablen der Konfigurationsdatei</emphasis></para>
 
-    <para>Nachfolgend finden Sie Beschreibungen jeder Option der Hauptkonfigurationsdatei...</para>
+  <para>Nachfolgend finden Sie Beschreibungen jeder Option der Hauptkonfigurationsdatei...</para>
 
-    <para><anchor xml:id="configcgi-main_cfg_file" /><emphasis role="bold">Position der Hauptkonfigurationsdatei</emphasis></para>
+  <para><anchor xml:id="configcgi-main_cfg_file" /><emphasis role="bold">Position der Hauptkonfigurationsdatei</emphasis></para>
 
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
 
-            <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*" />
 
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
 
-                    <entry><para><emphasis role="bold">main_config_file=&lt;file_name&gt;</emphasis> </para></entry>
-                </row>
+          <entry><para><emphasis role="bold">main_config_file=&lt;file_name&gt;</emphasis> </para></entry>
+        </row>
 
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
-                    <entry><para><emphasis condition="red" role="color"><emphasis
-                    role="bold">main_config_file=&url-icinga-base;/etc/icinga.cfg</emphasis> </emphasis> </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">main_config_file=&url-icinga-base;/etc/icinga.cfg</emphasis> </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
 
-    <para>Dies gibt die Position Ihrer <link linkend="configmain">Hauptkonfigurationsdatei</link> an. Die CGIs müssen wissen, wo sie zu finden ist, um
-    Informationen zu Konfigurationsinformationen, aktuellen Host- und Service-Zuständen usw. zu bekommen.</para>
+  <para>Dies gibt die Position Ihrer <link linkend="configmain">Hauptkonfigurationsdatei</link> an. Die CGIs müssen wissen, wo sie zu finden
+  ist, um Informationen zu Konfigurationsinformationen, aktuellen Host- und Service-Zuständen usw. zu bekommen.</para>
 
-    <para><anchor xml:id="configcgi-physical_html_path" /><emphasis role="bold">vollständiger (physical) HTML-Pfad</emphasis></para>
+  <para><anchor xml:id="configcgi-physical_html_path" /><emphasis role="bold">vollständiger (physical) HTML-Pfad</emphasis></para>
 
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
 
-            <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*" />
 
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
 
-                    <entry><para><emphasis role="bold">physical_html_path=&lt;Pfad&gt;</emphasis> </para></entry>
-                </row>
+          <entry><para><emphasis role="bold">physical_html_path=&lt;Pfad&gt;</emphasis> </para></entry>
+        </row>
 
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
-                    <entry><para><emphasis condition="red" role="color"><emphasis role="bold">physical_html_path=&url-icinga-base;/share</emphasis>
-                    </emphasis> </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">physical_html_path=&url-icinga-base;/share</emphasis>
+          </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
 
-    <para>Dies ist der <emphasis>vollständige</emphasis> Pfad zu den HTML-Dateien von &name-icinga; auf Ihrer Workstation oder Ihrem Server.
-    &name-icinga; nimmt an, dass die Dokumentation und die Bilddateien (die von den CGIs benutzt werden) in Unterverzeichnissen namens
-    <emphasis>docs/</emphasis> und <emphasis>images/</emphasis> gespeichert sind.</para>
+  <para>Dies ist der <emphasis>vollständige</emphasis> Pfad zu den HTML-Dateien von &name-icinga; auf Ihrer Workstation oder Ihrem Server.
+  &name-icinga; nimmt an, dass die Dokumentation und die Bilddateien (die von den CGIs benutzt werden) in Unterverzeichnissen namens
+  <emphasis>docs/</emphasis> und <emphasis>images/</emphasis> gespeichert sind.</para>
 
-    <para><anchor xml:id="configcgi-url_html_path" /><emphasis role="bold">URL-HTML-Pfad</emphasis></para>
+  <para><anchor xml:id="configcgi-url_html_path" /><emphasis role="bold">URL-HTML-Pfad</emphasis></para>
 
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
-
-            <colspec colname="c2" colwidth="50*" />
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
 
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
+      <colspec colname="c2" colwidth="50*" />
 
-                    <entry><para><emphasis role="bold">url_html_path=&lt;Pfad&gt;</emphasis> </para></entry>
-                </row>
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
 
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
+          <entry><para><emphasis role="bold">url_html_path=&lt;Pfad&gt;</emphasis> </para></entry>
+        </row>
 
-                    <entry><para><emphasis condition="red" role="color"><emphasis role="bold">url_html_path=/icinga</emphasis> </emphasis>
-                    </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
-    <para>Wenn Sie &name-icinga; über einen Web-Browser mit einem URL wie <emphasis role="bold">http://www.myhost.com/icinga</emphasis>, aufrufen,
-    sollte dieser Wert <emphasis>/icinga</emphasis> sein. Grundsätzlich ist es der Pfadanteil des URL, der zum Aufruf der &name-icinga;-HTML-Seiten
-    benutzt wird.</para>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">url_html_path=/icinga</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
 
-    <para><anchor xml:id="configcgi-use_authentication" /><emphasis role="bold">Nutzung der Authentifizierung</emphasis></para>
+  <para>Wenn Sie &name-icinga; über einen Web-Browser mit einem URL wie <emphasis role="bold">http://www.myhost.com/icinga</emphasis>,
+  aufrufen, sollte dieser Wert <emphasis>/icinga</emphasis> sein. Grundsätzlich ist es der Pfadanteil des URL, der zum Aufruf der
+  &name-icinga;-HTML-Seiten benutzt wird.</para>
 
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
+  <para><anchor xml:id="configcgi-url_stylesheet_path" /> <emphasis role="bold">URL Stylesheet Path</emphasis></para>
 
-            <colspec colname="c2" colwidth="50*" />
-
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
-
-                    <entry><para><emphasis role="bold">use_authentication=&lt;0/1&gt;</emphasis> </para></entry>
-                </row>
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
 
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
+      <colspec colname="c2" colwidth="50*" />
 
-                    <entry><para><emphasis condition="red" role="color"><emphasis role="bold">use_authentication=1</emphasis> </emphasis>
-                    </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
 
-    <para>Diese Option kontrolliert, ob die CGIs die Authentifizierungs- und Autorisierungsfunktionalität nutzen, um den Zugang von Benutzern zu
-    Informationen und Befehlen zu prüfen oder nicht. Wir möchten dringend raten, dass Sie die Authentifizierungsfunktionalität für die CGIs nutzen.
-    Wenn Sie sich entscheiden, die Authentifizierung nicht zu nutzen, dann stellen Sie sicher, dass das <link linkend="cgis-cmd_cgi">command
-    CGI</link> entfernt wird, um nicht autorisierte Benutzer an der Ausführung von &name-icinga;-Befehlen zu hindern. Das CGI wird keine Befehle
-    ausführen, wenn Authentifizierung deaktiviert ist, aber wir würden trotzdem dazu raten, das CGI zu entfernen, damit man auf der sicheren Seite
-    ist. Mehr Informationen zur Einstellung der Authentifizierung und der Konfiguration von Autorisierung für die CGIs finden Sie <link
-    linkend="cgiauth">hier</link>.</para>
+          <entry><para> <emphasis role="bold">url_stylesheet_path=&lt;path&gt;/stylesheets</emphasis> </para></entry>
+        </row>
 
-    <itemizedlist>
-        <listitem>
-            <para>0 = die Authentifizierungsfunktionalität nicht nutzen</para>
-        </listitem>
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
-        <listitem>
-            <para>1 = die Authentifizierungs- und Autorisierungsfunktionalität nutzen (Default)</para>
-        </listitem>
-    </itemizedlist>
-
-    <para><anchor xml:id="configcgi-default_user_name" /><emphasis role="bold">Standard-Benutzername</emphasis></para>
-
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
-
-            <colspec colname="c2" colwidth="50*" />
-
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">url_stylesheet_path=/icinga/stylesheets</emphasis>
+          </emphasis></para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
 
-                    <entry><para><emphasis role="bold">default_user_name=&lt;username&gt;</emphasis> </para></entry>
-                </row>
+  <para>Diese Option erlaubt Ihnen die Angabe einer alternativen Stylesheet URL. Dies ist nützlich, wenn Sie benutzerdefinierte Stylesheets
+  aus einem anderen Verzeichnis hinzufügen möchten.Wird sie nicht gesetzt, wird der Standard-Speicherort verwendet
+  (url_stylesheets_path=url_html_path/stylesheets).</para>
 
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
-
-                    <entry><para><emphasis condition="red" role="color"><emphasis role="bold">default_user_name=guest</emphasis> </emphasis>
-                    </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
-
-    <para>Das Setzen dieser Variable definiert einen Standard-Benutzernamen, der die CGIs aufrufen kann. Dies erlaubt es Leuten in einer sicheren
-    Domäne (d.h. hinter einer Firewall) die CGIs aufzurufen, ohne dass sie sich am Web-Server authentifizieren müssen. Sie können das benutzen, um die
-    Basis-Authentifizierung zu verhindern, wenn Sie keinen sicheren Server einsetzen, weil Basis-Authentifizierung Passwörter im Klartext über das
-    Internet überträgt.</para>
-
-    <para><emphasis role="bold">Wichtig:</emphasis> Definieren Sie <emphasis>keinen</emphasis> Standard-Benutzernamen, solange Sie nicht einen
-    sicheren Web-Server haben und sicher sind, dass sich jeder, der die CGIs aufruft, in irgendeiner Weise authentifiziert hat. Wenn Sie diese
-    Variable definieren, dann wird jeder, der sich am Web-Server authentifiziert, alle Rechte dieses Benutzers erben!</para>
-
-    <para><anchor xml:id="configcgi-authorized_for_system_information" /><emphasis role="bold">Zugang zu System/Prozessinformationen</emphasis></para>
-
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
-
-            <colspec colname="c2" colwidth="50*" />
-
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
-
-                    <entry><para><emphasis
-                    role="bold">authorized_for_system_information=&lt;user1&gt;,&lt;user2&gt;,&lt;user3&gt;,...&lt;usern&gt;</emphasis>
-                    </para></entry>
-                </row>
+  <para><anchor xml:id="configcgi-use_authentication" /><emphasis role="bold">Nutzung der Authentifizierung</emphasis></para>
 
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
 
-                    <entry><para><emphasis condition="red" role="color"><emphasis
-                    role="bold">authorized_for_system_information=icingaadmin,theboss</emphasis> </emphasis> </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
-
-    <para>Dies ist eine Komma-separierte Liste von Namen von <emphasis>authentifizierten Benutzern</emphasis>, die System/Prozessinformationen im
-    <link linkend="cgis-extinfo_cgi">extended information CGI</link> ansehen können. Benutzer in dieser Liste sind <emphasis>nicht</emphasis>
-    automatisch autorisiert, System/Prozessbefehle zu erteilen. Wenn Sie möchten, dass Benutzer auch System/Prozessbefehle erteilen können, dann
-    müssen Sie diese der <link linkend="configcgi-authorized_for_system_commands">authorized_for_system_commands</link>-Variable hinzufügen. Mehr
-    Informationen, wie man Authentifizierung einrichtet und Autorisierung für die CGIs konfiguriert, finden Sie <link
-    linkend="cgiauth">hier</link>.</para>
-
-    <para><anchor xml:id="configcgi-authorized_for_system_commands" /><emphasis role="bold">Zugang zu System/Prozessbefehlen</emphasis></para>
-
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
-
-            <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*" />
 
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">use_authentication=&lt;0/1&gt;</emphasis> </para></entry>
+        </row>
 
-                    <entry><para><emphasis
-                    role="bold">authorized_for_system_commands=&lt;user1&gt;,&lt;user2&gt;,&lt;user3&gt;,...&lt;usern&gt;</emphasis> </para></entry>
-                </row>
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">use_authentication=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
 
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
+  <para>Diese Option kontrolliert, ob die CGIs die Authentifizierungs- und Autorisierungsfunktionalität nutzen, um den Zugang von Benutzern
+  zu Informationen und Befehlen zu prüfen oder nicht. Wir möchten dringend raten, dass Sie die Authentifizierungsfunktionalität für die CGIs
+  nutzen. Wenn Sie sich entscheiden, die Authentifizierung nicht zu nutzen, dann stellen Sie sicher, dass das <link
+  linkend="cgis-cmd_cgi">command CGI</link> entfernt wird, um nicht autorisierte Benutzer an der Ausführung von &name-icinga;-Befehlen zu
+  hindern. Das CGI wird keine Befehle ausführen, wenn Authentifizierung deaktiviert ist, aber wir würden trotzdem dazu raten, das CGI zu
+  entfernen, damit man auf der sicheren Seite ist. Mehr Informationen zur Einstellung der Authentifizierung und der Konfiguration von
+  Autorisierung für die CGIs finden Sie <link linkend="cgiauth">hier</link>.</para>
 
-                    <entry><para><emphasis condition="red" role="color"><emphasis role="bold">authorized_for_system_commands=icingaadmin</emphasis>
-                    </emphasis> </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
-
-    <para>Dies ist eine Komma-separierte Liste von Namen von <emphasis>authentifizierten Benutzern</emphasis>, die System/Prozessbefehle über das
-    <link linkend="cgis-extinfo_cgi">command CGI</link> erteilen können. Benutzer in dieser Liste sind <emphasis>nicht</emphasis> automatisch
-    autorisiert, System/Prozessinformationen anzusehen. Wenn Sie möchten, dass Benutzer auch System/Prozessinformationen ansehen können, dann müssen
-    Sie diese der <link linkend="configcgi-authorized_for_system_information">authorized_for_system_information</link>-Variable hinzufügen. Mehr
-    Informationen, wie man Authentifizierung einrichtet und Autorisierung für die CGIs konfiguriert, finden Sie <link
-    linkend="cgiauth">hier</link>.</para>
-
-    <para><anchor xml:id="configcgi-authorized_for_configuration_information" /><emphasis role="bold">Zugang zu
-    Konfigurationsinformationen</emphasis></para>
-
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
-
-            <colspec colname="c2" colwidth="50*" />
-
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
-
-                    <entry><para><emphasis
-                    role="bold">authorized_for_configuration_information=&lt;user1&gt;,&lt;user2&gt;,&lt;user3&gt;,...&lt;usern&gt;</emphasis>
-                    </para></entry>
-                </row>
-
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
-
-                    <entry><para><emphasis condition="red" role="color"><emphasis
-                    role="bold">authorized_for_configuration_information=icingaadmin</emphasis> </emphasis> </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
-
-    <para>Dies ist eine Komma-separierte Liste von Namen von <emphasis>authentifizierten Benutzern</emphasis>, die Konfigurationsinformationen im
-    <link linkend="cgis-config_cgi">configuration CGI</link> ansehen können. Benutzer in dieser Liste können Informationen zu allen konfigurierten
-    Hosts, Hostgruppen, Kontakten, Kontaktgruppen, Zeitfenstern und Befehlen ansehen. Mehr Informationen, wie man Authentifizierung einrichtet und
-    Autorisierung für die CGIs konfiguriert, finden Sie <link linkend="cgiauth">hier</link>.</para>
-
-    <para><anchor xml:id="configcgi-authorized_for_all_hosts" /><emphasis role="bold">Global Host Information Access</emphasis></para>
-
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
-
-            <colspec colname="c2" colwidth="50*" />
-
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
-
-                    <entry><para><emphasis role="bold">authorized_for_all_hosts=&lt;user1&gt;,&lt;user2&gt;,&lt;user3&gt;,...&lt;usern&gt;</emphasis>
-                    </para></entry>
-                </row>
-
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
-
-                    <entry><para><emphasis condition="red" role="color"><emphasis role="bold">authorized_for_all_hosts=icingaadmin,theboss</emphasis>
-                    </emphasis> </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
-
-    <para>Dies ist eine Komma-separierte Liste von Namen von <emphasis>authentifizierten Benutzern</emphasis>, die Status- und
-    Konfigurationsinformationen im für alle Hosts ansehen können. Benutzer in dieser Liste sind automatisch autorisiert, Informationen zu allen
-    Services anzusehen. Benutzer in dieser Liste sind <emphasis>nicht</emphasis> automatisch berechtigt, Befehle für alle Hosts oder Services zu
-    erteilen. Wenn Sie möchten, dass Benutzer auch Befehle für alle Hosts oder Services erteilen können, dann müssen Sie diese der <link
-    linkend="configcgi-authorized_for_all_host_commands">authorized_for_all_host_commands</link>-Variable hinzufügen. Mehr Informationen, wie man
-    Authentifizierung einrichtet und Autorisierung für die CGIs konfiguriert, finden Sie <link linkend="cgiauth">hier</link>.</para>
-
-    <para><anchor xml:id="configcgi-authorized_for_all_host_commands" /><emphasis role="bold">Zugang zu globalen Host-Befehlen</emphasis></para>
-
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
-
-            <colspec colname="c2" colwidth="50*" />
-
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
-
-                    <entry><para><emphasis
-                    role="bold">authorized_for_all_host_commands=&lt;user1&gt;,&lt;user2&gt;,&lt;user3&gt;,...&lt;usern&gt;</emphasis> </para></entry>
-                </row>
-
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
-
-                    <entry><para><emphasis condition="red" role="color"><emphasis role="bold">authorized_for_all_host_commands=icingaadmin</emphasis>
-                    </emphasis> </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
-
-    <para>Dies ist eine Komma-separierte Liste von Namen von <emphasis>authentifizierten Benutzern</emphasis>, die Befehle für alle Hosts über das
-    <link linkend="cgis-cmd_cgi">command CGI</link> erteilen können. Benutzer in dieser Liste sind auch automatisch autorisiert, Befehle für alle
-    Services zu erteilen. Benutzer in dieser Liste sind <emphasis>nicht</emphasis> automatisch berechtigt, Status- oder Konfigurationsinformationen
-    für alle Hosts oder Services anzusehen. Wenn Sie möchten, dass Benutzer auch Status- und Konfigurationsinformationen für alle Hosts oder Services
-    ansehen können, dann müssen Sie diese der <link linkend="configcgi-authorized_for_all_hosts">authorized_for_all_hosts</link>-Variable hinzufügen.
-    Mehr Informationen, wie man Authentifizierung einrichtet und Autorisierung für die CGIs konfiguriert, finden Sie <link
-    linkend="cgiauth">hier</link>.</para>
-
-    <para><anchor xml:id="configcgi-authorized_for_all_services" /><emphasis role="bold">Zugang zu globalen Service-Informationen</emphasis></para>
-
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
-
-            <colspec colname="c2" colwidth="50*" />
-
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
-
-                    <entry><para><emphasis
-                    role="bold">authorized_for_all_services=&lt;user1&gt;,&lt;user2&gt;,&lt;user3&gt;,...&lt;usern&gt;</emphasis> </para></entry>
-                </row>
-
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
-
-                    <entry><para><emphasis condition="red" role="color"><emphasis
-                    role="bold">authorized_for_all_services=icingaadmin,theboss</emphasis> </emphasis> </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
-
-    <para>Dies ist eine Komma-separierte Liste von Namen von <emphasis>authentifizierten Benutzern</emphasis>, die Status- und
-    Konfigurationsinformationen für alle Services ansehen können. Benutzer in dieser Liste sind <emphasis>nicht</emphasis> automatisch autorisiert,
-    Informationen zu allen Hosts anzusehen. Benutzer in dieser Liste sind <emphasis>nicht</emphasis> automatisch berechtigt, Befehle für alle Services
-    zu erteilen. Wenn Sie möchten, dass Benutzer auch Befehle für alle Services erteilen können, dann müssen Sie diese der <link
-    linkend="configcgi-authorized_for_all_service_commands">authorized_for_all_service_commands</link>-Variable hinzufügen. Mehr Informationen, wie
-    man Authentifizierung einrichtet und Autorisierung für die CGIs konfiguriert, finden Sie <link linkend="cgiauth">hier</link>.</para>
-
-    <para><anchor xml:id="configcgi-authorized_for_all_service_commands" /><emphasis role="bold">Zugang zu globalen Service-Befehlen</emphasis></para>
-
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
-
-            <colspec colname="c2" colwidth="50*" />
-
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
-
-                    <entry><para><emphasis
-                    role="bold">authorized_for_all_service_commands=&lt;user1&gt;,&lt;user2&gt;,&lt;user3&gt;,...&lt;usern&gt;</emphasis>
-                    </para></entry>
-                </row>
-
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
-
-                    <entry><para><emphasis condition="red" role="color"><emphasis
-                    role="bold">authorized_for_all_service_commands=icingaadmin</emphasis> </emphasis> </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
-
-    <para>Dies ist eine Komma-separierte Liste von Namen von <emphasis>authentifizierten Benutzern</emphasis>, die Befehle für alle Services über das
-    <link linkend="cgis-cmd_cgi">command CGI</link> erteilen können. Benutzer in dieser Liste sind <emphasis>nicht</emphasis> automatisch autorisiert,
-    Befehle für alle Hosts zu erteilen. Benutzer in dieser Liste sind <emphasis>nicht</emphasis> automatisch berechtigt, Status- oder
-    Konfigurationsinformationen für alle Hosts anzusehen. Wenn Sie möchten, dass Benutzer auch Status- und Konfigurationsinformationen für alle
-    Services ansehen können, dann müssen Sie diese der <link
-    linkend="configcgi-authorized_for_all_services">authorized_for_all_services</link>-Variable hinzufügen. Mehr Informationen, wie man
-    Authentifizierung einrichtet und Autorisierung für die CGIs konfiguriert, finden Sie <link linkend="cgiauth">hier</link>.</para>
-
-    <para><anchor xml:id="configcgi-show_all_services_host_is_authorized_for" /> <emphasis role="bold">Zeige alle Services für einen berechtigten
-    Host</emphasis></para>
-
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
-
-            <colspec colname="c2" colwidth="50*" />
-
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
-
-                    <entry><para> <emphasis role="bold">show_all_services_host_is_authorized_for=&lt;0|1&gt;</emphasis> </para></entry>
-                </row>
-
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
-
-                    <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">show_all_services_host_is_authorized_for=1</emphasis>
-                    </emphasis> </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
-
-    <para>Per Default kann ein Benutzer alle Services eines Hosts sehen, wenn er als Kontakt für den Host autorisiert ist. Durch deaktivieren dieser
-    Option muss der Benutzer auch autorisierter Kontakt des Service sein, um diesen ansehen zu können. Bitte beachten Sie, dass diese Option keine
-    Auswirkung hat, wenn die Option authorized_for_all_services für den Benutzer gesetzt ist (seit &name-icinga; 1.0.2).</para>
+  <itemizedlist>
+    <listitem>
+      <para>0 = die Authentifizierungsfunktionalität nicht nutzen</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = die Authentifizierungs- und Autorisierungsfunktionalität nutzen (Default)</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><anchor xml:id="configcgi-default_user_name" /><emphasis role="bold">Standard-Benutzername</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
 
-    <para><anchor xml:id="configcgi-lock_author_names" /><emphasis role="bold">Autorennamen sperren</emphasis></para>
-
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
-
-            <colspec colname="c2" colwidth="50*" />
-
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
-
-                    <entry><para><emphasis role="bold">lock_author_names=[0/1]</emphasis> </para></entry>
-                </row>
-
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
-
-                    <entry><para><emphasis condition="red" role="color"><emphasis role="bold">lock_author_names=1</emphasis> </emphasis>
-                    </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
-
-    <para>Diese Option erlaubt es Ihnen, Benutzer daran zu hindern, den Autorennamen zu ändern, wenn sie Kommentare, Bestätigungen und geplanten
-    Ausfallzeiten über das Web-Interface eingeben. Wenn diese Option aktiviert ist, können Benutzer nicht mit der Befehlsanfrage verbundene
-    Autorennamen ändern.</para>
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
 
-    <itemizedlist>
-        <listitem>
-            <para>0 = Benutzern erlauben, den Autorennamen bei der Erteilung von Befehlen zu ändern</para>
-        </listitem>
-
-        <listitem>
-            <para>1 = Benutzer daran hindern, den Autorennamen zu ändern (default)</para>
-        </listitem>
-    </itemizedlist>
-
-    <para><anchor xml:id="configcgi-status_show_long_plugin_output" /> <emphasis role="bold">Status Show Long Plugin Output</emphasis></para>
+          <entry><para><emphasis role="bold">default_user_name=&lt;username&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">default_user_name=guest</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
 
-            <colspec colname="c2" colwidth="50*" />
+  <para>Das Setzen dieser Variable definiert einen Standard-Benutzernamen, der die CGIs aufrufen kann. Dies erlaubt es Leuten in einer
+  sicheren Domäne (d.h. hinter einer Firewall) die CGIs aufzurufen, ohne dass sie sich am Web-Server authentifizieren müssen. Sie können das
+  benutzen, um die Basis-Authentifizierung zu verhindern, wenn Sie keinen sicheren Server einsetzen, weil Basis-Authentifizierung Passwörter
+  im Klartext über das Internet überträgt.</para>
+
+  <para><emphasis role="bold">Wichtig:</emphasis> Definieren Sie <emphasis>keinen</emphasis> Standard-Benutzernamen, solange Sie nicht einen
+  sicheren Web-Server haben und sicher sind, dass sich jeder, der die CGIs aufruft, in irgendeiner Weise authentifiziert hat. Wenn Sie diese
+  Variable definieren, dann wird jeder, der sich am Web-Server authentifiziert, alle Rechte dieses Benutzers erben!</para>
+
+  <para><anchor xml:id="configcgi-authorized_for_system_information" /><emphasis role="bold">Zugang zu
+  System/Prozessinformationen</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis
+          role="bold">authorized_for_system_information=&lt;user1&gt;,&lt;user2&gt;,&lt;user3&gt;,...&lt;usern&gt;</emphasis>
+          </para></entry>
+        </row>
 
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
-                    <entry><para> <emphasis role="bold">status_show_long_plugin_output=[0/1]</emphasis> </para></entry>
-                </row>
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">authorized_for_system_information=icingaadmin,theboss</emphasis> </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
 
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
+  <para>Dies ist eine Komma-separierte Liste von Namen von <emphasis>authentifizierten Benutzern</emphasis>, die System/Prozessinformationen
+  im <link linkend="cgis-extinfo_cgi">extended information CGI</link> ansehen können. Benutzer in dieser Liste sind
+  <emphasis>nicht</emphasis> automatisch autorisiert, System/Prozessbefehle zu erteilen. Wenn Sie möchten, dass Benutzer auch
+  System/Prozessbefehle erteilen können, dann müssen Sie diese der <link
+  linkend="configcgi-authorized_for_system_commands">authorized_for_system_commands</link>-Variable hinzufügen. Mehr Informationen, wie man
+  Authentifizierung einrichtet und Autorisierung für die CGIs konfiguriert, finden Sie <link linkend="cgiauth">hier</link>.</para>
+
+  <para><anchor xml:id="configcgi-authorized_for_system_commands" /><emphasis role="bold">Zugang zu System/Prozessbefehlen</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis
+          role="bold">authorized_for_system_commands=&lt;user1&gt;,&lt;user2&gt;,&lt;user3&gt;,...&lt;usern&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">authorized_for_system_commands=icingaadmin</emphasis>
+          </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Dies ist eine Komma-separierte Liste von Namen von <emphasis>authentifizierten Benutzern</emphasis>, die System/Prozessbefehle über
+  das <link linkend="cgis-extinfo_cgi">command CGI</link> erteilen können. Benutzer in dieser Liste sind <emphasis>nicht</emphasis>
+  automatisch autorisiert, System/Prozessinformationen anzusehen. Wenn Sie möchten, dass Benutzer auch System/Prozessinformationen ansehen
+  können, dann müssen Sie diese der <link
+  linkend="configcgi-authorized_for_system_information">authorized_for_system_information</link>-Variable hinzufügen. Mehr Informationen,
+  wie man Authentifizierung einrichtet und Autorisierung für die CGIs konfiguriert, finden Sie <link linkend="cgiauth">hier</link>.</para>
+
+  <para><anchor xml:id="configcgi-authorized_for_configuration_information" /><emphasis role="bold">Zugang zu
+  Konfigurationsinformationen</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis
+          role="bold">authorized_for_configuration_information=&lt;user1&gt;,&lt;user2&gt;,&lt;user3&gt;,...&lt;usern&gt;</emphasis>
+          </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">authorized_for_configuration_information=icingaadmin</emphasis> </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Dies ist eine Komma-separierte Liste von Namen von <emphasis>authentifizierten Benutzern</emphasis>, die Konfigurationsinformationen
+  im <link linkend="cgis-config_cgi">configuration CGI</link> ansehen können. Benutzer in dieser Liste können Informationen zu allen
+  konfigurierten Hosts, Hostgruppen, Kontakten, Kontaktgruppen, Zeitfenstern und Befehlen ansehen. Mehr Informationen, wie man
+  Authentifizierung einrichtet und Autorisierung für die CGIs konfiguriert, finden Sie <link linkend="cgiauth">hier</link>.</para>
+
+  <para><anchor xml:id="configcgi-authorized_for_all_hosts" /><emphasis role="bold">Global Host Information Access</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">authorized_for_all_hosts=&lt;user1&gt;,&lt;user2&gt;,&lt;user3&gt;,...&lt;usern&gt;</emphasis>
+          </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">authorized_for_all_hosts=icingaadmin,theboss</emphasis>
+          </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Dies ist eine Komma-separierte Liste von Namen von <emphasis>authentifizierten Benutzern</emphasis>, die Status- und
+  Konfigurationsinformationen im für alle Hosts ansehen können. Benutzer in dieser Liste sind automatisch autorisiert, Informationen zu
+  allen Services anzusehen. Benutzer in dieser Liste sind <emphasis>nicht</emphasis> automatisch berechtigt, Befehle für alle Hosts oder
+  Services zu erteilen. Wenn Sie möchten, dass Benutzer auch Befehle für alle Hosts oder Services erteilen können, dann müssen Sie diese der
+  <link linkend="configcgi-authorized_for_all_host_commands">authorized_for_all_host_commands</link>-Variable hinzufügen. Mehr
+  Informationen, wie man Authentifizierung einrichtet und Autorisierung für die CGIs konfiguriert, finden Sie <link
+  linkend="cgiauth">hier</link>.</para>
+
+  <para><anchor xml:id="configcgi-authorized_for_all_host_commands" /><emphasis role="bold">Zugang zu globalen
+  Host-Befehlen</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis
+          role="bold">authorized_for_all_host_commands=&lt;user1&gt;,&lt;user2&gt;,&lt;user3&gt;,...&lt;usern&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">authorized_for_all_host_commands=icingaadmin</emphasis>
+          </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Dies ist eine Komma-separierte Liste von Namen von <emphasis>authentifizierten Benutzern</emphasis>, die Befehle für alle Hosts über
+  das <link linkend="cgis-cmd_cgi">command CGI</link> erteilen können. Benutzer in dieser Liste sind auch automatisch autorisiert, Befehle
+  für alle Services zu erteilen. Benutzer in dieser Liste sind <emphasis>nicht</emphasis> automatisch berechtigt, Status- oder
+  Konfigurationsinformationen für alle Hosts oder Services anzusehen. Wenn Sie möchten, dass Benutzer auch Status- und
+  Konfigurationsinformationen für alle Hosts oder Services ansehen können, dann müssen Sie diese der <link
+  linkend="configcgi-authorized_for_all_hosts">authorized_for_all_hosts</link>-Variable hinzufügen. Mehr Informationen, wie man
+  Authentifizierung einrichtet und Autorisierung für die CGIs konfiguriert, finden Sie <link linkend="cgiauth">hier</link>.</para>
+
+  <para><anchor xml:id="configcgi-authorized_for_all_services" /><emphasis role="bold">Zugang zu globalen
+  Service-Informationen</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis
+          role="bold">authorized_for_all_services=&lt;user1&gt;,&lt;user2&gt;,&lt;user3&gt;,...&lt;usern&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">authorized_for_all_services=icingaadmin,theboss</emphasis> </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Dies ist eine Komma-separierte Liste von Namen von <emphasis>authentifizierten Benutzern</emphasis>, die Status- und
+  Konfigurationsinformationen für alle Services ansehen können. Benutzer in dieser Liste sind <emphasis>nicht</emphasis> automatisch
+  autorisiert, Informationen zu allen Hosts anzusehen. Benutzer in dieser Liste sind <emphasis>nicht</emphasis> automatisch berechtigt,
+  Befehle für alle Services zu erteilen. Wenn Sie möchten, dass Benutzer auch Befehle für alle Services erteilen können, dann müssen Sie
+  diese der <link linkend="configcgi-authorized_for_all_service_commands">authorized_for_all_service_commands</link>-Variable hinzufügen.
+  Mehr Informationen, wie man Authentifizierung einrichtet und Autorisierung für die CGIs konfiguriert, finden Sie <link
+  linkend="cgiauth">hier</link>.</para>
+
+  <para><anchor xml:id="configcgi-authorized_for_all_service_commands" /><emphasis role="bold">Zugang zu globalen
+  Service-Befehlen</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis
+          role="bold">authorized_for_all_service_commands=&lt;user1&gt;,&lt;user2&gt;,&lt;user3&gt;,...&lt;usern&gt;</emphasis>
+          </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">authorized_for_all_service_commands=icingaadmin</emphasis> </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Dies ist eine Komma-separierte Liste von Namen von <emphasis>authentifizierten Benutzern</emphasis>, die Befehle für alle Services
+  über das <link linkend="cgis-cmd_cgi">command CGI</link> erteilen können. Benutzer in dieser Liste sind <emphasis>nicht</emphasis>
+  automatisch autorisiert, Befehle für alle Hosts zu erteilen. Benutzer in dieser Liste sind <emphasis>nicht</emphasis> automatisch
+  berechtigt, Status- oder Konfigurationsinformationen für alle Hosts anzusehen. Wenn Sie möchten, dass Benutzer auch Status- und
+  Konfigurationsinformationen für alle Services ansehen können, dann müssen Sie diese der <link
+  linkend="configcgi-authorized_for_all_services">authorized_for_all_services</link>-Variable hinzufügen. Mehr Informationen, wie man
+  Authentifizierung einrichtet und Autorisierung für die CGIs konfiguriert, finden Sie <link linkend="cgiauth">hier</link>.</para>
+
+  <para><anchor xml:id="configcgi-show_all_services_host_is_authorized_for" /> <emphasis role="bold">Zeige alle Services für einen
+  berechtigten Host</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">show_all_services_host_is_authorized_for=&lt;0|1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">show_all_services_host_is_authorized_for=1</emphasis>
+          </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Per Default kann ein Benutzer alle Services eines Hosts sehen, wenn er als Kontakt für den Host autorisiert ist. Durch deaktivieren
+  dieser Option muss der Benutzer auch autorisierter Kontakt des Service sein, um diesen ansehen zu können. Bitte beachten Sie, dass diese
+  Option keine Auswirkung hat, wenn die Option authorized_for_all_services für den Benutzer gesetzt ist (seit &name-icinga; 1.0.2).</para>
+
+  <para><anchor xml:id="configcgi-lock_author_names" /><emphasis role="bold">Autorennamen sperren</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">lock_author_names=[0/1]</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">lock_author_names=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Diese Option erlaubt es Ihnen, Benutzer daran zu hindern, den Autorennamen zu ändern, wenn sie Kommentare, Bestätigungen und
+  geplanten Ausfallzeiten über das Web-Interface eingeben. Wenn diese Option aktiviert ist, können Benutzer nicht mit der Befehlsanfrage
+  verbundene Autorennamen ändern.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>0 = Benutzern erlauben, den Autorennamen bei der Erteilung von Befehlen zu ändern</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = Benutzer daran hindern, den Autorennamen zu ändern (default)</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><anchor xml:id="configcgi-status_show_long_plugin_output" /> <emphasis role="bold">Status Show Long Plugin Output</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">status_show_long_plugin_output=[0/1]</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">status_show_long_plugin_output=1</emphasis>
+          </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
 
-                    <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">status_show_long_plugin_output=1</emphasis>
-                    </emphasis> </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
+  <para>Diese Option erlaubt es Ihnen, den Umfang der Statusinformationen von Plugins festzulegen, die in der status.cgi angezeigt werden.
+  Wenn Sie den Wert auf 1 setzen, dann wird die komplette Ausgabe angezeigt, sonst nur die erste Zeile.</para>
 
-    <para>Diese Option erlaubt es Ihnen, den Umfang der Statusinformationen von Plugins festzulegen, die in der status.cgi angezeigt werden. Wenn Sie
-    den Wert auf 1 setzen, dann wird die komplette Ausgabe angezeigt, sonst nur die erste Zeile.</para>
+  <itemizedlist>
+    <listitem>
+      <para>0 = Nur die erste Zeile der Plugin-Ausgabe anzeigen (default)</para>
+    </listitem>
 
-    <itemizedlist>
-        <listitem>
-            <para>0 = Nur die erste Zeile der Plugin-Ausgabe anzeigen (default)</para>
-        </listitem>
+    <listitem>
+      <para>1 = Die komplette Plugin-Ausgabe anzeigen</para>
+    </listitem>
+  </itemizedlist>
 
-        <listitem>
-            <para>1 = Die komplette Plugin-Ausgabe anzeigen</para>
-        </listitem>
-    </itemizedlist>
+  <note>
+    <para>Diese Option ist verfügbar ab &name-icinga; 1.0.3.</para>
+  </note>
 
-    <note>
-        <para>Diese Option ist verfügbar ab &name-icinga; 1.0.3.</para>
-    </note>
+  <para><anchor xml:id="configcgi-statusmap_background_image" /><emphasis role="bold">Statusmap CGI Background Image</emphasis></para>
 
-    <para><anchor xml:id="configcgi-statusmap_background_image" /><emphasis role="bold">Statusmap CGI Background Image</emphasis></para>
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
 
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c2" colwidth="50*" />
 
-            <colspec colname="c2" colwidth="50*" />
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
 
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
+          <entry><para><emphasis role="bold">statusmap_background_image=&lt;image_file&gt;</emphasis> </para></entry>
+        </row>
 
-                    <entry><para><emphasis role="bold">statusmap_background_image=&lt;image_file&gt;</emphasis> </para></entry>
-                </row>
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">statusmap_background_image=smbackground.gd2</emphasis>
+          </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
 
-                    <entry><para><emphasis condition="red" role="color"><emphasis role="bold">statusmap_background_image=smbackground.gd2</emphasis>
-                    </emphasis> </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
+  <para>Diese Option erlaubt es Ihnen, ein Bild anzugeben, das als Hintergrund im <link linkend="cgis-statusmap_cgi">statusmap CGI</link>
+  benutzt wird, wenn Sie die Layout-Methode mit benutzerdefinierten Koordinaten benutzen. Das Hintergrundbild ist nicht in anderen
+  Layout-Methoden verfügbar. Es wird angenommen, dass sich das Bild im HTML-Image-Pfad befindet (d.h. in &url-icinga-base;/share/images).
+  Dieser Pfad wird automatisch durch das Anhängen von "/images" an den in der <link
+  linkend="configcgi-physical_html_path">physical_html_path</link>-Direktive ermittelt. Anmerkung: Die Bilddatei kann im GIF-, JPEG-, PNG-
+  oder &name-gd;2-Format sein. Das &name-gd;2-Format (vorzugsweise im unkomprimierten Format) wird empfohlen, weil es die CPU-Belastung
+  reduziert, wenn das CGI das Kartenbild generiert.</para>
 
-    <para>Diese Option erlaubt es Ihnen, ein Bild anzugeben, das als Hintergrund im <link linkend="cgis-statusmap_cgi">statusmap CGI</link> benutzt
-    wird, wenn Sie die Layout-Methode mit benutzerdefinierten Koordinaten benutzen. Das Hintergrundbild ist nicht in anderen Layout-Methoden
-    verfügbar. Es wird angenommen, dass sich das Bild im HTML-Image-Pfad befindet (d.h. in &url-icinga-base;/share/images). Dieser Pfad wird
-    automatisch durch das Anhängen von "/images" an den in der <link linkend="configcgi-physical_html_path">physical_html_path</link>-Direktive
-    ermittelt. Anmerkung: Die Bilddatei kann im GIF-, JPEG-, PNG- oder &name-gd;2-Format sein. Das &name-gd;2-Format (vorzugsweise im unkomprimierten
-    Format) wird empfohlen, weil es die CPU-Belastung reduziert, wenn das CGI das Kartenbild generiert.</para>
+  <para><anchor xml:id="configcgi-default_statusmap_layout" /><emphasis role="bold">Standard-Statusmap-Layout-Methode</emphasis></para>
 
-    <para><anchor xml:id="configcgi-default_statusmap_layout" /><emphasis role="bold">Standard-Statusmap-Layout-Methode</emphasis></para>
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
 
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c2" colwidth="50*" />
 
-            <colspec colname="c2" colwidth="50*" />
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
 
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
+          <entry><para><emphasis role="bold">default_statusmap_layout=&lt;layout_number&gt;</emphasis> </para></entry>
+        </row>
 
-                    <entry><para><emphasis role="bold">default_statusmap_layout=&lt;layout_number&gt;</emphasis> </para></entry>
-                </row>
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">default_statusmap_layout=4</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
 
-                    <entry><para><emphasis condition="red" role="color"><emphasis role="bold">default_statusmap_layout=4</emphasis> </emphasis>
-                    </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
+  <para>Gültige Werte sind:</para>
 
-    <para>Gültige Werte sind:</para>
+  <informaltable frame="all">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
 
-    <informaltable frame="all">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c2" colwidth="50*" />
 
-            <colspec colname="c2" colwidth="50*" />
+      <tbody>
+        <row>
+          <entry><para><emphasis role="bold">&lt;layout_number&gt;-Wert</emphasis> </para></entry>
 
-            <tbody>
-                <row>
-                    <entry><para><emphasis role="bold">&lt;layout_number&gt;-Wert</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">Layout-Methode</emphasis> </para></entry>
+        </row>
 
-                    <entry><para><emphasis role="bold">Layout-Methode</emphasis> </para></entry>
-                </row>
+        <row>
+          <entry><para>0</para></entry>
 
-                <row>
-                    <entry><para>0</para></entry>
+          <entry><para>User-defined coordinates</para></entry>
+        </row>
 
-                    <entry><para>User-defined coordinates</para></entry>
-                </row>
+        <row>
+          <entry><para>1</para></entry>
 
-                <row>
-                    <entry><para>1</para></entry>
+          <entry><para>Depth layers</para></entry>
+        </row>
 
-                    <entry><para>Depth layers</para></entry>
-                </row>
+        <row>
+          <entry><para>2</para></entry>
 
-                <row>
-                    <entry><para>2</para></entry>
+          <entry><para>Collapsed tree</para></entry>
+        </row>
 
-                    <entry><para>Collapsed tree</para></entry>
-                </row>
+        <row>
+          <entry><para>3</para></entry>
 
-                <row>
-                    <entry><para>3</para></entry>
+          <entry><para>Balanced tree</para></entry>
+        </row>
 
-                    <entry><para>Balanced tree</para></entry>
-                </row>
+        <row>
+          <entry><para>4</para></entry>
 
-                <row>
-                    <entry><para>4</para></entry>
+          <entry><para>Circular</para></entry>
+        </row>
 
-                    <entry><para>Circular</para></entry>
-                </row>
+        <row>
+          <entry><para>5</para></entry>
 
-                <row>
-                    <entry><para>5</para></entry>
+          <entry><para>Circular (Marked Up)</para></entry>
+        </row>
 
-                    <entry><para>Circular (Marked Up)</para></entry>
-                </row>
+        <row>
+          <entry><para>6</para></entry>
 
-                <row>
-                    <entry><para>6</para></entry>
+          <entry><para>Circular (Balloon)</para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
 
-                    <entry><para>Circular (Balloon)</para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
+  <para><anchor xml:id="configcgi-refresh_rate" /><emphasis role="bold">CGI-Aktualisierungsrate</emphasis></para>
 
-    <para><anchor xml:id="configcgi-refresh_rate" /><emphasis role="bold">CGI-Aktualisierungsrate</emphasis></para>
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
 
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c2" colwidth="50*" />
 
-            <colspec colname="c2" colwidth="50*" />
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
 
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
+          <entry><para><emphasis role="bold">refresh_rate=&lt;rate_in_seconds&gt;</emphasis> </para></entry>
+        </row>
 
-                    <entry><para><emphasis role="bold">refresh_rate=&lt;rate_in_seconds&gt;</emphasis> </para></entry>
-                </row>
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">refresh_rate=90</emphasis> </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
 
-                    <entry><para><emphasis condition="red" role="color"><emphasis role="bold">refresh_rate=90</emphasis> </emphasis> </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
+  <para>Diese Option erlaubt es Ihnen, die Anzahl von Sekunden zwischen Seitenaktualisierungen für die <link
+  linkend="cgis-status_cgi">status</link>-, <link linkend="cgis-statusmap_cgi">statusmap</link>- und <link
+  linkend="cgis-extinfo_cgi">extinfo</link>-CGIs festzulegen.</para>
 
-    <para>Diese Option erlaubt es Ihnen, die Anzahl von Sekunden zwischen Seitenaktualisierungen für die <link
-    linkend="cgis-status_cgi">status</link>-, <link linkend="cgis-statusmap_cgi">statusmap</link>- und <link
-    linkend="cgis-extinfo_cgi">extinfo</link>-CGIs festzulegen.</para>
+  <para><anchor xml:id="configcgi-audio_alerts" /><emphasis role="bold">Audio-Alarme</emphasis></para>
 
-    <para><anchor xml:id="configcgi-audio_alerts" /><emphasis role="bold">Audio-Alarme</emphasis></para>
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
 
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c2" colwidth="50*" />
 
-            <colspec colname="c2" colwidth="50*" />
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
 
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
+          <entry><para>
+               
 
-                    <entry><para>
-                             
+              <emphasis role="bold">host_unreachable_sound=&lt;sound_file&gt;</emphasis>
 
-                            <emphasis role="bold">host_unreachable_sound=&lt;sound_file&gt;</emphasis>
+               
+            </para> <para>
+               
 
-                             
-                        </para> <para>
-                             
+              <emphasis role="bold">host_down_sound=&lt;sound_file&gt;</emphasis>
 
-                            <emphasis role="bold">host_down_sound=&lt;sound_file&gt;</emphasis>
+               
+            </para> <para>
+               
 
-                             
-                        </para> <para>
-                             
+              <emphasis role="bold">service_critical_sound=&lt;sound_file&gt;</emphasis>
 
-                            <emphasis role="bold">service_critical_sound=&lt;sound_file&gt;</emphasis>
+               
+            </para> <para>
+               
 
-                             
-                        </para> <para>
-                             
+              <emphasis role="bold">service_warning_sound=&lt;sound_file&gt;</emphasis>
 
-                            <emphasis role="bold">service_warning_sound=&lt;sound_file&gt;</emphasis>
+               
+            </para> <para>
+               
 
-                             
-                        </para> <para>
-                             
+              <emphasis role="bold">service_unknown_sound=&lt;sound_file&gt;</emphasis>
 
-                            <emphasis role="bold">service_unknown_sound=&lt;sound_file&gt;</emphasis>
+               
+            </para></entry>
+        </row>
 
-                             
-                        </para></entry>
-                </row>
+        <row>
+          <entry align="left" valign="top"><para>Beispiele:</para></entry>
 
-                <row>
-                    <entry align="left" valign="top"><para>Beispiele:</para></entry>
+          <entry><para>
+               
 
-                    <entry><para>
-                             
+              <emphasis condition="red" role="color">
+                 
 
-                            <emphasis condition="red" role="color">
-                                 
+                <emphasis role="bold">host_unreachable_sound=hostu.wav</emphasis>
 
-                                <emphasis role="bold">host_unreachable_sound=hostu.wav</emphasis>
+                 
+              </emphasis>
 
-                                 
-                            </emphasis>
+               
+            </para> <para>
+               
 
-                             
-                        </para> <para>
-                             
+              <emphasis condition="red" role="color">
+                 
 
-                            <emphasis condition="red" role="color">
-                                 
+                <emphasis role="bold">host_down_sound=hostd.wav</emphasis>
 
-                                <emphasis role="bold">host_down_sound=hostd.wav</emphasis>
+                 
+              </emphasis>
 
-                                 
-                            </emphasis>
+               
+            </para> <para>
+               
 
-                             
-                        </para> <para>
-                             
+              <emphasis condition="red" role="color">
+                 
 
-                            <emphasis condition="red" role="color">
-                                 
+                <emphasis role="bold">service_critical_sound=critical.wav</emphasis>
 
-                                <emphasis role="bold">service_critical_sound=critical.wav</emphasis>
+                 
+              </emphasis>
 
-                                 
-                            </emphasis>
+               
+            </para> <para>
+               
 
-                             
-                        </para> <para>
-                             
+              <emphasis condition="red" role="color">
+                 
 
-                            <emphasis condition="red" role="color">
-                                 
+                <emphasis role="bold">service_warning_sound=warning.wav</emphasis>
 
-                                <emphasis role="bold">service_warning_sound=warning.wav</emphasis>
+                 
+              </emphasis>
 
-                                 
-                            </emphasis>
+               
+            </para> <para>
+               
 
-                             
-                        </para> <para>
-                             
+              <emphasis condition="red" role="color">
+                 
 
-                            <emphasis condition="red" role="color">
-                                 
+                <emphasis role="bold">service_unknown_sound=unknown.wav</emphasis>
 
-                                <emphasis role="bold">service_unknown_sound=unknown.wav</emphasis>
+                 
+              </emphasis>
 
-                                 
-                            </emphasis>
+               
+            </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
 
-                             
-                        </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
+  <para>Diese Option erlaubt es Ihnen, eine Audio-Datei anzugeben, die in Ihrem Browser abgespielt wird, wenn es ein Problem gibt, während
+  Sie das <link linkend="cgis-status_cgi">status CGI</link> ansehen. Wenn es mehrere Probleme gibt, wird die Datei für das kritischste
+  Problem abgespielt. Das kritischste Problem sind ein oder mehrere nicht erreichbare Host, während das am wenigsten kritische Problem
+  Services in einem UNKNOWN-Zustand sind (beachten Sie die Reihenfolge im obigen Beispiel). Audio-Dateien werden im <emphasis
+  role="bold">media</emphasis>-Unterverzeichnis Ihres HTML-Verzeichnisses erwartet (d.h.
+  <emphasis>&url-icinga-base;/share/media</emphasis>).</para>
 
-    <para>Diese Option erlaubt es Ihnen, eine Audio-Datei anzugeben, die in Ihrem Browser abgespielt wird, wenn es ein Problem gibt, während Sie das
-    <link linkend="cgis-status_cgi">status CGI</link> ansehen. Wenn es mehrere Probleme gibt, wird die Datei für das kritischste Problem abgespielt.
-    Das kritischste Problem sind ein oder mehrere nicht erreichbare Host, während das am wenigsten kritische Problem Services in einem UNKNOWN-Zustand
-    sind (beachten Sie die Reihenfolge im obigen Beispiel). Audio-Dateien werden im <emphasis role="bold">media</emphasis>-Unterverzeichnis Ihres
-    HTML-Verzeichnisses erwartet (d.h. <emphasis>&url-icinga-base;/share/media</emphasis>).</para>
+  <para><anchor xml:id="configcgi-ping_syntax" /><emphasis role="bold">Ping-Syntax</emphasis></para>
 
-    <para><anchor xml:id="configcgi-ping_syntax" /><emphasis role="bold">Ping-Syntax</emphasis></para>
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
 
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c2" colwidth="50*" />
 
-            <colspec colname="c2" colwidth="50*" />
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
 
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
+          <entry><para><emphasis role="bold">ping_syntax=&lt;command&gt;</emphasis> </para></entry>
+        </row>
 
-                    <entry><para><emphasis role="bold">ping_syntax=&lt;command&gt;</emphasis> </para></entry>
-                </row>
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">ping_syntax=/bin/ping -n -U -c 5
+          $HOSTADDRESS$</emphasis> </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
 
-                    <entry><para><emphasis condition="red" role="color"><emphasis role="bold">ping_syntax=/bin/ping -n -U -c 5
-                    $HOSTADDRESS$</emphasis> </emphasis> </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
+  <para>Diese Option legt fest, welche Syntax benutzt wird, wenn ein Host vom WAP-Interface aus ange"ping"t wird (mit Hilfe des <link
+  linkend="cgis-statuswml_cgi">statuswml CGI</link>. Sie müssen den kompletten Pfad zum ping-Binary zusammen mit allen benötigten Optionen
+  angeben. Das $HOSTADDRESS$-Makro wird durch die Adresse des Hosts ersetzt, bevor der Befehl ausgeführt wird.</para>
 
-    <para>Diese Option legt fest, welche Syntax benutzt wird, wenn ein Host vom WAP-Interface aus ange"ping"t wird (mit Hilfe des <link
-    linkend="cgis-statuswml_cgi">statuswml CGI</link>. Sie müssen den kompletten Pfad zum ping-Binary zusammen mit allen benötigten Optionen angeben.
-    Das $HOSTADDRESS$-Makro wird durch die Adresse des Hosts ersetzt, bevor der Befehl ausgeführt wird.</para>
+  <para><anchor xml:id="configcgi-escape_html_tags" /><emphasis role="bold">Escape HTML Tags Option</emphasis></para>
 
-    <para><anchor xml:id="configcgi-escape_html_tags" /><emphasis role="bold">Escape HTML Tags Option</emphasis></para>
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
 
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c2" colwidth="50*" />
 
-            <colspec colname="c2" colwidth="50*" />
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
 
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
+          <entry><para><emphasis role="bold">escape_html_tags=[0/1]</emphasis> </para></entry>
+        </row>
 
-                    <entry><para><emphasis role="bold">escape_html_tags=[0/1]</emphasis> </para></entry>
-                </row>
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">escape_html_tags=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
 
-                    <entry><para><emphasis condition="red" role="color"><emphasis role="bold">escape_html_tags=1</emphasis> </emphasis>
-                    </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
+  <para>Diese Option legt fest, ob HTML-Tags in Host- und Service-(Plugin-)Ausgaben in CGIs unberücksichtigt bleiben oder nicht. Wenn Sie
+  diese Option aktivieren, wird die Plugin-Ausgabe keine anklickbaren Hyperlinks enthalten.</para>
 
-    <para>Diese Option legt fest, ob HTML-Tags in Host- und Service-(Plugin-)Ausgaben in CGIs unberücksichtigt bleiben oder nicht. Wenn Sie diese
-    Option aktivieren, wird die Plugin-Ausgabe keine anklickbaren Hyperlinks enthalten.</para>
+  <para><anchor xml:id="configcgi-notes_url_target" /><emphasis role="bold">Notes URL Target</emphasis></para>
 
-    <para><anchor xml:id="configcgi-notes_url_target" /><emphasis role="bold">Notes URL Target</emphasis></para>
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
 
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c2" colwidth="50*" />
 
-            <colspec colname="c2" colwidth="50*" />
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
 
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
+          <entry><para><emphasis role="bold">notes_url_target=[target]</emphasis> </para></entry>
+        </row>
 
-                    <entry><para><emphasis role="bold">notes_url_target=[target]</emphasis> </para></entry>
-                </row>
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">notes_url_target=_blank</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
 
-                    <entry><para><emphasis condition="red" role="color"><emphasis role="bold">notes_url_target=_blank</emphasis> </emphasis>
-                    </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
+  <para>Diese Option legt den Namen des Ziel-Frames fest, in dem Anmerkungs-URLs angezeigt werden sollen. Gültige Optionen umfassen
+  <emphasis>_blank</emphasis>, <emphasis>_self</emphasis>, <emphasis>_top</emphasis>, <emphasis>_parent</emphasis> oder jeden anderen
+  gültigen Zielnamen.</para>
 
-    <para>Diese Option legt den Namen des Ziel-Frames fest, in dem Anmerkungs-URLs angezeigt werden sollen. Gültige Optionen umfassen
-    <emphasis>_blank</emphasis>, <emphasis>_self</emphasis>, <emphasis>_top</emphasis>, <emphasis>_parent</emphasis> oder jeden anderen gültigen
-    Zielnamen.</para>
+  <para><anchor xml:id="configcgi-action_url_target" /><emphasis role="bold">Action URL Target</emphasis></para>
 
-    <para><anchor xml:id="configcgi-action_url_target" /><emphasis role="bold">Action URL Target</emphasis></para>
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
 
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c2" colwidth="50*" />
 
-            <colspec colname="c2" colwidth="50*" />
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
 
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
+          <entry><para><emphasis role="bold">action_url_target=[target]</emphasis> </para></entry>
+        </row>
 
-                    <entry><para><emphasis role="bold">action_url_target=[target]</emphasis> </para></entry>
-                </row>
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">action_url_target=_blank</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
 
-                    <entry><para><emphasis condition="red" role="color"><emphasis role="bold">action_url_target=_blank</emphasis> </emphasis>
-                    </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
+  <para>Diese Option legt den Namen des Ziel-Frames fest, in dem Aktions-URLs angezeigt werden sollen. Gültige Optionen umfassen
+  <emphasis>_blank</emphasis>, <emphasis>_self</emphasis>, <emphasis>_top</emphasis>, <emphasis>_parent</emphasis> oder jeden anderen
+  gültigen Zielnamen.</para>
 
-    <para>Diese Option legt den Namen des Ziel-Frames fest, in dem Aktions-URLs angezeigt werden sollen. Gültige Optionen umfassen
-    <emphasis>_blank</emphasis>, <emphasis>_self</emphasis>, <emphasis>_top</emphasis>, <emphasis>_parent</emphasis> oder jeden anderen gültigen
-    Zielnamen.</para>
+  <para><anchor xml:id="configcgi-show_only_hard_states" /><emphasis role="bold">Tac Show Only Hard State</emphasis></para>
 
-    <para><anchor xml:id="configcgi-show_only_hard_states" /><emphasis role="bold">Tac Show Only Hard State</emphasis></para>
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
 
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c2" colwidth="50*" />
 
-            <colspec colname="c2" colwidth="50*" />
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
 
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
+          <entry><para><emphasis role="bold">tac_show_only_hard_state=[0/1]</emphasis> </para></entry>
+        </row>
 
-                    <entry><para><emphasis role="bold">tac_show_only_hard_state=[0/1]</emphasis> </para></entry>
-                </row>
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">tac_show_only_hard_state=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
 
-                    <entry><para><emphasis condition="red" role="color"><emphasis role="bold">tac_show_only_hard_state=1</emphasis> </emphasis>
-                    </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
+  <para>Diese Option erlaubt ihnen in der Tactical Overview nur HARD States von Host und Services anzeigen zu lassen. Standardmäßig ist
+  diese Option deaktiviert. Setzen Sie tac_show_only_hard_state=1 werden in der Tactical Overview nur noch HARD States angezeigt.</para>
 
-    <para>Diese Option erlaubt ihnen in der Tactical Overview nur HARD States von Host und Services anzeigen zu lassen. Standardmäßig ist diese Option
-    deaktiviert. Setzen Sie tac_show_only_hard_state=1 werden in der Tactical Overview nur noch HARD States
-    angezeigt.</para>
+  <para><anchor xml:id="configcgi-enable_splunk_integration" /><emphasis role="bold">Splunk-Integrationsoption</emphasis></para>
 
-    <para><anchor xml:id="configcgi-enable_splunk_integration" /><emphasis role="bold">Splunk-Integrationsoption</emphasis></para>
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
 
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c2" colwidth="50*" />
 
-            <colspec colname="c2" colwidth="50*" />
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
 
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
+          <entry><para><emphasis role="bold">enable_splunk_integration=[0/1]</emphasis> </para></entry>
+        </row>
 
-                    <entry><para><emphasis role="bold">enable_splunk_integration=[0/1]</emphasis> </para></entry>
-                </row>
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">enable_splunk_integration=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
 
-                    <entry><para><emphasis condition="red" role="color"><emphasis role="bold">enable_splunk_integration=1</emphasis> </emphasis>
-                    </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
+  <para>Diese Option legt fest, ob die Integration mit Splunk im Web-Interface aktiviert ist oder nicht. Wenn sie aktiviert ist, werden an
+  verschiedenen Stellen "Splunk It"-Links in den CGIs angezeigt (Log-Datei, Alarmhistorie, Host-/Service-Details, usw.). Das ist nützlich,
+  wenn Sie nach den Ursachen suchen, warum ein bestimmtes Problem auftrat. Für mehr Informationen über Splunk besuchen Sie <link
+  xlink:href="http://www.splunk.com/">&url-splunk;</link>.</para>
 
-    <para>Diese Option legt fest, ob die Integration mit Splunk im Web-Interface aktiviert ist oder nicht. Wenn sie aktiviert ist, werden an
-    verschiedenen Stellen "Splunk It"-Links in den CGIs angezeigt (Log-Datei, Alarmhistorie, Host-/Service-Details, usw.). Das ist nützlich, wenn Sie
-    nach den Ursachen suchen, warum ein bestimmtes Problem auftrat. Für mehr Informationen über Splunk besuchen Sie <link
-    xlink:href="http://www.splunk.com/">&url-splunk;</link>.</para>
+  <para><anchor xml:id="configcgi-splunk_url" /><emphasis role="bold">Splunk-URL</emphasis></para>
 
-    <para><anchor xml:id="configcgi-splunk_url" /><emphasis role="bold">Splunk-URL</emphasis></para>
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
 
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c2" colwidth="50*" />
 
-            <colspec colname="c2" colwidth="50*" />
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
 
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
+          <entry><para><emphasis role="bold">splunk_url=&lt;path&gt;</emphasis> </para></entry>
+        </row>
 
-                    <entry><para><emphasis role="bold">splunk_url=&lt;path&gt;</emphasis> </para></entry>
-                </row>
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">splunk_url=http://127.0.0.1:8000/</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
 
-                    <entry><para><emphasis condition="red" role="color"><emphasis role="bold">splunk_url=http://127.0.0.1:8000/</emphasis> </emphasis>
-                    </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
+  <para>Diese Option wird benutzt, um den Basis-URL zu Ihrem Splunk-Interface zu definieren. Dieser URL wird von den CGIs benutzt, wenn
+  Links erzeugt werden, falls die <link linkend="configcgi-enable_splunk_integration">enable_splunk_integration</link>-Option aktiviert
+  ist.</para>
 
-    <para>Diese Option wird benutzt, um den Basis-URL zu Ihrem Splunk-Interface zu definieren. Dieser URL wird von den CGIs benutzt, wenn Links
-    erzeugt werden, falls die <link linkend="configcgi-enable_splunk_integration">enable_splunk_integration</link>-Option aktiviert ist.</para>
+  <para><anchor xml:id="configcgi-persistent_ack_comments" /> <emphasis role="bold">Persistente Bestätigungskommentare</emphasis></para>
 
-    <para><anchor xml:id="configcgi-persistent_ack_comments" /> <emphasis role="bold">Persistente Bestätigungskommentare</emphasis></para>
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
 
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c2" colwidth="50*" />
 
-            <colspec colname="c2" colwidth="50*" />
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
 
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
+          <entry><para> <emphasis role="bold">persistent_ack_comments=&lt;0|1&gt;</emphasis> </para></entry>
+        </row>
 
-                    <entry><para> <emphasis role="bold">persistent_ack_comments=&lt;0|1&gt;</emphasis> </para></entry>
-                </row>
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">persistent_ack_comments=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
 
-                    <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">persistent_ack_comments=1</emphasis> </emphasis>
-                    </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
+  <para>Diese Option legt fest, ob die Check-Box "persistent comment" zur Bestätigung von Problem-Hosts oder -Services aktiviert ist. Sie
+  kann benutzt werden, um das Verhalten von &name-nagios; 2 wiederherzustellen. Default ist "0", um kompatibel mit &name-nagios; 3 zu
+  sein.</para>
 
-    <para>Diese Option legt fest, ob die Check-Box "persistent comment" zur Bestätigung von Problem-Hosts oder -Services aktiviert ist. Sie kann
-    benutzt werden, um das Verhalten von &name-nagios; 2 wiederherzustellen. Default ist "0", um kompatibel mit &name-nagios; 3 zu sein.</para>
+  <itemizedlist>
+    <listitem>
+      <para>0 = Check-Box "persistent comment" deaktiviert lassen (Default)</para>
+    </listitem>
 
-    <itemizedlist>
-        <listitem>
-            <para>0 = Check-Box "persistent comment" deaktiviert lassen (Default)</para>
-        </listitem>
+    <listitem>
+      <para>1 = Check-Box "persistent comment" aktivieren</para>
+    </listitem>
+  </itemizedlist>
 
-        <listitem>
-            <para>1 = Check-Box "persistent comment" aktivieren</para>
-        </listitem>
-    </itemizedlist>
+  <note>
+    <para>Diese Option ist verfügbar ab &name-icinga; 1.0.3.</para>
+  </note>
 
-    <note>
-        <para>Diese Option ist verfügbar ab &name-icinga; 1.0.3.</para>
-    </note>
+  <para><anchor xml:id="configcgi-showlog_initial_states" /> <emphasis role="bold">Initialen Status anzeigen</emphasis></para>
 
-    <para><anchor xml:id="configcgi-showlog_initial_states" /> <emphasis role="bold">Initialen Status anzeigen</emphasis></para>
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
 
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c2" colwidth="50*" />
 
-            <colspec colname="c2" colwidth="50*" />
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
 
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
+          <entry><para> <emphasis role="bold">showlog_initial_states=&lt;0|1&gt;</emphasis> </para></entry>
+        </row>
 
-                    <entry><para> <emphasis role="bold">showlog_initial_states=&lt;0|1&gt;</emphasis> </para></entry>
-                </row>
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">showlog_initial_states=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
 
-                    <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">showlog_initial_states=1</emphasis> </emphasis>
-                    </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
+  <para>Diese Option legt fest, ob die initialen Zustände von Hosts und Services in showlog.cgi angezeigt werden sollen. <note>
+       Diese Option hat nur Auswirkungen, wenn die Option "log_initial_states" in der icinga.cfg gesetzt wurde. 
+    </note></para>
 
-    <para>Diese Option legt fest, ob die initialen Zustände von Hosts und Services in showlog.cgi angezeigt werden sollen.
-    <note>Diese Option hat nur Auswirkungen, wenn die Option "log_initial_states" in der icinga.cfg gesetzt wurde.</note>
-    </para>
+  <itemizedlist>
+    <listitem>
+      <para>0 = initiale Zustände in showlog.cgi nicht anzeigen</para>
+    </listitem>
 
-    <itemizedlist>
-        <listitem>
-            <para>0 = initiale Zustände in showlog.cgi nicht anzeigen</para>
-        </listitem>
+    <listitem>
+      <para>1 = initiale Zustände in showlog.cgi anzeigen (Default)</para>
+    </listitem>
+  </itemizedlist>
 
-        <listitem>
-            <para>1 = initiale Zustände in showlog.cgi anzeigen (Default)</para>
-        </listitem>
-    </itemizedlist>
+  <note>
+    <para>Diese Option ist verfügbar ab &name-icinga; 1.3.</para>
+  </note>
 
-    <note>
-        <para>Diese Option ist verfügbar ab &name-icinga; 1.3.</para>
-    </note>
+  <para><anchor xml:id="configcgi-showlog_current_states" /> <emphasis role="bold">Aktuellen Status anzeigen</emphasis></para>
 
-    <para><anchor xml:id="configcgi-showlog_current_states" /> <emphasis role="bold">Aktuellen Status anzeigen</emphasis></para>
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
 
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c2" colwidth="50*" />
 
-            <colspec colname="c2" colwidth="50*" />
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
 
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
+          <entry><para> <emphasis role="bold">showlog_current_states=&lt;0|1&gt;</emphasis> </para></entry>
+        </row>
 
-                    <entry><para> <emphasis role="bold">showlog_current_states=&lt;0|1&gt;</emphasis> </para></entry>
-                </row>
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">showlog_current_states=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
 
-                    <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">showlog_current_states=1</emphasis> </emphasis>
-                    </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
+  <para>Diese Option legt fest, ob die aktuellen Zustände von Hosts und Services in showlog.cgi angezeigt werden sollen. <note>
+       Diese Option hat nur Auswirkungen, wenn die Option "log_current_states" in der icinga.cfg gesetzt wurde. 
+    </note></para>
 
-    <para>Diese Option legt fest, ob die aktuellen Zustände von Hosts und Services in showlog.cgi angezeigt werden sollen.
-    <note>Diese Option hat nur Auswirkungen, wenn die Option "log_current_states" in der icinga.cfg gesetzt wurde.</note>
-    </para>
+  <itemizedlist>
+    <listitem>
+      <para>0 = aktuelle Zustände in showlog.cgi nicht anzeigen</para>
+    </listitem>
 
-    <itemizedlist>
-        <listitem>
-            <para>0 = aktuelle Zustände in showlog.cgi nicht anzeigen</para>
-        </listitem>
+    <listitem>
+      <para>1 = aktuelle Zustände in showlog.cgi anzeigen (Default)</para>
+    </listitem>
+  </itemizedlist>
 
-        <listitem>
-            <para>1 = aktuelle Zustände in showlog.cgi anzeigen (Default)</para>
-        </listitem>
-    </itemizedlist>
+  <note>
+    <para>Diese Option ist verfügbar ab &name-icinga; 1.3.</para>
+  </note>
 
-    <note>
-        <para>Diese Option ist verfügbar ab &name-icinga; 1.3.</para>
-    </note>
+  <para><anchor xml:id="configcgi-tab_friendly_titles" /> <emphasis role="bold">Objekttyp in Tab-Titel anzeigen</emphasis></para>
 
-    <para><anchor xml:id="configcgi-tab_friendly_titles" /> <emphasis role="bold">Objekttyp in Tab-Titel anzeigen</emphasis></para>
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
 
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c2" colwidth="50*" />
 
-            <colspec colname="c2" colwidth="50*" />
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
 
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para>Format:</para></entry>
+          <entry><para> <emphasis role="bold">tab_friendly_titles=&lt;0|1&gt;</emphasis> </para></entry>
+        </row>
 
-                    <entry><para> <emphasis role="bold">tab_friendly_titles=&lt;0|1&gt;</emphasis> </para></entry>
-                </row>
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
-                <row>
-                    <entry align="left" valign="top"><para>Beispiel:</para></entry>
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">tab_friendly_titles=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
 
-                    <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">tab_friendly_titles=1</emphasis> </emphasis>
-                    </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
+  <para>Durch Aktivieren dieser Option ändern sich die Titel der Reiter im Browser, um den jeweiligen Objekttyp anzuzeigen. Sie zeigen dann:
+  <itemizedlist>
+      <listitem>
+         [Host] 
+      </listitem>
 
-    <para>Durch Aktivieren dieser Option ändern sich die Titel der Reiter im Browser, um den jeweiligen Objekttyp anzuzeigen. Sie zeigen dann:
-      <itemizedlist>
-        <listitem>[Host]</listitem>
-        <listitem>{Hostgruppe}</listitem>
-        <listitem>Service-Beschreibung @ Host</listitem>
-        <listitem>(Servicegruppe)</listitem>
-     </itemizedlist>
-    Diese sind einfache zu lesen (und zu finden), wenn Sie (viele) Reiter in Ihrem Browser anzeigen.
-  </para>
+      <listitem>
+         {Hostgruppe} 
+      </listitem>
 
-    <itemizedlist>
-        <listitem>
-            <para>0 = Objekttyp im Reiter nicht anzeigen</para>
-        </listitem>
+      <listitem>
+         Service-Beschreibung @ Host 
+      </listitem>
 
-        <listitem>
-            <para>1 = Objekttyp im Reiter anzeigen (Default)</para>
-        </listitem>
-    </itemizedlist>
+      <listitem>
+         (Servicegruppe) 
+      </listitem>
+    </itemizedlist> Diese sind einfache zu lesen (und zu finden), wenn Sie (viele) Reiter in Ihrem Browser anzeigen.</para>
 
-    <note>
-        <para>Diese Option ist verfügbar ab &name-icinga; 1.3.</para>
-    </note>
+  <itemizedlist>
+    <listitem>
+      <para>0 = Objekttyp im Reiter nicht anzeigen</para>
+    </listitem>
 
-  <para><anchor xml:id="configcgi-add_notif_num" /> <emphasis role="bold">Service-Zustand und Benachrichtigungsnummer anzeigen</emphasis></para>
+    <listitem>
+      <para>1 = Objekttyp im Reiter anzeigen (Default)</para>
+    </listitem>
+  </itemizedlist>
+
+  <note>
+    <para>Diese Option ist verfügbar ab &name-icinga; 1.3.</para>
+  </note>
+
+  <para><anchor xml:id="configcgi-add_notif_num" /> <emphasis role="bold">Service-Zustand und Benachrichtigungsnummer
+  anzeigen</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
@@ -1223,211 +1272,215 @@
         <row>
           <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">add_notif_num_hard=28</emphasis>
-          </emphasis> </para></entry>
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">add_notif_num_hard=28</emphasis> </emphasis>
+          </para></entry>
         </row>
       </tbody>
     </tgroup>
   </informaltable>
 
   <para>Wenn der Wert der Direktive(n) größer Null ist, werden in der status.cgi neben dem "Versuch" (z.B. "3/3" für einen
-    Hard-Nicht-OK-Zustand mit max_check_attempts=3) auch die aktuelle Benachrichtigungsnummer ("(#0)" falls noch keine Benachrichtigung
-    versandt wurde) angezeigt. Dies ist hilfreich, um Services zu identifizieren, die oft zwischen verschiedenen Nicht-OK-Zuständen
-    wechseln, oder Services, bei denen first_notification_delay gesetzt ist, die aber noch nicht "in Schwierigkeiten" sind.</para>
-  <para>Relevante Werte aus include/statusdata.h (sehen Sie *dort* nach, um *wirklich* sicher zu sein):
-      <programlisting> #define    SERVICE_PENDING     1
+  Hard-Nicht-OK-Zustand mit max_check_attempts=3) auch die aktuelle Benachrichtigungsnummer ("(#0)" falls noch keine Benachrichtigung
+  versandt wurde) angezeigt. Dies ist hilfreich, um Services zu identifizieren, die oft zwischen verschiedenen Nicht-OK-Zuständen wechseln,
+  oder Services, bei denen first_notification_delay gesetzt ist, die aber noch nicht "in Schwierigkeiten" sind.</para>
+
+  <para>Relevante Werte aus include/statusdata.h (sehen Sie *dort* nach, um *wirklich* sicher zu sein): <programlisting> #define    SERVICE_PENDING     1
  #define    SERVICE_OK          2
  #define    SERVICE_WARNING     4
  #define    SERVICE_UNKNOWN     8
- #define    SERVICE_CRITICAL   16</programlisting>
-  </para>
+ #define    SERVICE_CRITICAL   16</programlisting></para>
+
   <para>Sie werden wahrscheinlich add_notif_num_hard=0 (Default) oder add_notif_num_hard=28 (warn+crit+unknown) setzen.</para>
+
   <para>Der Vorständigkeit halber gibt es auch add_notif_num_soft für Services im SOFT-Zustand.</para>
-  <note><para>Diese Option ist verfügbar ab &name-icinga; 1.3.</para></note>
 
-    <indexterm zone="configcgi">
-        <primary>CGI-Konfiguration</primary>
+  <note>
+    <para>Diese Option ist verfügbar ab &name-icinga; 1.3.</para>
+  </note>
 
-        <secondary>Optionen der CGI-Konfigurationsdatei</secondary>
-    </indexterm>
+  <indexterm zone="configcgi">
+    <primary>CGI-Konfiguration</primary>
 
-    <indexterm zone="configcgi-main_cfg_file">
-        <primary>main_cfg_file=</primary>
+    <secondary>Optionen der CGI-Konfigurationsdatei</secondary>
+  </indexterm>
 
-        <secondary>Position der Hauptkonfigurationsdatei</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-main_cfg_file">
+    <primary>main_cfg_file=</primary>
 
-    <indexterm zone="configcgi-physical_html_path">
-        <primary>physical_html_path=</primary>
+    <secondary>Position der Hauptkonfigurationsdatei</secondary>
+  </indexterm>
 
-        <secondary>vollständiger (physical) HTML-Pfad</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-physical_html_path">
+    <primary>physical_html_path=</primary>
 
-    <indexterm zone="configcgi-url_html_path">
-        <primary>url_html_path=</primary>
+    <secondary>vollständiger (physical) HTML-Pfad</secondary>
+  </indexterm>
 
-        <secondary>URL-HTML-Pfad</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-url_html_path">
+    <primary>url_html_path=</primary>
 
-    <indexterm zone="configcgi-use_authentication">
-        <primary>use_authentication=</primary>
+    <secondary>URL-HTML-Pfad</secondary>
+  </indexterm>
 
-        <secondary>Nutzung der Authentifizierung</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-use_authentication">
+    <primary>use_authentication=</primary>
 
-    <indexterm zone="configcgi-default_user_name">
-        <primary>default_user_name=</primary>
+    <secondary>Nutzung der Authentifizierung</secondary>
+  </indexterm>
 
-        <secondary>Standard-Benutzername</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-default_user_name">
+    <primary>default_user_name=</primary>
 
-    <indexterm zone="configcgi-authorized_for_system_information">
-        <primary>authorized_for_system_information=</primary>
+    <secondary>Standard-Benutzername</secondary>
+  </indexterm>
 
-        <secondary>Zugang zu System/Prozess-Informationen</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-authorized_for_system_information">
+    <primary>authorized_for_system_information=</primary>
 
-    <indexterm zone="configcgi-authorized_for_system_commands">
-        <primary>authorized_for_system_commands=</primary>
+    <secondary>Zugang zu System/Prozess-Informationen</secondary>
+  </indexterm>
 
-        <secondary>Zugang zu System/Prozess-Befehlen</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-authorized_for_system_commands">
+    <primary>authorized_for_system_commands=</primary>
 
-    <indexterm zone="configcgi-authorized_for_configuration_information">
-        <primary>authorized_for_configuration_information=</primary>
+    <secondary>Zugang zu System/Prozess-Befehlen</secondary>
+  </indexterm>
 
-        <secondary>Zugang zu Konfigurationsinformationen</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-authorized_for_configuration_information">
+    <primary>authorized_for_configuration_information=</primary>
 
-    <indexterm zone="configcgi-authorized_for_all_hosts">
-        <primary>authorized_for_all_hosts=</primary>
+    <secondary>Zugang zu Konfigurationsinformationen</secondary>
+  </indexterm>
 
-        <secondary>Zugang zu globalen Host-Informationen</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-authorized_for_all_hosts">
+    <primary>authorized_for_all_hosts=</primary>
 
-    <indexterm zone="configcgi-authorized_for_all_host_commands">
-        <primary>authorized_for_host_commands=</primary>
+    <secondary>Zugang zu globalen Host-Informationen</secondary>
+  </indexterm>
 
-        <secondary>Zugang zu globalen Host-Befehlen</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-authorized_for_all_host_commands">
+    <primary>authorized_for_host_commands=</primary>
 
-    <indexterm zone="configcgi-authorized_for_all_services">
-        <primary>authorized_for_all_services=</primary>
+    <secondary>Zugang zu globalen Host-Befehlen</secondary>
+  </indexterm>
 
-        <secondary>Zugang zu globalen Service-Informationen</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-authorized_for_all_services">
+    <primary>authorized_for_all_services=</primary>
 
-    <indexterm zone="configcgi-authorized_for_all_service_commands">
-        <primary>authorized_for_all_service_commands=</primary>
+    <secondary>Zugang zu globalen Service-Informationen</secondary>
+  </indexterm>
 
-        <secondary>Zugang zu globalen Service-Befehlen</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-authorized_for_all_service_commands">
+    <primary>authorized_for_all_service_commands=</primary>
 
-    <indexterm zone="configcgi-lock_author_names">
-        <primary>lock_author=</primary>
+    <secondary>Zugang zu globalen Service-Befehlen</secondary>
+  </indexterm>
 
-        <secondary>Autorennamen sperren</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-lock_author_names">
+    <primary>lock_author=</primary>
 
-    <indexterm zone="configcgi-statusmap_background_image">
-        <primary>statusmap_background_image=</primary>
+    <secondary>Autorennamen sperren</secondary>
+  </indexterm>
 
-        <secondary>Statusmap-CGI-Hintergrundbild</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-statusmap_background_image">
+    <primary>statusmap_background_image=</primary>
 
-    <indexterm zone="configcgi-default_statusmap_layout">
-        <primary>default_statusmap_layout=</primary>
+    <secondary>Statusmap-CGI-Hintergrundbild</secondary>
+  </indexterm>
 
-        <secondary>Default-Statusmap-Layout</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-default_statusmap_layout">
+    <primary>default_statusmap_layout=</primary>
 
-    <indexterm zone="configcgi-refresh_rate">
-        <primary>refresh_rate=</primary>
+    <secondary>Default-Statusmap-Layout</secondary>
+  </indexterm>
 
-        <secondary>CGI-Refresh-Rate</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-refresh_rate">
+    <primary>refresh_rate=</primary>
 
-    <indexterm zone="configcgi-audio_alerts">
-        <primary>audio_alerts=</primary>
+    <secondary>CGI-Refresh-Rate</secondary>
+  </indexterm>
 
-        <secondary>Audio-Alarme</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-audio_alerts">
+    <primary>audio_alerts=</primary>
 
-    <indexterm zone="configcgi-ping_syntax">
-        <primary>ping_syntax=</primary>
+    <secondary>Audio-Alarme</secondary>
+  </indexterm>
 
-        <secondary>Ping-Syntax</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-ping_syntax">
+    <primary>ping_syntax=</primary>
 
-    <indexterm zone="configcgi-escape_html_tags">
-        <primary>escape_html_tags=</primary>
+    <secondary>Ping-Syntax</secondary>
+  </indexterm>
 
-        <secondary>Maskieren von HTML-Tags</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-escape_html_tags">
+    <primary>escape_html_tags=</primary>
 
-    <indexterm zone="configcgi-notes_url_target">
-        <primary>notes_url_target=</primary>
+    <secondary>Maskieren von HTML-Tags</secondary>
+  </indexterm>
 
-        <secondary>Notes-URL-Ziel</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-notes_url_target">
+    <primary>notes_url_target=</primary>
 
-    <indexterm zone="configcgi-action_url_target">
-        <primary>action_url_target=</primary>
+    <secondary>Notes-URL-Ziel</secondary>
+  </indexterm>
 
-        <secondary>Action-URL-Ziel</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-action_url_target">
+    <primary>action_url_target=</primary>
 
-    <indexterm zone="configcgi-show_only_hard_states">
-        <primary>tac_show_only_hard_state=</primary>
+    <secondary>Action-URL-Ziel</secondary>
+  </indexterm>
 
-        <secondary>Tac Show Only Hard State</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-show_only_hard_states">
+    <primary>tac_show_only_hard_state=</primary>
 
-    <indexterm zone="configcgi-enable_splunk_integration">
-        <primary>enable_splunk_integration=</primary>
+    <secondary>Tac Show Only Hard State</secondary>
+  </indexterm>
 
-        <secondary>Splunk-Integrationsoption</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-enable_splunk_integration">
+    <primary>enable_splunk_integration=</primary>
 
-    <indexterm zone="configcgi-splunk_url">
-        <primary>splunk_url=</primary>
+    <secondary>Splunk-Integrationsoption</secondary>
+  </indexterm>
 
-        <secondary>Splunk-URL</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-splunk_url">
+    <primary>splunk_url=</primary>
 
-    <indexterm zone="configcgi-persistent_ack_comments">
-        <primary>persistent_ack_comments=</primary>
+    <secondary>Splunk-URL</secondary>
+  </indexterm>
 
-        <secondary>Persistente Bestätigungskommentare</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-persistent_ack_comments">
+    <primary>persistent_ack_comments=</primary>
 
-    <indexterm zone="configcgi-showlog_initial_states">
-        <primary>showlog_initial_states=</primary>
+    <secondary>Persistente Bestätigungskommentare</secondary>
+  </indexterm>
 
-        <secondary>Initiale Zustände anzeigen</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-showlog_initial_states">
+    <primary>showlog_initial_states=</primary>
 
-    <indexterm zone="configcgi-showlog_current_states">
-        <primary>showlog_current_states=</primary>
+    <secondary>Initiale Zustände anzeigen</secondary>
+  </indexterm>
 
-        <secondary>Aktuelle Zustände anzeigen</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-showlog_current_states">
+    <primary>showlog_current_states=</primary>
 
-    <indexterm zone="configcgi-tab_friendly_titles">
-        <primary>tab_friendly_titles=</primary>
+    <secondary>Aktuelle Zustände anzeigen</secondary>
+  </indexterm>
 
-        <secondary>Objekttyp im Browser-Reiter anzeigen</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-tab_friendly_titles">
+    <primary>tab_friendly_titles=</primary>
 
-    <indexterm zone="configcgi-add_notif_num_hard">
-        <primary>add_notif_num_hard=</primary>
+    <secondary>Objekttyp im Browser-Reiter anzeigen</secondary>
+  </indexterm>
 
-        <secondary>Service-Zustand und Benachrichtigungsnummer anzeigen (hard)</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-add_notif_num_hard">
+    <primary>add_notif_num_hard=</primary>
 
-    <indexterm zone="configcgi-add_notif_num_soft">
-        <primary>add_notif_num_soft=</primary>
+    <secondary>Service-Zustand und Benachrichtigungsnummer anzeigen (hard)</secondary>
+  </indexterm>
 
-        <secondary>Service-Zustand und Benachrichtigungsnummer anzeigen (soft)</secondary>
-    </indexterm>
+  <indexterm zone="configcgi-add_notif_num_soft">
+    <primary>add_notif_num_soft=</primary>
+
+    <secondary>Service-Zustand und Benachrichtigungsnummer anzeigen (soft)</secondary>
+  </indexterm>
 </section>
