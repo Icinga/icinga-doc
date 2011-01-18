@@ -116,9 +116,16 @@
     <para>If the import scripts fails, please check your jasperserver.xml for the current user and password. You can change the default user
     and password in &lt;jasperserver-ce-dir&gt;/scripts/config/js.jdbc.properties</para>
   </note>
-<note>
+
+  <note>
     <para>The export-/import-process is explained in detail at chapter 5.12 of the &name-jasper; CE-Install-Guide</para>
   </note>
+
+  <para><emphasis role="bold">Install the JAVA classes for SLA- Reports</emphasis></para>
+
+  <para>Generating automatic reports for last week, last month or last year requires to calc the dates automatically for the specific
+  reports. To use that feature you have to install the icinga-reporting.jar archive into the Jasper lib directory. It should be in the
+  WEB-INF folder of your installation. Please don't forget to restart your jasper-server after installation.</para>
 
   <para><emphasis role="bold">Configure quartz the scheduler</emphasis></para>
 
@@ -139,6 +146,39 @@
   <para>- Test the configuration and save the connection.</para>
 
   <para>- All reports in our package point to this datasource and should be able to run.</para>
+
+  <note>
+    <para>Remember to clear the searchfield and set the 4 dropdowns to following posistions to find the datasource:</para>
+  </note>
+
+  <itemizedlist>
+    <listitem>
+      <para>"Changed by anyone" (already mentioned above)</para>
+    </listitem>
+
+    <listitem>
+      <para>"All"</para>
+    </listitem>
+
+    <listitem>
+      <para>"Any time"</para>
+    </listitem>
+
+    <listitem>
+      <para>"Any schedule"</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>After this is done, hit search to "apply" the filters. Now you should be able to see the data sources. Default for dropdown filter
+  #2 is Visualization type, which hides data sources.</para>
+
+  <para><emphasis role="bold">Different table prefix</emphasis></para>
+
+  <para>If you changed your table prefix during installation you can replace the existing prefixes using the following script.</para>
+
+  <programlisting>grep -l -r " icinga_" .  | xargs sed -i.BAK -e 's/ icinga_/ /g'
+grep -l -r "icinga_" . | xargs sed -i.BAK -e 's/^icinga_//g'
+find . -iname "*BAK" -exec rm -f {} \;</programlisting>
 
   <para><emphasis role="bold">Known Bugs:</emphasis> If you don't see any graph labels in a pdf export please switch from OpenJDK to
   SUNJava.</para>
@@ -174,9 +214,14 @@
       </tbody>
     </tgroup>
   </informaltable>
-<note><para>Integration to &name-web; not implemented yet!</para></note>
-<para>Feel free to edit our sample reports with iReport and change these to your needs :)</para>
-<para>That's all, you're done!</para>
+
+  <note>
+    <para>Integration to &name-web; not implemented yet!</para>
+  </note>
+
+  <para>Feel free to edit our sample reports with iReport and change these to your needs :)</para>
+
+  <para>That's all, you're done!</para>
 
   <indexterm zone="reporting">
     <primary>&name-rep; with &name-jasper;</primary>
