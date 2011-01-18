@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="icinga-web-config" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title>Configuration Overview of &name-web;</title>
+
+  <para><emphasis role="bold">Where are my config files? </emphasis></para>
+
+  <para>We're trying to reduce global configuration files. Icinga operates in modules, every module has it's own configuration. This is also
+  done with the libraries. If you need information about the cronk library, take a look into app/modules/Cronks/lib (For js things
+  app/modules/Cronks/lib/js).</para>
+
+  <para>A module simple looks like this: <programlisting>tree -d -L 1 app/modules/AppKit/
+app/modules/AppKit/
+|-- actions
+|-- config
+|-- lib
+|-- models
+|-- templates
+|-- validate
+`-- views</programlisting></para>
+
+  <para><emphasis role="bold">Customised Configuration</emphasis></para>
+
+  <note>
+    <para>Your specific Icinga configuration settings like api, authentication and database settings can be set in
+    app/modules/Appkit(/Cronks/Web)/config/*.site.xml- Files and will be used in the first place. They won't get overwritten during upgrade
+    proces</para>
+  </note>
+
+  <para><emphasis role="bold">Global Configuration Section: </emphasis></para>
+
+  <para><emphasis role="bold">app/config</emphasis></para>
+
+  <para>Here you find the global configuration files for e.g. the Web Session, the Icinga Web Path and the database informations.</para>
+
+  <para>The main interesting files:</para>
+
+  <para>database.xml, holds the connection information for your icinga-web database</para>
+
+  <para>factories.xml, holds the config for your web session, e.g. the session_cookie_lifetime- parameter</para>
+
+  <para>icinga.xml, holds the config for your Icinga Web root-dir, Web path.</para>
+
+  <para>Example: change the session_cookie_lifetime</para>
+
+  <para>The Session Lifetime is the time in Seconds until the Icinga Web session expires. It can be configured on global level in the file
+  app/config/factories.xml.</para>
+
+  <programlisting>vi app/config/factories.xml
+
+&lt;ae:parameter name="session_cookie_lifetime"&gt;3600&lt;/ae:parameter&gt;</programlisting>
+
+  <para></para>
+
+  <para><emphasis role="bold">Module Configuration:</emphasis></para>
+
+  <para><emphasis role="bold">app/modules/AppKit</emphasis></para>
+
+  <para>Here lives the framework spun around: Authentication, Menus and so on.</para>
+
+  <para>Example: Ldap authentication</para>
+
+  <para>Look into app/modules/AppKit/config/auth.xml.</para>
+
+  <para>There is a provider like this:</para>
+
+  <programlisting> &lt;ae:parameter name="msad-ldap1"&gt;
+            &lt;ae:parameter name="auth_module"&gt;AppKit&lt;/ae:parameter&gt;
+            &lt;ae:parameter name="auth_provider"&gt;Auth.Provider.LDAP&lt;/ae:parameter&gt;
+            &lt;ae:parameter name="auth_enable"&gt;true&lt;/ae:parameter&gt;
+            &lt;ae:parameter name="auth_authoritative"&gt;true&lt;/ae:parameter&gt;
+            &lt;ae:parameter name="auth_create"&gt;true&lt;/ae:parameter&gt;
+            &lt;ae:parameter name="auth_update"&gt;true&lt;/ae:parameter&gt;
+
+            &lt;ae:parameter name="auth_map"&gt;
+                &lt;ae:parameter name="user_firstname"&gt;givenName&lt;/ae:parameter&gt;
+                &lt;ae:parameter name="user_lastname"&gt;sn&lt;/ae:parameter&gt;
+                &lt;ae:parameter name="user_email"&gt;mail&lt;/ae:parameter&gt; 
+            &lt;/ae:parameter&gt;
+
+            &lt;ae:parameter name="ldap_dsn"&gt;ldap://ad.icinga.org&lt;/ae:parameter&gt;
+            &lt;ae:parameter name="ldap_basedn"&gt;DC=ad,DC=icinga,DC=org&lt;/ae:parameter&gt;
+            &lt;ae:parameter name="ldap_binddn"&gt;ldap@AD.ICINGA.ORG&lt;/ae:parameter&gt;
+            &lt;ae:parameter name="ldap_bindpw"&gt;&lt;![CDATA[XXXXXXXXX]]&gt;&lt;/ae:parameter&gt;
+            &lt;ae:parameter name="ldap_userattr"&gt;uid&lt;/ae:parameter&gt;
+            &lt;ae:parameter name="ldap_filter_user"&gt;&lt;![CDATA[(&amp;(sAmAccountName=__USERNAME__))]]&gt;&lt;/ae:parameter&gt;
+        &lt;/ae:parameter&gt;</programlisting>
+
+  <para>The auth.xml holds documentation for the global config. The ldap authentication should be done with some basic ldap
+  knowledge.</para>
+
+  <para>You can also duplicate the provider to provide more authentication bases. You can split the auth into authentication and authorising
+  parts if you want. If you have new providers, please share them and let the auth database grow!</para>
+
+  <para>Please store your costum authentication configuration in auth.site.xml !</para>
+
+  <para><emphasis role="bold">app/modules/Cronks</emphasis></para>
+
+  <para>All the cronks are implemented there: Grids, iframes. All of them are simple html sites which holds ExtJS component codes. If you
+  need to add a new cronk, this module is your friend.</para>
+
+  <para><emphasis role="bold">app/modules/Web</emphasis></para>
+
+  <para>Or better:<emphasis role="bold"> Icinga</emphasis>. This module holds all Icinga related stuff, IcingaAPI2Json, status information.
+  Also the IcingaAPI connection is configured here.</para>
+
+  <para>The Session Lifetime (the time until the Icinga Web session expires) can be configured on global level in the file
+  /usr/local/icinga-web/app/config/factories.xml :</para>
+
+  <note>
+    <para>Optional: Ihre spezifischen &name-icinga; Datenbankeinstellungen können Sie vornehmen in app / config /database.site.xml. Diese
+    Informationen bleiben während eines Update- Prozesses erhalten.</para>
+  </note>
+
+  <indexterm zone="icinga-web-config">
+    <primary>Configuration Options Icinga Web</primary>
+  </indexterm>
+
+  <indexterm zone="icinga-web-config">
+    <primary>Icinga Web, Customised Configuration</primary>
+  </indexterm>
+</section>
