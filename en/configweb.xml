@@ -1,0 +1,1613 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="configcgi" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="config_cgi" />&name-web; Configuration File Options</title>
+
+  <para><emphasis role="bold">Notes</emphasis></para>
+
+  <para>When creating and/or editing configuration files, keep the following in mind:</para>
+
+  <orderedlist>
+    <listitem>
+      <para>Lines that start with a &lt;!-- and end with --&gt; character are taken to be comments and are not processed</para>
+    </listitem>
+
+    <listitem>
+      <para>Variable names are case-sensitive</para>
+    </listitem>
+
+    <listitem>
+      Store your customised configuration in *.site.xml- Files, so they won't be overwritten during the next update of 
+
+      &name-web;
+
+       
+    </listitem>
+  </orderedlist>
+
+    <para><emphasis role="bold">Config File Location</emphasis></para>
+
+  <para>By default, &name-web; expects the configuration files to be named <emphasis role="bold">*.xml</emphasis> and located in the config
+  file directory app/config, for global configuration and located in app/modules/*/config for the module configuration.</para>
+
+  <para><emphasis role="bold">Configuration File Variables</emphasis></para>
+
+  <para>Below you will find descriptions of each main &name-web; configuration file option...</para>
+
+  <para><emphasis role="bold">Index</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para><link linkend="configweb-global">Global configuration file location</link></para>
+    </listitem>
+
+  <para><anchor xml:id="configweb-gobal" /> <emphasis role="bold">Global Configuration File Location</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">main_config_file=&lt;file_name&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">main_config_file=&url-icinga-cfg;</emphasis>
+          </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This specifies the location of your <link linkend="configmain">main configuration file</link>. The CGIs need to know where to find
+  this file in order to get information about configuration information, current host and service status, etc.</para>
+
+  <para><anchor xml:id="configcgi-physical_html_path" /> <emphasis role="bold">Physical HTML Path</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">physical_html_path=&lt;path&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">physical_html_path=&url-icinga-base;/share</emphasis>
+          </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This is the <emphasis>physical</emphasis> path where the HTML files for &name-icinga; are kept on your workstation or server.
+  &name-icinga; assumes that the documentation and images files (used by the CGIs) are stored in subdirectories called
+  <emphasis>docs/</emphasis> and <emphasis>images/</emphasis>, respectively.</para>
+
+  <para><anchor xml:id="configcgi-url_html_path" /> <emphasis role="bold">URL HTML Path</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">url_html_path=&lt;path&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">url_html_path=/icinga</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>If, when accessing &name-icinga; via a web browser, you point to an URL like <emphasis
+  role="bold">http://www.myhost.com/icinga</emphasis>, this value should be <emphasis>/icinga</emphasis>. Basically, its the path portion of
+  the URL that is used to access the &name-icinga; HTML pages.</para>
+
+  <para><anchor xml:id="configcgi-url_stylesheet_path" /> <emphasis role="bold">URL Stylesheet Path</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">url_stylesheet_path=&lt;path&gt;/stylesheets</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">url_stylesheet_path=/icinga/stylesheets</emphasis>
+          </emphasis></para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option allows to define an url stylesheet path other than the default. This will be useful when adding custom stylesheets in
+  another location.If not set, the default location will be used (url_stylesheets_path=url_html_path/stylesheets).</para>
+
+  <para><anchor xml:id="configcgi-use_authentication" /> <emphasis role="bold">Authentication Usage</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">use_authentication=&lt;0/1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">use_authentication=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option controls whether or not the CGIs will use the authentication and authorization functionality when determining what
+  information and commands users have access to. We would strongly suggest that you use the authentication functionality for the CGIs. If
+  you decide not to use authentication, make sure to remove the <link linkend="cgis-cmd_cgi">command CGI</link> to prevent unauthorized
+  users from issuing commands to &name-icinga;. The CGI will not issue commands to &name-icinga; if authentication is disabled, but we would
+  suggest removing it altogether just to be on the safe side. More information on how to setup authentication and configure authorization
+  for the CGIs can be found <link linkend="cgiauth">here</link>.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>0 = Don't use authentication functionality</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = Use authentication and authorization functionality (default)</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><anchor xml:id="configcgi-default_user_name" /> <emphasis role="bold">Default User Name</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">default_user_name=&lt;username&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">default_user_name=guest</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Setting this variable will define a default username that can access the CGIs. This allows people within a secure domain (i.e.,
+  behind a firewall) to access the CGIs without necessarily having to authenticate to the web server. You may want to use this to avoid
+  having to use basic authentication if you are not using a secure server, as basic authentication transmits passwords in clear text over
+  the Internet.</para>
+
+  <para><emphasis role="bold">Important:</emphasis> Do <emphasis>not</emphasis> define a default username unless you are running a secure
+  web server and are sure that everyone who has access to the CGIs has been authenticated in some manner! If you define this variable,
+  anyone who has not authenticated to the web server will inherit all rights you assign to this user!</para>
+
+  <para><anchor xml:id="configcgi-authorized_for_system_information" /> <emphasis role="bold">System/Process Information
+  Access</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis
+          role="bold">authorized_for_system_information=&lt;user1&gt;,&lt;user2&gt;,&lt;user3&gt;,...&lt;usern&gt;</emphasis>
+          </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis
+          role="bold">authorized_for_system_information=icingaadmin,theboss</emphasis> </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This is a comma-delimited list of names of <emphasis>authenticated users</emphasis> who can view system/process information in the
+  <link linkend="cgis-extinfo_cgi">extended information CGI</link>. Users in this list are <emphasis>not</emphasis> automatically authorized
+  to issue system/process commands. If you want users to be able to issue system/process commands as well, you must add them to the <link
+  linkend="configcgi-authorized_for_system_commands">authorized_for_system_commands</link> variable. More information on how to setup
+  authentication and configure authorization for the CGIs can be found <link linkend="cgiauth">here</link>.</para>
+
+  <para><anchor xml:id="configcgi-authorized_for_system_commands" /> <emphasis role="bold">System/Process Command Access</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis
+          role="bold">authorized_for_system_commands=&lt;user1&gt;,&lt;user2&gt;,&lt;user3&gt;,...&lt;usern&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">authorized_for_system_commands=icingaadmin</emphasis>
+          </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This is a comma-delimited list of names of <emphasis>authenticated users</emphasis> who can issue system/process commands via the
+  <link linkend="cgis-cmd_cgi">command CGI</link>. Users in this list are <emphasis>not</emphasis> automatically authorized to view
+  system/process information. If you want users to be able to view system/process information as well, you must add them to the <link
+  linkend="configcgi-authorized_for_system_information">authorized_for_system_information</link> variable. More information on how to setup
+  authentication and configure authorization for the CGIs can be found <link linkend="cgiauth">here</link>.</para>
+
+  <para><anchor xml:id="configcgi-authorized_for_configuration_information" /> <emphasis role="bold">Configuration Information
+  Access</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis
+          role="bold">authorized_for_configuration_information=&lt;user1&gt;,&lt;user2&gt;,&lt;user3&gt;,...&lt;usern&gt;</emphasis>
+          </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis
+          role="bold">authorized_for_configuration_information=icingaadmin</emphasis> </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This is a comma-delimited list of names of <emphasis>authenticated users</emphasis> who can view configuration information in the
+  <link linkend="cgis-config_cgi">configuration CGI</link>. Users in this list can view information on all configured hosts, host groups,
+  services, contacts, contact groups, time periods, and commands. More information on how to setup authentication and configure
+  authorization for the CGIs can be found <link linkend="cgiauth">here</link>.</para>
+
+  <para><anchor xml:id="configcgi-authorized_for_all_hosts" /> <emphasis role="bold">Global Host Information Access</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">authorized_for_all_hosts=&lt;user1&gt;,&lt;user2&gt;,&lt;user3&gt;,...&lt;usern&gt;</emphasis>
+          </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis
+          role="bold">authorized_for_all_hosts=icingaadmin,theboss</emphasis> </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This is a comma-delimited list of names of <emphasis>authenticated users</emphasis> who can view status and configuration
+  information for all hosts. Users in this list are also automatically authorized to view information for all services. Users in this list
+  are <emphasis>not</emphasis> automatically authorized to issue commands for all hosts or services. If you want users able to issue
+  commands for all hosts and services as well, you must add them to the <link
+  linkend="configcgi-authorized_for_all_host_commands">authorized_for_all_host_commands</link> variable. More information on how to setup
+  authentication and configure authorization for the CGIs can be found <link linkend="cgiauth">here</link>.</para>
+
+  <para><anchor xml:id="configcgi-authorized_for_all_host_commands" /> <emphasis role="bold">Global Host Command Access</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis
+          role="bold">authorized_for_all_host_commands=&lt;user1&gt;,&lt;user2&gt;,&lt;user3&gt;,...&lt;usern&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis
+          role="bold">authorized_for_all_host_commands=icingaadmin</emphasis> </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This is a comma-delimited list of names of <emphasis>authenticated users</emphasis> who can issue commands for all hosts via the
+  <link linkend="cgis-cmd_cgi">command CGI</link>. Users in this list are also automatically authorized to issue commands for all services.
+  Users in this list are <emphasis>not</emphasis> automatically authorized to view status or configuration information for all hosts or
+  services. If you want users able to view status and configuration information for all hosts and services as well, you must add them to the
+  <link linkend="configcgi-authorized_for_all_hosts">authorized_for_all_hosts</link> variable. More information on how to setup
+  authentication and configure authorization for the CGIs can be found <link linkend="cgiauth">here</link>.</para>
+
+  <para><anchor xml:id="configcgi-authorized_for_all_services" /> <emphasis role="bold">Global Service Information Access</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis
+          role="bold">authorized_for_all_services=&lt;user1&gt;,&lt;user2&gt;,&lt;user3&gt;,...&lt;usern&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis
+          role="bold">authorized_for_all_services=icingaadmin,theboss</emphasis> </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This is a comma-delimited list of names of <emphasis>authenticated users</emphasis> who can view status and configuration
+  information for all services. Users in this list are <emphasis>not</emphasis> automatically authorized to view information for all hosts.
+  Users in this list are <emphasis>not</emphasis> automatically authorized to issue commands for all services. If you want users able to
+  issue commands for all services as well, you must add them to the <link
+  linkend="configcgi-authorized_for_all_service_commands">authorized_for_all_service_commands</link> variable. More information on how to
+  setup authentication and configure authorization for the CGIs can be found <link linkend="cgiauth">here</link>.</para>
+
+  <para><anchor xml:id="configcgi-authorized_for_all_service_commands" /> <emphasis role="bold">Global Service Command Access
+  </emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis
+          role="bold">authorized_for_all_service_commands=&lt;user1&gt;,&lt;user2&gt;,&lt;user3&gt;,...&lt;usern&gt;</emphasis>
+          </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis
+          role="bold">authorized_for_all_service_commands=icingaadmin</emphasis> </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This is a comma-delimited list of names of <emphasis>authenticated users</emphasis> who can issue commands for all services via the
+  <link linkend="cgis-cmd_cgi">command CGI</link>. Users in this list are <emphasis>not</emphasis> automatically authorized to issue
+  commands for all hosts. Users in this list are <emphasis>not</emphasis> automatically authorized to view status or configuration
+  information for all hosts. If you want users able to view status and configuration information for all services as well, you must add them
+  to the <link linkend="configcgi-authorized_for_all_services">authorized_for_all_services</link> variable. More information on how to setup
+  authentication and configure authorization for the CGIs can be found <link linkend="cgiauth">here</link>.</para>
+
+  <para><anchor xml:id="configcgi-show_all_services_host_is_authorized_for" /> <emphasis role="bold">Show All Services A Host Is Authorized
+  For</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">show_all_services_host_is_authorized_for=&lt;0|1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">show_all_services_host_is_authorized_for=1</emphasis>
+          </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>By default, a user can see all services on a host, if the user is authorized as contact for the host only. By disabling this option,
+  the user must be an authorized contact for the service too in order to view it. Keep in mind that setting the user in
+  authorized_for_all_services obsoletes this option (included starting with &name-icinga; 1.0.2)</para>
+
+  <para><anchor xml:id="configcgi-lock_author_names" /> <emphasis role="bold">Lock Author Names</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">lock_author_names=[0/1]</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">lock_author_names=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option allows you to restrict users from changing the author name when submitting comments, acknowledgements, and scheduled
+  downtime from the web interface. If this option is enabled, users will be unable to change the author name associated with the command
+  request.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>0 = Allow users to change author names when submitting commands</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = Prevent users from changing author names (default)</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><anchor xml:id="configcgi-status_show_long_plugin_output" /> <emphasis role="bold">Status Show Long Plugin Output</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">status_show_long_plugin_output=[0/1]</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">status_show_long_plugin_output=1</emphasis>
+          </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option allows you to specify the length of status information in output of status.cgi. If you set the value to 1 it shows the
+  full plugin output instead of the first line only. Default value is 0.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>0 = Display only the first line of plugin output (default)</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = Display the complete plugin output</para>
+    </listitem>
+  </itemizedlist>
+
+  <note>
+    <para>This option is available starting with &name-icinga; 1.0.3.</para>
+  </note>
+
+  <para><anchor xml:id="configcgi-statusmap_background_image" /> <emphasis role="bold">Statusmap CGI Background Image</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">statusmap_background_image=&lt;image_file&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">statusmap_background_image=smbackground.gd2</emphasis>
+          </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option allows you to specify an image to be used as a background in the <link linkend="cgis-statusmap_cgi">statusmap CGI</link>
+  if you use the user-supplied coordinates layout method. The background image is not be available in any other layout methods. It is
+  assumed that the image resides in the HTML images path (i.e. &url-icinga-base;/share/images). This path is automatically determined by
+  appending "/images" to the path specified by the <link linkend="configcgi-physical_html_path">physical_html_path</link> directive.</para>
+
+  <note>
+    <para>The image file can be in GIF, JPEG, PNG, or GD2 format. However, GD2 format (preferably in uncompressed format) is recommended, as
+    it will reduce the CPU load when the CGI generates the map image.</para>
+  </note>
+
+  <para><anchor xml:id="configcgi-default_statusmap_layout" /> <emphasis role="bold">Default Statusmap Layout Method</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">default_statusmap_layout=&lt;layout_number&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">default_statusmap_layout=4</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option allows you to specify the default layout method used by the <link linkend="cgis-statusmap_cgi">statusmap CGI</link>.
+  Valid options are:</para>
+
+  <informaltable frame="all">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para> <emphasis role="bold">&lt;layout_number&gt; Value</emphasis> </para></entry>
+
+          <entry><para> <emphasis role="bold">Layout Method</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry><para>0</para></entry>
+
+          <entry><para>User-defined coordinates</para></entry>
+        </row>
+
+        <row>
+          <entry><para>1</para></entry>
+
+          <entry><para>Depth layers</para></entry>
+        </row>
+
+        <row>
+          <entry><para>2</para></entry>
+
+          <entry><para>Collapsed tree</para></entry>
+        </row>
+
+        <row>
+          <entry><para>3</para></entry>
+
+          <entry><para>Balanced tree</para></entry>
+        </row>
+
+        <row>
+          <entry><para>4</para></entry>
+
+          <entry><para>Circular</para></entry>
+        </row>
+
+        <row>
+          <entry><para>5</para></entry>
+
+          <entry><para>Circular (Marked Up)</para></entry>
+        </row>
+
+        <row>
+          <entry><para>6</para></entry>
+
+          <entry><para>Circular (Balloon)</para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para><anchor xml:id="configcgi-statuswrl_include" /> <emphasis role="bold">Statuswrl CGI Include World</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">statuswrl_include=&lt;vrml_file&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">statuswrl_include=myworld.wrl</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option allows you to include your own objects in the generated VRML world. It is assumed that the file resides in the path
+  specified by the <link linkend="configcgi-physical_html_path">physical_html_path</link> directive.</para>
+
+  <note>
+    <para>This file must be a fully qualified VRML world (i.e. you can view it by itself in a VRML browser).</para>
+  </note>
+
+  <para><anchor xml:id="configcgi-default_statuswrl_layout" /> <emphasis role="bold">Default Statuswrl Layout Method</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">default_statuswrl_layout=&lt;layout_number&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">default_statuswrl_layout=4</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option allows you to specify the default layout method used by the <link linkend="cgis-statuswrl_cgi">statuswrl CGI</link>.
+  Valid options are:</para>
+
+  <informaltable frame="all">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para> <emphasis role="bold">&lt;layout_number&gt; Value</emphasis> </para></entry>
+
+          <entry><para> <emphasis role="bold">Layout Method</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry><para>0</para></entry>
+
+          <entry><para>User-defined coordinates</para></entry>
+        </row>
+
+        <row>
+          <entry><para>2</para></entry>
+
+          <entry><para>Collapsed tree</para></entry>
+        </row>
+
+        <row>
+          <entry><para>3</para></entry>
+
+          <entry><para>Balanced tree</para></entry>
+        </row>
+
+        <row>
+          <entry><para>4</para></entry>
+
+          <entry><para>Circular</para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para><anchor xml:id="configcgi-refresh_rate" /> <emphasis role="bold">CGI Refresh Rate</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">refresh_rate=&lt;rate_in_seconds&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">refresh_rate=90</emphasis> </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option allows you to specify the number of seconds between page refreshes for the <link
+  linkend="cgis-status_cgi">status</link>, <link linkend="cgis-statusmap_cgi">statusmap</link>, and <link
+  linkend="cgis-extinfo_cgi">extinfo</link> CGIs.</para>
+
+  <para><anchor xml:id="configcgi-audio_alerts" /> <emphasis role="bold">Audio Alerts</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Formats:</para></entry>
+
+          <entry><para>
+               
+
+              <emphasis role="bold">host_unreachable_sound=&lt;sound_file&gt;</emphasis>
+
+               
+            </para> <para>
+               
+
+              <emphasis role="bold">host_down_sound=&lt;sound_file&gt;</emphasis>
+
+               
+            </para> <para>
+               
+
+              <emphasis role="bold">service_critical_sound=&lt;sound_file&gt;</emphasis>
+
+               
+            </para> <para>
+               
+
+              <emphasis role="bold">service_warning_sound=&lt;sound_file&gt;</emphasis>
+
+               
+            </para> <para>
+               
+
+              <emphasis role="bold">service_unknown_sound=&lt;sound_file&gt;</emphasis>
+
+               
+            </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Examples:</para></entry>
+
+          <entry><para>
+               
+
+              <emphasis condition="red" role="color">
+                 
+
+                <emphasis role="bold">host_unreachable_sound=hostu.wav</emphasis>
+
+                 
+              </emphasis>
+
+               
+            </para> <para>
+               
+
+              <emphasis condition="red" role="color">
+                 
+
+                <emphasis role="bold">host_down_sound=hostd.wav</emphasis>
+
+                 
+              </emphasis>
+
+               
+            </para> <para>
+               
+
+              <emphasis condition="red" role="color">
+                 
+
+                <emphasis role="bold">service_critical_sound=critical.wav</emphasis>
+
+                 
+              </emphasis>
+
+               
+            </para> <para>
+               
+
+              <emphasis condition="red" role="color">
+                 
+
+                <emphasis role="bold">service_warning_sound=warning.wav</emphasis>
+
+                 
+              </emphasis>
+
+               
+            </para> <para>
+               
+
+              <emphasis condition="red" role="color">
+                 
+
+                <emphasis role="bold">service_unknown_sound=unknown.wav</emphasis>
+
+                 
+              </emphasis>
+
+               
+            </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>These options allow you to specify an audio file that should be played in your browser if there are problems when you are viewing
+  the <link linkend="cgis-status_cgi">status CGI</link>. If there are problems, the audio file for the most critical type of problem will be
+  played. The most critical type of problem is on or more unreachable hosts, while the least critical is one or more services in an unknown
+  state (see the order in the example above). Audio files are assumed to be in the <emphasis role="bold">media/</emphasis> subdirectory in
+  your HTML directory (i.e. <emphasis>&url-icinga-base;/share/media</emphasis>).</para>
+
+  <para><anchor xml:id="configcgi-ping_syntax" /> <emphasis role="bold">Ping Syntax</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">ping_syntax=&lt;command&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">ping_syntax=/bin/ping -n -U -c 5
+          $HOSTADDRESS$</emphasis> </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option determines what syntax should be used when attempting to ping a host from the WAP interface (using the <link
+  linkend="cgis-statuswml_cgi">statuswml CGI</link>. You must include the full path to the ping binary, along with all required options. The
+  $HOSTADDRESS$ macro is substituted with the address of the host before the command is executed.</para>
+
+  <para><anchor xml:id="configcgi-escape_html_tags" /> <emphasis role="bold">Escape HTML Tags Option</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">escape_html_tags=[0/1]</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">escape_html_tags=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option determines whether or not HTML tags in host and service (plugin) output is escaped in the CGIs. If you enable this
+  option, your plugin output will not be able to contain clickable hyperlinks.</para>
+
+  <para><anchor xml:id="configcgi-notes_url_target" /> <emphasis role="bold">Notes URL Target</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">notes_url_target=[target]</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">notes_url_target=_blank</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option determines the name of the frame target that notes URLs should be displayed in. Valid options include
+  <emphasis>_blank</emphasis>, <emphasis>_self</emphasis>, <emphasis>_top</emphasis>, <emphasis>_parent</emphasis>, or any other valid
+  target name.</para>
+
+  <para><anchor xml:id="configcgi-action_url_target" /> <emphasis role="bold">Action URL Target</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">action_url_target=[target]</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">action_url_target=_blank</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option determines the name of the frame target that action URLs should be displayed in. Valid options include
+  <emphasis>_blank</emphasis>, <emphasis>_self</emphasis>, <emphasis>_top</emphasis>, <emphasis>_parent</emphasis>, or any other valid
+  target name.</para>
+
+  <para><anchor xml:id="configcgi-show_only_hard_states" /><emphasis role="bold">Tac Show Only Hard State</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">tac_show_only_hard_state=[0/1]</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">tac_show_only_hard_state=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This options allows you to specify if the tactical overview should only show hard states on hosts and services. If you set this
+  option to 1 the tactical overview shows only states on hosts and services. By default disabled, all states will be shown.</para>
+
+  <para><anchor xml:id="configcgi-enable_splunk_integration" /> <emphasis role="bold">Splunk Integration Option</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">enable_splunk_integration=[0/1]</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">enable_splunk_integration=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option determines whether integration functionality with Splunk is enabled in the web interface. If enabled, you'll be
+  presented with "Splunk It" links in various places in the CGIs (log file, alert history, host/service detail, etc). Useful if you're
+  trying to research why a particular problem occurred. For more information on Splunk, visit <link
+  xlink:href="http://www.splunk.com/">http://www.splunk.com/</link>.</para>
+
+  <para><anchor xml:id="configcgi-splunk_url" /> <emphasis role="bold">Splunk URL</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">splunk_url=&lt;path&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">splunk_url=http://127.0.0.1:8000/</emphasis>
+          </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option is used to define the base URL to your Splunk interface. This URL is used by the CGIs when creating links if the <link
+  linkend="configcgi-enable_splunk_integration">enable_splunk_integration</link> option is enabled.</para>
+
+  <para><anchor xml:id="configcgi-persistent_ack_comments" /> <emphasis role="bold">Persistent Acknowledge Comments</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">persistent_ack_comments=&lt;0|1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">persistent_ack_comments=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option controls the initial state of the check box "persistent comment" to acknowledge problem hosts or services. It can be
+  used to reinstate the behaviour of &name-nagios; 2. Default is "0" to be compatible with &name-nagios; 3.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>0 = Leave check box "persistent comment" unchecked (default)</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = Set check box "persistent comment"</para>
+    </listitem>
+  </itemizedlist>
+
+  <note>
+    <para>This option is available starting with &name-icinga; 1.0.3.</para>
+  </note>
+
+  <para><anchor xml:id="configcgi-showlog_initial_states" /> <emphasis role="bold">Show initial states</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">showlog_initial_states=&lt;0|1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">showlog_initial_states=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option allows you to specify if initial states of hosts and services should be shown in showlog.cgi. <note>
+       This option only works if the option "log_initial_states" in icinga.cfg is set to 1. 
+    </note></para>
+
+  <itemizedlist>
+    <listitem>
+      <para>0 = Don't show initial states in showlog.cgi</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = Show initial states in showlog.cgi (default)</para>
+    </listitem>
+  </itemizedlist>
+
+  <note>
+    <para>This option is available starting with &name-icinga; 1.3.</para>
+  </note>
+
+  <para><anchor xml:id="configcgi-showlog_current_states" /> <emphasis role="bold">Show current states</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">showlog_current_states=&lt;0|1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">showlog_current_states=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option allows you to specify if current states of hosts and services should be shown in showlog.cgi. <note>
+       This option only works if the option "log_current_states" in icinga.cfg is set to 1. 
+    </note></para>
+
+  <itemizedlist>
+    <listitem>
+      <para>0 = Don't show current states in showlog.cgi</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = Show current states in showlog.cgi (default)</para>
+    </listitem>
+  </itemizedlist>
+
+  <note>
+    <para>This option is available starting with &name-icinga; 1.3.</para>
+  </note>
+
+  <para><anchor xml:id="configcgi-tab_friendly_titles" /> <emphasis role="bold">Show object type in tab title</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">tab_friendly_titles=&lt;0|1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">tab_friendly_titles=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Activating this option changes the &lt;title&gt; of status.cgi and extinfo.cgi when they refer to a single host, service, or
+  group.</para>
+
+  <para>They will then read:</para>
+
+  <itemizedlist>
+    <listitem>
+       [Host] 
+    </listitem>
+
+    <listitem>
+       {HostGroup} 
+    </listitem>
+
+    <listitem>
+       ServiceDesc @ Host 
+    </listitem>
+
+    <listitem>
+       (ServiceGroup) 
+    </listitem>
+  </itemizedlist>
+
+  <para>These are easier to read and find if you use (many) tabs in your browser.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>0 = Don't show object type in tab title</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = Show object type in tab title (default)</para>
+    </listitem>
+  </itemizedlist>
+
+  <note>
+    <para>This option is available starting with &name-icinga; 1.3.</para>
+  </note>
+
+  <para><anchor xml:id="configcgi-add_notif_num" /> <emphasis role="bold">Show service state and notification number</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">add_notif_num_hard=n</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para></para></entry>
+
+          <entry><para> <emphasis role="bold">add_notif_num_soft=n</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">add_notif_num_hard=28</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Set this to an OR of the service state identifiers for which status.cgi should not only report "attempts" (e.g., "3/3" for a HARD
+  non-OK state with max_check_attempts=3) but also the current notification number ("(#0)" if no problem notification has been sent yet,
+  etc.). This is helpful to identify services which switched between different non-OK states a lot, or services which have a
+  first_notification_delay set and are "not yet officially" considered in trouble.</para>
+
+  <para>Relevant values from include/statusdata.h (look them up *there* if you want to be *really* sure): <programlisting> #define    SERVICE_PENDING     1
+ #define    SERVICE_OK          2
+ #define    SERVICE_WARNING     4
+ #define    SERVICE_UNKNOWN     8
+ #define    SERVICE_CRITICAL   16</programlisting></para>
+
+  <para>You'll likely want to use add_notif_num_hard=0 (default) or add_notif_num_hard=28 (warn+crit+unknown).</para>
+
+  <para>There's an add_notif_num_soft affecting services in a SOFT state for sake of completeness, too.</para>
+
+  <note>
+    <para>These options are available starting with &name-icinga; 1.3.</para>
+  </note>
+
+  <para><anchor xml:id="configcgi-http_charset" /> <emphasis role="bold">Set HTTP character set</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">http_charset=&lt;char-set&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">http_charset=utf-8</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This is the character set which is sent with HTTP headers. Default is utf-8.</para>
+
+  <note>
+    <para>This option is available starting with &name-icinga; 1.3.</para>
+  </note>
+
+  <indexterm zone="config_cgi">
+    <primary>CGI Configuration File Options</primary>
+  </indexterm>
+
+  <indexterm zone="configcgi-main_cfg_file">
+    <primary>main_cfg_file=</primary>
+
+    <secondary>Main Configuration File Location</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-physical_html_path">
+    <primary>physical_html_path=</primary>
+
+    <secondary>Physical HTML Path</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-url_html_path">
+    <primary>url_html_path=</primary>
+
+    <secondary>URL HTML Path</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-use_authentication">
+    <primary>use_authentication=</primary>
+
+    <secondary>Authentication Usage</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-default_user_name">
+    <primary>default_user_name=</primary>
+
+    <secondary>Default User Name</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-authorized_for_system_information">
+    <primary>authorized_for_system_information=</primary>
+
+    <secondary>System/Process Information</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-authorized_for_system_commands">
+    <primary>authorized_for_system_commands=</primary>
+
+    <secondary>System/Process Command</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-authorized_for_configuration_information">
+    <primary>authorized_for_configuration_information=</primary>
+
+    <secondary>Configuration Information</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-authorized_for_all_hosts">
+    <primary>authorized_for_all_hosts=</primary>
+
+    <secondary>Global Host Information</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-authorized_for_all_host_commands">
+    <primary>authorized_for_host_commands=</primary>
+
+    <secondary>Global Host Command</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-authorized_for_all_services">
+    <primary>authorized_for_all_services=</primary>
+
+    <secondary>Global Service Information</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-authorized_for_all_service_commands">
+    <primary>authorized_for_all_service_commands=</primary>
+
+    <secondary>Global Service Command</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-lock_author_names">
+    <primary>lock_author=</primary>
+
+    <secondary>Lock Author Names</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-statusmap_background_image">
+    <primary>statusmap_background_image=</primary>
+
+    <secondary>Statusmap CGI Background</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-default_statusmap_layout">
+    <primary>default_statusmap_layout=</primary>
+
+    <secondary>Default Statusmap Layout</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-refresh_rate">
+    <primary>refresh_rate=</primary>
+
+    <secondary>CGI Refresh Rate</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-audio_alerts">
+    <primary>audio_alerts=</primary>
+
+    <secondary>Audio Alerts</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-ping_syntax">
+    <primary>ping_syntax=</primary>
+
+    <secondary>Ping Syntax</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-escape_html_tags">
+    <primary>escape_html_tags=</primary>
+
+    <secondary>Escape HTML Tags Option</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-notes_url_target">
+    <primary>notes_url_target=</primary>
+
+    <secondary>Notes URL Target</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-action_url_target">
+    <primary>action_url_target=</primary>
+
+    <secondary>Action URL Target</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-show_only_hard_states">
+    <primary>tac_show_only_hard_state=</primary>
+
+    <secondary>Tac Show Only Hard State</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-enable_splunk_integration">
+    <primary>enable_splunk_integration=</primary>
+
+    <secondary>Splunk Integration Option</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-splunk_url">
+    <primary>splunk_url=</primary>
+
+    <secondary>Splunk URL</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-persistent_ack_comments">
+    <primary>persistent_ack_comments=</primary>
+
+    <secondary>Persistent Acknowledge Comments</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-showlog_initial_states">
+    <primary>showlog_initial_states=</primary>
+
+    <secondary>Show initial states</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-showlog_current_states">
+    <primary>showlog_current_states=</primary>
+
+    <secondary>Show current states</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-tab_friendly_titles">
+    <primary>tab_friendly_titles=</primary>
+
+    <secondary>Show object type in tab title</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-add_notif_num_hard">
+    <primary>add_notif_num_hard=</primary>
+
+    <secondary>Show service state and notification number (hard)</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-add_notif_num_soft">
+    <primary>add_notif_num_soft=</primary>
+
+    <secondary>Show service state and notification number (soft)</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-http_charset">
+    <primary>http_charset=</primary>
+  </indexterm>
+</section>

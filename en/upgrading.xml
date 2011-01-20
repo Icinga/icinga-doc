@@ -23,23 +23,6 @@
   <para>During development there may be cases where the handling of bugfixes might touch the userspace. We try to avoid this as far as
   possible but sometimes it is inevitable.</para>
 
-  <para><emphasis role="bold">&name-icinga; 0.8.0 to &name-icinga; &ver-icinga;</emphasis></para>
-
-  <para>Archived Logfilename</para>
-
-  <para>There was a small misspelling bug in &name-icinga; 0.8.0 resulting in archived logfile names beginning with a capital <emphasis
-  role="bold">"I"</emphasis> like in <emphasis role="bold">'Icinga-$date'</emphasis>". This was fixed in version 0.8.1. and newer.</para>
-
-  <para>If you experience this problem then please use the following script to fix the file names</para>
-
-  <programlisting> #&gt; cd /usr/local/icinga/var/archives
-
- for oldfilename in `find ./ -name "Icinga-*"`
- do
-   newfilename=`echo $oldfilename | sed -e 's/Icinga/icinga/g'`
-   mv $oldfilename $newfilename
- done</programlisting>
-
   <para><emphasis role="bold">Normal &name-icinga; update Path</emphasis></para>
 
   <para>If there's a new &name-icinga; version available on &url-icinga; you should consider updating. Newer versions contain bugfixes,
@@ -62,6 +45,22 @@
   or decide what you want to upgrade by just typing 'make' which shows all available options. Check your config and restart Icinga.
   <programlisting> #&gt; /etc/init.d/icinga checkconfig
  #&gt; /etc/init.d/icinga restart</programlisting> That's it!</para>
+<para><emphasis role="bold">&name-icinga; 0.8.0 to &name-icinga; &ver-icinga;</emphasis></para>
+
+  <para>Archived Logfilename</para>
+
+  <para>There was a small misspelling bug in &name-icinga; 0.8.0 resulting in archived logfile names beginning with a capital <emphasis
+  role="bold">"I"</emphasis> like in <emphasis role="bold">'Icinga-$date'</emphasis>". This was fixed in version 0.8.1. and newer.</para>
+
+  <para>If you experience this problem then please use the following script to fix the file names</para>
+
+  <programlisting> #&gt; cd /usr/local/icinga/var/archives
+
+ for oldfilename in `find ./ -name "Icinga-*"`
+ do
+   newfilename=`echo $oldfilename | sed -e 's/Icinga/icinga/g'`
+   mv $oldfilename $newfilename
+ done</programlisting>
 
   <para><emphasis role="bold"><anchor xml:id="upgrading-nagios3x" /> Upgrading from &name-nagios; 3.x Releases</emphasis></para>
 
