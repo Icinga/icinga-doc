@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="upgrading_icingaweb" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title>Upgrading &name-web;</title>
+
+  <para><emphasis role="bold">Upgrading &name-web;</emphasis></para>
+
+  <para>If there's a new &name-web; version available on &url-icinga; you should consider updating. Newer versions contain bugfixes, minor
+  or major, which makes it even more important to get the latest and the greatest. If you already installed &name-web;; using the installing
+  guide it's rather easy to install newer version.</para>
+
+  <para>Make sure you'll have a safe backup of your &name-web; installation and your configs (if you stored your customised configuration in
+  *.site.xml- Files, they won't be overwritten during the upgrade process!). If anything goes wrong you can restore your old setup rather
+  easy.</para>
+
+  <para>Regular updates of &name-web; are possible by just by re-installing &name-web;. Please keep in mind that <code>configure</code>
+  requires the same parameters as before - look it up in <code>config.log</code> and save that in a safe location.</para>
+
+  <para>Please make sure, that you have already installed the appropriate &name-api; version. Installing the &name-api; is described in the
+  <link linkend="icinga-api">Icinga-API</link> section.</para>
+
+  <para><emphasis role="bold">The upgrade</emphasis></para>
+
+  <para>Please download the archive from <link
+  xlink:href="http://sourceforge.net/projects/icinga/files/">http://sourceforge.net/projects/icinga/files/</link> or take your clone from
+  the icinga-web.git to get the freshest branch:</para>
+
+  <programlisting> #&gt; git clone git://git.icinga.org/icinga-web.git</programlisting>
+
+  <para>Unpack your tarball:</para>
+
+  <programlisting> #&gt; tar xzvf icinga-web-&ver-icingaweb;.tar.gz</programlisting>
+
+  <para>Then change to the directory:</para>
+
+  <programlisting> #&gt; cd icinga-web</programlisting>
+
+  <para>&name-web; provides several configure options e.g.</para>
+
+  <programlisting> #&gt; ./configure 
+                --prefix=/usr/local/icinga-web 
+                --with-web-user=www-data 
+                --with-web-group=www-data 
+                --with-web-path=/icinga-web 
+                --with-web-apache-path=/etc/apache2/conf.d 
+                --with-db-type=mysql 
+                --with-db-host=localhost 
+                --with-db-port=3306 
+                --with-db-name=icinga_web 
+                --with-db-user=icinga_web 
+                --with-db-pass=icinga_web 
+                --with-icinga-api=/usr/local/icinga/share/icinga-api 
+                --with-api-type=APICON API type (default CONNECTION_IDO)
+                --with-api-subtype=TYPE DB driver or network connection
+                --with-api-host=HOST Host to connect (DB or other) (default localhost)
+                --with-api-port=PORT Port for connection (default 3306)
+                --with-api-socket=PATH Path to socket (default none)</programlisting>
+
+  <note>
+    <para>Keep in mind that you configure the Icinga Web database not the Icinga IDOUtils database! User and group name of the web process
+    depend on the distribution used.</para>
+  </note>
+
+  <para>Please use:</para>
+
+  <programlisting> #&gt; ./configure --help</programlisting>
+
+  <para>to see all configure options.</para>
+
+  <note>
+    <para>Using no options the installer expects the icinga-API to be found at /usr/local/share/icinga-api.</para>
+  </note>
+
+  <para>Per default the &name-web; will be updated to /usr/local/icinga-web using:</para>
+
+  <programlisting> #&gt; ./configure
+ #&gt; make upgrade</programlisting>
+
+  <note>
+    <para>After changing any configs you need to clear the config cache!</para>
+  </note>
+
+  <programlisting> #&gt; rm -rf app/cache/config/*.php</programlisting>
+
+  <para>or</para>
+
+  <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
+
+  <indexterm zone="icinga-web-scratch">
+    <primary>Webinterface</primary>
+  </indexterm>
+
+  <indexterm zone="icinga-web-scratch">
+    <primary>Installation of the Webinterface</primary>
+  </indexterm>
+</section>
