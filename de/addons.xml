@@ -16,38 +16,52 @@
 
   <para>Addons gibt es für:</para>
 
-  <anchor xml:id="addons-conf" />
   <itemizedlist>
+    
     <listitem>
-      <para>die Verwaltung der Konfigurationsdateien über ein Web-Interface</para>
+      <para><anchor xml:id="addons-conf" />die Verwaltung der Konfigurationsdateien über ein Web-Interface</para>
       <itemizedlist>
         <listitem>
           <para><link xlink:href="&url-nconf;">&name-nconf;</link>, <link xlink:href="&url-nagiosql;">&name-nagiosql;</link>, ...</para>
         </listitem>
       </itemizedlist>
-	</listitem>
+    </listitem>
 
-  <anchor xml:id="addons-mon" />
+    
     <listitem>
-      <para>die Überwachung von entfernten Hosts (*NIX, Windows, etc.)</para>
+      <para><anchor xml:id="addons-mon" />die Überwachung von entfernten Hosts (*NIX, Windows, etc.)</para>
+      <itemizedlist>
+        <listitem>
+          <para><link linkend="nsca">&name-nsca;</link>, <link xlink:href="&url-check_mk;">&name-check_mk;</link>, ...</para>
+        </listitem>
+        <listitem>
+          <para><link xlink:href="&url-nsclient;">&name-nsclient;</link>, ...</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>die Erteilung von passiven Prüfungen von entfernten Hosts</para>
       <itemizedlist>
         <listitem>
           <para><link xlink:href="&url-nsclient;">&name-nsclient;</link>, <link xlink:href="&url-check_mk;">&name-check_mk;</link>, ...</para>
         </listitem>
       </itemizedlist>
-	</listitem>
-
-    <listitem>
-      <para>die Erteilung von passiven Prüfungen von entfernten Hosts</para>
     </listitem>
 
+    
     <listitem>
-      <para>die Vereinfachung/Erweiterung der Benachrichtigungslogik</para>
+      <para><anchor xml:id="addons-logic" />die Vereinfachung/Erweiterung der Überwachungslogik</para>
+      <itemizedlist>
+        <listitem>
+          <para><link xlink:href="&url-bp;">&name-bp;</link> ...</para>
+        </listitem>
+      </itemizedlist>
     </listitem>
 
-  <anchor xml:id="addons-vis" />
+    
     <listitem>
-      <para>Visualisierung der Informationen</para>
+      <para><anchor xml:id="addons-vis" />Visualisierung der Informationen</para>
 
       <itemizedlist>
         <listitem>
@@ -60,13 +74,13 @@
       </itemizedlist>
     </listitem>
 
-  <anchor xml:id="addons-web" />
+    
     <listitem>
-      <para>alternative Web-Interfaces</para>
+      <para><anchor xml:id="addons-web" />alternative Web-Interfaces</para>
 
       <itemizedlist>
         <listitem>
-          <para><link xlink:href="&url-thruk;">&name-thruk;</link></para>
+          <para><link xlink:href="&url-thruk;">&name-thruk;</link>, <link xlink:href="&url-multisite;">&name-multisite;</link></para>
         </listitem>
       </itemizedlist>
     </listitem>
@@ -135,9 +149,9 @@
     </inlinemediaobject></para>
 
   <para>&name-idoutils; ist ein Addon, das es Ihnen erlaubt, alle &name-icinga;-Statusinformationen in einer Datenbank zu
-  speichern. Mehrere Instanzen von &name-icinga; können all ihre Informationen in einer zentralen Datenbank für ein zentrales
+  speichern. Mehrere Instanzen von &name-icinga; können all ihre Informationen in einer gemeinsamen Datenbank für ein zentrales
   Berichtswesen speichern. Dies wird wahrscheinlich in der Zukunft als Basis für ein neues &name-php;-basiertes Web-Interface für
-  &name-icinga; dienen. Neben MySQL werden auch verschiedene andere Datenbanksysteme unterstützt.</para>
+  &name-icinga; dienen. Neben &name-mysql; werden auch &name-oracle; und &name-postgres; unterstützt.</para>
 
   <para>Das &name-idoutils;-Addon und die Dokumentation finden Sie unter <link
   xlink:href="&url-icingadocs;">&url-icingadocs;</link>.</para>
@@ -160,9 +174,17 @@
   </indexterm>
 
   <indexterm zone="addons-conf">
+    <primary>&name-nconf;</primary>
+  </indexterm>
+
+  <indexterm zone="addons-conf">
     <primary>Addons</primary>
 
     <secondary>&name-nconf;</secondary>
+  </indexterm>
+
+  <indexterm zone="addons-conf">
+    <primary>&name-nagiosql;</primary>
   </indexterm>
 
   <indexterm zone="addons-conf">
@@ -172,15 +194,37 @@
   </indexterm>
 
   <indexterm zone="addons-mon">
+    <primary>&name-nsclient;</primary>
+  </indexterm>
+
+  <indexterm zone="addons-mon">
     <primary>Addons</primary>
 
     <secondary>&name-nsclient;</secondary>
   </indexterm>
 
   <indexterm zone="addons-mon">
+    <primary>&name-check_mk;</primary>
+  </indexterm>
+
+  <indexterm zone="addons-mon">
     <primary>Addons</primary>
 
     <secondary>&name-check_mk;</secondary>
+  </indexterm>
+
+  <indexterm zone="addons-logic">
+    <primary>&name-bp;</primary>
+  </indexterm>
+
+  <indexterm zone="addons-logic">
+    <primary>Addons</primary>
+
+    <secondary>&name-bp;</secondary>
+  </indexterm>
+
+  <indexterm zone="addons-vis">
+    <primary>&name-pnp;</primary>
   </indexterm>
 
   <indexterm zone="addons-vis">
@@ -190,9 +234,17 @@
   </indexterm>
 
   <indexterm zone="addons-vis">
+    <primary>&name-nagvis;</primary>
+  </indexterm>
+
+  <indexterm zone="addons-vis">
     <primary>Addons</primary>
 
     <secondary>&name-nagvis;</secondary>
+  </indexterm>
+
+  <indexterm zone="addons-web">
+    <primary>&name-thruk;</primary>
   </indexterm>
 
   <indexterm zone="addons-web">
@@ -202,8 +254,12 @@
   </indexterm>
 
   <indexterm zone="addons-web">
+    <primary>&name-multisite;</primary>
+  </indexterm>
+
+  <indexterm zone="addons-web">
     <primary>Addons</primary>
 
-    <secondary>name-multisite;</secondary>
+    <secondary>&name-multisite;</secondary>
   </indexterm>
 </section>

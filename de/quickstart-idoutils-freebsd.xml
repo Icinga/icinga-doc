@@ -16,7 +16,9 @@
   <para>Hier werden keine fortgeschrittenen Installationsoptionen vorgestellt - lediglich die Grundlagen, die für 95% aller Benutzer
   funktionieren, die anfangen wollen.</para>
 
-  <para>Diese Anleitung enthält Anweisungen für <link xlink:href="&url-freebsd;">&name-freebsd;</link> 8.1-RELEASE</para>
+  <para>Diese Anleitung enthält Anweisungen für <link xlink:href="http://www.freebsd.org/">&name-freebsd;</link> 8.1-RELEASE. Dank an <link
+  xlink:href="http://www.nagios-portal.org/wbb/index.php?page=User&amp;userID=8925">"ScotchTape"</link> für die angepassten
+  Anweisungen.</para>
 
   <para>Spätere Distributionen von &name-freebsd; werden wahrscheinlich auch mit diesen Anweisungen funktionieren.</para>
 
@@ -93,11 +95,13 @@
 
   <para><emphasis role="bold">Installation der Pakete</emphasis></para>
 
-  <para>Sie können diese Pakete aus den ports installieren oder Sie nehmen fertige und evtl. ältere packages (siehe &name-freebsd;-Schnellstart):</para>
+  <para>Sie können diese Pakete aus den ports installieren oder Sie nehmen fertige und evtl. ältere packages (siehe
+  &name-freebsd;-Schnellstart):</para>
 
   <para><emphasis role="bold">Installieren Sie die Ports</emphasis></para>
 
-  <para>Sie können diese Ports mit den folgenden Befehlen installieren, es empfiehlt sich aber, portupgrade oder portmaster zu verwenden (als root):</para>
+  <para>Sie können diese Ports mit den folgenden Befehlen installieren, es empfiehlt sich aber, portupgrade oder portmaster zu verwenden
+  (als root):</para>
 
   <para>Bitte aktualisieren Sie Ihre Ports bevor Sie beginnen.</para>
 
@@ -115,13 +119,17 @@
  #&gt; cd /usr/ports/devel/libltdl &amp;&amp; make all install clean &lt;-- wenn noch nicht installiert</programlisting>
 
   <para><emphasis role="bold">&name-mysql;</emphasis></para>
+
   <programlisting> #&gt; cd /usr/ports/databases/mysql51-server &amp;&amp; make all install clean 
  #&gt; cd /usr/ports/databases/libdbi-drivers &amp;&amp; make all install clean</programlisting>
+
   <para>dort den richtigen Treiber für die DB auswählen</para>
 
   <para><emphasis role="bold">&name-postgres;</emphasis></para>
+
   <programlisting> #&gt; cd /usr/ports/databases/postgresql84-server &amp;&amp; make all install clean 
  #&gt; cd /usr/ports/databases/libdbi-drivers &amp;&amp; make all install clean</programlisting>
+
   <para>dort den richtigen Treiber für die DB auswählen</para>
 
   <para><emphasis role="bold">Benutzerinformationen erstellen</emphasis></para>
@@ -149,8 +157,7 @@
 
   <para>Holen Sie den aktuellen icinga-core-Snapshot aus dem &name-icinga; GIT <programlisting> #&gt; git clone git://git.icinga.org/icinga-core.git
  #&gt; git submodule init
- #&gt; git submodule update</programlisting>oder
-  von der <link xlink:href="http://www.icinga.org/">&name-icinga; Website</link> .</para>
+ #&gt; git submodule update</programlisting>oder von der <link xlink:href="http://www.icinga.org/">&name-icinga; Website</link> .</para>
 
   <para>Vergessen Sie nicht die <link xlink:href="http://www.nagiosplugins.org/">&name-nagios;-Plugins</link> .</para>
 
@@ -162,18 +169,26 @@
  #&gt; tar xvzf icinga-&ver-icinga;.tar.gz 
  #&gt; cd icinga-&ver-icinga;</programlisting>
 
-  <note>Dieser absolute Pfad ist gemeint, wenn im Nachfolgenden von '/path/to/icinga-src/' die Rede ist.</note>
+  <note>
+    <para>Dieser absolute Pfad ist gemeint, wenn im Nachfolgenden von '/path/to/icinga-src/' die Rede ist.</para>
+  </note>
 
   <para>Führen Sie das &name-icinga;-configure-Script aus. Durch die Nutzung des --help-Flags erhalten Sie Hilfe zu den Optionen.</para>
 
   <programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils CPPFLAGS=-I/usr/local/include</programlisting>
-  <important>Das angehängte <emphasis>CPPFLAGS=-I/usr/local/include</emphasis> ist wichtig für die &name-idoutils; bzw. das Broker-Modul.</important>
+
+  <important>
+    <para>Das angehängte <emphasis>CPPFLAGS=-I/usr/local/include</emphasis> ist wichtig für die &name-idoutils; bzw. das
+    Broker-Modul.</para>
+  </important>
 
   <para><emphasis role="bold">Mit SSL-Verschlüsselung:</emphasis></para>
+
   <programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils --enable-ssl CPPFLAGS=-I/usr/local/include</programlisting>
 
-  <para>Kompilieren Sie den &name-icinga;-Source-Code. Es gibt auch eine extra Option für &name-idoutils; (<emphasis>make idoutils</emphasis>),
-  wenn Sie nur dieses Modul erneut kompilieren möchten. Um mögliche Optionen zu sehen, rufen Sie lediglich "make" auf.</para>
+  <para>Kompilieren Sie den &name-icinga;-Source-Code. Es gibt auch eine extra Option für &name-idoutils; (<emphasis>make
+  idoutils</emphasis>), wenn Sie nur dieses Modul erneut kompilieren möchten. Um mögliche Optionen zu sehen, rufen Sie lediglich "make"
+  auf.</para>
 
   <programlisting> #&gt; gmake all</programlisting>
 
@@ -198,6 +213,7 @@
   <para>Ändern Sie die <emphasis>&url-icinga-base;/etc/objects/contacts.cfg</emphasis>-Konfigurationsdatei mit Ihrem bevorzugten Editor und
   passen die e-Mail-Adresse in der <emphasis>icingaadmin</emphasis>-Kontaktdefinition an, so dass sie die Adresse enthält, die im Falle von
   Alarmen benachrichtigt werden soll.</para>
+
   <programlisting> #&gt; vi &url-icinga-base;/etc/objects/contacts.cfg</programlisting>
 
   <programlisting> #&gt; cd &url-icinga-base;/etc
@@ -229,7 +245,8 @@
 
   <note>
     <para>Wenn Sie wie weiter oben beschrieben das Datenbanksystem neu installiert haben, dann müssen Sie den Datenbank-Server starten,
-    bevor Sie eine Datenbank anlegen können. Im Falle von MySQL erfolgt der Start z.B. mit <code>/usr/local/etc/rc.d/mysql-server start</code>.</para>
+    bevor Sie eine Datenbank anlegen können. Im Falle von MySQL erfolgt der Start z.B. mit <code>/usr/local/etc/rc.d/mysql-server
+    start</code>.</para>
   </note>
 
   <para><emphasis role="bold">&name-mysql;:</emphasis></para>
@@ -267,7 +284,6 @@
 
   <para><emphasis>To Do</emphasis></para>
 
-
   <para><emphasis role="bold">Installieren und konfigurieren des klassischen Web-Interface</emphasis></para>
 
   <para>Icinga stellt das klassische Web-Interface zur Verfügung ("Classic Web", "die CGIs"). Sie können dieses wie folgt
@@ -282,6 +298,7 @@
   Web-Interface</link>.</para>
 
   <para>Installieren Sie die &name-icinga;-Web-Konfigurationsdatei im Apache-Includes-Verzeichnis.</para>
+
   <programlisting> #&gt; cd /path/to/icinga-src
  #&gt; gmake install-webconf</programlisting>
 
@@ -302,7 +319,7 @@
     <para>Prüfen Sie die Implementierung der verbesserten CGI-Sicherheitsmaßnahmen wie <link linkend="cgisecurity">hier</link> beschrieben,
     um sicherzustellen, dass Ihre Web-Authentifizierungsinformationen nicht kompromittiert werden.</para>
   </note>
- 
+
   <para><emphasis role="bold">Kompilieren und installieren der Nagios-/Perl-Plugins</emphasis></para>
 
   <para>Entpacken Sie die &name-nagios;-Plugins-Quellcode-Archivdatei.</para>
@@ -319,13 +336,12 @@
  #&gt; make install </programlisting>
 
   <note>
-    <para>
-      Es gibt auch einen port für die Plugins, allerdings installiert dieser die Plugins in ein anderes Verzeichnis. Man kann dessen make
-      zwar mit Variablen bestücken, muss aber trotzdem später manches manuell umkopieren.
-    </para>
+    <para>Es gibt auch einen port für die Plugins, allerdings installiert dieser die Plugins in ein anderes Verzeichnis. Man kann dessen
+    make zwar mit Variablen bestücken, muss aber trotzdem später manches manuell umkopieren.</para>
   </note>
 
   <para>Kompilieren und installieren Sie das Perl-Plugin:</para>
+
   <programlisting> #&gt; cd /usr/ports/net-mgmt/p5-Nagios-Plugin
  #&gt; make all install clean</programlisting>
 
@@ -334,12 +350,15 @@
   <para>&name-idoutils; muss vor &name-icinga; gestartet werden</para>
 
   <para><emphasis role="bold">&name-idoutils; starten</emphasis></para>
+
   <programlisting> #&gt; /usr/local/etc/rc.d/ido2db start</programlisting>
 
   <para><emphasis role="bold">&name-idoutils; beenden</emphasis></para>
+
   <programlisting> #&gt; /usr/local/etc/rc.d/ido2db stop</programlisting>
 
   <para><emphasis role="bold">&name-icinga; starten</emphasis></para>
+
   <para>Fügen Sie &name-icinga; zur Liste der System-Services hinzu, damit es automatisch beim Start des Systems gestartet wird (stellen Sie
   sicher, dass Sie das Init-Script vorher installiert haben).</para>
 
@@ -375,7 +394,7 @@
   <para>Sie werden ohne Zweifel mehr als nur Ihre lokale Maschine überwachen wollen, so dass Sie u.a. das folgende <link
   linkend="ch02">Kapitel</link> lesen sollten...</para>
 
-  <para> </para>
+  <para></para>
 
   <para>Pakete für &name-icinga;</para>
 
@@ -388,6 +407,7 @@
  CPPFLAGS=-I/usr/local/include CFLAGS=-fPIC</programlisting>
 
   <para>Compiler-Optionen für Nagios-Plugins (ports)</para>
+
   <programlisting>make install NAGIOSUSER=icinga NAGIOSGROUP=icinga \
  PREFIX=/usr/local/icinga</programlisting>
 
