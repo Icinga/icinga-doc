@@ -4,9 +4,8 @@
 %all.entities;
 ]>
 <section version="5.0" xml:id="objecttricks" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>Zeitsparende Tricks für Objektdefinitionen</title>
 
   <para>oder...</para>
@@ -14,11 +13,10 @@
   <para><emphasis role="bold">Einführung</emphasis></para>
 
   <para>Dieses Dokument versucht zu erklären, wie Sie die (etwas) versteckten Möglichkeiten von <link
-  linkend="objectdefinitions">vorlagenbasierenden Objektdefinitionen</link> ausnutzen können, um Ihren Verstand zu bewahren. Sie
-  fragen sich wie? Verschiedene Objekttypen erlauben es Ihnen, mehrere Host-Namen und/oder Hostgruppen-Namen in Definitionen
-  anzugeben und die Objektdefinitionen in mehrere Hosts oder Services zu "kopieren". Wir werden jeden Objekttyp, der diese
-  Möglichkeiten unterstützt, separat behandeln. Für den Anfang sind die Objekttypen, die diese zeitsparende Möglichkeit
-  unterstützen, wie folgt:</para>
+  linkend="objectdefinitions">vorlagenbasierenden Objektdefinitionen</link> ausnutzen können, um Ihren Verstand zu bewahren. Sie fragen sich
+  wie? Verschiedene Objekttypen erlauben es Ihnen, mehrere Host-Namen und/oder Hostgruppen-Namen in Definitionen anzugeben und die
+  Objektdefinitionen in mehrere Hosts oder Services zu "kopieren". Wir werden jeden Objekttyp, der diese Möglichkeiten unterstützt, separat
+  behandeln. Für den Anfang sind die Objekttypen, die diese zeitsparende Möglichkeit unterstützen, wie folgt:</para>
 
   <itemizedlist>
     <listitem>
@@ -46,38 +44,36 @@
     </listitem>
   </itemizedlist>
 
-  <para>Objekttypen, die nicht oben aufgeführt sind (z.B. Zeitfenster, Befehle usw.), unterstützen nicht die Möglichkeiten, die
-  wir beschreiben werden.</para>
+  <para>Objekttypen, die nicht oben aufgeführt sind (z.B. Zeitfenster, Befehle usw.), unterstützen nicht die Möglichkeiten, die wir
+  beschreiben werden.</para>
 
   <para><emphasis role="bold">Übereinstimmung von regulären Ausdrücken</emphasis> (Regular Expression Matching)</para>
 
   <para>Die Beispiele, die wir unten zeigen, benutzen "Standard"-Übereinstimmung (Matching) von Objektnamen und <emphasis
-  role="bold">*erfordern*</emphasis>, dass die Option <link
-  linkend="configmain-use_regexp_matching">use_regexp_matching</link><emphasis role="bold">*deaktiviert*</emphasis>ist.</para>
+  role="bold">*erfordern*</emphasis>, dass die Option <link linkend="configmain-use_regexp_matching">use_regexp_matching</link><emphasis
+  role="bold">*deaktiviert*</emphasis>ist.</para>
 
   <para>Wenn Sie wollen, können Sie die Übereinstimmung von regulären Ausdrücken mit Hilfe der <link
-  linkend="configmain-use_regexp_matching">use_regexp_matching</link>-Konfigurationsoption aktivieren. Reguläre Ausdrücke können
-  in jedem der Felder benutzt werden, die in den Beispielen unten benutzt werden (Hostnamen, Hostgruppen-Namen, Service-Namen und
+  linkend="configmain-use_regexp_matching">use_regexp_matching</link>-Konfigurationsoption aktivieren. Reguläre Ausdrücke können in jedem
+  der Felder benutzt werden, die in den Beispielen unten benutzt werden (Hostnamen, Hostgruppen-Namen, Service-Namen und
   Servicegruppen-Namen).</para>
 
   <para><inlinemediaobject>
       <imageobject>
         <imagedata fileref="../images/note.gif" format="GIF"></imagedata>
       </imageobject>
-    </inlinemediaobject> Anmerkung: Seien Sie vorsichtig bei der Aktivierung der Übereinstimmung von regulären Ausdrücken - es
-  kann sein, dass Sie Ihre Konfigurationsdatei ändern müssen, weil vielleicht einige der Direktiven als reguläre Ausdrücke
-  interpretiert werden, bei denen Sie das nicht möchten! Probleme sollten offensichtlich werden, sobald Sie Ihre Konfiguration
-  überprüfen.</para>
+    </inlinemediaobject> Anmerkung: Seien Sie vorsichtig bei der Aktivierung der Übereinstimmung von regulären Ausdrücken - es kann sein,
+  dass Sie Ihre Konfigurationsdatei ändern müssen, weil vielleicht einige der Direktiven als reguläre Ausdrücke interpretiert werden, bei
+  denen Sie das nicht möchten! Probleme sollten offensichtlich werden, sobald Sie Ihre Konfiguration überprüfen.</para>
 
   <para><anchor xml:id="objecttricks-service" /><emphasis role="bold">Service-Definitionen</emphasis></para>
 
   <para><emphasis role="bold">Mehrere Hosts:</emphasis></para>
 
-  <para>Wenn Sie identische <link linkend="objectdefinitions-service">Services</link> erzeugen möchten, die mehreren Hosts
-  zugeordnet sind, können Sie mehrere Hosts in der <emphasis>host_name</emphasis>-Direktive angeben. Die folgende Definition würde
-  einen Service namens <emphasis>SOMESERVICE</emphasis> auf den Hosts <emphasis>HOST1</emphasis> bis <emphasis>HOSTN</emphasis>
-  erzeugen. Jede Instanz des <emphasis>SOMESERVICE</emphasis>-Service wäre identisch (d.h. hätte den gleichen Prüfbefehl,
-  Benachrichtigungsperiode, usw.).</para>
+  <para>Wenn Sie identische <link linkend="objectdefinitions-service">Services</link> erzeugen möchten, die mehreren Hosts zugeordnet sind,
+  können Sie mehrere Hosts in der <emphasis>host_name</emphasis>-Direktive angeben. Die folgende Definition würde einen Service namens
+  <emphasis>SOMESERVICE</emphasis> auf den Hosts <emphasis>HOST1</emphasis> bis <emphasis>HOSTN</emphasis> erzeugen. Jede Instanz des
+  <emphasis>SOMESERVICE</emphasis>-Service wäre identisch (d.h. hätte den gleichen Prüfbefehl, Benachrichtigungsperiode, usw.).</para>
 
   <screen> define <emphasis>service</emphasis>{
         host_name             <emphasis> HOST1,HOST2,HOST3,...,HOSTN</emphasis>
@@ -87,13 +83,12 @@
 
   <para><emphasis role="bold">Alle Hosts in mehreren Hostgruppen:</emphasis></para>
 
-  <para>Wenn Sie identische Services erzeugen wollen, die allen Hosts in einer oder mehreren Hostgruppen zugeordnet sind, können
-  Sie das mit einer einzigen Service-Definition erreichen. Wie? Die <emphasis>hostgroup_name</emphasis>-Direktive erlaubt es
-  Ihnen, den Namen von einer oder mehreren Hostgruppen anzugeben, für den dieser Service erzeugt werden soll. Die folgende
-  Definition würde einen Service namens <emphasis>SOMESERVICE</emphasis> auf allen Hosts anlegen, die Mitglied von Hostgruppe
-  <emphasis>HOSTGROUP1</emphasis> bis <emphasis>HOSTGROUPN</emphasis> sind. Alle Instanzen des
-  <emphasis>SOMESERVICE</emphasis>-Service wären identisch (d.h. hätten den gleichen Prüfbefehl, Benachrichtigungsperiode,
-  usw.).</para>
+  <para>Wenn Sie identische Services erzeugen wollen, die allen Hosts in einer oder mehreren Hostgruppen zugeordnet sind, können Sie das mit
+  einer einzigen Service-Definition erreichen. Wie? Die <emphasis>hostgroup_name</emphasis>-Direktive erlaubt es Ihnen, den Namen von einer
+  oder mehreren Hostgruppen anzugeben, für den dieser Service erzeugt werden soll. Die folgende Definition würde einen Service namens
+  <emphasis>SOMESERVICE</emphasis> auf allen Hosts anlegen, die Mitglied von Hostgruppe <emphasis>HOSTGROUP1</emphasis> bis
+  <emphasis>HOSTGROUPN</emphasis> sind. Alle Instanzen des <emphasis>SOMESERVICE</emphasis>-Service wären identisch (d.h. hätten den
+  gleichen Prüfbefehl, Benachrichtigungsperiode, usw.).</para>
 
   <screen> define <emphasis>service</emphasis>{
         hostgroup_name         <emphasis>HOSTGROUP1,HOSTGROUP2,...,HOSTGROUPN</emphasis>
@@ -103,11 +98,11 @@
 
   <para><emphasis role="bold">Alle Hosts:</emphasis></para>
 
-  <para>Wenn Sie identische Services erzeugen wollen, die allen Hosts in Ihren Konfigurationsdateien zugeordnet sind, können Sie
-  einen Platzhalter (wildcard) in der <emphasis>host_name</emphasis>-Direktive benutzen. Die folgende Definition würde einen
-  Service namens <emphasis>SOMESERVICE</emphasis> auf <emphasis role="bold">allen Hosts</emphasis> erzeugen, die in Ihren
-  Konfigurationsdateien definiert sind. Alle Instanzen des <emphasis>SOMESERVICE</emphasis>-Service wären identisch (d.h. hätten
-  den gleichen Prüfbefehl, Benachrichtigungsperiode, usw.).</para>
+  <para>Wenn Sie identische Services erzeugen wollen, die allen Hosts in Ihren Konfigurationsdateien zugeordnet sind, können Sie einen
+  Platzhalter (wildcard) in der <emphasis>host_name</emphasis>-Direktive benutzen. Die folgende Definition würde einen Service namens
+  <emphasis>SOMESERVICE</emphasis> auf <emphasis role="bold">allen Hosts</emphasis> erzeugen, die in Ihren Konfigurationsdateien definiert
+  sind. Alle Instanzen des <emphasis>SOMESERVICE</emphasis>-Service wären identisch (d.h. hätten den gleichen Prüfbefehl,
+  Benachrichtigungsperiode, usw.).</para>
 
   <screen> define <emphasis>service</emphasis>{
         host_name             <emphasis> *</emphasis>
@@ -117,8 +112,8 @@
 
   <para><emphasis role="bold">Hosts ausschließen:</emphasis></para>
 
-  <para>Wenn Sie identische Services auf zahlreichen Hosts anlegen, aber einige Hosts von dieser Definition ausnehmen möchten,
-  kann dies durch das Voranstellen eines Ausrufezeichens (!) vor dem Host oder der Hostgruppe geschehen.</para>
+  <para>Wenn Sie identische Services auf zahlreichen Hosts anlegen, aber einige Hosts von dieser Definition ausnehmen möchten, kann dies
+  durch das Voranstellen eines Ausrufezeichens (!) vor dem Host oder der Hostgruppe geschehen.</para>
 
   <screen> define <emphasis>service</emphasis>{
         host_name             <emphasis> HOST1,HOST2,!HOST3,!HOST4,...,HOSTN</emphasis>
@@ -131,12 +126,11 @@
 
   <para><emphasis role="bold">Mehrere Hosts:</emphasis></para>
 
-  <para>Wenn Sie identische <link linkend="objectdefinitions-serviceescalation">Service-Eskalationen</link> für Services mit dem
-  gleichen Namen/der gleichen Beschreibung erzeugen möchten, die mehreren Hosts zugeordnet sind, können Sie mehrere Hosts in der
+  <para>Wenn Sie identische <link linkend="objectdefinitions-serviceescalation">Service-Eskalationen</link> für Services mit dem gleichen
+  Namen/der gleichen Beschreibung erzeugen möchten, die mehreren Hosts zugeordnet sind, können Sie mehrere Hosts in der
   <emphasis>host_name</emphasis>-Direktive angeben. Die folgende Definition würde eine Service-Eskalation für Services namens
-  <emphasis>SOMESERVICE</emphasis> auf den Hosts <emphasis>HOST1</emphasis> bis <emphasis>HOSTN</emphasis> erzeugen. Alle
-  Instanzen des <emphasis>SOMESERVICE</emphasis>-Service wären identisch (d.h. hätten den gleichen Prüfbefehl,
-  Benachrichtigungsperiode, usw.).</para>
+  <emphasis>SOMESERVICE</emphasis> auf den Hosts <emphasis>HOST1</emphasis> bis <emphasis>HOSTN</emphasis> erzeugen. Alle Instanzen des
+  <emphasis>SOMESERVICE</emphasis>-Service wären identisch (d.h. hätten den gleichen Prüfbefehl, Benachrichtigungsperiode, usw.).</para>
 
   <screen> define <emphasis>serviceescalation</emphasis>{
         host_name             <emphasis> HOST1,HOST2,HOST3,...,HOSTN</emphasis>
@@ -146,12 +140,11 @@
 
   <para><emphasis role="bold">Alle Hosts in mehreren Hostgruppen:</emphasis></para>
 
-  <para>Wenn Sie identische Service-Eskalationen für Services mit dem gleichen Namen/der gleichen Beschreibung erzeugen wollen,
-  die allen Hosts in einer oder mehreren Hostgruppen zugeordnet sind, können Sie das mit der
-  <emphasis>hostgroup_name</emphasis>-Direktive tun. Die folgende Definition würde eine Service-Eskalation für Services namens
-  <emphasis>SOMESERVICE</emphasis> auf allen Hosts anlegen, die Mitglied von Hostgruppe <emphasis>HOSTGROUP1</emphasis> bis
-  <emphasis>HOSTGROUPN</emphasis> sind. Alle Instanzen des <emphasis>SOMESERVICE</emphasis>-Service wären identisch (d.h. hätten
-  den gleichen Prüfbefehl, Benachrichtigungsperiode, usw.).</para>
+  <para>Wenn Sie identische Service-Eskalationen für Services mit dem gleichen Namen/der gleichen Beschreibung erzeugen wollen, die allen
+  Hosts in einer oder mehreren Hostgruppen zugeordnet sind, können Sie das mit der <emphasis>hostgroup_name</emphasis>-Direktive tun. Die
+  folgende Definition würde eine Service-Eskalation für Services namens <emphasis>SOMESERVICE</emphasis> auf allen Hosts anlegen, die
+  Mitglied von Hostgruppe <emphasis>HOSTGROUP1</emphasis> bis <emphasis>HOSTGROUPN</emphasis> sind. Alle Instanzen des
+  <emphasis>SOMESERVICE</emphasis>-Service wären identisch (d.h. hätten den gleichen Prüfbefehl, Benachrichtigungsperiode, usw.).</para>
 
   <screen> define <emphasis>serviceescalation</emphasis>{
         hostgroup_name                <emphasis> HOSTGROUP1,HOSTGROUP2,...,HOSTGROUPN</emphasis>
@@ -161,12 +154,12 @@
 
   <para><emphasis role="bold">Alle Hosts:</emphasis></para>
 
-  <para>Wenn Sie identische Service-Eskalationen für Services mit dem gleichen Namen/der gleichen Beschreibung erzeugen wollen,
-  die allen Hosts in Ihren Konfigurationsdateien zugeordnet sind, können Sie einen Platzhalter (wildcard) in der
+  <para>Wenn Sie identische Service-Eskalationen für Services mit dem gleichen Namen/der gleichen Beschreibung erzeugen wollen, die allen
+  Hosts in Ihren Konfigurationsdateien zugeordnet sind, können Sie einen Platzhalter (wildcard) in der
   <emphasis>host_name</emphasis>-Direktive benutzen. Die folgende Definition würde eine Service-Eskalation für alle Service namens
-  <emphasis>SOMESERVICE</emphasis> auf <emphasis role="bold">allen Hosts</emphasis> erzeugen, die in Ihren Konfigurationsdateien
-  definiert sind. Alle Instanzen des <emphasis>SOMESERVICE</emphasis>-Service wären identisch (d.h. hätten den gleichen
-  Prüfbefehl, Benachrichtigungsperiode, usw.).</para>
+  <emphasis>SOMESERVICE</emphasis> auf <emphasis role="bold">allen Hosts</emphasis> erzeugen, die in Ihren Konfigurationsdateien definiert
+  sind. Alle Instanzen des <emphasis>SOMESERVICE</emphasis>-Service wären identisch (d.h. hätten den gleichen Prüfbefehl,
+  Benachrichtigungsperiode, usw.).</para>
 
   <screen> define <emphasis>serviceescalation</emphasis>{
         host_name             <emphasis> *</emphasis>
@@ -176,9 +169,8 @@
 
   <para><emphasis role="bold">Hosts ausschließen:</emphasis></para>
 
-  <para>Wenn Sie identische Service-Eskalationen für Services auf zahlreichen Hosts anlegen, aber einige Hosts von dieser
-  Definition ausnehmen möchten, kann dies durch das Voranstellen eines Ausrufezeichens (!) vor dem Host oder der Hostgruppe
-  geschehen.</para>
+  <para>Wenn Sie identische Service-Eskalationen für Services auf zahlreichen Hosts anlegen, aber einige Hosts von dieser Definition
+  ausnehmen möchten, kann dies durch das Voranstellen eines Ausrufezeichens (!) vor dem Host oder der Hostgruppe geschehen.</para>
 
   <screen> define <emphasis>serviceescalation</emphasis>{
         host_name             <emphasis> HOST1,HOST2,!HOST3,!HOST4,...,HOSTN</emphasis>
@@ -189,15 +181,14 @@
 
   <para><emphasis role="bold">Alle Services auf dem gleichen Host:</emphasis></para>
 
-  <para>Wenn Sie <link linkend="objectdefinitions-serviceescalation">Service-Eskalationen</link> für alle Services eines
-  bestimmten Hosts anlegen möchten, können Sie einen Platzhalter in der <emphasis>service_description</emphasis>-Direktive
-  benutzen. Die folgende Definition würde eine Service-Eskalation für <emphasis>alle</emphasis> Services auf Host
-  <emphasis>HOST1</emphasis> erzeugen. Alle Instanzen der Service-Eskalation wären identisch (d.h. hätten die gleichen
-  Kontaktgruppe, Benachrichtigungsintervall, usw.).</para>
+  <para>Wenn Sie <link linkend="objectdefinitions-serviceescalation">Service-Eskalationen</link> für alle Services eines bestimmten Hosts
+  anlegen möchten, können Sie einen Platzhalter in der <emphasis>service_description</emphasis>-Direktive benutzen. Die folgende Definition
+  würde eine Service-Eskalation für <emphasis>alle</emphasis> Services auf Host <emphasis>HOST1</emphasis> erzeugen. Alle Instanzen der
+  Service-Eskalation wären identisch (d.h. hätten die gleichen Kontaktgruppe, Benachrichtigungsintervall, usw.).</para>
 
-  <para>Wenn Sie sich abenteuerlustig fühlen, dann können Sie einen Platzhalter sowohl bei der <emphasis>host_name</emphasis>- als
-  auch bei der <emphasis>service_description</emphasis>-Direktive angeben. Dadurch würden Sie eine Service-Eskalation für
-  <emphasis role="bold">alle Services</emphasis> anlegen, die Sie in Ihren Konfigurationsdateien definiert haben.</para>
+  <para>Wenn Sie sich abenteuerlustig fühlen, dann können Sie einen Platzhalter sowohl bei der <emphasis>host_name</emphasis>- als auch bei
+  der <emphasis>service_description</emphasis>-Direktive angeben. Dadurch würden Sie eine Service-Eskalation für <emphasis role="bold">alle
+  Services</emphasis> anlegen, die Sie in Ihren Konfigurationsdateien definiert haben.</para>
 
   <screen> define <emphasis>serviceescalation</emphasis>{
         host_name             <emphasis> HOST1</emphasis>
@@ -207,12 +198,11 @@
 
   <para><emphasis role="bold">Mehrere Services auf dem gleichen Host:</emphasis></para>
 
-  <para>Wenn Sie <link linkend="objectdefinitions-serviceescalation">Service-Eskalationen</link> für mehrere Services eines
-  bestimmten Hosts anlegen möchten, können Sie mehr als eine Service-Beschreibung in der
-  <emphasis>service_description</emphasis>-Direktive benutzen. Die folgende Definition würde eine Service-Eskalation für die
-  Services <emphasis>SERVICE1</emphasis> bis <emphasis>SERVICEN</emphasis> auf Host <emphasis>HOST1</emphasis> erzeugen. Alle
-  Instanzen der Service-Eskalation wären identisch (d.h. hätten die gleichen Kontaktgruppe, Benachrichtigungsintervall,
-  usw.).</para>
+  <para>Wenn Sie <link linkend="objectdefinitions-serviceescalation">Service-Eskalationen</link> für mehrere Services eines bestimmten Hosts
+  anlegen möchten, können Sie mehr als eine Service-Beschreibung in der <emphasis>service_description</emphasis>-Direktive benutzen. Die
+  folgende Definition würde eine Service-Eskalation für die Services <emphasis>SERVICE1</emphasis> bis <emphasis>SERVICEN</emphasis> auf
+  Host <emphasis>HOST1</emphasis> erzeugen. Alle Instanzen der Service-Eskalation wären identisch (d.h. hätten die gleichen Kontaktgruppe,
+  Benachrichtigungsintervall, usw.).</para>
 
   <screen> define <emphasis>serviceescalation</emphasis>{
         host_name             <emphasis> HOST1</emphasis>
@@ -222,29 +212,27 @@
 
   <para><emphasis role="bold">Alle Services in mehreren Servicegruppen:</emphasis></para>
 
-  <para>Wenn Sie <link linkend="objectdefinitions-serviceescalation">Service-Eskalationen</link> für alle Services anlegen
-  möchten, die zu einer oder mehreren Servicegruppen gehören, können Sie die <emphasis>servicegroup_name</emphasis>-Direktive
-  benutzen. Die folgende Definition würde Service-Eskalationen für alle Services anlegen, die Mitglied der Servicegruppen
-  <emphasis>SERVICEGROUP1</emphasis> bis <emphasis>SERVICEGROUPN</emphasis> sind. Alle Instanzen der Service-Eskalation wären
-  identisch (d.h. hätten die gleichen Kontaktgruppe, Benachrichtigungsintervall, usw.).</para>
+  <para>Wenn Sie <link linkend="objectdefinitions-serviceescalation">Service-Eskalationen</link> für alle Services anlegen möchten, die zu
+  einer oder mehreren Servicegruppen gehören, können Sie die <emphasis>servicegroup_name</emphasis>-Direktive benutzen. Die folgende
+  Definition würde Service-Eskalationen für alle Services anlegen, die Mitglied der Servicegruppen <emphasis>SERVICEGROUP1</emphasis> bis
+  <emphasis>SERVICEGROUPN</emphasis> sind. Alle Instanzen der Service-Eskalation wären identisch (d.h. hätten die gleichen Kontaktgruppe,
+  Benachrichtigungsintervall, usw.).</para>
 
   <screen> define <emphasis>serviceescalation</emphasis>{
         servicegroup_name     <emphasis> SERVICEGROUP1,SERVICEGROUP2,...,SERVICEGROUPN</emphasis>
         <emphasis>weitere Eskalations-Direktiven</emphasis> ...
         }</screen>
 
-  <para><anchor xml:id="objecttricks-servicedependency" /><emphasis
-  role="bold">Service-Abhängigkeitsdefinitionen</emphasis></para>
+  <para><anchor xml:id="objecttricks-servicedependency" /><emphasis role="bold">Service-Abhängigkeitsdefinitionen</emphasis></para>
 
   <para><emphasis role="bold">Mehrere Hosts:</emphasis></para>
 
-  <para>Wenn Sie <link linkend="objectdefinitions-servicedependency">Service-Abhängigkeiten</link> für Services mit dem gleichen
-  Namen/der gleichen Beschreibung erstellen möchten, die mehreren Hosts zugeordnet sind, können Sie mehrere Hosts in den
-  <emphasis>host_name</emphasis>- und/oder <emphasis>dependent_host_name</emphasis>-Direktiven benutzen. Im folgenden Beispiel
-  wäre Service <emphasis>SERVICE2</emphasis> auf den Hosts <emphasis>HOST3</emphasis> und <emphasis>HOST4</emphasis> abhängig von
+  <para>Wenn Sie <link linkend="objectdefinitions-servicedependency">Service-Abhängigkeiten</link> für Services mit dem gleichen Namen/der
+  gleichen Beschreibung erstellen möchten, die mehreren Hosts zugeordnet sind, können Sie mehrere Hosts in den
+  <emphasis>host_name</emphasis>- und/oder <emphasis>dependent_host_name</emphasis>-Direktiven benutzen. Im folgenden Beispiel wäre Service
+  <emphasis>SERVICE2</emphasis> auf den Hosts <emphasis>HOST3</emphasis> und <emphasis>HOST4</emphasis> abhängig von
   <emphasis>SERVICE1</emphasis> auf den Hosts <emphasis>HOST1</emphasis> und <emphasis>HOST2</emphasis>. Alle Instanzen der
-  Service-Abhängigkeiten wären identisch bis auf die Host-Namen (d.h. hätten die gleichen Fehlerbenachrichtigungs-Kriterien
-  usw.).</para>
+  Service-Abhängigkeiten wären identisch bis auf die Host-Namen (d.h. hätten die gleichen Fehlerbenachrichtigungs-Kriterien usw.).</para>
 
   <screen> define <emphasis>servicedependency</emphasis>{
         host_name                     <emphasis> HOST1,HOST2</emphasis>
@@ -256,15 +244,14 @@
 
   <para><emphasis role="bold">Alle Hosts in mehreren Hostgruppen:</emphasis></para>
 
-  <para>Wenn Sie Service-Abhängigkeiten für Services mit dem gleichen Namen/der gleichen Beschreibung erstellen möchten, die allen
-  Hosts in einer oder mehreren Hostgruppen zugeordnet sind, können Sie die <emphasis>hostgroup_name</emphasis>- und/oder
-  <emphasis>dependent_hostgroup_name</emphasis>-Direktiven benutzen. Im folgenden Beispiel wäre Service
-  <emphasis>SERVICE2</emphasis> auf allen Hosts in den Hostgruppen <emphasis>HOSTGROUP3</emphasis> und
-  <emphasis>HOSTGROUP4</emphasis> abhängig von <emphasis>SERVICE1</emphasis> auf allen Hosts in den Hostgruppen
-  <emphasis>HOSTGROUP1</emphasis> und <emphasis>HOSTGROUP2</emphasis>. Angenommen, es gibt fünf Hosts in jeder der Hostgruppen,
-  dann wäre diese Definition äquivalent zur Definition von 100 einzelnen Service-Abhängigkeitsdefinitionen! Alle Instanzen der
-  Service-Abhängigkeiten wären identisch bis auf die Host-Namen (d.h. hätten die gleichen Fehlerbenachrichtigungs-Kriterien
-  usw.).</para>
+  <para>Wenn Sie Service-Abhängigkeiten für Services mit dem gleichen Namen/der gleichen Beschreibung erstellen möchten, die allen Hosts in
+  einer oder mehreren Hostgruppen zugeordnet sind, können Sie die <emphasis>hostgroup_name</emphasis>- und/oder
+  <emphasis>dependent_hostgroup_name</emphasis>-Direktiven benutzen. Im folgenden Beispiel wäre Service <emphasis>SERVICE2</emphasis> auf
+  allen Hosts in den Hostgruppen <emphasis>HOSTGROUP3</emphasis> und <emphasis>HOSTGROUP4</emphasis> abhängig von
+  <emphasis>SERVICE1</emphasis> auf allen Hosts in den Hostgruppen <emphasis>HOSTGROUP1</emphasis> und <emphasis>HOSTGROUP2</emphasis>.
+  Angenommen, es gibt fünf Hosts in jeder der Hostgruppen, dann wäre diese Definition äquivalent zur Definition von 100 einzelnen
+  Service-Abhängigkeitsdefinitionen! Alle Instanzen der Service-Abhängigkeiten wären identisch bis auf die Host-Namen (d.h. hätten die
+  gleichen Fehlerbenachrichtigungs-Kriterien usw.).</para>
 
   <screen> define <emphasis>servicedependency</emphasis>{
         hostgroup_name                 <emphasis>HOSTGROUP1,HOSTGROUP2</emphasis>
@@ -276,11 +263,11 @@
 
   <para><emphasis role="bold">Alle Services auf einem Host:</emphasis></para>
 
-  <para>Wenn Sie Service-Abhängigkeiten für alle Services eines bestimmten Hosts erstellen möchten, können Sie einen Platzhalter
-  in den <emphasis>service_description</emphasis>- und/oder <emphasis>dependent_service_description</emphasis>-Direktiven
-  benutzen. Im folgenden Beispiel wären <emphasis role="bold">alle Services</emphasis> auf Host <emphasis>HOST2</emphasis>
-  abhängig von <emphasis role="bold">allen Services</emphasis> auf Host <emphasis>HOST1</emphasis>. Alle Instanzen der
-  Service-Abhängigkeiten wären identisch (d.h. hätten die gleichen Fehlerbenachrichtigungs-Kriterien usw.).</para>
+  <para>Wenn Sie Service-Abhängigkeiten für alle Services eines bestimmten Hosts erstellen möchten, können Sie einen Platzhalter in den
+  <emphasis>service_description</emphasis>- und/oder <emphasis>dependent_service_description</emphasis>-Direktiven benutzen. Im folgenden
+  Beispiel wären <emphasis role="bold">alle Services</emphasis> auf Host <emphasis>HOST2</emphasis> abhängig von <emphasis role="bold">allen
+  Services</emphasis> auf Host <emphasis>HOST1</emphasis>. Alle Instanzen der Service-Abhängigkeiten wären identisch (d.h. hätten die
+  gleichen Fehlerbenachrichtigungs-Kriterien usw.).</para>
 
   <screen> define <emphasis>servicedependency</emphasis>{
         host_name                     <emphasis> HOST1</emphasis>
@@ -306,9 +293,9 @@
 
   <para><emphasis role="bold">Alle Services in mehreren Servicegruppen:</emphasis></para>
 
-  <para>Wenn Sie Service-Abhängigkeiten für alle Services erstellen möchten, die einer oder mehreren Servicegruppen zugeordnet
-  sind, können Sie die <emphasis>servicegroup_name</emphasis>- und/oder
-  <emphasis>dependent_servicegroup_name</emphasis>-Direktiven wie folgt benutzen:</para>
+  <para>Wenn Sie Service-Abhängigkeiten für alle Services erstellen möchten, die einer oder mehreren Servicegruppen zugeordnet sind, können
+  Sie die <emphasis>servicegroup_name</emphasis>- und/oder <emphasis>dependent_servicegroup_name</emphasis>-Direktiven wie folgt
+  benutzen:</para>
 
   <screen> define <emphasis>servicedependency</emphasis>{
         servicegroup_name             <emphasis> SERVICEGROUP1,SERVICEGROUP2,...,SERVICEGROUPN</emphasis>
@@ -316,18 +303,16 @@
         <emphasis>weitere Abhängigkeits-Direktiven</emphasis> ...
         }</screen>
 
-  <para><anchor xml:id="objecttricks-same_host_dependency" /><emphasis role="bold">Abhängigkeiten des gleichen
-  Hosts:</emphasis></para>
+  <para><anchor xml:id="objecttricks-same_host_dependency" /><emphasis role="bold">Abhängigkeiten des gleichen Hosts:</emphasis></para>
 
-  <para>Wenn Sie Service-Abhängigkeiten für mehrere Services erstellen möchten, die von Services auf dem gleichen Host abhängig
-  sind, lassen Sie die <emphasis>dependent_host_name</emphasis>- und <emphasis>dependent_hostgroup_name</emphasis>-Direktiven
-  leer. Im folgenden Beispiel wird angenommen, dass den Hosts <emphasis>HOST1</emphasis> und <emphasis>HOST2</emphasis> mindestens
-  die folgenden vier Services zugeordnet sind: <emphasis>SERVICE1</emphasis>, <emphasis>SERVICE2</emphasis>,
-  <emphasis>SERVICE3</emphasis> und <emphasis>SERVICE4</emphasis>. In diesem Beispiel sind <emphasis>SERVICE3</emphasis> und
-  <emphasis>SERVICE4</emphasis> auf <emphasis>HOST1</emphasis> abhängig von <emphasis>SERVICE1</emphasis> und
-  <emphasis>SERVICE2</emphasis> auf <emphasis>HOST1</emphasis>. Ähnlich sind <emphasis>SERVICE3</emphasis> und
-  <emphasis>SERVICE4</emphasis> auf <emphasis>HOST2</emphasis> abhängig von <emphasis>SERVICE1</emphasis> und
-  <emphasis>SERVICE2</emphasis> auf <emphasis>HOST2</emphasis>.</para>
+  <para>Wenn Sie Service-Abhängigkeiten für mehrere Services erstellen möchten, die von Services auf dem gleichen Host abhängig sind, lassen
+  Sie die <emphasis>dependent_host_name</emphasis>- und <emphasis>dependent_hostgroup_name</emphasis>-Direktiven leer. Im folgenden Beispiel
+  wird angenommen, dass den Hosts <emphasis>HOST1</emphasis> und <emphasis>HOST2</emphasis> mindestens die folgenden vier Services
+  zugeordnet sind: <emphasis>SERVICE1</emphasis>, <emphasis>SERVICE2</emphasis>, <emphasis>SERVICE3</emphasis> und
+  <emphasis>SERVICE4</emphasis>. In diesem Beispiel sind <emphasis>SERVICE3</emphasis> und <emphasis>SERVICE4</emphasis> auf
+  <emphasis>HOST1</emphasis> abhängig von <emphasis>SERVICE1</emphasis> und <emphasis>SERVICE2</emphasis> auf <emphasis>HOST1</emphasis>.
+  Ähnlich sind <emphasis>SERVICE3</emphasis> und <emphasis>SERVICE4</emphasis> auf <emphasis>HOST2</emphasis> abhängig von
+  <emphasis>SERVICE1</emphasis> und <emphasis>SERVICE2</emphasis> auf <emphasis>HOST2</emphasis>.</para>
 
   <screen> define <emphasis>servicedependency</emphasis>{
         host_name                     <emphasis> HOST1,HOST2</emphasis>
@@ -336,14 +321,31 @@
         <emphasis>weitere Abhängigkeits-Direktiven</emphasis> ...
         }</screen>
 
+  <para><anchor xml:id="objecttricks-same_host_dependency_servicegroups" /><emphasis role="bold">Abhängigkeiten des gleichen Hosts mit
+  Servicegruppen:</emphasis></para>
+
+  <para>Wenn Sie Service-Abhängigkeiten für alle Services erstellen möchten, die zu einer oder mehreren Servicegruppen eines Service
+  gehören, der auf dem gleichen Host wie der abhängige Service läuft, lassen Sie die <emphasis>host_name</emphasis>- und
+  <emphasis>hostgroup_name</emphasis>-Direktiven leer. Im folgenden Beispiel wird angenommen, dass Hosts mit Services aus den Servicegruppen
+  <emphasis>SERVICEGROUP1</emphasis> und <emphasis>SERVICEGROUP2</emphasis> auch folgender Service zugeordnet ist:
+  <emphasis>SERVICE1</emphasis>. In diesem Beispiel sind alle Service aus den Servicegruppen <emphasis>SERVICEGROUP1</emphasis> und
+  <emphasis>SERVICEGROUP2</emphasis> abhängig von <emphasis>SERVICE1</emphasis>, der auf dem gleichen Host läuft wie der abhängige
+  Service.</para>
+
+  <screen> define <emphasis> servicedependency</emphasis>{
+         service_description           <emphasis> SERVICE1</emphasis>
+         dependent_service_description <emphasis> SERVICEGROUP1,SERVICEGROUP2</emphasis>
+         <emphasis>other dependency directives</emphasis> ...
+         }</screen>
+
   <para><anchor xml:id="objecttricks-hostescalation" /><emphasis role="bold">Host-Eskalationsdefinitionen</emphasis></para>
 
   <para><emphasis role="bold">Mehrere Hosts:</emphasis></para>
 
-  <para>Wenn Sie <link linkend="objectdefinitions-hostescalation">Host-Eskalationen</link> für mehrere Hosts erstellen möchten,
-  können Sie mehrere Hosts in der <emphasis>host_name</emphasis>-Direktive angeben. Die folgende Definitione würde eine
-  Host-Eskalation für die Hosts <emphasis>HOST1</emphasis> bis <emphasis>HOSTN</emphasis> anlegen. Alle Instanzen der
-  Host-Eskalation wären identisch (d.h. hätten die gleichen Kontaktgruppen, Benachrichtigungsintervalle usw.).</para>
+  <para>Wenn Sie <link linkend="objectdefinitions-hostescalation">Host-Eskalationen</link> für mehrere Hosts erstellen möchten, können Sie
+  mehrere Hosts in der <emphasis>host_name</emphasis>-Direktive angeben. Die folgende Definitione würde eine Host-Eskalation für die Hosts
+  <emphasis>HOST1</emphasis> bis <emphasis>HOSTN</emphasis> anlegen. Alle Instanzen der Host-Eskalation wären identisch (d.h. hätten die
+  gleichen Kontaktgruppen, Benachrichtigungsintervalle usw.).</para>
 
   <screen> define <emphasis>hostescalation</emphasis>{
         host_name             <emphasis> HOST1,HOST2,HOST3,...,HOSTN</emphasis>
@@ -353,9 +355,9 @@
   <para><emphasis role="bold">Alle Hosts in mehreren Hostgruppen:</emphasis></para>
 
   <para>Wenn Sie Host-Eskalationen für alle Hosts in einer oder mehreren Hostgruppen erstellen möchten, können Sie die
-  <emphasis>hostgroup_name</emphasis>-Direktive benutzen. Die folgende Definition würde eine Host-Eskalation für alle Hosts
-  anlegen, die Mitglieder der Hostgruppen <emphasis>HOSTGROUP1</emphasis> bis <emphasis>HOSTGROUPN</emphasis> sind. Alle Instanzen
-  der Host-Eskalation wären identisch (d.h. hätten die gleichen Kontaktgruppen, Benachrichtigungsintervalle usw.).</para>
+  <emphasis>hostgroup_name</emphasis>-Direktive benutzen. Die folgende Definition würde eine Host-Eskalation für alle Hosts anlegen, die
+  Mitglieder der Hostgruppen <emphasis>HOSTGROUP1</emphasis> bis <emphasis>HOSTGROUPN</emphasis> sind. Alle Instanzen der Host-Eskalation
+  wären identisch (d.h. hätten die gleichen Kontaktgruppen, Benachrichtigungsintervalle usw.).</para>
 
   <screen> define<emphasis> hostescalation</emphasis>{
         hostgroup_name                <emphasis> HOSTGROUP1,HOSTGROUP2,...,HOSTGROUPN</emphasis>
@@ -364,10 +366,10 @@
 
   <para><emphasis role="bold">Alle Hosts:</emphasis></para>
 
-  <para>Wenn Sie identische Host-Eskalationen für alle Hosts erstellen wollen, die in Ihren Konfigurationsdateien definiert sind,
-  können Sie einen Platzhalter in der <emphasis>host_name</emphasis>-Direktive benutzen. Die folgende Definition würde eine
-  Host-Eskalation für alle Hosts anlegen, die in Ihren Konfigurationsdateien definiert sind. Alle Instanzen der Host-Eskalation
-  wären identisch (d.h. hätten die gleichen Kontaktgruppen, Benachrichtigungsintervalle usw.).</para>
+  <para>Wenn Sie identische Host-Eskalationen für alle Hosts erstellen wollen, die in Ihren Konfigurationsdateien definiert sind, können Sie
+  einen Platzhalter in der <emphasis>host_name</emphasis>-Direktive benutzen. Die folgende Definition würde eine Host-Eskalation für alle
+  Hosts anlegen, die in Ihren Konfigurationsdateien definiert sind. Alle Instanzen der Host-Eskalation wären identisch (d.h. hätten die
+  gleichen Kontaktgruppen, Benachrichtigungsintervalle usw.).</para>
 
   <screen> define <emphasis>hostescalation</emphasis>{
         host_name             <emphasis> *</emphasis>
@@ -376,9 +378,8 @@
 
   <para><emphasis role="bold">Hosts ausschließen:</emphasis></para>
 
-  <para>Wenn Sie identische Host-Eskalationen auf zahlreichen Hosts oder Hostgruppen erstellen, aber einige Hosts von der
-  Definition ausschließen möchten, kann dies durch das Voranstellen eines Ausrufezeichens (!) vor dem Host oder der Hostgruppe
-  geschehen.</para>
+  <para>Wenn Sie identische Host-Eskalationen auf zahlreichen Hosts oder Hostgruppen erstellen, aber einige Hosts von der Definition
+  ausschließen möchten, kann dies durch das Voranstellen eines Ausrufezeichens (!) vor dem Host oder der Hostgruppe geschehen.</para>
 
   <screen> define <emphasis>hostescalation</emphasis>{
         host_name             <emphasis> HOST1,HOST2,!HOST3,!HOST4,...,HOSTN</emphasis>
@@ -390,12 +391,12 @@
 
   <para><emphasis role="bold">Mehrere Hosts:</emphasis></para>
 
-  <para>Wenn Sie <link linkend="objectdefinitions-hostdependency">Host-Abhängigkeiten</link> für mehrere Hosts erstellen möchten,
-  können Sie mehrere Hosts in den <emphasis>host_name</emphasis>- und/oder <emphasis>dependent_host_name</emphasis>-Direktiven
-  angeben. Die folgende Definition wäre äquivalent mit der Erstellung von sechs einzelnen Host-Abhängigkeiten. Im obigen Beispiel
-  wären die Hosts <emphasis>HOST3</emphasis>, <emphasis>HOST4</emphasis> und <emphasis>HOST5</emphasis> abhängig von den Hosts
-  <emphasis>HOST1</emphasis> und <emphasis>HOST2</emphasis>. Alle Instanzen der Host-Abhängigkeiten wären identisch bis auf die
-  Host-Namen (d.h. sie hätten die gleichen Fehlerbenachrichtigungs-Kriterien, usw.).</para>
+  <para>Wenn Sie <link linkend="objectdefinitions-hostdependency">Host-Abhängigkeiten</link> für mehrere Hosts erstellen möchten, können Sie
+  mehrere Hosts in den <emphasis>host_name</emphasis>- und/oder <emphasis>dependent_host_name</emphasis>-Direktiven angeben. Die folgende
+  Definition wäre äquivalent mit der Erstellung von sechs einzelnen Host-Abhängigkeiten. Im obigen Beispiel wären die Hosts
+  <emphasis>HOST3</emphasis>, <emphasis>HOST4</emphasis> und <emphasis>HOST5</emphasis> abhängig von den Hosts <emphasis>HOST1</emphasis>
+  und <emphasis>HOST2</emphasis>. Alle Instanzen der Host-Abhängigkeiten wären identisch bis auf die Host-Namen (d.h. sie hätten die
+  gleichen Fehlerbenachrichtigungs-Kriterien, usw.).</para>
 
   <screen> define <emphasis>hostdependency</emphasis>{
         host_name             <emphasis> HOST1,HOST2</emphasis>
@@ -406,11 +407,10 @@
   <para><emphasis role="bold">Alle Hosts in mehreren Hostgruppen:</emphasis></para>
 
   <para>Wenn Sie Host-Abhängigkeiten für alle Hosts in einer oder mehreren Hostgruppen erstellen möchten, können Sie die
-  <emphasis>hostgroup_name</emphasis>- und/oder <emphasis>dependent_hostgroup_name</emphasis>-Direktiven benutzen. Im folgenden
-  Beispiel wären alle Hosts in den Hostgruppen <emphasis>HOSTGROUP3</emphasis> und <emphasis>HOSTGROUP4</emphasis> abhängig von
-  allen Hosts in den Hostgruppen <emphasis>HOSTGROUP1</emphasis> und <emphasis>HOSTGROUP2</emphasis>. Alle Instanzen der
-  Host-Abhängigkeiten wären identisch bis auf die Host-Namen (d.h. sie hätten die gleichen Fehlerbenachrichtigungs-Kriterien,
-  usw.).</para>
+  <emphasis>hostgroup_name</emphasis>- und/oder <emphasis>dependent_hostgroup_name</emphasis>-Direktiven benutzen. Im folgenden Beispiel
+  wären alle Hosts in den Hostgruppen <emphasis>HOSTGROUP3</emphasis> und <emphasis>HOSTGROUP4</emphasis> abhängig von allen Hosts in den
+  Hostgruppen <emphasis>HOSTGROUP1</emphasis> und <emphasis>HOSTGROUP2</emphasis>. Alle Instanzen der Host-Abhängigkeiten wären identisch
+  bis auf die Host-Namen (d.h. sie hätten die gleichen Fehlerbenachrichtigungs-Kriterien, usw.).</para>
 
   <screen> define <emphasis>hostdependency</emphasis>{
         hostgroup_name                        <emphasis> HOSTGROUP1,HOSTGROUP2</emphasis>
@@ -422,23 +422,64 @@
 
   <para><emphasis role="bold">Alle Hosts:</emphasis></para>
 
-  <para>Wenn Sie eine Hostgruppe anlegen möchten, die alle Hosts aus Ihren Konfigurationsdateien als Mitglieder enthält, können
-  Sie einen Platzhalter in der <emphasis>members</emphasis>-Direktive benutzen. Die folgende Definition würde eine Hostgruppe
-  namens <emphasis>HOSTGROUP1</emphasis> erstellen, die <emphasis role="bold">alle Hosts</emphasis> aus Ihren
-  Konfigurationsdateien als Mitglieder enthält.</para>
+  <para>Wenn Sie eine Hostgruppe anlegen möchten, die alle Hosts aus Ihren Konfigurationsdateien als Mitglieder enthält, können Sie einen
+  Platzhalter in der <emphasis>members</emphasis>-Direktive benutzen. Die folgende Definition würde eine Hostgruppe namens
+  <emphasis>HOSTGROUP1</emphasis> erstellen, die <emphasis role="bold">alle Hosts</emphasis> aus Ihren Konfigurationsdateien als Mitglieder
+  enthält.</para>
 
   <screen> define <emphasis>hostgroup</emphasis>{
         <emphasis>hostgroup_name</emphasis>           <emphasis> HOSTGROUP1</emphasis>
         members                       <emphasis> *</emphasis>
         <emphasis>weitere Hostgruppen-Direktiven</emphasis> ...
         }</screen>
-  <indexterm zone="objecttricks"><primary>Objektdefinitionen</primary><secondary>Zeitsparende Tricks für Objektdefinitionen</secondary></indexterm>
-  <indexterm zone="objecttricks-service"><primary>Service-Definitionen</primary></indexterm>
-  <indexterm zone="objecttricks-serviceescalation"><primary>Service-Eskalations-Definitionen</primary></indexterm>
-  <indexterm zone="objecttricks-servicedependency"><primary>Service-Abhängigkeits-Definitionen</primary></indexterm>
-  <indexterm zone="objecttricks-same_host_dependency"><primary>Gleicher-Host-Abhängigkeiten</primary></indexterm>
-  <indexterm zone="objecttricks-same_host_dependency"><primary>Abhängigkeiten</primary><secondary>gleicher-Host-Abhängigkeiten</secondary></indexterm>
-  <indexterm zone="objecttricks-hostescalation"><primary>Host-Eskalations-Definitionen</primary></indexterm>
-  <indexterm zone="objecttricks-hostdependency"><primary>Host-Abhängigkeits-Definitionen</primary></indexterm>
-  <indexterm zone="objecttricks-hostgroup"><primary>Hostgroups</primary></indexterm>
+
+  <indexterm zone="objecttricks">
+    <primary>Objektdefinitionen</primary>
+
+    <secondary>Zeitsparende Tricks für Objektdefinitionen</secondary>
+  </indexterm>
+
+  <indexterm zone="objecttricks-service">
+    <primary>Service-Definitionen</primary>
+  </indexterm>
+
+  <indexterm zone="objecttricks-serviceescalation">
+    <primary>Service-Eskalations-Definitionen</primary>
+  </indexterm>
+
+  <indexterm zone="objecttricks-servicedependency">
+    <primary>Service-Abhängigkeits-Definitionen</primary>
+  </indexterm>
+
+  <indexterm zone="objecttricks-same_host_dependency">
+    <primary>Gleicher-Host-Abhängigkeiten</primary>
+  </indexterm>
+
+  <indexterm zone="objecttricks-same_host_dependency">
+    <primary>Abhängigkeiten</primary>
+
+    <secondary>gleicher-Host-Abhängigkeiten</secondary>
+  </indexterm>
+
+  <indexterm zone="objecttricks-same_host_dependency_servicegroups">
+    <primary>Gleicher-Host-Abhängigkeiten mit Servicegruppen</primary>
+  </indexterm>
+
+  <indexterm zone="objecttricks-same_host_dependency_servicegroups">
+    <primary>Abhängigkeiten</primary>
+
+    <secondary>gleicher-Host-Abhängigkeiten mit Servicegruppen</secondary>
+  </indexterm>
+
+  <indexterm zone="objecttricks-hostescalation">
+    <primary>Host-Eskalations-Definitionen</primary>
+  </indexterm>
+
+  <indexterm zone="objecttricks-hostdependency">
+    <primary>Host-Abhängigkeits-Definitionen</primary>
+  </indexterm>
+
+  <indexterm zone="objecttricks-hostgroup">
+    <primary>Hostgroups</primary>
+  </indexterm>
 </section>
