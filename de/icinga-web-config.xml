@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="icinga-web-config" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title>Konfigurationsübersicht &name-web;</title>
+
+  <para><emphasis role="bold">Wo sind meine Konfigurationsdateien? </emphasis></para>
+
+  <para>Wir versuchen die Verwendung von globalen Konfigurationsdateien zu minimieren. &name-web; arbeitet mit Modulen und jedes Modul hat
+  seine eigene Konfiguration. Das gilt ebenfalls für die Libaries. Wenn Sie weitere Informationen zu den Cronk Libaries benötigen, schauen
+  Sie in app/modules/Cronks/lib (für js in app/modules/Cronks/lib/js).</para>
+
+  <para>Ein Modul von &name-web; ist wie folgt aufgebaut: <programlisting>tree -d -L 1 app/modules/AppKit/
+app/modules/AppKit/
+|-- actions
+|-- config
+|-- lib
+|-- models
+|-- templates
+|-- validate
+|-- views</programlisting></para>
+
+  <para><emphasis role="bold">Benutzerdefinierte Konfiguration</emphasis></para>
+
+  <para><emphasis role="bold">Bitte beachten:</emphasis></para>
+
+  <para>Wenn Sie Konfigurationsdateien ändern oder erstellen, denken Sie bitte an folgendes:</para>
+
+  <orderedlist>
+    <listitem>
+      <para>Zeilen die mit &lt;!-- beginnen und enden mit --&gt; werden als Kommentare interpretiert.</para>
+    </listitem>
+
+    <listitem>
+      <para>Variablen Namen sind case-sensitive</para>
+    </listitem>
+
+    <listitem>
+      <para>Your specific &name-web; configuration settings like api, authentication and database settings can be set in
+      app/modules/Appkit(/Cronks/Web)/config/*.site.xml- Files and will be used in the first place. They won't get overwritten during the
+      next upgrade process.</para>
+    </listitem>
+  </orderedlist>
+
+  <para><emphasis role="bold">Global Configuration Section: </emphasis></para>
+
+  <para><emphasis role="bold">app/config</emphasis></para>
+
+  <para>Here you find the global configuration files for e.g. the Web session, the Icinga web path and the database informations.</para>
+
+  <para>The main interesting files:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>database.xml - holds the connection information for your icinga-web database</para>
+    </listitem>
+
+    <listitem>
+      <para>factories.xml - holds the config for your web session, e.g. the session_cookie_lifetime- parameter</para>
+    </listitem>
+
+    <listitem>
+      <para>icinga.xml - holds the config for your Icinga Web root-dir, Web path.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis role="bold">Index</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para><link linkend="configweb-session-lifetime">Session Cookie Lifetime</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="configweb-timezone">Change default Timezone</link></para>
+    </listitem>
+  </itemizedlist>
+
+  <para><anchor xml:id="configweb-session-lifetime" /> <emphasis role="bold">Session Cookie Lifetime</emphasis></para>
+
+  <para>Example: change the session_cookie_lifetime</para>
+
+  <para>The Session Lifetime is the time in seconds until the Icinga Web session expires. It can be configured on global level in the file
+  app/config/factories.xml.</para>
+
+  <programlisting>#&gt; vi app/config/factories.xml
+
+&lt;ae:parameter name="session_cookie_lifetime"&gt;3600&lt;/ae:parameter&gt;</programlisting>
+
+  <para><anchor xml:id="configweb-timezone" /> <emphasis role="bold">Change &name-web; timezone</emphasis></para>
+
+  <para>Example: Change the default timezone for &name-web;</para>
+
+  <para>If the time(zone) in &name-web; differs to your system time(zone), please check (and if responsible change) the default_timezone set
+  in app/config/translation.xml</para>
+
+  <programlisting>vi app/config/translation.xml
+&lt;available_locales default_locale="en" default_timezone="GMT"&gt;</programlisting>
+
+  <para><emphasis role="bold">Module Configuration:</emphasis></para>
+
+  <para><emphasis role="bold">app/modules/AppKit</emphasis></para>
+
+  <para>Here lives the framework spun around: Authentication, Menus and so on.</para>
+
+  <para>Example: Ldap authentication</para>
+
+  <para>Look into app/modules/AppKit/config/auth.xml.</para>
+
+  <para>There is a provider like this:</para>
+
+  <programlisting> &lt;ae:parameter name="msad-ldap1"&gt;
+            &lt;ae:parameter name="auth_module"&gt;AppKit&lt;/ae:parameter&gt;
+            &lt;ae:parameter name="auth_provider"&gt;Auth.Provider.LDAP&lt;/ae:parameter&gt;
+            &lt;ae:parameter name="auth_enable"&gt;true&lt;/ae:parameter&gt;
+            &lt;ae:parameter name="auth_authoritative"&gt;true&lt;/ae:parameter&gt;
+            &lt;ae:parameter name="auth_create"&gt;true&lt;/ae:parameter&gt;
+            &lt;ae:parameter name="auth_update"&gt;true&lt;/ae:parameter&gt;
+
+            &lt;ae:parameter name="auth_map"&gt;
+                &lt;ae:parameter name="user_firstname"&gt;givenName&lt;/ae:parameter&gt;
+                &lt;ae:parameter name="user_lastname"&gt;sn&lt;/ae:parameter&gt;
+                &lt;ae:parameter name="user_email"&gt;mail&lt;/ae:parameter&gt; 
+            &lt;/ae:parameter&gt;
+
+            &lt;ae:parameter name="ldap_dsn"&gt;ldap://ad.icinga.org&lt;/ae:parameter&gt;
+            &lt;ae:parameter name="ldap_basedn"&gt;DC=ad,DC=icinga,DC=org&lt;/ae:parameter&gt;
+            &lt;ae:parameter name="ldap_binddn"&gt;ldap@AD.ICINGA.ORG&lt;/ae:parameter&gt;
+            &lt;ae:parameter name="ldap_bindpw"&gt;&lt;![CDATA[XXXXXXXXX]]&gt;&lt;/ae:parameter&gt;
+            &lt;ae:parameter name="ldap_userattr"&gt;uid&lt;/ae:parameter&gt;
+            &lt;ae:parameter name="ldap_filter_user"&gt;&lt;![CDATA[(&amp;(sAmAccountName=__USERNAME__))]]&gt;&lt;/ae:parameter&gt;
+        &lt;/ae:parameter&gt;</programlisting>
+
+  <para>The auth.xml holds the documentation for the global config. The ldap authentication should be done with some basic ldap
+  knowledge.</para>
+
+  <para>You can also duplicate the provider to provide more authentication bases. You can split the auth into authentication and authorising
+  parts if you want. If you have new providers, please share them and let the auth database grow!</para>
+
+  <para>Please store your costum authentication configuration in auth.site.xml !</para>
+
+  <para><emphasis role="bold">app/modules/Cronks</emphasis></para>
+
+  <para>All the cronks are implemented there: Grids, iframes. All of them are simple html sites which holds ExtJS component codes. If you
+  need to add a new cronk, this module is your friend.</para>
+
+  <para>If you want to develop a new Cronk take a look at <link
+  xlink:href="https://dev.icinga.org/projects/icinga-development/wiki/HowToDevelopCronks">HowToDevelopCronks</link></para>
+
+  <para>To change the configuration, go to the Cronks module.</para>
+
+  <programlisting>#&gt; ls app/modules/Cronks/config
+autoload.xml  config_handlers.xml  cronks.xml  module.xml  validators.xml</programlisting>
+
+  <itemizedlist>
+    <listitem>
+      <para>module.xml - to define new categories in which the cronks appears, module.xml holds all the information</para>
+    </listitem>
+
+    <listitem>
+      <para>cronks.xml - to make new cronks accessible or define new iframe cronks</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis role="bold">app/modules/Web</emphasis></para>
+
+  <para>Or better:<emphasis role="bold"> Icinga</emphasis>. This module holds all Icinga related stuff, IcingaAPI2Json, status information.
+  Also the IcingaAPI connection is configured here.</para>
+
+  <para>Example: Change the IcingaApi connection settings</para>
+
+  <para>Take a look at app/modules/Web/config/icinga-io.xml, here you'll find the default settings for the IcingaApi connection.</para>
+
+  <programlisting>#&gt; vi app/modules/Web/config/icinga-io.xml
+
+          &lt;setting name="api.interfaces.data"&gt;
+                                        &lt;!-- IcingaApi connection interface --&gt;
+                                        &lt;ae:parameter name="api_type"&gt;IcingaApi::CONNECTION_IDO&lt;/ae:parameter&gt;
+
+                                        &lt;!-- Suits for all interfaes --&gt;
+                                        &lt;ae:parameter name="config_type"&gt;mysql&lt;/ae:parameter&gt;
+                                        &lt;ae:parameter name="config_host"&gt;localhost&lt;/ae:parameter&gt;
+                                        &lt;ae:parameter name="config_port"&gt;3306&lt;/ae:parameter&gt;
+
+                                        &lt;!-- ###BEGIN_CONNECTION_IDO### --&gt;
+                                        &lt;!-- Database specific (IcingaApi::CONNECTION_IDO) --&gt;
+                                        &lt;ae:parameter name="config_database"&gt;icinga&lt;/ae:parameter&gt;
+                                        &lt;ae:parameter name="config_user"&gt;icinga&lt;/ae:parameter&gt;
+                                        &lt;ae:parameter name="config_password"&gt;icinga&lt;/ae:parameter&gt;
+                                        &lt;ae:parameter name="config_table_prefix"&gt;icinga_&lt;/ae:parameter&gt;
+                                        &lt;!-- ###END_CONNECTION_IDO### --&gt;</programlisting>
+
+  <para>If you want to change these settings to your needs, please edit app/modules/Web/config/icinga-io.site.xml.</para>
+
+  <note>
+    <para>After changing those configs you need to clear the config cache!</para>
+  </note>
+
+  <programlisting> #&gt; rm -rf app/cache/config/*.php</programlisting>
+
+  <para>or</para>
+
+  <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
+
+  <para>You need more informations? Please have a look at our <link
+  xlink:href="https://dev.icinga.org/projects/icinga-development/wiki/">Development Wiki.</link></para>
+
+  <indexterm zone="icinga-web-config">
+    <primary>Configuration Options Icinga Web</primary>
+  </indexterm>
+
+  <indexterm zone="icinga-web-config">
+    <primary>Icinga Web, Customised Configuration</primary>
+  </indexterm>
+
+  <indexterm zone="configweb-session-lifetime">
+    <primary>Session Lifetime</primary>
+  </indexterm>
+
+  <indexterm zone="configweb-timezone">
+    <primary>&name-web; timezone</primary>
+  </indexterm>
+</section>
