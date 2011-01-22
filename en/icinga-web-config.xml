@@ -25,8 +25,8 @@ app/modules/AppKit/
 |-- views</programlisting></para>
 
   <para><emphasis role="bold">Customised Configuration</emphasis></para>
-    
-<para><emphasis role="bold">Notes</emphasis></para>
+
+  <para><emphasis role="bold">Notes</emphasis></para>
 
   <para>When creating and/or editing configuration files, keep the following in mind:</para>
 
@@ -40,10 +40,52 @@ app/modules/AppKit/
     </listitem>
 
     <listitem>
-<para>Your specific &name-web; configuration settings like api, authentication and database settings can be set in
-    app/modules/Appkit(/Cronks/Web)/config/*.site.xml- Files and will be used in the first place. They won't get overwritten during the next upgrade process.</para>      
+      <para>Your specific &name-web; configuration settings like api, authentication and database settings can be set in
+      app/modules/Appkit(/Cronks/Web)/config/*.site.xml- Files and will be used in the first place. They won't get overwritten during the
+      next upgrade process.</para>
+
+      <para>These files already exist and you're free to use them for your specific settings:</para>
+
+      <para>app/modules/Cronks/config/cronks.site.xml</para>
+
+      <para>app/modules/Web/config/icinga-io.site.xml</para>
+
+      <para>app/modules/AppKit/config/auth.site.xml</para>
+
+      <para>app/config/icinga.site.xml</para>
+
+      <para>app/config/databases.site.xml</para>
+
+      <para></para>
+
+      <para>The templates for Grids and TO's (tactical overview) are allowed to copy to *.site.xml in there location:</para>
+
+      <para><emphasis role="bold">The Grids:</emphasis></para>
+
+      <para>app/modules/Cronks/data/xml/grid/icinga-hostgroup-summary-template.xml</para>
+
+      <para>app/modules/Cronks/data/xml/grid/icinga-host-history-template.xml</para>
+
+      <para>app/modules/Cronks/data/xml/grid/icinga-host-template.xml</para>
+
+      <para>....</para>
+
+      <para><emphasis role="bold">and the TO's:</emphasis></para>
+
+      <para>app/modules/Cronks/data/xml/to/icinga-tactical-overview-groupstat.xml</para>
+
+      <para>app/modules/Cronks/data/xml/to/icinga-tactical-overview-presets.xml</para>
+
+      <para>app/modules/Cronks/data/xml/to/icinga-tactical-overview-template-charts.xml</para>
+
+      <para>...</para>
+
+      <para>Please edit app/modules/Cronks/config/cronks.xml and add your created *.site.xml to make the new cronks accessible.</para>
+
+      <para></para>
     </listitem>
   </orderedlist>
+
   <para><emphasis role="bold">Global Configuration Section: </emphasis></para>
 
   <para><emphasis role="bold">app/config</emphasis></para>
@@ -66,16 +108,20 @@ app/modules/AppKit/
     </listitem>
   </itemizedlist>
 
-<para><emphasis role="bold">Index</emphasis></para>
-<itemizedlist>
+  <para><emphasis role="bold">Index</emphasis></para>
+
+  <itemizedlist>
     <listitem>
       <para><link linkend="configweb-session-lifetime">Session Cookie Lifetime</link></para>
     </listitem>
-<listitem>
+
+    <listitem>
       <para><link linkend="configweb-timezone">Change default Timezone</link></para>
     </listitem>
-</itemizedlist>
-<para><anchor xml:id="configweb-session-lifetime" /> <emphasis role="bold">Session Cookie Lifetime</emphasis></para>
+  </itemizedlist>
+
+  <para><anchor xml:id="configweb-session-lifetime" /> <emphasis role="bold">Session Cookie Lifetime</emphasis></para>
+
   <para>Example: change the session_cookie_lifetime</para>
 
   <para>The Session Lifetime is the time in seconds until the Icinga Web session expires. It can be configured on global level in the file
@@ -84,11 +130,15 @@ app/modules/AppKit/
   <programlisting>#&gt; vi app/config/factories.xml
 
 &lt;ae:parameter name="session_cookie_lifetime"&gt;3600&lt;/ae:parameter&gt;</programlisting>
-<para><anchor xml:id="configweb-timezone" /> <emphasis role="bold">Change &name-web; timezone</emphasis></para>
-  <para>Example: Change the default timezone for &name-web; </para>
-<para> If the time(zone) in &name-web; differs to your system time(zone), please check (and if responsible change) the default_timezone set in app/config/translation.xml </para>
 
-<programlisting>vi app/config/translation.xml
+  <para><anchor xml:id="configweb-timezone" /> <emphasis role="bold">Change &name-web; timezone</emphasis></para>
+
+  <para>Example: Change the default timezone for &name-web;</para>
+
+  <para>If the time(zone) in &name-web; differs to your system time(zone), please check (and if responsible change) the default_timezone set
+  in app/config/translation.xml</para>
+
+  <programlisting>vi app/config/translation.xml
 &lt;available_locales default_locale="en" default_timezone="GMT"&gt;</programlisting>
 
   <para><emphasis role="bold">Module Configuration:</emphasis></para>
@@ -155,6 +205,7 @@ autoload.xml  config_handlers.xml  cronks.xml  module.xml  validators.xml</progr
       <para>cronks.xml - to make new cronks accessible or define new iframe cronks</para>
     </listitem>
   </itemizedlist>
+
   <para><emphasis role="bold">app/modules/Web</emphasis></para>
 
   <para>Or better:<emphasis role="bold"> Icinga</emphasis>. This module holds all Icinga related stuff, IcingaAPI2Json, status information.
@@ -195,8 +246,9 @@ autoload.xml  config_handlers.xml  cronks.xml  module.xml  validators.xml</progr
 
   <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
 
-<para>You need more informations? Please have a look at our <link
+  <para>You need more informations? Please have a look at our <link
   xlink:href="https://dev.icinga.org/projects/icinga-development/wiki/">Development Wiki.</link></para>
+
   <indexterm zone="icinga-web-config">
     <primary>Configuration Options Icinga Web</primary>
   </indexterm>
@@ -205,10 +257,11 @@ autoload.xml  config_handlers.xml  cronks.xml  module.xml  validators.xml</progr
     <primary>Icinga Web, Customised Configuration</primary>
   </indexterm>
 
-<indexterm zone="configweb-session-lifetime">
+  <indexterm zone="configweb-session-lifetime">
     <primary>Session Lifetime</primary>
   </indexterm>
-<indexterm zone="configweb-timezone">
+
+  <indexterm zone="configweb-timezone">
     <primary>&name-web; timezone</primary>
   </indexterm>
 </section>
