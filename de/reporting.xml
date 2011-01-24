@@ -120,6 +120,11 @@
     <note>
       <para>Der export-/import-Prozess ist detailliert beschrieben in Kapitel 5.12 des &name-jasper; CE-Install-Guide</para>
     </note>
+<para><emphasis role="bold">Installieren der JAVA- Klassen für die SLA- Reports</emphasis></para>
+
+  <para>Das automatische Generieren von monatlichen, wöchentlichen und jährlichen Reports setzt die automatische Datumsberechnung für den jeweiligen Bericht voraus.
+  Um dieses Feature nutzen zu können, müssen Sie das icinga-reporting.jar- Archiv ( zu finden unter icinga-reports/ReportClasses/) in das lib- Verzeichnis Ihres Jasperservers installieren (kopieren). Dies sollte unter dem WEB-INF- Verzeichnis Ihrer Installation zu finden sein, z.B. /opt/jasperserver-ce-3.7.1/apache-tomcat/webapps/jasperserver/WEB-INF/lib.
+  Bitte starten Sie nach der Installation Ihren Jasperserver neu!</para>
 
 
   <para><emphasis role="bold">Konfigurieren des Quartzscheduler</emphasis></para>
@@ -142,6 +147,37 @@
   <para>- Testen Sie die Konfiguration und speichern Sie die Verbindung.</para>
 
   <para>- Alle Reporte in unserem Paket verwenden diese Datasource und sollten nun ausführbar sein.</para>
+<note>
+    <para>Denken Sie daran das Suchfeld zu ändern und setzen Sie die 4 "Dropdowns" auf die folgenden Werte um Ihre Datenquelle zu finden:</para>
+  </note>
+
+  <itemizedlist>
+    <listitem>
+      <para>"Changed by anyone" (wie bereits oben erwähnt)</para>
+    </listitem>
+
+    <listitem>
+      <para>"All"</para>
+    </listitem>
+
+    <listitem>
+      <para>"Any time"</para>
+    </listitem>
+
+    <listitem>
+      <para>"Any schedule"</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>Wenn Sie nun den Suche- Button betätigen, sollten Sie die Datenquellen sehen.</para>
+
+  <para><emphasis role="bold">Unterschiedliche Tabellen- Präfix</emphasis></para>
+
+  <para>Falls Sie Ihren Tabellen- Präfix während der Installation geändert haben, können Sie den existierenden Präfix mit folgendem Skript ersetzen: </para>
+
+  <programlisting>grep -l -r " icinga_" .  | xargs sed -i.BAK -e 's/ icinga_/ /g'
+grep -l -r "icinga_" . | xargs sed -i.BAK -e 's/^icinga_//g'
+find . -iname "*BAK" -exec rm -f {} \;</programlisting>
 
   <para><emphasis role="bold">Known Bugs:</emphasis> Wenn Sie in Ihrem PDF-Export keine Graphen-Beschriftungen sehen, wechseln Sie von
   OpenJDK zu SUNJava.</para>
