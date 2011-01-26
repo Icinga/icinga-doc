@@ -408,6 +408,48 @@
         ...
         }</screen>
 
+    <para><anchor xml:id="objectinheritance-important_values" /><emphasis role="bold">Wichtige Werte</emphasis> (important values)</para>
+
+    <para>Service-Vorlagen können eine spezielle Regel benutzen, die ihrem check_command-Wert Vorrang gibt. Wenn das check_command mit einem
+    Ausrufungszeichen (!) beginnt, dann wird das check_command der Vorlage als wichtig markiert und wird statt des im Service definierten
+    check_command (dies ist der CSS-Syntax nachempfunden, die ! als wichtiges Attribut benutzt).</para>
+
+    <para>Warum ist das nützlich? Es ist hauptsächlich dann sinnvoll, wenn ein unterschiedliches check_command für verteilte Systeme gesetzt wird.
+    Sie wollen vielleicht einen Frische-Schwellwert und ein check_command setzen, der den Service in einen fehlerhaften Status versetzt, aber
+    das funktioniert nicht mit dem normalen Vorlagensystem. Dieses "wichtig"-Kennzeichen erlaubt es, das angepasste check_command zu schreiben,
+    aber eine allgemeine verteilte Vorlage zu benutzen, die das check_command überlagert, wenn es auf dem zentralen &name-icinga;-Server
+    eingesetzt wird.</para>
+
+    <para>Zum Beispiel:</para>
+
+    <screen># On master
+define service {
+        name                   service-distributed
+        register               0
+        active_checks_enabled  0
+        check_freshness        1
+        check_command          !set_to_stale
+        }
+# On slave
+define service {
+        name                   service-distributed
+        register               0
+        active_checks_enabled  1
+        }
+# Service definition, used by master and slave
+define service {
+        host_name              host1
+        service_description    serviceA
+        check_command          check_http...
+        use                    service-distributed
+        ...
+        }</screen>
+
+    <note><para>Bitte beachten Sie, dass nur eine Vererbungsebene bei diesen wichtigen Werten möglich ist. Das bedeutet, dass Sie nicht das
+    check_command von einer Vorlage zu einer weiteren und von dort zum Service vererben können.
+    <programlisting> Template1 =&gt; Service1                &lt;== funktioniert
+ Template1 =&gt; Template2 =&gt; Service1   &lt;== funktioniert NICHT</programlisting></para></note>
+
   <para><anchor xml:id="objectinheritance-multiple_templates" /><emphasis role="bold">Mehrere Vererbungsquellen</emphasis></para>
 
   <para>Bisher haben alle Beispiele Objektdefinitionen gezeigt, die Variablen/Werte von einer einzelnen Quelle erben. Sie können

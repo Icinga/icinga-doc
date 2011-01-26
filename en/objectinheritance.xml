@@ -455,6 +455,11 @@ define service {
         ...
         }</screen>
 
+    <note><para>Please note that only one level of inheritance is possible using important values. That means that you cannot inherit 
+    the check_command from one template to another and from the latter to a service.
+    <programlisting> Template1 =&gt; Service1                &lt;== will work
+ Template1 =&gt; Template2 =&gt; Service1   &lt;== will NOT work</programlisting></para></note>
+
     <para><anchor xml:id="objectinheritance-multiple_templates" /><emphasis role="bold">Multiple Inheritance Sources</emphasis></para>
 
     <para>Thus far, all examples of inheritance have shown object definitions inheriting variables/values from just a single source. You are also able
