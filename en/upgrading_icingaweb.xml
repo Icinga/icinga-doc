@@ -89,7 +89,8 @@
 
   <para>or</para>
 
-  <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
+  <programlisting> #&gt; /icinga-web/bin/clearcache.sh</programlisting>
+<para>Any errors? Take a look <link linkend="icinga-web-scratch-errors"> here.</link></para>
 
   <para><emphasis role="bold">Upgrading the &name-web; Database</emphasis></para>
 
@@ -102,7 +103,7 @@
 
   <para><literal>&lt;rdbm&gt;_&lt;old-version&gt;_to_&lt;new-version&gt;.sql</literal></para>
 
-  <para>where &lt;rdbm&gt; could be mysql, pgsql or oracle and &lt;version&gt; points to the version you want to upgrade to.</para>
+  <para>where &lt;rdbm&gt; could be mysql, pgsql or oracle and &lt;newversion&gt; points to the version you want to upgrade to.</para>
 
   <note>
     <para>If you are upgrading from an older version and there are other versions in between be advised that you need to apply those upgrade
@@ -125,16 +126,15 @@
   </orderedlist>
 
   <para><emphasis role="bold">MySQL</emphasis> <programlisting> $ mysql -u root -p icinga_web &lt; /path/to/icinga-web/etc/schema/updates/mysql_&lt;oldversion&gt;_to_&lt;newversion&gt;.sql</programlisting>
-  <emphasis role="bold">Postgresql</emphasis> <programlisting> # su - postgres
+  <emphasis role="bold">Postgresql</emphasis> <programlisting> #&gt; su - postgres
  $ psql -U icinga_web -d icinga_web &lt; /path/to/icinga-web/etc/schema/updates/pgsql_&lt;oldversion&gt;_to_&lt;newversion&gt;.sql</programlisting></para>
 
-  <para><emphasis role="bold">Oracle</emphasis> <programlisting> # su - oracle
+  <para><emphasis role="bold">Oracle</emphasis> <programlisting> #&gt; su - oracle
  $ sqlplus dbuser/dbpass
  SQL&gt; @oracle_&lt;oldversion&gt;_to_&lt;newversion&gt;.sql</programlisting></para>
 
   <para>That's all.</para>
 
-  <para>Any errors? Take a look <link linkend="icinga-web-scratch-errors"> here.</link></para>
 
   <indexterm zone="upgrading_icingaweb">
     <primary>Update of &name-web;</primary>
