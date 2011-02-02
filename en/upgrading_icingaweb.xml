@@ -24,7 +24,7 @@
   <para>Please make sure, that you have already installed the appropriate &name-api; version. Installing the &name-api; is described in the
   <link linkend="icinga-api">Icinga-API</link> section.</para>
 
-  <para><emphasis role="bold">The upgrade</emphasis></para>
+  <para><emphasis role="bold">The Upgrade</emphasis></para>
 
   <para>Please download the archive from <link
   xlink:href="http://sourceforge.net/projects/icinga/files/">http://sourceforge.net/projects/icinga/files/</link> or take your clone from
@@ -90,13 +90,65 @@
   <para>or</para>
 
   <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
-<para>That's all.</para>
-<para>Any errors? Take a look  <link linkend="icinga-web-scratch-errors"> here.</link></para>
+
+  <para><emphasis role="bold">Upgrading the &name-web; Database</emphasis></para>
+
+  <para>This is optional, but there may be a bug within the database scheme which has been fixed. If you are upgrading from an older
+  &name-web; database version you also need to apply those fixes manually. If you are using rpm/deb packages please read the notes and/or
+  ask the maintainer if he has added those modifications to the install routine.</para>
+
+  <para>The upgrade files can be found next to the database install files in <literal>/path/to/icinga-web/etc/schema/updates/</literal>. The
+  syntax is as follows:</para>
+
+  <para><literal>&lt;rdbm&gt;_&lt;old-version&gt;_to_&lt;new-version&gt;.sql</literal></para>
+
+  <para>where &lt;rdbm&gt; could be mysql, pgsql or oracle and &lt;version&gt; points to the version you want to upgrade to.</para>
+
+  <note>
+    <para>If you are upgrading from an older version and there are other versions in between be advised that you need to apply those upgrade
+    files with incremental steps!</para>
+  </note>
+
+  <orderedlist>
+    <listitem>
+      <para>Backup your current database before upgrading!</para>
+    </listitem>
+
+    <listitem>
+      <para>Check current &name-web; database version and the target version. Check if there are any version in between and upgrade
+      incremental if necessary.</para>
+    </listitem>
+
+    <listitem>
+      <para>Apply the upgrade(s) using a rdbm user with appropriate rights.</para>
+    </listitem>
+  </orderedlist>
+
+  <para><emphasis role="bold">MySQL</emphasis> <programlisting> $ mysql -u root -p icinga_web &lt; /path/to/icinga-web/etc/schema/updates/mysql_&lt;oldversion&gt;_to_&lt;newversion&gt;.sql</programlisting>
+  <emphasis role="bold">Postgresql</emphasis> <programlisting> # su - postgres
+ $ psql -U icinga_web -d icinga_web &lt; /path/to/icinga-web/etc/schema/updates/pgsql_&lt;oldversion&gt;_to_&lt;newversion&gt;.sql</programlisting></para>
+
+  <para><emphasis role="bold">Oracle</emphasis> <programlisting> # su - oracle
+ $ sqlplus dbuser/dbpass
+ SQL&gt; @oracle_&lt;oldversion&gt;_to_&lt;newversion&gt;.sql</programlisting></para>
+
+  <para>That's all.</para>
+
+  <para>Any errors? Take a look <link linkend="icinga-web-scratch-errors"> here.</link></para>
+
   <indexterm zone="upgrading_icingaweb">
     <primary>Update of &name-web;</primary>
   </indexterm>
 
   <indexterm zone="upgrading_icingaweb">
     <primary>Upgrading &name-web;</primary>
+  </indexterm>
+
+  <indexterm zone="upgrading_icingaweb">
+    <primary>Update &name-web; database</primary>
+  </indexterm>
+
+  <indexterm zone="upgrading_icingaweb">
+    <primary>Upgrading &name-web; database</primary>
   </indexterm>
 </section>
