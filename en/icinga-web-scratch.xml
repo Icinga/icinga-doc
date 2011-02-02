@@ -18,6 +18,9 @@
   the module architecture, please check out the development wiki of Icinga Web: <link
   xlink:href="https://dev.icinga.org/projects/icinga-development/wiki#24-Icinga-Web">&name-icingawiki;</link></para>
 
+  <para>This installation guide describes the installation of &name-web; with &name-mysql; as used database. &name-web; also supports
+  &name-oracle; and &name-postgres; as used database backends.</para>
+
   <orderedlist>
     <listitem>
       <para><emphasis role="bold">Prerequisites</emphasis></para>
@@ -230,10 +233,10 @@
       those to your needs.</para>
 
       <programlisting> #&gt; vi app/config/databases.xml</programlisting>
-<note>
-        <para>Optional: Your specific Icinga database settings can be set in
-        app/config/.site.xml and will be used in the first place. This won't get overwritten during upgrade
-        process.</para>
+
+      <note>
+        <para>Optional: Your specific Icinga database settings can be set in app/config/.site.xml and will be used in the first place. This
+        won't get overwritten during upgrade process.</para>
       </note>
 
       <para><programlisting>    &lt;databases default="icinga_web"&gt;
@@ -370,9 +373,10 @@
       </note>
 
       <programlisting> #&gt; rm -rf app/cache/config/*.php</programlisting>
-<para>or</para>
 
-  <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
+      <para>or</para>
+
+      <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
     </listitem>
 
     <listitem>
@@ -473,9 +477,10 @@ Alias /icinga-web /usr/local/icinga-web/pub
       <para>Clear cache:</para>
 
       <para><programlisting>#&gt; rm /usr/local/icinga-web/app/cache/config/*.php</programlisting></para>
-<para>or</para>
 
-  <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
+      <para>or</para>
+
+      <programlisting>#&gt; /icinga-web/bin/clearcache.sh</programlisting>
 
       <para>Restart your Webserver:</para>
 
@@ -501,9 +506,8 @@ Alias /icinga-web /usr/local/icinga-web/pub
       <para>Have fun! :-)</para>
     </listitem>
 
-    <anchor xml:id="icinga-web-scratch-errors" />
     <listitem>
-      <para><emphasis role="bold">Test &amp; Errors ?</emphasis></para>
+      <para><anchor xml:id="icinga-web-scratch-errors" /> <emphasis role="bold">Test &amp; Errors ?</emphasis></para>
 
       <para>The following collection shows some useful information how to resolve errors - and what you should provide when reporting an
       error to the mailing lists or http://www.icinga-portal.org</para>
@@ -523,14 +527,15 @@ Alias /icinga-web /usr/local/icinga-web/pub
       used?</para>
 
       <para>* Delete the config cache in app/cache/config/*.php</para>
-<para>use</para>
 
-  <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
+      <para>use</para>
+
+      <programlisting>#&gt; /icinga-web/bin/clearcache.sh</programlisting>
 
       <para>Icinga Web shows a blank page?</para>
 
       <para>* Apache Error Logs =&gt; mod_rewrite enabled, php dependencies ok? 'make testdeps'</para>
- 
+
       <para>* .htaccess/vhost config =&gt; paths not correct?</para>
 
       <para>Icinga Web does not show any data?</para>
@@ -552,13 +557,14 @@ Alias /icinga-web /usr/local/icinga-web/pub
 
       <para>* Sockets correctly defined? =&gt; unix-socket or tcp-socket, the last one with or without SSL</para>
 
-      <para><emphasis role="bold">Testing the Web: </emphasis></para>
+      <para><emphasis role="bold">Testing the Web:</emphasis></para>
 
       <para><programlisting> #&gt; cd etc/tests/
  #&gt; php icingaWebTesting.php</programlisting></para>
 
-<note>
-        <para>Using your root account for testing results in wrong logfile permissions in /usr/local/icinga-web/app/data/log and Icinga-Web loads anymore!</para>
+      <note>
+        <para>Using your root account for testing results in wrong logfile permissions in /usr/local/icinga-web/app/data/log and Icinga-Web
+        loads anymore!</para>
       </note>
 
       <note>
@@ -573,13 +579,11 @@ Alias /icinga-web /usr/local/icinga-web/pub
       /usr/local/icinga-web/app/config/config_handlers.xml". Please make sure you have set correct write permissions for directory
       /usr/local/icinga-web/app/cache.... = &gt; Check /etc/php5/apache/php.ini, set safe_mode = off.</para>
 
-       
-
       <para>* Could not connect to API. The API Connector returned the following message: getConnection failed: Database connection failed:
       SQLSTATE[28000] [1045] Access denied for user 'icinga'@'localhost' (using password: YES))</para>
 
-      <para>=&gt; check your IDOUtils DB credentials in ido2db.cfg and add those to Icinga Web configuration as preferred DB credentials for IDO (see above).
-      With 1.0.3 you can set those values directly during configure</para>
+      <para>=&gt; check your IDOUtils DB credentials in ido2db.cfg and add those to Icinga Web configuration as preferred DB credentials for
+      IDO (see above). With 1.0.3 you can set those values directly during configure</para>
 
       <para>* touch: cannot touch '/usr/local/icinga-web/.../cache/testfile.txt': Permission denied =&gt; Your configuration in the xml
       files will be pre-cached by the framework. It therefore needs special permissions on the caching directories. By running
@@ -595,10 +599,11 @@ Alias /icinga-web /usr/local/icinga-web/pub
 
       <para>* Empty Icinga Web? =&gt; If mod_rewrite is enabled and 'index.php' appears in the request url the portal does not work. Try to
       remove the index.php from your url and everything should work</para>
-      
 
-<para>* Login possible but Icinga Web keeps loading data....</para>
-<para>* Request failed, Ressource /icinga-web/appkit/ext/application State could not be loaded - is the url correct? =&gt; mod_rewrite enabled ?</para>
+      <para>* Login possible but Icinga Web keeps loading data....</para>
+
+      <para>* Request failed, Ressource /icinga-web/appkit/ext/application State could not be loaded - is the url correct? =&gt; mod_rewrite
+      enabled ?</para>
 
       <para>* Counts in the Status Cronk do not match your configuration? =&gt; Check with the Backend, e.g. IDOUtils DB, selecting the
       counts for the status tables.</para>
@@ -619,7 +624,7 @@ Alias /icinga-web /usr/local/icinga-web/pub
 
   <indexterm zone="icinga-web-scratch">
     <primary>Webinterface</primary>
+
     <secondary>Errors in the</secondary>
   </indexterm>
-
 </section>

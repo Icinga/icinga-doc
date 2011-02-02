@@ -17,6 +17,9 @@
   Modularchitektur wissen wollen, verfolgen Sie bitte stetig aktualisierte Einträge im Development-Wiki von &name-web;: <link
   xlink:href="https://dev.icinga.org/projects/icinga-development/wiki#24-Icinga-Web">&name-icingawiki;</link></para>
 
+  <para>Diese Installationsanleitung beschreibt die Installation von &name-web; mit &name-mysql; als verwendeter Datenbank, weitere
+  unterstütze Datenbanken sind &name-oracle; und &name-postgres;..</para>
+
   <orderedlist>
     <listitem>
       <para><emphasis role="bold">Voraussetzungen</emphasis></para>
@@ -228,9 +231,11 @@ Please check the new Apache2 configuration (etc/apache2/icinga-web.conf).</progr
       oder nachsehen wollen im Fehlerfall, öffnen sie folgende Datei mit einem Editor Ihrer Wahl.</para>
 
       <programlisting> #&gt; vi app/config/databases.xml</programlisting>
-<note><para>Optional: Ihre spezifischen &name-icinga; Datenbankeinstellungen können Sie vornehmen
-          in app / config /database.site.xml. Diese Informationen bleiben während eines Update- Prozesses erhalten.</para>
-        </note>
+
+      <note>
+        <para>Optional: Ihre spezifischen &name-icinga; Datenbankeinstellungen können Sie vornehmen in app / config /database.site.xml.
+        Diese Informationen bleiben während eines Update- Prozesses erhalten.</para>
+      </note>
 
       <programlisting> &lt;databases default="icinga_web"&gt;
 
@@ -282,8 +287,8 @@ Please check the new Apache2 configuration (etc/apache2/icinga-web.conf).</progr
 
       <para>Diese Einstellungen werden direkt in Icinga Web vorgenommen das diese Informationen dann entsprechend aufbereitet an die Icinga
       API weitergibt. Öffnen Sie app/modules/Web/config/icinga-io.xml um die IcingaApi factories zu sehen: IcingaData und IcingaCommand.
-      <programlisting> #&gt; vi app/modules/Web/config/icinga-io.xml</programlisting> 
-          <note><para>Optional: Ihre spezifischen &name-icinga; Verbindungseinstellungen, wie die API-Anmeldeinformationen, können Sie vornehmen
+      <programlisting> #&gt; vi app/modules/Web/config/icinga-io.xml</programlisting> <note>
+          <para>Optional: Ihre spezifischen &name-icinga; Verbindungseinstellungen, wie die API-Anmeldeinformationen, können Sie vornehmen
           in app / modules / Web / config / icinga-io.site.xml. Diese Informationen bleiben während eines Update- Prozesses erhalten.</para>
         </note></para>
 
@@ -377,9 +382,10 @@ Please check the new Apache2 configuration (etc/apache2/icinga-web.conf).</progr
       </note>
 
       <programlisting> #&gt; rm -rf app/cache/config/*.php</programlisting>
-<para>oder</para>
 
-  <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
+      <para>oder</para>
+
+      <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
     </listitem>
 
     <listitem>
@@ -467,9 +473,10 @@ Alias /icinga-web /usr/local/icinga-web/pub
       <para>Leeren Sie den Cache:</para>
 
       <para><programlisting> #&gt; rm /usr/local/icinga-web/app/cache/config/*.php</programlisting></para>
-<para>oder</para>
 
-  <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
+      <para>oder</para>
+
+      <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
 
       <para>und starten Sie den Webserver neu:</para>
 
@@ -498,7 +505,7 @@ Alias /icinga-web /usr/local/icinga-web/pub
     </listitem>
 
     <listitem>
-<para><anchor xml:id="icinga-web-scratch-errors" /> <emphasis role="bold">Test &amp;Fehler?</emphasis></para>
+      <para><anchor xml:id="icinga-web-scratch-errors" /> <emphasis role="bold">Test &amp;Fehler?</emphasis></para>
 
       <para>Diese Sammlung beinhaltet einige nützliche Informationen, wie Sie Fehler finden und lösen können. Ebenso wird darauf
       hingewiesen, welche Informationen Sie im Fehlerfall angeben sollen, wenn Sie eine Frage auf den Mailinglisten oder auf <link
@@ -520,15 +527,16 @@ Alias /icinga-web /usr/local/icinga-web/pub
 
       <para>* Löschen Sie den Konfigurationscache in app/cache/config/*.php</para>
 
-  <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
+      <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
 
       <para>Icinga Web zeigt eine leere Seite?</para>
 
       <para>* Apache Errors Logs =&gt; mod_rewrite enabled, PHP-Abhängigkeiten ok? 'make testdeps'</para>
-<para> Icinga Web - Login erfolgt- aber die Seite lädt und lädt...</para>
 
-<para>* Request failed, Ressource /icinga-web/appkit/ext/application State could not be loaded - is the url correct? =&gt; mod_rewrite enabled ?</para>
+      <para>Icinga Web - Login erfolgt- aber die Seite lädt und lädt...</para>
 
+      <para>* Request failed, Ressource /icinga-web/appkit/ext/application State could not be loaded - is the url correct? =&gt; mod_rewrite
+      enabled ?</para>
 
       <para>* .htaccess/VHost-Konfiguration =&gt; Pfade nicht korrekt? Icinga-Web zeigt keine Daten?</para>
 
@@ -555,9 +563,12 @@ Alias /icinga-web /usr/local/icinga-web/pub
 
       <para><programlisting> #&gt; cd etc/tests/
  #&gt; php icingaWebTesting.php</programlisting></para>
-<note>
-        <para>Bitte benutzen Sie nicht Ihren root- Benutzer zum Testen, Ihr Icinga-Web lädt sonst nicht mehr, da die Log-Datei unter /usr/local/icinga-web/app/data/log die falschen Berechtigungen hat!</para>
+
+      <note>
+        <para>Bitte benutzen Sie nicht Ihren root- Benutzer zum Testen, Ihr Icinga-Web lädt sonst nicht mehr, da die Log-Datei unter
+        /usr/local/icinga-web/app/data/log die falschen Berechtigungen hat!</para>
       </note>
+
       <note>
         <para>Nicht vergessen - Ändern von PHP-Einstellungen in der php.ini erfordert einen Apache reload/restart!</para>
       </note>
@@ -573,8 +584,9 @@ Alias /icinga-web /usr/local/icinga-web/pub
       <para>* Keine Verbindung zur API. The API Connector returned the following message: getConnection failed: Database connection failed:
       SQLSTATE[28000] [1045] Access denied for user 'icinga'@'localhost' (using password: YES))</para>
 
-      <para>=&gt; Überprüfen Sie Ihre IDOUtils DB-Referenzen in der ido2db.cfg und fügen Sie diese in Ihre &name-web;- Konfiguration als bevorzugte DB- Referenzen für Ihre IDO hinzu (siehe Konfiguration der &name-api;).
-      Ab &name-web;1.0.3 können die Werte direkt während des configure gesetzt werden.</para>
+      <para>=&gt; Überprüfen Sie Ihre IDOUtils DB-Referenzen in der ido2db.cfg und fügen Sie diese in Ihre &name-web;- Konfiguration als
+      bevorzugte DB- Referenzen für Ihre IDO hinzu (siehe Konfiguration der &name-api;). Ab &name-web;1.0.3 können die Werte direkt während
+      des configure gesetzt werden.</para>
 
       <para>* touch: cannot touch `/usr/local/icinga-web/.../cache/testfile.txt': Permission denied</para>
 
@@ -595,6 +607,7 @@ Alias /icinga-web /usr/local/icinga-web/pub
 
       <para>* Die Ergebnisse in den Status Cronks passen nicht zu Ihrer Konfiguration? =&gt; Überprüfen Sie in Ihrem Backend, d.h. IDOUtils
       DB, welche Werte für die Status-Tabellen selektiert werden.</para>
+
       <para>* Keine Daten in den Cronks ? =&gt; Überprüfen Sie ob alle Berechtigungen korrekt gesetzt sind, insbesondere von log/</para>
 
       <para>Sofern Sie Fragen oder Updates haben, zögern Sie bitte nicht, uns diese mitzuteilen! :-)</para>
