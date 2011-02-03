@@ -1,0 +1,4536 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="cgiparams" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title>Informationen zu den CGI-Parametern</title>
+
+  <para><emphasis role="bold">Einführung</emphasis></para>
+
+  <para>Das Menü auf der linken Seite des klassischen Web-Interface enthält Eintrage, die einen schnellen Zugriff auf die Informationen
+  bieten, die die meisten Leute benötigen. Sie können diese Parameter ändern oder auch andere Optionen wählen. Einige CGIs benötigen einen
+  Objekttyp ("host", "hostgroup", "service" oder "servicegroup"), oftmals gefolgt von einer oder mehreren Optionen. Der beste Weg ist es,
+  einen Blick auf die existierenden URLs zu werden und sie Ihren Bedürfnissen anzupassen.</para>
+
+  <para>Nachfolgend finden Sie eine Tabelle mit den Parametern und den CGIs, die sie anbieten. Die Namen der CGIs sind abgekürzt (damit die
+  Tabelle nicht so breit wird). Eine Erklärung der Abkürzungen zusammen mit einem Hinweis auf den Source-Code finden Sie <link
+  linkend="cgiparams_abbrev">hier</link>.</para>
+
+  <para>Nach dieser Tabelle folgt eine Erklärung der Parameter (in Bearbeitung).</para>
+
+  <para><emphasis role="bold">Matrix Parameter / CGIs</emphasis></para>
+
+  <informaltable>
+    <tgroup cols="15">
+      <thead>
+        <row>
+          <entry align="center">Parameter</entry>
+
+          <entry align="center">avail</entry>
+
+          <entry align="center">cmd</entry>
+
+          <entry align="center">config</entry>
+
+          <entry align="center">ext</entry>
+
+          <entry align="center">hgram</entry>
+
+          <entry align="center">hist</entry>
+
+          <entry align="center">notif</entry>
+
+          <entry align="center">out</entry>
+
+          <entry align="center">log</entry>
+
+          <entry align="center">status</entry>
+
+          <entry align="center">map</entry>
+
+          <entry align="center">sum</entry>
+
+          <entry align="center">tac</entry>
+
+          <entry align="center">trends</entry>
+        </row>
+      </thead>
+
+      <tbody>
+        <row>
+          <entry>ahas</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>alerttypes</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>archive</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>assumeinitialstates</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+        </row>
+
+        <row>
+          <entry>assumestateretention</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+        </row>
+
+        <row>
+          <entry>assumestatesduringnotrunning</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+        </row>
+
+        <row>
+          <entry>backtrack</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+        </row>
+
+        <row>
+          <entry>breakdown</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>broadcast_notification</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>childoptions</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>cmd_mod</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>cmd_typ</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>columns</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>com_author</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>com_data</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>com_id</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>contact</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>createimage</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+        </row>
+
+        <row>
+          <entry>csvoutput</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>displaytype</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>down_id</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>eday</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+        </row>
+
+        <row>
+          <entry>ehour</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+        </row>
+
+        <row>
+          <entry>embedded</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>emin</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+        </row>
+
+        <row>
+          <entry>emon</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+        </row>
+
+        <row>
+          <entry>end_time</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>esec</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+        </row>
+
+        <row>
+          <entry>eyear</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+        </row>
+
+        <row>
+          <entry>fixed</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>force_check</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>force_notification</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>full_log_entries</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>get_date_parts</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>graphevents</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>graphstatetypes</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>host</entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+        </row>
+
+        <row>
+          <entry>hostgroup</entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>hostprops</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>hoststates</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>hoststatustypes</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>hours</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>includesoftstates</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>initialassumedhoststate</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+        </row>
+
+        <row>
+          <entry>initialassumedservicestate</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+        </row>
+
+        <row>
+          <entry>initialstateslogged</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>input</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+        </row>
+
+        <row>
+          <entry>limit</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>minutes</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>navbarsearch</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>newstatesonly</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>nodowntime</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>noflapping</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>nofrills</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>noheader</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+        </row>
+
+        <row>
+          <entry>not_dly</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>notimebreaks</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>nosystem</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>oldestfirst</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>performance_data</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>persistent</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>plugin_output</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>plugin_state</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>ptc</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>report</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>report_type</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>rpttimeperiod</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>sched_dly</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>sday</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>send_notification</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>service</entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+        </row>
+
+        <row>
+          <entry>servicefilter</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>servicegroup</entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>serviceprops</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>servicestates</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>servicestatustypes</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>service_divisor</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>shour</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>showscheduleddowntime</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>show_log_entries</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>smin</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>smon</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>sortoption</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>sorttype</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>ssec</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>standardreport</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>start_time</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>statetype</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>statetypes</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>sticky_ack</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>style</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>syear</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+        </row>
+
+        <row>
+          <entry>t1</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+        </row>
+
+        <row>
+          <entry>t2</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+        </row>
+
+        <row>
+          <entry>timeperiod</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+        </row>
+
+        <row>
+          <entry>trigger</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>type</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para><anchor xml:id="cgiparams_expl" /><emphasis role="bold">Einzelheiten zu den Parametern</emphasis></para>
+
+  <para>Mehr Informationen zu den einzelnen Parametern finden Sie nachfolgend. Für ein tiefergehendes Verständnis sollten Sie einen Blick
+  auf den Source-Code werfen.</para>
+
+  <informaltable>
+    <tgroup cols="5">
+      <thead>
+        <row>
+          <entry align="center">Parameter</entry>
+
+          <entry align="center">Beschreibung</entry>
+
+          <entry align="center">Mögl. Werte</entry>
+
+          <entry align="center">Beispiel</entry>
+
+          <entry align="center">Anmerkungen</entry>
+        </row>
+      </thead>
+
+      <tbody>
+        <row>
+          <entry>ahas</entry>
+
+          <entry>Der Befehl beeinflusst den Host und seine Services</entry>
+
+          <entry></entry>
+
+          <entry>ahas</entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>alerttypes</entry>
+
+          <entry>Host- und/oder Service-Alarme anzeigen</entry>
+
+          <entry>1=Host-Alarme; 2=Service-Alarme; 3=Host- und Service-Alarme</entry>
+
+          <entry>alerttypes=3</entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>archive</entry>
+
+          <entry></entry>
+
+          <entry>0-n</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>assumeinitialstates</entry>
+
+          <entry></entry>
+
+          <entry>yes; no</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>assumestatesduringnotrunning</entry>
+
+          <entry></entry>
+
+          <entry>yes; no</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>assumestateretention</entry>
+
+          <entry></entry>
+
+          <entry>yes; no</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>backtrack</entry>
+
+          <entry>Wieviele Archiv-Log-Dateien sollen durchsucht werden, um den initialen Zustand zu ermitteln</entry>
+
+          <entry>0-n</entry>
+
+          <entry>backtrack=1</entry>
+
+          <entry>Bitte beachten Sie, dass die Verarbeitung der Archivdateien eine Weile dauern kann</entry>
+        </row>
+
+        <row>
+          <entry>breakdown</entry>
+
+          <entry>Aufteilen der Daten nach Zeitbereich</entry>
+
+          <entry>0=monatlich; 1=Tag des Monats; 2=Tag der Woche; 3=stündlich</entry>
+
+          <entry>breakdown=2</entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>broadcast_notification</entry>
+
+          <entry>Benachrichtigung an alle Kontakte versenden ("non-escalated" und "escalated")</entry>
+
+          <entry></entry>
+
+          <entry>broadcast_notification</entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>childoptions</entry>
+
+          <entry>Aufallzeitbehandlung fur abhängige Hosts</entry>
+
+          <entry>0=ohne Berücksichtigung von abh. Hosts; 1="triggered downtime" fur abh. Hosts planen; 2="non-triggered downtime" für abh.
+          Hosts planen</entry>
+
+          <entry>childoptions=1</entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>cmd_mod</entry>
+
+          <entry>Command mode</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>cmd_typ</entry>
+
+          <entry>Command type</entry>
+
+          <entry>0 - 169, 999</entry>
+
+          <entry>cmd_typ=160</entry>
+
+          <entry>Einzelheiten siehe .../cgis/common.h</entry>
+        </row>
+
+        <row>
+          <entry>columns</entry>
+
+          <entry>Anzahl von Übersichtsspalten</entry>
+
+          <entry>&gt;= 1</entry>
+
+          <entry></entry>
+
+          <entry>Default ist 3</entry>
+        </row>
+
+        <row>
+          <entry>com_author</entry>
+
+          <entry>Autor des Kommentars</entry>
+
+          <entry>ein gültiger Benutzer</entry>
+
+          <entry>com_author=icingaadmin</entry>
+
+          <entry>Kann ggf. von der Einstellung von "lock_author_names" in cgi.cfg abhängen</entry>
+        </row>
+
+        <row>
+          <entry>com_data</entry>
+
+          <entry>Inhalt des Kommentars</entry>
+
+          <entry>eine Zeichenkette (urlencoded)</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>com_id</entry>
+
+          <entry>Id des Kommentars</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>contact</entry>
+
+          <entry>Ein gültiger Kontakt als Mail-Empfänger</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>createimage</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>createimage</entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>csvoutput</entry>
+
+          <entry>Ob die Ausgabe im CSV-Format sein soll</entry>
+
+          <entry>yes;no</entry>
+
+          <entry></entry>
+
+          <entry>Diese Option setzt automatisch "noheader"</entry>
+        </row>
+
+        <row>
+          <entry>displaytype</entry>
+
+          <entry>Typ der Alarmauswertung</entry>
+
+          <entry>1=recent alerts; 2=alert totals; 3=top alerts; 4=hostgroup alert totals; 5=host alert totals; 6=service alert totals;
+          7=servicegroup alert totals</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>down_id</entry>
+
+          <entry>ID der Ausfallzeit</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>eday</entry>
+
+          <entry>Ende des maßgeschneiderten Zeitfensters (Tag)</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>Nur gültig bei "maßgeschneiderten" Zeitfenstern</entry>
+        </row>
+
+        <row>
+          <entry>ehour</entry>
+
+          <entry>Ende des maßgeschneiderten Zeitfensters (Stunde)</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>Nur gültig bei "maßgeschneiderten" Zeitfenstern</entry>
+        </row>
+
+        <row>
+          <entry>embedded</entry>
+
+          <entry>verschiedenen HTML-Code und SSI-header/footer weglassen</entry>
+
+          <entry></entry>
+
+          <entry>embedded</entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>emin</entry>
+
+          <entry>Ende des maßgeschneiderten Zeitfensters (Minute)</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>Nur gültig bei "maßgeschneiderten" Zeitfenstern</entry>
+        </row>
+
+        <row>
+          <entry>emon</entry>
+
+          <entry>Ende des maßgeschneiderten Zeitfensters (Monat)</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>Nur gültig bei "maßgeschneiderten" Zeitfenstern</entry>
+        </row>
+
+        <row>
+          <entry>end_time</entry>
+
+          <entry>Endzeit der festen Ausfallzeit</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>Format "MM-DD-YYYY HH:MI"</entry>
+        </row>
+
+        <row>
+          <entry>esec</entry>
+
+          <entry>Ende des maßgeschneiderten Zeitfensters (Sekunde)</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>Nur gültig bei "maßgeschneiderten" Zeitfenstern</entry>
+        </row>
+
+        <row>
+          <entry>eyear</entry>
+
+          <entry>Ende des maßgeschneiderten Zeitfensters (Jahr)</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>Nur gültig bei "maßgeschneiderten" Zeitfenstern</entry>
+        </row>
+
+        <row>
+          <entry>fixed</entry>
+
+          <entry>Feste oder flexible Ausfallzeit</entry>
+
+          <entry>0=flexible, &gt;0=fixed</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>force_check</entry>
+
+          <entry>Die Service-Prufung wird erzwungen</entry>
+
+          <entry></entry>
+
+          <entry>forcecheck</entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>force_notification</entry>
+
+          <entry>Banchrichtigung ungeachtet von Restriktionen versenden (Zeitfenster oder andere)</entry>
+
+          <entry></entry>
+
+          <entry>force_notification</entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>full_log_entries</entry>
+
+          <entry>Vollständige oder gekürzte Log-Eintrage anzeigen</entry>
+
+          <entry></entry>
+
+          <entry>full_log_entries</entry>
+
+          <entry>Default ist gekürzte Ansicht</entry>
+        </row>
+
+        <row>
+          <entry>get_date_parts</entry>
+
+          <entry>maßgeschneiderte Zeitbereiche ermitteln</entry>
+
+          <entry></entry>
+
+          <entry>get_date_parts</entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>graphevents</entry>
+
+          <entry>Welche Objekte in welchem Zustand dargestellt werden sollen</entry>
+
+          <entry></entry>
+
+          <entry>graphevents=112 (alle Service-Probleme)</entry>
+
+          <entry>Ein logisches ODER von: 1=Host up; 2=Host down; 4=Host unreachable; 8=Service OK; 16=Service Warning; 32=Service Unknown;
+          64=Service Critical</entry>
+        </row>
+
+        <row>
+          <entry>graphstatetypes</entry>
+
+          <entry>Hard- und/oder Soft-Zustande darstellen</entry>
+
+          <entry>1=Soft-states; 2=Hard states; 3=Hard- und Soft-states</entry>
+
+          <entry>graphstatetypes=3</entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>host</entry>
+
+          <entry>Alle Hosts oder einen bestimmten Host auswählen, dessen Service angezeigt werden sollen</entry>
+
+          <entry>all; &lt;host name&gt;</entry>
+
+          <entry>host=monitor</entry>
+
+          <entry>Spezielle Zeichen im Namen müssen kodiert werden ("urlencoded", z.B. "%20" statt einen Leerzeichens)</entry>
+        </row>
+
+        <row>
+          <entry>hostgroup</entry>
+
+          <entry>Alle Hostgruppen oder eine bestimmte Hostgruppe auswählen, deren Hosts und Services angezeigt werden sollen</entry>
+
+          <entry>all; &lt;hostgroup name&gt;</entry>
+
+          <entry>hostgroup=linux-boxes</entry>
+
+          <entry>Spezielle Zeichen im Namen müssen kodiert werden ("urlencoded", z.B. "%20" statt einen Leerzeichens)</entry>
+        </row>
+
+        <row>
+          <entry>hostprops</entry>
+
+          <entry>Alle Hosts auswählen, die dem angegebenen Bitmuster entsprechen. Bitte beachten Sie, dass die Hosts ALLE angegebenen
+          Bedingungen entsprechen müssen</entry>
+
+          <entry></entry>
+
+          <entry>hostprops=131088 (aktive Prüfungen, die deaktiviert sind)</entry>
+
+          <entry>Ein logisches ODER der Bedingungen, die in include/cgiutils.c angegeben sind (HOST AND SERVICE FILTER PROPERTIES)</entry>
+        </row>
+
+        <row>
+          <entry>hoststates</entry>
+
+          <entry>Der Zustand, in dem der Host sein sollte</entry>
+
+          <entry>1 - 7</entry>
+
+          <entry>hoststates=3 (Hosts in einem Problemzustand)</entry>
+
+          <entry>Ein logisches ODER der Zustände: 1=DOWN; 2=UNREACHABLE; 4=UP</entry>
+        </row>
+
+        <row>
+          <entry>hoststatustypes</entry>
+
+          <entry>Der Zustand, in dem der Host sein sollte</entry>
+
+          <entry>1 - 15</entry>
+
+          <entry>hoststatustypes=12 (Hosts in einem Problemzustand)</entry>
+
+          <entry>Ein logisches ODER der Zustände: 1=Pending; 2=Up; 4=Down; 8=Unreachable</entry>
+        </row>
+
+        <row>
+          <entry>hours</entry>
+
+          <entry>Dauer der flexiblen Ausfallzeit in Stunden (siehe "minutes")</entry>
+
+          <entry>&gt;= 0</entry>
+
+          <entry></entry>
+
+          <entry>Nur gültig für flexible Ausfallzeiten</entry>
+        </row>
+
+        <row>
+          <entry>includesoftstates</entry>
+
+          <entry>"soft"-Zustände einschließen</entry>
+
+          <entry>yes; no</entry>
+
+          <entry>includesoftstate=yes</entry>
+
+          <entry>Default: "soft"-Zustände nicht berücksichtigen</entry>
+        </row>
+
+        <row>
+          <entry>initialassumedhoststate</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>initialassumedservicestate</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>initialstateslogged</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>input</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>limit</entry>
+
+          <entry>max. Anzahl von anzuzeigenden Einträgen</entry>
+
+          <entry>1-n</entry>
+
+          <entry>limit=10</entry>
+
+          <entry>Default ist 25</entry>
+        </row>
+
+        <row>
+          <entry>minutes</entry>
+
+          <entry>Dauer der flexiblen Ausfallzeit (siehe "hours")</entry>
+
+          <entry>&gt;= 0</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>navbarsearch</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>newstatesonly</entry>
+
+          <entry>Nur "neue" Zustände anzeigen</entry>
+
+          <entry>yes; no</entry>
+
+          <entry>newstatesonly=yes</entry>
+
+          <entry>Default: alle Zustände anzeigen</entry>
+        </row>
+
+        <row>
+          <entry>nodowntime</entry>
+
+          <entry>Ausfallzeiten nicht anzeigen</entry>
+
+          <entry></entry>
+
+          <entry>nodowntime</entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>noflapping</entry>
+
+          <entry>"Flatter"-Alarme nicht anzeigen</entry>
+
+          <entry></entry>
+
+          <entry>noflapping</entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>nofrills</entry>
+
+          <entry>Don't display frills (?)</entry>
+
+          <entry></entry>
+
+          <entry>nofrills</entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>noheader</entry>
+
+          <entry>Globale Statusinformationen weglassen und nur Status-Details anzeigen</entry>
+
+          <entry></entry>
+
+          <entry>noheader</entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>not_dly</entry>
+
+          <entry>Benachrichtigung um n Minuten verzögern</entry>
+
+          <entry>&gt;= 0</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>notimebreaks</entry>
+
+          <entry>Don't display timebreaks (?)</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>nosystem</entry>
+
+          <entry>Keine Systemmeldungen anzeigen</entry>
+
+          <entry></entry>
+
+          <entry>nosystem</entry>
+
+          <entry>Default: System-Meldungen (des &name-icinga;-Prozesses) anzeigen</entry>
+        </row>
+
+        <row>
+          <entry>oldestfirst</entry>
+
+          <entry>Sortierreihenfolge umdrehen</entry>
+
+          <entry></entry>
+
+          <entry>oldestfirst</entry>
+
+          <entry>Default: aktuelles Einträge zuerst anzeigen</entry>
+        </row>
+
+        <row>
+          <entry>performance_data</entry>
+
+          <entry>Die als Performance-Daten zu sendende Zeichenkette</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>persistent</entry>
+
+          <entry>Der Kommentar ist persistent, wenn diese Option gesetzt ist</entry>
+
+          <entry></entry>
+
+          <entry>persistent</entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>plugin_output</entry>
+
+          <entry>Die als Plugin-Output zu sendende Zeichenkette</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>Die Länge ist begrenzt durch den Wert von MAX_INPUT_LENGTH (festgelegt während des Compile-Vorgangs)</entry>
+        </row>
+
+        <row>
+          <entry>plugin_state</entry>
+
+          <entry>Zustand des Plugins festlegen</entry>
+
+          <entry>0=OK; 1=Warning; 2=Critical; 3=Unknown</entry>
+
+          <entry>plugin_state=2</entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>ptc</entry>
+
+          <entry>Der Befehl wird an abhängige Hosts propagiert</entry>
+
+          <entry></entry>
+
+          <entry>ptc</entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>report</entry>
+
+          <entry>Report erzeugen</entry>
+
+          <entry></entry>
+
+          <entry>report</entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>report_type</entry>
+
+          <entry>Reporttyp auswählen</entry>
+
+          <entry>hostgroups; servicegroups; hosts; services</entry>
+
+          <entry>report_type=hostgroups</entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>rpttimeperiod</entry>
+
+          <entry>Angeben eines Zeitfensters, die für den Availability-Bericht benutzt wird</entry>
+
+          <entry>Eins der definierten Zeitfenster</entry>
+
+          <entry></entry>
+
+          <entry>Benutzen Sie den Kurznamen der Zeitfenster-Definition</entry>
+        </row>
+
+        <row>
+          <entry>sched_dly</entry>
+
+          <entry>Befehlsausführung um n Minuten verzögern</entry>
+
+          <entry>&gt;= 0</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>sday</entry>
+
+          <entry>Start des maßgeschneiderten Zeitfensters (Tag)</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>send_notification</entry>
+
+          <entry>Eine Benachrichtigung fur die Bestatigung senden</entry>
+
+          <entry></entry>
+
+          <entry>send_notification</entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>service</entry>
+
+          <entry>Alle oder einen bestimmten Service auswählen, der angezeigt werden soll</entry>
+
+          <entry>all; &lt;service description&gt;</entry>
+
+          <entry>service=PING</entry>
+
+          <entry>Spezielle Zeichen im Namen müssen kodiert werden ("urlencoded", z.B. "%20" statt einen Leerzeichens)</entry>
+        </row>
+
+        <row>
+          <entry>servicefilter</entry>
+
+          <entry>Nur Service selektieren, deren Beschreibung auf das angegebene Muster passt</entry>
+
+          <entry></entry>
+
+          <entry>servicefilter=Current; servicefilter=[PL]</entry>
+
+          <entry>Das Muster ist abhängig von Gros-/Kleinschreibung. Reguläre Ausdrucke scheinen zu funktionieren</entry>
+        </row>
+
+        <row>
+          <entry>servicegroup</entry>
+
+          <entry>Alle oder eine bestimmte Servicegruppe auswählen, deren Hosts und Services angezeigt werden sollen</entry>
+
+          <entry>all; &lt;servicegroup name&gt;</entry>
+
+          <entry>servicegroup=disk</entry>
+
+          <entry>Spezielle Zeichen im Namen müssen kodiert werden ("urlencoded", z.B. "%20" statt einen Leerzeichens)</entry>
+        </row>
+
+        <row>
+          <entry>serviceprops</entry>
+
+          <entry>Alle Services auswählen, die dem angegebenen Bitmuster entsprechen. Bitte beachten Sie, dass die Services ALLE angegebenen
+          Bedingungen entsprechen müssen</entry>
+
+          <entry></entry>
+
+          <entry>serviceprops=131088 (aktive Prüfungen, die deaktiviert sind)</entry>
+
+          <entry>Ein logisches ODER der Bedingungen, die in include/cgiutils.c angegeben sind (HOST AND SERVICE FILTER PROPERTIES)</entry>
+        </row>
+
+        <row>
+          <entry>servicestates</entry>
+
+          <entry>Zustand, in dem die Services sein sollten</entry>
+
+          <entry></entry>
+
+          <entry>servicestates=56 (Services in einem Problemzustand)</entry>
+
+          <entry>Ein logisches ODER der Zustände: 8=Warning; 16=Unknown; 32=Critical; 64=OK</entry>
+        </row>
+
+        <row>
+          <entry>servicestatustypes</entry>
+
+          <entry>Zustand, in dem die Services sein sollten</entry>
+
+          <entry>1 - 31</entry>
+
+          <entry>servicestatustype=28 (services in problem state)</entry>
+
+          <entry>Ein logisches ODER der Zustände: 1=Pending; 2=OK, 4=Warning; 8=Unknown; 16=Critical</entry>
+        </row>
+
+        <row>
+          <entry>service_divisor</entry>
+
+          <entry>Wichtigkeit der Service in Relation zu Hosts</entry>
+
+          <entry>&gt;=1</entry>
+
+          <entry></entry>
+
+          <entry>Services sind 1/n so wichtig wie Hosts. Default: n=4</entry>
+        </row>
+
+        <row>
+          <entry>shour</entry>
+
+          <entry>Start des maßgeschneiderten Zeitfensters (Stunde)</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>Nur gültig fur flexible Ausfallzeiten</entry>
+        </row>
+
+        <row>
+          <entry>showscheduleddowntime</entry>
+
+          <entry>Geplante Ausfallzeiten anzeigen</entry>
+
+          <entry>yes; no</entry>
+
+          <entry></entry>
+
+          <entry>Default: yes</entry>
+        </row>
+
+        <row>
+          <entry>show_log_entries</entry>
+
+          <entry>Log-Eintrage anzeigen</entry>
+
+          <entry></entry>
+
+          <entry>show_log_entries</entry>
+
+          <entry>Default: keine Log-Einträge anzeigen</entry>
+        </row>
+
+        <row>
+          <entry>smin</entry>
+
+          <entry>Start des maßgeschneiderten Zeitfensters (Minute)</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>Nur gültig fur flexible Ausfallzeiten</entry>
+        </row>
+
+        <row>
+          <entry>smon</entry>
+
+          <entry>Start des maßgeschneiderten Zeitfensters (Monat)</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>Nur gültig fur flexible Ausfallzeiten</entry>
+        </row>
+
+        <row>
+          <entry>sortoption</entry>
+
+          <entry>Angeben der Spalte, nach der sortiert werden soll</entry>
+
+          <entry>1-n</entry>
+
+          <entry>sortoption=3</entry>
+
+          <entry>Default ist Spalte 1</entry>
+        </row>
+
+        <row>
+          <entry>sorttype</entry>
+
+          <entry>Sortierrichtung fur die Spalte, die uber "sortoption=&lt;n&gt;" angegeben wurde</entry>
+
+          <entry>1=ascending; 2=decending</entry>
+
+          <entry>sorttype=2</entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>ssec</entry>
+
+          <entry>Start des maßgeschneiderten Zeitfensters (Sekunde)</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>Nur gültig fur flexible Ausfallzeiten</entry>
+        </row>
+
+        <row>
+          <entry>standardreport</entry>
+
+          <entry>Standard-Report</entry>
+
+          <entry>1=recent alerts; 2=recent host alerts; 3=recent service alerts; 4=top host alert producers; 5=top service alert
+          producers</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>start_time</entry>
+
+          <entry>Start der festen Ausfallzeit</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>Format "MM-DD-YYYY HH:MI" (kann ggf. von Ihren Ländereinstellungen abhängen, das ist aber unklar)</entry>
+        </row>
+
+        <row>
+          <entry>statetype</entry>
+
+          <entry>Hard- und/oder Soft-states</entry>
+
+          <entry>0=Hard- und Soft-states; 1=Soft-states; 2=Hard-states</entry>
+
+          <entry>statetype=2</entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>statetypes</entry>
+
+          <entry>Hard- und/oder Soft-states</entry>
+
+          <entry>1=Soft-states; 2=Hard-states; 3=Hard- und Soft-states</entry>
+
+          <entry>statetypes=2</entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>sticky_ack</entry>
+
+          <entry>Die Bestätigung ist "sticky"</entry>
+
+          <entry></entry>
+
+          <entry>sticky_ack</entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>style</entry>
+
+          <entry>Angabe der anzuzeigenden Informationen</entry>
+
+          <entry>overview; detail; summary; grid; hostdetail</entry>
+
+          <entry></entry>
+
+          <entry>Trifft nur auf die Objekttypen "hostgroups" und "servicegroups" zu; hostdetail=host status details; detail=service status
+          details; summary=status summary; grid=status grid;</entry>
+        </row>
+
+        <row>
+          <entry>syear</entry>
+
+          <entry>Start des maßgeschneiderten Zeitfensters (Jahr)</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+
+          <entry>Nur gültig für flexible Ausfallzeiten</entry>
+        </row>
+
+        <row>
+          <entry>t1</entry>
+
+          <entry>Startpunkt eines maßgeschneiderten Zeitfensters</entry>
+
+          <entry></entry>
+
+          <entry>t1=1296109300</entry>
+
+          <entry>Unix timestamp</entry>
+        </row>
+
+        <row>
+          <entry>t2</entry>
+
+          <entry>Endpunkt eines maßgeschneiderten Zeitfensters</entry>
+
+          <entry></entry>
+
+          <entry>t2=1296189360</entry>
+
+          <entry>Unix timestamp</entry>
+        </row>
+
+        <row>
+          <entry>timeperiod</entry>
+
+          <entry>Zeitfenster, das für den "Availability report" benutzt werden soll</entry>
+
+          <entry>today; yesterday; thisweek; lastweek; thismonth; lastmonth; thisquarter; lastquarter; thisyear; lastyear; last24hours;
+          last7days; last31days; custom</entry>
+
+          <entry>timeperiod=lastmonth</entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>trigger</entry>
+
+          <entry>Die Ausfallzeit wird von der Downtime-ID &lt;n&gt; ausgelöst</entry>
+
+          <entry>Eine gültige Downtime-ID</entry>
+
+          <entry></entry>
+
+          <entry></entry>
+        </row>
+
+        <row>
+          <entry>type</entry>
+
+          <entry>Objekttyp</entry>
+
+          <entry>hosts; hostgroups; services; servicegroups; contacts; contactgroups; timeperiods; commands; hostescalations;
+          serviceescalations; hostdependencies; servicedependencies</entry>
+
+          <entry>type=hosts</entry>
+
+          <entry></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para><anchor xml:id="cgiparams_abbrev" /><emphasis role="bold">Abkürzungen, CGIs, Verweise</emphasis></para>
+
+  <para>Abkürzungen, die in der ersten Tabelle benutzt werden, Beziehungen zu CGIs- und Menüeintragen sowie Verweise auf den Source-Code in
+  &lt;icinga-core&gt;/cgis.</para>
+
+  <informaltable>
+    <tgroup cols="4">
+      <thead>
+        <row>
+          <entry align="center">Abkurzung</entry>
+
+          <entry align="center">CGI</entry>
+
+          <entry align="center">Menueintrag</entry>
+
+          <entry align="center">Source-Code</entry>
+        </row>
+      </thead>
+
+      <tbody>
+        <row>
+          <entry>avail</entry>
+
+          <entry>avail.cgi</entry>
+
+          <entry>Availability</entry>
+
+          <entry>avail.c</entry>
+        </row>
+
+        <row>
+          <entry>cmd</entry>
+
+          <entry>cmd.cgi</entry>
+
+          <entry>N/A</entry>
+
+          <entry>cmd.c</entry>
+        </row>
+
+        <row>
+          <entry>config</entry>
+
+          <entry>config.cgi</entry>
+
+          <entry>Configuration</entry>
+
+          <entry>config.c</entry>
+        </row>
+
+        <row>
+          <entry>ext</entry>
+
+          <entry>extinfo.cgi</entry>
+
+          <entry>Comments, Downtime, Process Info, Performance Info, Schedulung Info</entry>
+
+          <entry>extinfo.c</entry>
+        </row>
+
+        <row>
+          <entry>hgram</entry>
+
+          <entry>histogram.cgi</entry>
+
+          <entry>Alert Histogram</entry>
+
+          <entry>histogram.c</entry>
+        </row>
+
+        <row>
+          <entry>hist</entry>
+
+          <entry>history.cgi</entry>
+
+          <entry>Alert History</entry>
+
+          <entry>history.c</entry>
+        </row>
+
+        <row>
+          <entry>notif</entry>
+
+          <entry>notifications.cgi</entry>
+
+          <entry>Notifications</entry>
+
+          <entry>notifications.c</entry>
+        </row>
+
+        <row>
+          <entry>out</entry>
+
+          <entry>outages.cgi</entry>
+
+          <entry>Network Outages</entry>
+
+          <entry>outages.c</entry>
+        </row>
+
+        <row>
+          <entry>log</entry>
+
+          <entry>showlog.cgi</entry>
+
+          <entry>Event Log</entry>
+
+          <entry>showlog.c</entry>
+        </row>
+
+        <row>
+          <entry>status</entry>
+
+          <entry>status.cgi</entry>
+
+          <entry>Hostgroup Overview, Servicegroup Overview, Host Problems, Service Problems</entry>
+
+          <entry>status.c</entry>
+        </row>
+
+        <row>
+          <entry>map</entry>
+
+          <entry>statusmap.cgi</entry>
+
+          <entry>Status Map</entry>
+
+          <entry>statusmap.c</entry>
+        </row>
+
+        <row>
+          <entry>summary</entry>
+
+          <entry>summary.cgi</entry>
+
+          <entry>Alert Summary</entry>
+
+          <entry>summary.c</entry>
+        </row>
+
+        <row>
+          <entry>tac</entry>
+
+          <entry>tac.cgi</entry>
+
+          <entry>N/A</entry>
+
+          <entry>tac.c</entry>
+        </row>
+
+        <row>
+          <entry>trends</entry>
+
+          <entry>trends.cgi</entry>
+
+          <entry>Trends</entry>
+
+          <entry>trends.c</entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <indexterm zone="cgiparams">
+    <primary>CGIs</primary>
+
+    <secondary>Parameter</secondary>
+  </indexterm>
+</section>
