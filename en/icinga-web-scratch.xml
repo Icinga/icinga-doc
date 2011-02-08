@@ -395,6 +395,10 @@
       <para>Using OpenSuSE or SLES you can use "a2enmod rewrite" to activate the module. If that doesn't work you have to edit the file
       "/etc/sysconfig/apache2". The module "rewrite" has to be appended to the line "APACHE_MODULES=...".</para>
 
+      <para>Using Debian or Ubuntu "a2enmod rewrite" activates the module as well.</para>
+
+      <para>The httpd of RHEL / Fedora / CentOS already supports rewriting so you don't have to change anything in this regard.</para>
+
       <itemizedlist>
         <listitem>
           <para>Any htaccess enabled alias settings</para>
@@ -534,7 +538,9 @@ Alias /icinga-web /usr/local/icinga-web/pub
 
       <para>Icinga Web shows a blank page?</para>
 
-      <para>* Apache Error Logs =&gt; mod_rewrite enabled, php dependencies ok? 'make testdeps'</para>
+      <para>* Apache Error Logs =&gt; mod_rewrite enabled, php dependencies ok? 'make testdeps'. Using Debian you may find something like
+      the following: ".htaccess: Invalid command 'RewriteEngine', perhaps misspelled or defined by a module not included in the server
+      configuration"</para>
 
       <para>* .htaccess/vhost config =&gt; paths not correct?</para>
 
@@ -559,16 +565,17 @@ Alias /icinga-web /usr/local/icinga-web/pub
 
       <para><emphasis role="bold">Testing the Web:</emphasis></para>
 
-      <para><programlisting> #&gt; cd etc/tests/
- #&gt; php icingaWebTesting.php</programlisting></para>
+      <para><programlisting> $&gt; cd etc/tests/
+ $&gt; php icingaWebTesting.php</programlisting></para>
 
       <note>
-        <para>Using your root account for testing results in wrong logfile permissions in /usr/local/icinga-web/app/data/log and Icinga-Web
-        loads anymore!</para>
+        <para>If you are using your root account for testing then make sure in advance that the specified web user has a valid shell.
+        Otherwise some tests might fail. Depending on the version used you might experience wrong permissions on
+        /usr/local/icinga-web/app/data/log resulting in Icinga-Web showing "loading" coming to no end!</para>
       </note>
 
       <note>
-        <para>Remember - changing the php settings in php.ini requires an apache reload/restart!</para>
+        <para>Remember - changing the php settings in php.ini requires an Apache reload/restart!</para>
       </note>
 
       <para>* PHP Fatal error: Allowed memory size of ... bytes exhausted (tried to allocate ... bytes) =&gt; Check your php.ini (both
