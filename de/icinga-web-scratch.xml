@@ -404,6 +404,12 @@ Please check the new Apache2 configuration (etc/apache2/icinga-web.conf).</progr
       <para>Bei OpenSuSE und SLES können Sie das Modul mit "a2enmod rewrite" aktivieren. Falls das nicht funktioniert, gibt es in der Datei
       /etc/sysconfig/apache2 die Zeile "APACHE_MODULES=...", der das Modul "rewrite" hinzugefügt werden muss.</para>
 
+      <para>Bei Debian und Ubuntu können Sie das Modul ebenfalls mit "a2enmod rewrite" aktivieren.</para>
+
+      <para>Bei RHEL/Fedora/CentOS ist die Unterstützung bereits im httpd enthalten.</para>
+
+      <para></para>
+
       <para>Editieren Sie die .htaccess unter /usr/local/icinga-web/pub und ändern Sie die RewriteBase (ab Zeile 14): <programlisting> DirectoryIndex index.php
 
  Options -MultiViews -Indexes +FollowSymLinks
@@ -531,7 +537,9 @@ Alias /icinga-web /usr/local/icinga-web/pub
 
       <para>Icinga Web zeigt eine leere Seite?</para>
 
-      <para>* Apache Errors Logs =&gt; mod_rewrite enabled, PHP-Abhängigkeiten ok? 'make testdeps'</para>
+      <para>* Apache Errors Logs =&gt; mod_rewrite enabled, PHP-Abhängigkeiten ok? 'make testdeps'. Bei Debian gibt es u.a. die folgende
+      Fehlermeldung: ".htaccess: Invalid command 'RewriteEngine', perhaps misspelled or defined by a module not included in the server
+      configuration"</para>
 
       <para>Icinga Web - Login erfolgt- aber die Seite lädt und lädt...</para>
 
@@ -561,12 +569,14 @@ Alias /icinga-web /usr/local/icinga-web/pub
 
       <para><emphasis role="bold">Testing the Web: </emphasis></para>
 
-      <para><programlisting> #&gt; cd etc/tests/
- #&gt; php icingaWebTesting.php</programlisting></para>
+      <para><programlisting> $&gt; cd etc/tests/
+ $&gt; php icingaWebTesting.php</programlisting></para>
 
       <note>
-        <para>Bitte benutzen Sie nicht Ihren root- Benutzer zum Testen, Ihr Icinga-Web lädt sonst nicht mehr, da die Log-Datei unter
-        /usr/local/icinga-web/app/data/log die falschen Berechtigungen hat!</para>
+        <para>Falls Sie Ihren root- Benutzer zum Testen benutzen, dann stellen Sie vorher sicher, dass für den angegebenen Web-Benutzer eine
+        gültige Shell eingetragen ist. Anderenfalls werden verschiedene Tests fehlschlagen. Abhängig von der verwendeten Icinga-Web-Version
+        kann es sein, dass die Berechtigungen für die Dateien in /usr/local/icinga-web/app/data/log falsch gesetzt sind, so dass Icinga-Web
+        mit der Meldung "Loading" stehenbleibt.</para>
       </note>
 <para>Wenn Sie php icingaWebTesting.php als root ausführen, stellen Sie sicher, dass Ihr gewählter Webbenutzer das Privileg besitzt eine Shell (z.B. /bin/bash) auszuführen, um verschiedene Berechtigungen im Dateisystem zu testen.</para>
 
