@@ -8,6 +8,71 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>What's New in &name-icinga; &ver-icinga;</title>
 
+
+  <para><emphasis role="bold">1.3.0</emphasis></para>
+
+  <para><emphasis role="bold">&name-core;:</emphasis></para>
+
+<para>* add basic dualstacked IPv6 support with address6 as host definition attribute</para>
+<para>* add support for same host service dependencies with servicegroups</para>
+<para>* allow eventbroker modules to override sending notifications</para>
+<para>* allow empty hostgroup assignments for services as opt-in config option</para>
+<para>* fix host alias saved in resention data survived reconfiguration</para>
+<para>* performance-data handling and checking is now thread-safe so long as embedded perl is not used</para>
+<para>* fix extraneous alerts for services when host is down</para>
+<para>* fix race condition on flexible downtime commands when duration not set or zero</para>
+
+  <para><emphasis role="bold">&name-icinga; &name-idoutils;: </emphasis></para>
+
+<para>* add dbversion check in ido2db and print error to syslog in case of non-matching</para>
+<para>* only insert service and host checks when they are finally processed, increase performance by replacing insert/update with single insert</para>
+<para>* add multi valued inserts for host|service_contacts instead of single insert/update loops</para>
+<para>* do not clear host|service|scheduleddowntime status tables on core restart/reload</para>
+<para>* fix solaris, lacks asprintf</para>
+<para>* fix string escaping for backslashes in postgresql</para>
+
+
+  <para><emphasis role="bold">&name-ui;:</emphasis></para>
+
+<para>* add address6 next to address in several views</para>
+<para>* add service states to annotate with current notification number opt-in</para>
+<para>* adding "Attempt" column to host status detail list</para>
+<para>* add trend timeperiod feature to locate the next problem</para>
+<para>* add configurable http charset support (default utf-8) within the cgis</para>
+<para>* add csv export to config.cgi</para>
+<para>* fix authorized_for_read_only can execute command over the status.cgi</para>
+
+
+  <para><emphasis role="bold">&name-web;:</emphasis></para>
+
+<para>* save, edit, delete your own custom cronks (grids, portals, ...)</para>
+<para>* persistent columns, widths and sort orders</para>
+<para>* added tabslider</para>
+<para>* added simple duration field</para>
+<para>* added downtimes cronk</para>
+<para>* added filter for downtimes/acknowledgements</para>
+<para>* add customized icons for cronks menu</para>
+<para>* cronks now open with single click</para>
+<para>* move log window to LogView cronk</para>
+<para>* added refresh, filters and principals for logview cronk</para>
+<para>* change default endtime for scheduled service/host downtime events to (current time) + 2 hours</para>
+<para>* new tabs only opened if tab with the same name does not exist</para>
+<para>* add address6 to hosts view</para>
+
+
+  <para><emphasis role="bold">&name-docs;:</emphasis></para>
+
+<para>* better hints for customized configuration and new section "Upgrade Icinga-web"</para>
+<para>* add hints/list about parameters of the cgis</para>
+<para>* add quickstart guide for freebsd and idoutils</para>
+<para>* add address6 directive to host object definition</para>
+<para>* fix object inheritance - only one level for important values</para>
+<para>* fix icinga-web requires mod_rewrite by default</para>
+
+
+<para><link xlink:href="https://wiki.icinga.org/display/Dev/Releases">More at Icinga Wiki</link></para>
+
+
   <para><emphasis role="bold">1.2.1</emphasis></para>
 
   <para><emphasis role="bold">&name-core;:</emphasis></para>
