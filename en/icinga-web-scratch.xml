@@ -18,8 +18,8 @@
   the module architecture, please check out the development wiki of Icinga Web: <link
   xlink:href="https://dev.icinga.org/projects/icinga-development/wiki#24-Icinga-Web">&name-icingawiki;</link></para>
 
-  <para>This installation guide describes the installation of &name-web; with &name-mysql; as used database. &name-web; also supports
-  &name-oracle; and &name-postgres; as used database backends.</para>
+  <para>This installation guide describes the installation of &name-web; with &name-mysql; as underlying database. &name-web; also supports
+  &name-oracle; and &name-postgres; as database backends.</para>
 
   <orderedlist>
     <listitem>
@@ -126,16 +126,16 @@
 
       <programlisting> #&gt; make install-apache-config</programlisting>
 
-      <para>If you don't need an alias, you can alternatively use the old behavior setting a symlink instead: <programlisting> #&gt; make install-javascript</programlisting></para>
+      <para>If you don't need an alias, you can alternatively use the old behaviour setting a symlink instead: <programlisting> #&gt; make install-javascript</programlisting></para>
 
       <para>Make reports after install:</para>
 
       <programlisting> #&gt; make install-done
 
- Installation if icinga-web succeeded.
+ Installation of icinga-web succeeded.
  Please check the new Apache2 configuration (etc/apache2/icinga-web.conf).</programlisting>
 
-      <para>Other usefull target: <programlisting> #&gt; make icinga-reset-password</programlisting> Reset password for any account on
+      <para>Other useful target: <programlisting> #&gt; make icinga-reset-password</programlisting> Reset password for any account on
       icinga-web.</para>
     </listitem>
 
@@ -407,7 +407,7 @@
 
       <para>Edit your .htaccess in /usr/local/icinga-web/pub:</para>
 
-      <para>At line 14, change the RewriteBase direction to suit your needs:<programlisting> DirectoryIndex index.php
+      <para>At line 14, change the RewriteBase direction to suit to your needs:<programlisting> DirectoryIndex index.php
 
  Options -MultiViews -Indexes +FollowSymLinks
  Order allow,deny
@@ -452,7 +452,7 @@
  #&lt;/IfModule&gt;</programlisting></para>
 
       <para>Go to the webservers configuration directory. Look if the created config by <emphasis role="bold">make
-      install-apache-config</emphasis> suit to your configuration. Or create new aliases (maybe in /etc/apache2/conf.d/icinga-web.conf)
+      install-apache-config</emphasis> suits to your configuration. Or create new aliases (maybe in /etc/apache2/conf.d/icinga-web.conf)
       :</para>
 
       <para><programlisting>#&gt; cat /etc/apache2/icinga-web.conf
@@ -607,7 +607,7 @@ Alias /icinga-web /usr/local/icinga-web/pub
       <para>* Empty Icinga Web? =&gt; If mod_rewrite is enabled and 'index.php' appears in the request url the portal does not work. Try to
       remove the index.php from your url and everything should work</para>
 
-      <para>* Login possible but Icinga Web keeps loading data....</para>
+      <para>* Login possible but Icinga Web keeps loading data...</para>
 
       <para>* Request failed, Ressource /icinga-web/appkit/ext/application State could not be loaded - is the url correct? =&gt; mod_rewrite
       enabled ?</para>
