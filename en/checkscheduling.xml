@@ -23,11 +23,11 @@
 
   <itemizedlist>
     <listitem>
-      <para><emphasis>normal_check_interval</emphasis></para>
+      <para><emphasis>check_interval</emphasis></para>
     </listitem>
 
     <listitem>
-      <para><emphasis>retry_check_interval</emphasis></para>
+      <para><emphasis>retry_interval</emphasis></para>
     </listitem>
 
     <listitem>
@@ -361,29 +361,29 @@
   <para><anchor xml:id="checkscheduling-service_options" /><emphasis role="bold">Service Definition Options That Affect
   Scheduling</emphasis></para>
 
-  <para>Each service definition contains a <emphasis>normal_check_interval</emphasis> and
-  <emphasis>retry_check_interval</emphasis> option. Hopefully this will clarify what these two options do, how they relate to the
+  <para>Each service definition contains a <emphasis>check_interval</emphasis> and
+  <emphasis>retry_interval</emphasis> option. Hopefully this will clarify what these two options do, how they relate to the
   <emphasis>max_check_attempts</emphasis> option in the service definition, and how they affect the scheduling of the
   service.</para>
 
-  <para>First off, the <emphasis>normal_check_interval</emphasis> option is the interval at which the service is checked under
+  <para>First off, the <emphasis>check_interval</emphasis> option is the interval at which the service is checked under
   "normal" circumstances. "Normal" circumstances mean whenever the service is in an OK state or when its in a <link
   linkend="statetypes">hard</link> non-OK state.</para>
 
   <para>When a service first changes from an OK state to a non-OK state, &name-icinga; gives you the ability to temporarily slow
   down or speed up the interval at which subsequent checks of that service will occur. When the service first changes state,
   &name-icinga; will perform up to <emphasis>max_check_attempts</emphasis>-1 retries of the service check before it decides its a
-  real problem. While the service is being retried, it is scheduled according to the <emphasis>retry_check_interval</emphasis>
-  option, which might be faster or slower than the normal <emphasis>normal_check_interval</emphasis> option. While the service is
+  real problem. While the service is being retried, it is scheduled according to the <emphasis>retry_interval</emphasis>
+  option, which might be faster or slower than the normal <emphasis>check_interval</emphasis> option. While the service is
   being rechecked (up to <emphasis>max_check_attempts</emphasis>-1 times), the service is in a <link linkend="statetypes">soft
   state</link>. If the service is rechecked <emphasis>max_check_attempts</emphasis>-1 times and it is still in a non-OK state, the
   service turns into a <link linkend="statetypes">hard state</link> and is subsequently rescheduled at the normal rate specified
   by the <emphasis>check_interval</emphasis> option.</para>
 
   <para>On a side note, it you specify a value of 1 for the <emphasis>max_check_attempts</emphasis> option, the service will not
-  ever be checked at the interval specified by the <emphasis>retry_check_interval</emphasis> option. Instead, it immediately turns
+  ever be checked at the interval specified by the <emphasis>retry_interval</emphasis> option. Instead, it immediately turns
   into a <link linkend="statetypes">hard state</link> and is subsequently rescheduled at the rate specified by the
-  <emphasis>normal_check_interval</emphasis> option.</para>
+  <emphasis>check_interval</emphasis> option.</para>
 
   <para><emphasis role="bold">TODO</emphasis></para>
 

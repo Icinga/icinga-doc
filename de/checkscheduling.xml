@@ -23,11 +23,11 @@
 
   <itemizedlist>
     <listitem>
-      <para><emphasis>normal_check_interval</emphasis></para>
+      <para><emphasis>check_interval</emphasis></para>
     </listitem>
 
     <listitem>
-      <para><emphasis>retry_check_interval</emphasis></para>
+      <para><emphasis>retry_interval</emphasis></para>
     </listitem>
 
     <listitem>
@@ -369,12 +369,12 @@
   <para><anchor xml:id="checkscheduling-service_options" /><emphasis role="bold">Service-Definitionsoptionen, die die Planung
   beeinflussen</emphasis></para>
 
-  <para>Jede Service-Definition enthält eine <emphasis>normal_check_interval</emphasis>- und eine
-  <emphasis>retry_check_interval</emphasis>-Option. Hoffentlich klärt das Folgende, was diese zwei Optionen tun, wie sie mit der
+  <para>Jede Service-Definition enthält eine <emphasis>check_interval</emphasis>- und eine
+  <emphasis>retry_interval</emphasis>-Option. Hoffentlich klärt das Folgende, was diese zwei Optionen tun, wie sie mit der
   <emphasis>max_check_attempts</emphasis>-Option in der Service-Definition zusammenwirken, und wie sie die Planung des Service
   beeinflussen.</para>
 
-  <para>Zuallererst gibt die <emphasis>normal_check_interval</emphasis>-Option das Intervall an, in dem der Service unter
+  <para>Zuallererst gibt die <emphasis>check_interval</emphasis>-Option das Intervall an, in dem der Service unter
   "normalen" Umständen geprüft wird. "Normale" Umstände bedeutet, wenn sich der Service in einem "OK"- oder einem <link
   linkend="statetypes">harten</link> nicht-OK-Zustand befindet.</para>
 
@@ -382,17 +382,17 @@
   das Intervall temporär zu verkleinern oder zu vergrößern, in dem nachfolgende Prüfungen für diesen Service ausgeführt werden.
   Wenn der Service-Zustand das erste Mal wechselt, wird &name-icinga; bis zu <emphasis>max_check_attempts</emphasis>-1 Versuche
   durchführen, bevor es entscheidet, dass es sich um ein richtiges Problem handelt. Während die Prüfungen wiederholt werden,
-  werden sie gemäß der <emphasis>retry_check_interval</emphasis>-Option neu eingeplant, was schneller oder langsam als die
-  <emphasis>normal_check_interval</emphasis>-Option ist. Während der Service erneut geprüft wird (bis zu
+  werden sie gemäß der <emphasis>retry_interval</emphasis>-Option neu eingeplant, was schneller oder langsam als die
+  <emphasis>check_interval</emphasis>-Option ist. Während der Service erneut geprüft wird (bis zu
   <emphasis>max_check_attempts</emphasis>-1 mal), ist der Service in einem <link linkend="statetypes">soft-Zustand</link>. Wenn
   der Service <emphasis>max_check_attempts</emphasis>-1 mal geprüft wurde und sich immer noch in einem nicht-OK-Zustand befindet,
   wird der Service in einen <link linkend="statetypes">hard-Zustand</link> wechseln und wird nachfolgend wieder mit der normalen
   Rate eingeplant, die in der <emphasis>check_interval</emphasis>-Option festgelegt ist.</para>
 
   <para>Als Randbemerkung, wenn Sie einen Wert von 1 für die <emphasis>max_check_attempts</emphasis>-Option definieren, wird der
-  Service niemals mit dem Intervall geprüft, das in der <emphasis>retry_check_interval</emphasis>-Option angegeben ist. Statt
+  Service niemals mit dem Intervall geprüft, das in der <emphasis>retry_interval</emphasis>-Option angegeben ist. Statt
   dessen wird er sofort in einen <link linkend="statetypes">hard-Zustand</link> wechseln und anschließend mit dem in der Option
-  <emphasis>normal_check_interval</emphasis> festgelegten Intervall geprüft.</para>
+  <emphasis>check_interval</emphasis> festgelegten Intervall geprüft.</para>
 
   <para><emphasis role="bold">TODO</emphasis></para>
 
