@@ -122,7 +122,7 @@
   <programlisting> #&gt; su - icinga
  $&gt; cd /usr/src/icinga-nsca/src
  $&gt; ./nsca -c ../sample-config/nsca.cfg
- $&gt; echo -e "A\tB\tC\D\n" | ./send_nsca -H localhost -c ../sample-config/send_nsca.cfg
+ $&gt; echo -e "A\tB\tC\tD\n" | ./send_nsca -H localhost -c ../sample-config/send_nsca.cfg
  $&gt; exit</programlisting>
 
   <para>This should return the message "1 data packet(s) sent to host successfully.". In the first place it only means that send_nsca and
@@ -231,7 +231,7 @@
   <para>Now you can rerun the test on the remote system(s)</para>
 
   <programlisting> #&gt; su - icinga
- $&gt; echo -e "A\tB\tC\D\n" | /usr/local/icinga/bin/send_nsca -H &lt;&name-icinga; server&gt; -c /usr/local/icinga/etc/send_nsca.cfg</programlisting>
+ $&gt; echo -e "A\tB\tC\tD\n" | /usr/local/icinga/bin/send_nsca -H &lt;&name-icinga; server&gt; -c /usr/local/icinga/etc/send_nsca.cfg</programlisting>
 
   <para>This as well should return the message "1 data packet(s) sent to host successfully." and there should be warnings in icinga.log on
   the &name-icinga; server similar to the ones mentioned above. If there are no messages check the setting of <link
