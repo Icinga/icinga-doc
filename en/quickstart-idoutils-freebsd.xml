@@ -103,7 +103,7 @@
 
   <para>Please update your ports before doing so.</para>
 
-  <programlisting> #&gt; cd /usr/ports/devel/libtool22/ &amp;&amp; make all install clean
+  <programlisting> #&gt; cd /usr/ports/devel/libtool/ &amp;&amp; make all install clean
  #&gt; cd /usr/ports/graphics/jpeg &amp;&amp; make all install clean
  #&gt; cd /usr/ports/graphics/png &amp;&amp; make all install clean
  #&gt; cd /usr/ports/graphics/gd &amp;&amp; make all install clean</programlisting>
@@ -172,7 +172,9 @@
 
   <para>Run the &name-icinga; configure script. You will get help by using the --help flag.</para>
 
-  <programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils CPPFLAGS=-I/usr/local/include</programlisting>
+  <programlisting> #&gt; ./configure --with-command-group=icinga-cmd \
+    --enable-idoutils CPPFLAGS=-I/usr/local/include \
+    --with-dbi-lib=/usr/local/lib --with-dbi-inc=/usr/local/include</programlisting>
 
   <important>
     <para>Appending <emphasis>CPPFLAGS=-I/usr/local/include</emphasis> is important for the &name-idoutils; and the broker modul
@@ -181,7 +183,9 @@
 
   <para><emphasis role="bold">With SSL-encryption:</emphasis></para>
 
-  <programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils --enable-ssl CPPFLAGS=-I/usr/local/include</programlisting>
+  <programlisting> #&gt; ./configure --with-command-group=icinga-cmd \
+    --enable-idoutils --enable-ssl CPPFLAGS=-I/usr/local/include \
+    --with-dbi-lib=/usr/local/lib --with-dbi-inc=/usr/local/include</programlisting>
 
   <para>Compile the &name-icinga; source code. There is a separate option for &name-idoutils; (<emphasis>make idoutils</emphasis>) if you
   just want to recompile this module. To see possible option just call "make".</para>
