@@ -113,7 +113,7 @@
     -c /usr/src/icinga-nrpe/sample-config/nrpe.cfg -d
  #&gt; /usr/local/icinga/libexec/check_nrpe -H 127.0.0.1 -n</programlisting>This should return the version of &name-nrpe;. If you receive
   the message "CHECK_NRPE: Error receiving data from daemon" the monitoring server was not found in <filename>nrpe.cfg</filename> (directive
-  allowed_hosts).</para>
+  allowed_hosts). Multiple IP addresses are separated by commas.</para>
 
   <para>Stop the daemon<programlisting> #&gt; kill `ps -ef | grep "sample-config/nrpe.cfg" | grep -v grep | awk '{print $2}'`</programlisting></para>
 
@@ -144,7 +144,7 @@
  #&gt; ./configure     # please use the same options as on the &name-icinga; server 
  #&gt; make all</programlisting></para>
         </note>Edit the config file <filename>sample-config/nrpe.cfg</filename> and change the setting of "allowed_hosts=&lt;IP address&gt;"
-      to the IP address of your &name-icinga; server.</para>
+      to the IP address of your &name-icinga; server. Multiple IP addresses are separated by commas.</para>
     </listitem>
   </itemizedlist>
 
@@ -237,7 +237,7 @@
 
           <para>Consider editing the config file <filename>nrpe.xinetd</filename> in the <filename>sample-config</filename> folder and
           replacing the address following &lt;only_from&gt; by the IP address of the &name-icinga; server (where check_nrpe will be
-          running).</para>
+          running). Multiple IP addresses are separated by spaces.</para>
 
           <para>Add entries to your <filename>/etc/hosts.allow</filename> and <filename>/etc/hosts.deny</filename> file to enable TCP
           wrapper protection for the nrpe service. This is optional, although highly recommended. Copy the file to your xinetd folder and
@@ -277,7 +277,7 @@
 
             <listitem>
               <para>the <emphasis>allowed_hosts</emphasis> directive in the file <filename>/usr/local/icinga/etc/nrpe.cfg</filename>
-              contains an entry for the IP address of the &name-icinga; server</para>
+              contains an entry for the IP address of the &name-icinga; server. Multiple IP addresses are separated by commas.</para>
             </listitem>
           </itemizedlist></para>
       </listitem>
@@ -295,7 +295,7 @@
 
             <listitem>
               <para>the <emphasis>only_from</emphasis> directive in the file <filename>/etc/xinetd.d/nrpe</filename> contains an entry for
-              the IP address of the &name-icinga; server</para>
+              the IP address of the &name-icinga; server. Multiple IP addresses are separated by spaces.</para>
             </listitem>
 
             <listitem>

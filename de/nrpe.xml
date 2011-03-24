@@ -120,7 +120,7 @@
     -c /usr/src/icinga-nrpe/sample-config/nrpe.cfg -d
  #&gt; /usr/local/icinga/libexec/check_nrpe -H 127.0.0.1 -n</programlisting>Dies sollte die Versionsnummer von &name-nrpe; zurückliefern.
   Wenn Sie die Meldung "CHECK_NRPE: Error receiving data from daemon" erhalten, wurde der angegebene Host nicht in der Datei
-  <filename>nrpe.cfg</filename> gefunden (Direktive allowed_hosts).</para>
+  <filename>nrpe.cfg</filename> gefunden (Direktive allowed_hosts). Mehrere IP-Adressen werden durch Komma getrennt.</para>
 
   <para>Stoppen Sie den Daemon-Prozess<programlisting> #&gt; kill `ps -ef | grep "sample-config/nrpe.cfg" | grep -v grep | awk '{print $2}'`</programlisting></para>
 
@@ -152,7 +152,7 @@
  #&gt; ./configure     # bitte benutzen Sie die gleichen Optionen wie auf dem &name-icinga;-Server 
  #&gt; make all</programlisting></para>
         </note>Editieren Sie die Konfigurationsdatei <filename>sample-config/nrpe.cfg</filename> und ändern Sie die Einstellung von
-      "allowed_hosts=&lt;IP address&gt;" auf die IP-Adresse Ihres &name-icinga;-Servers.</para>
+      "allowed_hosts=&lt;IP address&gt;" auf die IP-Adresse Ihres &name-icinga;-Servers. Mehrere IP-Adressen werden durch Komma getrennt.</para>
     </listitem>
   </itemizedlist>
 
@@ -247,7 +247,7 @@
 
           <para>Editieren Sie die Konfigurationsdatei <filename>nrpe.xinetd</filename> im Verzeichnis <filename>sample-config</filename> und
           ersetzen Sie die Adresse hinter &lt;only_from&gt; durch die IP-Adresse des &name-icinga;-Servers (wo check_nrpe laufen
-          wird).</para>
+          wird). Mehrere IP-Adressen werden durch Leerzeichen voneinander getrennt.</para>
 
           <para>Fügen Sie Einträge in <filename>/etc/hosts.allow</filename> und <filename>/etc/hosts.deny</filename> ein, um
           TCP-wrapper-protection für den nrpe-Service zu aktivieren. Dies ist optional, wird aber wärmstens empfohlen. Kopieren Sie die
@@ -287,7 +287,8 @@
 
             <listitem>
               <para>prüfen Sie, ob die Direktive <emphasis>allowed_hosts</emphasis> in der Datei
-              <filename>/usr/local/icinga/etc/nrpe.cfg</filename> einen Eintrag für die IP-Adresse des &name-icinga;-Servers enthält</para>
+              <filename>/usr/local/icinga/etc/nrpe.cfg</filename> einen Eintrag für die IP-Adresse des &name-icinga;-Servers enthält.
+              Mehrere IP-Adressen werden durch Komma getrennt</para>
             </listitem>
           </itemizedlist></para>
       </listitem>
@@ -306,7 +307,7 @@
 
             <listitem>
               <para>die Direktive <emphasis>only_from</emphasis> directive in der Datei <filename>/etc/xinetd.d/nrpe</filename> einen
-              Eintrag für die IP-Adresse des &name-icinga;-Servers enthält</para>
+              Eintrag für die IP-Adresse des &name-icinga;-Servers enthält. Mehrere IP-Adressen werden durch Leerzeichen voneinander getrennt</para>
             </listitem>
 
             <listitem>
