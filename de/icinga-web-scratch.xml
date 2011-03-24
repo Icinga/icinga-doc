@@ -13,7 +13,7 @@
   <para>Das neue &name-web; wird aktuell sehr stark weiterentwickelt, sodass sich diese Dokumentation unter Umständen noch ändern kann/wird.
   Falls Sie eine detaillierte Installationsanleitung benötigen, konsultieren Sie bitte doc/INSTALL aus dem Source-Paket. Mehr Informationen
   über die gesamte Architektur können Sie auf unserer Webseite nachlesen: <link
-  xlink:href="http://www.icinga.org/architecture/">&url-icinga;architecture/</link> Falls Sie mehr über das &name-web; Development und die
+  xlink:href="http://www.icinga.org/architecture/">&url-icinga;architecture/</link> Falls Sie mehr über das &name-web;-Development und die
   Modularchitektur wissen wollen, verfolgen Sie bitte stetig aktualisierte Einträge im Development-Wiki von &name-web;: <link
   xlink:href="https://dev.icinga.org/projects/icinga-development/wiki#24-Icinga-Web">&name-icingawiki;</link></para>
 
@@ -32,7 +32,7 @@
       <programlisting> #&gt; apt-get install php5 php5-cli php-pear php5-xmlrpc php5-xsl php5-pdo php5-ldap php5-gd php5-mysql</programlisting>
 
       <note>
-        <para>Für &name-ubuntu; gibt es kein php5-pdo- Packet, die benötigten PDO- Extensions sind in den Paketen php5 und php5-mysql
+        <para>Für &name-ubuntu; gibt es kein php5-pdo-Paket, die benötigten PDO-Extensions sind in den Paketen php5 und php5-mysql
         enthalten!</para>
       </note>
 
@@ -78,7 +78,7 @@
 
       <para>Wechseln Sie in das Verzeichnis:</para>
 
-      <programlisting> #&gt; cd icinga-web</programlisting>
+      <programlisting> #&gt; cd icinga-web-&ver-icingaweb;</programlisting>
 
       <para>&name-web; stellt verschiedene configure Optionen zur Verfügung z.B.</para>
 
@@ -383,9 +383,9 @@ Please check the new Apache2 configuration (etc/apache2/icinga-web.conf).</progr
 
       <programlisting> #&gt; rm -rf app/cache/config/*.php</programlisting>
 
-      <para>oder</para>
+      <para>oder /path/to/clearcache.sh</para>
 
-      <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
+      <programlisting> #&gt; /usr/local/icinga-web/bin/clearcache.sh</programlisting>
     </listitem>
 
     <listitem>
@@ -396,21 +396,21 @@ Please check the new Apache2 configuration (etc/apache2/icinga-web.conf).</progr
       <itemizedlist>
         <listitem>
           <para>mod_rewrite, vielleicht müssen Sie einen Verweis erstellen:</para>
+          <para><programlisting> #&gt; ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load</programlisting></para>
+
+          <para>Bei OpenSuSE und SLES können Sie das Modul mit "a2enmod rewrite" aktivieren. Falls das nicht funktioniert, gibt es in der Datei
+          /etc/sysconfig/apache2 die Zeile "APACHE_MODULES=...", der das Modul "rewrite" hinzugefügt werden muss.</para>
+
+          <para>Bei Debian und Ubuntu können Sie das Modul ebenfalls mit "a2enmod rewrite" aktivieren.</para>
+
+          <para>Bei RHEL/Fedora/CentOS ist die Unterstützung bereits im httpd enthalten.</para>
+
         </listitem>
-      </itemizedlist>
 
-      <para><programlisting> #&gt; ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load</programlisting></para>
+        <listitem>
+          <para>Über htaccess aktivierte Einstellungen</para>
 
-      <para>Bei OpenSuSE und SLES können Sie das Modul mit "a2enmod rewrite" aktivieren. Falls das nicht funktioniert, gibt es in der Datei
-      /etc/sysconfig/apache2 die Zeile "APACHE_MODULES=...", der das Modul "rewrite" hinzugefügt werden muss.</para>
-
-      <para>Bei Debian und Ubuntu können Sie das Modul ebenfalls mit "a2enmod rewrite" aktivieren.</para>
-
-      <para>Bei RHEL/Fedora/CentOS ist die Unterstützung bereits im httpd enthalten.</para>
-
-      <para></para>
-
-      <para>Editieren Sie die .htaccess unter /usr/local/icinga-web/pub und ändern Sie die RewriteBase (ab Zeile 14): <programlisting> DirectoryIndex index.php
+          <para>Editieren Sie die .htaccess unter /usr/local/icinga-web/pub und ändern Sie die RewriteBase (ab Zeile 14): <programlisting> DirectoryIndex index.php
 
  Options -MultiViews -Indexes +FollowSymLinks
  Order allow,deny
@@ -453,6 +453,8 @@ Please check the new Apache2 configuration (etc/apache2/icinga-web.conf).</progr
  #       AuthUserFile /path/to/my/htusers
  #       require valid-user
  #&lt;/IfModule&gt;</programlisting></para>
+        </listitem>
+      </itemizedlist> 
 
       <para>Bitte wechseln Sie in das Konfigurationsverzeichnis Ihres Webservers. Überprüfen Sie, ob die, mit <emphasis role="bold">make
       install-apache-config</emphasis> erstellte Konfiguration Ihren Anforderungen entspricht, oder erstellen Sie noch einen neuen Alias im
@@ -480,9 +482,9 @@ Alias /icinga-web /usr/local/icinga-web/pub
 
       <para><programlisting> #&gt; rm /usr/local/icinga-web/app/cache/config/*.php</programlisting></para>
 
-      <para>oder</para>
+      <para>oder /path/to/clearcache.sh</para>
 
-      <programlisting>#&gt; /icinga-web/bin/clearcache.sh</programlisting>
+      <programlisting>#&gt; /usr/local/icinga-web/bin/clearcache.sh</programlisting>
 
       <para>und starten Sie den Webserver neu:</para>
 
@@ -533,7 +535,7 @@ Alias /icinga-web /usr/local/icinga-web/pub
 
       <para>* Löschen Sie den Konfigurationscache in app/cache/config/*.php</para>
 
-      <programlisting>/icinga-web/bin/clearcache.sh</programlisting>
+      <programlisting>/usr/local/icinga-web/bin/clearcache.sh</programlisting>
 
       <para>Icinga Web zeigt eine leere Seite?</para>
 
