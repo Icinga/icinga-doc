@@ -125,14 +125,13 @@
     <listitem>
       <para><emphasis role="bold">Schedule regular host checks</emphasis> . Scheduling regular checks of hosts can actually help
       performance in &name-icinga;. This is due to the way the <link linkend="cachedchecks">cached check logic</link> works (see
-      below). Prior to &name-icinga; 3, regularly scheduled host checks used to result in a big performance hit. This is no longer
-      the case, as host checks are run in parallel - just like service checks. To schedule regular checks of a host, set the
+      below). Host checks are run in parallel - just like service checks. To schedule regular checks of a host, set the
       <emphasis>check_interval</emphasis> directive in the <link linkend="objectdefinitions-host">host definition</link> to
       something greater than 0.</para>
     </listitem>
 
     <listitem>
-      <para><emphasis role="bold">Enable cached host checks</emphasis> . Beginning in &name-icinga; 3, on-demand host checks can
+      <para><emphasis role="bold">Enable cached host checks</emphasis> . On-demand host checks can
       benefit from caching. On-demand host checks are performed whenever &name-icinga; detects a service state change. These
       on-demand checks are executed because &name-icinga; wants to know if the host associated with the service changed state. By
       enabling cached host checks, you can optimize performance. In some cases, &name-icinga; may be able to used the old/cached
@@ -142,7 +141,7 @@
     </listitem>
 
     <listitem>
-      <para><emphasis role="bold">Don't use agressive host checking</emphasis> . Unless you're having problems with &name-icinga;
+      <para><emphasis role="bold">Don't use agressive host checking</emphasis>. Unless you're having problems with &name-icinga;
       recognizing host recoveries, We would recommend not enabling the <link
       linkend="configmain-use_agressive_host_checking">use_aggressive_host_checking</link> option. With this option turned off
       host checks will execute much faster, resulting in speedier processing of service check results. However, host recoveries
