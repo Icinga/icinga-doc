@@ -38,13 +38,13 @@
   <para>The upside of this type of plugin architecture is that you can monitor just about anything you can think of. If you can automate the
   process of checking something, you can monitor it with &name-icinga;. There are already a lot of plugins that have been created in order
   to monitor basic resources such as processor load, disk usage, ping rates, etc. If you want to monitor something else, take a look at the
-  documentation on <link linkend="pluginapi">writing plugins</link> and roll your own. Its simple!</para>
+  documentation on <link linkend="pluginapi">writing plugins</link> and roll your own. It's simple!</para>
 
   <para>The downside to this type of plugin architecture is the fact that &name-icinga; has absolutely no idea what it is that you're
-  monitoring. You could be monitoring network traffic statistics, data error rates, room temperate, CPU voltage, fan speed, processor load,
-  disk space, or the ability of your super-fantastic toaster to properly brown your bread in the morning... &name-icinga; doesn't understand
-  the specifics of what's being monitored - it just tracks changes in the <emphasis>state</emphasis> of those resources. Only the plugins
-  themselves know exactly what they're monitoring and how to perform the actual checks.</para>
+  monitoring. You could be monitoring network traffic statistics, data error rates, room temperature, CPU voltage, fan speed, processor
+  load, disk space, or the ability of your super-fantastic toaster to properly brown your bread in the morning... &name-icinga; doesn't
+  understand the specifics of what's being monitored - it just tracks changes in the <emphasis>state</emphasis> of those resources. Only the
+  plugins themselves know exactly what they're monitoring and how to perform the actual checks.</para>
 
   <para><emphasis role="bold">What Plugins Are Available?</emphasis></para>
 
@@ -103,10 +103,10 @@
 
   <important>
     <para>Always execute the plugin using the &name-icinga; user because some plugins will create temporary files. If you're testing plugins
-    with another user then the &name-icinga; user may not have the permissions to overwrite existing files.</para>
+    with another user then the &name-icinga; user may not have the permissions to overwrite existing files later on.</para>
 
-    <para>Don't call the plugin using relative paths (i.e <emphasis>./check_test_plugin</emphasis>). Always use absolute paths because
-    that's the way &name-icinga; does it (i.e. <emphasis>&url-icinga-libexec;/check_test_plugin</emphasis>).</para>
+    <para>When testing it don't call the plugin using relative paths (i.e <emphasis>./check_test_plugin</emphasis>). Always use absolute
+    paths because that's the way &name-icinga; does it (i.e. <emphasis>&url-icinga-libexec;/check_test_plugin</emphasis>).</para>
   </important>
 
   <para><emphasis role="bold">Integrating a new plugin</emphasis></para>
@@ -119,8 +119,7 @@
   file config.log for errors regarding missing (devel) packages before issuing the actual compile command (mostly "make" or "make all"). In
   most cases the plugin is copied to the plugins directory (i.e. <emphasis>&url-icinga-libexec;</emphasis>) during "make install".</para>
 
-  <para>Sometimes you have to alter the plugin to reflect your environment (i.e. path to "utils.pm", ...). Normally you have to copy it
-  manually to the plugins directory (i.e. <emphasis>&url-icinga-libexec;</emphasis>).</para>
+  <para>Sometimes you have to alter the plugin to reflect your environment (i.e. path to "utils.pm", ...).</para>
 
   <para>After the installation of the plugin call it from the command line using the appropriate options. If this works then you can
   integrate it into &name-icinga;.</para>
@@ -156,6 +155,195 @@
   <programlisting> check_command check_sample!argument1!parameter!5</programlisting>
 
   <para>As you can see the IP-address is not specified because it is taken from the host definition.</para>
+
+  <anchor xml:id="plugins-hints2" />
+
+  <para>In addition to the <link linkend="macros">macros</link> already mentioned there are a lot of others making life easier. Please
+  note:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>All &name-icinga; macros use all upper case and are enclosed in dollar signs ($)</para>
+    </listitem>
+
+    <listitem>
+      <para>Most macros are only valid for some types of commands. If you try to use a macro for a type of command for which it is not valid
+      you'll get a dollar sign ($) instead of the expected value</para>
+    </listitem>
+
+    <listitem>
+      <para>The <link linkend="macrolist-user">$USERn$</link> macros can be used to "hide" sensitive information like passwords because
+      these values are not shown in the web interface. Additionally they can be used to specify special characters which otherwise may lead
+      to problems</para>
+    </listitem>
+
+    <listitem>
+      <para>Native non-english speaking persons should note that <link linkend="macrolist-hostaddress">$HOSTADDRESS$</link> contains double
+      "D"</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis role="bold">Threshold and ranges</emphasis></para>
+
+  <para>Some plugins support specifying ranges for the warning and critical values. Please check the documentation if this is the case for
+  the plugin you want to use. The following is an excerpt from the <link
+  xlink:href="http://nagiosplug.sourceforge.net/developer-guidelines.html#THRESHOLDFORMAT">developer guidelines</link>:</para>
+
+  <para>A range is defined as a start and end point (inclusive) on a numeric scale (possibly negative or positive infinity).</para>
+
+  <para>A threshold is a range with an alert level (either warning or critical).</para>
+
+  <para>The theory is that the plugin will do some sort of check which returns back a numerical value, or metric, which is then compared to
+  the warning and critical thresholds.</para>
+
+  <para>This is the generalised format for ranges:</para>
+
+  <para><code>[@]start:end</code></para>
+
+  <para>Notes:</para>
+
+  <orderedlist>
+    <listitem>
+      <para>start = end if :end is not specified</para>
+    </listitem>
+
+    <listitem>
+      <para>start and ":" is not required if start=0</para>
+    </listitem>
+
+    <listitem>
+      <para>if range is of format "start:" and end is not specified, assume end is infinity</para>
+    </listitem>
+
+    <listitem>
+      <para>to specify negative infinity, use "~"</para>
+    </listitem>
+
+    <listitem>
+      <para>alert is raised if metric is outside start and end range (inclusive of endpoints)</para>
+    </listitem>
+
+    <listitem>
+      <para>if range starts with "@", then alert if inside this range (inclusive of endpoints)</para>
+    </listitem>
+  </orderedlist>
+
+  <note>
+    <para>Not all plugins are coded to expect ranges in this format yet.</para>
+  </note>
+
+  <para>Example ranges<informaltable>
+      <tgroup cols="2">
+        <tbody>
+          <row>
+            <entry><emphasis role="bold">Range definition</emphasis></entry>
+
+            <entry><emphasis role="bold">Generate an alert if x...</emphasis></entry>
+          </row>
+
+          <row>
+            <entry>10</entry>
+
+            <entry>&lt; 0 or &gt; 10, (outside the range of {0 .. 10})</entry>
+          </row>
+
+          <row>
+            <entry>10:</entry>
+
+            <entry>&lt; 10, (outside {10 .. infinity})</entry>
+          </row>
+
+          <row>
+            <entry>~:10</entry>
+
+            <entry>&gt; 10, (outside the range of {-infinity .. 10})</entry>
+          </row>
+
+          <row>
+            <entry>10:20</entry>
+
+            <entry>&lt; 10 or &gt; 20, (outside the range of {10 .. 20})</entry>
+          </row>
+
+          <row>
+            <entry>@10:20</entry>
+
+            <entry>&lt;= 10 and &gt;= 20, (inside the range of {10 .. 20})</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable></para>
+
+  <para>Command line examples<informaltable>
+      <tgroup cols="2">
+        <tbody>
+          <row>
+            <entry><emphasis role="bold">Command line</emphasis></entry>
+
+            <entry><emphasis role="bold">Meaning</emphasis></entry>
+          </row>
+
+          <row>
+            <entry>check_stuff -w10 -c20</entry>
+
+            <entry>Critical if "stuff" is over 20, else warn if over 10 (will be critical if "stuff" is less than 0)</entry>
+          </row>
+
+          <row>
+            <entry>check_stuff -w~:10 -c~:20</entry>
+
+            <entry>Same as above. Negative "stuff" is OK</entry>
+          </row>
+
+          <row>
+            <entry>check_stuff -w10: -c20</entry>
+
+            <entry>Critical if "stuff" is over 20, else warn if "stuff" is below 10 (will be critical if "stuff" is less than 0)</entry>
+          </row>
+
+          <row>
+            <entry>check_stuff -c1:</entry>
+
+            <entry>Critical if "stuff" is less than 1</entry>
+          </row>
+
+          <row>
+            <entry>check_stuff -w~:0 -c10</entry>
+
+            <entry>Critical if "stuff" is above 10; Warn if "stuff" is above zero</entry>
+          </row>
+
+          <row>
+            <entry>check_stuff -c5:6</entry>
+
+            <entry>The only noncritical range is 5:6</entry>
+          </row>
+
+          <row>
+            <entry>check_stuff -c@10:20</entry>
+
+            <entry>Critical if "stuff" is 10 to 20 <emphasis role="bold">[1]</emphasis></entry>
+          </row>
+
+          <row>
+            <entry>check_stuff -w20:30 -c10:40</entry>
+
+            <entry>Warning if "stuff" below 20 or above 30, critical if "stuff" is below 10 or above 40 <emphasis
+            role="bold">[2]</emphasis></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable></para>
+
+  <note>
+    <para>[1]: The command line of the developer guidelines seems to be lacking "@" otherwise the meaning would be wrong (and there wouldn't
+    be an example for the @ notation)</para>
+
+    <para>[2]: Please note that the last example shows nested ranges. This might not even work with every plugin supporting ranges. It was
+    tested using check_snmp.</para>
+  </note>
+
+  <para><emphasis role="bold">Activating the definition</emphasis></para>
 
   <para>Check the configuration using "/etc/init.d/icinga show-errors" and resolve any errors before issuing "/etc/init.d/icinga restart".
   Wait until the object is checked and look at the status details. There might be errors.</para>
@@ -198,5 +386,11 @@
     <primary>Plugins</primary>
 
     <secondary>Integrating a new plugin</secondary>
+  </indexterm>
+
+  <indexterm zone="plugins-hints">
+    <primary>Plugins</primary>
+
+    <secondary>Plugins and macros</secondary>
   </indexterm>
 </section>

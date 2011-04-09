@@ -28,11 +28,11 @@
 
   <para><emphasis role="bold">Plugins als eine Abstraktionsschicht</emphasis></para>
 
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="../images/plugins.png" format="PNG"></imagedata>
-    </imageobject>
-  </mediaobject>
+  <para><inlinemediaobject>
+      <imageobject>
+        <imagedata fileref="../images/plugins.png" format="PNG"></imagedata>
+      </imageobject>
+    </inlinemediaobject></para>
 
   <para>Plugins arbeiten wie eine Abstraktionsschicht zwischen der Überwachungslogik im &name-icinga;-Dämon und den eigentlichen Services
   und Hosts, die überwacht werden.</para>
@@ -117,15 +117,14 @@
 
   <para>Wenn Sie ein neues Plugin integrieren möchten, dann lesen Sie die Dokumentation (falls vorhanden). Sie könnte wichtige Informationen
   über die Voraussetzungen wie z.B. zusätzliche Pakete oder (Perl-) Module enthalten, wie das Plugin zu installieren ist bzw.
-  distributionsabhängige Hinweise. </para>
+  distributionsabhängige Hinweise.</para>
 
   <para>Manchmal müssen Sie das Plugin kompilieren, wobei Sie den Vorgang durch den Aufruf von "./configure" mit oder ohne Optionen
   vorbereiten. Bitte prüfen Sie die Datei config.log auf mögliche Fehler zu fehlenden (devel-)Paketen vor dem Aufuf des eigentlichen
   Compile-Vorgangs (meistens "make" oder "make all"). In den meisten Fällen wird das Plugin durch den Aufruf von "make install" in das
   Plugins-Verzeichnis (z.B. <emphasis>&url-icinga-libexec;</emphasis>) kopiert.</para>
 
-  <para>Manchmal müssen Sie das Plugin auf Ihre Umgebung anpassen (z.B. den Pfad zu "utils.pm"). Normalerweise ist das Plugin manuell in das
-  Plugins-Verzeichnis (z.B. <emphasis>&url-icinga-libexec;</emphasis>) zu kopieren.</para>
+  <para>Manchmal müssen Sie das Plugin auf Ihre Umgebung anpassen (z.B. den Pfad zu "utils.pm").</para>
 
   <para>Nach der Installation des Plugins rufen Sie es mit den nötigen Optionen von der Kommandozeile aus auf. Wenn dies funktioniert,
   können Sie es in &name-icinga; integrieren.</para>
@@ -163,6 +162,199 @@
   <programlisting> check_command check_sample!argument1!parameter!5</programlisting>
 
   <para>Wie Sie sehen, wird die IP-Adresse nicht angegeben, denn sie wird aus der Host-Definition genommen.</para>
+
+  <anchor xml:id="plugins-hints2" />
+
+  <para>Neben den bereits genannten gibt es eine Vielzahl von <link linkend="macros">Makros</link>, die die Arbeit erleichtern. Dabei gibt
+  es einige Dinge anzumerken:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Alle &name-icinga;-Makros benutzen Großbuchstaben und werden in Dollarzeichen ($) eingeschlossen</para>
+    </listitem>
+
+    <listitem>
+      <para>Die meisten Makros haben einen bestimmten Gültigkeitsbereich. Wenn Sie versuchen, ein Makro außerhalb dieses Bereichs zu nutzen,
+      dann werden Sie statt des erwarteten Wertes lediglich ein Dollarzeichen ($) sehen</para>
+    </listitem>
+
+    <listitem>
+      <para>Die <link linkend="macrolist-user">$USERn$</link>-Makros können genutzt werden, um sensible Informationen wie z.B. Passwörter zu
+      "verstecken", denn die Werte werden im Gegensatz zu den anderen Makros nicht im Web-Interface angezeigt. Außerdem können sie verwendet
+      werden, um bestimmte Sonderzeichen nutzen zu können, die anderenfalls zu Schwierigkeiten führen</para>
+    </listitem>
+
+    <listitem>
+      <para>Nachdem es bei deutschsprachigen Personen oftmals zu Problemen kommt: <link linkend="macrolist-hostaddress">$HOSTADDRESS$</link>
+      wird mit zwei "D" geschrieben</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis role="bold">Schwellwert und Bereiche</emphasis></para>
+
+  <para>Einige Plugins unterstützen Bereichsangaben für die Warn- und Kritisch-Werte. Bitte überprüfen Sie die Dokumentation, ob das der
+  Fall für das Plugin ist, das Sie benutzen möchten. Das Folgende ist ein Auszug der (englischsprachigen) <link
+  xlink:href="http://nagiosplug.sourceforge.net/developer-guidelines.html#THRESHOLDFORMAT">Entwickler-Richtlinien</link>:</para>
+
+  <para>Ein Bereich ist definiert als ein Start- und Endpunkt (inklusive) auf einer numerischen Skala (ggf. bis zu +/--Unendlich).</para>
+
+  <para>Ein Schwellwert ist ein Bereich mit einem Alarmpegel (entweder Warning oder Critical).</para>
+
+  <para>In der Theorie wird das Plugin eine Prüfung durchführen, die einen numerischen Wert oder eine Metrik zurückliefert, die dann mit den
+  Warning- und Critical-Schwellwerten verglichen wird</para>
+
+  <para>Dies ist das generelle Format für Bereiche:</para>
+
+  <para><code>[@]start:end</code></para>
+
+  <para>Anmerkungen:</para>
+
+  <orderedlist>
+    <listitem>
+      <para>start = end, falls :end nicht angegeben ist</para>
+    </listitem>
+
+    <listitem>
+      <para>start und ":" ist nicht erforderlich, wenn start=0</para>
+    </listitem>
+
+    <listitem>
+      <para>falls der Bereich vom Format "start:" ist und end nicht angegeben wurde, dann ist das Ende als +Unendlich anzunehmen</para>
+    </listitem>
+
+    <listitem>
+      <para>um -Unendlich anzugeben, benutzen Sie "~"</para>
+    </listitem>
+
+    <listitem>
+      <para>Alarm erfolgt, wenn die Metrik außerhalb des durch Start- und Ende angegebenen Bereichs liegt (Endpunkte gehören
+      <emphasis>nicht</emphasis> zum Bereich)</para>
+    </listitem>
+
+    <listitem>
+      <para>wenn der Bereich mit "@" beginnt, dann ist zu alamieren, wenn die Metrik innerhalb des Bereichs liegt (einschließlich der
+      Endpunkte)</para>
+    </listitem>
+  </orderedlist>
+
+  <note>
+    <para>Nicht alle Plugin unterstützen (bisher) die Bereichsnotation.</para>
+  </note>
+
+  <para>Beispiele<informaltable>
+      <tgroup cols="2">
+        <tbody>
+          <row>
+            <entry><emphasis role="bold">Bereichsdefinition</emphasis></entry>
+
+            <entry><emphasis role="bold">Alarm, wenn x...</emphasis></entry>
+          </row>
+
+          <row>
+            <entry>10</entry>
+
+            <entry>&lt; 0 oder &gt; 10, (außerhalb des Bereichs von {0 .. 10})</entry>
+          </row>
+
+          <row>
+            <entry>10:</entry>
+
+            <entry>&lt; 10, (außerhalb {10 .. Unendlich})</entry>
+          </row>
+
+          <row>
+            <entry>~:10</entry>
+
+            <entry>&gt; 10, (außerhalb des Bereichs von {-Unendlich .. 10})</entry>
+          </row>
+
+          <row>
+            <entry>10:20</entry>
+
+            <entry>&lt; 10 oder &gt; 20, (außerhalb des Bereichs von {10 .. 20})</entry>
+          </row>
+
+          <row>
+            <entry>@10:20</entry>
+
+            <entry>&lt;= 10 and &gt;= 20, (im Bereich von {10 .. 20})</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable></para>
+
+  <para>Kommandozeilenbeispiele<informaltable>
+      <tgroup cols="2">
+        <tbody>
+          <row>
+            <entry><emphasis role="bold">Kommandozeile</emphasis></entry>
+
+            <entry><emphasis role="bold">Erklärung</emphasis></entry>
+          </row>
+
+          <row>
+            <entry>check_stuff -w10 -c20</entry>
+
+            <entry>kritisch, wenn "stuff" größer als 20, andernfalls warnen, wenn größer als 10 (außerdem kritisch, wenn "stuff" kleiner als
+            0)</entry>
+          </row>
+
+          <row>
+            <entry>check_stuff -w~:10 -c~:20</entry>
+
+            <entry>das Gleiche wie oben, allerdings ist "stuff" kleiner als Null OK!</entry>
+          </row>
+
+          <row>
+            <entry>check_stuff -w10: -c20</entry>
+
+            <entry>kritisch, wenn "stuff" größer als 20, andernfalls warnen, wenn"stuff" kleiner als 10 (außerdem kritisch, wenn "stuff"
+            kleiner als 0)</entry>
+          </row>
+
+          <row>
+            <entry>check_stuff -c1:</entry>
+
+            <entry>kritisch, wenn "stuff" kleiner als 1</entry>
+          </row>
+
+          <row>
+            <entry>check_stuff -w~:0 -c10</entry>
+
+            <entry>kritisch, wenn "stuff" größer als 10; warnen, wenn "stuff" größer als 0</entry>
+          </row>
+
+          <row>
+            <entry>check_stuff -c5:6</entry>
+
+            <entry>der einzig nicht-kritische Bereich ist 5:6</entry>
+          </row>
+
+          <row>
+            <entry>check_stuff -c@10:20</entry>
+
+            <entry>kritisch, wenn "stuff" zwischen 10 und 20 <emphasis role="bold">[1]</emphasis></entry>
+          </row>
+
+          <row>
+            <entry>check_stuff -w20:30 -c10:40</entry>
+
+            <entry>warnen, wenn "stuff" kleiner als 20 oder grßer als 30, kritisch, wenn "stuff" kleiner als 10 oder größer als 40 <emphasis
+            role="bold">[2]</emphasis></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable></para>
+
+  <note>
+    <para>[1]: Bei der Kommandozeile in den Entwickler-Richtlinien fehlt "@", anderenfalls wäre die Erklärung falsch (und es gäbe kein
+    Beispiel für die @-Notation)</para>
+
+    <para>[2]: Bitte beachten Sie, dass das letzte Beispiel geschachtelte Bereiche benutzt. Das mag nicht bei allen Plugins funktionieren,
+    die Bereichsangaben unterstützen. Es wurde mit check_snmp getestet</para>
+  </note>
+
+  <para><emphasis role="bold">Aktivieren der Definition</emphasis></para>
 
   <para>Prüfen Sie die Konfiguration mit "/etc/init.d/icinga show-errors" und bereinigen Sie eventuelle Fehler, bevor Sie &name-icinga; mit
   "/etc/init.d/icinga restart" neu starten. Warten Sie, bis das Objekt geprüft wurde und betrachten Sie die Status-Details. Vielleicht gibt
@@ -212,5 +404,11 @@
     <primary>Plugins</primary>
 
     <secondary>Integration eines neuen Plugins</secondary>
+  </indexterm>
+
+  <indexterm zone="plugins-hints">
+    <primary>Plugins</primary>
+
+    <secondary>Plugins und Makros</secondary>
   </indexterm>
 </section>
