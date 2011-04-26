@@ -11,8 +11,8 @@
   <para><emphasis role="bold">Where are my config files? </emphasis></para>
 
   <para>We're trying to reduce global configuration files. Icinga operates in modules, every module has its own configuration. This is also
-  done with the libraries. If you need information about the cronk library, take a look into app/modules/Cronks/lib (for js things
-  app/modules/Cronks/lib/js).</para>
+  done with the libraries. If you need information about the cronk library, take a look into <filename>app/modules/Cronks/lib</filename>
+  (for js things <filename>app/modules/Cronks/lib/js</filename>).</para>
 
   <para>A sample module looks like this: <programlisting>tree -d -L 1 app/modules/AppKit/
 app/modules/AppKit/
@@ -44,7 +44,7 @@ app/modules/AppKit/
     </listitem>
 
     <listitem>
-      <para><link linkend="configweb-auth">Authentification</link></para>
+      <para><link linkend="configweb-auth">Authentication</link></para>
     </listitem>
 
     <listitem>
@@ -66,15 +66,15 @@ app/modules/AppKit/
 
   <itemizedlist>
     <listitem>
-      <para>database.xml - holds the connection information for your icinga-web database</para>
+      <para><filename>database.xml</filename> - holds the connection information for your icinga-web database</para>
     </listitem>
 
     <listitem>
-      <para>factories.xml - holds the config for your web session, e.g. the session_cookie_lifetime-parameter</para>
+      <para><filename>factories.xml</filename> - holds the config for your web session, e.g. the session_cookie_lifetime-parameter</para>
     </listitem>
 
     <listitem>
-      <para>icinga.xml - holds the config for your Icinga Web root-dir, Web path.</para>
+      <para><filename>icinga.xml</filename> - holds the config for your Icinga Web root-dir, Web path.</para>
     </listitem>
   </itemizedlist>
 
@@ -83,20 +83,19 @@ app/modules/AppKit/
   <para>Example: change the session_cookie_lifetime</para>
 
   <para>The Session Lifetime is the time in seconds until the Icinga Web session expires. It can be configured on global level in the file
-  app/config/factories.xml.</para>
+  <filename>app/config/factories.xml</filename>.</para>
 
   <programlisting>#&gt; vi app/config/factories.xml
-
 &lt;ae:parameter name="session_cookie_lifetime"&gt;3600&lt;/ae:parameter&gt;</programlisting>
 
-  <para>Please make your customised settings in factories.site.xml.</para>
+  <para>Please make your customised settings in <filename>factories.site.xml</filename>.</para>
 
   <para><anchor xml:id="configweb-timezone" /> <emphasis role="bold">Change &name-web; timezone</emphasis></para>
 
   <para>Example: Change the default timezone for &name-web;</para>
 
   <para>If the time(zone) in &name-web; differs from your system time(zone), please check the date.timezone entry in
-  app/modules/AppKit/config/module.xml (e.g. 'Europe/Berlin')</para>
+  <filename>app/modules/AppKit/config/module.xml</filename> (e.g. 'Europe/Berlin')</para>
 
   <programlisting>#&gt; vi app/modules/AppKit/config/module.xml
 &lt;ae:parameter name="date.timezone"&gt;GMT&lt;/ae:parameter&gt;</programlisting>
@@ -107,11 +106,11 @@ app/modules/AppKit/
 
   <para>Here lives the framework spun around: Authentication, Menus and so on.</para>
 
-  <para><anchor xml:id="configweb-auth" /> <emphasis role="bold">Authentification</emphasis></para>
+  <para><anchor xml:id="configweb-auth" /> <emphasis role="bold">Authentication</emphasis></para>
 
-  <para>Example: Ldap authentication</para>
+  <para>Example: LDAP authentication</para>
 
-  <para>Look into app/modules/AppKit/config/auth.xml.</para>
+  <para>Look into <filename>app/modules/AppKit/config/auth.xml</filename>.</para>
 
   <para>There is a provider like this:</para>
 
@@ -137,13 +136,13 @@ app/modules/AppKit/
             &lt;ae:parameter name="ldap_filter_user"&gt;&lt;![CDATA[(&amp;(sAmAccountName=__USERNAME__))]]&gt;&lt;/ae:parameter&gt;
         &lt;/ae:parameter&gt;</programlisting>
 
-  <para>The auth.xml holds the documentation for the global config. The ldap authentication should be done with some basic ldap
-  knowledge.</para>
+  <para>The <filename>auth.xml</filename> holds the documentation for the global config. The LDAP authentication should be done with some
+  basic LDAP knowledge.</para>
 
   <para>You can also duplicate the provider to provide more authentication bases. You can split the auth into authentication and authorising
   parts if you want. If you have new providers, please share them and let the auth database grow!</para>
 
-  <para>Please store your custom authentication configuration in auth.site.xml !</para>
+  <para>Please store your custom authentication configuration in <filename>auth.site.xml</filename> !</para>
 
   <para><emphasis role="bold">app/modules/Cronks</emphasis></para>
 
@@ -160,11 +159,12 @@ autoload.xml  config_handlers.xml  cronks.xml  module.xml  validators.xml</progr
 
   <itemizedlist>
     <listitem>
-      <para>module.xml - to define new categories in which the cronks appears, module.xml holds all the information</para>
+      <para><filename>module.xml</filename> - to define new categories in which the cronks appears, module.xml holds all the
+      information</para>
     </listitem>
 
     <listitem>
-      <para>cronks.xml - to make new cronks accessible or define new iframe cronks</para>
+      <para><filename>cronks.xml</filename> - to make new cronks accessible or define new iframe cronks</para>
     </listitem>
   </itemizedlist>
 
@@ -177,7 +177,8 @@ autoload.xml  config_handlers.xml  cronks.xml  module.xml  validators.xml</progr
 
   <para>Example: Change the IcingaApi connection settings</para>
 
-  <para>Take a look at app/modules/Web/config/icinga-io.xml, here you'll find the default settings for the IcingaApi connection.</para>
+  <para>Take a look at <filename>app/modules/Web/config/icinga-io.xml</filename>, here you'll find the default settings for the IcingaApi
+  connection.</para>
 
   <programlisting>#&gt; vi app/modules/Web/config/icinga-io.xml
 
@@ -198,7 +199,8 @@ autoload.xml  config_handlers.xml  cronks.xml  module.xml  validators.xml</progr
                                         &lt;ae:parameter name="config_table_prefix"&gt;icinga_&lt;/ae:parameter&gt;
                                         &lt;!-- ###END_CONNECTION_IDO### --&gt;</programlisting>
 
-  <para>If you want to change these settings to your needs, please edit app/modules/Web/config/icinga-io.site.xml.</para>
+  <para>If you want to change these settings to your needs, please edit
+  <filename>app/modules/Web/config/icinga-io.site.xml</filename>.</para>
 
   <para><anchor xml:id="configweb-customconfig" /> <emphasis role="bold">Customised Configuration</emphasis></para>
 
@@ -222,47 +224,48 @@ autoload.xml  config_handlers.xml  cronks.xml  module.xml  validators.xml</progr
 
       <para>These files already exist and you're free to use them for your specific settings:</para>
 
-      <para>app/modules/Cronks/config/cronks.site.xml</para>
+      <para><filename>app/modules/Cronks/config/cronks.site.xml</filename></para>
 
-      <para>app/modules/Web/config/icinga-io.site.xml</para>
+      <para><filename>app/modules/Web/config/icinga-io.site.xml</filename></para>
 
-      <para>app/modules/AppKit/config/auth.site.xml</para>
+      <para><filename>app/modules/AppKit/config/auth.site.xml</filename></para>
 
-      <para>app/config/icinga.site.xml</para>
+      <para><filename>app/config/icinga.site.xml</filename></para>
 
-      <para>app/config/databases.site.xml</para>
+      <para><filename>app/config/databases.site.xml</filename></para>
 
-      <para>app/config/settings.site.xml</para>
+      <para><filename>app/config/settings.site.xml</filename></para>
 
-      <para>app/config/translation.site.xml</para>
+      <para><filename>app/config/translation.site.xml</filename></para>
 
-      <para>app/config/factories.site.xml</para>
+      <para><filename>app/config/factories.site.xml</filename></para>
 
       <para></para>
 
-      <para>The templates for Grids and TO's (tactical overview) are allowed to copy to *.site.xml in there location:</para>
+      <para>The templates for Grids and TO's (tactical overview) are allowed to copy to *.site.xml in their location:</para>
 
       <para><emphasis role="bold">The Grids:</emphasis></para>
 
-      <para>app/modules/Cronks/data/xml/grid/icinga-hostgroup-summary-template.xml</para>
+      <para><filename>app/modules/Cronks/data/xml/grid/icinga-hostgroup-summary-template.xml</filename></para>
 
-      <para>app/modules/Cronks/data/xml/grid/icinga-host-history-template.xml</para>
+      <para><filename>app/modules/Cronks/data/xml/grid/icinga-host-history-template.xml</filename></para>
 
-      <para>app/modules/Cronks/data/xml/grid/icinga-host-template.xml</para>
+      <para><filename>app/modules/Cronks/data/xml/grid/icinga-host-template.xml</filename></para>
 
       <para>...</para>
 
       <para><emphasis role="bold">and the TO's:</emphasis></para>
 
-      <para>app/modules/Cronks/data/xml/to/icinga-tactical-overview-groupstat.xml</para>
+      <para><filename>app/modules/Cronks/data/xml/to/icinga-tactical-overview-groupstat.xml</filename></para>
 
-      <para>app/modules/Cronks/data/xml/to/icinga-tactical-overview-presets.xml</para>
+      <para><filename>app/modules/Cronks/data/xml/to/icinga-tactical-overview-presets.xml</filename></para>
 
-      <para>app/modules/Cronks/data/xml/to/icinga-tactical-overview-template-charts.xml</para>
+      <para><filename>app/modules/Cronks/data/xml/to/icinga-tactical-overview-template-charts.xml</filename></para>
 
       <para>...</para>
 
-      <para>Please edit app/modules/Cronks/config/cronks.xml and add your created *.site.xml to make the new cronks accessible.</para>
+      <para>Please edit <filename>app/modules/Cronks/config/cronks.xml</filename> and add your created *.site.xml to make the new cronks
+      accessible.</para>
 
       <para></para>
     </listitem>
@@ -276,28 +279,50 @@ autoload.xml  config_handlers.xml  cronks.xml  module.xml  validators.xml</progr
 
   <para>or</para>
 
-  <programlisting>#&gt; /icinga-web/bin/clearcache.sh</programlisting>
+  <programlisting> #&gt; /usr/local/icinga-web/bin/clearcache.sh</programlisting>
 
   <para>You need more information? Please have a look at our <link
   xlink:href="https://dev.icinga.org/projects/icinga-development/wiki/">Development Wiki.</link></para>
 
   <indexterm zone="icinga-web-config">
     <primary>&name-web;</primary>
+
     <secondary>Configuration Options</secondary>
   </indexterm>
 
   <indexterm zone="icinga-web-config">
     <primary>&name-web;</primary>
+
     <secondary>Customised Configuration</secondary>
   </indexterm>
 
   <indexterm zone="configweb-session-lifetime">
     <primary>&name-web;</primary>
-    <secondary>Session Lifetime</secondary>
+
+    <secondary>Session Cookie Lifetime</secondary>
+  </indexterm>
+
+  <indexterm zone="configweb-module">
+    <primary>&name-web;</primary>
+
+    <secondary>Module configuration</secondary>
+  </indexterm>
+
+  <indexterm zone="configweb-auth">
+    <primary>&name-web;</primary>
+
+    <secondary>Authentication</secondary>
+  </indexterm>
+
+  <indexterm zone="configweb-api">
+    <primary>&name-web;</primary>
+
+    <secondary>&name-api; connection</secondary>
   </indexterm>
 
   <indexterm zone="configweb-timezone">
     <primary>&name-web;</primary>
-    <secondary>Timezone</secondary>
+
+    <secondary>Change default timezone</secondary>
   </indexterm>
 </section>

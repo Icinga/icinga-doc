@@ -12,7 +12,7 @@
 
   <para>Wir versuchen die Verwendung von globalen Konfigurationsdateien zu minimieren. &name-web; arbeitet mit Modulen und jedes Modul hat
   seine eigene Konfiguration. Das gilt ebenfalls für die Libraries. Wenn Sie weitere Informationen zu den Cronk Libraries benötigen, schauen
-  Sie in app/modules/Cronks/lib (für js in app/modules/Cronks/lib/js).</para>
+  Sie in <filename>app/modules/Cronks/lib</filename> (für js in <filename>app/modules/Cronks/lib/js</filename>).</para>
 
   <para>Ein Modul von &name-web; ist wie folgt aufgebaut: <programlisting>tree -d -L 1 app/modules/AppKit/
 app/modules/AppKit/
@@ -67,15 +67,15 @@ app/modules/AppKit/
 
   <itemizedlist>
     <listitem>
-      <para>database.xml - enthält die Verbindungseinstellungen für Ihre &name-web; Datenbank</para>
+      <para><filename>database.xml</filename> - enthält die Verbindungseinstellungen für Ihre &name-web; Datenbank</para>
     </listitem>
 
     <listitem>
-      <para>factories.xml - enthält die Konfiguration für Ihre Web Session</para>
+      <para><filename>factories.xml</filename> - enthält die Konfiguration für Ihre Web Session</para>
     </listitem>
 
     <listitem>
-      <para>icinga.xml - enthält die Konfiguration für Ihr &name-web; ROOT-Verzeichnis und den Icinga Web Pfad.</para>
+      <para><filename>icinga.xml</filename> - enthält die Konfiguration für Ihr &name-web; ROOT-Verzeichnis und den Icinga Web Pfad.</para>
     </listitem>
   </itemizedlist>
 
@@ -83,21 +83,21 @@ app/modules/AppKit/
 
   <para>Beispiel: Ändern von session_cookie_lifetime</para>
 
-  <para>Die Session Lifetime ist die Zeit in Sekunden bis die &name-web;- Session abläuft. Sie kann auf globaler Ebene in der Datei
-  app/config/factories.xml konfiguriert werden.</para>
+  <para>Die Session Lifetime ist die Zeit in Sekunden, bis die &name-web;- Session abläuft. Sie kann auf globaler Ebene in der Datei
+  <filename>app/config/factories.xml</filename> konfiguriert werden.</para>
 
   <programlisting>#&gt; vi app/config/factories.xml
 
 &lt;ae:parameter name="session_cookie_lifetime"&gt;3600&lt;ae:parameter&gt;</programlisting>
 
-  <para>Wenn Sie die session_cookie_lifetime ändern möchten, editieren Sie bitte app/config/factories.site.xml</para>
+  <para>Wenn Sie die session_cookie_lifetime ändern möchten, editieren Sie bitte <filename>app/config/factories.site.xml</filename></para>
 
   <para><anchor xml:id="configweb-timezone" /> <emphasis role="bold">&name-web;- Zeitzone</emphasis></para>
 
   <para>Beispiel: Ändern der Zeitzone für &name-web;</para>
 
-  <para>Wenn die Zeitzone von &name-web; von Ihrer lokalen Zeitzone abweicht, überprüfen Sie bitte den Parameter date.timezone in
-  app/modules/AppKit/config/module.xml (z.B. 'Europe/Berlin')</para>
+  <para>Wenn die Zeitzone von &name-web; von Ihrer lokalen Zeitzone abweicht, überprüfen Sie bitte den Parameter "date.timezone" in
+  <filename>app/modules/AppKit/config/module.xml</filename> (z.B. 'Europe/Berlin')</para>
 
   <programlisting>#&gt; vi app/modules/AppKit/config/module.xml
 &lt;ae:parameter name="date.timezone"&gt;GMT&lt;/ae:parameter&gt;</programlisting>
@@ -106,13 +106,13 @@ app/modules/AppKit/
 
   <para><emphasis role="bold">app/modules/AppKit</emphasis></para>
 
-  <para>Hier "lebt" das Framwork: Authentifikation, Menüs und weiteres.</para>
+  <para>Hier "lebt" das Framework: Authentifikation, Menüs und weiteres.</para>
 
   <para><anchor xml:id="configweb-auth" /> <emphasis role="bold">Authentifizierung</emphasis></para>
 
-  <para>Beispiel: LDAP- Authentifizierung</para>
+  <para>Beispiel: LDAP-Authentifizierung</para>
 
-  <para>Öffnen Sie app/modules/AppKit/config/auth.xml.</para>
+  <para>Öffnen Sie <filename>app/modules/AppKit/config/auth.xml</filename>.</para>
 
   <para>Ein Anbieter ist wie folgt aufgebaut:</para>
 
@@ -138,34 +138,34 @@ app/modules/AppKit/
             &lt;ae:parameter name="ldap_filter_user"&gt;&lt;![CDATA[(&amp;(sAmAccountName=__USERNAME__))]]&gt;&lt;/ae:parameter&gt;
         &lt;/ae:parameter&gt;</programlisting>
 
-  <para>Die auth.xml hält die Dokumentation für die globale Konfiguration. Die LDAP-Authentifizierung sollte mit einigen grundlegenden LDAP-
-  Kenntnissen möglich sein.</para>
+  <para>Die <filename>auth.xml</filename> hält die Dokumentation für die globale Konfiguration. Die LDAP-Authentifizierung sollte mit
+  einigen grundlegenden LDAP- Kenntnissen möglich sein.</para>
 
-  <para>Sie können die Anbieter duplizieren und so Ihre Authentifizierung- Basis vergrössern.</para>
+  <para>Sie können die Anbieter duplizieren und so Ihre Authentifizierungs-Basis vergrössern.</para>
 
-  <para>Bitte speichern Sie Ihre Konfiguration in auth.site.xml !</para>
+  <para>Bitte speichern Sie Ihre Konfiguration in <filename>auth.site.xml</filename> !</para>
 
   <para><emphasis role="bold">app/modules/Cronks</emphasis></para>
 
-  <para>Alle Cronks werden hier implementiert: Grids und iframes. Sie sind einfache HTML-Seiten die ExtJS Komponenten Code enthalten. Wenn
+  <para>Alle Cronks werden hier implementiert: Grids und iframes. Sie sind einfache HTML-Seiten, die ExtJS Komponenten Code enthalten. Wenn
   Sie einen neuen Cronk hinzufügen möchten, wird dieses Modul Ihr Freund sein.</para>
 
   <para>Wenn Sie einen neuen Cronk entwickeln möchten, schauen Sie hier: <link
   xlink:href="https://dev.icinga.org/projects/icinga-development/wiki/HowToDevelopCronks">HowToDevelopCronks</link></para>
 
-  <para>Die Konfiguration können Sie im Cronk- Module ändern:</para>
+  <para>Die Konfiguration können Sie im Cronk-Module ändern:</para>
 
   <programlisting>#&gt; ls app/modules/Cronks/config
 autoload.xml  config_handlers.xml  cronks.xml  module.xml  validators.xml</programlisting>
 
   <itemizedlist>
     <listitem>
-      <para>module.xml - definieren von neuen Kategorien in denen die Cronks erscheinen, die Datei module.xml hält dazu alle
-      Informationen</para>
+      <para><filename>module.xml</filename> - definieren von neuen Kategorien in denen die Cronks erscheinen, die Datei
+      <filename>module.xml</filename> hält dazu alle Informationen</para>
     </listitem>
 
     <listitem>
-      <para>cronks.xml - um auf neue Cronks zu zugreifen, definieren von neuen iframe Cronks</para>
+      <para><filename>cronks.xml</filename> - um auf neue Cronks zu zugreifen, definieren von neuen iframe Cronks</para>
 
       <para></para>
     </listitem>
@@ -174,7 +174,7 @@ autoload.xml  config_handlers.xml  cronks.xml  module.xml  validators.xml</progr
   <para><emphasis role="bold">app/modules/Web</emphasis></para>
 
   <para>Oder besser:<emphasis role="bold"> Icinga</emphasis>. Dieses Modul enthält alle Icinga relevanten Dinge wie IcingaAPI2Json und die
-  Status Informationen. Auch die &name-api;- Verbindungseinstellungen werden hier konfiguriert.</para>
+  Statusinformationen. Auch die &name-api;-Verbindungseinstellungen werden hier konfiguriert.</para>
 
   <para></para>
 
@@ -182,7 +182,8 @@ autoload.xml  config_handlers.xml  cronks.xml  module.xml  validators.xml</progr
 
   <para>Beispiel: Ändern der &name-api;-Verbindungseinstellungen</para>
 
-  <para>Sehen Sie in app/modules/Web/config/icinga-io.xml, hier finden Sie die standard Einstellungen für die &name-api;- Verbindung.</para>
+  <para>Sehen Sie in <filename>app/modules/Web/config/icinga-io.xml</filename>, hier finden Sie die Standardeinstellungen für die
+  &name-api;-Verbindung.</para>
 
   <programlisting>#&gt; vi app/modules/Web/config/icinga-io.xml
 
@@ -203,7 +204,8 @@ autoload.xml  config_handlers.xml  cronks.xml  module.xml  validators.xml</progr
                                         &lt;ae:parameter name="config_table_prefix"&gt;icinga_&lt;/ae:parameter&gt;
                                         &lt;!-- ###END_CONNECTION_IDO### --&gt;</programlisting>
 
-  <para>Wenn Sie diese Einstellungen ändern möchten, editieren Sie bitte app/modules/Web/config/icinga-io.site.xml.</para>
+  <para>Wenn Sie diese Einstellungen ändern möchten, editieren Sie bitte
+  <filename>app/modules/Web/config/icinga-io.site.xml</filename>.</para>
 
   <para><anchor xml:id="configweb-customconfig" /><emphasis role="bold">Benutzerdefinierte Konfiguration</emphasis></para>
 
@@ -217,70 +219,70 @@ autoload.xml  config_handlers.xml  cronks.xml  module.xml  validators.xml</progr
     </listitem>
 
     <listitem>
-      <para>Variablen Namen sind case-sensitive</para>
+      <para>Variablennamen sind case-sensitive</para>
     </listitem>
 
     <listitem>
-      <para>Ihre benutzdefinierten &name-web; Konfigurationseinstellungen für die &name-api;, die Authentifizierung und die Datenbank können
-      Sie in den app/modules/Appkit(/Cronks/Web)/config/*.site.xml- Dateien vornehmen. Diese Datein werden bei einer Aktualisierung von
-      &name-web; nicht überschrieben.</para>
+      <para>Ihre benutzerdefinierten &name-web;-Konfigurationseinstellungen für die &name-api;, die Authentifizierung und die Datenbank
+      können Sie in den app/modules/Appkit(/Cronks/Web)/config/*.site.xml- Dateien vornehmen. Diese Dateien werden bei einer Aktualisierung
+      von &name-web; nicht überschrieben.</para>
 
       <para>Folgende Dateien sind dafür vorgesehen:</para>
 
-      <para>app/modules/Cronks/config/cronks.site.xml</para>
+      <para><filename>app/modules/Cronks/config/cronks.site.xml</filename></para>
 
-      <para>app/modules/Web/config/icinga-io.site.xml</para>
+      <para><filename>app/modules/Web/config/icinga-io.site.xml</filename></para>
 
-      <para>app/modules/AppKit/config/auth.site.xml</para>
+      <para><filename>app/modules/AppKit/config/auth.site.xml</filename></para>
 
-      <para>app/config/icinga.site.xml</para>
+      <para><filename>app/config/icinga.site.xml</filename></para>
 
-      <para>app/config/databases.site.xml</para>
+      <para><filename>app/config/databases.site.xml</filename></para>
 
-      <para>app/config/settings.site.xml</para>
+      <para><filename>app/config/settings.site.xml</filename></para>
 
-      <para>app/config/translation.site.xml</para>
+      <para><filename>app/config/translation.site.xml</filename></para>
 
-      <para>app/config/factories.site.xml</para>
+      <para><filename>app/config/factories.site.xml</filename></para>
 
       <para></para>
 
-      <para>Die Templates für Grids and TO's (tactical overview) können in ihrem Verzeichnis zu *.site.xml- Dateien kopiert werden:</para>
+      <para>Die Templates für Grids und TO's (tactical overview) können in ihrem Verzeichnis zu *.site.xml- Dateien kopiert werden:</para>
 
       <para><emphasis role="bold">Die Grids:</emphasis></para>
 
-      <para>app/modules/Cronks/data/xml/grid/icinga-hostgroup-summary-template.xml</para>
+      <para><filename>app/modules/Cronks/data/xml/grid/icinga-hostgroup-summary-template.xml</filename></para>
 
-      <para>app/modules/Cronks/data/xml/grid/icinga-host-history-template.xml</para>
+      <para><filename>app/modules/Cronks/data/xml/grid/icinga-host-history-template.xml</filename></para>
 
-      <para>app/modules/Cronks/data/xml/grid/icinga-host-template.xml</para>
-
-      <para>....</para>
-
-      <para><emphasis role="bold">und die TO's:</emphasis></para>
-
-      <para>app/modules/Cronks/data/xml/to/icinga-tactical-overview-groupstat.xml</para>
-
-      <para>app/modules/Cronks/data/xml/to/icinga-tactical-overview-presets.xml</para>
-
-      <para>app/modules/Cronks/data/xml/to/icinga-tactical-overview-template-charts.xml</para>
+      <para><filename>app/modules/Cronks/data/xml/grid/icinga-host-template.xml</filename></para>
 
       <para>...</para>
 
-      <para>Um auf Ihre *.site.xml- Grids/Cronks zugreifen zu können, müssen Sie diese in app/modules/Cronks/config/cronks.xml
-      hinterlegen.</para>
+      <para><emphasis role="bold">und die TO's:</emphasis></para>
+
+      <para><filename>app/modules/Cronks/data/xml/to/icinga-tactical-overview-groupstat.xml</filename></para>
+
+      <para><filename>app/modules/Cronks/data/xml/to/icinga-tactical-overview-presets.xml</filename></para>
+
+      <para><filename>app/modules/Cronks/data/xml/to/icinga-tactical-overview-template-charts.xml</filename></para>
+
+      <para>...</para>
+
+      <para>Um auf Ihre *.site.xml- Grids/Cronks zugreifen zu können, müssen Sie diese in
+      <filename>app/modules/Cronks/config/cronks.xml</filename> hinterlegen.</para>
     </listitem>
   </orderedlist>
 
   <note>
-    <para>Nachdem ändern von Konfigurationsdateien, leeren Sie bitte den Cache!</para>
+    <para>Nach dem Ändern von Konfigurationsdateien leeren Sie bitte den Cache!</para>
   </note>
 
   <programlisting> #&gt; rm -rf app/cache/config/*.php</programlisting>
 
   <para>oder</para>
 
-  <programlisting>#&gt; /icinga-web/bin/clearcache.sh</programlisting>
+  <programlisting> #&gt; /usr/local/icinga-web/bin/clearcache.sh</programlisting>
 
   <para>Benötigen Sie weitere Informationen? Schauen Sie bitte in unserem<link
   xlink:href="https://dev.icinga.org/projects/icinga-development/wiki/"> Development Wiki.</link></para>
@@ -290,42 +292,32 @@ autoload.xml  config_handlers.xml  cronks.xml  module.xml  validators.xml</progr
   </indexterm>
 
   <indexterm zone="icinga-web-config">
-    <primary>&name-web;</primary>
-
-    <secondary>Konfigurationsoptionen</secondary>
-  </indexterm>
-
-  <indexterm zone="icinga-web-config">
-    <primary>benutzerdefinierte Konfiguration &name-web;</primary>
-  </indexterm>
-
-  <indexterm zone="icinga-web-config">
-    <primary>&name-web;</primary>
-
-    <secondary>benutzerdefinierte Konfiguration</secondary>
+    <primary>&name-web;, benutzerdefinierte Konfiguration</primary>
   </indexterm>
 
   <indexterm zone="configweb-session-lifetime">
-    <primary>Session Lifetime &name-web;</primary>
+    <primary>Session Cookie Lifetime</primary>
   </indexterm>
 
-  <indexterm zone="configweb-session-lifetime">
+  <indexterm zone="configweb-timezone">
+    <primary>&name-web; Zeitzone</primary>
+  </indexterm>
+
+  <indexterm zone="configweb-module">
     <primary>&name-web;</primary>
 
-    <secondary>Session Lifetime</secondary>
+    <secondary>Modul-Konfiguration</secondary>
   </indexterm>
 
-  <indexterm zone="configweb-timezone">
-    <primary>Timezone &name-web;</primary>
-  </indexterm>
-
-  <indexterm zone="configweb-timezone">
-    <primary>Zeitzone &name-web;</primary>
-  </indexterm>
-
-  <indexterm zone="configweb-timezone">
+  <indexterm zone="configweb-auth">
     <primary>&name-web;</primary>
 
-    <secondary>Zeitzone</secondary>
+    <secondary>Authentifizierung</secondary>
+  </indexterm>
+
+  <indexterm zone="configweb-api">
+    <primary>&name-web;</primary>
+
+    <secondary>&name-api; connection</secondary>
   </indexterm>
 </section>
