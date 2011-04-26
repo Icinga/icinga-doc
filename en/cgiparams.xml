@@ -3656,7 +3656,7 @@
 
           <entry>hostprops=131088 (active checks being disabled)</entry>
 
-          <entry>A boolean OR of the states specified in include/cgiutils.c (HOST AND SERVICE FILTER PROPERTIES)</entry>
+          <entry>A boolean OR of the states specified in include/cgiutils.c <link linkend="cgiparams-filter">[1]</link> (HOST AND SERVICE FILTER PROPERTIES)</entry>
         </row>
 
         <row>
@@ -4076,7 +4076,7 @@
 
           <entry>serviceprops=131088 (active checks being disabled)</entry>
 
-          <entry>A boolean OR of the states specified in include/cgiutils.c (HOST AND SERVICE FILTER PROPERTIES)</entry>
+          <entry>A boolean OR of the states specified in include/cgiutils.c <link linkend="cgiparams-filter">[1]</link> (HOST AND SERVICE FILTER PROPERTIES)</entry>
         </row>
 
         <row>
@@ -4525,9 +4525,61 @@
     </tgroup>
   </informaltable>
 
+  <para><anchor xml:id="cgiparams-filter" /><emphasis role="bold">Excerpt from include/cgiutils.h</emphasis></para>
+  <programlisting>/****************** HOST AND SERVICE FILTER PROPERTIES  *******************/
+
+#define HOST_SCHEDULED_DOWNTIME         1
+#define HOST_NO_SCHEDULED_DOWNTIME      2
+#define HOST_STATE_ACKNOWLEDGED         4
+#define HOST_STATE_UNACKNOWLEDGED       8
+#define HOST_CHECKS_DISABLED            16
+#define HOST_CHECKS_ENABLED             32
+#define HOST_EVENT_HANDLER_DISABLED     64
+#define HOST_EVENT_HANDLER_ENABLED      128
+#define HOST_FLAP_DETECTION_DISABLED    256
+#define HOST_FLAP_DETECTION_ENABLED     512
+#define HOST_IS_FLAPPING                1024
+#define HOST_IS_NOT_FLAPPING            2048
+#define HOST_NOTIFICATIONS_DISABLED     4096
+#define HOST_NOTIFICATIONS_ENABLED      8192
+#define HOST_PASSIVE_CHECKS_DISABLED    16384
+#define HOST_PASSIVE_CHECKS_ENABLED     32768
+#define HOST_PASSIVE_CHECK              65536
+#define HOST_ACTIVE_CHECK               131072
+#define HOST_HARD_STATE                 262144
+#define HOST_SOFT_STATE                 524288
+
+#define SERVICE_SCHEDULED_DOWNTIME      1
+#define SERVICE_NO_SCHEDULED_DOWNTIME   2
+#define SERVICE_STATE_ACKNOWLEDGED      4
+#define SERVICE_STATE_UNACKNOWLEDGED    8
+#define SERVICE_CHECKS_DISABLED         16
+#define SERVICE_CHECKS_ENABLED          32
+#define SERVICE_EVENT_HANDLER_DISABLED  64
+#define SERVICE_EVENT_HANDLER_ENABLED   128
+#define SERVICE_FLAP_DETECTION_ENABLED  256
+#define SERVICE_FLAP_DETECTION_DISABLED 512
+#define SERVICE_IS_FLAPPING             1024
+#define SERVICE_IS_NOT_FLAPPING         2048
+#define SERVICE_NOTIFICATIONS_DISABLED  4096
+#define SERVICE_NOTIFICATIONS_ENABLED   8192
+#define SERVICE_PASSIVE_CHECKS_DISABLED 16384
+#define SERVICE_PASSIVE_CHECKS_ENABLED  32768
+#define SERVICE_PASSIVE_CHECK           65536
+#define SERVICE_ACTIVE_CHECK            131072
+#define SERVICE_HARD_STATE              262144
+#define SERVICE_SOFT_STATE              524288</programlisting>
+
+  <para>[1] Logical OR means that the numbers are added and only the objects will be displayed satisfying ALL conditions.</para>
   <indexterm zone="cgiparams">
     <primary>CGIs</primary>
 
     <secondary>Parameters</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-filter">
+    <primary>CGIs</primary>
+
+    <secondary>Filter properties</secondary>
   </indexterm>
 </section>
