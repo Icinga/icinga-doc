@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="db_changes" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title>Database changes/alterations</title>
+
+  <para><anchor xml:id="db_changes-instancename" /> <emphasis role="bold">Change the instance name</emphasis></para>
+
+  <para>You may have the need to change the instance name. There are some steps to be done which are described in this section. Thanks to
+  <link xlink:href="https://dev.icinga.org/users/210">ralfk</link> who provided us with these instructions.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Stop &name-icinga; and ido2db daemons (since otherwise a new instance would automatically be added to DB instead of renaming
+      it)<programlisting> #&gt; /etc/init.d/icinga stop
+ #&gt; /etc/init.d/ido2db stop</programlisting></para>
+    </listitem>
+
+    <listitem>
+      <para>Change the instance name in <filename>/usr/local/icinga/etc/idomod.cfg</filename> <programlisting> instance_name=newinstance</programlisting></para>
+    </listitem>
+
+    <listitem>
+      <para>Change the instance name in the database table "icinga_instances" or "instances"</para>
+
+      <para><emphasis role="bold">&name-mysql;/&name-postgres;</emphasis></para>
+
+      <programlisting> SQL&gt; UPDATE icinga_instances SET instance_name='NEWNAME' WHERE instance_name='OLDNAME';</programlisting>
+
+      <para><emphasis role="bold">&name-oracle;</emphasis></para>
+
+      <programlisting> SQL&gt; UPDATE instances SET instance_name='NEWNAME' WHERE instance_name='OLDNAME';</programlisting>
+    </listitem>
+
+    <listitem>
+      <para>Change the instance name in the command pipe configuration in one of these files (site file in first place)</para>
+
+      <itemizedlist>
+        <listitem>
+          <para><filename>/usr/local/icinga-web/app/modules/Web/config/icinga-io.xml</filename></para>
+        </listitem>
+
+        <listitem>
+          <para><filename>/usr/local/icinga-web/app/modules/Web/config/icinga-io.site.xml</filename></para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>Clear the Web Cache<programlisting> #&gt; /usr/local/icinga-web/bin/clearcache.sh</programlisting></para>
+    </listitem>
+
+    <listitem>
+      <para>Start &name-icinga; and ido2db Daemons<programlisting> #&gt; /etc/init.d/ido2db start
+ #&gt; /etc/init.d/icinga start</programlisting></para>
+    </listitem>
+  </itemizedlist>
+
+  <indexterm zone="db_changes-instancename">
+    <primary>&name-idoutils;</primary>
+
+    <secondary>Change instance name</secondary>
+  </indexterm>
+</section>
