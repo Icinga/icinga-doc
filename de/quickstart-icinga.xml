@@ -130,7 +130,8 @@
 
   <programlisting> #&gt; /usr/sbin/groupadd icinga-cmd
  #&gt; /usr/sbin/usermod -a -G icinga-cmd icinga
- #&gt; /usr/sbin/usermod -a -G icinga-cmd www-data (oder www, wwwrun, apache je nach Distribution)</programlisting>
+ #&gt; /usr/sbin/usermod -a -G icinga-cmd www-data</programlisting>
+  <para>(oder www, wwwrun, apache je nach Distribution)</para>
 
   <note>
     <para>Bei einigen usermod-Versionen (z.B. bei OpenSuSE 11 bzw. SLES 11) fehlt die Option -a. In diesen Fällen kann sie entfallen.</para>
@@ -244,7 +245,9 @@
 
   <para>Kompilieren und installieren Sie die Plugins.</para>
 
-  <programlisting> #&gt; ./configure --prefix=/usr/local/icinga --with-cgiurl=/icinga/cgi-bin --with-htmurl=/icinga --with-nagios-user=icinga --with-nagios-group=icinga
+  <programlisting> #&gt; ./configure --prefix=/usr/local/icinga \
+    --with-cgiurl=/icinga/cgi-bin --with-htmurl=/icinga \
+    --with-nagios-user=icinga --with-nagios-group=icinga
  #&gt; make
  #&gt; make install</programlisting>
 

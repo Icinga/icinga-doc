@@ -64,7 +64,7 @@
   usual, not leaving an upgrade version behind!).</para>
 
   <para>After you finished the upgrade you should check the database version.</para>
-  <programlisting> SQL&gt; SELECT * FROM icinga_dbversion</programlisting> 
+  <programlisting> SQL&gt; SELECT * FROM icinga_dbversion;</programlisting> 
   <note><para>The Oracle tablename is "dbversion" (instead of "icinga_dbversion").</para></note>
 
   <anchor xml:id="upgrading_idoutils_1.0.3" />
@@ -140,7 +140,7 @@
     <listitem>
       <para>Dump your existing database e.g.</para>
 
-      <programlisting># mysqldump -u root -p icinga &gt; icinga.sql</programlisting>
+      <programlisting>#&gt; mysqldump -u root -p icinga &gt; icinga.sql</programlisting>
     </listitem>
 
     <listitem>
@@ -214,12 +214,12 @@
   <para>will need your attention on the following procedure!</para>
 
   <para><emphasis role="bold">If you are upgrading from 1.0RC please be advised to use module/idoutils/db/mysql/mysql-upgrade-1.0.sql - if
-  you are using an older version, please apply the incremential steps to get to 1.0RC first!</emphasis></para>
+  you are using an older version, please apply the incremental steps to get to 1.0RC first!</emphasis></para>
 
   <para>Please backup your database and stop ido2db before applying this patch!</para>
 
-  <programlisting># /etc/init.d/ido2db stop
-   # mysql -u root -p icinga &lt; /path/to/icinga-src/module/idoutils/db/mysql/mysql-upgrade-1.0.sql</programlisting>
+  <programlisting> #&gt; /etc/init.d/ido2db stop
+ #&gt; mysql -u root -p icinga &lt; /path/to/icinga-src/module/idoutils/db/mysql/mysql-upgrade-1.0.sql</programlisting>
 
   <para>The patch will do the following through MySQL statements:</para>
 

@@ -117,7 +117,8 @@
   <para>Download des ocilib-Treiber von &url-orclib; und verweisen Sie beim configure auf Ihre Oracle-Libraries und die Header-Files, z.B.
   die des Oracle Instant-Client:</para>
 
-  <para><programlisting> #&gt; ./configure --with-oracle-headers-path=/path/to/instantclient/sdk/include --with-oracle-lib-path=/path/to/instantclient/
+  <para><programlisting> #&gt; ./configure --with-oracle-headers-path=/path/to/instantclient/sdk/include \
+    --with-oracle-lib-path=/path/to/instantclient/
  #&gt; make
  #&gt; make install</programlisting></para>
 
@@ -218,7 +219,9 @@
       <note>
         <para>Bei den 64-bit-Versionen müssen Sie die Pfade zu den include- und lib-dir-Verzeichnissen explizit angeben:</para>
 
-        <programlisting> #&gt; ./configure --with-&lt;rdbm&gt; --with-&lt;rdbm&gt;-incdir=/usr/include/&lt;rdbm&gt;/ --with-&lt;rdbm&gt;-libdir=/usr/lib64/ --disable-docs</programlisting>
+        <programlisting> #&gt; ./configure --with-&lt;rdbm&gt; \
+    --with-&lt;rdbm&gt;-incdir=/usr/include/&lt;rdbm&gt;/ \
+    --with-&lt;rdbm&gt;-libdir=/usr/lib64/ --disable-docs</programlisting>
       </note>
     </listitem>
   </orderedlist>
@@ -243,7 +246,8 @@
 
   <programlisting> #&gt; /usr/sbin/groupadd icinga-cmd
  #&gt; /usr/sbin/usermod -a -G icinga-cmd icinga
- #&gt; /usr/sbin/usermod -a -G icinga-cmd www-data (oder www, wwwrun, apache je nach Distribution)</programlisting>
+ #&gt; /usr/sbin/usermod -a -G icinga-cmd www-data</programlisting>
+  <para>(oder www, wwwrun, apache je nach Distribution)</para>
 
   <note>
     <para>Bei einigen usermod-Versionen (z.B. OpenSuSE 11 bzw. SLES 11) fehlt die Option -a. In diesen Fällen kann sie entfallen.</para>
@@ -295,11 +299,14 @@
 
   <para><emphasis role="bold">Mit Oracle-Datenbankunterstützung:</emphasis></para>
 
-  <para><programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils --enable-oracle</programlisting> Wenn Ihre
-  Oracle Libraries nicht in der Path-Variablen enthalten sind, können Sie sie im configure angeben: <programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils --enable-oracle \
- --with-oracle-lib=/path/to/instantclient</programlisting> Wenn Sie die ocilib nicht im Standardpfad (/usr/local) installiert haben, können
-  Sie configure die lib/inc Verzeichnisse angeben:<programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils --enable-oracle \
- --with-ocilib-lib=/path/to/ocilib/lib --with-ocilib-inc=/path/to/ocilib/include</programlisting> <note>
+  <para><programlisting> #&gt; ./configure --with-command-group=icinga-cmd \
+    --enable-idoutils --enable-oracle</programlisting> Wenn Ihre
+  Oracle Libraries nicht in der Path-Variablen enthalten sind, können Sie sie im configure angeben: <programlisting> #&gt; ./configure --with-command-group=icinga-cmd \
+    --enable-idoutils --enable-oracle \
+    --with-oracle-lib=/path/to/instantclient</programlisting> Wenn Sie die ocilib nicht im Standardpfad (/usr/local) installiert haben, können
+  Sie configure die lib/inc Verzeichnisse angeben:<programlisting> #&gt; ./configure --with-command-group=icinga-cmd \
+    --enable-idoutils --enable-oracle \
+    --with-ocilib-lib=/path/to/ocilib/lib --with-ocilib-inc=/path/to/ocilib/include</programlisting> <note>
       <para>Wenn Sie von einer Oracle-Datenbank auf ein anderes RDBMS wechseln möchten, dann müssen Sie die &name-idoutils; erneut
       kompilieren und installieren!</para>
     </note> <programlisting> #&gt; make distclean
@@ -344,13 +351,13 @@
  #&gt; mv idomod.cfg-sample idomod.cfg
  #&gt; mv ido2db.cfg-sample ido2db.cfg</programlisting>
 
-  <para>Wenn Sie die &name-idoutils; mit ssl kompiliert haben, aktivieren Sie ssl in der idomod.cfg mit</para>
+  <para>Wenn Sie die &name-idoutils; mit ssl kompiliert haben, aktivieren Sie ssl in der <filename>idomod.cfg</filename> mit</para>
 
   <programlisting> use_ssl=1
  output_type=tcpsocket
  output=127.0.0.1</programlisting>
 
-  <para>(Passen Sie die IP-Adresse an, wenn sich Ihre Datenbank nicht auf localhost befindet!) und der ido2db.cfg mit</para>
+  <para>(Passen Sie die IP-Adresse an, wenn sich Ihre Datenbank nicht auf localhost befindet!) und der <filename>ido2db.cfg</filename> mit</para>
 
   <programlisting> use_ssl=1
  socket_type=tcp </programlisting>
@@ -361,7 +368,7 @@
   </note>
 
   <para><emphasis role="bold">Aktivieren Sie das idomod-Eventbroker-Modul</emphasis></para>
-  <para>Editieren Sie &url-icinga-cfg;, suchen Sie nach "broker_module" und aktivieren Sie diese Zeile bzw. fügen Sie die folgende 
+  <para>Editieren Sie <filename>&url-icinga-cfg;</filename>, suchen Sie nach "broker_module" und aktivieren Sie diese Zeile bzw. fügen Sie die folgende 
     Zeile hinzu (passen Sie die Namen an, falls nötig).</para>
 
   <programlisting> broker_module=&url-icinga-base;/bin/idomod.o config_file=&url-icinga-base;/etc/idomod.cfg</programlisting>
@@ -386,9 +393,14 @@
   
  mysql&gt; CREATE DATABASE icinga;
   
- GRANT USAGE ON *.* TO 'icinga'@'localhost' IDENTIFIED BY 'icinga' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0;
+ GRANT USAGE ON *.* TO 'icinga'@'localhost' 
+   IDENTIFIED BY 'icinga'
+   WITH MAX_QUERIES_PER_HOUR 0
+   MAX_CONNECTIONS_PER_HOUR 0
+   MAX_UPDATES_PER_HOUR 0;
    
- GRANT SELECT , INSERT , UPDATE , DELETE ON icinga.* TO 'icinga'@'localhost';
+ GRANT SELECT , INSERT , UPDATE , DELETE
+   ON icinga.* TO 'icinga'@'localhost';
  
  FLUSH PRIVILEGES ;
 
@@ -531,7 +543,8 @@
 
   <para>Kompilieren und installieren Sie die Plugins.</para>
 
-  <screen> #&gt; ./configure --prefix=/usr/local/icinga --with-cgiurl=/icinga/cgi-bin --with-htmurl=/icinga --with-nagios-user=icinga --with-nagios-group=icinga
+  <screen> #&gt; ./configure --prefix=/usr/local/icinga --with-cgiurl=/icinga/cgi-bin \
+    --with-htmurl=/icinga --with-nagios-user=icinga --with-nagios-group=icinga
  #&gt; make
  #&gt; make install</screen>
 

@@ -85,10 +85,10 @@
   <para>Monitoring the status of a networked printer is pretty simple. JetDirect-enabled printers usually have SNMP enabled, which
   allows &name-icinga; to monitor their status using the <emphasis>check_hpjd</emphasis> plugin.</para>
 
-  <para>The <emphasis>check_hpjd</emphasis> plugin will only get compiled and installed if you have the net-snmp and
-  net-snmp-utils packages installed on your system. Make sure the plugin exists in <emphasis>&url-icinga-base;/libexec</emphasis>
-  before you continue. If it doesn't, install net-snmp and net-snmp-utils and recompile/reinstall the &name-nagios;
-  plugins.</para>
+  <important><para>The <emphasis>check_hpjd</emphasis> plugin will only get compiled and installed if you have the net-snmp and
+  net-snmp-utils packages installed on your system. Make sure the plugin exists in <emphasis>&url-icinga-base;/libexec</emphasis> before you
+  continue. If it doesn't, install net-snmp and net-snmp-utils and recompile/reinstall the &name-nagios; plugins after issuing "make clean"
+  the source directory. Take a look at the <link linkend="quickstart-icinga">Quickstart Guide</link> for details.</para></important>
 
   <para><emphasis role="bold">Steps</emphasis></para>
 
@@ -136,7 +136,7 @@
 
   <para>Edit the main &name-icinga; config file.</para>
 
-  <screen># vi &url-icinga-cfg;</screen>
+  <screen>#&gt; vi &url-icinga-cfg;</screen>
 
   <para>Remove the leading hash (#) sign from the following line in the main configuration file:</para>
 
@@ -156,7 +156,7 @@
 
   <para>Open the <emphasis>printer.cfg</emphasis> file for editing.</para>
 
-  <screen> vi &url-icinga-base;/etc/objects/printer.cfg</screen>
+  <screen>#&gt; vi &url-icinga-base;/etc/objects/printer.cfg</screen>
 
   <para>Add a new <link linkend="objectdefinitions-host">host</link> definition for the networked printer that you're going to
   monitor. If this is the *first* printer you're monitoring, you can simply modify the sample host definition in

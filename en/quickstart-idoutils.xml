@@ -111,7 +111,8 @@
 
   <para>Get it from &url-orclib; and point configure to your Oracle libraries and header files e.g. from the Oracle instant client:</para>
 
-  <para><programlisting> #&gt; ./configure --with-oracle-headers-path=/path/to/instantclient/sdk/include --with-oracle-lib-path=/path/to/instantclient/
+  <para><programlisting> #&gt; ./configure --with-oracle-headers-path=/path/to/instantclient/sdk/include \
+    --with-oracle-lib-path=/path/to/instantclient/
  #&gt; make
  #&gt; make install</programlisting></para>
 
@@ -203,7 +204,9 @@
  #&gt; make install</programlisting><note>
           <para>Using the 64-bit-versions you have to specify the paths to the include- and lib-dir explicitly:</para>
 
-          <para><programlisting> #&gt; ./configure --with-&lt;rdbm&gt; --with-&lt;rdbm&gt;-incdir=/usr/include/&lt;rdbm&gt;/ --with-&lt;rdbm&gt;-libdir=/usr/lib64/ --disable-docs</programlisting></para>
+          <para><programlisting> #&gt; ./configure --with-&lt;rdbm&gt; \
+    --with-&lt;rdbm&gt;-incdir=/usr/include/&lt;rdbm&gt;/ \
+    --with-&lt;rdbm&gt;-libdir=/usr/lib64/ --disable-docs</programlisting></para>
         </note></para>
     </listitem>
   </orderedlist>
@@ -228,7 +231,8 @@
 
   <programlisting> #&gt; /usr/sbin/groupadd icinga-cmd
  #&gt; /usr/sbin/usermod -a -G icinga-cmd icinga
- #&gt; /usr/sbin/usermod -a -G icinga-cmd www-data (or www, wwwrun, apache depending on the distribution)</programlisting>
+ #&gt; /usr/sbin/usermod -a -G icinga-cmd www-data</programlisting>
+  <para>(or www, wwwrun, apache depending on the distribution)</para>
 
   <note>
     <para>Some usermod-versions (e.g in OpenSuSE 11 and SLES 11, resp.) are lacking the option -a. In this case please omit the option
@@ -283,11 +287,16 @@
   <para><programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils --enable-oracle </programlisting> If you didn't
   install Oracle libraries to PATH, you can point configure there:</para>
 
-  <programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils --enable-oracle --with-oracle-lib=/path/to/instantclient</programlisting>
+  <programlisting> #&gt; ./configure --with-command-group=icinga-cmd \
+    --enable-idoutils --enable-oracle \
+    --with-oracle-lib=/path/to/instantclient</programlisting>
 
   <para>If you didn't install ocilib to the default path (/usr/local) you can point configure to the lib/inc directories:</para>
 
-  <para><programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils --enable-oracle --with-ocilib-lib=/path/to/ocilib/lib --with-ocilib-inc=/path/to/ocilib/include</programlisting><note>
+  <para><programlisting> #&gt; ./configure --with-command-group=icinga-cmd \
+    --enable-idoutils --enable-oracle \
+    --with-ocilib-lib=/path/to/ocilib/lib \
+    --with-ocilib-inc=/path/to/ocilib/include</programlisting><note>
       <para>If you want to change RDBM from Oracle to others, you need to recompile and reinstall &name-idoutils;!</para>
     </note><programlisting> #&gt; make distclean
  #&gt; ./configure --enable-idoutils</programlisting></para>
@@ -314,8 +323,8 @@
 
   <para><emphasis role="bold">Customise Configuration</emphasis></para>
 
-  <para>Sample configuration files have been installed by using make install-config into &url-icinga-base;/etc/. You'll need to make just
-  one change before you proceed...</para>
+  <para>Sample configuration files have been installed by using "make install-config" into <filename>&url-icinga-base;/etc/</filename>.
+  You'll need to make just one change before you proceed...</para>
 
   <para>Edit the <emphasis>&url-icinga-base;/etc/objects/contacts.cfg</emphasis> config file with your favourite editor and change the email
   address associated with the <emphasis>icingaadmin</emphasis> contact definition to the address you'd like to use for receiving
@@ -363,8 +372,13 @@
 
   <programlisting> #&gt; mysql -u root -p
  mysql&gt; CREATE DATABASE icinga;
- GRANT USAGE ON *.* TO 'icinga'@'localhost' IDENTIFIED BY 'icinga' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0;
- GRANT SELECT , INSERT , UPDATE , DELETE ON icinga.* TO 'icinga'@'localhost';
+ GRANT USAGE ON *.* TO 'icinga'@'localhost'
+   IDENTIFIED BY 'icinga'
+   WITH MAX_QUERIES_PER_HOUR 0
+   MAX_CONNECTIONS_PER_HOUR 0
+   MAX_UPDATES_PER_HOUR 0;
+ GRANT SELECT , INSERT , UPDATE , DELETE
+   ON icinga.* TO 'icinga'@'localhost';
  FLUSH PRIVILEGES ;
  quit</programlisting>
 
@@ -434,8 +448,9 @@
 
   <para><emphasis role="bold">Oracle:</emphasis></para>
 
-  <para>Create a database schema and username/password (refer to the Oracle documentation at &url-oracle; or consult your DBA). Import the
-  database scheme with sqlplus (or your preferred method). Copy module/idoutils/db/oracle/oracle.sql to $ORACLE_HOME</para>
+  <para>Create a database schema and username/password (refer to the &name-oracle; documentation at &url-oracle; or consult your
+  DBA). Import the database scheme with sqlplus (or your preferred method). Copy <filename>module/idoutils/db/oracle/oracle.sql</filename>
+  to $ORACLE_HOME</para>
 
   <programlisting> #&gt; su - oracle
  $&gt; sqlplus dbuser/dbpass
@@ -500,9 +515,11 @@
  #&gt; tar xvzf nagios-plugins-&ver-nagiosplug;.tar.gz 
  #&gt; cd nagios-plugins-&ver-nagiosplug;  </programlisting>
 
-  <para>Compile and install the plugins by changing install directory to &url-icinga-base;</para>
+  <para>Compile and install the plugins by changing install directory to <filename>&url-icinga-base;</filename></para>
 
-  <programlisting> #&gt; ./configure --prefix=&url-icinga-base; --with-cgiurl=/icinga/cgi-bin --with-htmurl=/icinga --with-nagios-user=icinga --with-nagios-group=icinga
+  <programlisting> #&gt; ./configure --prefix=&url-icinga-base; \
+    --with-cgiurl=/icinga/cgi-bin --with-htmurl=/icinga \
+    --with-nagios-user=icinga --with-nagios-group=icinga
  #&gt; make 
  #&gt; make install </programlisting>
 

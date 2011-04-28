@@ -232,7 +232,7 @@
  output_type=tcpsocket
  output=127.0.0.1</programlisting>
 
-  <para>(passen Sie die IP-Adresse an, wenn sich Ihre Datenbank nicht auf localhost befindet!) und in der ido2db.cfg mit</para>
+  <para>(passen Sie die IP-Adresse an, wenn sich Ihre Datenbank nicht auf localhost befindet!) und in der <filename>ido2db.cfg</filename> mit</para>
 
   <programlisting> use_ssl=1
  socket_type=tcp </programlisting>
@@ -263,9 +263,14 @@
 
  mysql&gt; CREATE DATABASE icinga;
 
- GRANT USAGE ON *.* TO 'icinga'@'localhost' IDENTIFIED BY 'icinga' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0;
+ GRANT USAGE ON *.* TO 'icinga'@'localhost'
+   IDENTIFIED BY 'icinga'
+   WITH MAX_QUERIES_PER_HOUR 0
+   MAX_CONNECTIONS_PER_HOUR 0
+   MAX_UPDATES_PER_HOUR 0;
 
- GRANT SELECT , INSERT , UPDATE , DELETE ON icinga.* TO 'icinga'@'localhost';
+ GRANT SELECT , INSERT , UPDATE , DELETE
+   ON icinga.* TO 'icinga'@'localhost';
 
  FLUSH PRIVILEGES ;
 

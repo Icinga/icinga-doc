@@ -29,7 +29,7 @@
 
   <itemizedlist>
     <listitem>
-      <para>&name-icinga; and the plugins will be installed underneath &url-icinga-base;</para>
+      <para>&name-icinga; and the plugins will be installed underneath <filename>&url-icinga-base;</filename></para>
     </listitem>
 
     <listitem>
@@ -79,7 +79,7 @@
   <para>At one time or another you will likely use SNMP based checks so it might be a good idea to install the required packages now.
   Otherwise the plugins will not be compiled and are not available when you need them.</para>
 
-  <para><emphasis role="bold">New features fot the &name-idoutils;:</emphasis></para>
+  <para><emphasis role="bold">New features for the &name-idoutils;:</emphasis></para>
 
   <para><emphasis role="bold">SSL-encryption between idomod and ido2db</emphasis></para>
 
@@ -96,7 +96,7 @@
   <para><emphasis role="bold">Install the packages</emphasis></para>
 
   <para>You can install the packages from the ports or you take older packages (have a look at the <link
-  linkend="quickstart-icinga-freebsd">&name-freebsd; quickstart quide</link></para>
+  linkend="quickstart-icinga-freebsd">&name-freebsd; quickstart quide</link>.</para>
 
   <para><emphasis role="bold">Install ports</emphasis></para>
 
@@ -220,13 +220,13 @@
  #&gt; mv idomod.cfg-sample idomod.cfg
  #&gt; mv ido2db.cfg-sample ido2db.cfg</programlisting>
 
-  <para>If you compiled the &name-idoutils; with SSL then you have to activate SSL in idomod.cfg setting</para>
+  <para>If you compiled the &name-idoutils; with SSL then you have to activate SSL in <filename>idomod.cfg</filename> setting</para>
 
   <programlisting> use_ssl=1
  output_type=tcpsocket
  output=127.0.0.1</programlisting>
 
-  <para>(adjust the IP address if your database is not running on localhost!) and in ido2db.cfg setting</para>
+  <para>(adjust the IP address if your database is not running on localhost!) and in <filename>ido2db.cfg</filename> setting</para>
 
   <programlisting> use_ssl=1
  socket_type=tcp </programlisting>
@@ -237,7 +237,7 @@
   </note>
 
   <para><emphasis role="bold">Activate the idomod event broker module</emphasis></para>
-  <para>Edit &url-icinga-cfg;, search for "broker_module" and uncomment or insert the following line (adjust the name if necessary).</para>
+  <para>Edit <filename>&url-icinga-cfg;</filename>, search for "broker_module" and uncomment or insert the following line (adjust the name if necessary).</para>
 
   <programlisting> broker_module=&url-icinga-base;/bin/idomod.o config_file=&url-icinga-base;/etc/idomod.cfg</programlisting>
 
@@ -256,9 +256,13 @@
 
  mysql&gt; CREATE DATABASE icinga;
 
- GRANT USAGE ON *.* TO 'icinga'@'localhost' IDENTIFIED BY 'icinga' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0;
+ GRANT USAGE ON *.* TO 'icinga'@'localhost' IDENTIFIED BY 'icinga' 
+   WITH MAX_QUERIES_PER_HOUR 0
+   MAX_CONNECTIONS_PER_HOUR 0
+   MAX_UPDATES_PER_HOUR 0;
 
- GRANT SELECT , INSERT , UPDATE , DELETE ON icinga.* TO 'icinga'@'localhost';
+ GRANT SELECT , INSERT , UPDATE , DELETE
+   ON icinga.* TO 'icinga'@'localhost';
 
  FLUSH PRIVILEGES ;
 
@@ -384,7 +388,7 @@
   <para>Make sure your system's firewall rules are configured to allow access to the web server if you want to access the &name-icinga;
   classic interface remotely.</para>
 
-  <programlisting> TCP port 80</programlisting>
+  <programlisting> #&gt; TCP port 80</programlisting>
 
   <para>Setting up your mail transfer agent (MTA) like exim, sendmail or postfix to allow &name-icinga; sending notification emails won't be
   explained here.</para>

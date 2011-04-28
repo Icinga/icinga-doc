@@ -125,11 +125,12 @@
   <programlisting> #&gt; /usr/sbin/groupadd icinga</programlisting>
 
   <para>For sending commands from the classic web interface to &name-icinga;, you'll need to create a new group icinga-cmd. Add the webuser
-  and the &name-icinga;user to this group:</para>
+  and the &name-icinga; user to this group:</para>
 
   <programlisting> #&gt; /usr/sbin/groupadd icinga-cmd
  #&gt; /usr/sbin/usermod -a -G icinga-cmd icinga
- #&gt; /usr/sbin/usermod -a -G icinga-cmd www-data (or www, wwwrun, apache, depending on the distribution)</programlisting>
+ #&gt; /usr/sbin/usermod -a -G icinga-cmd www-data</programlisting>
+  <para>(or www, wwwrun, apache, depending on the distribution)</para>
 
   <note>
     <para>Some usermod-versions (e.g. in OpenSuSE 11 and SLES 11, resp.) are lacking the option -a. In this case please omit the option
@@ -233,7 +234,9 @@
 
   <para>Compile and install the plugins by changing install directory to &url-icinga-base;</para>
 
-  <programlisting> #&gt; ./configure --prefix=&url-icinga-base; --with-cgiurl=/icinga/cgi-bin --with-htmurl=/icinga --with-nagios-user=icinga --with-nagios-group=icinga
+  <programlisting> #&gt; ./configure \
+    --prefix=&url-icinga-base; --with-cgiurl=/icinga/cgi-bin --with-htmurl=/icinga \
+    --with-nagios-user=icinga --with-nagios-group=icinga
 
  #&gt; make 
  #&gt; make install </programlisting>

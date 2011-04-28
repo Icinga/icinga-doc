@@ -118,7 +118,10 @@
 
   <para>Führen Sie das &name-icinga;-configure-Script aus. Durch die Nutzung des --help-Flags erhalten Sie Hilfe zu den Optionen.</para>
 
-  <programlisting> # ./configure --with-httpd-conf=/usr/local/etc/apache22/Includes/ --with-gd-lib=/usr/local/lib/ --with-gd-inc=/usr/local/include/ --with-command-group=icinga-cmd</programlisting>
+  <programlisting> # ./configure --with-httpd-conf=/usr/local/etc/apache22/Includes/ \
+    --with-gd-lib=/usr/local/lib/ \
+    --with-gd-inc=/usr/local/include/ \
+    --with-command-group=icinga-cmd</programlisting>
 
   <para>Kompilieren Sie den &name-icinga;-Source-Code. Um mögliche Optionen zu sehen, rufen Sie lediglich "make" auf.</para>
 
@@ -192,7 +195,9 @@
 
   <para>Kompilieren und installieren Sie die Plugins, indem Sie das Installationverzeichnis auf &url-icinga-base;</para>
 
-  <programlisting> # ./configure --prefix=&url-icinga-base; --with-cgiurl=/icinga/cgi-bin --with-htmurl=/icinga --with-nagios-user=icinga --with-nagios-group=icinga
+  <programlisting> # ./configure --prefix=&url-icinga-base; \
+    --with-cgiurl=/icinga/cgi-bin --with-htmurl=/icinga \
+    --with-nagios-user=icinga --with-nagios-group=icinga
  # make 
  # make install </programlisting>
 
@@ -231,7 +236,7 @@
   <para>Stellen Sie sicher, dass die Firewall-Einstellungen Ihrer Maschine einen Zugriff auf das klassische Web-Interface ermöglichen, wenn
   Sie von anderen Rechnern darauf zugreifen wollen.</para>
 
-  <programlisting> TCP port 80</programlisting>
+  <programlisting> # TCP port 80</programlisting>
 
   <para>Die Installation eines Mail Transfer Agent (MTA) wie exim, sendmail oder postfix ist nicht Gegenstand dieser Anleitung.
   &name-icinga; ist konfiguriert, um e-Mail-Benachrichtigungen zu versenden, aber möglicherweise ist auf Ihrem System noch kein

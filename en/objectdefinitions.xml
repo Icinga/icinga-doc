@@ -905,9 +905,10 @@ This directive is used to determine whether or not failure prediction is enabled
             <entry><para>This variable is used to define the name of a GIF, PNG, or JPG image that should be associated with this host. This
             image will be used as the texture map for the specified host in the <link linkend="cgis-statuswrl_cgi">statuswrl</link> CGI.
             Unlike the image you use for the <emphasis>&lt;icon_image&gt;</emphasis> variable, this one should probably
-            <emphasis>not</emphasis> have any transparency. If it does, the host object will look a bit wierd. Images for hosts are assumed
+            <emphasis>not</emphasis> have any transparency. If it does, the host object will look a bit weird. Images for hosts are assumed
             to be in the <emphasis role="bold">logos/</emphasis> subdirectory in your HTML images directory (i.e.
-            <emphasis>&url-icinga-base;/share/images/logos</emphasis>).</para></entry>
+            <emphasis>&url-icinga-base;/share/images/logos</emphasis>).</para>
+            <note><para>This directive has no effect in &name-icinga;</para></note></entry>
           </row>
 
           <row>
@@ -2702,7 +2703,8 @@ This directive is used to determine whether or not failure prediction is enabled
         day 20 - -1                     00:00-24:00             ; 20th to the last day of every month
         july 10 - 15                    00:00-24:00             ; July 10th to July 15th of every year
         april 10 - may 15               00:00-24:00             ; April 10th to May 15th of every year
-        tuesday 1 april - friday 2 may  00:00-24:00     ; 1st Tuesday in April to 2nd Friday in May of every year
+        tuesday 1 april - friday 2 may  00:00-24:00     ; 1st Tuesday in April
+                                                    ; to 2nd Friday in May of every year
         }
 
  define timeperiod{
@@ -2713,7 +2715,8 @@ This directive is used to determine whether or not failure prediction is enabled
         monday 3 - thursday 4 / 2            00:00-24:00     ; Every other day from 3rd Monday to 4th Thursday of every month
         day 1 - 15 / 5                       00:00-24:00     ; Every 5 days from the 1st to the 15th day of every month
         july 10 - 15 / 2                     00:00-24:00     ; Every other day from July 10th to July 15th of every year
-        tuesday 1 april - friday 2 may / 6   00:00-24:00     ; Every 6 days from the 1st Tuesday in April to the 2nd Friday in May of every year
+        tuesday 1 april - friday 2 may / 6   00:00-24:00     ; Every 6 days from the 1st Tuesday in April
+                                                         ; to the 2nd Friday in May of every year
         }</screen>
 
     <para><emphasis>Directive Descriptions:</emphasis></para>
@@ -4250,7 +4253,7 @@ This directive is used to determine whether or not failure prediction is enabled
             <entry><para>This variable is used to define the name of a GIF, PNG, or JPG image that should be associated with this host. This
             image will be used as the texture map for the specified host in the <link linkend="cgis-statuswrl_cgi">statuswrl</link> CGI.
             Unlike the image you use for the <emphasis>&lt;icon_image&gt;</emphasis> variable, this one should probably
-            <emphasis>not</emphasis> have any transparency. If it does, the host object will look a bit wierd. Images for hosts are assumed
+            <emphasis>not</emphasis> have any transparency. If it does, the host object will look a bit weird. Images for hosts are assumed
             to be in the <emphasis role="bold">logos/</emphasis> subdirectory in your HTML images directory (i.e.
             <emphasis>&url-icinga-base;/share/images/logos</emphasis>).<note>
                 <para>This directive has no effect in Icinga.</para>
