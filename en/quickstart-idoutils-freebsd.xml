@@ -241,6 +241,16 @@
 
   <programlisting> broker_module=&url-icinga-base;/bin/idomod.o config_file=&url-icinga-base;/etc/idomod.cfg</programlisting>
 
+  <note><para>Starting with &name-icinga; 1.4 you can use the new module definition in one of your object configuration files instead of
+  specifying a broker_module entry:</para>
+    <screen> define module{
+        module_name    ido_mod
+        path           &url-icinga-base;/bin/idomod.o
+        module_type    neb
+        args           config_file=&url-icinga-base;/etc/idomod.cfg
+        }</screen>
+  </note>
+
   <para><emphasis role="bold">Compile database and &name-idoutils;</emphasis></para>
 
   <para><emphasis role="bold">&name-mysql;:</emphasis></para>

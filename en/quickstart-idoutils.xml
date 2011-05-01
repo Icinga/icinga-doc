@@ -88,7 +88,7 @@
 
   <para><emphasis role="bold">New features for the &name-idoutils;:</emphasis></para>
 
-  <para><emphasis role="bold">SSL- Encryption between idomod and ido2db</emphasis></para>
+  <para><emphasis role="bold">SSL-Encryption between idomod and ido2db</emphasis></para>
 
   <para>If you want to use SSL-encryption you'll need openssl and openssl-devel/libssl-dev (Ubuntu) to be installed !</para>
 
@@ -360,6 +360,16 @@
   <programlisting> #&gt; vi &url-icinga-cfg;</programlisting>
 
   <programlisting> broker_module=&url-icinga-base;/bin/idomod.o config_file=&url-icinga-base;/etc/idomod.cfg</programlisting>
+
+  <note><para>Starting with &name-icinga; 1.4 you can use the new module definition in one of your object configuration files instead of
+  specifying a broker_module entry:</para>
+    <screen> define module{
+        module_name    ido_mod
+        path           &url-icinga-base;/bin/idomod.o
+        module_type    neb
+        args           config_file=&url-icinga-base;/etc/idomod.cfg
+        }</screen>
+  </note>
 
   <para><emphasis role="bold">Creation of Database and &name-idoutils;</emphasis><note>
       <para>If you just installed a new database system then you have to start the database server before you can create a database. In case
