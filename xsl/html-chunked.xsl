@@ -9,7 +9,9 @@
 
 <xsl:output method="xml" encoding="utf-8"/>
 
-<xsl:param name="chunker.output.encoding" select="'utf-8'"/>
+<!-- Due to problems with german umlauts while creating PDF output
+     changed from utf-8 to old fashioned iso-8859-1 (Wolfgang) -->
+<xsl:param name="chunker.output.encoding" select="'iso-8859-1'"/>
 
 <xsl:param name="chunk.first.sections" select="'1'"/>
 
