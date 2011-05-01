@@ -4588,13 +4588,22 @@ This directive is used to determine whether or not failure prediction is enabled
       </tgroup>
     </informaltable>
 
-    <para><emphasis>Example Definition:</emphasis></para>
+    <para><emphasis>Example Definitions:</emphasis></para>
 
     <screen> define module{
         module_name    ido_mod
         path           /usr/local/icinga/bin/idomod.o
         module_type    neb
         args           config_file=/usr/local/icinga/etc/idomod.cfg
+        }</screen>
+
+    <para>Based on the <link xlink:href="&url-mklive;">&name-mklive;</link> documentation the module definition would look like this:</para>
+
+    <screen> define module{
+        module_name    mklivestatus
+        path           /usr/local/lib/mk-livestatus/livestatus.o
+        module_type    neb
+        args           /var/lib/nagios/rw/live
         }</screen>
 
     <para><emphasis>Directive Descriptions:</emphasis></para>
