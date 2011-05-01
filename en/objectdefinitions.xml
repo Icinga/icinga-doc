@@ -12,7 +12,7 @@
 
   <para>One of the features of &name-icinga;s object configuration format is that you can create object definitions that inherit properties
   from other object definitions. An explanation of how object inheritence works can be found <link linkend="objectinheritance">here</link>.
-  We strongly suggest that you familiarize yourself with object inheritence once you read over the documentation presented below, as it will
+  We strongly suggest that you familiarise yourself with object inheritence once you read over the documentation presented below, as it will
   make the job of creating and maintaining object definitions much easier than it otherwise would be. Also, read up on the <link
   linkend="objecttricks">object tricks</link> that offer shortcuts for otherwise tedious configuration tasks.</para>
 
@@ -85,6 +85,8 @@
   <para><link linkend="objectdefinitions-hostextinfo">Extended host information definitions</link></para>
 
   <para><link linkend="objectdefinitions-serviceextinfo">Extended service information definitions</link></para>
+
+  <para><link linkend="objectdefinitions-module">Module definitions</link></para>
 
   <indexterm zone="object_definitions">
     <primary>Object Definitions</primary>
@@ -4307,7 +4309,7 @@ This directive is used to determine whether or not failure prediction is enabled
     </indexterm>
 
     <indexterm zone="objectdefinitions-hostextinfo">
-      <primary>Objektdefinitionen</primary>
+      <primary>Object definitions</primary>
 
       <secondary>Service Extended Information</secondary>
     </indexterm>
@@ -4428,7 +4430,7 @@ This directive is used to determine whether or not failure prediction is enabled
         icon_image_alt          Security-Related Alerts
         }</screen>
 
-    <para><emphasis>Variable Descriptions:</emphasis></para>
+    <para><emphasis>Directive Descriptions:</emphasis></para>
 
     <informaltable frame="none">
       <tgroup cols="2">
@@ -4503,13 +4505,148 @@ This directive is used to determine whether or not failure prediction is enabled
     </informaltable>
 
     <indexterm zone="objectdefinitions-serviceextinfo">
-      <primary>Erweiterte Serviceinformations-Definition (extended serviceinformation-Definition)</primary>
+      <primary>Extended service information definition</primary>
     </indexterm>
 
     <indexterm zone="objectdefinitions-serviceextinfo">
-      <primary>Objektdefinitionen</primary>
+      <primary>Object Definitions</primary>
 
       <secondary>Service Extended Information</secondary>
     </indexterm>
   </section>
+
+  <section>
+    <title>Module Definition</title>
+
+    <para><anchor xml:id="objectdefinitions-module" /><emphasis role="bold">Module Definition</emphasis></para>
+
+    <para><emphasis>Description:</emphasis></para>
+
+    <para>A module definition is used to specify information about a module. It can be used instead of a broker_module entry in the main configuration file thus being more flexible (you can use cfg_file/cfg_dir entries to include it).</para>
+
+    <note>
+      <para>Module definitions are available starting with &name-icinga; 1.4.</para>
+    </note>
+
+    <para><emphasis>Definition Format:</emphasis></para>
+
+    <note>
+      <para><emphasis condition="red" role="color">"Directives"</emphasis> are required while the others are optional.</para>
+    </note>
+
+    <informaltable frame="none">
+      <tgroup cols="3">
+        <colspec colname="c1" />
+
+        <colspec colname="c2"/>
+
+        <colspec colname="c3"/>
+
+        <tbody>
+          <row>
+            <entry align="left" nameend="c3" namest="c1" valign="middle"><para>define module{</para></entry>
+          </row>
+
+          <row>
+            <entry><para>
+            </para></entry>
+
+            <entry><para><emphasis condition="red" role="color">module_name</emphasis></para></entry>
+            <entry><para>module name</para></entry>
+          </row>
+
+          <row>
+            <entry><para></para></entry>
+
+            <entry><para><emphasis condition="red" role="color">path</emphasis></para></entry>
+
+            <entry><para>path</para></entry>
+          </row>
+
+          <row>
+            <entry><para></para></entry>
+
+            <entry><para>args</para></entry>
+
+            <entry><para>arguments</para></entry>
+          </row>
+
+          <row>
+            <entry><para></para></entry>
+
+            <entry><para>module_type</para></entry>
+
+            <entry><para>neb</para></entry>
+          </row>
+
+          <row>
+            <entry><para></para></entry>
+
+            <entry align="left" nameend="c3" namest="c2" valign="middle"><para>}</para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para><emphasis>Example Definition:</emphasis></para>
+
+    <screen> define module{
+        module_name    ido_mod
+        path           /usr/local/icinga/bin/idomod.o
+        module_type    neb
+        args           config_file=/usr/local/icinga/etc/idomod.cfg
+        }</screen>
+
+    <para><emphasis>Directive Descriptions:</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="10*" />
+
+        <colspec colname="c2" colwidth="50*" />
+
+        <tbody>
+          <row>
+            <entry align="left" valign="top"><para><emphasis role="bold">module_name</emphasis>:</para></entry>
+
+            <entry><para>This directive identifies the unique name of the module so you cannot have two modules with the same module_name.
+            It is mandatory, otherwise the config will not be accepted and the module will not be loaded.</para></entry>
+          </row>
+
+          <row>
+            <entry align="left" valign="top"><para><emphasis role="bold">module_type</emphasis>:</para></entry>
+
+            <entry><para>This optional directive defines the type of the module, e.g. 'neb' for event broker modules. This directive is intended to allow further filtering on the module loading.</para></entry>
+          </row>
+
+          <row>
+            <entry align="left" valign="top"><para><emphasis role="bold">path</emphasis>:</para></entry>
+
+            <entry><para>This mandatory directive specifies the path to the module binary to be loaded. For event broker modules like
+            idomod the user running the core must be allowed to read and load the module.</para></entry>
+          </row>
+
+          <row>
+            <entry align="left" valign="top"><para><emphasis role="bold">args</emphasis>:</para></entry>
+
+            <entry><para>This directive defines optional arguments passed to the module. idomod needs config_file=.../idomod.cfg while other
+            modules have their own syntax. This directive is passed as argument string to the event broker module loader if used as neb
+            module.</para></entry>
+          </row>
+
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <note>
+      <para>Templating should be possible but it has not been tested extensively with &name-icinga; 1.4.</para>
+    </note>
+
+    <indexterm zone="objectdefinitions-module">
+      <primary>Object Definitions</primary>
+
+      <secondary>Module</secondary>
+    </indexterm>
+  </section>
+
 </section>

@@ -4528,4 +4528,141 @@
       <secondary>Service Extended Information</secondary>
     </indexterm>
   </section>
+
+  <section>
+    <title>Module-Definition</title>
+
+    <para><anchor xml:id="objectdefinitions-module" /><emphasis role="bold">Module Definition</emphasis></para>
+
+    <para><emphasis>Beschreibung:</emphasis></para>
+
+    <para>Eine Module-Definition wird benutzt, um Informationen zu einem Modul anzugeben. Sie kann anstatt eines broker_module-Eintrags in der Hauptkonfigurationsdatei verwendet werden und ist deshalb flexibler (Sie können cfg_file/cfg_dir-Einträge benutzen, um sie einzuschließen).</para>
+
+    <note>
+      <para>Moduldefinitionen sind seit &name-icinga; 1.4 verfügbar.</para>
+    </note>
+
+    <para><emphasis>Definition:</emphasis></para>
+
+    <note>
+      <para>Anmerkung: <emphasis condition="red" role="color">"Direktiven"</emphasis> werden benötigt, die anderen sind optional.</para>
+    </note>
+
+    <informaltable frame="none">
+      <tgroup cols="3">
+        <colspec colname="c1" />
+
+        <colspec colname="c2"/>
+
+        <colspec colname="c3"/>
+
+        <tbody>
+          <row>
+            <entry align="left" nameend="c3" namest="c1" valign="middle"><para>define module{</para></entry>
+          </row>
+
+          <row>
+            <entry><para>
+            </para></entry>
+
+            <entry><para><emphasis condition="red" role="color">module_name</emphasis></para></entry>
+            <entry><para>module name</para></entry>
+          </row>
+
+          <row>
+            <entry><para></para></entry>
+
+            <entry><para><emphasis condition="red" role="color">path</emphasis></para></entry>
+
+            <entry><para>path</para></entry>
+          </row>
+
+          <row>
+            <entry><para></para></entry>
+
+            <entry><para>args</para></entry>
+
+            <entry><para>arguments</para></entry>
+          </row>
+
+          <row>
+            <entry><para></para></entry>
+
+            <entry><para>module_type</para></entry>
+
+            <entry><para>neb</para></entry>
+          </row>
+
+          <row>
+            <entry><para></para></entry>
+
+            <entry align="left" nameend="c3" namest="c2" valign="middle"><para>}</para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para><emphasis>Beispieldefinition:</emphasis></para>
+
+    <screen> define module{
+        module_name    ido_mod
+        path           /usr/local/icinga/bin/idomod.o
+        module_type    neb
+        args           config_file=/usr/local/icinga/etc/idomod.cfg
+        }</screen>
+
+    <para><emphasis>Beschreibung der Direktiven:</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="10*" />
+
+        <colspec colname="c2" colwidth="50*" />
+
+        <tbody>
+          <row>
+            <entry align="left" valign="top"><para><emphasis role="bold">module_name</emphasis>:</para></entry>
+
+            <entry><para>Diese Direktive legt den eindeutigen Namen des Moduls fest, so dass Sie den Modulnamen nicht mehrfach vergeben
+             können. Die Direktive ist notwendig, anderenfalls wird die Konfiguration nicht akzeptiert und das Modul nicht geladen.
+            </para></entry>
+          </row>
+
+          <row>
+            <entry align="left" valign="top"><para><emphasis role="bold">module_type</emphasis>:</para></entry>
+
+            <entry><para>Diese optionale Direktive gibt den Typ des Moduls an, z.B. 'neb' für Eventbroker-Module. Diese Direktive gedacht,
+            um weitere Filterung beim Laden des Moduls zu erlauben.</para></entry>
+          </row>
+
+          <row>
+            <entry align="left" valign="top"><para><emphasis role="bold">path</emphasis>:</para></entry>
+
+            <entry><para>Diese notwendige Direktive gibt den kompletten Pfad des zu ladenden Moduls an. Bei Eventbroker-Modulen wie z.B.
+            idomod muss der Benutzer des &name-icinga;-Prozesses berechtigt sein, das Modul lesen und ausführen zu dürfen.</para></entry>
+          </row>
+
+          <row>
+            <entry align="left" valign="top"><para><emphasis role="bold">args</emphasis>:</para></entry>
+
+            <entry><para>Diese Direktive definiert optionale Argumente, die an das Modul übergeben werden. idomod benötigt
+            config_file=.../idomod.cfg während andere Module ihre eigene Syntax haben. Der Wert der Direktive wird als Argument-String an
+            den Eventbroker-Modul-Lader übergeben, wenn es als neb-Modul benutzt wird.</para></entry>
+          </row>
+
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <note>
+      <para>Die Nutzung von Templates sollte möglich sind, aber das wurde noch nicht ausgiebing mit &name-icinga; 1.4 getestet.</para>
+    </note>
+
+    <indexterm zone="objectdefinitions-module">
+      <primary>Objektdefinitionen</primary>
+
+      <secondary>Module</secondary>
+    </indexterm>
+  </section>
+
 </section>
