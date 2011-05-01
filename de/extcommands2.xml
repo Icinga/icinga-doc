@@ -57,11 +57,10 @@
 <listitem><para><link linkend="extcmd2-change_svc_notification_timeperiod">CHANGE_SVC_NOTIFICATION_TIMEPERIOD</link></para></listitem>
 <listitem><para><link linkend="extcmd2-del_all_host_comments">DEL_ALL_HOST_COMMENTS</link></para></listitem>
 <listitem><para><link linkend="extcmd2-del_all_svc_comments">DEL_ALL_SVC_COMMENTS</link></para></listitem>
+<listitem><para><link linkend="extcmd2-del_downtime_by_host_name">DEL_DOWNTIME_BY_HOST_NAME</link></para></listitem>
+<listitem><para><link linkend="extcmd2-del_downtime_by_hostgroup_name">DEL_DOWNTIME_BY_HOSTGROUP_NAME</link></para></listitem>
 <listitem><para><link linkend="extcmd2-del_downtime_by_start_time_comment">DEL_DOWNTIME_BY_START_TIME_COMMENT</link></para></listitem>
 <listitem><para><link linkend="extcmd2-del_host_comment">DEL_HOST_COMMENT</link></para></listitem>
-<listitem><para><link linkend="extcmd2-del_host_svc_downtime">DEL_HOST_SVC_DOWNTIME</link></para></listitem>
-<listitem><para><link linkend="extcmd2-del_hostgroup_host_downtime">DEL_HOSTGROUP_HOST_DOWNTIME</link></para></listitem>
-<listitem><para><link linkend="extcmd2-del_hostgroup_svc_downtime">DEL_HOSTGROUP_SVC_DOWNTIME</link></para></listitem>
 <listitem><para><link linkend="extcmd2-del_host_downtime">DEL_HOST_DOWNTIME</link></para></listitem>
 <listitem><para><link linkend="extcmd2-del_svc_comment">DEL_SVC_COMMENT</link></para></listitem>
 <listitem><para><link linkend="extcmd2-del_svc_downtime">DEL_SVC_DOWNTIME</link></para></listitem>
@@ -454,6 +453,22 @@
 
   <para>Löscht einen Host-Kommentar. Die ID-Nummer des zu löschenden Kommentars muss angegeben werden.</para>
 
+  <para><anchor xml:id="extcmd2-del_downtime_by_host_name" /> <emphasis role="bold">DEL_DOWNTIME_BY_HOST_NAME</emphasis>
+  </para>
+
+  <para><code>DEL_DOWNTIME_BY_HOST_NAME;</code>&lt;host_name&gt;</para>
+
+  <para>Löscht die Ausfallzeiten des Hosts, der über "host_name" angegeben wurde.</para>
+  <note><para>Dieser Befehl ist ab &name-icinga; 1.4 verfügbar. Die Änderungen stammen vom <link xlink:href="&url-opsview;">&name-opsview;</link>-Team.</para></note>
+
+  <para><anchor xml:id="extcmd2-del_downtime_by_hostgroup_name" /> <emphasis role="bold">DEL_DOWNTIME_BY_HOSTGROUP_NAME</emphasis>
+  </para>
+
+  <para><code>DEL_DOWNTIME_BY_HOSTGROUP_NAME;</code>&lt;hostgroup_name&gt;</para>
+
+  <para>Löscht die Ausfallzeiten aller Hosts der Hostgruppe, die über "hostgroup_name" angegeben wurde.</para>
+  <note><para>Dieser Befehl ist ab &name-icinga; 1.4 verfügbar. Die Änderungen stammen vom <link xlink:href="&url-opsview;">&name-opsview;</link>-Team.</para></note>
+
   <para><anchor xml:id="extcmd2-del_downtime_by_start_time_comment" /> <emphasis role="bold">DEL_DOWNTIME_BY_START_TIME_COMMENT</emphasis>
   </para>
 
@@ -466,42 +481,9 @@
   <para><anchor xml:id="extcmd2-del_host_downtime" /> <emphasis role="bold">DEL_HOST_DOWNTIME</emphasis></para>
 
   <para><code>DEL_HOST_DOWNTIME;</code>&lt;downtime_id&gt;</para>
-  <para><code>DEL_HOST_DOWNTIME;</code>&lt;host_name&gt;</para>
 
   <para>Löscht den Host-Ausfallzeit-Eintrag mit der durch "downtime_id" angegebenen Nummer. Falls die Ausfallzeit gerade aktiv ist, wird die
   Ausfallzeit des Hosts damit beendet (solange es keine weiteren aktiven überlappenden Ausfallzeiteinträge für diesen Host gibt).</para>
-  <note><para>"host_name" kann alternativ ab &name-icinga; 1.4 benutzt werden. Die Änderungen stammen vom <link
-  xlink:href="&url-opsview;">&name-opsview;</link>-Team.</para></note>
-
-  <para><anchor xml:id="extcmd2-del_host_svc_downtime" /> <emphasis role="bold">DEL_HOST_SVC_DOWNTIME</emphasis></para>
-
-  <para><code>DEL_HOST_SVC_DOWNTIME;</code>&lt;downtime_id&gt;</para>
-  <para><code>DEL_HOST_SVC_DOWNTIME;</code>&lt;host_name;service_description&gt;</para>
-
-  <para>Löscht den Service-Ausfallzeit-Eintrag mit der durch "downtime_id" angegebenen Nummer. Falls die Ausfallzeit gerade aktiv ist, wird die
-  Ausfallzeit des Hosts damit beendet (solange es keine weiteren aktiven überlappenden Ausfallzeiteinträge für diesen Host gibt).</para>
-  <note><para>Die downtime_id kann ab &name-icinga; 1.4 entfallen. Die Änderungen stammen vom <link xlink:href="&url-opsview;">&name-opsview;
-  </link>-Team.</para></note>
-
-  <para><anchor xml:id="extcmd2-del_hostgroup_host_downtime" /> <emphasis role="bold">DEL_HOSTGROUP_HOST_DOWNTIME</emphasis></para>
-
-  <para><code>DEL_HOSTGROUP_HOST_DOWNTIME;</code>&lt;hostgroup_name&gt;</para>
-
-  <para>Löscht den Host-Ausfallzeit-Eintrag für alle Hosts, die zu der mit "hostgroup_name" angegebenen Hostgruppe gehören. Falls die
-  Ausfallzeit gerade aktiv ist, wird die Ausfallzeit des Hosts damit beendet (solange es keine weiteren aktiven überlappenden
-  Ausfallzeiteinträge für diesen Host gibt).</para>
-  <note><para>Dieser Befehl ist ab &name-icinga; 1.4 verfügbar. Die Änderungen stammen vom <link xlink:href="&url-opsview;">&name-opsview;
-  </link>-Team.</para></note>
-
-  <para><anchor xml:id="extcmd2-del_hostgroup_svc_downtime" /> <emphasis role="bold">DEL_HOSTGROUP_SVC_DOWNTIME</emphasis></para>
-
-  <para><code>DEL_HOSTGROUP_SVC_DOWNTIME;</code>&lt;hostgroup_name&gt;</para>
-
-  <para>Löscht den Service-Ausfallzeit-Eintrag für alle Services der Hosts, die zu der mit "hostgroup_name" angegebenen Hostgruppe gehören.
-  Falls die Ausfallzeit gerade aktiv ist, wird die Ausfallzeit des Service damit beendet (solange es keine weiteren aktiven überlappenden
-  Ausfallzeiteinträge für diesen Service gibt).</para>
-  <note><para>Dieser Befehl ist ab &name-icinga; 1.4 verfügbar. Die Änderungen stammen vom <link xlink:href="&url-opsview;">&name-opsview;
-  </link>-Team.</para></note>
 
   <para><anchor xml:id="extcmd2-del_svc_comment" /> <emphasis role="bold">DEL_SVC_COMMENT</emphasis></para>
 
@@ -1606,6 +1588,18 @@
     <secondary>DEL_ALL_SVC_COMMENTS</secondary>
   </indexterm>
 
+  <indexterm zone="extcmd2-del_downtime_by_host_name">
+    <primary>Externe Befehle</primary>
+
+    <secondary>DEL_DOWNTIME_BY_HOST_NAME</secondary>
+  </indexterm>
+
+  <indexterm zone="extcmd2-del_downtime_by_hostgroup_name">
+    <primary>Externe Befehle</primary>
+
+    <secondary>DEL_DOWNTIME_BY_HOSTGROUP_NAME</secondary>
+  </indexterm>
+
   <indexterm zone="extcmd2-del_downtime_by_start_time_comment">
     <primary>Externe Befehle</primary>
 
@@ -1622,24 +1616,6 @@
     <primary>Externe Befehle</primary>
 
     <secondary>DEL_HOST_DOWNTIME</secondary>
-  </indexterm>
-
-  <indexterm zone="extcmd2-del_host_svc_downtime">
-    <primary>Externe Befehle</primary>
-
-    <secondary>DEL_HOST_SVC_DOWNTIME</secondary>
-  </indexterm>
-
-  <indexterm zone="extcmd2-del_hostgroup_host_downtime">
-    <primary>Externe Befehle</primary>
-
-    <secondary>DEL_HOSTGROUP_HOST_DOWNTIME</secondary>
-  </indexterm>
-
-  <indexterm zone="extcmd2-del_hostgroup_svc_downtime">
-    <primary>Externe Befehle</primary>
-
-    <secondary>DEL_HOSTGROUP_SVC_DOWNTIME</secondary>
   </indexterm>
 
   <indexterm zone="extcmd2-del_svc_comment">
