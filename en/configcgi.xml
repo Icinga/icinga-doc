@@ -182,6 +182,50 @@
     <listitem>
       <para><link linkend="configcgi-splunk_url">Splunk URL</link></para>
     </listitem>
+
+    <listitem>
+      <para><link linkend="configcgi-persistent_ack_comments">Persistent Acknowledge Comments</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="configcgi-showlog_initial_states">Show Initial States</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="configcgi-show_current_states">Show Current States</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="configcgi-tab_friendly_titles">Show Object Type in Tab Title</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="configcgi-add_notif_num">Show Service State and Notifications Number</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="configcgi-http_charset">HTTP character set</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="configcgi-first_day_of_week">First Day of Week</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="configcgi-use_logging">CGI Command Logging</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="configcgi-cgi_log_file">CGI Log File</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="configcgi-cgi_log_rotation_method">CGI Log Rotation Method</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="configcgi-cgi_log_archive_path">CGI Log Archive Path</link></para>
+    </listitem>
   </itemizedlist>
 
   <para><anchor xml:id="configcgi-main_cfg_file" /> <emphasis role="bold">Main Configuration File Location</emphasis></para>
@@ -1595,6 +1639,148 @@
     <para>This option is available starting with &name-icinga; 1.4.</para>
   </note>
 
+  <para><anchor xml:id="configcgi-use_logging" /> <emphasis role="bold">Logging of CGI commands</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">use_logging=&lt;0|1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">use_logging=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option enables the logging of CGI commands in a separate log file. Default is 0 = logging disabled, 1 = logging enabled.</para>
+
+  <note>
+    <para>This option is available starting with &name-icinga; 1.4.</para>
+  </note>
+
+  <para><anchor xml:id="configcgi-cgi_log_file" /> <emphasis role="bold">Set the name of the log file</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">cgi_log_file=name of log file</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">cgi_log_file=/usr/local/icinga/var/cgi_logs/icinga-cgi.log</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option sets the location of the CGI log file.</para>
+
+  <note>
+    <para>This option is available starting with &name-icinga; 1.4.</para>
+  </note>
+  <para><anchor xml:id="configcgi-cgi_log_rotation_method" /> <emphasis role="bold">Set log file rotation method</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">log file rotation method=&lt;d|w|m&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">cgi_log_rotation_method=d</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This is the rotation method that you would like &name-icinga; to use for your CGI log file. Values are as follows:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>h = Hourly (rotate the log at the top of each hour)</para>
+    </listitem>
+
+    <listitem>
+      <para>d = Daily (rotate the log at midnight each day - this is the default)</para>
+    </listitem>
+
+    <listitem>
+      <para>w = Weekly (rotate the log at midnight on Saturday)</para>
+    </listitem>
+
+    <listitem>
+      <para>m = Monthly (rotate the log at midnight on the last day of the month)</para>
+    </listitem>
+  </itemizedlist>
+
+
+  <note>
+    <para>This option is available starting with &name-icinga; 1.4.</para>
+  </note>
+  <para><anchor xml:id="configcgi-cgi_log_archive_path" /> <emphasis role="bold">Set first day of week</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">cgi_log_archive_path=&lt;archive directory&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">cgi_log_archive_path=/usr/local/icinga/var/cgi_logs</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This is the directory where &name-icinga; should place CGI log files that have been rotated. This option is ignored if you choose
+  to not use the <link linkend="configcgi-cgi_log_rotation_method">CGI log rotation</link> functionality.</para>
+
+  <note>
+    <para>This option is available starting with &name-icinga; 1.4.</para>
+  </note>
+
   <indexterm zone="config_cgi">
     <primary>CGI Configuration File Options</primary>
   </indexterm>
@@ -1785,5 +1971,31 @@
 
   <indexterm zone="configcgi-first_day_of_week">
     <primary>first_day_of_week=</primary>
+
+    <secondary>Set first day of week</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-use_logging">
+    <primary>use_logging=</primary>
+
+    <secondary>Enable/disable CGI command logging</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-cgi_log_file">
+    <primary>cgi_log_file=</primary>
+
+    <secondary>Set location of CGI log file</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-cgi_log_rotation_method">
+    <primary>cgi_log_rotation_method=</primary>
+
+    <secondary>Set rotation method of CGI log file</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-cgi_log_archive_path">
+    <primary>cgi_log_archive_path=</primary>
+
+    <secondary>Set location of CGI log archive directory</secondary>
   </indexterm>
 </section>
