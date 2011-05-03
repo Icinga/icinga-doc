@@ -226,6 +226,10 @@
     <listitem>
       <para><link linkend="configcgi-cgi_log_archive_path">CGI Log Archive Path</link></para>
     </listitem>
+
+    <listitem>
+      <para><link linkend="configcgi-enforce_comments_on_actions">Enforce comments on Actions</link></para>
+    </listitem>
   </itemizedlist>
 
   <para><anchor xml:id="configcgi-main_cfg_file" /> <emphasis role="bold">Main Configuration File Location</emphasis></para>
@@ -1749,6 +1753,7 @@
   <note>
     <para>This option is available starting with &name-icinga; 1.4.</para>
   </note>
+
   <para><anchor xml:id="configcgi-cgi_log_archive_path" /> <emphasis role="bold">Set first day of week</emphasis></para>
 
   <informaltable frame="none">
@@ -1776,6 +1781,42 @@
 
   <para>This is the directory where &name-icinga; should place CGI log files that have been rotated. This option is ignored if you choose
   to not use the <link linkend="configcgi-cgi_log_rotation_method">CGI log rotation</link> functionality.</para>
+
+  <note>
+    <para>This option is available starting with &name-icinga; 1.4.</para>
+  </note>
+
+  <para><anchor xml:id="configcgi-enforce_comments_on_actions" /> <emphasis role="bold">Enforce comments on actions</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">enforce_comments_on_actions=&lt;0|1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">enforce_comments_on_actions=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Enforces the need to enter a comment on actions entered via the CGIs. 0 = do not enforce comment (default), 1 = enforce comment.
+  </para>
+
+  <note>
+    <para>The option use_logging has to be enabled, otherwise there will be no logging of comments.</para>
+  </note>
 
   <note>
     <para>This option is available starting with &name-icinga; 1.4.</para>
@@ -1997,5 +2038,11 @@
     <primary>cgi_log_archive_path=</primary>
 
     <secondary>Set location of CGI log archive directory</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-enforce_comments_on_actions">
+    <primary>enforce_comments_on_actions=</primary>
+
+    <secondary>Enforce comments on actions</secondary>
   </indexterm>
 </section>
