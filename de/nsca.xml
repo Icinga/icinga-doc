@@ -26,10 +26,10 @@
 
   <para>&name-nsca; läuft als Daemon auf dem &name-icinga;-Server. Er lauscht auf Informationen, die von entfernten Maschinen mit Hilfe des
   send_nsca-Programms (auf Unix/Linux-Maschinen) oder NSClient++ (oft auf Windows-Maschinen benutzt) gesendet werden. Die Daten werden mit
-  der in send_nsca.cfg (oder nsc.ini im Falle von NSClient++) festgelegten Methode verschlüsselt. Der Daemon wird die Daten in einer *sehr*
-  einfachen Weise validieren, indem die Informationen mit dem in nsca.cfg eingetragenen Passwort entschlüsselt werden. Wenn die Daten so
-  aussehen, als wären sie mit dem gleichen verschlüsselt wurden, dann wird der Daemon versuchen, diese Daten als externen Befehl in die
-  lokale &name-icinga; Command Pipe auszugeben.</para>
+  der in <filename>send_nsca.cfg</filename> (oder <filename>nsc.ini</filename> im Falle von NSClient++) festgelegten Methode verschlüsselt.
+  Der Daemon wird die Daten in einer *sehr* einfachen Weise validieren, indem die Informationen mit dem in nsca.cfg eingetragenen Passwort
+  entschlüsselt werden. Wenn die Daten so aussehen, als seien sie mit dem gleichen Passwort verschlüsselt worden, dann wird der Daemon
+  versuchen, diese Daten als externen Befehl in die lokale &name-icinga;-Command-Pipe auszugeben.</para>
 
   <para>Die folgenden Anweisungen basieren hauptsächlich auf dem README aus dem &name-nsca;-Paket.</para>
 
@@ -78,7 +78,7 @@
   <programlisting> #&gt; git clone git://git.icinga.org/icinga-nsca.git</programlisting>
 
   <para>Die maximale Länge der zu übertragenen Daten ist auf 2.048 Bytes begrenzt, die maximale Länge von Plugin-Ausgaben auf 512 Bytes.
-  Falls das nicht ausreicht, dann müssen Sie den entsprechenden Wert in <literal>icinga-nsca/include/common.h</literal> anpassen.</para>
+  Falls das nicht ausreicht, dann müssen Sie den entsprechenden Wert in <filename>icinga-nsca/include/common.h</filename> anpassen.</para>
 
   <para><programlisting> #define MAX_INPUT_BUFFER        2048    /* max size of most buffers we use */
  #define MAX_PLUGINOUTPUT_LENGTH 512 </programlisting>Bitte denken Sie daran, dass Sie die Programme erneut kompilieren müssen, wenn Sie
@@ -95,7 +95,7 @@
  #&gt; ./configure 
  #&gt; make all</programlisting>
 
-  <para>Anschließend gibt es zwei Programme (send and send_nsca) im <literal>src</literal>-Verzeichnis.</para>
+  <para>Anschließend gibt es zwei Programme (send und send_nsca) im <filename>src</filename>-Verzeichnis.</para>
 
   <caution><para>
      Wenn die libmcrypt-Dateien nicht gefunden werden, dann wird "./configure" sich beschweren, aber NICHT mit einem Return-Code ungleich Null enden, so dass Sie 
@@ -118,7 +118,7 @@
 
   <para><emphasis role="bold">Anpassen</emphasis></para>
 
-  <para>Das <literal>sample-config</literal>-Verzeichnis enthält <literal>nsca.cfg</literal> und <literal>send_nsca.cfg</literal>.
+  <para>Das <filename>sample-config</filename>-Verzeichnis enthält <filename>nsca.cfg</filename> und <filename>send_nsca.cfg</filename>.
   Mindestens die Einstellungen der Direktiven "password" und "encryption_method" / "decryption_method" sollten Sie ansehen/verändern, bevor
   die Dateien kopiert werden. Bitte denken Sie daran, das gleiche Passwort in allen Kopien dieser Konfigurationsdateien zu setzen. Wenn Sie
   verschiedene Passworte auf verschiedenen entfernten Servern einsetzen möchten, dann müssen Sie mehrere nsca-Daemons auf dem
@@ -151,7 +151,7 @@
 
   <para>"make install" macht (im Moment) nichts, so dass Sie selbst einige Dateien kopieren müssen. Die folgenden Befehle kopieren das
   nsca-Modul in das Verzeichnis, in dem das &name-icinga;-Binary zu finden ist und die Konfigurationsdatei in den
-  &name-icinga;-Konfigurationsordner. Wir nehmen an, dass Sie &name-icinga; nach einem der Schnellstartanleitungen installiert haben.</para>
+  &name-icinga;-Konfigurationsordner. Wir nehmen an, dass Sie &name-icinga; nach einer der Schnellstartanleitungen installiert haben.</para>
 
   <programlisting> #&gt; cp -p nsca /usr/local/icinga/bin/
  #&gt; cp ../sample-config/nsca.cfg /usr/local/icinga/etc/</programlisting>
@@ -172,8 +172,9 @@
     <listitem>
       <para><emphasis role="bold">inetd/xinetd</emphasis></para>
 
-      <para>Wenn Sie möchten, dass der Daemon von (x)inetd gestartet wird, dann müssen Sie /etc/services erweitern, eine weitere Datei
-      ändern/kopieren und (x)inetd neustarten. Vergessen Sie nicht, den nsca-Daemon zu stoppen, der in "Erster Test" gestartet wurde.</para>
+      <para>Wenn Sie möchten, dass der Daemon von (x)inetd gestartet wird, dann müssen Sie <filename>/etc/services</filename> erweitern,
+      eine weitere Datei ändern/kopieren und (x)inetd neustarten. Vergessen Sie nicht, den nsca-Daemon zu stoppen, der in "Erster Test"
+      gestartet wurde.</para>
 
       <note>
         <para>Die Einstellung von "server_port" in nsca.cfg wird ignoriert, wenn Sie inetd/xinetd benutzen.</para>
@@ -188,9 +189,9 @@
         <listitem>
           <para>inetd MIT tcpwrappers</para>
 
-          <para>Fügen Sie Einträge zu Ihrer /etc/hosts.allow und /etc/hosts.deny hinzu, um TCP wrapper-Protection für den nsca-Service zu
-          aktivieren. Dies ist optional, allerdings sehr empfohlen. Fügen Sie "nsca stream tcp nowait &lt;user&gt; /usr/sbin/tcpd
-          &lt;nsca-binary&gt; -c &lt;nsca-cfg&gt; --inetd" zur /etc/inetd.conf hinzu, z.B.</para>
+          <para>Fügen Sie Einträge zu Ihrer <filename>/etc/hosts.allow</filename> und <filename>/etc/hosts.deny</filename> hinzu, um
+          TCP wrapper-Protection für den nsca-Service zu aktivieren. Dies ist optional, allerdings sehr empfohlen. Fügen Sie "nsca stream
+          tcp nowait &lt;user&gt; /usr/sbin/tcpd &lt;nsca-binary&gt; -c &lt;nsca-cfg&gt; --inetd" zur /etc/inetd.conf hinzu, z.B.</para>
 
           <programlisting> #&gt; echo "nsca stream tcp nowait icinga /usr/sbin/tcpd /usr/local/icinga/bin/nsca -c /usr/local/icinga/etc/nsca.cfg --inetd" &gt;&gt; /etc/inetd.conf
  #&gt; /etc/init.d/inetd restart</programlisting>
@@ -209,11 +210,12 @@
         <listitem>
           <para>xinetd</para>
 
-          <para>Consider editing the config file nsca.xinetd in the sample-config folder and replacing &lt;ipaddress1&gt;... by the IP
-          addresses of your client machines (where send_nsca will be running). This only works if xinetd was compiled with support for
-          tcpwrappers. If you are running DHCP then this will not work and you should delete this line.</para>
+          <para>Denken Sie daran, die Konfigurationsdatei <filename>nsca.xinetd</filename> im <filename>sample-config</filename>-Verzeichnis
+          zu editieren und &lt;ipaddress1&gt; durch die IP-Adressen Ihrer Client-Rechner (auf denen send_nsca laufen wird) zu ersetzen.
+          Dies funktioniert nur, wenn xinetd mit Unterstützung für tcpwrapper kompiliert wurde. Wenn Sie DHCP benutzen, funktioniert das
+          nicht und Sie sollten diese Zeile löschen.</para>
 
-          <para>Fügen Sie Einträge zu Ihrer /etc/hosts.allow und /etc/hosts.deny hinzu, um TCP wrapper-Protection für den nsca-Service zu
+          <para>Fügen Sie Einträge zu Ihrer <filename>/etc/hosts.allow</filename> und <filename>/etc/hosts.deny</filename> hinzu, um TCP wrapper-Protection für den nsca-Service zu
           aktivieren. Dies ist optional, allerdings sehr empfohlen. Fügen Sie "nsca stream tcp nowait &lt;user&gt; /usr/sbin/tcpd
           &lt;nsca-binary&gt; -c &lt;nsca-cfg&gt; --inetd" zur /etc/inetd.conf hinzu, z.B.</para>
 
@@ -260,8 +262,8 @@
   <para>Host-Name (und Service-Beschreibung, falls zutreffend) sind Case-sensitiv und müssen exakt mit den Definitionen in &name-icinga;
   übereinstimmen.</para>
 
-  <para>Prüfen Sie, ob Sie in nsca.cfg und send_nsca.cfg das gleiche Passwort angegeben haben. Anderenfalls wird die Übertragung
-  fehlschlagen.</para>
+  <para>Prüfen Sie, ob Sie in <filename>nsca.cfg</filename> und <filename>send_nsca.cfg</filename> das gleiche Passwort angegeben haben.
+  Anderenfalls wird die Übertragung fehlschlagen.</para>
 
   <para>Prüfen Sie, ob Sie gleiche Verschlüsselungs-/Entschlüsselungsmethode verwenden. Anderenfalls wird die Übertragung
   fehlschlagen.</para>
@@ -283,7 +285,7 @@
 
   <para><emphasis role="bold">Betrieb</emphasis></para>
 
-  <para>send_nsca wird benutzt, um die Pürfergebnisse vom entfernten Rechner zum &name-icinga;-Server zu senden. Die Syntax hängt vom
+  <para>send_nsca wird benutzt, um die Prüfergebnisse vom entfernten Rechner zum &name-icinga;-Server zu senden. Die Syntax hängt vom
   Objekttyp ab. Um Service-Prüfergebnisse zu versenden, benutzen Sie</para>
 
   <para>&lt;host_name&gt;[tab]&lt;svc_description&gt;[tab]&lt;return_code&gt;[tab]&lt;plugin_output&gt;[newline]</para>
@@ -310,7 +312,7 @@
 
   <para>Obwohl Sie nur Prüfergebnisse empfangen müssen Sie doch die "check_command"-Direktive in Ihren Definitionen angeben. Es gibt ein
   Plugin namens "check_dummy", das für diesen Zweck benutzt werden kann. Es kann sein, dass Sie die folgende command-Definition einfügen
-  müssen, falls sie noch nicht vorhanden ist. Das zweite Argument ist optional und kann z.B. einen erklärenden Text enhalten.</para>
+  müssen, falls sie noch nicht vorhanden ist. Das zweite Argument ist optional und kann z.B. einen erklärenden Text enthalten.</para>
 
   <para><programlisting> define command{
     command_name check_dummy
