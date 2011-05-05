@@ -122,6 +122,26 @@
  #&gt; make
  #&gt; make install</programlisting></para>
 
+  <para><emphasis>&name-icinga; 1.4</emphasis></para>
+
+  <para>Seit &name-icinga; 1.4 wird mindestens &name-oracle; 10gR2 benötigt. Ältere Versionen funktionieren möglicherweise, werden aber
+  nicht unterstützt. Die &name-oracle;-Skripte wurden geändert, um für Daten, Indexe und LOBs nun unterschiedliche Tablespaces zu nutzen.
+  Aus diesem Grund gibt es die Notwendigkeit, den Tablespace-Namen anzugeben, den Sie benutzen möchten. Wenn Sie eine kleine Umgebung haben,
+  dann können Sie für alle "defines" den gleichen Tablespace angeben. Sie müssen das neue Skript <filename>icinga_defines.sql</filename> auf
+  Ihre Bedürfnisse anpassen, bevor Sie das Skript <filename>oracle.sql</filename> ausführen. Um Ihnen ein wenig Arbeit abzunehmen, gibt es
+  ein neues Skript <filename>create_oracle_sys.sql</filename>, das Ihnen helfen soll, die benötigten Tablespaces und einen
+  &name-icinga;-Applikations-Benutzer anzulegen, das als SYS ausgeführt werden muss. Es benutzt außerdem
+  <filename>icinga_defines.sql</filename>. Die Erzeugung von Objekten wurde von <filename>oracle.sql</filename> in das Skript
+  <filename>create_icinga_objects_oracle.sql</filename> verlagert. Das alte <filename>oracle.sql</filename> wurde in ein "Master"-Skript
+  umgewandelt und enthält per "include" Verweise auf alle anderen Skripte, die im aktuellen Verzeichnis erwartet werden. Aus diesem Grund
+  sollten Sie <filename>sqlplus</filename> in diesem Verzeichnis starten, um <filename>oracle.sql</filename> auszuführen. Auf diese Weise
+  erfolgt die Erzeugung von Benutzer und Tablespaces sowie die Erzeugung der &name-icinga;-Tabellen in einem Schritt. Als ein
+  All-in-one-Beispiel gibt es das neue Skript <filename>db/scripts/create_oracledb.sh</filename>. Passen Sie die Variablen auf Ihre
+  Bedürfnisse an und freuen Sie sich. Wenn Sie es vorziehen, die Schritte als SYS selbst zu erledigen, dann entfernen Sie den Kommentar vor
+  <filename>create_oracle_sys.sql</filename> und stellen Sie sicher, dass Ihr &name-icinga;-Datenbankbenutzer und die Tabellen existieren
+  und (mindestens) mit den gleichen Rechten definiert sind und dass die korrekten Einstellungen in <filename>icinga_defines.sql</filename>
+  vorhanden sind.</para>
+
   <para><emphasis role="bold">Installation der Pakete</emphasis></para>
 
   <para>Sie können diese Pakete mit Hilfe der folgenden Befehle installieren (als root oder mit sudo):</para>
@@ -247,6 +267,7 @@
   <programlisting> #&gt; /usr/sbin/groupadd icinga-cmd
  #&gt; /usr/sbin/usermod -a -G icinga-cmd icinga
  #&gt; /usr/sbin/usermod -a -G icinga-cmd www-data</programlisting>
+
   <para>(oder www, wwwrun, apache je nach Distribution)</para>
 
   <note>
@@ -300,11 +321,11 @@
   <para><emphasis role="bold">Mit Oracle-Datenbankunterstützung:</emphasis></para>
 
   <para><programlisting> #&gt; ./configure --with-command-group=icinga-cmd \
-    --enable-idoutils --enable-oracle</programlisting> Wenn Ihre
-  Oracle Libraries nicht in der Path-Variablen enthalten sind, können Sie sie im configure angeben: <programlisting> #&gt; ./configure --with-command-group=icinga-cmd \
+    --enable-idoutils --enable-oracle</programlisting> Wenn Ihre Oracle Libraries nicht in der Path-Variablen enthalten sind, können Sie sie
+  im configure angeben: <programlisting> #&gt; ./configure --with-command-group=icinga-cmd \
     --enable-idoutils --enable-oracle \
-    --with-oracle-lib=/path/to/instantclient</programlisting> Wenn Sie die ocilib nicht im Standardpfad (/usr/local) installiert haben, können
-  Sie configure die lib/inc Verzeichnisse angeben:<programlisting> #&gt; ./configure --with-command-group=icinga-cmd \
+    --with-oracle-lib=/path/to/instantclient</programlisting> Wenn Sie die ocilib nicht im Standardpfad (/usr/local) installiert haben,
+  können Sie configure die lib/inc Verzeichnisse angeben:<programlisting> #&gt; ./configure --with-command-group=icinga-cmd \
     --enable-idoutils --enable-oracle \
     --with-ocilib-lib=/path/to/ocilib/lib --with-ocilib-inc=/path/to/ocilib/include</programlisting> <note>
       <para>Wenn Sie von einer Oracle-Datenbank auf ein anderes RDBMS wechseln möchten, dann müssen Sie die &name-idoutils; erneut
@@ -357,7 +378,8 @@
  output_type=tcpsocket
  output=127.0.0.1</programlisting>
 
-  <para>(Passen Sie die IP-Adresse an, wenn sich Ihre Datenbank nicht auf localhost befindet!) und der <filename>ido2db.cfg</filename> mit</para>
+  <para>(Passen Sie die IP-Adresse an, wenn sich Ihre Datenbank nicht auf localhost befindet!) und der <filename>ido2db.cfg</filename>
+  mit</para>
 
   <programlisting> use_ssl=1
  socket_type=tcp </programlisting>
@@ -368,13 +390,16 @@
   </note>
 
   <para><emphasis role="bold">Aktivieren Sie das idomod-Eventbroker-Modul</emphasis></para>
-  <para>Editieren Sie <filename>&url-icinga-cfg;</filename>, suchen Sie nach "broker_module" und aktivieren Sie diese Zeile bzw. fügen Sie die folgende 
-    Zeile hinzu (passen Sie die Namen an, falls nötig).</para>
+
+  <para>Editieren Sie <filename>&url-icinga-cfg;</filename>, suchen Sie nach "broker_module" und aktivieren Sie diese Zeile bzw. fügen Sie
+  die folgende Zeile hinzu (passen Sie die Namen an, falls nötig).</para>
 
   <programlisting> broker_module=&url-icinga-base;/bin/idomod.o config_file=&url-icinga-base;/etc/idomod.cfg</programlisting>
 
-  <note><para>Ab &name-icinga; 1.4 können Sie statt des broker_module-Eintrags die neue module-Definition in einer Ihrer
-  Objektkonfigurationsdateien benutzen:</para>
+  <note>
+    <para>Ab &name-icinga; 1.4 können Sie statt des broker_module-Eintrags die neue module-Definition in einer Ihrer
+    Objektkonfigurationsdateien benutzen:</para>
+
     <screen> define module{
         module_name    ido_mod
         path           &url-icinga-base;/bin/idomod.o

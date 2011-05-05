@@ -116,6 +116,24 @@
  #&gt; make
  #&gt; make install</programlisting></para>
 
+  <para><emphasis>&name-icinga; 1.4</emphasis></para>
+
+  <para>As of &name-icinga; 1.4 the minimum expected &name-oracle; version is &name-oracle; 10gR2. Older versions may work, but are not
+  supported. &name-oracle; scripts are designed to split data, index and lobs into different tablespaces. For this reason there is a new
+  prerequisite to define the tablespace names you want to use. If you are working in a small environment, you can set all defines to the
+  same real tablespace. You will find a new script <filename>icinga_defines.sql</filename> which you have to adapt for your needs before
+  applying <filename>oracle.sql</filename>. For your convenience there is a new script <filename>create_oracle_sys.sql</filename> included,
+  which should help you to create the necessary tablespaces and an &name-icinga; application user and must run as SYS. It will make use of
+  <filename>icinga_defines.sql</filename> as well. Object creation has been moved from <filename>oracle.sql</filename> to the script
+  <filename>create_icinga_objects_oracle.sql</filename>. The former <filename>oracle.sql</filename> has been redesigned as a master script
+  to record all other scripts as includes and expects these includes within the current directory. For this reason you should start
+  <filename>sqlplus</filename> executing <filename>oracle.sql</filename> within this directory. This way the creation of user and
+  tablespaces and the creation of &name-icinga; tables runs in one step. As an all-in-one sample you will find a new script
+  <filename>db/scripts/create_oracledb.sh</filename>. Edit variables to suit your needs and enjoy. If you prefer to do SYS steps for
+  yourself, please uncomment <filename>create_oracle_sys.sql</filename> and make sure that your database &name-icinga; user and tables exist
+  and are defined with the same (or more) rights and that the correct settings have been applied to
+  <filename>icinga_defines.sql</filename>.</para>
+
   <para><emphasis role="bold">Install Packages</emphasis></para>
 
   <para>You can install your packages by running the following commands (as root or sudo):</para>
@@ -158,20 +176,28 @@
 
   <para>Please use YaST to install at least the packages gd, gd-devel, libjpeg, libjpeg-devel, libpng, libpng-devel and, optionally,
   net-snmp, net-snmp-devel and perl-Net-SNMP.</para>
-  <note><para>The devel packages might be place on the SDK DVDs.</para></note>
+
+  <note>
+    <para>The devel packages might be place on the SDK DVDs.</para>
+  </note>
 
   <para><emphasis role="bold">&name-mysql;:</emphasis></para>
-  <para>Use YaST to install the packages for the RDBMS you want to use, i.e. "mysql", "mysql-devel", "mysql-client" and the libdbi
-  packages "libdbi", "libdbi-devel", "libdbi-drivers" and "libdbi-dbd-mysql".</para> 
-  <note><para>In OpenSuSE 11 (SLES 11) the name of the package was changed from "mysql-devel" to "libmysqlclient-devel".</para></note>
+
+  <para>Use YaST to install the packages for the RDBMS you want to use, i.e. "mysql", "mysql-devel", "mysql-client" and the libdbi packages
+  "libdbi", "libdbi-devel", "libdbi-drivers" and "libdbi-dbd-mysql".</para>
+
+  <note>
+    <para>In OpenSuSE 11 (SLES 11) the name of the package was changed from "mysql-devel" to "libmysqlclient-devel".</para>
+  </note>
 
   <para><emphasis role="bold">&name-postgres;:</emphasis></para>
-  <para>Use YaST to install the packages for the RDBMS you want to use, i.e. "postgresql", "postgresql-devel", "postgresql-server" and
-  the libdbi packages "libdbi", "libdbi-devel" and "libdbi-drivers".</para>
+
+  <para>Use YaST to install the packages for the RDBMS you want to use, i.e. "postgresql", "postgresql-devel", "postgresql-server" and the
+  libdbi packages "libdbi", "libdbi-devel" and "libdbi-drivers".</para>
 
   <para>Using old OpenSuSE (SLES) versions including version 10 it is most likely that there aren't any libdbi packages so you have to
-  download and compile the sources. Replace &lt;rdbm&gt; with your desired RDBM like mysql or pgsql. Remember that the Oracle driver is
-  not yet working and read the appropriate section with ocilib instead of libdbi.</para>
+  download and compile the sources. Replace &lt;rdbm&gt; with your desired RDBM like mysql or pgsql. Remember that the Oracle driver is not
+  yet working and read the appropriate section with ocilib instead of libdbi.</para>
 
   <orderedlist>
     <listitem>
@@ -232,6 +258,7 @@
   <programlisting> #&gt; /usr/sbin/groupadd icinga-cmd
  #&gt; /usr/sbin/usermod -a -G icinga-cmd icinga
  #&gt; /usr/sbin/usermod -a -G icinga-cmd www-data</programlisting>
+
   <para>(or www, wwwrun, apache depending on the distribution)</para>
 
   <note>
@@ -315,7 +342,12 @@
  #&gt; make install-commandmode 
  #&gt; make install-idoutils </programlisting> or shorter <programlisting> #&gt; make fullinstall</programlisting></para>
 
-<note><para>Install IDOUtils and applicable event broker modules only using the primary make install target. Do not manually copy and overwrite the existing module as this will result in a segfault on icinga core which is using idomod.o directly preventing usage of a temporary copy explicitely. This is useful for <link xlink:href="&url-omd;">OMD.</link></para></note>
+  <note>
+    <para>Install IDOUtils and applicable event broker modules only using the primary make install target. Do not manually copy and
+    overwrite the existing module as this will result in a segfault on icinga core which is using idomod.o directly preventing usage of a
+    temporary copy explicitely. This is useful for <link xlink:href="http://omdistro.org/">OMD.</link></para>
+  </note>
+
   <para>The &name-icinga;-API will be installed during "make install" so if you are required to install it manually please try:
   <programlisting> #&gt; make install-api</programlisting>This will be mandatory for Icinga-Web.</para>
 
@@ -361,8 +393,10 @@
 
   <programlisting> broker_module=&url-icinga-base;/bin/idomod.o config_file=&url-icinga-base;/etc/idomod.cfg</programlisting>
 
-  <note><para>Starting with &name-icinga; 1.4 you can use the new module definition in one of your object configuration files instead of
-  specifying a broker_module entry:</para>
+  <note>
+    <para>Starting with &name-icinga; 1.4 you can use the new module definition in one of your object configuration files instead of
+    specifying a broker_module entry:</para>
+
     <screen> define module{
         module_name    ido_mod
         path           &url-icinga-base;/bin/idomod.o
@@ -458,9 +492,9 @@
 
   <para><emphasis role="bold">Oracle:</emphasis></para>
 
-  <para>Create a database schema and username/password (refer to the &name-oracle; documentation at &url-oracle; or consult your
-  DBA). Import the database scheme with sqlplus (or your preferred method). Copy <filename>module/idoutils/db/oracle/oracle.sql</filename>
-  to $ORACLE_HOME</para>
+  <para>Create a database schema and username/password (refer to the &name-oracle; documentation at &url-oracle; or consult your DBA).
+  Import the database scheme with sqlplus (or your preferred method). Copy <filename>module/idoutils/db/oracle/oracle.sql</filename> to
+  $ORACLE_HOME</para>
 
   <programlisting> #&gt; su - oracle
  $&gt; sqlplus dbuser/dbpass
@@ -535,8 +569,9 @@
 
   <para><emphasis role="bold">Adjusting the SE&name-linux; settings</emphasis></para>
 
-  <para>&name-rhel; and derived distributions like &name-fedora; and &name-centos; are shipped with activated SE&name-linux; (Security Enhanced 
-  &name-linux;) running in "enforcing" mode. This may lead to "Internal Server Error" messages when you try to invoke the &name-icinga;-CGIs.</para>
+  <para>&name-rhel; and derived distributions like &name-fedora; and &name-centos; are shipped with activated SE&name-linux; (Security
+  Enhanced &name-linux;) running in "enforcing" mode. This may lead to "Internal Server Error" messages when you try to invoke the
+  &name-icinga;-CGIs.</para>
 
   <para>Check if SE&name-linux; runs in enforcing mode</para>
 
@@ -633,7 +668,6 @@
   <para>Congratulations! You successfully installed &name-icinga; with &name-idoutils;. Your journey into monitoring has just begun. You'll
   no doubt want to monitor more than just your local machine, so check out the chapter on <link linkend="ch02">"Getting Started"</link>
   about "Monitoring ..."</para>
-
 
   <indexterm zone="quickstart-idoutils">
     <primary>Quickstart</primary>
