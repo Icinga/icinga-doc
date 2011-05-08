@@ -168,11 +168,11 @@
   <emphasis>alias</emphasis>- und <emphasis>address</emphasis>-Felder auf die entsprechenden Werte des Netzwerkdruckers.</para>
 
   <screen> define host{
-        use             generic-printer         ; Inherit default values from a template
-        host_name       hplj2605dn              ; The name we're giving to this printer
+        use             generic-printer   ; Inherit default values from a template
+        host_name       hplj2605dn        ; The name we're giving to this printer
         alias           &name-hp; LaserJet 2605dn      ; A longer name associated with the printer
-        address         192.168.1.30            ; IP address of the printer
-        hostgroups      allhosts                ; Host groups this printer is associated with
+        address         192.168.1.30      ; IP address of the printer
+        hostgroups      allhosts          ; Host groups this printer is associated with
         }</screen>
 
   <para>Nun können Sie (in der gleichen Konfigurationsdatei) einige Service-Definitionen hinzufügen, um &name-icinga; mitzuteilen,
@@ -192,12 +192,12 @@
   diesem Beispiel "public".</para>
 
   <screen> define service{
-        use                     generic-service         ; Inherit values from a template
-        host_name               hplj2605dn              ; The name of the host the service is associated with
-        service_description     Printer Status          ; The service description
-        check_command           check_hpjd!-C public    ; The command used to monitor the service
-        check_interval          10                      ; Check the service every 10 minutes under normal conditions
-        retry_interval          1                       ; Re-check the service every minute until its final/hard state is determined
+        use                   generic-service   ; Inherit values from a template
+        host_name             hplj2605dn        ; The name of the host the service is associated with
+        service_description   Printer Status    ; The service description
+        check_command         check_hpjd!-C public    ; The command used to monitor the service
+        check_interval        10                ; Check the service every 10 minutes under normal conditions
+        retry_interval        1                 ; Re-check every minute until its final/hard state is determined
         }</screen>
 
   <para>Fügen Sie die folgende Service-Definition hinzu, um alle zehn Minuten einen Ping an den Drucker zu senden. Das ist

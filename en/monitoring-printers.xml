@@ -88,7 +88,8 @@
   <important><para>The <emphasis>check_hpjd</emphasis> plugin will only get compiled and installed if you have the net-snmp and
   net-snmp-utils packages installed on your system. Make sure the plugin exists in <emphasis>&url-icinga-base;/libexec</emphasis> before you
   continue. If it doesn't, install net-snmp and net-snmp-utils and recompile/reinstall the &name-nagios; plugins after issuing "make clean"
-  the source directory. Take a look at the <link linkend="quickstart-icinga">Quickstart Guide</link> for details.</para></important>
+  in the source directory. Take a look at the <link linkend="quickstart-icinga">Quickstart Guide</link> for details.
+  </para></important>
 
   <para><emphasis role="bold">Steps</emphasis></para>
 
@@ -167,7 +168,7 @@
         use             generic-printer ; Inherit default values from a template
         host_name       hplj2605dn      ; The name we're giving to this printer
         alias           HP LaserJet 2605dn      ; A longer name associated with the printer
-        address         192.168.1.30    ; IP address of the printer
+        address         192.168.1.30            ; IP address of the printer
         hostgroups      allhosts                ; Host groups this printer is associated with
         } </screen>
 
@@ -185,12 +186,12 @@
   used to query the printer is "public" in this example.</para>
 
   <screen> define service{
-        use                     generic-service         ; Inherit values from a template
-        host_name               hplj2605dn              ; The name of the host the service is associated with
-        service_description     Printer Status          ; The service description
-        check_command           check_hpjd!-C public    ; The command used to monitor the service
-        check_interval          10      ; Check the service every 10 minutes under normal conditions
-        retry_interval          1       ; Re-check the service every minute until its final/hard state is determined
+        use                   generic-service   ; Inherit values from a template
+        host_name             hplj2605dn        ; The name of the host the service is associated with
+        service_description   Printer Status    ; The service description
+        check_command         check_hpjd!-C public    ; The command used to monitor the service
+        check_interval        10      ; Check the service every 10 minutes under normal conditions
+        retry_interval        1       ; Re-check every minute until its final/hard state is determined
         }</screen>
 
   <para>Add the following service definition to ping the printer every 10 minutes by default. This is useful for monitoring RTA,

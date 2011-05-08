@@ -211,7 +211,7 @@
 
   <para>Editieren Sie die <emphasis>windows.cfg</emphasis>-Datei.</para>
 
-  <screen> vi &url-icinga-base;/etc/objects/windows.cfg</screen>
+  <screen>#&gt; vi &url-icinga-base;/etc/objects/windows.cfg</screen>
 
   <para>Fügen Sie eine neue <link linkend="objectdefinitions-host">Host</link>-Definition für den Windows-Rechner hinzu, den Sie
   überwachen möchten. Wenn dies der *erste* Windows-Rechner ist, den Sie überwachen, dann können Sie einfach die
@@ -219,7 +219,8 @@
   <emphasis>alias</emphasis>- und <emphasis>address</emphasis>-Felder auf die entsprechenden Werte des Windows-Rechners.</para>
 
   <screen> define host{
-        use             windows-server  ; Standard-Werte von einer Windows-Server-Vorlage erben (diese Zeile nicht löschen!)
+        ; Standard-Werte von einer Windows-Server-Vorlage erben
+        use             windows-server  ; diese Zeile nicht löschen!
         host_name       winserver
         alias           My Windows Server
         address         192.168.1.2
@@ -319,7 +320,7 @@
   die <emphasis>check_nt</emphasis>-Befehlsdefinition anpassen, damit sie das Passwort enthält. Öffnen Sie die
   <emphasis>commands.cfg</emphasis>-Datei.</para>
 
-  <screen> vi &url-icinga-base;/etc/objects/commands.cfg</screen>
+  <screen>#&gt; vi &url-icinga-base;/etc/objects/commands.cfg</screen>
 
   <para>Ändern Sie die Definition des <emphasis>check_nt</emphasis>-Befehls, damit sie das "-s &lt;PASSWORD&gt;"-Argument enthält
   (wobei PASSWORD das Passwort ist, das Sie auf dem Windows-Rechner angegeben haben):</para>
