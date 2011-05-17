@@ -25,11 +25,11 @@
 
   <orderedlist>
     <listitem>
-      <para><emphasis role="bold">Graph performance statistics with MRTG</emphasis> . In order to keep track of how well your
+      <para><emphasis role="bold">Graph performance statistics with &name-pnp;</emphasis> . In order to keep track of how well your
       &name-icinga; installation handles load over time and how your configuration changes affect it, you should be graphing
-      several important statistics with MRTG. This is really, really, really useful when it comes to tuning the performance of a
+      several important statistics with &name-pnp;. This is really, really, really useful when it comes to tuning the performance of a
       &name-icinga; installation. Really. Information on how to do this can be found <link
-      linkend="mrtggraphs">here</link>.</para>
+      linkend="perfgraphs">here</link>.</para>
     </listitem>
 
     <listitem>
@@ -61,14 +61,14 @@
       amount of time the &name-icinga; daemon can spend processing the results of host and service checks before moving on to
       other things - like executing new host and service checks. Too high of a value can result in large latencies for your host
       and service checks. Too low of a value can have the same effect. If you're experiencing high latencies, adjust this variable
-      and see what effect it has. Again, you should be <link linkend="mrtggraphs">graphing statistics</link> in order to make this
+      and see what effect it has. Again, you should be <link linkend="perfgraphs">graphing statistics</link> in order to make this
       determination.</para>
     </listitem>
 
     <listitem>
       <para><emphasis role="bold">Adjust buffer slots</emphasis> . You may need to adjust the value of the <link
       linkend="configmain-external_command_buffer_slots">external_command_buffer_slots</link> option. Graphing buffer slot
-      statistics with <link linkend="mrtggraphs">MRTG</link> (see above) is critical in determining what values you should use for
+      statistics with <link linkend="perfgraphs">&name-pnp;</link> (see above) is critical in determining what values you should use for
       this option.</para>
     </listitem>
 
@@ -161,8 +161,8 @@
       command file</link> (by a separate thread) before they are processed by the &name-icinga; daemon. If your &name-icinga;
       daemon is receiving a lot of passive checks or external commands, you could end up in a situation where the buffers are
       always full. This results in child processes (external scripts, NSCA daemon, etc.) blocking when they attempt to write to
-      the external command file. We would highly recommend that you graph external command buffer slot usage using MRTG and the
-      nagiostats utility as described <link linkend="mrtggraphs">here</link>, so you understand the typical external command
+      the external command file. We would highly recommend that you graph external command buffer slot usage using &name-pnp; and the
+      nagiostats utility as described <link linkend="perfgraphs">here</link>, so you understand the typical external command
       buffer usage of your &name-icinga; installation.</para>
     </listitem>
 

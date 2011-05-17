@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="perfgraphs" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="perf_graphs" />Graphing Performance Info With &name-pnp;</title>
+
+  <para><emphasis role="bold">Introduction</emphasis></para>
+
+  <para>The <link linkend="icingastats">&name-stats;</link> utility allows you to graph various &name-icinga; performance statistics over
+  time using <link xlink:href="http://docs.pnp4nagios.org/pnp-0.6/start">&name-pnp;</link>. This is important because it can help you
+  to:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Ensure &name-icinga; is operating efficiently</para>
+    </listitem>
+
+    <listitem>
+      <para>Locate problem areas in the monitoring process</para>
+    </listitem>
+
+    <listitem>
+      <para>Observe the performance impacts of changes in your &name-icinga; configuration</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis role="bold">Prerequisites</emphasis></para>
+
+  <para>&name-pnp; is one of the most popular addons due to easy installation and little maintenance during operation. The documentation
+  along with further links to download the software can be found at <link
+  xlink:href="http://docs.pnp4nagios.org/pnp-0.6/start">&url-pnp-en;</link>.</para>
+
+  <para><link
+  xlink:href="https://www.monitoringexchange.org/inventory/Check-Plugins/Software/Nagios/check_nagiostats">check_nagiostats</link> was
+  published by <link xlink:href="http://www.nagios-portal.org/wbb/index.php?page=User&amp;userID=7773">Jochen Bern</link> and will be called
+  via crontab to submit passive check results. Despite its name it can be use for &name-icinga; as well.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>After downloading the plugin and placing it into the plugin directory (e.g. <filename>&url-icinga-base;/libexec</filename> if
+      you used the quickstart installation guides) you have to check the values of the configuration section within the script.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Most <emphasis role="bold">important</emphasis> is "<literal>EXEC=</literal><filename>/path/to/icingastats</filename>" (e.g.
+          <filename>&url-icinga-base;/bin/icingastats</filename>) pointing to the <filename>icingastats</filename> binary.</para>
+        </listitem>
+
+        <listitem>
+          <para>Depending on your likings you may want to change the value of <literal>CUMULATE</literal> from "AVG" to "MIN" or "MAX",
+          respectively. The setting of <literal>TIMEFRAME</literal> influences the timeperiod which will be used for cumulated values in the
+          output of the plugin.</para>
+        </listitem>
+
+        <listitem>
+          <para>Changing the values of <literal>PASSIVE_EMERGENCY_HOST</literal> and <literal>PASSIVE_EMERGENCY_SERVICE</literal> shouldn't
+          be necessary because you pass the values as arguments to the script.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>Make sure that your object configuration files contain a matching service definition such as<programlisting> define service{
+    host_name               &lt;the &name-icinga; server&gt;
+    service_description     icingastats # (or something appropriate)
+    active_checks_enabled   0
+    check_command           check_dummy!0
+    ...
+ }</programlisting>Don't forget to restart &name-icinga; after this change.</para>
+    </listitem>
+
+    <listitem>
+      <para>Create a symbolic link in the templates folder of &name-pnp;<programlisting> $&gt; ln -s ../templates.dist/nagiostats.php icingastats.php</programlisting>Make
+      sure that <emphasis>icingastats</emphasis> (without the extension .php) matches the value you specified for the service description.
+      Blanks in the service description have to be replaced by underscores in the filename (e.g. "Icinga Stats" --&gt;
+      "Icinga_Stats.php")</para>
+    </listitem>
+
+    <listitem>
+      <para>Add a line to the crontab of the &name-icinga; user which will call the <filename>icingastats</filename> binary and submit the
+      results to the command pipe<programlisting> * * * * * &url-icinga-base;/libexec/check_nagiostats -passive &lt;host&gt; &lt;service&gt; &gt;&gt; &url-icinga-base;/var/icinga.cmd</programlisting>
+      This way the values are updated in regular intervals.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis role="bold">Example Graphs</emphasis></para>
+
+  <para>We'll describe what the graphs produced by <filename>check_nagiostats</filename> mean and what they can be used for...</para>
+
+  <para><emphasis role="bold">Average Host / Service Check Latency</emphasis></para>
+
+  <figure>
+    <title>Average Host / Service Check Latency</title>
+
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="../images/perfdata_lat.png" format="PNG"></imagedata>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>This graph shows the average latency times of hosts and services over time for both active and passive checks, respectively. Useful
+  for understanding:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><link linkend="hostchecks">Host checks</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="servicechecks">Service checks</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="activechecks">Active checks</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="passivechecks">Passive checks</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="tuning">Performance tuning</link></para>
+    </listitem>
+  </itemizedlist>
+
+  <para>Consistently high latencies can be an indication that one or more of the following variables need tweaking:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><link linkend="configmain-max_concurrent_checks">max_concurrent_checks</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="configmain-check_result_reaper_frequency">check_result_reaper_frequency</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="configmain-max_check_result_reaper_time">max_check_result_reaper_time</link></para>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis role="bold">Service Statistics</emphasis></para>
+
+  <figure>
+    <title>Service Statistics</title>
+
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="../images/perfdata_svc.png" format="PNG"></imagedata>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>This graph shows the values for the several service states along with the average number of services being checked
+  actively/passively within the timeperiod you specified. Useful for understanding:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><link linkend="servicechecks">Service checks</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="dependencychecks">Predictive service dependency checks</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="cachedchecks">Cached checks</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="flapping">Flap detection</link></para>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis role="bold">Host Statistics</emphasis></para>
+
+  <figure>
+    <title>Host Statistics</title>
+
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="../images/perfdata_host.png" format="PNG"></imagedata>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>This graph shows the values for the several host states along with the average number of hosts being checked actively/passively
+  within the timeperiod you specified. Useful for understanding:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><link linkend="hostchecks">Host checks</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="dependencychecks">Predictive host dependency checks</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="cachedchecks">Cached checks</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="flapping">Flap detection</link></para>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis role="bold">Average Execution Times</emphasis></para>
+
+  <figure>
+    <title>Average Execution Times</title>
+
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="../images/perfdata_exec.png" format="PNG"></imagedata>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>This graph shows the average execution times of hosts and services over time. Useful for understanding:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><link linkend="hostchecks">Host checks</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="servicechecks">Service checks</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="tuning">Performance tuning</link></para>
+    </listitem>
+  </itemizedlist>
+
+  <note>
+    <para>To be honest: We tweaked the graphs a bit, meaning the colours. Yellow is sometimes hard to distinguish from the background so we
+    changed some lines in the &name-pnp; template file <filename>template.dist/nagiostats.php</filename> from <code>$i=0;</code> to
+    <code>$i=1;</code>.</para>
+  </note>
+
+  <para><emphasis role="bold">Additional graphs</emphasis></para>
+
+  <para>Well, we tweaked the template a bit more because the plugin delivers the data but there aren't appropriate graphs (but looking at
+  the template file it is very easy to add the lines if you really need the following graphs).</para>
+
+  <para><emphasis role="bold">External Commands</emphasis></para>
+
+  <figure>
+    <title>External Commands</title>
+
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="../images/perfdata_extcmd.png" format="PNG"></imagedata>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>This graph shows how may external commands have been processed by the &name-icinga; daemon over time. Unless you're processing a
+  large number of external commands (as in the case with distributed monitoring setups), this graph may appear mostly empty. Monitoring
+  external commands can be useful for understanding the impacts of:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><link linkend="passivechecks">Passive checks</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="distributed">Distributed monitoring</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="redundancy">Redundant/failover monitoring</link></para>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis role="bold">External Command Buffers</emphasis></para>
+
+  <figure>
+    <title>External Command Buffers</title>
+
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="../images/perfdata_cmdbuf.png" format="PNG"></imagedata>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>This graph shows how many external command buffer slots are in use over time. If the number of used buffers is near the number of
+  available buffers on a regular basis, it is likely you need to increase the available <link
+  linkend="configmain-external_command_buffer_slots">external command buffer slots</link>. Each buffer slot can hold one external command.
+  Buffers are used for temporarily holding external commands from the time they are read from the <link
+  linkend="configmain-command_file">external command file</link> to the time they are processed by the &name-icinga; daemon.</para>
+
+  <para>As you can see just one buffer is used and that's the one for the graphs as mentioned above.</para>
+
+  <para><emphasis role="bold">Cached Host and Service Checks</emphasis></para>
+
+  <figure>
+    <title>Cached Host and Service Checks</title>
+
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="../images/perfdata_cached.png" format="PNG"></imagedata>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>This graph shows how may cached host and service checks have occurred over time. Useful for understanding:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><link linkend="cachedchecks">Cached checks</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="dependencychecks">Predictive host and service dependency checks</link></para>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis role="bold">Average State Changes</emphasis></para>
+
+  <figure>
+    <title>Average State Changes</title>
+
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="../images/perfdata_state_chg.png" format="PNG"></imagedata>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>This graph shows the average percent state change (a measure of volatility) over time, broken down by hosts and services that were
+  last checked either actively or passively. Useful for understanding:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><link linkend="flapping">Flap detection</link></para>
+    </listitem>
+  </itemizedlist>
+
+  <indexterm zone="perfdata">
+    <primary>Graphing Performance Info With &name-pnp;</primary>
+  </indexterm>
+</section>

@@ -4,9 +4,8 @@
 %all.entities;
 ]>
 <section version="5.0" xml:id="cachedchecks" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="cached_checks" />Cached Checks</title>
 
   <para><emphasis role="bold">Introduction</emphasis></para>
@@ -17,16 +16,15 @@
       </imageobject>
     </inlinemediaobject></para>
 
-  <para>The performance of &name-icinga;' monitoring logic can be significantly improved by implementing the use of cached checks.
-  Cached checks allow &name-icinga; to forgo executing a host or service check command if it determines a relatively recent check
-  result will do instead.</para>
+  <para>The performance of &name-icinga;' monitoring logic can be significantly improved by implementing the use of cached checks. Cached
+  checks allow &name-icinga; to forgo executing a host or service check command if it determines a relatively recent check result will do
+  instead.</para>
 
   <para><emphasis role="bold">For On-Demand Checks Only</emphasis></para>
 
-  <para>Regularly scheduled host and service checks will not see a performance improvement with use of cached checks. Cached
-  checks are only useful for improving the performance of on-demand host and service checks. Scheduled checks help to ensure that
-  host and service states are updated regularly, which may result in a greater possibility their results can be used as cached
-  checks in the future.</para>
+  <para>Regularly scheduled host and service checks will not see a performance improvement with use of cached checks. Cached checks are only
+  useful for improving the performance of on-demand host and service checks. Scheduled checks help to ensure that host and service states
+  are updated regularly, which may result in a greater possibility their results can be used as cached checks in the future.</para>
 
   <para>For reference, on-demand host checks occur...</para>
 
@@ -53,9 +51,9 @@
   </itemizedlist>
 
   <note>
-    <para>Unless you make use of service dependencies, &name-icinga; will not be able to use cached check results to improve the
-    performance of service checks. Don't worry about that - its normal. Cached host checks are where the big performance
-    improvements lie, and everyone should see a benefit there.</para>
+    <para>Unless you make use of service dependencies, &name-icinga; will not be able to use cached check results to improve the performance
+    of service checks. Don't worry about that - its normal. Cached host checks are where the big performance improvements lie, and everyone
+    should see a benefit there.</para>
   </note>
 
   <para><emphasis role="bold">How Caching Works</emphasis></para>
@@ -66,65 +64,61 @@
       </imageobject>
     </inlinemediaobject></para>
 
-  <para>When &name-icinga; needs to perform an on-demand host or service check, it will make a determination as to whether it can
-  used a cached check result or if it needs to perform an actual check by executing a plugin. It does this by checking to see if
-  the last check of the host or service occured within the last X minutes, where X is the cached host or service check
-  horizon.</para>
+  <para>When &name-icinga; needs to perform an on-demand host or service check, it will make a determination as to whether it can used a
+  cached check result or if it needs to perform an actual check by executing a plugin. It does this by checking to see if the last check of
+  the host or service occured within the last X minutes, where X is the cached host or service check horizon.</para>
 
-  <para>If the last check was performed within the timeframe specified by the cached check horizon variable, &name-icinga; will
-  use the result of the last host or service check and will <emphasis>not</emphasis> execute a new check. If the host or service
-  has not yet been checked, or if the last check falls outside of the cached check horizon timeframe, &name-icinga; will execute a
-  new host or service check by running a plugin.</para>
+  <para>If the last check was performed within the timeframe specified by the cached check horizon variable, &name-icinga; will use the
+  result of the last host or service check and will <emphasis>not</emphasis> execute a new check. If the host or service has not yet been
+  checked, or if the last check falls outside of the cached check horizon timeframe, &name-icinga; will execute a new host or service check
+  by running a plugin.</para>
 
   <para><emphasis role="bold">What This Really Means</emphasis></para>
 
-  <para>&name-icinga; performs on-demand checks because it need to know the current state of a host or service <emphasis>at that
-  exact moment</emphasis> in time. Utilizing cached checks allows you to make &name-icinga; think that recent check results are
-  "good enough" for determining the current state of hosts, and that it doesn't need to go out and actually re-check the status of
-  that host or service.</para>
+  <para>&name-icinga; performs on-demand checks because it need to know the current state of a host or service <emphasis>at that exact
+  moment</emphasis> in time. Utilizing cached checks allows you to make &name-icinga; think that recent check results are "good enough" for
+  determining the current state of hosts, and that it doesn't need to go out and actually re-check the status of that host or
+  service.</para>
 
-  <para>The cached check horizon tells &name-icinga; how recent check results must be in order to reliably reflect the current
-  state of a host or service. For example, with a cached check horizon of 30 seconds, you are telling &name-icinga; that if a
-  host's state was checked sometime in the last 30 seconds, the result of that check should still be considered the current state
-  of the host.</para>
+  <para>The cached check horizon tells &name-icinga; how recent check results must be in order to reliably reflect the current state of a
+  host or service. For example, with a cached check horizon of 30 seconds, you are telling &name-icinga; that if a host's state was checked
+  sometime in the last 30 seconds, the result of that check should still be considered the current state of the host.</para>
 
-  <para>The number of cached check results that &name-icinga; can use versus the number of on-demand checks it has to actually
-  execute can be considered the cached check "hit" rate. By increasing the cached check horizon to equal the regular check
-  interval of a host, you could theoretically achieve a cache hit rate of 100%. In that case all on-demand checks of that host
-  would use cached check results. What a performance improvement! But is it really? Probably not.</para>
+  <para>The number of cached check results that &name-icinga; can use versus the number of on-demand checks it has to actually execute can
+  be considered the cached check "hit" rate. By increasing the cached check horizon to equal the regular check interval of a host, you could
+  theoretically achieve a cache hit rate of 100%. In that case all on-demand checks of that host would use cached check results. What a
+  performance improvement! But is it really? Probably not.</para>
 
-  <para>The reliability of cached check result information decreases over time. Higher cache hit rates require that previous check
-  results are considered "valid" for longer periods of time. Things can change quickly in any network scenario, and there's no
-  guarantee that a server that was functioning properly 30 seconds ago isn't on fire right now. There's the tradeoff - reliability
-  versus speed. If you have a large cached check horizon, you risk having unreliable check result values being used in the
-  monitoring logic.</para>
+  <para>The reliability of cached check result information decreases over time. Higher cache hit rates require that previous check results
+  are considered "valid" for longer periods of time. Things can change quickly in any network scenario, and there's no guarantee that a
+  server that was functioning properly 30 seconds ago isn't on fire right now. There's the tradeoff - reliability versus speed. If you have
+  a large cached check horizon, you risk having unreliable check result values being used in the monitoring logic.</para>
 
-  <para>&name-icinga; will eventually determine the correct state of all hosts and services, so even if cached check results prove
-  to unreliably represent their true value, &name-icinga; will only work with incorrect information for a short period of time.
-  Even short periods of unreliable status information can prove to be a nuisance for admins, as they may receive notifications
-  about problems which no longer exist.</para>
+  <para>&name-icinga; will eventually determine the correct state of all hosts and services, so even if cached check results prove to
+  unreliably represent their true value, &name-icinga; will only work with incorrect information for a short period of time. Even short
+  periods of unreliable status information can prove to be a nuisance for admins, as they may receive notifications about problems which no
+  longer exist.</para>
 
-  <para>There is no standard cached check horizon or cache hit rate that will be acceptable to every &name-icinga; users. Some
-  people will want a short horizon timeframe and a low cache hit rate, while others will want a larger horizon timeframe and a
-  larger cache hit rate (with a low reliability rate). Some users may even want to disable cached checks altogether to obtain a
-  100% reliability rate. Testing different horizon timeframes, and their effect on the reliability of status information, is the
-  only want that an individual user will find the "right" value for their situation. More information on this is discussed
-  below.</para>
+  <para>There is no standard cached check horizon or cache hit rate that will be acceptable to every &name-icinga; user. Some people will
+  want a short horizon timeframe and a low cache hit rate, while others will want a larger horizon timeframe and a larger cache hit rate
+  (with a low reliability rate). Some users may even want to disable cached checks altogether to obtain a 100% reliability rate. Testing
+  different horizon timeframes, and their effect on the reliability of status information, is the only want that an individual user will
+  find the "right" value for their situation. More information on this is discussed below.</para>
 
   <para><emphasis role="bold">Configuration Variables</emphasis></para>
 
-  <para>The following variables determine the timeframes in which a previous host or service check result may be used as a cached
-  host or service check result:</para>
+  <para>The following variables determine the timeframes in which a previous host or service check result may be used as a cached host or
+  service check result:</para>
 
   <itemizedlist>
     <listitem>
-      <para>The <link linkend="configmain-cached_host_check_horizon">cached_host_check_horizon</link> variable controls cached
-      host checks.</para>
+      <para>The <link linkend="configmain-cached_host_check_horizon">cached_host_check_horizon</link> variable controls cached host
+      checks.</para>
     </listitem>
 
     <listitem>
-      <para>The <link linkend="configmain-cached_service_check_horizon">cached_service_check_horizon</link> variable controls
-      cached service checks.</para>
+      <para>The <link linkend="configmain-cached_service_check_horizon">cached_service_check_horizon</link> variable controls cached service
+      checks.</para>
     </listitem>
   </itemizedlist>
 
@@ -138,7 +132,8 @@
     </listitem>
 
     <listitem>
-      <para>Use MRTG to graph statistics for 1) on-demand checks and 2) cached checks</para>
+      <para>Use <link xlink:href="http://docs.pnp4nagios.org/pnp-0.6/start">&name-pnp;</link> to graph statistics for 1) on-demand checks
+      and 2) cached checks</para>
     </listitem>
 
     <listitem>
@@ -146,32 +141,35 @@
     </listitem>
   </itemizedlist>
 
-  <para>You can schedule regular checks of your hosts by specifying a value greater than 0 for <emphasis>check_interval</emphasis>
-  option in your <link linkend="objectdefinitions-host">host definitions</link>. If you do this, make sure that you set the
+  <para>You can schedule regular checks of your hosts by specifying a value greater than 0 for <emphasis>check_interval</emphasis> option in
+  your <link linkend="objectdefinitions-host">host definitions</link>. If you do this, make sure that you set the
   <emphasis>max_check_attempts</emphasis> option to a value greater than 1, or it will cause a big performance hit. This potential
-  performance hit is describe in detail <link linkend="hostchecks">here</link>.</para>
+  performance hit is described in detail <link linkend="hostchecks">here</link>.</para>
 
-  <para><inlinemediaobject>
-      <imageobject>
-        <imagedata fileref="../images/cachedcheckgraphs.png" format="PNG"></imagedata>
-      </imageobject>
-    </inlinemediaobject></para>
+  <figure>
+    <title>Cached checks</title>
 
-  <para>A good way to determine the proper value for the cached check horizon options is to compare how many on-demand checks
-  &name-icinga; has to actually run versus how may it can use cached values for. The <link
-  linkend="icingastats">icingastats</link> utility can produce information on cached checks, which can then be <link
-  linkend="mrtggraphs">graphed with MRTG</link>. Example MRTG graphs that show cached vs. actual on-demand checks are shown to the
-  right.</para>
+    <para><inlinemediaobject>
+        <imageobject>
+          <imagedata fileref="../images/perfdata_cached2.png" format="PNG"></imagedata>
+        </imageobject>
+      </inlinemediaobject></para>
+  </figure>
 
-  <para>The monitoring installation which produced the graphs above had:</para>
+  <para>A good way to determine the proper value for the cached check horizon option is to compare how many on-demand checks &name-icinga;
+  has to actually run versus how may it can use cached values for. The <link linkend="icingastats">icingastats</link> utility can produce
+  information on cached checks, which can then be <link linkend="perfgraphs">graphed with &name-pnp;</link>. An example graph that compares
+  cached vs. actual on-demand checks is shown above.</para>
+
+  <para>The monitoring installation which produced the graphs had:</para>
 
   <itemizedlist>
     <listitem>
-      <para>A total of 44 hosts, all of which were checked at regular intervals</para>
+      <para>A total of 110 hosts, all of which were checked at regular intervals</para>
     </listitem>
 
     <listitem>
-      <para>An average (regularly scheduled) host check interval of 5 minutes</para>
+      <para>An average (regularly scheduled) host check interval of 30 minutes with a 5 minute retry interval</para>
     </listitem>
 
     <listitem>
@@ -179,22 +177,24 @@
     </listitem>
   </itemizedlist>
 
-  <para>The first MRTG graph shows how many regularly scheduled host checks compared to how many cached host checks have occured.
-  In this example, an average of 53 host checks occur every five minutes. 9 of these (17%) are on-demand checks.</para>
+  <para>The graph shows how many regularly scheduled host checks compared to how many cached host checks have occurred. In this example, an
+  average of 77 host checks occur every five minutes. 59 of these (76%) are on-demand checks.</para>
 
-  <para>The second MRTG graph shows how many cached host checks have occurred over time. In this example an average of 2 cached
-  host checks occurs every five minutes.</para>
+  <para>It also shows how many cached host checks have occurred over time. In this example an average of 21 cached host checks occurs every
+  five minutes.</para>
 
-  <para>Remember, cached checks are only available for on-demand checks. Based on the 5 minute averages from the graphs, we see
-  that &name-icinga; is able to used cached host check results every 2 out of 9 times an on-demand check has to be run. That may
-  not seem much, but these graphs represent a small monitoring environment. Consider that 2 out of 9 is 22% and you can start to
-  see how this could significantly help improve host check performance in large environments. That percentage could be higher if
-  the cached host check horizon variable value was increased, but that would reduce the reliability of the cached host state
-  information.</para>
+  <para>Remember, cached checks are only available for on-demand checks. Based on the 5 minute averages from the graphs, we see that
+  &name-icinga; is able to used cached host check results every 21 out of 59 times an on-demand check has to be run. That may not seem much,
+  but these graphs represent a small monitoring environment. Consider that 21 out of 59 is nearly 36% and you can start to see how this
+  could significantly help improve host check performance in large environments. That percentage could be higher if the cached host check
+  horizon variable value was increased, but that would reduce the reliability of the cached host state information.</para>
 
-  <para>Once you've had a few hours or days worth of MRTG graphs, you should see how many host and service checks were done by
+  <para>Once you've had a few hours or days worth of &name-pnp; graphs, you should see how many host and service checks were done by
   executing plugins versus those that used cached check results. Use that information to adjust the cached check horizon variables
-  appropriately for your situation. Continue to monitor the MRTG graphs over time to see how changing the horizon variables
-  affected cached check statistics. Rinse and repeat as necessary.</para>
-  <indexterm zone="cached_checks"><primary>Cached Checks</primary></indexterm>
+  appropriately for your situation. Continue to monitor the &name-pnp; graphs over time to see how changing the horizon variables affected
+  cached check statistics. Rinse and repeat as necessary.</para>
+
+  <indexterm zone="cached_checks">
+    <primary>Cached Checks</primary>
+  </indexterm>
 </section>
