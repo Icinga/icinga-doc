@@ -176,12 +176,23 @@
 
   <programlisting> #&gt; ./configure --with-command-group=icinga-cmd \
     --enable-idoutils CPPFLAGS=-I/usr/local/include \
+    CFLAGS="-I/usr/local/include -L/usr/local/lib" \
     --with-dbi-lib=/usr/local/lib --with-dbi-inc=/usr/local/include</programlisting>
 
   <important>
     <para>Appending <emphasis>CPPFLAGS=-I/usr/local/include</emphasis> is important for the &name-idoutils; and the broker modul
     respectively.</para>
   </important>
+  <note>
+    <para>You should include <literal>CFLAGS=..."</literal> like specified above. Otherwise you might get the following lines in
+    <filename>icinga.log</filename>:
+    <screen> Error: Module ‘/usr/local/icinga/bin/idomod.o’ is using an old or unspecified version of the event broker API. Module will
+ be unloaded.
+ Event broker module ‘/usr/local/icinga/bin/idomod.o’ deinitialized successfully.</screen>
+    More details on this error can be found <link xlink:href="http://www.mazej.net/icinga-idomod-o-is-using-an-old-or-unspecified-version-of-the-event-broker-api/">
+    here</link>.
+    </para>
+  </note>
 
   <para><emphasis role="bold">With SSL-encryption:</emphasis></para>
 
