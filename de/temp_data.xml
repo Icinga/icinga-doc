@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="temp_data" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="verify_config" />Temporäre Daten</title>
+
+  <para>Verschiedene Dateien werden beim Start von &name-icinga; angelegt und während der Laufzeit sehr oft verarbeitet. Abhängig von der
+  Größe Ihrer Konfiguration kann dies zu hoher I/O-Last und damit zu einer eingeschränkten Bedienbarkeit führen. Um physikalische
+  I/O-Operationen zu reduzieren kann es sinnvoll sein, temporäre Daten auf einer RAM-Disk abzulegen. Die folgenden Zeilen zeigen die
+  Schritte zum Anlegen einer RAM-Disk und die Änderungen an der Hauptkonfigurationsdatei.</para>
+
+  <note>
+    <para>Bitte denken Sie daran, dass die Dateien verloren sind, wenn Sie das System neu starten. Beachten Sie auch, dass es teilweise
+    schwierig ist, die Größe der Dateien zu ermitteln, was ggf. zu einer vollen RAM-Disk führen kann.</para>
+  </note>
+
+  <orderedlist>
+    <listitem>
+      <para>Werfen Sie einen Blick auf den aktuellen Standort des <link linkend="configmain-status_file">status file</link> (z.B.
+      <filename>/usr/local/icinga/var/status.dat</filename>) und des <link linkend="configmain-object_cache_file">object cache file</link>
+      (z.B. <filename>/usr/local/icnga/var/objects.cache</filename>) und ermitteln Sie die Größe der beiden Dateien.<programlisting> #&gt; ls -la /usr/local/icinga/var/
+ -rw-rw-r--   1 icinga icinga 8.2M Jun 10 11:57 status.dat
+ -rw-r--r--   1 icinga icinga 5.9M Jun 10 11:58 objects.cache</programlisting></para>
+    </listitem>
+
+    <listitem>
+      <para>Erhöhen Sie die Zahl um einen nennenswerten Betrag, um auch zukünftiges Wachstum zu ermöglichen (100 MB sollten in diesem Fall
+      ausreichen) und legen Sie die RAM-Disk an. <caution>
+          <para>Wenn der Wert zu groß gewählt ist, wird dies Ihr System drosseln, weil es dann anfängt zu "swappen", was wieder zu
+          physikalischem I/O führt.</para>
+        </caution><programlisting> #&gt; mkdir /var/icinga/ramdisk
+ #&gt; mount -t tmpfs tmpfs /var/icinga/ramdisk -o size=100m
+ #&gt; chown icinga:icinga /var/icinga/ramdisk</programlisting>Passen Sie die Angaben von Benutzer und Gruppe auf die Werte an, die in Ihrer
+      Konfiguration benutzt werden (falls notwendig).</para>
+    </listitem>
+
+    <listitem>
+      <para>Fügen Sie einen Eintrag zur Datei <filename>/etc/fstab</filename> hinzu, um die Änderungen permanent zu machen, damit die
+      RAM-Disk beim nächsten Systemneustart automatisch angelegt wird.<programlisting>tmpfs                /var/icinga/ramdisk     tmpfs   size=100m        0 0</programlisting></para>
+    </listitem>
+
+    <listitem>
+      <para>Editieren Sie die &name-icinga; Hauptkonfigurationsdatei und ändern Sie die Einstellungen der betreffenden
+      Direktiven<programlisting> #object_cache_file=/usr/local/icinga/var/objects.cache
+ object_cache_file=/var/icinga/ramdisk/objects.cache
+
+ #status_file=/usr/local/icinga/var/status.dat
+ status_file=/var/icinga/ramdisk/status.dat</programlisting></para>
+    </listitem>
+
+    <listitem>
+      <para>Starten Sie &name-icinga; neu, damit die Änderungen aktiv werden<programlisting> #&gt; /etc/init.d/icinga restart</programlisting></para>
+    </listitem>
+  </orderedlist>
+
+  <para>Möglicherweise möchten Sie die RAM-Disk auch für anderen Dateien wie z.B. die check results benutzen. Bitte erhöhen Sie die Größe
+  der RAM-Disk - falls notwendig - und ändern Sie die Direktive in der Hauptkonfigurationsdatei<programlisting> check_result_path=/var/icinga/ramdisk/checkresults</programlisting>
+  Stellen Sie sicher, dass auch anderen Addons wie z.B. check_mk diese Änderungen bekannt sind.</para>
+
+  <indexterm zone="temp_data">
+    <primary>Temporary Data</primary>
+  </indexterm>
+
+  <indexterm zone="temp_data">
+    <primary>RAM-Disk</primary>
+  </indexterm>
+
+  <indexterm zone="temp_data">
+    <primary>Status file</primary>
+  </indexterm>
+
+  <indexterm zone="temp_data">
+    <primary>Object cache file</primary>
+  </indexterm>
+</section>

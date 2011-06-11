@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="temp_data" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="verify_config" />Temporary Data</title>
+
+  <para>Several files are created while starting &name-icinga; and processed very often during runtime. Depending on the size of your
+  configuration this may lead to high I/O and therefore degraded responsiveness. To reduce physical I/O operations it might be a good idea
+  to place temporary files on a RAM disk. The following lines show the steps to setup a RAM disk and the changes to the main config
+  file.</para>
+
+  <note>
+    <para>Please keep in mind that these files will be lost if you reboot the system. Also note that sometimes it is difficult to determine
+    the size of these files which may lead to a full RAM disk.</para>
+  </note>
+
+  <orderedlist>
+    <listitem>
+      <para>Have a look at the current location of the <link linkend="configmain-status_file">status file</link> (e.g.
+      <filename>/usr/local/icinga/var/status.dat</filename>) and the <link linkend="configmain-object_cache_file">object cache file</link>
+      (e.g. <filename>/usr/local/icnga/var/objects.cache</filename>) and determine the size of both files.<programlisting> #&gt; ls -la /usr/local/icinga/var/
+ -rw-rw-r--   1 icinga icinga 8.2M Jun 10 11:57 status.dat
+ -rw-r--r--   1 icinga icinga 5.9M Jun 10 11:58 objects.cache</programlisting></para>
+    </listitem>
+
+    <listitem>
+      <para>Increase the number to a considerable value to allow for future growth (100 MB should be sufficient in this case) and create the
+      RAM disk. <caution>
+          <para>If the value is too high then this will throttle your system because it will start to swap resulting in physical I/O once
+          again.</para>
+        </caution><programlisting> #&gt; mkdir /var/icinga/ramdisk
+ #&gt; mount -t tmpfs tmpfs /var/icinga/ramdisk -o size=100m
+ #&gt; chown icinga:icinga /var/icinga/ramdisk</programlisting>Adapt the values of user and group to the ones found in your configuration if
+      necessary.</para>
+    </listitem>
+
+    <listitem>
+      <para>Add an entry to <filename>/etc/fstab</filename> to make the setting permanent so the RAM disk will be created automatically
+      after the next reboot.<programlisting>tmpfs                /var/icinga/ramdisk     tmpfs   size=100m        0 0</programlisting></para>
+    </listitem>
+
+    <listitem>
+      <para>Edit the &name-icinga; main configuration file and change the setting of the two appropriate directives<programlisting> #object_cache_file=/usr/local/icinga/var/objects.cache
+ object_cache_file=/var/icinga/ramdisk/objects.cache
+
+ #status_file=/usr/local/icinga/var/status.dat
+ status_file=/var/icinga/ramdisk/status.dat</programlisting></para>
+    </listitem>
+
+    <listitem>
+      <para>Restart &name-icinga; to put the changes into effect<programlisting> #&gt; /etc/init.d/icinga restart</programlisting></para>
+    </listitem>
+  </orderedlist>
+
+  <para>You may want to use the RAM disk for other files like the check results as well. Please increase the size of the RAM disk if
+  necessary and change the directive in the main config file<programlisting> check_result_path=/var/icinga/ramdisk/checkresults</programlisting>
+  Please make sure that addons like check_mk are aware of this change.</para>
+
+  <indexterm zone="temp_data">
+    <primary>Temporary Data</primary>
+  </indexterm>
+
+  <indexterm zone="temp_data">
+    <primary>RAM disk</primary>
+  </indexterm>
+
+  <indexterm zone="temp_data">
+    <primary>Status file</primary>
+  </indexterm>
+
+  <indexterm zone="temp_data">
+    <primary>Object cache file</primary>
+  </indexterm>
+</section>
