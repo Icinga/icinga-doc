@@ -20,6 +20,35 @@
 
   <para>Following this table is an explanation of the parameters (work in progress).</para>
 
+  <para><emphasis role="bold">Executing CGIs on the command line</emphasis></para>
+
+  <para>Instead of using your browser you may want to run the CGIs on the command line and process the results with other tools. For a first
+  impression change to the folder containing the *.cgi modules (e.g. <filename>/usr/local/icinga/sbin</filename>), set some environment
+  variables and execute one of the CGIs:<programlisting> $&gt; export REMOTE_USER=icingaadmin   # or choose the appropriate user
+ $&gt; export REQUEST_METHOD='GET'      # if you enter queries
+ $&gt; export QUERY_STRING='host=all'  # see the tables below 
+
+ $&gt; ./status.cgi</programlisting>Depending on the number of hosts this may return a lot of lines containing HTML code in between which
+  most people will find hard to read so you should add "&amp;csvoutput" or "&amp;jsonoutput" to QUERY_STRING along with other
+  arguments.</para>
+
+  <para>Set QUERY_STRING as needed and execute the desired CGI.</para>
+
+  <para>If you forgot to set the environment variables you'll receive the following lines:<programlisting> $&gt; ./status.cgi
+ getcgivars(): Unsupported REQUEST_METHOD -&gt; ''
+
+ I'm guessing you're trying to execute the CGI from a command line.
+ In order to do that, you need to set the REQUEST_METHOD environment
+ variable to either "GET", "HEAD", or "POST". When using the
+ GET and HEAD methods, arguments can be passed to the CGI
+ by setting the "QUERY_STRING" environment variable. If you're
+ using the POST method, data is read from standard input. Also of
+ note: if you've enabled authentication in the CGIs, you must set the
+ "REMOTE_USER" environment variable to be the name of the user you're
+ "authenticated" as.</programlisting></para>
+
+  <para>You will find some examples <link linkend="cgicmd">here</link>.</para>
+
   <para><emphasis role="bold">Matrix Parameters / CGIs</emphasis></para>
 
   <informaltable>
@@ -60,7 +89,7 @@
 
       <tbody>
         <row>
-          <entry>ahas</entry>
+          <entry><anchor xml:id="cgiparams-ahas" />ahas</entry>
 
           <entry></entry>
 
@@ -92,7 +121,7 @@
         </row>
 
         <row>
-          <entry>alerttypes</entry>
+          <entry><anchor xml:id="cgiparams-alerttypes" />alerttypes</entry>
 
           <entry></entry>
 
@@ -124,7 +153,7 @@
         </row>
 
         <row>
-          <entry>archive</entry>
+          <entry><anchor xml:id="cgiparams-archive" />archive</entry>
 
           <entry></entry>
 
@@ -156,7 +185,7 @@
         </row>
 
         <row>
-          <entry>assumeinitialstates</entry>
+          <entry><anchor xml:id="cgiparams-assumeinitialstates" />assumeinitialstates</entry>
 
           <entry>X</entry>
 
@@ -188,7 +217,7 @@
         </row>
 
         <row>
-          <entry>assumestateretention</entry>
+          <entry><anchor xml:id="cgiparams-assumestateretention" />assumestateretention</entry>
 
           <entry>X</entry>
 
@@ -220,7 +249,7 @@
         </row>
 
         <row>
-          <entry>assumestatesduringnotrunning</entry>
+          <entry><anchor xml:id="cgiparams-assumestatesduringnotrunning" />assumestatesduringnotrunning</entry>
 
           <entry>X</entry>
 
@@ -252,7 +281,7 @@
         </row>
 
         <row>
-          <entry>backtrack</entry>
+          <entry><anchor xml:id="cgiparams-backtrack" />backtrack</entry>
 
           <entry>X</entry>
 
@@ -284,7 +313,7 @@
         </row>
 
         <row>
-          <entry>breakdown</entry>
+          <entry><anchor xml:id="cgiparams-breakdown" />breakdown</entry>
 
           <entry></entry>
 
@@ -316,7 +345,7 @@
         </row>
 
         <row>
-          <entry>broadcast_notification</entry>
+          <entry><anchor xml:id="cgiparams-broadcast_notification" />broadcast_notification</entry>
 
           <entry></entry>
 
@@ -348,7 +377,7 @@
         </row>
 
         <row>
-          <entry>childoptions</entry>
+          <entry><anchor xml:id="cgiparams-childoptions" />childoptions</entry>
 
           <entry></entry>
 
@@ -380,7 +409,7 @@
         </row>
 
         <row>
-          <entry>cmd_mod</entry>
+          <entry><anchor xml:id="cgiparams-cmd_mod" />cmd_mod</entry>
 
           <entry></entry>
 
@@ -412,7 +441,7 @@
         </row>
 
         <row>
-          <entry>cmd_typ</entry>
+          <entry><anchor xml:id="cgiparams-cmd_typ" />cmd_typ</entry>
 
           <entry></entry>
 
@@ -444,7 +473,7 @@
         </row>
 
         <row>
-          <entry>columns</entry>
+          <entry><anchor xml:id="cgiparams-columns" />columns</entry>
 
           <entry></entry>
 
@@ -476,7 +505,7 @@
         </row>
 
         <row>
-          <entry>com_author</entry>
+          <entry><anchor xml:id="cgiparams-com_author" />com_author</entry>
 
           <entry></entry>
 
@@ -508,7 +537,7 @@
         </row>
 
         <row>
-          <entry>com_data</entry>
+          <entry><anchor xml:id="cgiparams-com_data" />com_data</entry>
 
           <entry></entry>
 
@@ -540,7 +569,7 @@
         </row>
 
         <row>
-          <entry>com_id</entry>
+          <entry><anchor xml:id="cgiparams-com_id" />com_id</entry>
 
           <entry></entry>
 
@@ -572,7 +601,7 @@
         </row>
 
         <row>
-          <entry>contact</entry>
+          <entry><anchor xml:id="cgiparams-contact" />contact</entry>
 
           <entry></entry>
 
@@ -604,7 +633,7 @@
         </row>
 
         <row>
-          <entry>createimage</entry>
+          <entry><anchor xml:id="cgiparams-createimage" />createimage</entry>
 
           <entry></entry>
 
@@ -636,7 +665,7 @@
         </row>
 
         <row>
-          <entry>csvoutput</entry>
+          <entry><anchor xml:id="cgiparams-csvoutput" />csvoutput</entry>
 
           <entry>X</entry>
 
@@ -668,7 +697,7 @@
         </row>
 
         <row>
-          <entry>displaytype</entry>
+          <entry><anchor xml:id="cgiparams-displaytype" />displaytype</entry>
 
           <entry></entry>
 
@@ -700,7 +729,7 @@
         </row>
 
         <row>
-          <entry>down_id</entry>
+          <entry><anchor xml:id="cgiparams-down_id" />down_id</entry>
 
           <entry></entry>
 
@@ -732,7 +761,7 @@
         </row>
 
         <row>
-          <entry>eday</entry>
+          <entry><anchor xml:id="cgiparams-eday" />eday</entry>
 
           <entry>X</entry>
 
@@ -764,7 +793,7 @@
         </row>
 
         <row>
-          <entry>ehour</entry>
+          <entry><anchor xml:id="cgiparams-ehour" />ehour</entry>
 
           <entry>X</entry>
 
@@ -796,7 +825,7 @@
         </row>
 
         <row>
-          <entry>embedded</entry>
+          <entry><anchor xml:id="cgiparams-embedded" />embedded</entry>
 
           <entry>X</entry>
 
@@ -828,7 +857,7 @@
         </row>
 
         <row>
-          <entry>emin</entry>
+          <entry><anchor xml:id="cgiparams-emin" />emin</entry>
 
           <entry>X</entry>
 
@@ -860,7 +889,7 @@
         </row>
 
         <row>
-          <entry>emon</entry>
+          <entry><anchor xml:id="cgiparams-emon" />emon</entry>
 
           <entry>X</entry>
 
@@ -892,7 +921,7 @@
         </row>
 
         <row>
-          <entry>end_time</entry>
+          <entry><anchor xml:id="cgiparams-end_time" />end_time</entry>
 
           <entry></entry>
 
@@ -924,7 +953,7 @@
         </row>
 
         <row>
-          <entry>esec</entry>
+          <entry><anchor xml:id="cgiparams-esec" />esec</entry>
 
           <entry>X</entry>
 
@@ -956,7 +985,7 @@
         </row>
 
         <row>
-          <entry>eyear</entry>
+          <entry><anchor xml:id="cgiparams-eyear" />eyear</entry>
 
           <entry>X</entry>
 
@@ -988,7 +1017,7 @@
         </row>
 
         <row>
-          <entry>fixed</entry>
+          <entry><anchor xml:id="cgiparams-fixed" />fixed</entry>
 
           <entry></entry>
 
@@ -1020,7 +1049,7 @@
         </row>
 
         <row>
-          <entry>force_check</entry>
+          <entry><anchor xml:id="cgiparams-force_check" />force_check</entry>
 
           <entry></entry>
 
@@ -1052,7 +1081,7 @@
         </row>
 
         <row>
-          <entry>force_notification</entry>
+          <entry><anchor xml:id="cgiparams-force_notification" />force_notification</entry>
 
           <entry></entry>
 
@@ -1084,7 +1113,7 @@
         </row>
 
         <row>
-          <entry>full_log_entries</entry>
+          <entry><anchor xml:id="cgiparams-full_log_entries" />full_log_entries</entry>
 
           <entry>X</entry>
 
@@ -1116,7 +1145,7 @@
         </row>
 
         <row>
-          <entry>get_date_parts</entry>
+          <entry><anchor xml:id="cgiparams-get_date_parts" />get_date_parts</entry>
 
           <entry>X</entry>
 
@@ -1148,7 +1177,7 @@
         </row>
 
         <row>
-          <entry>graphevents</entry>
+          <entry><anchor xml:id="cgiparams-graphevents" />graphevents</entry>
 
           <entry></entry>
 
@@ -1180,7 +1209,7 @@
         </row>
 
         <row>
-          <entry>graphstatetypes</entry>
+          <entry><anchor xml:id="cgiparams-graphstatetypes" />graphstatetypes</entry>
 
           <entry></entry>
 
@@ -1212,7 +1241,7 @@
         </row>
 
         <row>
-          <entry>host</entry>
+          <entry><anchor xml:id="cgiparams-host" />host</entry>
 
           <entry>X</entry>
 
@@ -1244,7 +1273,7 @@
         </row>
 
         <row>
-          <entry>hostgroup</entry>
+          <entry><anchor xml:id="cgiparams-hostgroup" />hostgroup</entry>
 
           <entry>X</entry>
 
@@ -1276,7 +1305,7 @@
         </row>
 
         <row>
-          <entry>hostprops</entry>
+          <entry><anchor xml:id="cgiparams-hostprops" />hostprops</entry>
 
           <entry></entry>
 
@@ -1308,7 +1337,7 @@
         </row>
 
         <row>
-          <entry>hoststates</entry>
+          <entry><anchor xml:id="cgiparams-hoststates" />hoststates</entry>
 
           <entry></entry>
 
@@ -1340,7 +1369,7 @@
         </row>
 
         <row>
-          <entry>hoststatustypes</entry>
+          <entry><anchor xml:id="cgiparams-hoststatustypes" />hoststatustypes</entry>
 
           <entry>X</entry>
 
@@ -1372,7 +1401,7 @@
         </row>
 
         <row>
-          <entry>hours</entry>
+          <entry><anchor xml:id="cgiparams-hours" />hours</entry>
 
           <entry></entry>
 
@@ -1404,7 +1433,7 @@
         </row>
 
         <row>
-          <entry>includesoftstates</entry>
+          <entry><anchor xml:id="cgiparams-includesoftstates" />includesoftstates</entry>
 
           <entry>X</entry>
 
@@ -1436,7 +1465,7 @@
         </row>
 
         <row>
-          <entry>initialassumedhoststate</entry>
+          <entry><anchor xml:id="cgiparams-initialassumedhoststate" />initialassumedhoststate</entry>
 
           <entry>X</entry>
 
@@ -1468,7 +1497,7 @@
         </row>
 
         <row>
-          <entry>initialassumedservicestate</entry>
+          <entry><anchor xml:id="cgiparams-initialassumedservicestate" />initialassumedservicestate</entry>
 
           <entry>X</entry>
 
@@ -1500,7 +1529,7 @@
         </row>
 
         <row>
-          <entry>initialstateslogged</entry>
+          <entry><anchor xml:id="cgiparams-initialstateslogged" />initialstateslogged</entry>
 
           <entry></entry>
 
@@ -1532,7 +1561,7 @@
         </row>
 
         <row>
-          <entry>input</entry>
+          <entry><anchor xml:id="cgiparams-input" />input</entry>
 
           <entry></entry>
 
@@ -1564,7 +1593,7 @@
         </row>
 
         <row>
-          <entry>jsonoutput [2][3]</entry>
+          <entry><anchor xml:id="cgiparams-jsonoutput" />jsonoutput [2][3]</entry>
 
           <entry>X</entry>
 
@@ -1596,7 +1625,7 @@
         </row>
 
         <row>
-          <entry>limit</entry>
+          <entry><anchor xml:id="cgiparams-limit" />limit</entry>
 
           <entry></entry>
 
@@ -1628,7 +1657,7 @@
         </row>
 
         <row>
-          <entry>minutes</entry>
+          <entry><anchor xml:id="cgiparams-minutes" />minutes</entry>
 
           <entry></entry>
 
@@ -1660,7 +1689,7 @@
         </row>
 
         <row>
-          <entry>navbarsearch</entry>
+          <entry><anchor xml:id="cgiparams-navbarsearch" />navbarsearch</entry>
 
           <entry></entry>
 
@@ -1692,7 +1721,7 @@
         </row>
 
         <row>
-          <entry>newstatesonly</entry>
+          <entry><anchor xml:id="cgiparams-newstatesonly" />newstatesonly</entry>
 
           <entry></entry>
 
@@ -1724,7 +1753,7 @@
         </row>
 
         <row>
-          <entry>nodowntime</entry>
+          <entry><anchor xml:id="cgiparams-nodowntime" />nodowntime</entry>
 
           <entry></entry>
 
@@ -1756,7 +1785,7 @@
         </row>
 
         <row>
-          <entry>noflapping</entry>
+          <entry><anchor xml:id="cgiparams-noflapping" />noflapping</entry>
 
           <entry></entry>
 
@@ -1788,7 +1817,7 @@
         </row>
 
         <row>
-          <entry>nofrills</entry>
+          <entry><anchor xml:id="cgiparams-nofrills" />nofrills</entry>
 
           <entry></entry>
 
@@ -1820,7 +1849,7 @@
         </row>
 
         <row>
-          <entry>noheader</entry>
+          <entry><anchor xml:id="cgiparams-noheader" />noheader</entry>
 
           <entry>X</entry>
 
@@ -1852,7 +1881,7 @@
         </row>
 
         <row>
-          <entry>not_dly</entry>
+          <entry><anchor xml:id="cgiparams-not_dly" />not_dly</entry>
 
           <entry></entry>
 
@@ -1884,7 +1913,7 @@
         </row>
 
         <row>
-          <entry>notimebreaks</entry>
+          <entry><anchor xml:id="cgiparams-notimebreaks" />notimebreaks</entry>
 
           <entry></entry>
 
@@ -1916,7 +1945,7 @@
         </row>
 
         <row>
-          <entry>nosystem</entry>
+          <entry><anchor xml:id="cgiparams-nosystem" />nosystem</entry>
 
           <entry></entry>
 
@@ -1948,7 +1977,7 @@
         </row>
 
         <row>
-          <entry>oldestfirst</entry>
+          <entry><anchor xml:id="cgiparams-oldestfirst" />oldestfirst</entry>
 
           <entry></entry>
 
@@ -1980,7 +2009,7 @@
         </row>
 
         <row>
-          <entry>performance_data</entry>
+          <entry><anchor xml:id="cgiparams-performance_data" />performance_data</entry>
 
           <entry></entry>
 
@@ -2012,7 +2041,7 @@
         </row>
 
         <row>
-          <entry>persistent</entry>
+          <entry><anchor xml:id="cgiparams-persistent" />persistent</entry>
 
           <entry></entry>
 
@@ -2044,7 +2073,7 @@
         </row>
 
         <row>
-          <entry>plugin_output</entry>
+          <entry><anchor xml:id="cgiparams-plugin_output" />plugin_output</entry>
 
           <entry></entry>
 
@@ -2076,7 +2105,7 @@
         </row>
 
         <row>
-          <entry>plugin_state</entry>
+          <entry><anchor xml:id="cgiparams-plugin_state" />plugin_state</entry>
 
           <entry></entry>
 
@@ -2108,7 +2137,7 @@
         </row>
 
         <row>
-          <entry>ptc</entry>
+          <entry><anchor xml:id="cgiparams-ptc" />ptc</entry>
 
           <entry></entry>
 
@@ -2140,7 +2169,7 @@
         </row>
 
         <row>
-          <entry>report</entry>
+          <entry><anchor xml:id="cgiparams-report" />report</entry>
 
           <entry></entry>
 
@@ -2172,7 +2201,7 @@
         </row>
 
         <row>
-          <entry>report_type</entry>
+          <entry><anchor xml:id="cgiparams-report_type" />report_type</entry>
 
           <entry>X</entry>
 
@@ -2204,7 +2233,7 @@
         </row>
 
         <row>
-          <entry>rpttimeperiod</entry>
+          <entry><anchor xml:id="cgiparams-rpttimeperiod" />rpttimeperiod</entry>
 
           <entry>X</entry>
 
@@ -2236,7 +2265,7 @@
         </row>
 
         <row>
-          <entry>sched_dly</entry>
+          <entry><anchor xml:id="cgiparams-sched_dly" />sched_dly</entry>
 
           <entry></entry>
 
@@ -2268,7 +2297,7 @@
         </row>
 
         <row>
-          <entry>sday</entry>
+          <entry><anchor xml:id="cgiparams-sday" />sday</entry>
 
           <entry>X</entry>
 
@@ -2300,7 +2329,7 @@
         </row>
 
         <row>
-          <entry>send_notification</entry>
+          <entry><anchor xml:id="cgiparams-send_notification" />send_notification</entry>
 
           <entry></entry>
 
@@ -2332,7 +2361,7 @@
         </row>
 
         <row>
-          <entry>service</entry>
+          <entry><anchor xml:id="cgiparams-service" />service</entry>
 
           <entry>X</entry>
 
@@ -2364,7 +2393,7 @@
         </row>
 
         <row>
-          <entry>servicefilter</entry>
+          <entry><anchor xml:id="cgiparams-servicefilter" />servicefilter</entry>
 
           <entry></entry>
 
@@ -2396,7 +2425,7 @@
         </row>
 
         <row>
-          <entry>servicegroup</entry>
+          <entry><anchor xml:id="cgiparams-servicegroup" />servicegroup</entry>
 
           <entry>X</entry>
 
@@ -2428,7 +2457,7 @@
         </row>
 
         <row>
-          <entry>serviceprops</entry>
+          <entry><anchor xml:id="cgiparams-serviceprops" />serviceprops</entry>
 
           <entry></entry>
 
@@ -2460,7 +2489,7 @@
         </row>
 
         <row>
-          <entry>servicestates</entry>
+          <entry><anchor xml:id="cgiparams-servicestates" />servicestates</entry>
 
           <entry></entry>
 
@@ -2492,7 +2521,7 @@
         </row>
 
         <row>
-          <entry>servicestatustypes</entry>
+          <entry><anchor xml:id="cgiparams-servicestatustypes" />servicestatustypes</entry>
 
           <entry></entry>
 
@@ -2524,7 +2553,7 @@
         </row>
 
         <row>
-          <entry>service_divisor</entry>
+          <entry><anchor xml:id="cgiparams-service_divisor" />service_divisor</entry>
 
           <entry></entry>
 
@@ -2556,7 +2585,7 @@
         </row>
 
         <row>
-          <entry>shour</entry>
+          <entry><anchor xml:id="cgiparams-shour" />shour</entry>
 
           <entry>X</entry>
 
@@ -2588,7 +2617,7 @@
         </row>
 
         <row>
-          <entry>showscheduleddowntime</entry>
+          <entry><anchor xml:id="cgiparams-showscheduleddowntime" />showscheduleddowntime</entry>
 
           <entry>X</entry>
 
@@ -2620,7 +2649,7 @@
         </row>
 
         <row>
-          <entry>show_log_entries</entry>
+          <entry><anchor xml:id="cgiparams-show_log_entries" />show_log_entries</entry>
 
           <entry>X</entry>
 
@@ -2652,7 +2681,7 @@
         </row>
 
         <row>
-          <entry>smin</entry>
+          <entry><anchor xml:id="cgiparams-smin" />smin</entry>
 
           <entry>X</entry>
 
@@ -2684,7 +2713,7 @@
         </row>
 
         <row>
-          <entry>smon</entry>
+          <entry><anchor xml:id="cgiparams-smon" />smon</entry>
 
           <entry>X</entry>
 
@@ -2716,7 +2745,7 @@
         </row>
 
         <row>
-          <entry>sortoption</entry>
+          <entry><anchor xml:id="cgiparams-sortoption" />sortoption</entry>
 
           <entry></entry>
 
@@ -2748,7 +2777,7 @@
         </row>
 
         <row>
-          <entry>sorttype</entry>
+          <entry><anchor xml:id="cgiparams-sorttype" />sorttype</entry>
 
           <entry></entry>
 
@@ -2780,7 +2809,7 @@
         </row>
 
         <row>
-          <entry>ssec</entry>
+          <entry><anchor xml:id="cgiparams-ssec" />ssec</entry>
 
           <entry>X</entry>
 
@@ -2812,7 +2841,7 @@
         </row>
 
         <row>
-          <entry>standardreport</entry>
+          <entry><anchor xml:id="cgiparams-standardreport" />standardreport</entry>
 
           <entry></entry>
 
@@ -2844,7 +2873,7 @@
         </row>
 
         <row>
-          <entry>start_time</entry>
+          <entry><anchor xml:id="cgiparams-start_time" />start_time</entry>
 
           <entry></entry>
 
@@ -2876,7 +2905,7 @@
         </row>
 
         <row>
-          <entry>statetype</entry>
+          <entry><anchor xml:id="cgiparams-statetype" />statetype</entry>
 
           <entry></entry>
 
@@ -2908,7 +2937,7 @@
         </row>
 
         <row>
-          <entry>statetypes</entry>
+          <entry><anchor xml:id="cgiparams-statetypes" />statetypes</entry>
 
           <entry></entry>
 
@@ -2940,7 +2969,7 @@
         </row>
 
         <row>
-          <entry>sticky_ack</entry>
+          <entry><anchor xml:id="cgiparams-sticky_ack" />sticky_ack</entry>
 
           <entry></entry>
 
@@ -2972,7 +3001,7 @@
         </row>
 
         <row>
-          <entry>style</entry>
+          <entry><anchor xml:id="cgiparams-style" />style</entry>
 
           <entry></entry>
 
@@ -3004,7 +3033,7 @@
         </row>
 
         <row>
-          <entry>syear</entry>
+          <entry><anchor xml:id="cgiparams-syear" />syear</entry>
 
           <entry>X</entry>
 
@@ -3036,7 +3065,7 @@
         </row>
 
         <row>
-          <entry>t1</entry>
+          <entry><anchor xml:id="cgiparams-t1" />t1</entry>
 
           <entry>X</entry>
 
@@ -3068,7 +3097,7 @@
         </row>
 
         <row>
-          <entry>t2</entry>
+          <entry><anchor xml:id="cgiparams-t2" />t2</entry>
 
           <entry>X</entry>
 
@@ -3100,7 +3129,7 @@
         </row>
 
         <row>
-          <entry>timeperiod</entry>
+          <entry><anchor xml:id="cgiparams-timeperiod" />timeperiod</entry>
 
           <entry>X</entry>
 
@@ -3132,7 +3161,7 @@
         </row>
 
         <row>
-          <entry>trigger</entry>
+          <entry><anchor xml:id="cgiparams-trigger" />trigger</entry>
 
           <entry></entry>
 
@@ -3164,7 +3193,7 @@
         </row>
 
         <row>
-          <entry>type</entry>
+          <entry><anchor xml:id="cgiparams-type" />type</entry>
 
           <entry></entry>
 
@@ -3221,7 +3250,7 @@
 
       <tbody>
         <row>
-          <entry>ahas</entry>
+          <entry><link linkend="cgiparams-ahas">ahas</link></entry>
 
           <entry>The command will affects host and its services</entry>
 
@@ -3233,7 +3262,7 @@
         </row>
 
         <row>
-          <entry>alerttypes</entry>
+          <entry><link linkend="cgiparams-alerttypes">alerttypes</link></entry>
 
           <entry>Show host and/or service alerts</entry>
 
@@ -3245,7 +3274,7 @@
         </row>
 
         <row>
-          <entry>archive</entry>
+          <entry><link linkend="cgiparams-archive">archive</link></entry>
 
           <entry></entry>
 
@@ -3257,7 +3286,7 @@
         </row>
 
         <row>
-          <entry>assumeinitialstates</entry>
+          <entry><link linkend="cgiparams-assumeinitialstates">assumeinitialstates</link></entry>
 
           <entry></entry>
 
@@ -3269,7 +3298,7 @@
         </row>
 
         <row>
-          <entry>assumestatesduringnotrunning</entry>
+          <entry><link linkend="cgiparams-assumestatesduringnotrunning">assumestatesduringnotrunning</link></entry>
 
           <entry></entry>
 
@@ -3281,7 +3310,7 @@
         </row>
 
         <row>
-          <entry>assumestateretention</entry>
+          <entry><link linkend="cgiparams-assumestateretention">assumestateretention</link></entry>
 
           <entry></entry>
 
@@ -3293,7 +3322,7 @@
         </row>
 
         <row>
-          <entry>backtrack</entry>
+          <entry><link linkend="cgiparams-backtrack">backtrack</link></entry>
 
           <entry>How many archive log files will be searched to determine the initial states</entry>
 
@@ -3305,7 +3334,7 @@
         </row>
 
         <row>
-          <entry>breakdown</entry>
+          <entry><link linkend="cgiparams-breakdown">breakdown</link></entry>
 
           <entry>Breakdown data by timeperiod</entry>
 
@@ -3317,7 +3346,7 @@
         </row>
 
         <row>
-          <entry>broadcast_notification</entry>
+          <entry><link linkend="cgiparams-broadcast_notification">broadcast_notification</link></entry>
 
           <entry>Send notification to all contacts (non-escalated and escalated)</entry>
 
@@ -3329,7 +3358,7 @@
         </row>
 
         <row>
-          <entry>childoptions</entry>
+          <entry><link linkend="cgiparams-childoptions">childoptions</link></entry>
 
           <entry>Downtime handling for child hosts</entry>
 
@@ -3341,7 +3370,7 @@
         </row>
 
         <row>
-          <entry>cmd_mod</entry>
+          <entry><link linkend="cgiparams-cmd_mod">cmd_mod</link></entry>
 
           <entry>Command mode</entry>
 
@@ -3353,7 +3382,7 @@
         </row>
 
         <row>
-          <entry>cmd_typ</entry>
+          <entry><link linkend="cgiparams-cmd_typ">cmd_typ</link></entry>
 
           <entry>Command type</entry>
 
@@ -3361,11 +3390,11 @@
 
           <entry>cmd_typ=160</entry>
 
-          <entry>For details see .../cgis/common.h</entry>
+          <entry>For details see .../include/common.h</entry>
         </row>
 
         <row>
-          <entry>columns</entry>
+          <entry><link linkend="cgiparams-columns">columns</link></entry>
 
           <entry>Number of overview columns</entry>
 
@@ -3377,7 +3406,7 @@
         </row>
 
         <row>
-          <entry>com_author</entry>
+          <entry><link linkend="cgiparams-com_author">com_author</link></entry>
 
           <entry>Comment author</entry>
 
@@ -3389,7 +3418,7 @@
         </row>
 
         <row>
-          <entry>com_data</entry>
+          <entry><link linkend="cgiparams-com_data">com_data</link></entry>
 
           <entry>Comment contents</entry>
 
@@ -3401,7 +3430,7 @@
         </row>
 
         <row>
-          <entry>com_id</entry>
+          <entry><link linkend="cgiparams-com_id">com_id</link></entry>
 
           <entry>Comment id</entry>
 
@@ -3413,7 +3442,7 @@
         </row>
 
         <row>
-          <entry>contact</entry>
+          <entry><link linkend="cgiparams-contact">contact</link></entry>
 
           <entry>A valid contact as mail recipient</entry>
 
@@ -3425,7 +3454,7 @@
         </row>
 
         <row>
-          <entry>createimage</entry>
+          <entry><link linkend="cgiparams-createimage">createimage</link></entry>
 
           <entry></entry>
 
@@ -3437,7 +3466,7 @@
         </row>
 
         <row>
-          <entry>csvoutput</entry>
+          <entry><link linkend="cgiparams-csvoutput">csvoutput</link></entry>
 
           <entry>Specify whether or not the report output should be in csv format</entry>
 
@@ -3449,7 +3478,7 @@
         </row>
 
         <row>
-          <entry>displaytype</entry>
+          <entry><link linkend="cgiparams-displaytype">displaytype</link></entry>
 
           <entry>Type of alert report</entry>
 
@@ -3462,7 +3491,7 @@
         </row>
 
         <row>
-          <entry>down_id</entry>
+          <entry><link linkend="cgiparams-down_id">down_id</link></entry>
 
           <entry>Downtime id</entry>
 
@@ -3474,7 +3503,7 @@
         </row>
 
         <row>
-          <entry>eday</entry>
+          <entry><link linkend="cgiparams-eday">eday</link></entry>
 
           <entry>End of custom timeperiod (day)</entry>
 
@@ -3486,7 +3515,7 @@
         </row>
 
         <row>
-          <entry>ehour</entry>
+          <entry><link linkend="cgiparams-ehour">ehour</link></entry>
 
           <entry>End of custom timeperiod (hour)</entry>
 
@@ -3498,7 +3527,7 @@
         </row>
 
         <row>
-          <entry>embedded</entry>
+          <entry><link linkend="cgiparams-embedded">embedded</link></entry>
 
           <entry>Omit some HTML code and SSI header/footer</entry>
 
@@ -3510,7 +3539,7 @@
         </row>
 
         <row>
-          <entry>emin</entry>
+          <entry><link linkend="cgiparams-emin">emin</link></entry>
 
           <entry>End of custom timeperiod (minute)</entry>
 
@@ -3522,7 +3551,7 @@
         </row>
 
         <row>
-          <entry>emon</entry>
+          <entry><link linkend="cgiparams-emon">emon</link></entry>
 
           <entry>End of custom timeperiod (month)</entry>
 
@@ -3534,7 +3563,7 @@
         </row>
 
         <row>
-          <entry>end_time</entry>
+          <entry><link linkend="cgiparams-end_time">end_time</link></entry>
 
           <entry>End time of the fixed downtime</entry>
 
@@ -3546,7 +3575,7 @@
         </row>
 
         <row>
-          <entry>esec</entry>
+          <entry><link linkend="cgiparams-esec">esec</link></entry>
 
           <entry>End of custom timeperiod (second)</entry>
 
@@ -3558,7 +3587,7 @@
         </row>
 
         <row>
-          <entry>eyear</entry>
+          <entry><link linkend="cgiparams-eyear">eyear</link></entry>
 
           <entry>End of custom timeperiod (year)</entry>
 
@@ -3570,7 +3599,7 @@
         </row>
 
         <row>
-          <entry>fixed</entry>
+          <entry><link linkend="cgiparams-fixed">fixed</link></entry>
 
           <entry>Whether or not the downtime will be fixed</entry>
 
@@ -3582,7 +3611,7 @@
         </row>
 
         <row>
-          <entry>force_check</entry>
+          <entry><link linkend="cgiparams-force_check">force_check</link></entry>
 
           <entry>The service check will be forced</entry>
 
@@ -3594,7 +3623,7 @@
         </row>
 
         <row>
-          <entry>force_notification</entry>
+          <entry><link linkend="cgiparams-force_notification">force_notification</link></entry>
 
           <entry>Send notification regardless of restrictions (timeperiods or else)</entry>
 
@@ -3606,7 +3635,7 @@
         </row>
 
         <row>
-          <entry>full_log_entries</entry>
+          <entry><link linkend="cgiparams-full_log_entries">full_log_entries</link></entry>
 
           <entry>Show full or "condensed" log entries</entry>
 
@@ -3618,7 +3647,7 @@
         </row>
 
         <row>
-          <entry>get_date_parts</entry>
+          <entry><link linkend="cgiparams-get_date_parts">get_date_parts</link></entry>
 
           <entry>Get custom time ranges</entry>
 
@@ -3630,7 +3659,7 @@
         </row>
 
         <row>
-          <entry>graphevents</entry>
+          <entry><link linkend="cgiparams-graphevents">graphevents</link></entry>
 
           <entry>Which objects should be graphed in what state</entry>
 
@@ -3643,7 +3672,7 @@
         </row>
 
         <row>
-          <entry>graphstatetypes</entry>
+          <entry><link linkend="cgiparams-graphstatetypes">graphstatetypes</link></entry>
 
           <entry>Graph hard and/or soft states</entry>
 
@@ -3655,7 +3684,7 @@
         </row>
 
         <row>
-          <entry>host</entry>
+          <entry><link linkend="cgiparams-host">host</link></entry>
 
           <entry>Select all hosts or a specific host whose services should be displayed</entry>
 
@@ -3667,7 +3696,7 @@
         </row>
 
         <row>
-          <entry>hostgroup</entry>
+          <entry><link linkend="cgiparams-hostgroup">hostgroup</link></entry>
 
           <entry>Select all hostgroups or one specific hostgroup whose hosts and services should be displayed</entry>
 
@@ -3679,7 +3708,7 @@
         </row>
 
         <row>
-          <entry>hostprops</entry>
+          <entry><link linkend="cgiparams-hostprops">hostprops</link></entry>
 
           <entry>Select the hosts (including the services) matching the given bit pattern. Note that the hosts have to match ALL conditions
           specified</entry>
@@ -3688,11 +3717,12 @@
 
           <entry>hostprops=131088 (active checks being disabled)</entry>
 
-          <entry>A boolean OR of the states specified in include/cgiutils.c <link linkend="cgiparams-filter">[1]</link> (HOST AND SERVICE FILTER PROPERTIES)</entry>
+          <entry>A boolean OR of the states specified in include/cgiutils.c <link linkend="cgiparams-filter">[1]</link> (HOST AND SERVICE
+          FILTER PROPERTIES)</entry>
         </row>
 
         <row>
-          <entry>hoststates</entry>
+          <entry><link linkend="cgiparams-hoststates">hoststates</link></entry>
 
           <entry>The state the hosts should be in</entry>
 
@@ -3704,7 +3734,7 @@
         </row>
 
         <row>
-          <entry>hoststatustypes</entry>
+          <entry><link linkend="cgiparams-hoststatustypes">hoststatustypes</link></entry>
 
           <entry>The state the host should be in</entry>
 
@@ -3716,7 +3746,7 @@
         </row>
 
         <row>
-          <entry>hours</entry>
+          <entry><link linkend="cgiparams-hours">hours</link></entry>
 
           <entry>Duration of the flexible downtime in full hours (see minutes)</entry>
 
@@ -3728,7 +3758,7 @@
         </row>
 
         <row>
-          <entry>includesoftstates</entry>
+          <entry><link linkend="cgiparams-includesoftstates">includesoftstates</link></entry>
 
           <entry>Include soft states</entry>
 
@@ -3740,7 +3770,7 @@
         </row>
 
         <row>
-          <entry>initialassumedhoststate</entry>
+          <entry><link linkend="cgiparams-initialassumedhoststate">initialassumedhoststate</link></entry>
 
           <entry></entry>
 
@@ -3752,7 +3782,7 @@
         </row>
 
         <row>
-          <entry>initialassumedservicestate</entry>
+          <entry><link linkend="cgiparams-initialassumedservicestate">initialassumedservicestate</link></entry>
 
           <entry></entry>
 
@@ -3764,7 +3794,7 @@
         </row>
 
         <row>
-          <entry>initialstateslogged</entry>
+          <entry><link linkend="cgiparams-initialstateslogged">initialstateslogged</link></entry>
 
           <entry></entry>
 
@@ -3776,7 +3806,7 @@
         </row>
 
         <row>
-          <entry>input</entry>
+          <entry><link linkend="cgiparams-input">input</link></entry>
 
           <entry></entry>
 
@@ -3788,7 +3818,7 @@
         </row>
 
         <row>
-          <entry>jsonoutput</entry>
+          <entry><link linkend="cgiparams-jsonoutput">jsonoutput</link></entry>
 
           <entry>Specify whether or not the report output should be in json format</entry>
 
@@ -3800,7 +3830,7 @@
         </row>
 
         <row>
-          <entry>limit</entry>
+          <entry><link linkend="cgiparams-limit">limit</link></entry>
 
           <entry>Number of items to display</entry>
 
@@ -3812,7 +3842,7 @@
         </row>
 
         <row>
-          <entry>minutes</entry>
+          <entry><link linkend="cgiparams-minutes">minutes</link></entry>
 
           <entry>Duration of the flexible downtime (see hours)</entry>
 
@@ -3824,7 +3854,7 @@
         </row>
 
         <row>
-          <entry>navbarsearch</entry>
+          <entry><link linkend="cgiparams-navbarsearch">navbarsearch</link></entry>
 
           <entry></entry>
 
@@ -3836,7 +3866,7 @@
         </row>
 
         <row>
-          <entry>newstatesonly</entry>
+          <entry><link linkend="cgiparams-newstatesonly">newstatesonly</link></entry>
 
           <entry>Only display new states</entry>
 
@@ -3848,7 +3878,7 @@
         </row>
 
         <row>
-          <entry>nodowntime</entry>
+          <entry><link linkend="cgiparams-nodowntime">nodowntime</link></entry>
 
           <entry>Don't display downtimes</entry>
 
@@ -3860,7 +3890,7 @@
         </row>
 
         <row>
-          <entry>noflapping</entry>
+          <entry><link linkend="cgiparams-noflapping">noflapping</link></entry>
 
           <entry>Don't display flapping alerts</entry>
 
@@ -3872,7 +3902,7 @@
         </row>
 
         <row>
-          <entry>nofrills</entry>
+          <entry><link linkend="cgiparams-nofrills">nofrills</link></entry>
 
           <entry>Don't display frills</entry>
 
@@ -3884,7 +3914,7 @@
         </row>
 
         <row>
-          <entry>noheader</entry>
+          <entry><link linkend="cgiparams-noheader">noheader</link></entry>
 
           <entry>Omit global status information and only show status details</entry>
 
@@ -3896,7 +3926,7 @@
         </row>
 
         <row>
-          <entry>not_dly</entry>
+          <entry><link linkend="cgiparams-not_dly">not_dly</link></entry>
 
           <entry>Delay notification for n minutes</entry>
 
@@ -3908,7 +3938,7 @@
         </row>
 
         <row>
-          <entry>notimebreaks</entry>
+          <entry><link linkend="cgiparams-notimebreaks">notimebreaks</link></entry>
 
           <entry>Don't display timebreaks</entry>
 
@@ -3920,7 +3950,7 @@
         </row>
 
         <row>
-          <entry>nosystem</entry>
+          <entry><link linkend="cgiparams-nosystem">nosystem</link></entry>
 
           <entry>Don't display system messages</entry>
 
@@ -3932,7 +3962,7 @@
         </row>
 
         <row>
-          <entry>oldestfirst</entry>
+          <entry><link linkend="cgiparams-oldestfirst">oldestfirst</link></entry>
 
           <entry>Reverse sort order</entry>
 
@@ -3944,7 +3974,7 @@
         </row>
 
         <row>
-          <entry>performance_data</entry>
+          <entry><link linkend="cgiparams-performance_data">performance_data</link></entry>
 
           <entry>The string sent as the performance data</entry>
 
@@ -3956,7 +3986,7 @@
         </row>
 
         <row>
-          <entry>persistent</entry>
+          <entry><link linkend="cgiparams-persistent">persistent</link></entry>
 
           <entry>The comment will be persistent if this option is set</entry>
 
@@ -3968,7 +3998,7 @@
         </row>
 
         <row>
-          <entry>plugin_output</entry>
+          <entry><link linkend="cgiparams-plugin_output">plugin_output</link></entry>
 
           <entry>The string sent as the plugin output</entry>
 
@@ -3980,7 +4010,7 @@
         </row>
 
         <row>
-          <entry>plugin_state</entry>
+          <entry><link linkend="cgiparams-plugin_state">plugin_state</link></entry>
 
           <entry>Specify the state the plugin should have</entry>
 
@@ -3992,7 +4022,7 @@
         </row>
 
         <row>
-          <entry>ptc</entry>
+          <entry><link linkend="cgiparams-ptc">ptc</link></entry>
 
           <entry>The command will be propagated to child hosts</entry>
 
@@ -4004,7 +4034,7 @@
         </row>
 
         <row>
-          <entry>report</entry>
+          <entry><link linkend="cgiparams-report">report</link></entry>
 
           <entry>Create report</entry>
 
@@ -4016,7 +4046,7 @@
         </row>
 
         <row>
-          <entry>report_type</entry>
+          <entry><link linkend="cgiparams-report_type">report_type</link></entry>
 
           <entry>Select the report type</entry>
 
@@ -4028,7 +4058,7 @@
         </row>
 
         <row>
-          <entry>rpttimeperiod</entry>
+          <entry><link linkend="cgiparams-rpttimeperiod">rpttimeperiod</link></entry>
 
           <entry>Specify a timeperiod which is used for the availability report</entry>
 
@@ -4040,7 +4070,7 @@
         </row>
 
         <row>
-          <entry>sched_dly</entry>
+          <entry><link linkend="cgiparams-sched_dly">sched_dly</link></entry>
 
           <entry>Delay command scheduling by n minutes</entry>
 
@@ -4052,7 +4082,7 @@
         </row>
 
         <row>
-          <entry>sday</entry>
+          <entry><link linkend="cgiparams-sday">sday</link></entry>
 
           <entry>Start of custom timeperiod (day)</entry>
 
@@ -4064,7 +4094,7 @@
         </row>
 
         <row>
-          <entry>send_notification</entry>
+          <entry><link linkend="cgiparams-send_notification">send_notification</link></entry>
 
           <entry>Send a notification for the acknowledgement</entry>
 
@@ -4076,7 +4106,7 @@
         </row>
 
         <row>
-          <entry>service</entry>
+          <entry><link linkend="cgiparams-service">service</link></entry>
 
           <entry>Select all services or a specific service which should be displayed</entry>
 
@@ -4088,7 +4118,7 @@
         </row>
 
         <row>
-          <entry>servicefilter</entry>
+          <entry><link linkend="cgiparams-servicefilter">servicefilter</link></entry>
 
           <entry>Select only services matching the given pattern</entry>
 
@@ -4100,7 +4130,7 @@
         </row>
 
         <row>
-          <entry>servicegroup</entry>
+          <entry><link linkend="cgiparams-servicegroup">servicegroup</link></entry>
 
           <entry>Select all servicegroup or one specific servicegroup whose hosts and services should be displayed</entry>
 
@@ -4112,7 +4142,7 @@
         </row>
 
         <row>
-          <entry>serviceprops</entry>
+          <entry><link linkend="cgiparams-serviceprops">serviceprops</link></entry>
 
           <entry>Select the services matching the given bit pattern. Note that the services have to match ALL conditions specified</entry>
 
@@ -4120,11 +4150,12 @@
 
           <entry>serviceprops=131088 (active checks being disabled)</entry>
 
-          <entry>A boolean OR of the states specified in include/cgiutils.c <link linkend="cgiparams-filter">[1]</link> (HOST AND SERVICE FILTER PROPERTIES)</entry>
+          <entry>A boolean OR of the states specified in include/cgiutils.c <link linkend="cgiparams-filter">[1]</link> (HOST AND SERVICE
+          FILTER PROPERTIES)</entry>
         </row>
 
         <row>
-          <entry>servicestates</entry>
+          <entry><link linkend="cgiparams-servicestates">servicestates</link></entry>
 
           <entry>State the services should be in</entry>
 
@@ -4136,7 +4167,7 @@
         </row>
 
         <row>
-          <entry>servicestatustypes</entry>
+          <entry><link linkend="cgiparams-servicestatustypes">servicestatustypes</link></entry>
 
           <entry>State the services should be in</entry>
 
@@ -4148,7 +4179,7 @@
         </row>
 
         <row>
-          <entry>service_divisor</entry>
+          <entry><link linkend="cgiparams-service_divisor">service_divisor</link></entry>
 
           <entry>Importance of services in relation to hosts</entry>
 
@@ -4160,7 +4191,7 @@
         </row>
 
         <row>
-          <entry>shour</entry>
+          <entry><link linkend="cgiparams-shour">shour</link></entry>
 
           <entry>Start of custom timeperiod (hour)</entry>
 
@@ -4172,7 +4203,7 @@
         </row>
 
         <row>
-          <entry>showscheduleddowntime</entry>
+          <entry><link linkend="cgiparams-showscheduleddowntime">showscheduleddowntime</link></entry>
 
           <entry>Display scheduled downtimes</entry>
 
@@ -4184,7 +4215,7 @@
         </row>
 
         <row>
-          <entry>show_log_entries</entry>
+          <entry><link linkend="cgiparams-show_log_entries">show_log_entries</link></entry>
 
           <entry>Display log entries</entry>
 
@@ -4196,7 +4227,7 @@
         </row>
 
         <row>
-          <entry>smin</entry>
+          <entry><link linkend="cgiparams-smin">smin</link></entry>
 
           <entry>Start of custom timeperiod (minute)</entry>
 
@@ -4208,7 +4239,7 @@
         </row>
 
         <row>
-          <entry>smon</entry>
+          <entry><link linkend="cgiparams-smon">smon</link></entry>
 
           <entry>Start of custom timeperiod (month)</entry>
 
@@ -4220,7 +4251,7 @@
         </row>
 
         <row>
-          <entry>sortoption</entry>
+          <entry><link linkend="cgiparams-sortoption">sortoption</link></entry>
 
           <entry>Specify the column to sort on</entry>
 
@@ -4232,7 +4263,7 @@
         </row>
 
         <row>
-          <entry>sorttype</entry>
+          <entry><link linkend="cgiparams-sorttype">sorttype</link></entry>
 
           <entry>Specify the sort order on the column specified by "sortoption=&lt;n&gt;"</entry>
 
@@ -4244,7 +4275,7 @@
         </row>
 
         <row>
-          <entry>ssec</entry>
+          <entry><link linkend="cgiparams-ssec">ssec</link></entry>
 
           <entry>Start of custom timeperiod (second)</entry>
 
@@ -4256,7 +4287,7 @@
         </row>
 
         <row>
-          <entry>standardreport</entry>
+          <entry><link linkend="cgiparams-standardreport">standardreport</link></entry>
 
           <entry>Standard report</entry>
 
@@ -4269,7 +4300,7 @@
         </row>
 
         <row>
-          <entry>start_time</entry>
+          <entry><link linkend="cgiparams-start_time">start_time</link></entry>
 
           <entry>Start of the fixed downtime</entry>
 
@@ -4281,7 +4312,7 @@
         </row>
 
         <row>
-          <entry>statetype</entry>
+          <entry><link linkend="cgiparams-statetype">statetype</link></entry>
 
           <entry>Hard and/or soft states</entry>
 
@@ -4293,7 +4324,7 @@
         </row>
 
         <row>
-          <entry>statetypes</entry>
+          <entry><link linkend="cgiparams-statetypes">statetypes</link></entry>
 
           <entry>Hard and/or soft states</entry>
 
@@ -4305,7 +4336,7 @@
         </row>
 
         <row>
-          <entry>sticky_ack</entry>
+          <entry><link linkend="cgiparams-sticky_ack">sticky_ack</link></entry>
 
           <entry>The acknowledgement will be "sticky"</entry>
 
@@ -4317,7 +4348,7 @@
         </row>
 
         <row>
-          <entry>style</entry>
+          <entry><link linkend="cgiparams-style">style</link></entry>
 
           <entry>Specify the information to be shown</entry>
 
@@ -4330,7 +4361,7 @@
         </row>
 
         <row>
-          <entry>syear</entry>
+          <entry><link linkend="cgiparams-syear">syear</link></entry>
 
           <entry>Start of custom timeperiod (year)</entry>
 
@@ -4342,7 +4373,7 @@
         </row>
 
         <row>
-          <entry>t1</entry>
+          <entry><link linkend="cgiparams-t1">t1</link></entry>
 
           <entry>Start point of a custom timeperiod</entry>
 
@@ -4354,7 +4385,7 @@
         </row>
 
         <row>
-          <entry>t2</entry>
+          <entry><link linkend="cgiparams-t2">t2</link></entry>
 
           <entry>End point of a custom timeperiod</entry>
 
@@ -4366,7 +4397,7 @@
         </row>
 
         <row>
-          <entry>timeperiod</entry>
+          <entry><link linkend="cgiparams-timeperiod">timeperiod</link></entry>
 
           <entry>Timeperiod which should be used for the availability report</entry>
 
@@ -4379,7 +4410,7 @@
         </row>
 
         <row>
-          <entry>trigger</entry>
+          <entry><link linkend="cgiparams-trigger">trigger</link></entry>
 
           <entry>The downtime will be triggered by downtime id &lt;n&gt;</entry>
 
@@ -4391,7 +4422,7 @@
         </row>
 
         <row>
-          <entry>type</entry>
+          <entry><link linkend="cgiparams-type">type</link></entry>
 
           <entry>Objecttype</entry>
 
@@ -4570,6 +4601,7 @@
   </informaltable>
 
   <para><anchor xml:id="cgiparams-filter" /><emphasis role="bold">Excerpt from include/cgiutils.h</emphasis></para>
+
   <programlisting>/****************** HOST AND SERVICE FILTER PROPERTIES  *******************/
 
 #define HOST_SCHEDULED_DOWNTIME         1
@@ -4615,10 +4647,12 @@
 #define SERVICE_SOFT_STATE              524288</programlisting>
 
   <para>[1] Logical OR means that the numbers are added and only the objects will be displayed satisfying ALL conditions.</para>
+
   <para>[2] Available starting with &name-icinga; 1.4.</para>
-  <para>[3] avail, log, notif, out, status, sum: all views/reports support jsonoutput; config: all types except command expansion; ext:
-  all views except hostgroup/servicegroup info (always without performance data); tac: data output in json format. More details in the
-  <link xlink:href="https://wiki.icinga.org/display/howtos/Using+JSON+export+in+Classic-UI">&name-icinga; wiki</link>.</para>
+
+  <para>[3] avail, log, notif, out, status, sum: all views/reports support jsonoutput; config: all types except command expansion; ext: all
+  views except hostgroup/servicegroup info (always without performance data); tac: data output in json format. More details in the <link
+  xlink:href="https://wiki.icinga.org/display/howtos/Using+JSON+export+in+Classic-UI">&name-icinga; wiki</link>.</para>
 
   <indexterm zone="cgiparams">
     <primary>CGIs</primary>
@@ -4630,5 +4664,593 @@
     <primary>CGIs</primary>
 
     <secondary>Filter properties</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-ahas">
+    <primary>CGI parameter</primary>
+
+    <secondary>ahas</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-alerttypes">
+    <primary>CGI parameter</primary>
+
+    <secondary>alerttypes</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-archive">
+    <primary>CGI parameter</primary>
+
+    <secondary>archive</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-assumeinitialstates">
+    <primary>CGI parameter</primary>
+
+    <secondary>assumeinitialstates</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-assumestateretention">
+    <primary>CGI parameter</primary>
+
+    <secondary>assumestateretention</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-assumestatesduringnotrunning">
+    <primary>CGI parameter</primary>
+
+    <secondary>assumestatesduringnotrunning</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-backtrack">
+    <primary>CGI parameter</primary>
+
+    <secondary>backtrack</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-breakdown">
+    <primary>CGI parameter</primary>
+
+    <secondary>breakdown</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-broadcast_notification">
+    <primary>CGI parameter</primary>
+
+    <secondary>broadcast_notification</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-childoptions">
+    <primary>CGI parameter</primary>
+
+    <secondary>childoptions</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-cmd_mod">
+    <primary>CGI parameter</primary>
+
+    <secondary>cmd_mod</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-cmd_typ">
+    <primary>CGI parameter</primary>
+
+    <secondary>cmd_typ</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-columns">
+    <primary>CGI parameter</primary>
+
+    <secondary>columns</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-com_author">
+    <primary>CGI parameter</primary>
+
+    <secondary>com_author</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-com_data">
+    <primary>CGI parameter</primary>
+
+    <secondary>com_data</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-com_id">
+    <primary>CGI parameter</primary>
+
+    <secondary>com_id</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-contact">
+    <primary>CGI parameter</primary>
+
+    <secondary>contact</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-createimage">
+    <primary>CGI parameter</primary>
+
+    <secondary>createimage</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-csvoutput">
+    <primary>CGI parameter</primary>
+
+    <secondary>csvoutput</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-displaytype">
+    <primary>CGI parameter</primary>
+
+    <secondary>displaytype</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-down_id">
+    <primary>CGI parameter</primary>
+
+    <secondary>down_id</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-eday">
+    <primary>CGI parameter</primary>
+
+    <secondary>eday</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-ehour">
+    <primary>CGI parameter</primary>
+
+    <secondary>ehour</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-embedded">
+    <primary>CGI parameter</primary>
+
+    <secondary>embedded</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-emin">
+    <primary>CGI parameter</primary>
+
+    <secondary>emin</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-emon">
+    <primary>CGI parameter</primary>
+
+    <secondary>emon</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-end_time">
+    <primary>CGI parameter</primary>
+
+    <secondary>end_time</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-esec">
+    <primary>CGI parameter</primary>
+
+    <secondary>esec</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-eyear">
+    <primary>CGI parameter</primary>
+
+    <secondary>eyear</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-fixed">
+    <primary>CGI parameter</primary>
+
+    <secondary>fixed</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-force_check">
+    <primary>CGI parameter</primary>
+
+    <secondary>force_check</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-force_notification">
+    <primary>CGI parameter</primary>
+
+    <secondary>force_notification</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-full_log_entries">
+    <primary>CGI parameter</primary>
+
+    <secondary>full_log_entries</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-get_date_parts">
+    <primary>CGI parameter</primary>
+
+    <secondary>get_date_parts</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-graphevents">
+    <primary>CGI parameter</primary>
+
+    <secondary>graphevents</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-graphstatetypes">
+    <primary>CGI parameter</primary>
+
+    <secondary>graphstatetypes</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-host">
+    <primary>CGI parameter</primary>
+
+    <secondary>host</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-hostgroup">
+    <primary>CGI parameter</primary>
+
+    <secondary>hostgroup</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-hostprops">
+    <primary>CGI parameter</primary>
+
+    <secondary>hostprops</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-hoststates">
+    <primary>CGI parameter</primary>
+
+    <secondary>hoststates</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-hoststatustypes">
+    <primary>CGI parameter</primary>
+
+    <secondary>hoststatustypes</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-hours">
+    <primary>CGI parameter</primary>
+
+    <secondary>hours</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-includesoftstates">
+    <primary>CGI parameter</primary>
+
+    <secondary>includesoftstates</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-initialassumedhoststate">
+    <primary>CGI parameter</primary>
+
+    <secondary>initialassumedhoststate</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-initialassumedservicestate">
+    <primary>CGI parameter</primary>
+
+    <secondary>initialassumedservicestate</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-initialstateslogged">
+    <primary>CGI parameter</primary>
+
+    <secondary>initialstateslogged</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-input">
+    <primary>CGI parameter</primary>
+
+    <secondary>input</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-jsonoutput">
+    <primary>CGI parameter</primary>
+
+    <secondary>jsonoutput</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-limit">
+    <primary>CGI parameter</primary>
+
+    <secondary>limit</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-minutes">
+    <primary>CGI parameter</primary>
+
+    <secondary>minutes</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-navbarsearch">
+    <primary>CGI parameter</primary>
+
+    <secondary>navbarsearch</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-newstatesonly">
+    <primary>CGI parameter</primary>
+
+    <secondary>newstatesonly</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-nodowntime">
+    <primary>CGI parameter</primary>
+
+    <secondary>nodowntime</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-noflapping">
+    <primary>CGI parameter</primary>
+
+    <secondary>noflapping</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-nofrills">
+    <primary>CGI parameter</primary>
+
+    <secondary>nofrills</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-noheader">
+    <primary>CGI parameter</primary>
+
+    <secondary>noheader</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-not_dly">
+    <primary>CGI parameter</primary>
+
+    <secondary>not_dly</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-notimebreaks">
+    <primary>CGI parameter</primary>
+
+    <secondary>notimebreaks</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-nosystem">
+    <primary>CGI parameter</primary>
+
+    <secondary>nosystem</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-oldestfirst">
+    <primary>CGI parameter</primary>
+
+    <secondary>oldestfirst</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-performance_data">
+    <primary>CGI parameter</primary>
+
+    <secondary>performance_data</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-persistent">
+    <primary>CGI parameter</primary>
+
+    <secondary>persistent</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-plugin_output">
+    <primary>CGI parameter</primary>
+
+    <secondary>plugin_output</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-plugin_state">
+    <primary>CGI parameter</primary>
+
+    <secondary>plugin_state</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-ptc">
+    <primary>CGI parameter</primary>
+
+    <secondary>ptc</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-report">
+    <primary>CGI parameter</primary>
+
+    <secondary>report</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-report_type">
+    <primary>CGI parameter</primary>
+
+    <secondary>report_type</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-rpttimeperiod">
+    <primary>CGI parameter</primary>
+
+    <secondary>rpttimeperiod</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-sched_dly">
+    <primary>CGI parameter</primary>
+
+    <secondary>sched_dly</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-sday">
+    <primary>CGI parameter</primary>
+
+    <secondary>sday</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-send_notification">
+    <primary>CGI parameter</primary>
+
+    <secondary>send_notification</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-service">
+    <primary>CGI parameter</primary>
+
+    <secondary>service</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-servicefilter">
+    <primary>CGI parameter</primary>
+
+    <secondary>servicefilter</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-servicegroup">
+    <primary>CGI parameter</primary>
+
+    <secondary>servicegroup</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-serviceprops">
+    <primary>CGI parameter</primary>
+
+    <secondary>serviceprops</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-sevicestates">
+    <primary>CGI parameter</primary>
+
+    <secondary>servicestates</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-servicestatustypes">
+    <primary>CGI parameter</primary>
+
+    <secondary>servicestatustypes</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-service_divisor">
+    <primary>CGI parameter</primary>
+
+    <secondary>service_divisor</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-shour">
+    <primary>CGI parameter</primary>
+
+    <secondary>shour</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-showscheduleddowntime">
+    <primary>CGI parameter</primary>
+
+    <secondary>showscheduleddowntime</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-show_log_entries">
+    <primary>CGI parameter</primary>
+
+    <secondary>show_log_entries</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-smin">
+    <primary>CGI parameter</primary>
+
+    <secondary>smin</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-smon">
+    <primary>CGI parameter</primary>
+
+    <secondary>smon</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-sortoption">
+    <primary>CGI parameter</primary>
+
+    <secondary>sortoption</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-sorttype">
+    <primary>CGI parameter</primary>
+
+    <secondary>sorttype</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-ssec">
+    <primary>CGI parameter</primary>
+
+    <secondary>ssec</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-standardreport">
+    <primary>CGI parameter</primary>
+
+    <secondary>standardreport</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-start_time">
+    <primary>CGI parameter</primary>
+
+    <secondary>start_time</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-statetype">
+    <primary>CGI parameter</primary>
+
+    <secondary>statetype</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-statetypes">
+    <primary>CGI parameter</primary>
+
+    <secondary>statetypes</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-sticky_ack">
+    <primary>CGI parameter</primary>
+
+    <secondary>sticky_ack</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-style">
+    <primary>CGI parameter</primary>
+
+    <secondary>style</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-syear">
+    <primary>CGI parameter</primary>
+
+    <secondary>syear</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-t1">
+    <primary>CGI parameter</primary>
+
+    <secondary>t1</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-t2">
+    <primary>CGI parameter</primary>
+
+    <secondary>t2</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-timeperiod">
+    <primary>CGI parameter</primary>
+
+    <secondary>timeperiod</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-trigger">
+    <primary>CGI parameter</primary>
+
+    <secondary>trigger</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-type">
+    <primary>CGI parameter</primary>
+
+    <secondary>type</secondary>
   </indexterm>
 </section>
