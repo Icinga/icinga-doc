@@ -18,11 +18,15 @@
 
   <para><link linkend="upgrading-rpm">Upgrading from an RPM installation</link></para>
 
-  <note><para>If you are using &name-idoutils; then you have to update it, too. Please take a look at <link linkend="upgrading_idoutils">
-  upgrading_idoutils</link> as well.</para></note>
+  <note>
+    <para>If you are using &name-idoutils; then you have to update it, too. Please take a look at <link linkend="upgrading_idoutils">
+    upgrading_idoutils</link> as well.</para>
+  </note>
 
-  <note><para>If you are using &name-web; then you have to update it, too. Please take a look at <link linkend="upgrading_icingaweb">
-  upgrading_icingaweb</link> as well.</para></note>
+  <note>
+    <para>If you are using &name-web; then you have to update it, too. Please take a look at <link linkend="upgrading_icingaweb">
+    upgrading_icingaweb</link> as well.</para>
+  </note>
 
   <para><emphasis role="bold"><anchor xml:id="upgrading-icinga" /> Upgrading from previous &name-icinga; Releases</emphasis></para>
 
@@ -31,29 +35,30 @@
 
   <para><emphasis role="bold">Normal &name-icinga; update Path</emphasis></para>
 
-  <para>If there's a new &name-icinga; version available on &url-icinga; you should consider updating. Newer versions contain bugfixes,
-  minor or major, which makes it even more important to get the latest and the greatest. If you already installed &name-icinga; using the
-  quickstart guides it's rather easy to install newer versions. It's also possible to perform that without root privileges by doing an
-  install from source. It highly depends on your likings.</para>
+  <para>If there's a new &name-icinga; version available on <link xlink:href="http://www.icinga.org/">&url-icinga;</link> you should
+  consider updating. Newer versions contain bugfixes, minor or major, which makes it even more important to get the latest and the greatest.
+  If you already installed &name-icinga; using the quickstart guides it's rather easy to install newer versions. It's also possible to
+  perform that without root privileges by doing an install from source. It highly depends on your likings.</para>
 
   <para>Make sure you'll have a safe backup of your &name-icinga; installation and configs. If anything goes wrong you can restore your old
   setup rather easy.</para>
 
-  <para>Regular updates of &name-icinga; are possible just by re-installing &name-icinga;. Please keep in mind that
-  <code>configure</code> requires the same parameters as before - look it up in <code>config.log</code> and save that in a safe
-  location.</para>
+  <para>Regular updates of &name-icinga; are possible just by re-installing &name-icinga;. Please keep in mind that <code>configure</code>
+  requires the same parameters as before - look it up in <filename>config.log</filename> and store that in a safe location.</para>
 
   <para>Become the icinga user. Debian/Ubuntu users might use <code>sudo -s icinga</code>. <programlisting> $&gt; su -l icinga</programlisting>
-  Get the latest Icinga version from &url-icinga; and extract it. Then run configure like you did with the old version. <programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils</programlisting>
+  Get the latest Icinga version from <link xlink:href="http://www.icinga.org/">&url-icinga;</link> and extract it. Then run configure like
+  you did with the old version. <programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils</programlisting>
   Compile the source. <programlisting> #&gt; make all</programlisting> Please make sure that you don't overwrite your configs - always make
   a backup! Don't use <code>make install-config</code> and/or <code>make install-webconf</code> if you want to manually diff the config
   files. <programlisting> #&gt; make install install-base install-cgis install-html install-init install-commandmode install-idoutils</programlisting>
   or decide what you want to upgrade by just typing 'make' which shows all available options. Check your config and restart Icinga.
   <programlisting> #&gt; /etc/init.d/icinga checkconfig
- #&gt; /etc/init.d/icinga restart</programlisting> That's it!</para>
-<para><emphasis role="bold">&name-icinga; 0.8.0 to &name-icinga; &ver-icinga;</emphasis></para>
+ #&gt; /etc/init.d/icinga restart</programlisting>That's it!</para>
 
-  <para>Archived Logfilename</para>
+  <para><emphasis role="bold">&name-icinga; 0.8.0 to &name-icinga; &ver-icinga;</emphasis></para>
+
+  <para><emphasis>Archived Logfilename</emphasis></para>
 
   <para>There was a small misspelling bug in &name-icinga; 0.8.0 resulting in archived logfile names beginning with a capital <emphasis
   role="bold">"I"</emphasis> like in <emphasis role="bold">'Icinga-$date'</emphasis>". This was fixed in version 0.8.1. and newer.</para>
@@ -82,8 +87,11 @@
 
   <screen> #&gt; yum install php mod_php</screen>
 
-  <para><emphasis>openSuSE / SLES:</emphasis> Use Yast to install the packages <emphasis>php5</emphasis> and
-  <emphasis>apache2-mod_php5</emphasis>.</para>
+  <para><emphasis>openSuSE / SLES</emphasis></para>
+
+  <para>Use Yast to install the packages <emphasis>php5</emphasis> and <emphasis>apache2-mod_php5</emphasis> or use zypper</para>
+
+  <para><programlisting> #&gt; zypper install php5 apache2-mod_php5</programlisting></para>
 
   <para>Make sure you have a good backup of your existing &name-nagios; installation and configuration files. If anything goes wrong or
   doesn't work, this will allow you to rollback to your old version.</para>
@@ -99,13 +107,15 @@
       <para>the environment macros start with ICINGA_</para>
 
       <para>PNP4Nagios is aware of that since 0.6rc1 (2009.09.20) but the macros are needed in "sync" mode only.</para>
-      <para>check_multi includes support since v0.21 (2010.06.03), but you have to rerun the installation using
-      'configure --with-nagios_name=icinga' so that check_multi contains the correct values. You can use the option "-s" instead to set
-      certain values.</para>
+
+      <para>check_multi includes support since v0.21 (2010.06.03), but you have to rerun the installation using '<code>configure
+      --with-nagios_name=icinga</code>' so that check_multi contains the correct values. You can use the option "-s" instead to set certain
+      values.</para>
     </listitem>
 
     <listitem>
-      <para>the configuration file names of the (enhanced) IDOUtils are named idomod.cfg/ido2db.cfg instead of ndomod.cfg/ndo2db.cfg</para>
+      <para>the configuration file names of the (enhanced) IDOUtils are named <filename>idomod.cfg/ido2db.cfg</filename> instead of
+      <filename>ndomod.cfg/ndo2db.cfg</filename></para>
     </listitem>
   </itemizedlist>
 
@@ -113,7 +123,7 @@
 
   <screen> $ su -l nagios</screen>
 
-  <para>Get the latest &name-icinga; version from <link xlink:href="http://www.icinga.org//">&url-icinga;</link> </para>
+  <para>Get the latest &name-icinga; version from <link xlink:href="http://www.icinga.org//">&url-icinga;</link></para>
 
   <screen> #&gt; wget http://osdn.dl.sourceforge.net/sourceforge/icinga/icinga-<emphasis>&ver-icinga;</emphasis>.tar.gz</screen>
 
@@ -139,33 +149,58 @@
  #&gt; make install-cgis
  #&gt; make install-init</screen>
 
-  <para>Instead of using "make install-config" copy your configuration files from <emphasis>&lt;Nagios-path&gt;/etc/</emphasis> to
-  <emphasis>&lt;Icinga-path&gt;/etc/</emphasis>. Before starting &name-icinga; you have to alter some things:</para>
+  <para>Instead of using "<code>make install-config</code>" copy your configuration files from <filename>&lt;Nagios-path&gt;/etc/</filename>
+  to <filename>&lt;Icinga-path&gt;/etc/</filename>. Before starting &name-icinga; you have to alter some things:</para>
 
   <itemizedlist>
     <listitem>
-      <para>The filename of the main config file has changed from <emphasis>nagios.cfg</emphasis> to <emphasis>icinga.cfg</emphasis>.
+      <para>The filename of the main config file has changed from <filename>nagios.cfg</filename> to <filename>icinga.cfg</filename>.
       <literal> #&gt; mv nagios.cfg icinga.cfg</literal> should be sufficient to change that</para>
     </listitem>
 
     <listitem>
-      <para>You have to edit the main config file (icinga.cfg) to change the directives named "nagios_user" and "nagios_group" to
-      "icinga_user" and "icinga_group" respectively. Depending on the paths you're using you may have to change them as well.</para>
+      <para>You have to edit the main config file (<filename>icinga.cfg</filename>) to change the directives named "nagios_user" and
+      "nagios_group" to "icinga_user" and "icinga_group" respectively. Depending on the paths you're using you may have to change them as
+      well.</para>
 
       <programlisting> #&gt; sed -i 's/nagios/icinga/g' ./icinga.cfg/</programlisting>
     </listitem>
 
     <listitem>
-      <para>You have to edit the CGI config file (cgi.cfg) to change the paths you're using.</para>
+      <para>You have to edit the CGI config file (<filename>cgi.cfg</filename>) to change the paths you're using.</para>
 
       <programlisting> #&gt; sed -i 's/nagios/icinga/g' ./cgi.cfg/</programlisting>
     </listitem>
   </itemizedlist>
 
-  <para>Verify your configuration files and restart &name-icinga;.</para>
+  <para>Copy other relevant files from your &name-nagios; installation to the new location. If you are unsure about the path then please
+  have a look at <filename>nagios.cfg</filename> and/or <filename>icinga.cfg</filename>.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><filename>retention.dat</filename> (it contains certain status information, comments and other "sticky" stuff)</para>
+    </listitem>
+
+    <listitem>
+      <para><filename>nagios.log</filename> (rename it to <filename>icinga.log</filename>)</para>
+    </listitem>
+
+    <listitem>
+      <para><filename>archives/nagios-&lt;date&gt;.log</filename> files (&name-icinga; is able to process both nagios-&lt;date&gt;.log and
+      icinga-&lt;date&gt;.log files so you don't have to rename the files)</para>
+    </listitem>
+
+    <listitem>
+      <para>You don't have to copy <filename>status.dat</filename> and/or <filename>objects.cache</filename> because these files are
+      recreated during startup. Please recreate <filename>objects.precache</filename> before startup <link
+      linkend="configmain-precached_object_file">if applicable</link> instead of copying it</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>Verify your configuration files, correct errors (if any) and start &name-icinga;.</para>
 
   <screen> #&gt; &url-icinga-bin; -v &url-icinga-cfg;
- #&gt; /etc/init.d/icinga restart</screen>
+ #&gt; /etc/init.d/icinga start</screen>
 
   <para>That's it - you're done!</para>
 
@@ -246,15 +281,15 @@
 
           <para><itemizedlist>
               <listitem>
-                <para>Main config file (usually <emphasis>nagios.cfg</emphasis>)</para>
+                <para>Main config file (usually <filename>nagios.cfg</filename>)</para>
               </listitem>
 
               <listitem>
-                <para>Resource config file (usually <emphasis>resource.cfg</emphasis>)</para>
+                <para>Resource config file (usually <filename>resource.cfg</filename>)</para>
               </listitem>
 
               <listitem>
-                <para>CGI config file (usually <emphasis>cgi.cfg</emphasis>)</para>
+                <para>CGI config file (usually <filename>cgi.cfg</filename>)</para>
               </listitem>
 
               <listitem>
@@ -264,15 +299,15 @@
         </listitem>
 
         <listitem>
-          <para>Retention file (usually <emphasis>retention.dat</emphasis>)</para>
+          <para>Retention file (usually <filename>retention.dat</filename>)</para>
         </listitem>
 
         <listitem>
-          <para>Current &name-nagios; log file (usually <emphasis>nagios.log</emphasis>)</para>
+          <para>Current &name-nagios; log file (usually <filename>nagios.log</filename>)</para>
         </listitem>
 
         <listitem>
-          <para>Archived &name-nagios; log files</para>
+          <para>Archived &name-nagios; log files (usually <filename>nagios-&lt;date&gt;.log</filename>)</para>
         </listitem>
       </itemizedlist>
     </listitem>

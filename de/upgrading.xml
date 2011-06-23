@@ -18,11 +18,15 @@
 
   <para><link linkend="upgrading-rpm">Aktualisierung einer RPM-Installation</link></para>
 
-  <note><para>Wenn Sie die &name-idoutils; benutzen, dann müssen Sie auch diese aktualisieren. Weitere Informationen finden Sie im Abschnitt
-  <link linkend="upgrading_idoutils">IDOUtils-Datenbank aktualisieren</link>.</para></note>
+  <note>
+    <para>Wenn Sie die &name-idoutils; benutzen, dann müssen Sie auch diese aktualisieren. Weitere Informationen finden Sie im Abschnitt
+    <link linkend="upgrading_idoutils">IDOUtils-Datenbank aktualisieren</link>.</para>
+  </note>
 
-  <note><para>Wenn Sie &name-web; benutzen, dann müssen Sie auch diese aktualisieren. Weitere Informationen finden Sie im Abschnitt
-  <link linkend="upgrading_icingaweb">Aktualisierung von Icinga-Web und Icinga-Web-Datenbank</link>.</para></note>
+  <note>
+    <para>Wenn Sie &name-web; benutzen, dann müssen Sie auch diese aktualisieren. Weitere Informationen finden Sie im Abschnitt <link
+    linkend="upgrading_icingaweb">Aktualisierung von Icinga-Web und Icinga-Web-Datenbank</link>.</para>
+  </note>
 
   <para><anchor xml:id="upgrading-icinga" /> <emphasis role="bold">Aktualisierung von &name-icinga;</emphasis></para>
 
@@ -36,12 +40,13 @@
   haben. Wenn irgendetwas schief geht oder nicht funktioniert, dann können Sie auf diese Weise schnell Ihre alte &name-icinga;-Version
   wiederherstellen.</para>
 
-  <para>Werden Sie der icinga-Benutzer. Debian/Ubuntu-Benutzer sollten sudo -s icinga benutzen.</para>
+  <para>Werden Sie der icinga-Benutzer. Debian/Ubuntu-Benutzer sollten <code>sudo -s icinga</code> benutzen.</para>
 
   <programlisting> $&gt; su -l icinga</programlisting>
 
-  <para>Holen Sie sich das Quellcode-Archiv der letzten &name-icinga;-Version (besuchen Sie &url-icinga; für den Verweis auf die letzte
-  Version) und entpacken Sie das Quellcode-Archiv.</para>
+  <para>Holen Sie sich das Quellcode-Archiv der letzten &name-icinga;-Version (besuchen Sie <link
+  xlink:href="http://www.icinga.org/">&url-icinga;</link> für den Verweis auf die letzte Version) und entpacken Sie das
+  Quellcode-Archiv.</para>
 
   <para>Starten Sie das &name-icinga;-configure-Script mit den gleichen Optionen wie bei der letzten Installation, z.B. so:</para>
 
@@ -76,7 +81,9 @@
   <screen> #&gt; yum install php mod_php</screen>
 
   <para><emphasis>openSuSE / SLES:</emphasis> Nutzen Sie yast zur Installation der Pakete <emphasis>php5</emphasis> und
-  <emphasis>apache2-mod_php5</emphasis>.</para>
+  <emphasis>apache2-mod_php5</emphasis> oder benutzen Sie zypper</para>
+
+  <para><programlisting> #&gt; zypper install php5 apache2-mod_php5</programlisting></para>
 
   <para>Stellen Sie sicher, dass Sie eine gute Datensicherung Ihrer bestehenden &name-nagios;-Installation und der Konfigurationsdateien
   haben. Wenn irgendetwas schief geht oder nicht funktioniert, dann können Sie auf diese Weise schnell Ihre alte &name-nagios;-Version
@@ -87,20 +94,22 @@
 
   <itemizedlist>
     <listitem>
-      <para>der Default-Präfix nun "/usr/local/icinga" heißt</para>
+      <para>der Default-Präfix nun "<filename>/usr/local/icinga</filename>" heißt</para>
     </listitem>
 
     <listitem>
       <para>die Umgebungs-Makros nun mit ICINGA_ beginnen</para>
 
       <para>PNP4Nagios berücksichtigt das seit 0.6rc1 (2009.09.20), aber Sie benötigen die Makros lediglich im "sync"-Modus.</para>
+
       <para>check_multi bietet Unterstützung seit 0.21 (2010.06.03), aber Sie müssen dazu die Installation mit beginnend mit dem Schritt
-      'configure --with-nagios_name=icinga' erneut durchführen, damit die check_multi-Prozedur mit geänderten Werten erstellt wird.
-      Stattdessen können Sie auch die Option "-s" zur Übergabe von Werten benutzen.</para>
+      '<code>configure --with-nagios_name=icinga</code>' erneut durchführen, damit die check_multi-Prozedur mit geänderten Werten erstellt
+      wird. Stattdessen können Sie auch die Option "-s" zur Übergabe von Werten benutzen.</para>
     </listitem>
 
     <listitem>
-      <para>die Konfigurationsdateien der (verbesserten) IDOUtils heißen nun idomod.cfg/ido2db.cfg anstatt ndomod.cfg/ndo2db.cfg</para>
+      <para>die Konfigurationsdateien der (verbesserten) IDOUtils heißen nun <filename>idomod.cfg/ido2db.cfg</filename> anstatt
+      <filename>ndomod.cfg/ndo2db.cfg</filename></para>
     </listitem>
   </itemizedlist>
 
@@ -118,8 +127,8 @@
   <screen> #&gt; tar xzf icinga-<emphasis>&ver-icinga;</emphasis>.tar.gz
  #&gt; cd icinga-<emphasis>&ver-icinga;</emphasis> </screen>
 
-  <para>Starten Sie das &name-icinga;-configure-Script mit den Optionen, die Sie beim ./configure von &name-nagios; benutzt haben. Den
-  Aufruf finden Sie in der Datei config.log. Beispiel:</para>
+  <para>Starten Sie das &name-icinga;-configure-Script mit den Optionen, die Sie beim <code>./configure</code> von &name-nagios; benutzt
+  haben. Den Aufruf finden Sie in der Datei <filename>config.log</filename>. Beispiel:</para>
 
   <screen> #&gt; ./configure --with-command-group=nagcmd</screen>
 
@@ -135,22 +144,47 @@
  #&gt; make install-cgis
  #&gt; make install-init</screen>
 
-  <para>Kopieren Sie Ihre Konfigurationsdateien nach &url-icinga-base;/etc bzw. &url-icinga-base;/etc/object. Vor dem Start von
-  &name-icinga; müssen Sie noch ein paar Dinge anpassen:</para>
+  <para>Kopieren Sie Ihre Konfigurationsdateien nach <filename>&url-icinga-base;/etc</filename> bzw.
+  <filename>&url-icinga-base;/etc/object</filename>. Vor dem Start von &name-icinga; müssen Sie noch ein paar Dinge anpassen:</para>
 
   <itemizedlist>
     <listitem>
-      <para>Benennen Sie die Hauptkonfigurationsdatei <emphasis>nagios.cfg</emphasis> in <emphasis>icinga.cfg</emphasis> um und ändern Sie
-      in &url-icinga-cfg; die Namen der Direktiven "nagios_user" in "icinga_user" und "nagios_group" in "icinga_group". Das betrifft ggf.
-      auch die Pfade in der Datei.</para>
+      <para>Benennen Sie die Hauptkonfigurationsdatei <filename>nagios.cfg</filename> in <filename>icinga.cfg</filename> um und ändern Sie
+      in <filename>&url-icinga-cfg;</filename> die Namen der Direktiven "nagios_user" in "icinga_user" und "nagios_group" in "icinga_group".
+      Das betrifft ggf. auch die Pfade in der Datei.</para>
 
       <para><programlisting> #&gt; sed -i 's/nagios/icinga/g' ./icinga.cfg/</programlisting></para>
     </listitem>
 
     <listitem>
-      <para>Ändern Sie in der CGI-Konfigurationsdatei <emphasis>cgi.cfg</emphasis> die Pfad-Angaben.</para>
+      <para>Ändern Sie in der CGI-Konfigurationsdatei <filename>cgi.cfg</filename> die Pfad-Angaben.</para>
 
       <programlisting> #&gt; sed -i 's/nagios/icinga/g' ./cgi.cfg/</programlisting>
+    </listitem>
+  </itemizedlist>
+
+  <para>Kopieren Sie andere relevante Dateien von Ihrer &name-nagios;-Installation zum neuen Standort. Falls Sie unsicher bezüglich der
+  Pfade sind, dann werfen Sie einen Blick in die Konfigurationsdateien <filename>nagios.cfg</filename> und/oder
+  <filename>icinga.cfg</filename>.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><filename>retention.dat</filename> (sie enthält bestimmte Statusinformationen, Kommentare und andere "bleibende" Dinge)</para>
+    </listitem>
+
+    <listitem>
+      <para><filename>nagios.log</filename> (bitte umbenennen in <filename>icinga.log</filename>)</para>
+    </listitem>
+
+    <listitem>
+      <para><filename>archives/nagios-&lt;date&gt;.log</filename>-Dateien (&name-icinga; ist in der Lage, sowohl nagios-&lt;date&gt;.log als
+      auch icinga-&lt;date&gt;.log-Dateien zu verarbeiten, so dass Sie die Dateien nicht umbenennen müssen)</para>
+    </listitem>
+
+    <listitem>
+      <para>Sie müssen die Dateien <filename>status.dat</filename> und/oder <filename>objects.cache</filename> nicht kopieren, weil sie
+      jeweils beim Neustart erstellt werden. Bitte erstellen Sie <filename>objects.precache</filename> vor dem Neustart <link
+      linkend="configmain-precached_object_file">(falls nötig)</link> anstatt die Datei zu kopieren</para>
     </listitem>
   </itemizedlist>
 
@@ -246,15 +280,15 @@
           <listitem>
             <para><itemizedlist>
                 <listitem>
-                  <para>Hauptkonfigurationsdatei (normalerweise <emphasis>nagios.cfg</emphasis>)</para>
+                  <para>Hauptkonfigurationsdatei (normalerweise <filename>nagios.cfg</filename>)</para>
                 </listitem>
 
                 <listitem>
-                  <para>Ressource-Konfigurationsdatei (normalerweise <emphasis>resource.cfg</emphasis>)</para>
+                  <para>Ressource-Konfigurationsdatei (normalerweise <filename>resource.cfg</filename>)</para>
                 </listitem>
 
                 <listitem>
-                  <para>CGI-Konfigurationsdatei (normalerweise <emphasis>cgi.cfg</emphasis>)</para>
+                  <para>CGI-Konfigurationsdatei (normalerweise <filename>cgi.cfg</filename>)</para>
                 </listitem>
 
                 <listitem>
@@ -264,11 +298,11 @@
           </listitem>
 
           <listitem>
-            <para>Aufbewahrungsdatei (normalerweise <emphasis>retention.dat</emphasis>)</para>
+            <para>Aufbewahrungsdatei (normalerweise <filename>retention.dat</filename>)</para>
           </listitem>
 
           <listitem>
-            <para>die aktuelle &name-nagios;-Protokolldatei (normalerweise <emphasis>nagios.log</emphasis>)</para>
+            <para>die aktuelle &name-nagios;-Protokolldatei (normalerweise <filename>nagios.log</filename>)</para>
           </listitem>
 
           <listitem>
@@ -291,7 +325,7 @@
     </listitem>
 
     <listitem>
-      <para>Benennen Sie die Hauptkonfigurationsdatei <emphasis>nagios.conf</emphasis> in <emphasis>icinga.conf</emphasis> um und ändern Sie
+      <para>Benennen Sie die Hauptkonfigurationsdatei <filename>nagios.conf</filename> in <filename>icinga.conf</filename> um und ändern Sie
       in &url-icinga-cfg; die Namen der Direktiven "nagios_user" in "icinga_user" und "nagios_group" in "icinga_group".</para>
     </listitem>
 
