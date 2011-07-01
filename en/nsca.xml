@@ -304,20 +304,20 @@
   "host")</para>
 
   <para><programlisting> define service{
-    use                     generic-service   # template to inherit from
-    name                    passive-service   # name of this template
-    active_checks_enabled   0                 # no active checks
-    passive_checks_enabled  1                 # allow passive checks
-    check_command           check_dummy!0     # use "check_dummy", RC=0 (OK)
-    check_period            24x7              # check active all the time
-    check_freshness         0                 # don't check if check result is "stale"
-    register                0                 # this is a template, not a real service
+    use                     generic-service   ; template to inherit from
+    name                    passive-service   ; name of this template
+    active_checks_enabled   0                 ; no active checks
+    passive_checks_enabled  1                 ; allow passive checks
+    check_command           check_dummy!0     ; use "check_dummy", RC=0 (OK)
+    check_period            24x7              ; check active all the time
+    check_freshness         0                 ; don't check if check result is "stale"
+    register                0                 ; this is a template, not a real service
     }</programlisting>Using the template above the service definition might look like</para>
 
   <para><programlisting> define service{
-    use                     passive-service   # template to inherit from
-    host_name               remotehost        # host where send_nsca is located
-    service_description     Diskspace         # service to be checked
+    use                     passive-service   ; template to inherit from
+    host_name               remotehost        ; host where send_nsca is located
+    service_description     Diskspace         ; service to be checked
     }</programlisting>Restart &name-icinga; to include the definitions in your running configuration</para>
 
   <para><programlisting> #&gt; /etc/init.d/icinga restart</programlisting>Change to your remote host, switch to the Icinga user and execute

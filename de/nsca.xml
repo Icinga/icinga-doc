@@ -321,20 +321,20 @@
   "service" durch "host")</para>
 
   <para><programlisting> define service{
-    use                     generic-service   # template to inherit from
-    name                    passive-service   # name of this template
-    active_checks_enabled   0                 # no active checks
-    passive_checks_enabled  1                 # allow passive checks
-    check_command           check_dummy!0     # use "check_dummy", RC=0 (OK)
-    check_period            24x7              # check active all the time
-    check_freshness         0                 # don't check if check result is "stale"
-    register                0                 # this is a template, not a real service
-    }</programlisting>Zusammen mit dem obigen template könnte die Service-Definition wie folgt aussehen:</para>
+    use                     generic-service   ; template to inherit from
+    name                    passive-service   ; name of this template
+    active_checks_enabled   0                 ; no active checks
+    passive_checks_enabled  1                 ; allow passive checks
+    check_command           check_dummy!0     ; use "check_dummy", RC=0 (OK)
+    check_period            24x7              ; check active all the time
+    check_freshness         0                 ; don't check if check result is "stale"
+    register                0                 ; this is a template, not a real service
+    }</programlisting>Zusammen mit dem obigen Template könnte die Service-Definition wie folgt aussehen:</para>
 
   <para><programlisting> define service{
-    use                     passive-service   # template to inherit from
-    host_name               remotehost        # host where send_nsca is located
-    service_description     Diskspace         # service to be checked
+    use                     passive-service   ; template to inherit from
+    host_name               remotehost        ; host where send_nsca is located
+    service_description     Diskspace         ; service to be checked
     }</programlisting>Starten Sie &name-icinga; erneut, damit die Änderungen in der laufenden Konfiguration enthalten sind</para>
 
   <para><programlisting> #&gt; /etc/init.d/icinga restart</programlisting>Wechseln Sie auf Ihrem entfernten Host zum &name-icinga;-Benutzer
