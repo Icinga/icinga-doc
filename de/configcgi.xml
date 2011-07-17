@@ -1694,6 +1694,45 @@
     <para>Diese Option ist verfügbar ab &name-icinga; 1.5.</para>
   </note>
 
+  <para><anchor xml:id="configcgi-suppress_maintenance_downtime" /> <emphasis role="bold">Maintenance/Downtime anzeigen</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">suppress_maintenance_downtime=&lt;0|1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">suppress_maintenance_downtime=0</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Die aktuelle Classic-UI-Ansicht zeigt den Status von Hosts zusammen mit Aufmerksamkeit erregenden Farben, selbst wenn der Host/
+  Service sich in einer Ausfallzeit befindet. Dies führt zur Ablenkung von tatsächlich existierenden Problemen durch geplante oder
+  erwartete Ausfälle.
+  Die Option ist per Default deaktiviert, um das alte Verhalten beizubehalten. Falls die Option aktiviert ist, werden die Ausgaben nicht
+  mehr in der regulären Farbe, sondern in grau angezeigt (wie im Pending-Status). Der Status jedoch zeigt weiterhin den tatsächlichen
+  Zustand und das ist beabsichtigt, damit der Benutzer den Zustand sieht, bevor die Ausfallzeit endet. Ein sinnvolles Beispiel dafür ist,
+  dass ein Host/Service wieder online ist, an dem gearbeitet wird.
+
+  Außerdem werden Hosts in einer geplanten Ausfallzeit in der statusmap.cgi in grau dargestellt.</para>
+
+  <note>
+    <para>Diese Option ist verfügbar ab &name-icinga; 1.5.</para>
+  </note>
+
   <indexterm zone="configcgi">
     <primary>CGI-Konfiguration</primary>
 
@@ -1936,5 +1975,11 @@
     <primary>default_downtime_duration=</primary>
 
     <secondary>Default-Ausfallzeit-Dauer setzen</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-suppress_maintenance_downtime">
+    <primary>suppress_maintenance_downtime=</primary>
+
+    <secondary>Maintenance/Downtime anzeigen</secondary>
   </indexterm>
 </section>

@@ -1972,6 +1972,45 @@
     <para>This option is available starting with &name-icinga; 1.5</para>
   </note>
 
+  <para><anchor xml:id="configcgi-suppress_maintenance_downtime" /> <emphasis role="bold">Suppress objects in maintenance/downtime state
+  </emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">suppress_maintenance_downtime=&lt;0|1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">suppress_maintenance_downtime=0</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>The current Classic UI view shows the state of hosts including attention grabbing colours even if the host/service is scheduled for
+  downtime. This tends to distract from discerning which problems really exist between those which were planned or expected.
+  It is disabled by default to maintain the old behaviour, however those wishing to enable it will note that rather than displaying issues
+  in their regular colour, they will be grey (similar to the pending state). The status, however will still display the actual state and
+  this is intended behaviour. This is so the user can use icinga to see what the state is in before the downtime ends. A useful example for
+  this is so it can be seen that a host/service that was being worked on actually came back online.
+
+  In addition, hosts in scheduled downtime will be grey in the statusmap.cgi.</para>
+
+  <note>
+    <para>This option is available starting with &name-icinga; 1.5</para>
+  </note>
+
   <indexterm zone="config_cgi">
     <primary>CGI Configuration File Options</primary>
   </indexterm>
@@ -2212,5 +2251,11 @@
     <primary>default_downtime_duration=</primary>
 
     <secondary>Set default downtime duration</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-suppress_maintenance_downtime">
+    <primary>suppress_maintenance_downtime=</primary>
+
+    <secondary>Suppress objects in maintenance/downtime state</secondary>
   </indexterm>
 </section>
