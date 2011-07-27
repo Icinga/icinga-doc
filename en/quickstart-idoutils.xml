@@ -340,12 +340,16 @@
  #&gt; make install-init 
  #&gt; make install-config 
  #&gt; make install-commandmode 
- #&gt; make install-idoutils </programlisting> or shorter <programlisting> #&gt; make fullinstall</programlisting></para>
+ #&gt; make install-idoutils </programlisting> or shorter <programlisting> #&gt; make fullinstall
+ #&gt; make install-config</programlisting></para>
+
+  <note><para>Starting with &name-icinga; 1.5.0 <literal>make install-config</literal> is NOT included in <literal>make fullinstall
+  </literal> anymore to avoid accidently overwriting of your config files.</para></note>
 
   <note>
     <para>Install IDOUtils and applicable event broker modules only using the primary make install target. Do not manually copy and
     overwrite the existing module as this will result in a segfault on icinga core which is using idomod.o directly preventing usage of a
-    temporary copy explicitely. This is useful for <link xlink:href="http://omdistro.org/">OMD.</link></para>
+    temporary copy explicitly. This is useful for <link xlink:href="http://omdistro.org/">OMD.</link></para>
   </note>
 
   <para>The &name-icinga;-API will be installed during "make install" so if you are required to install it manually please try:
