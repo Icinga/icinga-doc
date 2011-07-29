@@ -174,7 +174,7 @@
         <row>
           <entry align="left" valign="top"><para>Format:</para></entry>
 
-          <entry><para><emphasis role="bold">use_authentication=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">use_authentication=[0/1]</emphasis> </para></entry>
         </row>
 
         <row>
@@ -274,6 +274,9 @@
   linkend="configcgi-authorized_for_system_commands">authorized_for_system_commands</link>-Variable hinzufügen. Mehr Informationen, wie man
   Authentifizierung einrichtet und Autorisierung für die CGIs konfiguriert, finden Sie <link linkend="cgiauth">hier</link>.</para>
 
+  <note><para>Ab &name-icinga; 1.5.0 können Sie alternativ <literal>authorized_contactgroup_for_system_information</literal> angeben, um
+  statt eines contact eine contactgroup zu autorisieren.</para></note>
+
   <para><anchor xml:id="configcgi-authorized_for_system_commands" /><emphasis role="bold">Zugang zu System/Prozessbefehlen</emphasis></para>
 
   <informaltable frame="none">
@@ -306,6 +309,9 @@
   können, dann müssen Sie diese der <link
   linkend="configcgi-authorized_for_system_information">authorized_for_system_information</link>-Variable hinzufügen. Mehr Informationen,
   wie man Authentifizierung einrichtet und Autorisierung für die CGIs konfiguriert, finden Sie <link linkend="cgiauth">hier</link>.</para>
+
+  <note><para>Ab &name-icinga; 1.5.0 können Sie alternativ <literal>authorized_contactgroup_for_system_commands</literal> angeben, um
+  statt eines contact eine contactgroup zu autorisieren.</para></note>
 
   <para><anchor xml:id="configcgi-authorized_for_configuration_information" /><emphasis role="bold">Zugang zu
   Konfigurationsinformationen</emphasis></para>
@@ -340,6 +346,9 @@
   konfigurierten Hosts, Hostgruppen, Kontakten, Kontaktgruppen, Zeitfenstern und Befehlen ansehen. Mehr Informationen, wie man
   Authentifizierung einrichtet und Autorisierung für die CGIs konfiguriert, finden Sie <link linkend="cgiauth">hier</link>.</para>
 
+  <note><para>Ab &name-icinga; 1.5.0 können Sie alternativ <literal>authorized_contactgroup_for_configartion_information</literal> angeben,
+  um statt eines contact eine contactgroup zu autorisieren.</para></note>
+
   <para><anchor xml:id="configcgi-authorized_for_all_hosts" /><emphasis role="bold">Global Host Information Access</emphasis></para>
 
   <informaltable frame="none">
@@ -373,6 +382,9 @@
   <link linkend="configcgi-authorized_for_all_host_commands">authorized_for_all_host_commands</link>-Variable hinzufügen. Mehr
   Informationen, wie man Authentifizierung einrichtet und Autorisierung für die CGIs konfiguriert, finden Sie <link
   linkend="cgiauth">hier</link>.</para>
+
+  <note><para>Ab &name-icinga; 1.5.0 können Sie alternativ <literal>authorized_contactgroup_for_all_hosts</literal> angeben, um statt eines
+  contact eine contactgroup zu autorisieren.</para></note>
 
   <para><anchor xml:id="configcgi-authorized_for_all_host_commands" /><emphasis role="bold">Zugang zu globalen
   Host-Befehlen</emphasis></para>
@@ -409,6 +421,9 @@
   linkend="configcgi-authorized_for_all_hosts">authorized_for_all_hosts</link>-Variable hinzufügen. Mehr Informationen, wie man
   Authentifizierung einrichtet und Autorisierung für die CGIs konfiguriert, finden Sie <link linkend="cgiauth">hier</link>.</para>
 
+  <note><para>Ab &name-icinga; 1.5.0 können Sie alternativ <literal>authorized_contactgroup_for_all_host_commands</literal> angeben, um
+  statt eines contact eine contactgroup zu autorisieren.</para></note>
+
   <para><anchor xml:id="configcgi-authorized_for_all_services" /><emphasis role="bold">Zugang zu globalen
   Service-Informationen</emphasis></para>
 
@@ -443,6 +458,9 @@
   diese der <link linkend="configcgi-authorized_for_all_service_commands">authorized_for_all_service_commands</link>-Variable hinzufügen.
   Mehr Informationen, wie man Authentifizierung einrichtet und Autorisierung für die CGIs konfiguriert, finden Sie <link
   linkend="cgiauth">hier</link>.</para>
+
+  <note><para>Ab &name-icinga; 1.5.0 können Sie alternativ <literal>authorized_contactgroup_for_all_services</literal> angeben, um statt
+  eines contact eine contactgroup zu autorisieren.</para></note>
 
   <para><anchor xml:id="configcgi-authorized_for_all_service_commands" /><emphasis role="bold">Zugang zu globalen
   Service-Befehlen</emphasis></para>
@@ -480,6 +498,9 @@
   linkend="configcgi-authorized_for_all_services">authorized_for_all_services</link>-Variable hinzufügen. Mehr Informationen, wie man
   Authentifizierung einrichtet und Autorisierung für die CGIs konfiguriert, finden Sie <link linkend="cgiauth">hier</link>.</para>
 
+  <note><para>Ab &name-icinga; 1.5.0 können Sie alternativ <literal>authorized_contactgroup_for_all_service_commands</literal> angeben, um
+  statt eines contact eine contactgroup zu autorisieren.</para></note>
+
   <para><anchor xml:id="configcgi-show_all_services_host_is_authorized_for" /> <emphasis role="bold">Zeige alle Services für einen
   berechtigten Host</emphasis></para>
 
@@ -493,7 +514,7 @@
         <row>
           <entry align="left" valign="top"><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">show_all_services_host_is_authorized_for=&lt;0|1&gt;</emphasis> </para></entry>
+          <entry><para> <emphasis role="bold">show_all_services_host_is_authorized_for=[0|1]</emphasis> </para></entry>
         </row>
 
         <row>
@@ -509,6 +530,44 @@
   <para>Per Default kann ein Benutzer alle Services eines Hosts sehen, wenn er als Kontakt für den Host autorisiert ist. Durch deaktivieren
   dieser Option muss der Benutzer auch autorisierter Kontakt des Service sein, um diesen ansehen zu können. Bitte beachten Sie, dass diese
   Option keine Auswirkung hat, wenn die Option authorized_for_all_services für den Benutzer gesetzt ist (seit &name-icinga; 1.0.2).</para>
+
+  <para><anchor xml:id="configcgi-authorized_for_read_only" /> <emphasis role="bold">Zugang zu Befehlen und Kommentaren verweigern</emphasis>
+  </para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">authorized_for_read_only=&lt;user1&gt;,&lt;user2&gt;,&lt;user3&gt;,...&lt;usern&gt;</emphasis>
+          </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">authorized_for_read_only=icingalook</emphasis>
+          </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Dies ist eine Komma-separierte Liste von Namen von <emphasis>authentifizierten Benutzern</emphasis>, die Nur-Lesen-Zugriff auf die
+  CGIs haben. Dies blockiert jegliche Host- oder Service-Befehle. Es werden auch keine Kommentare angezeigt. Benutzer in dieser Liste sind
+  <emphasis>nicht</emphasis> automatisch autorisiert, Befehle für alle Hosts zu erteilen. Benutzer in dieser Liste sind <emphasis>nicht
+  </emphasis> automatisch berechtigt, Status- oder Konfigurationsinformationen für alle Hosts anzusehen. Wenn Sie möchten, dass Benutzer
+  auch Status- und Konfigurationsinformationen für alle Services ansehen können, dann müssen Sie diese der <link
+  linkend="configcgi-authorized_for_all_services">authorized_for_all_services</link>-Variable hinzufügen. Mehr Informationen, wie man
+  Authentifizierung einrichtet und Autorisierung für die CGIs konfiguriert, finden Sie <link linkend="cgiauth">hier</link>.</para>
+
+  <note><para>Ab &name-icinga; 1.5.0 können Sie alternativ <literal>authorized_contactgroup_for_read_only</literal> angeben, um statt eines
+  contact eine contactgroup zu autorisieren.</para></note>
 
   <para><anchor xml:id="configcgi-lock_author_names" /><emphasis role="bold">Autorennamen sperren</emphasis></para>
 
@@ -1772,43 +1831,97 @@
   <indexterm zone="configcgi-authorized_for_system_information">
     <primary>authorized_for_system_information=</primary>
 
-    <secondary>Zugang zu System/Prozess-Informationen</secondary>
+    <secondary>Zugang zu System/Prozess-Informationen (contact)</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-authorized_for_system_information">
+    <primary>authorized_contactgroup_for_system_information=</primary>
+
+    <secondary>Zugang zu System/Prozess-Informationen (contactgroup)</secondary>
   </indexterm>
 
   <indexterm zone="configcgi-authorized_for_system_commands">
     <primary>authorized_for_system_commands=</primary>
 
-    <secondary>Zugang zu System/Prozess-Befehlen</secondary>
+    <secondary>Zugang zu System/Prozess-Befehlen (contact)</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-authorized_for_system_commands">
+    <primary>authorized_contactgroup_for_system_commands=</primary>
+
+    <secondary>Zugang zu System/Prozess-Befehlen (contactgroup)</secondary>
   </indexterm>
 
   <indexterm zone="configcgi-authorized_for_configuration_information">
     <primary>authorized_for_configuration_information=</primary>
 
-    <secondary>Zugang zu Konfigurationsinformationen</secondary>
+    <secondary>Zugang zu Konfigurationsinformationen (contact)</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-authorized_for_configuration_information">
+    <primary>authorized_contactgroup_for_configuration_information=</primary>
+
+    <secondary>Zugang zu Konfigurationsinformationen (contactgroup)</secondary>
   </indexterm>
 
   <indexterm zone="configcgi-authorized_for_all_hosts">
     <primary>authorized_for_all_hosts=</primary>
 
-    <secondary>Zugang zu globalen Host-Informationen</secondary>
+    <secondary>Zugang zu globalen Host-Informationen (contact)</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-authorized_for_all_hosts">
+    <primary>authorized_contactgroup_for_all_hosts=</primary>
+
+    <secondary>Zugang zu globalen Host-Informationen (contactgroup)</secondary>
   </indexterm>
 
   <indexterm zone="configcgi-authorized_for_all_host_commands">
     <primary>authorized_for_host_commands=</primary>
 
-    <secondary>Zugang zu globalen Host-Befehlen</secondary>
+    <secondary>Zugang zu globalen Host-Befehlen (contact)</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-authorized_for_all_host_commands">
+    <primary>authorized_contactgroup_for_host_commands=</primary>
+
+    <secondary>Zugang zu globalen Host-Befehlen (contactgroup)</secondary>
   </indexterm>
 
   <indexterm zone="configcgi-authorized_for_all_services">
     <primary>authorized_for_all_services=</primary>
 
-    <secondary>Zugang zu globalen Service-Informationen</secondary>
+    <secondary>Zugang zu globalen Service-Informationen (contact)</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-authorized_for_all_services">
+    <primary>authorized_contactgroup_for_all_services=</primary>
+
+    <secondary>Zugang zu globalen Service-Informationen (contactgroup)</secondary>
   </indexterm>
 
   <indexterm zone="configcgi-authorized_for_all_service_commands">
     <primary>authorized_for_all_service_commands=</primary>
 
-    <secondary>Zugang zu globalen Service-Befehlen</secondary>
+    <secondary>Zugang zu globalen Service-Befehlen (contact)</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-authorized_for_all_service_commands">
+    <primary>authorized_contactgroup_for_all_service_commands=</primary>
+
+    <secondary>Zugang zu globalen Service-Befehlen (contactgroup)</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-authorized_for_read_only">
+    <primary>authorized_for_read_only=</primary>
+
+    <secondary>Zugang zu Befehlen/Kommentaren sperren (contact)</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-authorized_for_read_only">
+    <primary>authorized_contactgroup_for_read_only=</primary>
+
+    <secondary>Zugang zu Befehlen/Kommentaren sperren (contactgroup)</secondary>
   </indexterm>
 
   <indexterm zone="configcgi-lock_author_names">
