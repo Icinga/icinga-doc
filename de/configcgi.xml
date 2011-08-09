@@ -1792,6 +1792,51 @@
     <para>Diese Option ist verfügbar ab &name-icinga; 1.5.</para>
   </note>
 
+  <para><anchor xml:id="configcgi-show_partial_hostgroups" /> <emphasis role="bold">Unvollständige Hostgruppen anzeigen</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">show_partial_hostgroups=&lt;0|1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">show_partial_hostgroups=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Per Default (gleichbedeutend mit einer nicht vorhandenen oder deaktivierten Direktive) sieht ein Benutzer eine Hostgruppe und deren
+  Hosts nur, wenn er ein autorisierter Kontakt für <emphasis>alle</emphasis> Hosts der jeweiligen Gruppe ist. Das Verhalten kann mit der
+  Direktive <code>show_partial_hostgroups=1</code> geändert werden.</para>
+
+  <para>Wenn sie aktiviert ist, wird der Hostgruppen-Überblick auch unvollständige Hostgruppen aufführen, bei denen lediglich die Hosts
+  angezeigt werden, für die der Benutzer ein autorisierter Kontakt ist.</para>
+
+  <para>Außerdem wird der Hinweis "(Partial Hostgroups Enabled)" oberhalb des Hostgruppen-Überblicks angezeigt, damit keine Verwirrung
+  darüber entsteht, ob diese Direktive aktiviert ist oder nicht. Aus Geheimhaltungsgründen werden unvollständige Hostgruppen nicht als
+  solche gekennzeichnet.</para>
+
+  <para>KOMPATIBILITÄTSHINWEIS: Wie bei jeder Änderung an der Ausgabe der CGIs kann die Aktivierung dieser Direktive die Funktion von
+  Drittanbieter-Tools beeinträchtigen, die sich auf eine bestimmte (Bildschirm-)Struktur verlassen. Wenn Sie auf ein solches Problem stoßen,
+  dann deaktivieren Sie diese Option wieder und ermuntern Sie den/die Entwickler des Programms, statt dessen JSON zur Ermittlung der Daten
+  zu nutzen.</para>
+
+  <note>
+    <para>Diese Option ist verfügbar ab &name-icinga; 1.5.</para>
+  </note>
+
   <para><anchor xml:id="configcgi-highlight_table_rows" /> <emphasis role="bold">Zeilen in status.cgi hervorheben</emphasis></para>
 
   <informaltable frame="none">
