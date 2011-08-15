@@ -54,6 +54,25 @@
  $ sqlplus dbuser/dbpass
  SQL&gt; @oracle-upgrade-&lt;version&gt;.sql</programlisting></para>
 
+  <anchor xml:id="upgrading_idoutils_1.5" />
+
+  <para><emphasis role="bold">Upgrading &name-idoutils; to 1.5</emphasis></para>
+
+  <para><emphasis role="bold">Oracle</emphasis></para>
+
+  <note><para>Using &name-idoutils; 1.5.0 with &name-oracle; requires at least OCILIB 3.9.2 - don&apos;t install 3.9.0 or 3.9.1 as they
+  remain buggy.</para></note>
+
+  <para>Modify <filename>oracle-upgrade-1.5.0.sql</filename> and set the tablespaces for DATA, LOB, and IXT similar to the following lines.
+  You can provide your existing tablespace names for all defines.
+  <programlisting> /* set real TBS names on which you have quota, no checks are implemented!*/
+ define DATATBS='icinga';
+ define LOBTBS='icinga';
+ define IXTBS='icinga';</programlisting></para>
+
+  <note><para>More detailed instructions using &name-idoutils; with &name-oracle; you can find in our wiki howto series about
+  <link xlink:href="https://wiki.icinga.org/display/howtos/Icinga+and+Oracle">&name-oracle;</link>.</para></note>
+
   <anchor xml:id="upgrading_idoutils_1.4" />
 
   <para><emphasis role="bold">Upgrading &name-idoutils; to 1.4</emphasis></para>
