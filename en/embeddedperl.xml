@@ -3,16 +3,10 @@
 <!ENTITY % all.entities SYSTEM "all-entities.ent">
 %all.entities;
 ]>
-<section version="5.0" xml:id="embeddedperl"
-         xmlns="http://docbook.org/ns/docbook"
-         xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude"
-         xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML"
-         xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
-  <title><anchor xml:id="embedded_perl" />Using The Embedded Perl
-  Interpreter</title>
+<section version="5.0" xml:id="embeddedperl" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="embedded_perl" />Using The Embedded Perl Interpreter</title>
 
   <informaltable frame="none">
     <tgroup cols="2">
@@ -28,31 +22,20 @@
               <emphasis role="bold">Introduction</emphasis>
 
                
-            </para> <para>&name-icinga; can be compiled with support for an
-          embedded Perl interpreter. This allows &name-icinga; to execute Perl
-          plugins much more efficiently that it otherwise would, so it may be
-          of interest to you if you rely heavily on plugins written in
-          Perl.</para> <para>Without the embedded Perl interpreter,
-          &name-icinga; executes Perl (and non-Perl) plugins by forking and
-          executing the plugins as an external command. When the embedded Perl
-          interpreter is used, &name-icinga; can execute Perl plugins by
-          simply making a library call.</para> <tip>
-              <para>The embedded Perl interpreter works with all Perl scripts
-              that &name-icinga; executes - not just plugins. This
-              documentation discusses the embedded Perl interpreter in
-              relation to plugins used for host and service checks, but it
-              applies just the same to other types of Perl scripts you may be
-              using for other types of commands (e.g. notification scripts,
-              event handler scripts, etc.).</para>
-            </tip> <para>Stephen Davies contributed the original embedded Perl
-          interpreter code several years back. Stanley Hopcroft has been the
-          primary person helping to improve the embedded Perl interpreter code
-          quite a bit and has commented on the advantages/disadvanges of using
-          it. He has also given several helpful hints on creating Perl plugins
-          that work properly with the embedded interpreter.</para> <para>It
-          should be noted that "ePN", as used in this documentation, refers to
-          embedded Perl &name-icinga;, or if you prefer, &name-icinga;
-          compiled with an embedded Perl interpreter.</para></entry>
+            </para> <para>&name-icinga; can be compiled with support for an embedded Perl interpreter. This allows &name-icinga; to execute
+          Perl plugins much more efficiently that it otherwise would, so it may be of interest to you if you rely heavily on plugins written
+          in Perl.</para> <para>Without the embedded Perl interpreter, &name-icinga; executes Perl (and non-Perl) plugins by forking and
+          executing the plugins as an external command. When the embedded Perl interpreter is used, &name-icinga; can execute Perl plugins
+          by simply making a library call.</para> <tip>
+              <para>The embedded Perl interpreter works with all Perl scripts that &name-icinga; executes - not just plugins. This
+              documentation discusses the embedded Perl interpreter in relation to plugins used for host and service checks, but it applies
+              just the same to other types of Perl scripts you may be using for other types of commands (e.g. notification scripts, event
+              handler scripts, etc.).</para>
+            </tip> <para>Stephen Davies contributed the original embedded Perl interpreter code several years back. Stanley Hopcroft has
+          been the primary person helping to improve the embedded Perl interpreter code quite a bit and has commented on the
+          advantages/disadvanges of using it. He has also given several helpful hints on creating Perl plugins that work properly with the
+          embedded interpreter.</para> <para>It should be noted that "ePN", as used in this documentation, refers to embedded Perl
+          &name-icinga;, or if you prefer, &name-icinga; compiled with an embedded Perl interpreter.</para></entry>
 
           <entry align="center" valign="top"><para> <inlinemediaobject>
               <imageobject>
@@ -70,174 +53,145 @@
 
   <itemizedlist>
     <listitem>
-      <para>&name-icinga; will spend much less time running your Perl plugins
-      because it no longer forks to execute the plugin (each time loading the
-      Perl interpreter). Instead, it executes your plugin by making a library
-      call.</para>
+      <para>&name-icinga; will spend much less time running your Perl plugins because it no longer forks to execute the plugin (each time
+      loading the Perl interpreter). Instead, it executes your plugin by making a library call.</para>
     </listitem>
 
     <listitem>
-      <para>It greatly reduces the system impact of Perl plugins and/or allows
-      you to run more checks with Perl plugin than you otherwise would be able
-      to. In other words, you have less incentive to write plugins in other
-      languages such as C/C++, or Expect/TCL, that are generally recognised to
-      have development times at least an order of magnitude slower than Perl
-      (although they do run about ten times faster also - TCL being an
-      exception).</para>
+      <para>It greatly reduces the system impact of Perl plugins and/or allows you to run more checks with Perl plugin than you otherwise
+      would be able to. In other words, you have less incentive to write plugins in other languages such as C/C++, or Expect/TCL, that are
+      generally recognised to have development times at least an order of magnitude slower than Perl (although they do run about ten times
+      faster also - TCL being an exception).</para>
     </listitem>
 
     <listitem>
-      <para>If you are not a C programmer, then you can still get a huge
-      amount of mileage out of &name-icinga; by letting Perl do all the heavy
-      lifting without having &name-icinga; slow right down. Note however, that
-      the ePN will not speed up your plugin (apart from eliminating the
-      interpreter load time). If you want fast plugins then consider Perl
-      XSUBs (XS), or C <emphasis>after</emphasis> you are sure that your Perl
-      is tuned and that you have a suitable algorithm (Benchmark.pm is
-      <emphasis>invaluable</emphasis> for comparing the performance of Perl
-      language elements).</para>
+      <para>If you are not a C programmer, then you can still get a huge amount of mileage out of &name-icinga; by letting Perl do all the
+      heavy lifting without having &name-icinga; slow right down. Note however, that the ePN will not speed up your plugin (apart from
+      eliminating the interpreter load time). If you want fast plugins then consider Perl XSUBs (XS), or C <emphasis>after</emphasis> you
+      are sure that your Perl is tuned and that you have a suitable algorithm (Benchmark.pm is <emphasis>invaluable</emphasis> for comparing
+      the performance of Perl language elements).</para>
     </listitem>
 
     <listitem>
-      <para>Using the ePN is an excellent opportunity to learn more about
-      Perl.</para>
+      <para>Using the ePN is an excellent opportunity to learn more about Perl.</para>
     </listitem>
   </itemizedlist>
 
   <para><emphasis role="bold">Disadvantages</emphasis></para>
 
-  <para>The disadvantages of ePN (embedded Perl &name-icinga;) are much the
-  same as Apache mod_perl (i.e. Apache with an embedded interpreter) compared
-  to a plain Apache:</para>
+  <para>The disadvantages of ePN (embedded Perl &name-icinga;) are much the same as Apache mod_perl (i.e. Apache with an embedded
+  interpreter) compared to a plain Apache:</para>
 
   <itemizedlist>
     <listitem>
-      <para>A Perl program that works <emphasis>fine</emphasis> with plain
-      &name-icinga; may <emphasis>not</emphasis> work with the ePN. You may
-      have to modify your plugins to get them to work.</para>
+      <para>A Perl program that works <emphasis>fine</emphasis> with plain &name-icinga; may <emphasis>not</emphasis> work with the ePN. You
+      may have to modify your plugins to get them to work.</para>
+
+      <important>
+        <para>Please note that you might introduce memory leaks so you shouldn't run your plugin without having tested/verified it using
+        <filename>new_mini_epn</filename> (to be found in the <filename>contrib</filename> folder).</para>
+      </important>
     </listitem>
 
     <listitem>
-      <para>Perl plugins are harder to debug under an ePN than under a plain
-      &name-icinga;.</para>
+      <para>Perl plugins are harder to debug under an ePN than under a plain &name-icinga;.</para>
     </listitem>
 
     <listitem>
-      <para>Your ePN will have a larger SIZE (memory footprint) than a plain
-      &name-icinga;.</para>
+      <para>Your ePN will have a larger SIZE (memory footprint) than a plain &name-icinga;.</para>
     </listitem>
 
     <listitem>
-      <para>Some Perl constructs cannot be used or may behave differently than
-      what you would expect.</para>
+      <para>Some Perl constructs cannot be used or may behave differently than what you would expect.</para>
     </listitem>
 
     <listitem>
-      <para>You may have to be aware of 'more than one way to do it' and
-      choose a way that seems less attractive or obvious.</para>
+      <para>You may have to be aware of 'more than one way to do it' and choose a way that seems less attractive or obvious.</para>
     </listitem>
 
     <listitem>
-      <para>You will need greater Perl knowledge (but nothing very esoteric or
-      stuff about Perl internals - unless your plugin uses XSUBS).</para>
+      <para>You will need greater Perl knowledge (but nothing very esoteric or stuff about Perl internals - unless your plugin uses
+      XSUBS).</para>
     </listitem>
   </itemizedlist>
 
-  <para><emphasis role="bold">Using The Embedded Perl
-  Interpreter</emphasis></para>
+  <para><emphasis role="bold">Using The Embedded Perl Interpreter</emphasis></para>
 
-  <para>If you want to use the embedded Perl interpreter to run your Perl
-  plugins and scripts, here's what you'll need to do:</para>
+  <para>If you want to use the embedded Perl interpreter to run your Perl plugins and scripts, here's what you'll need to do:</para>
 
   <orderedlist>
     <listitem>
-      <para>Compile &name-icinga; with support for the embedded Perl
-      interpreter (see instructions below).</para>
+      <para>Compile &name-icinga; with support for the embedded Perl interpreter (see instructions below).</para>
     </listitem>
 
     <listitem>
-      <para>Enable the <link
-      linkend="configmain-enable_embedded_perl">enable_embedded_perl</link>
-      option in the main configuration file.</para>
+      <para>Enable the <link linkend="configmain-enable_embedded_perl">enable_embedded_perl</link> option in the main configuration
+      file.</para>
     </listitem>
 
     <listitem>
-      <para>Set the <link
-      linkend="configmain-use_embedded_perl_implicitly">use_embedded_perl_implicitly</link>
-      option to fit your needs. This option determines whether or not the Perl
-      interpreter should be used by default for individual Perl plugins and
-      scripts.</para>
+      <para>Set the <link linkend="configmain-use_embedded_perl_implicitly">use_embedded_perl_implicitly</link> option to fit your needs.
+      This option determines whether or not the Perl interpreter should be used by default for individual Perl plugins and scripts.</para>
     </listitem>
 
     <listitem>
-      <para>Optionally enable or disable certain Perl plugins and scripts from
-      being run using the embedded Perl interpreter. This can be useful if
-      certain Perl scripts have problems being running under the Perl
-      interpreter. See instructions below for more information on doing
-      this.</para>
+      <para>Optionally enable or disable certain Perl plugins and scripts from being run using the embedded Perl interpreter. This can be
+      useful if certain Perl scripts have problems being running under the Perl interpreter. See instructions below for more information on
+      doing this.</para>
     </listitem>
   </orderedlist>
 
-  <para><emphasis role="bold">Compiling &name-icinga; With Embedded
-  Perl</emphasis></para>
+  <para><emphasis role="bold">Compiling &name-icinga; With Embedded Perl</emphasis></para>
 
-  <para>If you want to use the embedded Perl interpreter, you'll first need to
-  compile &name-icinga; with support for it. To do this, simply run the
-  configure script with the addition of the <emphasis condition="red"
-  role="color"> <emphasis>--enable-embedded-perl</emphasis> </emphasis>
-  option. If you want the embedded interpreter to cache internally compiled
-  scripts, add the <emphasis condition="red" role="color">
-  <emphasis>--with-perlcache</emphasis> </emphasis> option as well.
-  Example:</para>
+  <para>If you want to use the embedded Perl interpreter, you'll first need to compile &name-icinga; with support for it. To do this, simply
+  run the configure script with the addition of the <emphasis condition="red" role="color"> <emphasis>--enable-embedded-perl</emphasis>
+  </emphasis> option. If you want the embedded interpreter to cache internally compiled scripts, add the <emphasis condition="red"
+  role="color"> <emphasis>--with-perlcache</emphasis> </emphasis> option as well. Example:</para>
 
   <screen> ./configure --enable-embedded-perl --with-perlcache <emphasis> otheroptions...</emphasis></screen>
 
-  <para>Once you've rerun the configure script with the new options, make sure
-  to recompile &name-icinga;.</para>
+  <para>Once you've rerun the configure script with the new options, make sure to recompile &name-icinga;.</para>
 
-  <para><emphasis role="bold">Plugin-Specific Use of the Perl
-  Interpreter</emphasis></para>
+  <para>Packagers might use another option to specify the location of the <filename>p1.pl</filename> file:</para>
 
-  <para>Beginning with &name-icinga; &ver-icinga;, you can specify which Perl plugins or
-  scripts should or should not be run under the embedded Perl interpreter.
-  This is particularly useful if you have troublesome Perl scripts which do
-  not work well with the Perl interpreter.</para>
+  <para><screen> ./configure --with-p1-file-dir=&lt;path&gt;</screen></para>
 
-  <para>To <emphasis>explicitly</emphasis> tell &name-icinga; whether or not
-  to use the embedded Perl interpreter for a particular perl script, add one
-  of the following entries to your Perl script/plugin...</para>
+  <para><emphasis role="bold">Plugin-Specific Use of the Perl Interpreter</emphasis></para>
 
-  <para>To tell &name-icinga; to use the Perl interpreter for a particular
-  script, add this line to the Perl script:</para>
+  <para>Beginning with &name-icinga; &ver-icinga;, you can specify which Perl plugins or scripts should or should not be run under the
+  embedded Perl interpreter. This is particularly useful if you have troublesome Perl scripts which do not work well with the Perl
+  interpreter.</para>
+
+  <para>To <emphasis>explicitly</emphasis> tell &name-icinga; whether or not to use the embedded Perl interpreter for a particular perl
+  script, add one of the following entries to your Perl script/plugin...</para>
+
+  <para>To tell &name-icinga; to use the Perl interpreter for a particular script, add this line to the Perl script:</para>
 
   <screen> # icinga: +epn</screen>
 
-  <para>To tell &name-icinga; to NOT use the embedded Perl interpreter for a
-  particular script, add this line to the Perl script:</para>
+  <para>To tell &name-icinga; to NOT use the embedded Perl interpreter for a particular script, add this line to the Perl script:</para>
 
   <screen> # icinga: -epn</screen>
 
-  <para>Either line must be located within the first 10 lines of a script for
-  &name-icinga; to detect it.</para>
+  <para>Either line must be located within the first 10 lines of a script for &name-icinga; to detect it.</para>
 
-  <note><para>"icinga: +/-epn" is supported starting with &name-icinga; 1.2.1. Before that you had to specify "nagios: +/-epn" which is
-  still possible for compatibility reasons.</para></note>
+  <note>
+    <para>"icinga: +/-epn" is supported starting with &name-icinga; 1.2.1. Before that you had to specify "nagios: +/-epn" which is still
+    possible for compatibility reasons.</para>
+  </note>
+
   <tip>
-    <para>If you do not <emphasis>explicitly</emphasis> use the method above
-    to tell &name-icinga; whether an individual plugin can be run under the
-    Perl interpreter, &name-icinga; will make will a decision for you. This
-    decision process is controlled by the <link
-    linkend="configmain-use_embedded_perl_implicitly">use_embedded_perl_implicitly</link>
-    variable. If the value is set to 1, all Perl plugins/scripts (that do not
-    explicitly enable/disable the ePN) will be run under the Perl interpreter.
-    If the value is 0, they will NOT be run under the Perl interpreter.</para>
+    <para>If you do not <emphasis>explicitly</emphasis> use the method above to tell &name-icinga; whether an individual plugin can be run
+    under the Perl interpreter, &name-icinga; will make will a decision for you. This decision process is controlled by the <link
+    linkend="configmain-use_embedded_perl_implicitly">use_embedded_perl_implicitly</link> variable. If the value is set to 1, all Perl
+    plugins/scripts (that do not explicitly enable/disable the ePN) will be run under the Perl interpreter. If the value is 0, they will NOT
+    be run under the Perl interpreter.</para>
   </tip>
 
-  <para><emphasis role="bold">Developing Plugins For Use With Embedded
-  Perl</emphasis></para>
+  <para><emphasis role="bold">Developing Plugins For Use With Embedded Perl</emphasis></para>
 
-  <para>Information on developing plugins for use with the embedded Perl
-  interpreter can be found <link linkend="epnplugins">here</link>.</para>
+  <para>Information on developing plugins for use with the embedded Perl interpreter can be found <link
+  linkend="epnplugins">here</link>.</para>
 
   <indexterm zone="embedded_perl">
     <primary>Embedded Perl Interpreter</primary>
