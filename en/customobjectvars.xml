@@ -48,6 +48,14 @@
     </listitem>
   </itemizedlist>
 
+  <anchor xml:id="customobjectvars-runtime" />
+  <important><para>Custom variables are replaced <emphasis>during runtime</emphasis>, neither during the verification phase (icinga -v
+    icinga.cfg) nor during the &name-icinga; start up process so placing them in host names, service descriptions, and several other places
+    of the object definition will lead to an error message during verification like &quot;<literal>&lt;object&gt; contains one or more
+    illegal characters.</literal>&quot;. Changing the directive "illegal_object_name_chars" will <emphasis>not</emphasis> solve this issue.
+    </para>
+  </important>
+
   <para><emphasis role="bold">Examples</emphasis></para>
 
   <para>Here's an example of how custom variables can be defined in different types of object definitions:</para>
@@ -175,4 +183,8 @@ define contact{
   <para>Custom object variables are <link linkend="objectinheritance">inherited</link> just like standard host, service, or
   contact variables.</para>
   <indexterm zone="custom_object_vars"><primary>Custom Object Variables</primary></indexterm>
+  <indexterm zone="customobjectvars-runtime">
+    <primary>Custom Object Variables</primary>
+    <secondary>Evaluation only at runtime</secondary>
+  </indexterm>
 </section>
