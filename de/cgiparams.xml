@@ -21,6 +21,26 @@
 
   <para>Nach dieser Tabelle folgt eine Erklärung der Parameter (in Bearbeitung).</para>
 
+  <para><emphasis role="bold">Properties / Statustypes</emphasis></para>
+
+  <para>Sie können <filename>status.cgi</filename> benutzen, um Objekte mit einem oder mehreren "Statustypen" (hoststatustype /
+  servicestatustype) und mit bestimmten Eigenschaften (hostprops / serviceprops) anzuzeigen. Jeder Statustyp / jede Eigenschaft wird durch
+  eine Zahl identifiziert (die <link linkend="cgiparams-filter">hier</link> und <link linkend="cgiparams-statustypes">hier</link> am Ende
+  des Abschnitts zu finden sind). Bitte addieren Sie die entsprechenden Zahlen und setzen die resultierende Summe jeweils bei der Option
+  ein.</para>
+
+  <para>Das Beispiel zeigt alle Services im nicht-OK-Zustand, die weder in einer Ausfallzeit (downtime) sind noch bestätigt (acknowledged)
+  wurden:</para>
+
+  <screen> http://localhost/icinga/cgi-bin/status.cgi?host=all&amp;servicestatustypes=29&amp;serviceprops=10</screen>
+
+  <para>"29" enthält auch "PENDING" Services (die seit dem Start noch nicht geprüft wurden).</para>
+
+  <note>
+    <para>Bitte beachten Sie, dass "properties" nur die Objekte anzeigt, die ALLE Bedingungen gleichzeitig erfüllen, während bei
+    "statustypes" nur EINE Bedingung erfüllt sein muss (kann).</para>
+  </note>
+
   <para><emphasis role="bold">Matrix Parameter / CGIs</emphasis></para>
 
   <informaltable>
@@ -4620,6 +4640,21 @@
 #define SERVICE_HARD_STATE              262144
 #define SERVICE_SOFT_STATE              524288</programlisting>
 
+  <para><anchor xml:id="cgiparams-statustypes" /><emphasis role="bold">Excerpt from include/statusdata.h</emphasis></para>
+
+  <para><screen>/*************************** SERVICE STATES ***************************/
+#define SERVICE_PENDING  1
+#define SERVICE_OK       2
+#define SERVICE_WARNING  4
+#define SERVICE_UNKNOWN  8
+#define SERVICE_CRITICAL 16
+
+/**************************** HOST STATES ****************************/
+#define HOST_PENDING     1
+#define HOST_UP          2
+#define HOST_DOWN        4
+#define HOST_UNREACHABLE 8</screen></para>
+
   <para>[1] Logisches ODER bedeutet, dass die jeweiligen Zahlen addiert werden. Es werden dann die Objekte angezeigt, die ALLE Bedingungen
   erfüllen.</para>
 
@@ -4638,7 +4673,29 @@
   <indexterm zone="cgiparams-filter">
     <primary>CGIs</primary>
 
-    <secondary>Filtereigenschaften (Filter Properties)</secondary>
+    <secondary>Filtereigenschaften (filter properties)</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-filter">
+    <primary>hostprops</primary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-filter">
+    <primary>serviceprops</primary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-statustypes">
+    <primary>CGIs</primary>
+
+    <secondary>Statustypen (status types)</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-statustype">
+    <primary>hoststatustypes</primary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-statustype">
+    <primary>servicestatustypes</primary>
   </indexterm>
 
   <indexterm zone="cgiparams-ahas">

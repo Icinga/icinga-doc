@@ -26,7 +26,7 @@
   impression change to the folder containing the *.cgi modules (e.g. <filename>/usr/local/icinga/sbin</filename>), set some environment
   variables and execute one of the CGIs:<programlisting> $&gt; export REMOTE_USER=icingaadmin   # or choose the appropriate user
  $&gt; export REQUEST_METHOD='GET'      # if you enter queries
- $&gt; export QUERY_STRING='host=all'  # see the tables below 
+ $&gt; export QUERY_STRING='host=all'   # see the tables below 
 
  $&gt; ./status.cgi</programlisting>Depending on the number of hosts this may return a lot of lines containing HTML code in between which
   most people will find hard to read so you should add "&amp;csvoutput" or "&amp;jsonoutput" to QUERY_STRING along with other
@@ -48,6 +48,24 @@
  "authenticated" as.</programlisting></para>
 
   <para>You will find some examples <link linkend="cgicmd">here</link>.</para>
+
+  <para><emphasis role="bold">Properties / Statustypes</emphasis></para>
+
+  <para>You can use <filename>status.cgi</filename> to show objects with one or more statustype (hoststatustype / servicestatustype) and
+  with certain properties (hostprops / serviceprops). Each statustype / property is identified by a number (shown <link
+  linkend="cgiparams-filter">here</link> and <link linkend="cgiparams-statustypes">here</link> at the end of this section). Please sum up
+  the appropriate numbers and use the resulting value for each option.</para>
+
+  <para>The example shows all non-OK services which are neither in downtime nor acknowledged:</para>
+
+  <screen> http://localhost/icinga/cgi-bin/status.cgi?host=all&amp;servicestatustypes=29&amp;serviceprops=10</screen>
+
+  <para>"29" includes PENDING services (not being checked since start up) as well.</para>
+
+  <note>
+    <para>Please note that using properties will only show the objects satisfying ALL conditions whereas the objects are shown when
+    satifying ONE of the statustypes.</para>
+  </note>
 
   <para><emphasis role="bold">Matrix Parameters / CGIs</emphasis></para>
 
@@ -4646,7 +4664,23 @@
 #define SERVICE_HARD_STATE              262144
 #define SERVICE_SOFT_STATE              524288</programlisting>
 
-  <para>[1] Logical OR means that the numbers are added and only the objects will be displayed satisfying ALL conditions.</para>
+  <para><anchor xml:id="cgiparams-statustypes" /><emphasis role="bold">Excerpt from include/statusdata.h</emphasis></para>
+
+  <para><screen>/*************************** SERVICE STATES ***************************/
+#define SERVICE_PENDING  1
+#define SERVICE_OK       2
+#define SERVICE_WARNING  4
+#define SERVICE_UNKNOWN  8
+#define SERVICE_CRITICAL 16
+
+/**************************** HOST STATES ****************************/
+#define HOST_PENDING     1
+#define HOST_UP          2
+#define HOST_DOWN        4
+#define HOST_UNREACHABLE 8</screen></para>
+
+  <para>[1] Logical OR means that the numbers are added and only the objects will be displayed satisfying ALL conditions
+  (properties).</para>
 
   <para>[2] Available starting with &name-icinga; 1.4.</para>
 
@@ -4664,6 +4698,28 @@
     <primary>CGIs</primary>
 
     <secondary>Filter properties</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-filter">
+    <primary>hostprops</primary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-filter">
+    <primary>serviceprops</primary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-statustypes">
+    <primary>CGIs</primary>
+
+    <secondary>Status types</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-statustype">
+    <primary>hoststatustypes</primary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-statustype">
+    <primary>servicestatustypes</primary>
   </indexterm>
 
   <indexterm zone="cgiparams-ahas">
@@ -5116,7 +5172,7 @@
     <secondary>serviceprops</secondary>
   </indexterm>
 
-  <indexterm zone="cgiparams-sevicestates">
+  <indexterm zone="cgiparams-servicestates">
     <primary>CGI parameter</primary>
 
     <secondary>servicestates</secondary>

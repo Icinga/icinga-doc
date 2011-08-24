@@ -11,7 +11,7 @@
   <para>The &name-rep; is based on the &name-idoutils; backend and just like the &name-core;, it will support all major database
   platforms.</para>
 
-  <para>Here we'll give you a little instruction how to install the &name-rep; with &name-jasper;.</para>
+  <para>Here we'll give you some instructions on how to install the &name-rep; with &name-jasper;.</para>
 
   <para><emphasis role="bold">Prerequisites</emphasis></para>
 
@@ -26,23 +26,23 @@
 
   <para><emphasis role="bold">Install the &name-jasper;</emphasis></para>
 
-  <para>You can use the &name-jasper; installation binary or the specific WAR-Archive to deploy the software in an exisiting engine.</para>
+  <para>You can use the &name-jasper; installation binary or the specific WAR-Archive to deploy the software in an existing engine.</para>
 
   <itemizedlist>
     <listitem>
       <para>Install from binary</para>
 
       <para>You can use the &name-jasper;-ce-linux-installer provided on <link
-      xlink:href="http://sourceforge.net/projects/jasperserver/files/">Sourceforge</link> with included the &name-mysql;-Database and the
-      &name-tomcat; Server. Just execute the installer-binary which leads you through the install process.</para>
+      xlink:href="http://sourceforge.net/projects/jasperserver/files/">Sourceforge</link> with &name-mysql; database and &name-tomcat;
+      server included. Just execute the installer-binary which leads you through the install process.</para>
     </listitem>
 
     <listitem>
       <para>Install WAR-Archive</para>
 
-      <para>You can deploy the &name-jasper;-CE WAR into an existing &name-tomcat;6 Server and use the existing &name-icinga; Database for
-      the repository. Here we describe the WAR-installation into a &name-tomcat;6 Server. Also checkout the official
-      &name-jasper;-Installation Guide <link xlink:href="http://sourceforge.net/projects/jasperserver/files/">here.</link></para>
+      <para>You can deploy the &name-jasper;-CE WAR into an existing &name-tomcat;6 server and use the existing &name-icinga; database for
+      the repository. Here we describe the WAR-installation into a &name-tomcat;6 server. Also checkout the official &name-jasper;
+      Installation Guide <link xlink:href="http://sourceforge.net/projects/jasperserver/files/">here.</link></para>
     </listitem>
   </itemizedlist>
 
@@ -54,7 +54,7 @@
 
   <para><emphasis>&name-debian;/&name-ubuntu;</emphasis></para>
 
-  <programlisting>#&gt; apt-get install tomcat6</programlisting>
+  <programlisting> #&gt; apt-get install tomcat6</programlisting>
 
   <para><emphasis role="bold">Install &name-jasper; CE into your &name-tomcat; Server</emphasis></para>
 
@@ -65,15 +65,15 @@
     </listitem>
 
     <listitem>
-      <para>Follow the installation documentation published on<link xlink:href="http://sourceforge.net/projects/jasperserver/files/">
+      <para>Follow the installation documentation published on <link xlink:href="http://sourceforge.net/projects/jasperserver/files/">
       Sourceforge/Jasper</link> (&name-jasper;-CE-Install-Guide.pdf)</para>
     </listitem>
   </itemizedlist>
 
-  <para>After sucessfull &name-jasper; installation the interface is reachable on http://&lt;yourhost&gt;:8080/jasperserver and you are able
-  to login with jasperadmin/jasperadmin go the next step. Please change the default password as soon as possible.</para>
+  <para>After successful &name-jasper; installation the interface is reachable at http://&lt;yourhost&gt;:8080/jasperserver and you are able
+  to login with jasperadmin/jasperadmin and go to the next step. Please change the default password as soon as possible.</para>
 
-  <para>In case of any error consult the &name-jasper; Troubleshooting Guide</para>
+  <para>In case of any errors consult the &name-jasper; Troubleshooting Guide</para>
 
   <para><emphasis role="bold">Download the Templates</emphasis></para>
 
@@ -84,7 +84,7 @@
     </listitem>
 
     <listitem>
-      <para><emphasis role="bold">Or</emphasis> using GIT: you can also download all templates and the actual servlet implementation in our
+      <para><emphasis role="bold">Or</emphasis> using GIT: you can also download all templates and the current servlet implementation in our
       <link xlink:href="git://git.icinga.org/icinga-reports.git/">:&url-icingagit-rep;</link>.</para>
 
       <para>Take your clone from the icinga-reports.git to get a fresh branch</para>
@@ -98,19 +98,19 @@
     </listitem>
   </itemizedlist>
 
-  <para><emphasis role="bold">Install the &name-rep;- Package</emphasis></para>
+  <para><emphasis role="bold">Install the &name-rep; package</emphasis></para>
 
-  <para>Unpack the downloaded file and copy it to your &name-jasper;-Directory.</para>
+  <para>Unpack the downloaded file and copy it to your &name-jasper; directory.</para>
 
-  <programlisting>#&gt; tar xzvf icinga-reports-xxx.tar.gz
-#&gt; cp icinga-reports/ReportPackage/icinga_report_package.zip /opt/jasperserver/scripts/
-#&gt; cd /opt/jasperserver/scripts/</programlisting>
+  <programlisting> #&gt; tar xzvf icinga-reports-xxx.tar.gz
+ #&gt; cp icinga-reports/ReportPackage/icinga_report_package.zip /opt/jasperserver/scripts/
+ #&gt; cd /opt/jasperserver/scripts/</programlisting>
 
-  <para>Importing the whole reporting package requires just one command: <programlisting>#&gt; ./js-import.sh --input-zip icinga_report_package.zip</programlisting></para>
+  <para>Importing the whole reporting package requires just one command: <programlisting> #&gt; ./js-import.sh --input-zip icinga_report_package.zip</programlisting></para>
 
-  <para>If you want to update an existing repository please use the following command: <programlisting>#&gt; ./js-import.sh --input-zip icinga_report_package.zip --update</programlisting></para>
+  <para>If you want to update an existing repository please use the following command: <programlisting> #&gt; ./js-import.sh --input-zip icinga_report_package.zip --update</programlisting></para>
 
-  <para>You can export the whole &name-icinga; part of the repository with the following command: <programlisting>#&gt; ./js-export.sh --uris /Icinga --output-zip icinga_report_package.zip</programlisting></para>
+  <para>You can export the whole &name-icinga; part of the repository with the following command: <programlisting> #&gt; ./js-export.sh --uris /Icinga --output-zip icinga_report_package.zip</programlisting></para>
 
   <note>
     <para>If the import scripts fails, please check your jasperserver.xml for the current user and password. You can change the default user
@@ -118,12 +118,12 @@
   </note>
 
   <note>
-    <para>The export-/import-process is explained in detail at chapter 5.12 of the &name-jasper; CE-Install-Guide</para>
+    <para>The export-/import-process is explained in detail in chapter 5.12 of the &name-jasper; CE-Install-Guide</para>
   </note>
 
-  <para><emphasis role="bold">Install the JAVA classes for SLA- Reports</emphasis></para>
+  <para><emphasis role="bold">Install the JAVA classes for SLA-Reports</emphasis></para>
 
-  <para>Generating automatic reports for last week, last month or last year requires to calc the dates automatically for the specific
+  <para>Generating automatic reports for last week, last month or last year requires to calculate the dates automatically for the specific
   reports. To use that feature you have to install the icinga-reporting.jar archive into the Jasper lib directory. It should be in the
   WEB-INF folder of your installation. Please don't forget to restart your jasper-server after installation.</para>
 
@@ -137,7 +137,7 @@
 
   <para>Login to http://localhost:8080/jasperserver with jasperadmin/jasperadmin.</para>
 
-  <para>After a successfull package installation you will find the datasource here:</para>
+  <para>After a successful package installation you will find the datasource here:</para>
 
   <para>/root/Icinga/datasource (be sure that <emphasis role="bold">Refine </emphasis>contains "changed by anyone").</para>
 
@@ -148,7 +148,7 @@
   <para>- All reports in our package point to this datasource and should be able to run.</para>
 
   <note>
-    <para>Remember to clear the searchfield and set the 4 dropdowns to following posistions to find the datasource:</para>
+    <para>Remember to clear the search field and set the 4 dropdowns to the following positions to find the datasource:</para>
   </note>
 
   <itemizedlist>
@@ -176,11 +176,11 @@
 
   <para>If you changed your table prefix during installation you can replace the existing prefixes using the following script.</para>
 
-  <programlisting>grep -l -r " icinga_" .  | xargs sed -i.BAK -e 's/ icinga_/ /g'
-grep -l -r "icinga_" . | xargs sed -i.BAK -e 's/^icinga_//g'
-find . -iname "*BAK" -exec rm -f {} \;</programlisting>
+  <programlisting> grep -l -r " icinga_" .  | xargs sed -i.BAK -e 's/ icinga_/ /g'
+ grep -l -r "icinga_" . | xargs sed -i.BAK -e 's/^icinga_//g'
+ find . -iname "*BAK" -exec rm -f {} \;</programlisting>
 
-  <para><emphasis role="bold">Known Bugs:</emphasis> If you don't see any graph labels in a pdf export please switch from OpenJDK to
+  <para><emphasis role="bold">Known Bugs:</emphasis> If you don't see any graph labels in a PDF export please switch from OpenJDK to
   SUNJava.</para>
 
   <informaltable frame="none">
@@ -215,9 +215,116 @@ find . -iname "*BAK" -exec rm -f {} \;</programlisting>
     </tgroup>
   </informaltable>
 
+  <para><emphasis role="bold">Integration into &name-web;</emphasis></para>
+
+  <para><emphasis>Prerequisites</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para>icinga-core</para>
+    </listitem>
+
+    <listitem>
+      <para>mysql running</para>
+    </listitem>
+
+    <listitem>
+      <para>ido2db module configured and writing into the database</para>
+    </listitem>
+
+    <listitem>
+      <para>&name-web; installed</para>
+    </listitem>
+
+    <listitem>
+      <para>Jasper server installed and running</para>
+    </listitem>
+
+    <listitem>
+      <para>icinga-reporting package installed on Jasper server</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis>Install</emphasis></para>
+
+  <para>The reporting cronk is fully integrated into &name-web; so you don't have to install anything additional.</para>
+
+  <para><emphasis>Configuration</emphasis></para>
+
+  <para>Depending on your current environment you have to configure the cronk to set the Jasper server location and user credentials. The
+  configuration is set in the reporting module<programlisting> $ cd app/modules/Reporting/config/
+ $ ls autoload.xml config_handlers.xml module.xml routing.xml
+ $ vi module.xml</programlisting><programlisting> &lt;!-- Jasper configurations --&gt;
+ &lt;setting name="jasperconfig.default"&gt;
+    &lt;ae:parameter name="jasper_url"&gt;http://10.121.0.95:8080/jasperserver&lt;/ae:parameter&gt;
+    &lt;ae:parameter name="jasper_user"&gt;jasperadmin&lt;/ae:parameter&gt;
+    &lt;ae:parameter name="jasper_pass"&gt;jasperadmin&lt;/ae:parameter&gt;
+    &lt;ae:parameter name="tree_root"&gt;/Icinga/reports&lt;/ae:parameter&gt;
+ &lt;/setting&gt;
+ &lt;!-- Custom config if I have more that one --&gt;
+ &lt;!--
+ &lt;setting name="jasperconfig.custom1"&gt;
+    &lt;ae:parameter name="jasper_url"&gt;http://127.0.0.175/jasperserver&lt;/ae:parameter&gt;
+    &lt;ae:parameter name="jasper_user"&gt;custom_user&lt;/ae:parameter&gt;
+    &lt;ae:parameter name="jasper_pass"&gt;custom_passwd&lt;/ae:parameter&gt;
+ &lt;/setting&gt;
+ --&gt;</programlisting>Please alter the jasperconfig.default to suit your environment and change jasper_url, jasper_user and
+  jasper_pass.</para>
+
+  <para>You can integrate more than one Jasper server. The configuration name will be included into the reporting cronk later. Please select
+  a unique name for each configuration.</para>
+
+  <para>The XML configuration is prefixed. The full name for 'jasperconfig.default' is modules.reporting.jasperconfig.default. The long name
+  is the real config setting for using in the cronks configuration.</para>
+
+  <para>The default <filename>/Icinga/reports</filename> is the path for the icinga-reporting package but you can run every report
+  configured with Jasper through the cronk. If you want to use different people for different locations you have to create more cronks with
+  groups_only permissions.</para>
+
+  <para><emphasis>Cronk configuration</emphasis></para>
+
+  <para>The Jasper config is ready. Now you need a cronk and tell it which configuration you want to use. Go to your cronk configuration
+  (<filename>cronks.xml</filename>) and add a new cronk like the following:</para>
+
   <note>
-    <para>Integration to &name-web; not implemented yet!</para>
+    <para>Due to config changes between 1.4 and 1.5 there are several locations for the cronk settings. Please have a look in the other
+    document resource where it could be</para>
   </note>
+
+  <programlisting> &lt;ae:parameter name="icingaJasperReportingMain"&gt;
+    &lt;ae:parameter name="module"&gt;Reporting&lt;/ae:parameter&gt;
+    &lt;ae:parameter name="action"&gt;Cronk.Main&lt;/ae:parameter&gt;
+    &lt;ae:parameter name="hide"&gt;false&lt;/ae:parameter&gt;
+    &lt;ae:parameter name="description"&gt;Seamless Jasper Integration&lt;/ae:parameter&gt;
+    &lt;ae:parameter name="name"&gt;Reporting&lt;/ae:parameter&gt;
+    &lt;ae:parameter name="categories"&gt;reporting&lt;/ae:parameter&gt;
+    &lt;ae:parameter name="image"&gt;cronks.Weather Could Sun&lt;/ae:parameter&gt;
+    &lt;ae:parameter name="ae:parameter"&gt;
+       &lt;ae:parameter name="jasperconfig"&gt;modules.reporting.jasperconfig.default&lt;/ae:parameter&gt;
+       &lt;ae:parameter name="enable_onthefly"&gt;1&lt;/ae:parameter&gt;
+       &lt;ae:parameter name="enable_repository"&gt;1&lt;/ae:parameter&gt;
+       &lt;ae:parameter name="enable_scheduling"&gt;1&lt;/ae:parameter&gt;
+    &lt;/ae:parameter&gt;
+ &lt;/ae:parameter&gt;</programlisting>
+
+  <para>Have you noticed the configuration string? This is the string you configured in the <filename>module.xml</filename> shown in the
+  topic before.</para>
+
+  <para>You can also enable some modes for this cronk:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><code>enable_onthefly</code> The "create reports on the fly" mode. It allows you to create your reports in the icinga-web,
+      taking previews and selecting your outputs etc ...</para>
+    </listitem>
+
+    <listitem>
+      <para><code>enable_repository</code> A repository view. If you have scheduled reports which create the output in the Jasper server
+      virtual directory. You can download Jasper resources and preview content.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para></para>
 
   <para>Feel free to edit our sample reports with iReport and change these to your needs :)</para>
 

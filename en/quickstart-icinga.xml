@@ -10,6 +10,9 @@
 
   <para><emphasis role="bold"><anchor xml:id="introduction_quickstart_icinga" />Introduction</emphasis></para>
 
+  <note><para>Meanwhile there are &name-icinga; packages for most Linux distributions. Unless you need a feature only available in the
+  current source tree you should consider installing one of these packages.</para></note>
+ 
   <para>This guide is intended to provide you with simple instructions on how to install &name-icinga; from source (code) and have it
   monitoring your local machine within 20 minutes.</para>
 
@@ -147,10 +150,9 @@
 
   <programlisting> #&gt; cd /usr/src</programlisting>
 
-  <para>Either fetch the current icinga-core snapshot from &name-icinga; GIT <programlisting> #&gt; git clone git://git.icinga.org/icinga-core.git</programlisting>
-  or from the <link xlink:href="http://www.icinga.org/">&name-icinga; Website</link> .</para>
+  <para>Get the current source from the <link xlink:href="http://www.icinga.org/">&name-icinga; Website</link>.</para>
 
-  <para>Don't forget to download the <link xlink:href="http://www.nagiosplugins.org/">Nagios Plugins</link> .</para>
+  <para>Don't forget to download the <link xlink:href="http://www.nagiosplugins.org/">Nagios Plugins</link>.</para>
 
   <para><emphasis role="bold">Compile and install &name-icinga;</emphasis></para>
 
@@ -171,7 +173,11 @@
   <para>Install binaries, init script, sample config files and set permissions on the external command directory. <programlisting> #&gt; make install 
  #&gt; make install-init 
  #&gt; make install-config 
- #&gt; make install-commandmode </programlisting> or shorter <programlisting> #&gt; make fullinstall</programlisting></para>
+ #&gt; make install-commandmode </programlisting> or shorter <programlisting> #&gt; make fullinstall
+ #&gt; make install-config</programlisting></para>
+
+  <note><para>Starting with &name-icinga; 1.5.0 <literal>make install-config</literal> is NOT included in <literal>make fullinstall
+  </literal> anymore to avoid accidently overwriting of your config files.</para></note>
 
   <para>Don't start &name-icinga; yet - there's still more that needs to be done...</para>
 

@@ -102,7 +102,13 @@
     </listitem>
 
     <listitem>
-      <para><link linkend="configcgi-show_all_services_host_is_authorized_for">Show all services a host is authorized for</link></para>
+      <para><link linkend="configcgi-show_all_services_host_is_authorized_for">Show all services a host is authorised for</link></para>
+    </listitem>
+  </itemizedlist>
+
+  <itemizedlist>
+    <listitem>
+      <para><link linkend="configcgi-authorized_for_read_only">Deny access to commands and comments</link></para>
     </listitem>
   </itemizedlist>
 
@@ -238,6 +244,22 @@
     <listitem>
       <para><link linkend="configcgi-show_tac_header_pending">Show Header with Pending Counts</link></para>
     </listitem>
+
+    <listitem>
+      <para><link linkend="configcgi-default_downtime_duration">Set default downtime duration</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="configcgi-suppress_maintenance_downtime">Suppress objects in maintaince/downtime state</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="configcgi-show_partial_hostgroups">Show partial hostgroups</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="configcgi-highlight_table_rows">Highlight rows in status.cgi</link></para>
+    </listitem>
   </itemizedlist>
 
   <para><anchor xml:id="configcgi-main_cfg_file" /> <emphasis role="bold">Main Configuration File Location</emphasis></para>
@@ -366,7 +388,7 @@
         <row>
           <entry align="left" valign="top"><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">use_authentication=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para> <emphasis role="bold">use_authentication=[0/1]</emphasis> </para></entry>
         </row>
 
         <row>
@@ -379,11 +401,11 @@
     </tgroup>
   </informaltable>
 
-  <para>This option controls whether or not the CGIs will use the authentication and authorization functionality when determining what
+  <para>This option controls whether or not the CGIs will use the authentication and authorisation functionality when determining what
   information and commands users have access to. We would strongly suggest that you use the authentication functionality for the CGIs. If
-  you decide not to use authentication, make sure to remove the <link linkend="cgis-cmd_cgi">command CGI</link> to prevent unauthorized
+  you decide not to use authentication, make sure to remove the <link linkend="cgis-cmd_cgi">command CGI</link> to prevent unauthorised
   users from issuing commands to &name-icinga;. The CGI will not issue commands to &name-icinga; if authentication is disabled, but we would
-  suggest removing it altogether just to be on the safe side. More information on how to setup authentication and configure authorization
+  suggest removing it altogether just to be on the safe side. More information on how to setup authentication and configure authorisation
   for the CGIs can be found <link linkend="cgiauth">here</link>.</para>
 
   <itemizedlist>
@@ -392,7 +414,7 @@
     </listitem>
 
     <listitem>
-      <para>1 = Use authentication and authorization functionality (default)</para>
+      <para>1 = Use authentication and authorisation functionality (default)</para>
     </listitem>
   </itemizedlist>
 
@@ -459,10 +481,13 @@
   </informaltable>
 
   <para>This is a comma-delimited list of names of <emphasis>authenticated users</emphasis> who can view system/process information in the
-  <link linkend="cgis-extinfo_cgi">extended information CGI</link>. Users in this list are <emphasis>not</emphasis> automatically authorized
+  <link linkend="cgis-extinfo_cgi">extended information CGI</link>. Users in this list are <emphasis>not</emphasis> automatically authorised
   to issue system/process commands. If you want users to be able to issue system/process commands as well, you must add them to the <link
   linkend="configcgi-authorized_for_system_commands">authorized_for_system_commands</link> variable. More information on how to setup
-  authentication and configure authorization for the CGIs can be found <link linkend="cgiauth">here</link>.</para>
+  authentication and configure authorisation for the CGIs can be found <link linkend="cgiauth">here</link>.</para>
+
+  <note><para>Starting with &name-icinga; 1.5.0 you can alternatively specify <literal>authorized_contactgroup_for_system_information
+  </literal> to authorise a contactgroup instead of a contact.</para></note>
 
   <para><anchor xml:id="configcgi-authorized_for_system_commands" /> <emphasis role="bold">System/Process Command Access</emphasis></para>
 
@@ -491,10 +516,13 @@
   </informaltable>
 
   <para>This is a comma-delimited list of names of <emphasis>authenticated users</emphasis> who can issue system/process commands via the
-  <link linkend="cgis-cmd_cgi">command CGI</link>. Users in this list are <emphasis>not</emphasis> automatically authorized to view
+  <link linkend="cgis-cmd_cgi">command CGI</link>. Users in this list are <emphasis>not</emphasis> automatically authorised to view
   system/process information. If you want users to be able to view system/process information as well, you must add them to the <link
   linkend="configcgi-authorized_for_system_information">authorized_for_system_information</link> variable. More information on how to setup
-  authentication and configure authorization for the CGIs can be found <link linkend="cgiauth">here</link>.</para>
+  authentication and configure authorisation for the CGIs can be found <link linkend="cgiauth">here</link>.</para>
+
+  <note><para>Starting with &name-icinga; 1.5.0 you can alternatively specify <literal>authorized_contactgroup_for_system_commands
+  </literal> to authorise a contactgroup instead of a contact.</para></note>
 
   <para><anchor xml:id="configcgi-authorized_for_configuration_information" /> <emphasis role="bold">Configuration Information
   Access</emphasis></para>
@@ -527,7 +555,10 @@
   <para>This is a comma-delimited list of names of <emphasis>authenticated users</emphasis> who can view configuration information in the
   <link linkend="cgis-config_cgi">configuration CGI</link>. Users in this list can view information on all configured hosts, host groups,
   services, contacts, contact groups, time periods, and commands. More information on how to setup authentication and configure
-  authorization for the CGIs can be found <link linkend="cgiauth">here</link>.</para>
+  authorisation for the CGIs can be found <link linkend="cgiauth">here</link>.</para>
+
+  <note><para>Starting with &name-icinga; 1.5.0 you can alternatively specify <literal>authorized_contactgroup_for_configuration_information
+  </literal> to authorise a contactgroup instead of a contact.</para></note>
 
   <para><anchor xml:id="configcgi-authorized_for_all_hosts" /> <emphasis role="bold">Global Host Information Access</emphasis></para>
 
@@ -556,11 +587,14 @@
   </informaltable>
 
   <para>This is a comma-delimited list of names of <emphasis>authenticated users</emphasis> who can view status and configuration
-  information for all hosts. Users in this list are also automatically authorized to view information for all services. Users in this list
-  are <emphasis>not</emphasis> automatically authorized to issue commands for all hosts or services. If you want users able to issue
+  information for all hosts. Users in this list are also automatically authorised to view information for all services. Users in this list
+  are <emphasis>not</emphasis> automatically authorised to issue commands for all hosts or services. If you want users able to issue
   commands for all hosts and services as well, you must add them to the <link
   linkend="configcgi-authorized_for_all_host_commands">authorized_for_all_host_commands</link> variable. More information on how to setup
-  authentication and configure authorization for the CGIs can be found <link linkend="cgiauth">here</link>.</para>
+  authentication and configure authorisation for the CGIs can be found <link linkend="cgiauth">here</link>.</para>
+
+  <note><para>Starting with &name-icinga; 1.5.0 you can alternatively specify <literal>authorized_contactgroup_for_all_hosts</literal> to
+  authorise a contactgroup instead of a contact.</para></note>
 
   <para><anchor xml:id="configcgi-authorized_for_all_host_commands" /> <emphasis role="bold">Global Host Command Access</emphasis></para>
 
@@ -589,11 +623,14 @@
   </informaltable>
 
   <para>This is a comma-delimited list of names of <emphasis>authenticated users</emphasis> who can issue commands for all hosts via the
-  <link linkend="cgis-cmd_cgi">command CGI</link>. Users in this list are also automatically authorized to issue commands for all services.
-  Users in this list are <emphasis>not</emphasis> automatically authorized to view status or configuration information for all hosts or
+  <link linkend="cgis-cmd_cgi">command CGI</link>. Users in this list are also automatically authorised to issue commands for all services.
+  Users in this list are <emphasis>not</emphasis> automatically authorised to view status or configuration information for all hosts or
   services. If you want users able to view status and configuration information for all hosts and services as well, you must add them to the
   <link linkend="configcgi-authorized_for_all_hosts">authorized_for_all_hosts</link> variable. More information on how to setup
-  authentication and configure authorization for the CGIs can be found <link linkend="cgiauth">here</link>.</para>
+  authentication and configure authorisation for the CGIs can be found <link linkend="cgiauth">here</link>.</para>
+
+  <note><para>Starting with &name-icinga; 1.5.0 you can alternatively specify <literal>authorized_contactgroup_for_all_host_commands
+  </literal> to authorise a contactgroup instead of a contact.</para></note>
 
   <para><anchor xml:id="configcgi-authorized_for_all_services" /> <emphasis role="bold">Global Service Information Access</emphasis></para>
 
@@ -622,11 +659,14 @@
   </informaltable>
 
   <para>This is a comma-delimited list of names of <emphasis>authenticated users</emphasis> who can view status and configuration
-  information for all services. Users in this list are <emphasis>not</emphasis> automatically authorized to view information for all hosts.
-  Users in this list are <emphasis>not</emphasis> automatically authorized to issue commands for all services. If you want users able to
+  information for all services. Users in this list are <emphasis>not</emphasis> automatically authorised to view information for all hosts.
+  Users in this list are <emphasis>not</emphasis> automatically authorised to issue commands for all services. If you want users able to
   issue commands for all services as well, you must add them to the <link
   linkend="configcgi-authorized_for_all_service_commands">authorized_for_all_service_commands</link> variable. More information on how to
-  setup authentication and configure authorization for the CGIs can be found <link linkend="cgiauth">here</link>.</para>
+  setup authentication and configure authorisation for the CGIs can be found <link linkend="cgiauth">here</link>.</para>
+
+  <note><para>Starting with &name-icinga; 1.5.0 you can alternatively specify <literal>authorized_contactgroup_for_all_services</literal> to
+  authorise a contactgroup instead of a contact.</para></note>
 
   <para><anchor xml:id="configcgi-authorized_for_all_service_commands" /> <emphasis role="bold">Global Service Command Access
   </emphasis></para>
@@ -657,11 +697,14 @@
   </informaltable>
 
   <para>This is a comma-delimited list of names of <emphasis>authenticated users</emphasis> who can issue commands for all services via the
-  <link linkend="cgis-cmd_cgi">command CGI</link>. Users in this list are <emphasis>not</emphasis> automatically authorized to issue
-  commands for all hosts. Users in this list are <emphasis>not</emphasis> automatically authorized to view status or configuration
+  <link linkend="cgis-cmd_cgi">command CGI</link>. Users in this list are <emphasis>not</emphasis> automatically authorised to issue
+  commands for all hosts. Users in this list are <emphasis>not</emphasis> automatically authorised to view status or configuration
   information for all hosts. If you want users able to view status and configuration information for all services as well, you must add them
   to the <link linkend="configcgi-authorized_for_all_services">authorized_for_all_services</link> variable. More information on how to setup
-  authentication and configure authorization for the CGIs can be found <link linkend="cgiauth">here</link>.</para>
+  authentication and configure authorisation for the CGIs can be found <link linkend="cgiauth">here</link>.</para>
+
+  <note><para>Starting with &name-icinga; 1.5.0 you can alternatively specify <literal>authorized_contactgroup_for_all_service_commands
+  </literal> to authorise a contactgroup instead of a contact.</para></note>
 
   <para><anchor xml:id="configcgi-show_all_services_host_is_authorized_for" /> <emphasis role="bold">Show All Services A Host Is Authorized
   For</emphasis></para>
@@ -676,7 +719,7 @@
         <row>
           <entry align="left" valign="top"><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">show_all_services_host_is_authorized_for=&lt;0|1&gt;</emphasis> </para></entry>
+          <entry><para> <emphasis role="bold">show_all_services_host_is_authorized_for=[0|1]</emphasis> </para></entry>
         </row>
 
         <row>
@@ -689,9 +732,46 @@
     </tgroup>
   </informaltable>
 
-  <para>By default, a user can see all services on a host, if the user is authorized as contact for the host only. By disabling this option,
-  the user must be an authorized contact for the service too in order to view it. Keep in mind that setting the user in
+  <para>By default, a user can see all services on a host, if the user is authorised as contact for the host only. By disabling this option,
+  the user must be an authorised contact for the service too in order to view it. Keep in mind that setting the user in
   authorized_for_all_services obsoletes this option (included starting with &name-icinga; 1.0.2)</para>
+
+  <para><anchor xml:id="configcgi-authorized_for_read_only" /> <emphasis role="bold">Deny access to commands and comments</emphasis>
+  </para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">authorized_for_read_only=&lt;user1&gt;,&lt;user2&gt;,&lt;user3&gt;,...&lt;usern&gt;</emphasis>
+          </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">authorized_for_read_only=icingalook</emphasis>
+          </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This is a comma-delimited list of names of <emphasis>authenticated users</emphasis> who have read-only rights in the CGIs. This will
+  block any host or service commands. It will also block comments from being shown to read-only users. Users in this list are
+  <emphasis>not</emphasis> automatically authorised to view status or configuration information for all hosts. If you want users able to
+  view status and configuration information for all services as well, you must add them to the
+  <link linkend="configcgi-authorized_for_all_services">authorized_for_all_services</link> variable. More information on how to setup
+  authentication and configure authorisation for the CGIs can be found <link linkend="cgiauth">here</link>.</para>
+
+  <note><para>Starting with &name-icinga; 1.5.0 you can alternatively specify <literal>authorized_contactgroup_for_read_only</literal> to
+  authorise a contactgroup instead of a contact.</para></note>
 
   <para><anchor xml:id="configcgi-lock_author_names" /> <emphasis role="bold">Lock Author Names</emphasis></para>
 
@@ -1941,6 +2021,153 @@
     <para>This option is available starting with &name-icinga; 1.4.1</para>
   </note>
 
+  <para><anchor xml:id="configcgi-default_downtime_duration" /> <emphasis role="bold">Set default downtime duration</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">default_downtime_duration=n</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">default_downtime_duration=7200</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option defines the default duration (in seconds) of fixed and flexible downtimes. Default is 7200 seconds (2 hours).</para>
+
+  <note>
+    <para>This option is available starting with &name-icinga; 1.5</para>
+  </note>
+
+  <para><anchor xml:id="configcgi-suppress_maintenance_downtime" /> <emphasis role="bold">Suppress objects in maintenance/downtime state
+  </emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">suppress_maintenance_downtime=&lt;0|1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">suppress_maintenance_downtime=0</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>The current Classic UI view shows the state of hosts including attention grabbing colours even if the host/service is scheduled for
+  downtime. This tends to distract from discerning which problems really exist between those which were planned or expected.
+  It is disabled by default to maintain the old behaviour, however those wishing to enable it will note that rather than displaying issues
+  in their regular colour, they will be grey (similar to the pending state). The status, however will still display the actual state and
+  this is intended behaviour. This is so the user can use icinga to see what the state is in before the downtime ends. A useful example for
+  this is so it can be seen that a host/service that was being worked on actually came back online.
+
+  In addition, hosts in scheduled downtime will be grey in the statusmap.cgi.</para>
+
+  <note>
+    <para>This option is available starting with &name-icinga; 1.5</para>
+  </note>
+
+  <para><anchor xml:id="configcgi-show_partial_hostgroups" /> <emphasis role="bold">Show partial hostgroups</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">show_partial_hostgroups=&lt;0|1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">show_partial_hostgroups=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>By default (meaning the directive is not present or disabled), a user only sees a hostgroup and the hosts within it if they are an
+  authorised contact for <emphasis>all</emphasis> of the hosts of the group. The behaviour can be changed using the directive 
+  <code>show_partial_hostgroups=1</code>.</para>
+
+  <para>When enabled, the hostgroups overview will show a partial listing of hosts that the user is an authorised contact for within each
+  hostgroup.</para>
+
+  <para>It will also add the string "(Partial Hostgroups Enabled)" to the top of the Hostgroup Overview to help prevent any confusion over
+  whether the option is in use or not. However for privacy reasons, hostgroups that are only showing a partial listing are not
+  specifically indicated.</para>
+
+  <para>COMPATIBILITY NOTICE: As with any tweak made to the output of the CGIs, enabling this option may adversely impact third party
+  programs that rely on 'screen scraping' to get their information.  If you encounter such a problem, turn this option back to its
+  default of off and encourage the developer(s) of the program to use JSON for their data needs instead.</para>
+
+  <note>
+    <para>This option is available starting with &name-icinga; 1.5</para>
+  </note>
+
+  <para><anchor xml:id="configcgi-highlight_table_rows" /> <emphasis role="bold">Highlight rows in status.cgi</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">highlight_table_rows=&lt;0|1&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">highlight_table_rows=0</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option allows you to define if table rows in status.cgi will be highlighted or not. Sometimes with a lot of rows or a large
+  screen resolution it is hard to see which rows you are working on: Values: 0 = disables row highlighting; 1 = enables row highlighting
+  (default).</para>
+
+  <note>
+    <para>This option is available starting with &name-icinga; 1.5</para>
+  </note>
+
   <indexterm zone="config_cgi">
     <primary>CGI Configuration File Options</primary>
   </indexterm>
@@ -1978,43 +2205,97 @@
   <indexterm zone="configcgi-authorized_for_system_information">
     <primary>authorized_for_system_information=</primary>
 
-    <secondary>System/Process Information</secondary>
+    <secondary>System/Process Information (contact)</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-authorized_for_system_information">
+    <primary>authorized_contactgroup_for_system_information=</primary>
+
+    <secondary>System/Process Information (contactgroup)</secondary>
   </indexterm>
 
   <indexterm zone="configcgi-authorized_for_system_commands">
     <primary>authorized_for_system_commands=</primary>
 
-    <secondary>System/Process Command</secondary>
+    <secondary>System/Process Command (contact)</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-authorized_for_system_commands">
+    <primary>authorized_contactgroup_for_system_commands=</primary>
+
+    <secondary>System/Process Command (contactgroup)</secondary>
   </indexterm>
 
   <indexterm zone="configcgi-authorized_for_configuration_information">
     <primary>authorized_for_configuration_information=</primary>
 
-    <secondary>Configuration Information</secondary>
+    <secondary>Configuration Information (contact)</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-authorized_for_configuration_information">
+    <primary>authorized_contactgroup_for_configuration_information=</primary>
+
+    <secondary>Configuration Information (contactgroup)</secondary>
   </indexterm>
 
   <indexterm zone="configcgi-authorized_for_all_hosts">
     <primary>authorized_for_all_hosts=</primary>
 
-    <secondary>Global Host Information</secondary>
+    <secondary>Global Host Information (contact)</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-authorized_for_all_hosts">
+    <primary>authorized_contactgroup_for_all_hosts=</primary>
+
+    <secondary>Global Host Information (contactgroup)</secondary>
   </indexterm>
 
   <indexterm zone="configcgi-authorized_for_all_host_commands">
     <primary>authorized_for_host_commands=</primary>
 
-    <secondary>Global Host Command</secondary>
+    <secondary>Global Host Command (contact)</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-authorized_for_all_host_commands">
+    <primary>authorized_contactgroup_for_host_commands=</primary>
+
+    <secondary>Global Host Command (contactgroup)</secondary>
   </indexterm>
 
   <indexterm zone="configcgi-authorized_for_all_services">
     <primary>authorized_for_all_services=</primary>
 
-    <secondary>Global Service Information</secondary>
+    <secondary>Global Service Information (contact)</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-authorized_for_all_services">
+    <primary>authorized_contactgroup_for_all_services=</primary>
+
+    <secondary>Global Service Information (contactgroup)</secondary>
   </indexterm>
 
   <indexterm zone="configcgi-authorized_for_all_service_commands">
     <primary>authorized_for_all_service_commands=</primary>
 
-    <secondary>Global Service Command</secondary>
+    <secondary>Global Service Command (contact)</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-authorized_for_all_service_commands">
+    <primary>authorized_contactgroup_for_all_service_commands=</primary>
+
+    <secondary>Global Service Command (contactgroup)</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-authorized_for_read_only">
+    <primary>authorized_for_read_only=</primary>
+
+    <secondary>Deny access to commands and comments (contact)</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-authorized_for_read_only">
+    <primary>authorized_contactgroup_for_read_only=</primary>
+
+    <secondary>Deny access to commands and comments (contactgroup)</secondary>
   </indexterm>
 
   <indexterm zone="configcgi-lock_author_names">
@@ -2175,5 +2456,29 @@
     <primary>show_tac_header_pending=</primary>
 
     <secondary>Show header including pending counts</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-default_downtime_duration">
+    <primary>default_downtime_duration=</primary>
+
+    <secondary>Set default downtime duration</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-suppress_maintenance_downtime">
+    <primary>suppress_maintenance_downtime=</primary>
+
+    <secondary>Suppress objects in maintenance/downtime state</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-show_partial_hostgroups">
+    <primary>show_partial_hostgroups=</primary>
+
+    <secondary>Show partial hostgroups</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-highlight_table_rows">
+    <primary>highlight_table_rows=</primary>
+
+    <secondary>Highlight rows in status.cgi</secondary>
   </indexterm>
 </section>

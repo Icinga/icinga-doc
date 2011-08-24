@@ -10,6 +10,9 @@
 
   <para><emphasis role="bold"><anchor xml:id="introduction_quickstart_icinga" />Einführung</emphasis></para>
 
+  <note><para>Inzwischen gibt es &name-icinga;-Pakete für die meisten Linux-Distributionen. Solange Sie kein Feature benötigen, das
+  lediglich im aktuellen Source-Zweig enthalten ist, sollten Sie die Installation eines dieser Pakete erwägen.</para></note>
+
   <para>Diese Schnellstartanleitung ist dazu gedacht, Ihnen einfache Anweisungen zu liefern, wie Sie &name-icinga; innerhalb von 20 Minuten
   aus dem Quellcode installieren und Ihren lokalen Rechner damit überwachen.</para>
 
@@ -147,8 +150,7 @@
 
   <programlisting> #&gt; cd /usr/src</programlisting>
 
-  <para>Holen Sie den aktuellen icinga-core-Snapshot aus dem &name-icinga; GIT <programlisting> #&gt; git clone git://git.icinga.org/icinga-core.git</programlisting>
-  oder von der <link xlink:href="http://www.icinga.org/">&name-icinga; Website</link> .</para>
+  <para>Laden Sie die Sourcen von der <link xlink:href="http://www.icinga.org/">&name-icinga; Website</link>.</para>
 
   <para>Vergessen Sie nicht die <link xlink:href="http://www.nagiosplugins.org/">Nagios-Plugins</link>.</para>
 
@@ -172,7 +174,12 @@
   External-Command-Verzeichnis. <programlisting> #&gt; make install 
  #&gt; make install-init 
  #&gt; make install-config 
- #&gt; make install-commandmode </programlisting> oder kürzer <programlisting> #&gt; make fullinstall</programlisting></para>
+ #&gt; make install-commandmode </programlisting> oder kürzer <programlisting> #&gt; make fullinstall
+ #&gt; make install-config</programlisting></para>
+
+  <note><para>Ab &name-icinga; 1.5.0 ist <literal>make install-config</literal> NICHT mehr in <literal>make fullinstall </literal>
+  enthalten, um ein versehentliches Überschreiben der Konfigurationsdateien zu verhindern.</para></note>
+
 
   <para>Die Icinga-API wird beim Aufruf von "make install" installiert, wenn Sie nur die Icinga-Api (nach)installieren möchten, nutzen Sie:
   <programlisting> # make install-api</programlisting> Die Icinga-API ist Voraussetzung für das &name-icinga;-Web-Interface (nicht für die

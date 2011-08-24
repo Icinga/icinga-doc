@@ -10,6 +10,9 @@
 
   <para><emphasis role="bold"><anchor xml:id="introduction_idoutils" />Introduction</emphasis></para>
 
+  <note><para>Meanwhile there are &name-icinga; packages for most Linux distributions. Unless you need a feature only available in the 
+  current source tree you should consider installing one of these packages.</para></note>
+
   <para>This guide is intended to provide you with simple instructions on how to install &name-icinga; from source (code) and have it
   monitoring your local machine within 30 minutes.</para>
 
@@ -94,7 +97,13 @@
 
   <para><emphasis role="bold">Oracle Database Support</emphasis></para>
 
-  <para>If you want Oracle as RDBM you'll need to install ocilib instead of libdbi.</para>
+  <para>If you want Oracle as RDBMS you'll need to install ocilib instead of libdbi.</para>
+
+  <note><para>Using &name-idoutils; 1.5.0 with &name-oracle; requires at least OCILIB 3.9.2 - don&apos;t install 3.9.0 or 3.9.1 as they
+  remain buggy.</para></note>
+
+  <note><para>More detailed instructions using &name-idoutils; with &name-oracle; you can find in our wiki howto series about
+  <link xlink:href="https://wiki.icinga.org/display/howtos/Icinga+and+Oracle">&name-oracle;</link>.</para></note>
 
   <itemizedlist>
     <listitem>
@@ -276,11 +285,8 @@
 
   <programlisting> #&gt; cd /usr/src</programlisting>
 
-  <para>Either fetch the actual icinga-core snapshot from &name-icinga; GIT <programlisting> #&gt; git clone git://git.icinga.org/icinga-core.git
- #&gt; cd icinga-core
- #&gt; git submodule init
- #&gt; git submodule update</programlisting> or from the <link xlink:href="http://www.icinga.org/">&name-icinga; Website</link> . Don't
-  forget to download the <link xlink:href="http://www.nagiosplugins.org/">Nagios Plugins</link></para>
+  <para>Get the current source from the <link xlink:href="http://www.icinga.org/">&name-icinga; Website</link>. Don't forget to download the
+  <link xlink:href="http://www.nagiosplugins.org/">Nagios Plugins</link></para>
 
   <para><emphasis role="bold">Compile and Install &name-icinga; with &name-idoutils;</emphasis></para>
 
@@ -340,12 +346,16 @@
  #&gt; make install-init 
  #&gt; make install-config 
  #&gt; make install-commandmode 
- #&gt; make install-idoutils </programlisting> or shorter <programlisting> #&gt; make fullinstall</programlisting></para>
+ #&gt; make install-idoutils </programlisting> or shorter <programlisting> #&gt; make fullinstall
+ #&gt; make install-config</programlisting></para>
+
+  <note><para>Starting with &name-icinga; 1.5.0 <literal>make install-config</literal> is NOT included in <literal>make fullinstall
+  </literal> anymore to avoid accidently overwriting of your config files.</para></note>
 
   <note>
     <para>Install IDOUtils and applicable event broker modules only using the primary make install target. Do not manually copy and
     overwrite the existing module as this will result in a segfault on icinga core which is using idomod.o directly preventing usage of a
-    temporary copy explicitely. This is useful for <link xlink:href="http://omdistro.org/">OMD.</link></para>
+    temporary copy explicitly. This is useful for <link xlink:href="http://omdistro.org/">OMD.</link></para>
   </note>
 
   <para>The &name-icinga;-API will be installed during "make install" so if you are required to install it manually please try:

@@ -25,7 +25,7 @@
     <listitem>
       <para><emphasis role="bold">Prerequisites</emphasis></para>
 
-      <para>Based on the fact that you have a running MySQL and PHP (with PEAR and CLI) environment and Icinga, Icinga-API and IDOUtils are
+      <para>Based on the fact that you have a running MySQL and PHP (with PEAR and CLI) environment and Icinga and IDOUtils are
       running as well, you can continue with the second step. Otherwise:</para>
 
       <para><emphasis role="bold">Ubuntu / Debian</emphasis></para>
@@ -60,8 +60,8 @@
           <para>At least in SLES10 SP2 the function "hash_hmac" is missing.</para>
         </note></para>
 
-      <para>Installing Icinga with IDOUtils and Icinga-API is described in the <link linkend="quickstart-idoutils">Icinga with IDOUtils
-      Quickstart Guide</link> and the <link linkend="icinga-api">Icinga-API</link> section.</para>
+      <para>Installing Icinga with IDOUtils is described in the <link linkend="quickstart-idoutils">Icinga with IDOUtils
+      Quickstart Guide</link> </para>
     </listitem>
 
     <listitem>
@@ -83,20 +83,20 @@
 
       <para>&name-web; provides several configure options e.g.</para>
 
-      <programlisting> #&gt; ./configure 
-                --prefix=/usr/local/icinga-web 
-                --with-web-user=www-data 
-                --with-web-group=www-data 
-                --with-web-path=/icinga-web 
-                --with-web-apache-path=/etc/apache2/conf.d 
-                --with-db-type=mysql 
-                --with-db-host=localhost 
-                --with-db-port=3306 
-                --with-db-name=icinga_web 
-                --with-db-user=icinga_web 
-                --with-db-pass=icinga_web 
-                --with-icinga-api=/usr/local/icinga/share/icinga-api 
-                --with-api-type=APICON API type (default CONNECTION_IDO)
+      <programlisting> #&gt; ./configure
+                --prefix=/usr/local/icinga-web
+                --with-web-user=www-data
+                --with-web-group=www-data
+                --with-web-path=/icinga-web
+                --with-web-apache-path=/etc/apache2/conf.d
+                --with-db-type=mysql
+                --with-db-host=localhost
+                --with-db-port=3306
+                --with-db-name=icinga_web
+                --with-db-user=icinga_web
+                --with-db-pass=icinga_web
+                --with-conf-folder=etc/conf.d
+                --with-log-folder=log
                 --with-api-subtype=TYPE DB driver or network connection
                 --with-api-host=HOST Host to connect (DB or other) (default localhost)
                 --with-api-port=PORT Port for connection (default 3306)
@@ -112,10 +112,6 @@
       <programlisting> #&gt; ./configure --help</programlisting>
 
       <para>to see all configure options.</para>
-
-      <note>
-        <para>Using no options the installer expects the icinga-API to be found at /usr/local/icinga/share/icinga-api.</para>
-      </note>
 
       <para>Per default the &name-icingaweb; will be installed to /usr/local/icinga-web using:</para>
 
@@ -182,11 +178,11 @@
       <para><emphasis role="bold">&name-mysql;</emphasis></para>
 
       <programlisting> # mysql -u root -p
-  
+
  mysql&gt; CREATE DATABASE icinga_web;
-  
+
         GRANT USAGE ON *.* TO 'icinga_web'@'localhost' IDENTIFIED BY 'icinga_web' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0;
-   
+
         GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER, INDEX ON icinga_web.* TO 'icinga_web'@'localhost';
 
         quit</programlisting>
@@ -235,11 +231,13 @@
       <programlisting> #&gt; vi app/config/databases.xml</programlisting>
 
       <note>
-        <para>Optional: Your specific Icinga database settings can be set in app/config/.site.xml and will be used in the first place. This
-        won't get overwritten during upgrade process.</para>
+        <para>Optional: Your specific Icinga database settings can be set in etc/conf.d/database.xml (or where your web_conf_path directive points to) and will be used in the first place. This
+        won't get overwritten during upgrade process. There are two databases : 'icinga_web' (for internal use, created above) and 'icinga', which is the database ido2db writes to. (if using oracle, you must
+        use icignaOracle as the dsn driver)</para>
       </note>
 
-      <para><programlisting>    &lt;databases default="icinga_web"&gt;
+      <para>
+           <programlisting>    &lt;databases default="icinga_web"&gt;
                         &lt;database name="icinga_web" class="AgaviDoctrineDatabase"&gt;
 
                                 &lt;!--
@@ -268,105 +266,94 @@
                                 &lt;ae:parameter name="load_models"&gt;%core.module_dir%/AppKit/lib/database/models/generated&lt;/ae:parameter&gt;
                                 &lt;ae:parameter name="models_directory"&gt;%core.module_dir%/AppKit/lib/database/models&lt;/ae:parameter&gt;
 
-                        &lt;/database&gt;</programlisting></para>
+                        &lt;/database&gt;
 
-      <para><emphasis role="bold">Settings of &name-api;</emphasis></para>
+                         &lt;-- The ido2db  icinga database--&gt;
+                        &lt;database name="icinga" class="AgaviDoctrineDatabase"&gt;
 
-      <para>Those settings are directly within &name-web; which provides the given information in an appropriate way to the &name-api;. Keep
-      a look into app/modules/Web/config/icinga-io.xml.xml for the IcingaApi factories: IcingaData and IcingaCommand.</para>
+                                &lt;!--
+                                        Doctrine dsn strings:
 
-      <programlisting> #&gt; vi app/modules/Web/config/icinga-io.xml</programlisting>
-
-      <note>
-        <para>Optional: Your specific Icinga connection settings like api credentials config can be set in
-        app/modules/Web/config/icinga-io.site.xml and will be used in the first place. This won't get overwritten during upgrade
-        process.</para>
-      </note>
-
-      <para>In IcingaData you can set the credentials for the Icinga API e.g. using the Icinga IDOUtils database.</para>
-
-      <para>Please keep in mind that you have to install &name-idoutils; before (according to the <link linkend="quickstart-idoutils">Icinga
-      IDOUtils Quickstart Guide</link> )</para>
-
-      <programlisting>                                &lt;!--
-                                        See doc/icinga-api-types.txt for options
+                                        http://www.doctrine-project.org/documentation/manual/1_1/en/introduction-to-connections
                                 --&gt;
-                                &lt;setting name="api.interfaces.data"&gt;
-                                        &lt;!-- IcingaApi connection interface --&gt;
-                                        &lt;ae:parameter name="api_type"&lt;IcingaApi::CONNECTION_IDO&gt;/ae:parameter&gt;
+                                &lt;ae:parameter name="dsn"&gt;mysql://icinga:icinga@127.0.0.1:3306/icinga&lt;/ae:parameter&gt;
 
-                                        &lt;!-- Suits for all interfaes --&gt;
-                                        &lt;ae:parameter name="config_type"&gt;mysql&lt;/ae:parameter&gt;
-                                        &lt;ae:parameter name="config_host"&gt;localhost&lt;/ae:parameter&gt;
-                                        &lt;ae:parameter name="config_port"&gt;3306&lt;/ae:parameter&gt;
+                                &lt;!-- Generic credentials  --&gt;
+                                &lt;!-- &lt;ae:parameter name="username"&gt;icinga&lt;/ae:parameter&gt; --&gt;
+                                &lt;!-- &lt;ae:parameter name="password"&gt;icinga&lt;/ae:parameter&gt; --&gt;
 
-                                        &lt;!-- ###BEGIN_CONNECTION_IDO### --&gt;
-                                        &lt;!-- Database specific (IcingaApi::CONNECTION_IDO) --&gt;
-                                        &lt;ae:parameter name="config_database"&gt;icinga&lt;/ae:parameter&gt;
-                                        &lt;ae:parameter name="config_user"&gt;icinga&lt;/ae:parameter&gt;
-                                        &lt;ae:parameter name="config_password"&gt;icinga&lt;/ae:parameter&gt;
-                                        &lt;ae:parameter name="config_table_prefix"&gt;icinga_&lt;/ae:parameter&gt;
-                                        &lt;!-- ###END_CONNECTION_IDO### --&gt;
+                                &lt;!-- DB encoding type --&gt;
+                                &lt;ae:parameter name="charset"&gt;utf8&lt;/ae:parameter&gt;
 
-                                &lt;/setting&gt; </programlisting>
+                                &lt;!--
+                                        Doctrine_Manager configuration
+                                --&gt;
+                                &lt;ae:parameter name="manager_attributes"&gt;
+                                        &lt;!-- This allows lazy loading of the models --&gt;
+                                        &lt;ae:parameter name="Doctrine_Core::ATTR_MODEL_LOADING"&gt;CONSERVATIVE&lt;/ae:parameter&gt;
+                                &lt;/ae:parameter&gt;
 
-      <para>In IcingaCommand you can specify the credentials for sending commands via Icinga Core command pipe - local or remote via SSH.
-      Depending on 'enabled' those interfaces can be used or not (default is the local pipe).</para>
+                                &lt;!-- The path to our models --&gt;
+                                &lt;ae:parameter name="load_models"&gt;%core.module_dir%/Api/lib/database/models/generated&lt;/ae:parameter&gt;
+                                &lt;ae:parameter name="models_directory"&gt;%core.module_dir%/Api/lib/database/models&lt;/ae:parameter&gt;
 
-      <programlisting>                             &lt;setting name="api.interfaces.command"&gt;
-                                        &lt;ae:parameter name="pipe1"&gt;
-                                                &lt;ae:parameter name="type"&gt;IcingaApi::COMMAND_PIPE&lt;/ae:parameter&gt;
-                                                &lt;ae:parameter name="enabled"&gt;true&lt;/ae:parameter&gt;
+                        &lt;/database&gt;
+                    &lt;/databases&gt;
+            </programlisting>
+      </para>
 
-                                                &lt;ae:parameter name="pipe"&gt;/usr/local/icinga/var/rw/icinga.cmd&lt;/ae:parameter&gt;
 
-                                                &lt;ae:parameter name="instance"&gt;default&lt;/ae:parameter&gt;
-                                                &lt;ae:parameter name="broadcast"&gt;false&lt;/ae:parameter&gt;
-                                        &lt;/ae:parameter&gt;
+      <para>In the access.xml you can specify the locations of your command pipe and the access credentials and method (ssh or via local console). Also you define here, which icinga instance is mapped to which host.</para>
 
-                                        &lt;!--
+      <programlisting>
+        &lt;!-- Map your instances to hosts here --&gt;
+        &lt;instances&gt;
+            &lt;instance name="default"&gt;localhost&lt;/instance&gt;
+        &lt;/instances&gt;
+        &lt;!-- default location of the icinga pipe --&gt;
+        &lt;defaults&gt;
+            &lt;access&gt;
+                &lt;write&gt;
+                    &lt;files&gt;
+                        &lt;resource name="icinga_pipe"&gt;/usr/local/icinga/var/rw/icinga.cmd&lt;/resource&gt;
+                &lt;/files&gt;
+            &lt;/write&gt;
+        &lt;/defaults&gt;
 
-                                                * This examples show how to send commands to specific instances
-                                                * Use 'instance' to send commands to this instance only
-                                                * Use 'brodcast' to send all commands to this instances!
+        &lt;!-- Hosts that can be accessed via the console interface --&gt;
+        &lt;hosts&gt;
+            &lt;host name="localhost"&gt;
+                &lt;type&gt;local&lt;/type&gt;
+                &lt;!-- Only allow access to these files, folders or executables --&gt;
+                &lt;access useDefaults="true"&gt;
+                    &lt;read&gt;
+                        &lt;files&gt;
+                            &lt;resource name="test"&gt;test&lt;/resource&gt;
+                        &lt;/files&gt;
+                    &lt;/read&gt;
 
-                                        &lt;ae:parameter name="pipe1-instance-test"&gt;
-                                                &lt;ae:parameter name="type"&gt;IcingaApi::COMMAND_PIPE&lt;/ae:parameter&gt;
-                                                &lt;ae:parameter name="enabled"&gt;true&lt;/ae:parameter&gt;
 
-                                                &lt;ae:parameter name="pipe"&gt;/usr/local/icinga/var/rw/icinga.cmd&lt;/ae:parameter&gt;
+                &lt;/access&gt;
+            &lt;/host&gt;
 
-                                                &lt;ae:parameter name="instance"&gt;test&lt;/ae:parameter&gt;
-                                                &lt;ae:parameter name="broadcast"&gt;false&lt;/ae:parameter&gt;
-                                        &lt;/ae:parameter&gt;
+            &lt;!--  Example for ssh connection with user/password auth --&gt;
+            &lt;host name="remot_host"&gt;
+                &lt;type&gt;ssh&lt;/type&gt;
+                &lt;ssh-config&gt;
+                    &lt;host&gt;localhost&lt;/host&gt;
+                    &lt;port&gt;22&lt;/port&gt;
+                    &lt;auth&gt;
+                        &lt;type&gt;password&lt;/type&gt;
+                        &lt;user&gt;john&lt;/user&gt;
+                        &lt;password&gt;doe&lt;/password&gt;
+                    &lt;/auth&gt;
+                &lt;/ssh-config&gt;
 
-                                        &lt;ae:parameter name="pipe1-broadcast"&gt;
-                                                &lt;ae:parameter name="type"&gt;IcingaApi::COMMAND_PIPE&lt;/ae:parameter&gt;
-                                                &lt;ae:parameter name="enabled"&gt;false&lt;/ae:parameter&gt;
+                &lt;access useDefaults="true" /&gt;
 
-                                                &lt;ae:parameter name="pipe"&gt;/usr/local/icinga/var/rw/icinga.cmd&lt;/ae:parameter&gt;
-
-                                                &lt;ae:parameter name="instance"&gt;&lt;/ae:parameter&gt;
-                                                &lt;ae:parameter name="broadcast"&gt;true&lt;/ae:parameter&gt;
-                                        &lt;/ae:parameter&gt;
-
-                                        --&gt;
-
-                                        &lt;ae:parameter name="ssh1"&gt;
-                                                &lt;ae:parameter name="type"&gt;IcingaApi::COMMAND_SSH&lt;/ae:parameter&gt;
-                                                &lt;ae:parameter name="enabled"&gt;false&lt;/ae:parameter&gt;
-
-                                                &lt;ae:parameter name="ssh_bin"&gt;/usr/bin/ssh&lt;/ae:parameter&gt;
-                                                &lt;ae:parameter name="ssh_user"&gt;icinga&lt;/ae:parameter&gt;
-                                                &lt;ae:parameter name="ssh_host"&gt;127.0.0.15&lt;/ae:parameter&gt;
-                                                &lt;ae:parameter name="ssh_port"&gt;22&lt;/ae:parameter&gt;
-                                                &lt;ae:parameter name="ssh_timeout"&gt;20&lt;/ae:parameter&gt;
-                                                &lt;ae:parameter name="ssh_pipe"&gt;/usr/local/icinga/var/rw/icinga.cmd&lt;/ae:parameter&gt;
-
-                                                &lt;ae:parameter name="instance"&gt;default&lt;/ae:parameter&gt;
-                                                &lt;ae:parameter name="broadcast"&gt;false&lt;/ae:parameter&gt;
-                                        &lt;/ae:parameter&gt;
-                                &lt;/setting&gt; </programlisting>
+            &lt;/host&gt;
+      &lt;/hosts&gt;
+      </programlisting>
 
       <note>
         <para>After changing those configs you need to clear the config cache again!</para>
@@ -517,7 +504,7 @@ Alias /icinga-web /usr/local/icinga-web/pub
 
       <para>* Add your browser and the version</para>
 
-      <para>* If the problem is related to the data source, provide extensive information about API, IDOUtils, Core (version, debug
+      <para>* If the problem is related to the data source, provide extensive information about IDOUtils, Core (version, debug
       logs)</para>
 
       <para>Where to look?</para>
@@ -543,9 +530,6 @@ Alias /icinga-web /usr/local/icinga-web/pub
 
       <para>Icinga Web does not show any data?</para>
 
-      <para>* Apache Error logs tell that IcingaApi.php was not found =&gt; recheck the install guide if Icinga API is installed and
-      properly configured</para>
-
       <para>* DB access denied =&gt; check if the icinga web database connection settings are correct</para>
 
       <para>IDOUtils DB does not get filled with data?</para>
@@ -560,15 +544,14 @@ Alias /icinga-web /usr/local/icinga-web/pub
 
       <para>* Sockets correctly defined? =&gt; unix-socket or tcp-socket, the last one with or without SSL</para>
 
-      <para><emphasis role="bold">Testing the Web:</emphasis></para>
+      <para><emphasis role="bold">Testing the Web (make sure PHPUnit is installed):</emphasis></para>
 
-      <para><programlisting> $&gt; cd etc/tests/
- $&gt; php icingaWebTesting.php</programlisting></para>
+      <para><programlisting> $&gt; make test</programlisting></para>
 
       <note>
         <para>If you are using your root account for testing then make sure in advance that the specified web user has a valid shell.
         Otherwise some tests might fail. Depending on the version used you might experience wrong permissions on
-        /usr/local/icinga-web/app/data/log resulting in Icinga-Web showing "loading" coming to no end!</para>
+        /usr/local/icinga-web/log resulting in Icinga-Web showing "loading" coming to no end!</para>
       </note>
 
       <note>
@@ -582,6 +565,16 @@ Alias /icinga-web /usr/local/icinga-web/pub
       /usr/local/icinga-web/app/cache/config/config_handlers.xml_development__xxxx.php" generated from configuration file
       /usr/local/icinga-web/app/config/config_handlers.xml". Please make sure you have set correct write permissions for directory
       /usr/local/icinga-web/app/cache.... = &gt; Check /etc/php5/apache/php.ini, set safe_mode = off.</para>
+
+      <para>* [PHP Error] strtotime(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone
+      setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you
+      most likely misspelled the timezone identifier. We selected 'Europe/Berlin' for 'CEST/2.0/DST' instead
+      [line 1548 of /home/xxx/icinga/icinga-web/lib/doctrine/lib/Doctrine/Record.php] = &gt; You have to define date.timezone in your php.ini.</para>
+
+      <para>* -> 500 internal server error!
+      Uncaught exception AgaviException thrown!
+      Your default timezone is 'System/Localtime', ...
+      = &gt; You have to define date.timezone in your php.ini.</para>
 
       <para>* Could not connect to API. The API Connector returned the following message: getConnection failed: Database connection failed:
       SQLSTATE[28000] [1045] Access denied for user 'icinga'@'localhost' (using password: YES))</para>
@@ -612,7 +605,8 @@ Alias /icinga-web /usr/local/icinga-web/pub
       <para>* Counts in the Status Cronk do not match your configuration? =&gt; Check with the Backend, e.g. IDOUtils DB, selecting the
       counts for the status tables.</para>
 
-      <para>* No Data shown in Cronks? =&gt; Make sure that all permissions are set correctly, escecially the log/</para>
+      <para>* No Data shown in Cronks? =&gt; Make sure that all permissions are set correctly, escecially the log/. Furthermore, you can debug
+      the data in your browser. Further instructions on that can be found in the Icinga Wiki: https://wiki.icinga.org/display/Dev/Icinga+Web+Testing</para>
 
       <para>If you have any updates on that please do not hesitate to report back! :-)</para>
     </listitem>

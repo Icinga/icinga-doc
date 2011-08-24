@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="icinga-web-intro_1.5" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title>Introduction to &name-web; (&gt;= 1.5.x)</title>
+
+  <para>If you followed the quickstart guides (<link linkend="quickstart-idoutils">&name-idoutils;</link> and <link
+  linkend="icinga-web-scratch">&name-web;</link>) then please open your browser and enter http://&lt;icinga server&gt;/icinga-web. You will
+  get the login screen</para>
+
+  <figure>
+    <title>&name-web; login screen</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-login.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para>You should be able to login using "root" and "password". This will take you to an overview page showing the state of the hosts and
+  services being monitored</para>
+
+  <figure>
+    <title>&name-web; overview</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-overview_1.5.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis>Main Screen</emphasis></para>
+
+  <para>This is where everything comes together: You can drag and drop new windows over here resulting in a new opened tab. The views are
+  customisable for the current user (they remain persistent) by dragging the column heading to the new place. Rightclicking on the heading
+  allows to change the sort order or to hide columns. Selected search results will be opened here too, next to opening available
+  cronks.</para>
+
+  <figure>
+    <title>&name-web; main screen</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-mainscreen1_1.5.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis>Status Cronk</emphasis></para>
+
+  <para>The status cronk shows host and service counters for their respective states. If count is zero, the colour remains grey. Clicking on
+  states opens a new tab in the main view showing the current clicked state only. Next to that, general process information is provided,
+  just as</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Hosts|Services (active/passive)</para>
+    </listitem>
+
+    <listitem>
+      <para>Host|Service execution time (min/avg/max)</para>
+    </listitem>
+
+    <listitem>
+      <para>Host|Services latency (min/avg/max)</para>
+    </listitem>
+  </itemizedlist>
+
+  <figure>
+    <title>&name-web; status cronk</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-statuscronk_1.5.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis>Top menu</emphasis></para>
+
+  <para>The top menu consists of general information about Icinga and the administration items for users, groups and logs. On the top right,
+  you can see the user currently logged in and edit its preferences or log out of Icinga Web.</para>
+
+  <figure>
+    <title>&name-web; top menu</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-topmenu1.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis>Left menu</emphasis></para>
+
+  <para>In the left (also hideable) menu you can select among different widgets (we call them "cronks"). You can either doubleclick on each
+  cronk or drag it with the cursor into the main view. The categories are separated into</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>"Data" for getting status, historical and configuration data</para>
+
+      <figure>
+        <title>&name-web; data cronks</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="../images/icinga-web-cronks1_1.5.png"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+    </listitem>
+
+    <listitem>
+      <para>"Tactical Overview" keeps general charts and customised ones (custom variables)</para>
+
+      <figure>
+        <title>&name-web; tactical overview cronks</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="../images/icinga-web-cronks2_1.5.png"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+    </listitem>
+
+    <listitem>
+      <para>"Reporting" enables to create reports</para>
+
+      <figure>
+        <title>&name-web; reporting cronk</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="../images/icinga-web-cronks2a.png"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+    </listitem>
+
+    <listitem>
+      <para>"Misc" contains several useful cronks, just as iframe for external websites or the 1,2,3 columns for main view</para>
+
+      <figure>
+        <title>&name-web; misc cronks</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="../images/icinga-web-cronks3_1.5.png"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis>Search</emphasis></para>
+
+  <para>The search form shows results while typing. The results will be shown in a separate inlay window. By clicking/selecting the results,
+  a new tab in the main view opens with more information. Please note that the search is currently case sensitive ("ping" vs.
+  "PING").</para>
+
+  <figure>
+    <title>&name-web; live search</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-search1_1.3.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis>Host Status</emphasis></para>
+
+  <para>The HostStatus view shows the host status and below the number of warnings/critical of the services attached to the host.</para>
+
+  <figure>
+    <title>&name-web; host status</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-host_1.5.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis>Service Status</emphasis></para>
+
+  <para>The ServiceStatus view shows all services for each host.</para>
+
+  <figure>
+    <title>&name-web; service status</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-srv_1.5.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis>Hostgroup Status</emphasis></para>
+
+  <para>The hostgroup view will show the status and the number of hosts grouped by hostgroup.</para>
+
+  <figure>
+    <title>&name-web; hostgroup status</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-hostgroup_1.5.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis>Log</emphasis></para>
+
+  <para>The log view shows the log messages.</para>
+
+  <figure>
+    <title>&name-web; log</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-log_1.3.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis role="bold"> </emphasis></para>
+
+  <para><emphasis role="bold">Cronks and Views</emphasis></para>
+
+  <para>Icinga Web allows to open different cronks in order to view data, set filters for different views, send commands. The following list
+  summarizes the possibilities in general (several Cronks can provide more, like sending commands).</para>
+
+  <figure>
+    <title>&name-web; cronk bar</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-main_bar.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <itemizedlist>
+    <listitem>
+      <para>Manual Refresh</para>
+    </listitem>
+
+    <listitem>
+      <para>Settings</para>
+
+      <para>Enable/Disable Auto-Refresh</para>
+
+      <para>Get this &lt;item&gt; by url</para>
+    </listitem>
+  </itemizedlist>
+
+  <figure>
+    <title>&name-web; cronk bar</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-settings_1.5.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <itemizedlist>
+    <listitem>
+      <para>Filter</para>
+
+      <para>Modify/Remove</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis>Commands</emphasis></para>
+
+  <para>There are different commands available (check the chapter <link linkend="extcommands">External Commands</link> for more information
+  on commands). Select the items which should be affected and then select the command to be executed.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Host Commands</para>
+
+      <figure>
+        <title>&name-web; host commands</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="../images/icinga-web-commands_hst_1.5.png"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+    </listitem>
+
+    <listitem>
+      <para>Service Commands</para>
+
+      <figure>
+        <title>&name-web; service commands</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="../images/icinga-web-commands_svc_1.5.png"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis>Filters</emphasis></para>
+
+  <para>Icinga Web allows to set filters and create customised views which can be saved as own persistent cronk too. First, select "Filter"
+  and "Modify". Add a restriction selected from the dropdown menu (this differs for various cronks). You can set more restrictions by
+  repeating this procedure.</para>
+
+  <figure>
+    <title>&name-web; filter restriction</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-filter1_1.3.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para>Afterwards, specify on which condition the filter should match on the selected restriction (contain, does not contain, is, is not)
+  and add a value into the form. Proposals are shown while you are typing.</para>
+
+  <figure>
+    <title>&name-web; filter condition</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-filter2_1.3.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para>Apply the filter to the current cronk. If needed, you can modify the filter afterwards and add/remove restrictions and conditions.
+  An active filter is marked red.</para>
+
+  <figure>
+    <title>&name-web; filter active</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-filter3.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis role="bold"> </emphasis></para>
+
+  <para><emphasis role="bold">Administration</emphasis></para>
+
+  <para>Enter the administration panel by selecting "Admin" from the top menu, and select "Users", "Groups" or "Logs".</para>
+
+  <figure>
+    <title>&name-web; top menu admin</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-topmenu2_1.3.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis>Users</emphasis></para>
+
+  <para>You can add, remove and edit users.</para>
+
+  <figure>
+    <title>&name-web; user admin</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-admin_users1.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para>Doubleclick a user to open a new inlay window which lets you edit very detailed options. The same options apply when adding a new
+  user. You can modify the size by dragging the cursor in the corners.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>General information</para>
+    </listitem>
+
+    <listitem>
+      <para>Change password (and optional AuthKey for API)</para>
+    </listitem>
+
+    <listitem>
+      <para>Permissions e.g. which group membership</para>
+    </listitem>
+
+    <listitem>
+      <para>Principals for special roles</para>
+    </listitem>
+  </itemizedlist>
+
+  <figure>
+    <title>&name-web; edit user</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-admin_users2.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis>Groups</emphasis></para>
+
+  <para>You can add, remove and edit groups. You can also modify group inheritance within the group tree on the right side.</para>
+
+  <figure>
+    <title>&name-web; group admin</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-admin_groups1.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para>Doubleclick a group to open a new inlay window which lets you edit very detailed options. The same options apply when adding a new
+  group. You can modify the size by dragging the cursor in the corners.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>General information + Permissions (which users are part of this group)</para>
+    </listitem>
+
+    <listitem>
+      <para>Principals for special roles</para>
+    </listitem>
+  </itemizedlist>
+
+  <figure>
+    <title>&name-web; groups</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-admin_groups2.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis>Principals</emphasis></para>
+
+  <para>Within the user and group administration panel, you can add/remove/edit principals. You can see default available principals in the
+  picture:</para>
+
+  <figure>
+    <title>&name-web; principals</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-admin_principals.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis>Logs</emphasis></para>
+
+  <para>You can view several logs here, in order to catch up on possible errors.</para>
+
+  <figure>
+    <title>&name-web; logs</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-admin_logs1.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis>Task</emphasis></para>
+
+  <para>Several changes require clearing the cache. Instead of using the command line you can issue the command via the "Tasks" menu.</para>
+
+  <figure>
+    <title>&name-web; Tasks</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-admin_tasks.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para>Well, that&apos;s it for now.</para>
+
+  <indexterm zone="icinga-web-intro_1.5">
+    <primary>&name-web;</primary>
+
+    <secondary>Overview version 1.5.x</secondary>
+  </indexterm>
+</section>

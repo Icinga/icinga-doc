@@ -49,6 +49,15 @@
     </listitem>
   </itemizedlist>
 
+  <anchor xml:id="customobjectvars-runtime"/>
+  <important><para>Maßgeschneiderte Variablen werden erst <emphasis>zur Laufzeit</emphasis> ersetzt, weder bei der Überprüfungsphase (icinga
+    -v icinga.cfg) noch während des &name-icinga;-Startprozesses, so dass das Platzieren in Host-Namen, Service-Beschreibungen oder
+    verschiedenen anderen Stellen der Objektdefinition während der Überprüfung zu einer Fehlermeldung ähnlich &quot;<literal>&lt;object&gt;
+    contains one or more illegal characters.</literal>&quot; führt. Das Ändern der Direktive "illegal_object_name_chars" wird <emphasis>
+    nicht</emphasis> das Problem lösen.
+    </para>
+  </important>
+
   <para><emphasis role="bold">Beispiele</emphasis></para>
 
   <para>Hier ein Beispiel, wie maßgeschneiderte Variablen in verschiedenen Arten von Objektdefinitionen definiert werden
@@ -173,4 +182,8 @@
   <para>Maßgeschneiderte Objektvariablen werden genau wie Standard-Host-, Service- oder Kontaktvariablen <link
   linkend="objectinheritance">vererbt</link>.</para>
   <indexterm zone="customobjectvars"><primary>Maßgeschneiderte Objektvariablen</primary></indexterm>
+  <indexterm zone="customobjectvars-runtime">
+    <primary>Maßgeschneiderte Objektvariablen</primary>
+    <secondary>Ersetzung erst zur Laufzeit</secondary>
+  </indexterm>
 </section>

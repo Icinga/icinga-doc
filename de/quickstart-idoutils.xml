@@ -10,6 +10,9 @@
 
   <para><emphasis role="bold"><anchor xml:id="introduction_idoutils" />Einführung</emphasis></para>
 
+  <note><para>Inzwischen gibt es &name-icinga;-Pakete für die meisten Linux-Distributionen. Solange Sie kein Feature benötigen, das  
+  lediglich im aktuellen Source-Zweig enthalten ist, sollten Sie die Installation eines dieser Pakete erwägen.</para></note>
+
   <para>Diese Schnellstartanleitung ist dazu gedacht, Ihnen einfache Anweisungen zu liefern, wie Sie &name-icinga; innerhalb von 30 Minuten
   aus dem Quellcode installieren und Ihren lokalen Rechner damit überwachen.</para>
 
@@ -108,6 +111,10 @@
 
     <listitem>
       <para>installieren Sie statt des libdbi-Treibers den ocilib-Treiber</para>
+      <note><para>Zum Einsatz von &name-idoutils; 1.5.0 mit &name-oracle; benötigen Sie OCILIB 3.9.2 - installieren Sie nicht 3.9.0 oder
+      3.9.1, denn diese Version sind fehlerbehaftet.</para></note>
+      <note><para>Detailliertere Informationen zu &name-idoutils; mit &name-oracle; finden Sie in unserer Wiki-HowTo-Serie zu
+      <link xlink:href="https://wiki.icinga.org/display/howtos/Icinga+and+Oracle">&name-oracle;</link>.</para></note>
     </listitem>
   </itemizedlist>
 
@@ -284,10 +291,7 @@
 
   <programlisting> #&gt; cd /usr/src</programlisting>
 
-  <para>Holen Sie den aktuellen icinga-core-Snapshot aus dem &name-icinga; GIT <programlisting> #&gt; git clone git://git.icinga.org/icinga-core.git
- #&gt; cd icinga-core
- #&gt; git submodule init
- #&gt; git submodule update</programlisting> oder von der <link xlink:href="http://www.icinga.org/">&name-icinga;-Website</link>.</para>
+  <para>Laden Sie die Sourcen von der <link xlink:href="http://www.icinga.org/">&name-icinga; Website</link>.</para>
 
   <para>Vergessen Sie nicht die <link xlink:href="http://www.nagiosplugins.org/">Nagios Plugins</link>.</para>
 
@@ -342,7 +346,11 @@
  #&gt; make install-init 
  #&gt; make install-config 
  #&gt; make install-commandmode 
- #&gt; make install-idoutils</programlisting> oder kürzer <programlisting> #&gt; make fullinstall</programlisting></para>
+ #&gt; make install-idoutils</programlisting> oder kürzer <programlisting> #&gt; make fullinstall
+ #&gt; make install-config</programlisting></para>
+
+  <note><para>Ab &name-icinga; 1.5.0 ist <literal>make install-config</literal> NICHT mehr in <literal>make fullinstall </literal> 
+  enthalten, um ein versehentliches Überschreiben der Konfigurationsdateien zu verhindern.</para></note>
 
   <note>
     <para>Installieren Sie die IDOUtils und andere Ereignis-Broker-Module nur mit dem primären Ziel <emphasis role="bold">make
