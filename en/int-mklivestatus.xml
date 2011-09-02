@@ -34,6 +34,18 @@
       command file (mostly icinga.cmd). "live" is a socket and it will only be present during runtime of the module.</para>
 
       <para><code> broker_module=/usr/local/icinga/bin/livestatus.o /usr/local/icinga/var/rw/live</code></para>
+
+      <note>
+        <para>Starting with &name-icinga; 1.4 you can use the new module definition in one of your object configuration files instead of
+        specifying a broker_module entry:</para>
+
+        <screen> define module{
+        module_name    mklivestatus
+        path           &url-icinga-base;/bin/livestatus.o
+        module_type    neb
+        args           &url-icinga-base;/var/rw/live
+        }</screen>
+      </note>
     </listitem>
 
     <listitem>
@@ -59,7 +71,10 @@
   <indexterm zone="int-mklivestatus">
     <primary>MKLiveStatus-Integration</primary>
   </indexterm>
+
   <indexterm zone="int-mklivestatus">
-    <primary>Addons</primary><secondary>MKLiveStatus-Integration</secondary>
+    <primary>Addons</primary>
+
+    <secondary>MKLiveStatus-Integration</secondary>
   </indexterm>
 </section>
