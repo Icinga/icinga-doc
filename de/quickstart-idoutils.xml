@@ -397,16 +397,11 @@
     role="bold">anderenfalls werden Sie Daten verlieren</emphasis>!!!</para>
   </note>
 
-  <para><emphasis role="bold">Aktivieren Sie das idomod-Eventbroker-Modul</emphasis></para>
+  <para><emphasis role="bold">Aktivieren des idomod-Eventbroker-Moduls</emphasis></para>
 
-  <para>Editieren Sie <filename>&url-icinga-cfg;</filename>, suchen Sie nach "broker_module" und aktivieren Sie diese Zeile bzw. fügen Sie
-  die folgende Zeile hinzu (passen Sie die Namen an, falls nötig).</para>
-
-  <programlisting> broker_module=&url-icinga-base;/bin/idomod.o config_file=&url-icinga-base;/etc/idomod.cfg</programlisting>
-
-  <note>
-    <para>Ab &name-icinga; 1.4 können Sie statt des broker_module-Eintrags die neue module-Definition in einer Ihrer
-    Objektkonfigurationsdateien benutzen:</para>
+  <important>
+    <para>Unter normalen Umständen gibt es im <filename>modules</filename>-Unterverzeichnis bereits die folgende module-Definition, so dass
+    Sie keine Änderungen an der Hauptkonfigurationsdatei vornehmen müssen.</para>
 
     <screen> define module{
         module_name    ido_mod
@@ -414,7 +409,8 @@
         module_type    neb
         args           config_file=&url-icinga-base;/etc/idomod.cfg
         }</screen>
-  </note>
+    Das bedeutet auch, dass ein entsprechender broker_module-Eintrag nicht aktiviert werden darf!
+  </important>
 
   <para><emphasis role="bold">Konfigurieren von Datenbank und &name-idoutils;</emphasis></para>
 

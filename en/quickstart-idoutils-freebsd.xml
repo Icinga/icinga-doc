@@ -253,19 +253,19 @@
   </note>
 
   <para><emphasis role="bold">Activate the idomod event broker module</emphasis></para>
-  <para>Edit <filename>&url-icinga-cfg;</filename>, search for "broker_module" and uncomment or insert the following line (adjust the name if necessary).</para>
 
-  <programlisting> broker_module=&url-icinga-base;/bin/idomod.o config_file=&url-icinga-base;/etc/idomod.cfg</programlisting>
+  <important>
+    <para>Under normal circumstances the following module definition is already present in the <filename>modules</filename> subdirectory so
+    there is no need to edit the main config file</para>
 
-  <note><para>Starting with &name-icinga; 1.4 you can use the new module definition in one of your object configuration files instead of
-  specifying a broker_module entry:</para>
     <screen> define module{
         module_name    ido_mod
         path           &url-icinga-base;/bin/idomod.o
         module_type    neb
         args           config_file=&url-icinga-base;/etc/idomod.cfg
         }</screen>
-  </note>
+    This also means that a broker_module entry must not be enabled!
+  </important>
 
   <para><emphasis role="bold">Compile database and &name-idoutils;</emphasis></para>
 
