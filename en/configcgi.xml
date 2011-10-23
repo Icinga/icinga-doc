@@ -264,6 +264,10 @@
     <listitem>
       <para><link linkend="configcgi-default_expiring_acknowledgement_duration">Set expiration period of acknowledgements</link></para>
     </listitem>
+
+    <listitem>
+      <para><link linkend="configcgi-extinfo_show_child_hosts">Show child hosts</link></para>
+    </listitem>
   </itemizedlist>
 
   <para><anchor xml:id="configcgi-main_cfg_file" /> <emphasis role="bold">Main Configuration File Location</emphasis></para>
@@ -2204,6 +2208,53 @@
     <para>This option is available starting with &name-icinga; 1.6</para>
   </note>
 
+  <para><anchor xml:id="configcgi-extinfo_show_child_hosts" /> <emphasis role="bold">Show child host(s)</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">extinfo_show_child_hosts=&lt;0|1|2&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">extinfo_show_child_hosts=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option allows you to specify if the extended host information cgi will show child hosts for the selected host.</para>
+  <itemizedlist>
+    <listitem>
+      <para>0 = disabled (default)</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = only show immediate child host(s)</para>
+    </listitem>
+
+    <listitem>
+      <para>2 = show immediate and subsequent child host(s)</para>
+    </listitem>
+  </itemizedlist>
+
+  <important><para>Option 2 could be a real performance killer in large installations, so use with care.</para></important>
+  <note><para>This option is disabled by default as it can degrade overall performance.</para></note>
+
+  <note>
+    <para>This option is available starting with &name-icinga; 1.6</para>
+  </note>
+
   <indexterm zone="config_cgi">
     <primary>CGI Configuration File Options</primary>
   </indexterm>
@@ -2522,5 +2573,11 @@
     <primary>default_expiring_acknowledgement_duration=</primary>
 
     <secondary>Set expiration period of acknowledgements</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-extinfo_show_child_hosts">
+    <primary>extinfo_show_child_hosts=</primary>
+
+    <secondary>Show child hosts</secondary>
   </indexterm>
 </section>

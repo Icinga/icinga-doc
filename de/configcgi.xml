@@ -1901,6 +1901,54 @@
     <para>Diese Option ist verfügbar ab &name-icinga; 1.6.</para>
   </note>
 
+  <para><anchor xml:id="configcgi-extinfo_show_child_hosts" /> <emphasis role="bold">Child-Host(s) zeigen</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">extinfo_show_child_hosts=&lt;0|1|2&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">extinfo_show_child_hosts=1</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Mit dieser Option wird festgelegt, ob Child-Host(s) für den ausgewählten Host im Hostextinfo-CGI angezeigt werden.</para>
+  <itemizedlist>
+    <listitem>
+      <para>0 = deaktiviert (Default)</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = nur direkte Child-Hosts anzeigen</para>
+    </listitem>
+
+    <listitem>
+      <para>2 = direkte und darunter liegende Child-Hosts anzeigen</para>
+    </listitem>
+  </itemizedlist>
+
+  <important>
+    <para>Option 2 kann ein richtiger Performance-Killer in großen Installationen sein, deshalb bitte mit Vorsicht einsetzen.</para></important>
+  <note><para>Diese Option ist per Default deaktiviert, da sie die gesamte Performance beeinträchtigen kann.</para></note>
+
+  <note>
+    <para>Diese Option ist verfügbar ab &name-icinga; 1.6.</para>
+  </note>
+
   <indexterm zone="configcgi">
     <primary>CGI-Konfiguration</primary>
 
@@ -2215,5 +2263,11 @@
     <primary>default_expiring_acknowledgement_duration=</primary>
 
     <secondary>Setzt die Verfallszeit von Bestätigungen (acknowledgements)</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-extinfo_show_child_hosts">
+    <primary>extinfo_show_child_hosts=</primary>
+
+    <secondary>Zeigt Child-Host(s) des gewählten Hosts</secondary>
   </indexterm>
 </section>
