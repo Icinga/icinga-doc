@@ -1,0 +1,42 @@
+.\"     Title: define hostdependency
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.73.2 <http://docbook.sf.net/>
+.\"      Date: 2011.08.24
+.\"    Manual: 
+      
+.\"    Source: Icinga 1.5
+.\"
+.TH "DEFINE HOSTDEPENDENC" "8" "2011.08.24" "Icinga 1.5" ""
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+define_hostdependency
+.SH "DESCRIPTION"
+.PP
+Host dependencies are an advanced feature of Icinga that allow you to suppress notifications for hosts based on the status of one or more other hosts\&. Host dependencies are optional and are mainly targeted at advanced users who have complicated monitoring setups\&. More information on how host dependencies work (read this!) can be found here\&.
+.PP
+\fIDefinition Format:\fR
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+Note
+.PP
+\fI"Directives"\fR
+are required while the others are optional\&.
+
+
+   define hostdependency{    
+      \fIdependent_host_name\fR               host_name
+      dependent_hostgroup_name          hostgroup_name
+      \fIhost_name\fR                         host_name
+      hostgroup_name                    hostgroup_name
+      inherits_parent                   [0/1]
+      execution_failure_criteria        [o,d,u,p,n]
+      notification_failure_criteria      [o,d,u,p,n]
+      dependency_period                 timeperiod_name
+   }    
+    

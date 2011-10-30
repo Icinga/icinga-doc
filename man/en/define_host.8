@@ -1,0 +1,78 @@
+.\"     Title: define host
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.73.2 <http://docbook.sf.net/>
+.\"      Date: 2011.08.24
+.\"    Manual: 
+      
+.\"    Source: Icinga 1.5
+.\"
+.TH "DEFINE HOST" "8" "2011.08.24" "Icinga 1.5" ""
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+define_host
+.SH "DESCRIPTION"
+.PP
+A host definition is used to define a physical server, workstation, device, etc\&. that resides on your network\&.
+.PP
+\fIDefinition Format:\fR
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+Note
+.PP
+\fI"Directives"\fR
+are required while the others are optional\&.
+
+
+   define host{    
+      \fIhost_name\fR                         host_name
+      \fIalias\fR                             alias
+      display_name                      display_name
+      \fIaddress\fR                           address
+      address6                          address6
+      parents                           host_names
+      hostgroups                        hostgroup_names
+      check_command                     command_name
+      initial_state                     [o,d,u]
+      \fImax_check_attempts\fR                #
+      check_interval                    #
+      retry_interval                    #
+      active_checks_enabled             [0/1]
+      passive_checks_enabled            [0/1]
+      \fIcheck_period\fR                      timeperiod_name
+      obsess_over_host                  [0/1]
+      check_freshness                   [0/1]
+      freshness_threshold               #
+      event_handler                     command_name
+      event_handler_enabled             [0/1]
+      low_flap_threshold                #
+      high_flap_threshold               #
+      flap_detection_enabled            [0/1]
+      flap_detection_options            [o,d,u]
+      process_perf_data                 [0/1]
+      retain_status_information         [0/1]
+      retain_nonstatus_information      [0/1]
+      \fIcontacts\fR                          contacts
+      \fIcontact_groups\fR                    contact_groups
+      \fInotification_interval\fR             #
+      first_notification_delay          #
+      \fInotification_period\fR               timeperiod_name
+      notification_options              [d,u,r,f,s]
+      notifications_enabled             [0/1]
+      stalking_options                  [o,d,u]
+      notes                             note_string
+      notes_url                         url
+      action_url                        url
+      icon_image                        image_file
+      icon_image_alt                    alt_string
+      vrml_image                        image_file
+      statusmap_image                   image_file
+      2d_coords                         x_coord,y_coord
+      3d_coords                         x_coord,y_coord,z_coord
+   }    
+    

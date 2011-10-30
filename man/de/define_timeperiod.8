@@ -1,0 +1,31 @@
+.\"     Title: define timeperiod
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.73.2 <http://docbook.sf.net/>
+.\"      Date: 2011.08.24
+.\"    Manual: 
+      
+.\"    Source: Icinga 1.5
+.\"
+.TH "DEFINE TIMEPERIOD" "8" "2011.08.24" "Icinga 1.5" ""
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+define_timeperiod
+.SH "BESCHREIBUNG"
+.PP
+Ein Zeitfenster ist eine Liste von Zeiten an verschiedenen Tagen, die als "gültige" Zeiten für Benachrichtigungen und Service\-Prüfungen angesehen werden\&. Es besteht aus Zeitbereichen für jeden Tag der Woche\&. Verschiedene Ausnahmen zu den normalen wöchentlichen Zeiten werden unterstützt, u\&.a\&.: bestimmte Wochentage, bestimmte Tage eines Monats, Tage eines bestimmten Monats und Kalendertage\&.
+.PP
+Anmerkung:
+\fI"Direktiven"\fR
+werden benötigt, die anderen sind optional\&.
+
+   define timeperiod{    
+      \fItimeperiod_name\fR                   timeperiod_name
+      \fIalias\fR                             alias
+      [weekday]                         timeranges
+      [exception]                       timeranges
+      exclude                           [timeperiod1,timeperiod2,\&.\&.\&.,timeperiodn]
+   }    
+    

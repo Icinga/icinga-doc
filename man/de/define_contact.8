@@ -1,0 +1,43 @@
+.\"     Title: define contact
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.73.2 <http://docbook.sf.net/>
+.\"      Date: 2011.08.24
+.\"    Manual: 
+      
+.\"    Source: Icinga 1.5
+.\"
+.TH "DEFINE CONTACT" "8" "2011.08.24" "Icinga 1.5" ""
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+define_contact
+.SH "BESCHREIBUNG"
+.PP
+Eine Kontakt\-Definition wird benutzt, um jemanden zu identifizieren, der im Falle eines Problems in Ihrem Netzwerk informiert werden soll\&. Die verschiedenen Parameter einer Kontakt\-Definition werden nachfolgend beschrieben\&.
+.PP
+Anmerkung:
+\fI"Direktiven"\fR
+werden benötigt, die anderen sind optional\&.
+
+   define contact{    
+      \fIcontact_name\fR                      contact_name
+      alias                             alias
+      contactgroups                     contactgroup_names
+      \fIhost_notifications_enabled\fR        [0/1]
+      \fIservice_notifications_enabled\fR      [0/1]
+      \fIhost_notification_period\fR          timeperiod_name
+      \fIservice_notification_period\fR       timeperiod_name
+      \fIhost_notification_options\fR         [d,u,r,f,s,n]
+      \fIservice_notification_options\fR      [w,u,c,r,f,s,n]
+      \fIhost_notification_commands\fR        command_name
+      \fIservice_notification_commands\fR      command_name
+      email                             email_address
+      pager                             pager_number or pager_email_gateway
+      address\fIx\fR                          additional_contact_address
+      can_submit_commands               [0/1]
+      retain_status_information         [0/1]
+      retain_nonstatus_information      [0/1]
+   }    
+    

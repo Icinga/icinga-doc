@@ -1,0 +1,73 @@
+.\"     Title: define service
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.73.2 <http://docbook.sf.net/>
+.\"      Date: 2011.08.24
+.\"    Manual: 
+      
+.\"    Source: Icinga 1.5
+.\"
+.TH "DEFINE SERVICE" "8" "2011.08.24" "Icinga 1.5" ""
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+define_service
+.SH "DESCRIPTION"
+.PP
+A service definition is used to identify a "service" that runs on a host\&. The term "service" is used very loosely\&. It can mean an actual service that runs on the host (POP, SMTP, HTTP, etc\&.) or some other type of metric associated with the host (response to a ping, number of logged in users, free disk space, etc\&.)\&. The different arguments to a service definition are outlined below\&.
+.PP
+\fIDefinition Format:\fR
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+Note
+.PP
+\fI"Directives"\fR
+are required while the others are optional\&.
+
+
+   define service{    
+      \fIhost_name\fR                         host_name
+      hostgroup_name                    hostgroup_name
+      \fIservice_description\fR               service_description
+      display_name                      display_name
+      servicegroups                     servicegroup_names
+      is_volatile                       [0|1|2]
+      \fIcheck_command\fR                     command_name
+      initial_state                     [o,w,u,c]
+      \fImax_check_attempts\fR                #
+      \fIcheck_interval\fR                    #
+      \fIretry_interval\fR                    #
+      active_checks_enabled             [0/1]
+      passive_checks_enabled            [0/1]
+      \fIcheck_period\fR                      timeperiod_name
+      obsess_over_service               [0/1]
+      check_freshness                   [0/1]
+      freshness_threshold               #
+      event_handler                     command_name
+      event_handler_enabled             [0/1]
+      low_flap_threshold                #
+      high_flap_threshold               #
+      flap_detection_enabled            [0/1]
+      flap_detection_options            [o,w,c,u]
+      process_perf_data                 [0/1]
+      retain_status_information         [0/1]
+      retain_nonstatus_information      [0/1]
+      \fInotification_interval\fR             #
+      first_notification_delay          #
+      \fInotification_period\fR               timeperiod_name
+      notification_options              [w,u,c,r,f,s]
+      notifications_enabled             [0/1]
+      \fIcontacts\fR                          contacts
+      \fIcontact_groups\fR                    contact_groups
+      stalking_options                  [o,w,u,c]
+      notes                             note_string
+      notes_url                         url
+      action_url                        url
+      icon_image                        image_file
+      icon_image_alt                    alt_string
+   }    
+    

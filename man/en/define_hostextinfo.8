@@ -1,0 +1,52 @@
+.\"     Title: define hostextinfo
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.73.2 <http://docbook.sf.net/>
+.\"      Date: 2011.08.24
+.\"    Manual: 
+      
+.\"    Source: Icinga 1.5
+.\"
+.TH "DEFINE HOSTEXTINFO" "8" "2011.08.24" "Icinga 1.5" ""
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+define_hostextinfo
+.SH "DESCRIPTION"
+.PP
+Extended host information entries are basically used to make the output from the status, statusmap, statuswrl, and extinfo CGIs look pretty\&. They have no effect on monitoring and are completely optional\&.
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+Tip
+.PP
+All directives contained in extended host information definitions are also available in host definitions\&. Thus, you can choose to define the directives below in your host definitionsif it makes your configuration simpler\&. Separate extended host information definitions will continue to be supported for backwardcompatibility\&.
+.PP
+\fIDefinition Format:\fR
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+Note
+.PP
+\fI"Directives"\fR
+are required while the others are optional\&. However, you need to supply at least one optionalvariable in each definition for it to be of much use\&.
+
+
+   define hostextinfo{    
+      \fIhost_name\fR                         host_name
+      notes                             note_string
+      notes_url                         url
+      action_url                        url
+      icon_image                        image_file
+      icon_image_alt                    alt_string
+      vrml_image                        image_file
+      statusmap_image                   image_file
+      2d_coords                         x_coord,y_coord
+      3d_coords                         x_coord,y_coord,z_coord
+   }    
+    

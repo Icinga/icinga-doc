@@ -1,0 +1,48 @@
+.\"     Title: define serviceextinfo
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.73.2 <http://docbook.sf.net/>
+.\"      Date: 2011.08.24
+.\"    Manual: 
+      
+.\"    Source: Icinga 1.5
+.\"
+.TH "DEFINE SERVICEEXTINF" "8" "2011.08.24" "Icinga 1.5" ""
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+define_serviceextinfo
+.SH "DESCRIPTION"
+.PP
+Extended service information entries are basically used to make the output from the status and extinfo CGIs look pretty\&. They have no effect on monitoring and are completely optional\&.
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+Tip
+.PP
+As of Nagios 3\&.x, all directives contained in extended service information definitions are also available in service definitions\&. Thus, you can choose to define the directives below in your servicedefinitions if it makes your configuration simpler\&. Separate extended service information definitions will continue to be supportedfor backward compatibility\&.
+.PP
+\fIDefinition Format:\fR
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+Note
+.PP
+\fI"Directives"\fRare required while the others are optional\&. However, you need to supply at least one optionalvariable in each definition for it to be of much use\&.
+
+
+   define serviceextinfo{    
+      \fIhost_name\fR                         host_name
+      \fIservice_description\fR               service_description
+      notes                             note_string
+      notes_url                         url
+      action_url                        url
+      icon_image                        image_file
+      icon_image_alt                    alt_string
+   }    
+    

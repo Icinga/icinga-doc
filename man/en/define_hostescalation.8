@@ -1,0 +1,49 @@
+.\"     Title: define hostescalation
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.73.2 <http://docbook.sf.net/>
+.\"      Date: 2011.08.24
+.\"    Manual: 
+      
+.\"    Source: Icinga 1.5
+.\"
+.TH "DEFINE HOSTESCALATIO" "8" "2011.08.24" "Icinga 1.5" ""
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+define_hostescalation
+.SH "DESCRIPTION"
+.PP
+Host escalations are
+\fIcompletely optional\fR
+and are used to escalate notifications for a particular host\&. More information on how notification escalations work can be found here\&.
+.PP
+\fIDefinition Format:\fR
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+Note
+.PP
+\fI"Directives"\fR
+are required while the others are optional\&.
+
+
+   define hostescalation{    
+      \fIhost_name\fR                         host_name
+      hostgroup_name                    hostgroup_name
+      \fIcontacts\fR                          contacts
+      \fIcontact_groups\fR                    contactgroup_name
+      \fIfirst_notification\fR                #
+      \fIlast_notification\fR                 #
+      \fInotification_interval\fR             #
+      escalation_period                 timeperiod_name
+      escalation_options                [d,u,r]
+      first_down_notification           #
+      last_down_notification            #
+      first_unreachable_notification      #
+      last_unreachable_notification      #
+   }    
+    
