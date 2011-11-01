@@ -8,7 +8,8 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>&name-idoutils; Database Model</title>
 
-  <para>This documentation is based on the &name-ndoutils; database model documentation by Ethan Galstad.</para>
+  <para>This documentation is based on the &name-ndoutils; database model documentation by Ethan Galstad and altered to fit
+  the changes necessary in &name-idoutils;.</para>
 
   <para><emphasis role="bold">Introduction</emphasis></para>
 
@@ -129,7 +130,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying a distinct instance of &name-icinga;</entry>
 
@@ -193,7 +194,7 @@
             <row>
               <entry>object_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>A unique number identifying the object</entry>
 
@@ -205,7 +206,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>A number indicating the instance of &name-icinga; to which the object belongs</entry>
 
@@ -217,7 +218,7 @@
             <row>
               <entry>objecttype_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>A number indicating what type of object this is</entry>
 
@@ -353,7 +354,7 @@
             <row>
               <entry>conninfo_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the connection info record</entry>
 
@@ -365,7 +366,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; for which data is being transmitted/processed</entry>
 
@@ -439,7 +440,7 @@
             <row>
               <entry>connect_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The initial time the user agent connected to the daemon</entry>
 
@@ -451,7 +452,7 @@
             <row>
               <entry>disconnect_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The time (if any) the user agent disconnect from the daemon</entry>
 
@@ -463,7 +464,7 @@
             <row>
               <entry>last_checkin_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The time that the user agent last checked in with the daemon to indicate that it was still alive and sending
               data</entry>
@@ -476,7 +477,7 @@
             <row>
               <entry>data_start_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The timestamp of the first data that the user agent sent to the daemon</entry>
 
@@ -488,7 +489,7 @@
             <row>
               <entry>data_end_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The timestamp of the last (or latest) data that the user agent sent to the daemon</entry>
 
@@ -500,7 +501,7 @@
             <row>
               <entry>bytes_processed</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The number of bytes of data that have been sent by the user agent and processed by the daemon</entry>
 
@@ -512,7 +513,7 @@
             <row>
               <entry>lines_processed</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The number of lines of data that have been sent by the user agent and processed by the daemon</entry>
 
@@ -524,7 +525,7 @@
             <row>
               <entry>entries_processed</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The number of data entries that have been sent by the user agent and processed by the daemon</entry>
 
@@ -588,6 +589,10 @@
       </listitem>
 
       <listitem>
+        <para><link linkend="dbm_dbversion">dbversion</link></para>
+      </listitem>
+
+      <listitem>
         <para><link linkend="dbm_downtimehistory">downtimehistory</link></para>
       </listitem>
 
@@ -633,6 +638,10 @@
 
       <listitem>
         <para><link linkend="dbm_timedevents">timedevents</link></para>
+      </listitem>
+
+      <listitem>
+        <para><link linkend="dbm_slahistory">slahistory</link></para>
       </listitem>
     </itemizedlist>
 
@@ -681,7 +690,7 @@
             <row>
               <entry>acknowledgement_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the acknowledgement record</entry>
 
@@ -693,7 +702,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -705,7 +714,7 @@
             <row>
               <entry>entry_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Date and time the acknowledgement was entered</entry>
 
@@ -741,7 +750,7 @@
             <row>
               <entry>object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The object id of the host or service this acknowledgement applies to</entry>
 
@@ -821,6 +830,18 @@
 
               <entry></entry>
             </row>
+
+            <row>
+              <entry>end_time</entry>
+
+              <entry>TIMESTAMP</entry>
+
+              <entry>Date and time the acknowledgement was deleted</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
           </tbody>
         </tgroup>
       </informaltable></para>
@@ -880,7 +901,7 @@
             <row>
               <entry>commenthistory_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the comment record</entry>
 
@@ -892,7 +913,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -904,7 +925,7 @@
             <row>
               <entry>entry_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Date and time the comment was entered</entry>
 
@@ -952,7 +973,7 @@
             <row>
               <entry>object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The object id of the host or service this acknowledgement applies to</entry>
 
@@ -964,7 +985,7 @@
             <row>
               <entry>comment_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Date and time associated with the comment</entry>
 
@@ -976,7 +997,7 @@
             <row>
               <entry>Internal_comment_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The comment ID internal to the &name-icinga; daemon, which may no longer be valid or present</entry>
 
@@ -1048,7 +1069,7 @@
             <row>
               <entry>expiration_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Date and time at which the comment expires</entry>
 
@@ -1060,7 +1081,7 @@
             <row>
               <entry>deletion_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Date and time (if any) when the comment was deleted</entry>
 
@@ -1113,7 +1134,7 @@
     <indexterm zone="dbm_contactnotifications">
       <primary>Tables</primary>
 
-      <secondary>contactnotifcations</secondary>
+      <secondary>contactnotifications</secondary>
     </indexterm>
 
     <para><emphasis>Contactnotifications Table</emphasis></para>
@@ -1139,7 +1160,7 @@
             <row>
               <entry>contactnotification_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -1151,7 +1172,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -1163,7 +1184,7 @@
             <row>
               <entry>notification_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The id of the notification this record is associated with</entry>
 
@@ -1175,7 +1196,7 @@
             <row>
               <entry>contact_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The object id of the contact this notification was send to</entry>
 
@@ -1187,7 +1208,7 @@
             <row>
               <entry>start_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the notification to this contact was started</entry>
 
@@ -1211,7 +1232,7 @@
             <row>
               <entry>end_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the notification to this contact ended</entry>
 
@@ -1226,6 +1247,72 @@
               <entry>INT</entry>
 
               <entry>The microsecond portion of the time the notification ended</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable></para>
+
+    <anchor xml:id="dbm_dbversion" />
+
+    <indexterm zone="dbm_dbversion">
+      <primary>Tables</primary>
+
+      <secondary>dbversion</secondary>
+    </indexterm>
+
+    <para><emphasis>Dbversion Table</emphasis></para>
+
+    <para>Description: This table is used to store version information about the DB.</para>
+
+    <para>Structure: <informaltable>
+        <tgroup cols="5">
+          <tbody>
+            <row>
+              <entry>Field</entry>
+
+              <entry>Type</entry>
+
+              <entry>Notes</entry>
+
+              <entry>Values</entry>
+
+              <entry>Key</entry>
+            </row>
+
+            <row>
+              <entry>dbversion_id</entry>
+
+              <entry>SERIAL</entry>
+
+              <entry>Unique number identifying the record</entry>
+
+              <entry></entry>
+
+              <entry>PK</entry>
+            </row>
+
+            <row>
+              <entry>name</entry>
+
+              <entry>VARCHAR(10)</entry>
+
+              <entry>Name of the database</entry>
+
+              <entry></entry>
+
+              <entry>UK</entry>
+            </row>
+
+            <row>
+              <entry>version</entry>
+
+              <entry>VARCHAR(10)</entry>
+
+              <entry>Version number of the database</entry>
 
               <entry></entry>
 
@@ -1308,7 +1395,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -1332,7 +1419,7 @@
             <row>
               <entry>start_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the notification command started</entry>
 
@@ -1356,7 +1443,7 @@
             <row>
               <entry>end_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the notification command ended</entry>
 
@@ -1464,7 +1551,7 @@
             <row>
               <entry>downtimehistory_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -1476,7 +1563,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -1500,7 +1587,7 @@
             <row>
               <entry>object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The object id of the host or service this scheduled downtime is associated with</entry>
 
@@ -1512,7 +1599,7 @@
             <row>
               <entry>entry_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the scheduled downtime was entered/submitted</entry>
 
@@ -1524,7 +1611,7 @@
             <row>
               <entry>author_name</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(64)</entry>
 
               <entry>The name of the person who scheduled this downtime</entry>
 
@@ -1536,7 +1623,7 @@
             <row>
               <entry>comment_data</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry>A comment, as entered by the author, associated with the scheduled downtime</entry>
 
@@ -1548,7 +1635,7 @@
             <row>
               <entry>internal_downtime_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>A number (internal to the &name-icinga; daemon) associated with the scheduled downtime</entry>
 
@@ -1560,7 +1647,7 @@
             <row>
               <entry>triggered_by_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The id of another scheduled downtime entry that scheduled downtime is optionally triggered by. Non-triggered downtimes
               will have a value of 0 in this field</entry>
@@ -1599,7 +1686,7 @@
             <row>
               <entry>scheduled_start_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the scheduled downtime is supposed to start. If this is a flexible (non-fixed) downtime, this refers to
               the earliest possible time that the downtime can start</entry>
@@ -1612,7 +1699,7 @@
             <row>
               <entry>scheduled_end_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the scheduled downtime is supposed to end. If this is a flexible (non-fixed) downtime, this refers to the
               last possible time that the downtime can start</entry>
@@ -1638,7 +1725,7 @@
             <row>
               <entry>actual_start_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the scheduled downtime was actually started (if applicable)</entry>
 
@@ -1662,7 +1749,7 @@
             <row>
               <entry>actual_end_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the scheduled downtime actually ended</entry>
 
@@ -1759,7 +1846,7 @@
             <row>
               <entry>eventhandler_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -1771,7 +1858,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -1796,7 +1883,7 @@
             <row>
               <entry>object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The object id of the host or service associated with this event handler</entry>
 
@@ -1833,7 +1920,7 @@
             <row>
               <entry>start_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the event handler started</entry>
 
@@ -1857,7 +1944,7 @@
             <row>
               <entry>end_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the event handler ended</entry>
 
@@ -1881,7 +1968,7 @@
             <row>
               <entry>command_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The id of the command that was run</entry>
 
@@ -1893,7 +1980,7 @@
             <row>
               <entry>command_args</entry>
 
-              <entry>ARGS</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry>Arguments to the event handler command that was run</entry>
 
@@ -1905,7 +1992,7 @@
             <row>
               <entry>command_line</entry>
 
-              <entry>ARGS</entry>
+              <entry>VARCHAR(1024)</entry>
 
               <entry>Fully expanded command line of the event handler that was run</entry>
 
@@ -1965,7 +2052,7 @@
             <row>
               <entry>output</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry>The first line of text output (if any) from the event handler command</entry>
 
@@ -2038,7 +2125,7 @@
             <row>
               <entry>externalcommand_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -2050,7 +2137,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -2062,7 +2149,7 @@
             <row>
               <entry>entry_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the external command was processed</entry>
 
@@ -2086,7 +2173,7 @@
             <row>
               <entry>command_name</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(128)</entry>
 
               <entry>The name of the command that was processed</entry>
 
@@ -2098,7 +2185,7 @@
             <row>
               <entry>command_args</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry>Optional arguments that were specified with the command.</entry>
 
@@ -2158,7 +2245,7 @@
             <row>
               <entry>flappinghistory_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -2170,7 +2257,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -2182,7 +2269,7 @@
             <row>
               <entry>event_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time of the flapping event</entry>
 
@@ -2243,7 +2330,7 @@
             <row>
               <entry>object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The id of the host or service associated with the flapping event</entry>
 
@@ -2291,7 +2378,7 @@
             <row>
               <entry>comment_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time of the comment associated with the flapping event</entry>
 
@@ -2303,7 +2390,7 @@
             <row>
               <entry>internal_comment_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The number (internal to the &name-icinga; daemon) of the comment associated with the flapping event.</entry>
 
@@ -2375,7 +2462,7 @@
             <row>
               <entry>hostcheck_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -2387,7 +2474,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -2399,7 +2486,7 @@
             <row>
               <entry>host_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The id of the host this check applies to</entry>
 
@@ -2483,7 +2570,7 @@
             <row>
               <entry>start_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the host check was started</entry>
 
@@ -2507,7 +2594,7 @@
             <row>
               <entry>end_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the host check was completed</entry>
 
@@ -2531,7 +2618,7 @@
             <row>
               <entry>command_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The id of the command that was used to perform the host check</entry>
 
@@ -2543,7 +2630,7 @@
             <row>
               <entry>command_args</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry>The arguments that were passed to the host check command</entry>
 
@@ -2555,7 +2642,7 @@
             <row>
               <entry>command_line</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(1024)</entry>
 
               <entry>The fully expanded command line that was used to check the host</entry>
 
@@ -2630,9 +2717,21 @@
             <row>
               <entry>output</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
-              <entry>Status text output from the host check command</entry>
+              <entry>Status text output from the host check command (first line)</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>long_output</entry>
+
+              <entry>TEXT</entry>
+
+              <entry>Status text output from the host check command (consecutive lines)</entry>
 
               <entry></entry>
 
@@ -2642,7 +2741,7 @@
             <row>
               <entry>perfdata</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>TEXT</entry>
 
               <entry>Optional performance data returned from the host check command.</entry>
 
@@ -2714,7 +2813,7 @@
             <row>
               <entry>logentry_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -2726,7 +2825,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -2738,7 +2837,7 @@
             <row>
               <entry>logentry_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time associated with the log entry. This is NOT necessarily the same as the date/time that &name-icinga; wrote
               the log entry to the log file (see below)</entry>
@@ -2751,7 +2850,7 @@
             <row>
               <entry>entry_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time that &name-icinga; wrote this log entry to the log file</entry>
 
@@ -2787,7 +2886,7 @@
             <row>
               <entry>logentry_data</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry>The log entry that was written out to the log file</entry>
 
@@ -2873,7 +2972,7 @@
             <row>
               <entry>notification_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -2885,7 +2984,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -2922,7 +3021,7 @@
             <row>
               <entry>object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The id of the host or service this notification applies to</entry>
 
@@ -2934,7 +3033,7 @@
             <row>
               <entry>start_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the notification was started</entry>
 
@@ -2958,7 +3057,7 @@
             <row>
               <entry>end_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the notification ended</entry>
 
@@ -2995,9 +3094,21 @@
             <row>
               <entry>output</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
-              <entry>The current plugin (text) output of the host or service when the notification was sent out</entry>
+              <entry>The current plugin (text) output of the host or service when the notification was sent out (first line)</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>long_output</entry>
+
+              <entry>TEXT</entry>
+
+              <entry>The current plugin (text) output of the host or service when the notification was sent out (consecutive lines)</entry>
 
               <entry></entry>
 
@@ -3017,7 +3128,7 @@
             </row>
 
             <row>
-              <entry>contacts_notifified</entry>
+              <entry>contacts_notified</entry>
 
               <entry>SMALLINT</entry>
 
@@ -3086,7 +3197,7 @@
             <row>
               <entry>processevent_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -3098,7 +3209,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -3123,7 +3234,7 @@
             <row>
               <entry>event_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time that the event occurred</entry>
 
@@ -3159,7 +3270,7 @@
             <row>
               <entry>program_name</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(16)</entry>
 
               <entry>"&name-icinga;"</entry>
 
@@ -3171,7 +3282,7 @@
             <row>
               <entry>program_version</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(20)</entry>
 
               <entry>Version of &name-icinga; that is running (e.g. "1.0")</entry>
 
@@ -3183,7 +3294,7 @@
             <row>
               <entry>program_date</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(10)</entry>
 
               <entry>Release date of &name-icinga;</entry>
 
@@ -3256,7 +3367,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -3340,7 +3451,7 @@
             <row>
               <entry>start_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the service check was started</entry>
 
@@ -3364,7 +3475,7 @@
             <row>
               <entry>end_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the service check ended</entry>
 
@@ -3583,7 +3694,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -3595,7 +3706,7 @@
             <row>
               <entry>state_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time that the state change occurred</entry>
 
@@ -3619,7 +3730,7 @@
             <row>
               <entry>object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The id of the host or service object this state change applies to</entry>
 
@@ -3797,7 +3908,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -3809,7 +3920,7 @@
             <row>
               <entry>start_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the command was executed</entry>
 
@@ -3833,7 +3944,7 @@
             <row>
               <entry>end_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the command finished executing</entry>
 
@@ -3992,7 +4103,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -4016,7 +4127,7 @@
             <row>
               <entry>queued_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the event was added to the event queue</entry>
 
@@ -4040,7 +4151,7 @@
             <row>
               <entry>event_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the event was handled</entry>
 
@@ -4064,7 +4175,7 @@
             <row>
               <entry>scheduled_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the event was scheduled to be handled/run</entry>
 
@@ -4088,10 +4199,10 @@
             <row>
               <entry>object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The id of the host or service that the event applies to. Not all events apply to hosts or services - in these cases the
-              value of this field will be 0. deletion_time DATETIME The date/time the event was deleted/removed from the event queue</entry>
+              value of this field will be 0. deletion_time TIMESTAMP The date/time the event was deleted/removed from the event queue</entry>
 
               <entry></entry>
 
@@ -4136,6 +4247,174 @@
           </tbody>
         </tgroup>
       </informaltable></para>
+
+    <anchor xml:id="dbm_slahistory" />
+
+    <indexterm zone="dbm_slahistory">
+      <primary>Tables</primary>
+
+      <secondary>slahistory</secondary>
+    </indexterm>
+
+    <para><emphasis>SLA-History Table</emphasis></para>
+
+    <para>Description: This table is used to keep track of host/service availability statistics in a separate history table.
+    A configuration flag (enable_sla) is used to enable/disable SLA data collection; it defaults to 0 (disabled).</para>
+    <note><para>This table is introduced with &name-icinga; 1.6.</para></note>
+
+    <para>Structure: <informaltable>
+        <tgroup cols="5">
+          <tbody>
+            <row>
+              <entry>Field</entry>
+
+              <entry>Type</entry>
+
+              <entry>Notes</entry>
+
+              <entry>Values</entry>
+
+              <entry>Key</entry>
+            </row>
+
+            <row>
+              <entry>slahistory_id</entry>
+
+              <entry>SERIAL</entry>
+
+              <entry>unique ID for a SLA history entry</entry>
+
+              <entry></entry>
+
+              <entry>PK</entry>
+            </row>
+
+            <row>
+              <entry>instance_id</entry>
+
+              <entry>BIGINT unsigned</entry>
+
+              <entry>Icinga instance ID</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>start_time</entry>
+
+              <entry>TIMESTAMP</entry>
+
+              <entry>Time interval for the history entry (default '0000-00-00 00:00:00')</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>end_time</entry>
+
+              <entry>TIMESTAMP</entry>
+
+              <entry>Time interval for the history entry (default '0000-00-00 00:00:00')</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>acknowledgement_time</entry>
+
+              <entry>TIMESTAMP</entry>
+
+              <entry>Time the state was acknowledged (default NULL)</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>object_id</entry>
+
+              <entry>BIGINT unsigned</entry>
+
+              <entry>The host/service ID this history entry is related to (default 0)</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>state</entry>
+
+              <entry>SMALLINT</entry>
+
+              <entry>Number indicating the state of host or service</entry>
+
+              <entry>For hosts: 0 = UP; 1 = DOWN; 2 = UNREACHABLE; For services:; 0 = OK; 1 = WARNING; 2 =
+              CRITICAL; 3 = UNKNOWN</entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>state_type</entry>
+
+              <entry>SMALLINT</entry>
+
+              <entry>Number indicating the state type of the host or service</entry>
+
+              <entry>0 = SOFT state; 1 = HARD state</entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>scheduled_downtime</entry>
+
+              <entry>TINYINT(1)</entry>
+
+              <entry>whether the whole time interval was in scheduled downtime (a history entry are split into several entries if only a
+              fraction of the time interval was in scheduled downtime)</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </para>
+
+    <para>Relationships:<informaltable>
+        <tgroup cols="2">
+          <tbody>
+            <row>
+              <entry>Field</entry>
+
+              <entry>Foreign Key</entry>
+            </row>
+
+            <row>
+              <entry>instance_id</entry>
+
+              <entry>instances.instance_id</entry>
+            </row>
+
+            <row>
+              <entry>object_id</entry>
+
+              <entry>objects.object_id</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable></para>
+
   </section>
 
   <section>
@@ -4180,6 +4459,10 @@
 
       <listitem>
         <para><link linkend="dbm_servicestatus">servicestatus</link></para>
+      </listitem>
+
+      <listitem>
+        <para><link linkend="dbm_contactstatus">contactstatus</link></para>
       </listitem>
 
       <listitem>
@@ -4231,7 +4514,7 @@
             <row>
               <entry>comment_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the comment record</entry>
 
@@ -4243,7 +4526,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -4255,7 +4538,7 @@
             <row>
               <entry>entry_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Date and time the comment was entered</entry>
 
@@ -4303,7 +4586,7 @@
             <row>
               <entry>object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The object id of the host or service this acknowledgement applies to</entry>
 
@@ -4315,7 +4598,7 @@
             <row>
               <entry>comment_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Date and time associated with the comment</entry>
 
@@ -4399,7 +4682,7 @@
             <row>
               <entry>expiration_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Date and time at which the comment expires.</entry>
 
@@ -4466,7 +4749,7 @@
             <row>
               <entry>customvariablestatus_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -4478,7 +4761,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -4490,7 +4773,7 @@
             <row>
               <entry>object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The object id of the host or service this acknowledgement applies to</entry>
 
@@ -4502,7 +4785,7 @@
             <row>
               <entry>status_update_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Date and time the status of the custom variable was last updated</entry>
 
@@ -4514,7 +4797,7 @@
             <row>
               <entry>has_been_modified</entry>
 
-              <entry>INT</entry>
+              <entry>SMALLINT</entry>
 
               <entry>Indiciates whether the value of the custom variable has been modified (during runtime) from its original value in the
               config files</entry>
@@ -4605,7 +4888,7 @@
             <row>
               <entry>hoststatus_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -4617,7 +4900,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -4629,7 +4912,7 @@
             <row>
               <entry>host_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The object id of the host this status entry is associated with</entry>
 
@@ -4641,7 +4924,7 @@
             <row>
               <entry>status_update_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Date and time the status data was updated</entry>
 
@@ -4653,9 +4936,21 @@
             <row>
               <entry>output</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
-              <entry>Plugin output from the latest host check</entry>
+              <entry>Plugin output from the latest host check (first line)</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>long_output</entry>
+
+              <entry>TEXT</entry>
+
+              <entry>Plugin output from the latest host check (consecutive lines)</entry>
 
               <entry></entry>
 
@@ -4665,7 +4960,7 @@
             <row>
               <entry>perfdata</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>TEXT</entry>
 
               <entry>Performance data from the latest host check</entry>
 
@@ -4737,7 +5032,7 @@
             <row>
               <entry>last_check</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Time the host was last checked</entry>
 
@@ -4749,7 +5044,7 @@
             <row>
               <entry>next_check</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The host is scheduled to be checked next. Will be set to the epoch if the host is not scheduled for another
               check</entry>
@@ -4774,7 +5069,7 @@
             <row>
               <entry>last_state_change</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Time the host last had a hard or soft state change. Will be set to the epoch if the host has not changed state</entry>
 
@@ -4786,7 +5081,7 @@
             <row>
               <entry>last_hard_state_change</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The host last had a hard state change. Will be setup to the epoch if the host has not changed state</entry>
 
@@ -4798,7 +5093,7 @@
             <row>
               <entry>last_time_up</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Time the host was last in an UP state (if ever)</entry>
 
@@ -4810,7 +5105,7 @@
             <row>
               <entry>last_time_down</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Time the host was last in a DOWN state (if ever)</entry>
 
@@ -4822,7 +5117,7 @@
             <row>
               <entry>last_time_unreachable</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Time the host was last in an UNREACHABLE state (if ever)</entry>
 
@@ -4846,7 +5141,7 @@
             <row>
               <entry>last_notification</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Time a notification was last sent out for the host (if ever)</entry>
 
@@ -4858,7 +5153,7 @@
             <row>
               <entry>next_notification</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Next possible time that a notification can be sent out for the host</entry>
 
@@ -5137,7 +5432,7 @@
             <row>
               <entry>check_timeperiod_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number of the timeperiod object currently used for determining times the host can be checked</entry>
 
@@ -5221,7 +5516,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -5233,7 +5528,7 @@
             <row>
               <entry>status_update_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Date and time the status of the process was last updated</entry>
 
@@ -5245,7 +5540,7 @@
             <row>
               <entry>program_start_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Date and time the &name-icinga; process was started</entry>
 
@@ -5257,7 +5552,7 @@
             <row>
               <entry>program_end_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Date and time the &name-icinga; process as stopped (if currently not running)</entry>
 
@@ -5305,7 +5600,7 @@
             <row>
               <entry>last_command_check</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Date and time the &name-icinga; process last checked external commands</entry>
 
@@ -5317,7 +5612,7 @@
             <row>
               <entry>last_log_rotation</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Date and time the log file was last rotated (if at all)</entry>
 
@@ -5571,7 +5866,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -5668,7 +5963,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -5692,7 +5987,7 @@
             <row>
               <entry>object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The object id of the host or service this downtime applies to</entry>
 
@@ -5704,7 +5999,7 @@
             <row>
               <entry>entry_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Date and time this downtime was entered</entry>
 
@@ -5791,7 +6086,7 @@
             <row>
               <entry>scheduled_start_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Date and time that the downtime is scheduled to start if it is "fixed" dowtime. If this is a "flexible" downtime entry,
               this is the first possible time the downtime can start</entry>
@@ -5804,7 +6099,7 @@
             <row>
               <entry>scheduled_end_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Date and time the downtime is scheduled to end if it is "fixed" downtime. If this is a "flexible" downtime entry, this
               is the last possible time the downtime can start</entry>
@@ -5829,7 +6124,7 @@
             <row>
               <entry>actual_start_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Date and time the scheduled downtime was actually started</entry>
 
@@ -5921,7 +6216,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -5945,7 +6240,7 @@
             <row>
               <entry>status_update_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the status record was updated</entry>
 
@@ -6041,7 +6336,7 @@
             <row>
               <entry>last_check</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the service was last checked. Set to the epoch if the service has not been checked yet</entry>
 
@@ -6053,7 +6348,7 @@
             <row>
               <entry>next_check</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the service is scheduled to be checked next</entry>
 
@@ -6077,7 +6372,7 @@
             <row>
               <entry>last_state_change</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the service last changed state (if at all). This gets updated for both HARD and SOFT state
               changes</entry>
@@ -6090,7 +6385,7 @@
             <row>
               <entry>last_hard_state_change</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the service last changed HARD states (if at all)</entry>
 
@@ -6102,7 +6397,7 @@
             <row>
               <entry>last_time_ok</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the service was last in an OK state (if at all)</entry>
 
@@ -6114,7 +6409,7 @@
             <row>
               <entry>last_time_warning</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the service was last in a WARNING state (if at all)</entry>
 
@@ -6126,7 +6421,7 @@
             <row>
               <entry>last_time_unknown</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the service was last in an UNKNOWN state (if at all)</entry>
 
@@ -6138,7 +6433,7 @@
             <row>
               <entry>last_time_critical</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time the service was last in a CRITICAL state (if at all).</entry>
 
@@ -6162,7 +6457,7 @@
             <row>
               <entry>state last_notification</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The date/time that a notification was last sent out for the current service problem (if applicable)</entry>
 
@@ -6174,7 +6469,7 @@
             <row>
               <entry>next_notification</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>The earliest date/time that the next notification can be sent out for the current service problem (if
               applicable)</entry>
@@ -6486,6 +6781,187 @@
         </tgroup>
       </informaltable></para>
 
+    <anchor xml:id="dbm_contactstatus" />
+
+    <indexterm zone="dbm_contactstatus">
+      <primary>Tables</primary>
+
+      <secondary>contactstatus</secondary>
+    </indexterm>
+
+    <para><emphasis>Contactstatus Table</emphasis></para>
+
+    <para>Description: This table is used to store current status information for all contacts that are being used.</para>
+
+    <para>Structure: <informaltable>
+        <tgroup cols="5">
+          <tbody>
+            <row>
+              <entry>Field</entry>
+
+              <entry>Type</entry>
+
+              <entry>Notes</entry>
+
+              <entry>Values</entry>
+
+              <entry>Key</entry>
+            </row>
+
+            <row>
+              <entry>contactstatus_id</entry>
+
+              <entry>SERIAL</entry>
+
+              <entry>Unique number identifying the record</entry>
+
+              <entry></entry>
+
+              <entry>PK</entry>
+            </row>
+
+            <row>
+              <entry>instance_id</entry>
+
+              <entry>BIGINT unsigned</entry>
+
+              <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>contact_object_id</entry>
+
+              <entry>BIGINT unsigned</entry>
+
+              <entry>The id of the service this record is associated with</entry>
+
+              <entry></entry>
+
+              <entry>U1</entry>
+            </row>
+
+            <row>
+              <entry>status_update_time</entry>
+
+              <entry>TIMESTAMP</entry>
+
+              <entry>The date/time the status record was updated</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>hostnotifications_enabled</entry>
+
+              <entry>SMALLINT</entry>
+
+              <entry>Number indicating whether or not host notifications are enabled for this contact</entry>
+
+              <entry>0 = Notifications disabled; 1 = Notifications enabled</entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>servicenotifications_enabled</entry>
+
+              <entry>SMALLINT</entry>
+
+              <entry>Number indicating whether or not service notifications are enabled for this contact</entry>
+
+              <entry>0 = Notifications disabled; 1 = Notifications enabled</entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>last_hostnotification</entry>
+
+              <entry>TIMESTAMP</entry>
+
+              <entry>Time the last host notification was sent</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>last_servicenotification</entry>
+
+              <entry>TIMESTAMP</entry>
+
+              <entry>Time the last service notification was sent</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>modified_attributes</entry>
+
+              <entry>INT</entry>
+
+              <entry>Default = 0</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>modified_host_attributes</entry>
+
+              <entry>INT</entry>
+
+              <entry>Default = 0</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>modified_service_attributes</entry>
+
+              <entry>INT</entry>
+
+              <entry>Default = 0</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+          </tbody>
+        </tgroup>
+      </informaltable></para>
+
+    <para>Relationships:<informaltable>
+        <tgroup cols="2">
+          <tbody>
+            <row>
+              <entry>Field</entry>
+
+              <entry>Foreign Key</entry>
+            </row>
+
+            <row>
+              <entry>instance_id</entry>
+
+              <entry>instances.instance_id</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable></para>
+
     <anchor xml:id="dbm_timedeventqueue" />
 
     <indexterm zone="dbm_timedeventqueue">
@@ -6529,7 +7005,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -6553,7 +7029,7 @@
             <row>
               <entry>queued_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Date and time the event was originally placed into the timed event queue</entry>
 
@@ -6601,7 +7077,7 @@
             <row>
               <entry>object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The object id of the host, service, contact, etc. that this scheduled event applies to (if applicable). If the event is
               not associated with any particular object, this field will have a value of zero (0)</entry>
@@ -6705,6 +7181,10 @@
       </listitem>
 
       <listitem>
+        <para><link linkend="dbm_host_contacts">host_contactgroups</link></para>
+      </listitem>
+
+      <listitem>
         <para><link linkend="dbm_host_parenthosts">host_parenthosts</link></para>
       </listitem>
 
@@ -6714,6 +7194,10 @@
 
       <listitem>
         <para><link linkend="dbm_hostescalation_contactgroups">hostescalation_contactgroups</link></para>
+      </listitem>
+
+      <listitem>
+        <para><link linkend="dbm_hostescalation_contacts">hostescalation_contacts</link></para>
       </listitem>
 
       <listitem>
@@ -6809,7 +7293,7 @@
             <row>
               <entry>command_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -6821,7 +7305,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -6845,7 +7329,7 @@
             <row>
               <entry>object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -6857,7 +7341,7 @@
             <row>
               <entry>command_line</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(1024)</entry>
 
               <entry></entry>
 
@@ -6899,7 +7383,7 @@
             <row>
               <entry>configfile_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -6911,7 +7395,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -6935,7 +7419,7 @@
             <row>
               <entry>configfile_path</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry></entry>
 
@@ -6977,7 +7461,7 @@
             <row>
               <entry>configfilevariable_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -6989,7 +7473,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -7001,7 +7485,7 @@
             <row>
               <entry>configfile_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -7013,7 +7497,7 @@
             <row>
               <entry>varname</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(64)</entry>
 
               <entry></entry>
 
@@ -7025,7 +7509,7 @@
             <row>
               <entry>varvalue</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(1024)</entry>
 
               <entry></entry>
 
@@ -7067,7 +7551,7 @@
             <row>
               <entry>contact_address_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -7079,7 +7563,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -7091,7 +7575,7 @@
             <row>
               <entry>contact_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -7115,7 +7599,7 @@
             <row>
               <entry>address</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry></entry>
 
@@ -7157,7 +7641,7 @@
             <row>
               <entry>contact_notficationcommand_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -7169,7 +7653,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -7181,7 +7665,7 @@
             <row>
               <entry>contact_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -7205,7 +7689,7 @@
             <row>
               <entry>command_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -7217,7 +7701,7 @@
             <row>
               <entry>command_args</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry></entry>
 
@@ -7259,7 +7743,7 @@
             <row>
               <entry>contactgroup_member_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -7271,7 +7755,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -7283,7 +7767,7 @@
             <row>
               <entry>contactgroup_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -7295,7 +7779,7 @@
             <row>
               <entry>contact_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -7337,7 +7821,7 @@
             <row>
               <entry>contactgroup_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -7349,7 +7833,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -7373,7 +7857,7 @@
             <row>
               <entry>contactgroup_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -7385,7 +7869,7 @@
             <row>
               <entry>alias</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry></entry>
 
@@ -7427,7 +7911,7 @@
             <row>
               <entry>contactnotificationmethod_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -7439,7 +7923,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -7451,7 +7935,7 @@
             <row>
               <entry>contactnotification_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -7463,7 +7947,7 @@
             <row>
               <entry>start_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry></entry>
 
@@ -7487,7 +7971,7 @@
             <row>
               <entry>end_time</entry>
 
-              <entry>DATETIME</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry></entry>
 
@@ -7511,7 +7995,7 @@
             <row>
               <entry>command_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -7523,7 +8007,7 @@
             <row>
               <entry>command_args</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry></entry>
 
@@ -7565,7 +8049,7 @@
             <row>
               <entry>contact_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -7577,7 +8061,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -7601,7 +8085,7 @@
             <row>
               <entry>contact_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -7613,7 +8097,7 @@
             <row>
               <entry>alias</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(64)</entry>
 
               <entry>String describing the contact</entry>
 
@@ -7625,7 +8109,7 @@
             <row>
               <entry>email_address</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry>String containing the e-mail address of the contact</entry>
 
@@ -7637,7 +8121,7 @@
             <row>
               <entry>pager_address</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(64)</entry>
 
               <entry>String containing the pager address of the contact</entry>
 
@@ -7649,7 +8133,7 @@
             <row>
               <entry>host_timeperiod_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -7661,7 +8145,7 @@
             <row>
               <entry>service_timeperiod_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -7871,7 +8355,7 @@
             <row>
               <entry>customvariable_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -7883,7 +8367,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -7895,7 +8379,7 @@
             <row>
               <entry>object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -7931,7 +8415,7 @@
             <row>
               <entry>varname</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry>String containing the name of the custom variable</entry>
 
@@ -7943,7 +8427,7 @@
             <row>
               <entry>varvalue</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry>String containing the value of the custom variable</entry>
 
@@ -7985,7 +8469,7 @@
             <row>
               <entry>host_contactgroup_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -7997,7 +8481,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -8009,7 +8493,7 @@
             <row>
               <entry>host_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -8021,7 +8505,85 @@
             <row>
               <entry>contactgroup_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+
+              <entry>UK2</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable></para>
+
+    <anchor xml:id="dbm_host_contacts" />
+
+    <indexterm zone="dbm_host_contacts">
+      <primary>Tables</primary>
+
+      <secondary>host_contacts</secondary>
+    </indexterm>
+
+    <para><emphasis>Host_contacts Table</emphasis></para>
+
+    <para>Description: .</para>
+
+    <para>Structure: <informaltable>
+        <tgroup cols="5">
+          <tbody>
+            <row>
+              <entry>Field</entry>
+
+              <entry>Type</entry>
+
+              <entry>Notes</entry>
+
+              <entry>Values</entry>
+
+              <entry>Key</entry>
+            </row>
+
+            <row>
+              <entry>host_contact_id</entry>
+
+              <entry>SERIAL</entry>
+
+              <entry>Unique number identifying the record</entry>
+
+              <entry></entry>
+
+              <entry>PK</entry>
+            </row>
+
+            <row>
+              <entry>instance_id</entry>
+
+              <entry>BIGINT unsigned</entry>
+
+              <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>host_id</entry>
+
+              <entry>BIGINT unsigned</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+
+              <entry>UK1</entry>
+            </row>
+
+            <row>
+              <entry>contact_object_id</entry>
+
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -8061,9 +8623,9 @@
             </row>
 
             <row>
-              <entry>hostescalation_contact_id</entry>
+              <entry>hostescalation_contactgroup_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -8075,7 +8637,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -8087,7 +8649,7 @@
             <row>
               <entry>hostescalation_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -8099,7 +8661,85 @@
             <row>
               <entry>contactgroup_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+
+              <entry>UK2</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable></para>
+
+    <anchor xml:id="dbm_hostescalation_contacts" />
+
+    <indexterm zone="dbm_hostescalation_contacts">
+      <primary>Tables</primary>
+
+      <secondary>hostescalation_contacts</secondary>
+    </indexterm>
+
+    <para><emphasis>Hostescalation_contacts Table</emphasis></para>
+
+    <para>Description: .</para>
+
+    <para>Structure: <informaltable>
+        <tgroup cols="5">
+          <tbody>
+            <row>
+              <entry>Field</entry>
+
+              <entry>Type</entry>
+
+              <entry>Notes</entry>
+
+              <entry>Values</entry>
+
+              <entry>Key</entry>
+            </row>
+
+            <row>
+              <entry>hostescalation_contact_id</entry>
+
+              <entry>SERIAL</entry>
+
+              <entry>Unique number identifying the record</entry>
+
+              <entry></entry>
+
+              <entry>PK</entry>
+            </row>
+
+            <row>
+              <entry>instance_id</entry>
+
+              <entry>BIGINT unsigned</entry>
+
+              <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>hostescalation_id</entry>
+
+              <entry>BIGINT unsigned</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+
+              <entry>UK1</entry>
+            </row>
+
+            <row>
+              <entry>contact_object_id</entry>
+
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -8141,7 +8781,7 @@
             <row>
               <entry>host_parenthost_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -8153,7 +8793,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -8165,7 +8805,7 @@
             <row>
               <entry>host_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -8177,7 +8817,7 @@
             <row>
               <entry>parent_host_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -8219,7 +8859,7 @@
             <row>
               <entry>hostdependency_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -8231,7 +8871,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -8255,7 +8895,7 @@
             <row>
               <entry>host_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -8267,7 +8907,7 @@
             <row>
               <entry>dependent_host_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -8303,7 +8943,7 @@
             <row>
               <entry>timeperiod_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -8381,7 +9021,7 @@
             <row>
               <entry>hostescalation_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -8393,7 +9033,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -8417,7 +9057,7 @@
             <row>
               <entry>host_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -8429,7 +9069,7 @@
             <row>
               <entry>timeperiod_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -8543,7 +9183,7 @@
             <row>
               <entry>hostgroup_member_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -8555,7 +9195,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -8567,7 +9207,7 @@
             <row>
               <entry>hostgroup_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -8579,7 +9219,7 @@
             <row>
               <entry>host_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -8621,7 +9261,7 @@
             <row>
               <entry>hostgroup_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry></entry>
 
@@ -8633,7 +9273,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -8657,7 +9297,7 @@
             <row>
               <entry>hostgroup_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -8669,7 +9309,7 @@
             <row>
               <entry>alias</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry>String describing the hostgroup</entry>
 
@@ -8711,7 +9351,7 @@
             <row>
               <entry>host_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -8723,7 +9363,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -8747,7 +9387,7 @@
             <row>
               <entry>host_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -8759,7 +9399,7 @@
             <row>
               <entry>alias</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(64)</entry>
 
               <entry>String describing the host</entry>
 
@@ -8771,7 +9411,7 @@
             <row>
               <entry>display_name</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry></entry>
 
@@ -8783,9 +9423,21 @@
             <row>
               <entry>address</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(128)</entry>
+
+              <entry>IP-address</entry>
 
               <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>address6</entry>
+
+              <entry>VARCHAR(128)</entry>
+
+              <entry>IPv6-address</entry>
 
               <entry></entry>
 
@@ -8795,7 +9447,7 @@
             <row>
               <entry>check_command_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -8807,7 +9459,7 @@
             <row>
               <entry>check_command_args</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry></entry>
 
@@ -8819,7 +9471,7 @@
             <row>
               <entry>eventhandler_command_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -8831,7 +9483,7 @@
             <row>
               <entry>eventhandler_command_args</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry></entry>
 
@@ -8843,7 +9495,7 @@
             <row>
               <entry>notification_timeperiod_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -8855,7 +9507,7 @@
             <row>
               <entry>check_timeperiod_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -8867,7 +9519,7 @@
             <row>
               <entry>failure_prediction_options</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(64)</entry>
 
               <entry></entry>
 
@@ -9239,7 +9891,7 @@
             <row>
               <entry>notes</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry></entry>
 
@@ -9251,7 +9903,7 @@
             <row>
               <entry>notes_url</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry></entry>
 
@@ -9263,7 +9915,7 @@
             <row>
               <entry>action_url</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry></entry>
 
@@ -9275,7 +9927,7 @@
             <row>
               <entry>icon_image</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry></entry>
 
@@ -9287,7 +9939,7 @@
             <row>
               <entry>icon_image_alt</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry></entry>
 
@@ -9299,7 +9951,7 @@
             <row>
               <entry>vrml_image</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry></entry>
 
@@ -9311,7 +9963,7 @@
             <row>
               <entry>statusmap_image</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry></entry>
 
@@ -9321,7 +9973,7 @@
             </row>
 
             <row>
-              <entry>have_2d_ccords</entry>
+              <entry>have_2d_coords</entry>
 
               <entry>SMALLINT</entry>
 
@@ -9449,7 +10101,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -9527,7 +10179,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -9701,7 +10353,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -9779,7 +10431,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -9953,7 +10605,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -10031,7 +10683,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -10121,7 +10773,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -10763,7 +11415,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
@@ -10865,7 +11517,7 @@
             <row>
               <entry>instance_id</entry>
 
-              <entry>SMALLINT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
