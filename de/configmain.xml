@@ -2131,8 +2131,8 @@
     </tgroup>
   </informaltable>
 
-  <para>Diese Optionen erlauben Ihnen festzulegen, ob &name-icinga; Eventhandler für "stalked" Host oder Services ausführt. Auf diese Weise
-  können Statusinformationsänderungen an externe System weitergeleitet werden.</para>
+  <para>Diese Optionen erlauben Ihnen festzulegen, ob &name-icinga; Eventhandler für "stalked" Hosts oder Services ausführt. Auf diese Weise
+  können Statusinformationsänderungen an externe Systeme weitergeleitet werden.</para>
 
   <itemizedlist>
     <listitem>
@@ -2146,6 +2146,61 @@
 
   <note>
     <para>Diese Option ist verfügbar ab &name-icinga; 1.0.3.</para>
+  </note>
+
+  <para><anchor xml:id="configmain-stalking_notifications_for_hosts" /> <emphasis role="bold">Benachrichtigungen für "verfolgte" Hosts 
+  (Notifications for stalked hosts)</emphasis></para>
+
+  <para><anchor xml:id="configmain-stalking_notifications_for_services" /> <emphasis role="bold">Benachrichtigungen für "verfolgte" 
+  Services (Notifications for stalked services)</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*" />
+
+      <colspec colname="c2" colwidth="50*" />
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para>
+
+              <emphasis role="bold">stalking_notifications_for_hosts=&lt;0|1&gt;</emphasis>
+
+            </para> <para>
+
+              <emphasis role="bold">stalking_notifications_for_services=&lt;0|1&gt;</emphasis>
+
+            </para></entry>
+        </row>
+
+        <row>
+          <entry><para>Beispiel:</para></entry>
+
+          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">stalking_notifications_for_hosts=1</emphasis>
+          </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Diese Optionen legen global für alle Kontakte fest, ob &name-icinga; Benachrichtigungen für "stalked" Hosts oder Services ausführt.
+  Das $NOTIFICATION_TYPE$-Makro wird um den Typ "STALKING" erweitert.</para>
+  <note><para>Solange keine stalking_options beim Host/Service definiert sind, haben diese Optionen keine Auswirkungen.</para></note>
+
+  <itemizedlist>
+    <listitem>
+      <para>0 = Benachrichtigungen deaktivieren (Default)</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = Benachrichtigungen aktivieren</para>
+    </listitem>
+  </itemizedlist>
+
+  <note>
+    <para>Diese Option ist verfügbar ab &name-icinga; 1.6.</para>
   </note>
 
   <para><anchor xml:id="configmain-sleep_time" /><emphasis role="bold">Ruhezeit zwischen Prüfungen</emphasis> (Inter-Check Sleep
