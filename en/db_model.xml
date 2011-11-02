@@ -16,6 +16,9 @@
   <para>This documentation is still in flux, and there are undoubtably errors present, so take everything you find here with a grain of
   salt. If you have suggestions, changes, etc. for the documentation, please let us know.</para>
 
+  <important><para>Although we took care to be accurate there may be alterations in the current code which aren't reflected here so if in
+  doubt please take a look at the actual code.</para></important>
+
   <para><emphasis role="bold">Table Names</emphasis></para>
 
   <para>The IDOUtils addon allows users to specify a custom prefix to each table name in the database. By default, this prefix is set to
@@ -3355,7 +3358,7 @@
             <row>
               <entry>servicecheck_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -3379,7 +3382,7 @@
             <row>
               <entry>service_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The id of the service this record refers to</entry>
 
@@ -3499,7 +3502,7 @@
             <row>
               <entry>command_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The id of the command that was run to perform the service check</entry>
 
@@ -3511,7 +3514,7 @@
             <row>
               <entry>command_args</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry>The arguments passed to the command that was run to perform the service check</entry>
 
@@ -3523,7 +3526,7 @@
             <row>
               <entry>command_line</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(1024)</entry>
 
               <entry>The fully expanded command line that was executed to perform the service check</entry>
 
@@ -3598,9 +3601,21 @@
             <row>
               <entry>output</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
-              <entry>The status output that was returned from the service check command</entry>
+              <entry>The status output that was returned from the service check command (first line)</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>long_output</entry>
+
+              <entry>TEXT</entry>
+
+              <entry>The status output that was returned from the service check command (consecutive lines)</entry>
 
               <entry></entry>
 
@@ -3610,7 +3625,7 @@
             <row>
               <entry>perfdata</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>TEXT</entry>
 
               <entry>Optional performance data that was returned from the service check command</entry>
 
@@ -3682,7 +3697,7 @@
             <row>
               <entry>statehistory_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -3828,9 +3843,21 @@
             <row>
               <entry>output</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
-              <entry>The current plugin/status output of the host or service</entry>
+              <entry>The current plugin/status output of the host or service (first line)</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>long_output</entry>
+
+              <entry>TEXT</entry>
+
+              <entry>The current plugin/status output of the host or service (consecutive lines)</entry>
 
               <entry></entry>
 
@@ -3896,7 +3923,7 @@
             <row>
               <entry>systemcommand_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -3968,7 +3995,7 @@
             <row>
               <entry>command_line</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(1024)</entry>
 
               <entry>Fully expanded command line that was executed</entry>
 
@@ -4028,9 +4055,21 @@
             <row>
               <entry>output</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry>First line of text output (if available) that was returned from the command</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>long_output</entry>
+
+              <entry>TEXT</entry>
+
+              <entry>Consecutive lines of text output (if available) that were returned from the command</entry>
 
               <entry></entry>
 
@@ -4091,7 +4130,7 @@
             <row>
               <entry>systemcommand_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -4202,11 +4241,23 @@
               <entry>BIGINT unsigned</entry>
 
               <entry>The id of the host or service that the event applies to. Not all events apply to hosts or services - in these cases the
-              value of this field will be 0. deletion_time TIMESTAMP The date/time the event was deleted/removed from the event queue</entry>
+              value of this field will be 0.</entry>
 
               <entry></entry>
 
               <entry>UK4</entry>
+            </row>
+
+            <row>
+              <entry>deletion_time</entry>
+
+              <entry>TIMESTAMP</entry>
+
+              <entry>The date/time the event was deleted/removed from the event queue</entry>
+
+              <entry></entry>
+
+              <entry></entry>
             </row>
 
             <row>
@@ -5504,7 +5555,7 @@
             <row>
               <entry>programstatus_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -5576,7 +5627,7 @@
             <row>
               <entry>process_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The processed ID (PID) of the &name-icinga; process</entry>
 
@@ -5854,7 +5905,7 @@
             <row>
               <entry>runtimevariable_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -5951,7 +6002,7 @@
             <row>
               <entry>scheduleddowntime_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -6035,7 +6086,7 @@
             <row>
               <entry>internal_downtime_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The ID number (internal to the &name-icinga; daemon) associated with this scheduled downtime entry</entry>
 
@@ -6047,7 +6098,7 @@
             <row>
               <entry>triggered_by_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The internal &name-icinga; ID number (if any) of another scheduled downtime entry that this downtime is "triggered"
               (started) by. If this field is nonzero, this is a triggered downtime entry, otherwise it is not</entry>
@@ -6204,7 +6255,7 @@
             <row>
               <entry>servicestatus_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -6228,7 +6279,7 @@
             <row>
               <entry>service_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The id of the service this record is associated with</entry>
 
@@ -6252,9 +6303,21 @@
             <row>
               <entry>output</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
-              <entry>The text output from the most current service check</entry>
+              <entry>The text output from the most current service check (first line)</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>long_output</entry>
+
+              <entry>TEXT</entry>
+
+              <entry>The text output from the most current service check (consecutive lines)</entry>
 
               <entry></entry>
 
@@ -6264,7 +6327,7 @@
             <row>
               <entry>perfdata</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>TEXT</entry>
 
               <entry>Optional performance data from the most current service check</entry>
 
@@ -6388,6 +6451,18 @@
               <entry>TIMESTAMP</entry>
 
               <entry>The date/time the service last changed HARD states (if at all)</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>last_hard_state</entry>
+
+              <entry>SMALLINT</entry>
+
+              <entry>0 = OK 1 = WARNING; 2 = CRITICAL; 3 = UNKNOWN</entry>
 
               <entry></entry>
 
@@ -6627,6 +6702,18 @@
             </row>
 
             <row>
+              <entry>execution_time</entry>
+
+              <entry>DOUBLE</entry>
+
+              <entry>Number of seconds it took to execute the service check</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
               <entry>scheduled_downtime_depth</entry>
 
               <entry>SMALLINT</entry>
@@ -6691,7 +6778,7 @@
             <row>
               <entry>event_handler</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry>The current event handler command that is associated with the service</entry>
 
@@ -6703,7 +6790,7 @@
             <row>
               <entry>check_command</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry>The current check command that is used to check the status of the service</entry>
 
@@ -6713,7 +6800,7 @@
             </row>
 
             <row>
-              <entry>check_interval</entry>
+              <entry>normal_check_interval</entry>
 
               <entry>DOUBLE</entry>
 
@@ -6725,7 +6812,7 @@
             </row>
 
             <row>
-              <entry>retry_interval</entry>
+              <entry>retry_check_interval</entry>
 
               <entry>DOUBLE</entry>
 
@@ -6739,7 +6826,7 @@
             <row>
               <entry>check_timeperiod_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry>The currently timeperiod that is used to determine when the service can be checked.</entry>
 
@@ -6993,7 +7080,7 @@
             <row>
               <entry>timedeventqueue_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -7053,7 +7140,7 @@
             <row>
               <entry>scheduled_time</entry>
 
-              <entry>INT</entry>
+              <entry>TIMESTAMP</entry>
 
               <entry>Date and time the event is scheduled to be executed</entry>
 
@@ -7221,11 +7308,19 @@
       </listitem>
 
       <listitem>
+        <para><link linkend="dbm_service_contacts">service_contacts</link></para>
+      </listitem>
+
+      <listitem>
         <para><link linkend="dbm_servicedependencies">servicedependencies</link></para>
       </listitem>
 
       <listitem>
         <para><link linkend="dbm_serviceescalation_contactgroups">serviceescalation_contactgroups</link></para>
+      </listitem>
+
+      <listitem>
+        <para><link linkend="dbm_serviceescalation_contacts">serviceescalation_contacts</link></para>
       </listitem>
 
       <listitem>
@@ -10089,7 +10184,7 @@
             <row>
               <entry>service_contactgroup_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -10113,7 +10208,7 @@
             <row>
               <entry>service_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -10125,7 +10220,85 @@
             <row>
               <entry>contactgroup_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+
+              <entry>UK3</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable></para>
+
+    <anchor xml:id="dbm_service_contacts" />
+
+    <indexterm zone="dbm_service_contacts">
+      <primary>Tables</primary>
+
+      <secondary>service_contacts</secondary>
+    </indexterm>
+
+    <para><emphasis>Service_contacts Table</emphasis></para>
+
+    <para>Description: .</para>
+
+    <para>Structure: <informaltable>
+        <tgroup cols="5">
+          <tbody>
+            <row>
+              <entry>Field</entry>
+
+              <entry>Type</entry>
+
+              <entry>Notes</entry>
+
+              <entry>Values</entry>
+
+              <entry>Key</entry>
+            </row>
+
+            <row>
+              <entry>service_contact_id</entry>
+
+              <entry>SERIAL</entry>
+
+              <entry>Unique number identifying the record</entry>
+
+              <entry></entry>
+
+              <entry>PK</entry>
+            </row>
+
+            <row>
+              <entry>instance_id</entry>
+
+              <entry>BIGINT unsigned</entry>
+
+              <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
+
+              <entry></entry>
+
+              <entry>UK1</entry>
+            </row>
+
+            <row>
+              <entry>service_id</entry>
+
+              <entry>BIGINT unsigned</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+
+              <entry>UK2</entry>
+            </row>
+
+            <row>
+              <entry>contact_object_id</entry>
+
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -10167,7 +10340,7 @@
             <row>
               <entry>servicedependency_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -10203,7 +10376,7 @@
             <row>
               <entry>service_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -10215,7 +10388,7 @@
             <row>
               <entry>dependent_service_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -10251,7 +10424,7 @@
             <row>
               <entry>timeperiod_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -10341,7 +10514,7 @@
             <row>
               <entry>serviceescalation_contactgroup_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -10365,7 +10538,7 @@
             <row>
               <entry>serviceescalation_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -10377,7 +10550,85 @@
             <row>
               <entry>contactgroup_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+
+              <entry>UK2</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable></para>
+
+    <anchor xml:id="dbm_serviceescalation_contacts" />
+
+    <indexterm zone="dbm_serviceescalation_contacts">
+      <primary>Tables</primary>
+
+      <secondary>serviceescalation_contacts</secondary>
+    </indexterm>
+
+    <para><emphasis>Serviceescalation_contacts Table</emphasis></para>
+
+    <para>Description: .</para>
+
+    <para>Structure: <informaltable>
+        <tgroup cols="5">
+          <tbody>
+            <row>
+              <entry>Field</entry>
+
+              <entry>Type</entry>
+
+              <entry>Notes</entry>
+
+              <entry>Values</entry>
+
+              <entry>Key</entry>
+            </row>
+
+            <row>
+              <entry>serviceescalation_contact_id</entry>
+
+              <entry>SERIAL</entry>
+
+              <entry>Unique number identifying the record</entry>
+
+              <entry></entry>
+
+              <entry>PK</entry>
+            </row>
+
+            <row>
+              <entry>instance_id</entry>
+
+              <entry>BIGINT unsigned</entry>
+
+              <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>serviceescalation_id</entry>
+
+              <entry>BIGINT unsigned</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+
+              <entry>UK1</entry>
+            </row>
+
+            <row>
+              <entry>contact_object_id</entry>
+
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -10419,7 +10670,7 @@
             <row>
               <entry>serviceescalation_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -10455,7 +10706,7 @@
             <row>
               <entry>service_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -10467,7 +10718,7 @@
             <row>
               <entry>timeperiod_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -10593,7 +10844,7 @@
             <row>
               <entry>servicegroup_member_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -10617,7 +10868,7 @@
             <row>
               <entry>servicegroup_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -10629,7 +10880,7 @@
             <row>
               <entry>service_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -10671,7 +10922,7 @@
             <row>
               <entry>servicegroup_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -10707,7 +10958,7 @@
             <row>
               <entry>servicegroup_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -10719,7 +10970,7 @@
             <row>
               <entry>alias</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry>String describing the servicegroup</entry>
 
@@ -10761,7 +11012,7 @@
             <row>
               <entry>service_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -10797,7 +11048,7 @@
             <row>
               <entry>host_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -10809,7 +11060,7 @@
             <row>
               <entry>service_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -10821,7 +11072,7 @@
             <row>
               <entry>display_name</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry></entry>
 
@@ -10833,7 +11084,7 @@
             <row>
               <entry>check_command_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -10845,7 +11096,7 @@
             <row>
               <entry>check_command_args</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry></entry>
 
@@ -10857,7 +11108,7 @@
             <row>
               <entry>eventhandler_command_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -10869,7 +11120,7 @@
             <row>
               <entry>eventhandler_command_args</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry></entry>
 
@@ -10881,7 +11132,7 @@
             <row>
               <entry>notification_timeperiod_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -10893,7 +11144,7 @@
             <row>
               <entry>check_timeperiod_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -10905,7 +11156,7 @@
             <row>
               <entry>failure_prediction_options</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(64)</entry>
 
               <entry></entry>
 
@@ -11084,6 +11335,18 @@
 
             <row>
               <entry>stalk_on_critical</entry>
+
+              <entry>SMALLINT</entry>
+
+              <entry></entry>
+
+              <entry></entry>
+
+              <entry></entry>
+            </row>
+
+            <row>
+              <entry>is_volatile</entry>
 
               <entry>SMALLINT</entry>
 
@@ -11313,7 +11576,7 @@
             <row>
               <entry>notes</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry></entry>
 
@@ -11325,7 +11588,7 @@
             <row>
               <entry>notes_url</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry></entry>
 
@@ -11337,7 +11600,7 @@
             <row>
               <entry>action_url</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry></entry>
 
@@ -11349,7 +11612,7 @@
             <row>
               <entry>icon_image</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry></entry>
 
@@ -11361,7 +11624,7 @@
             <row>
               <entry>icon_image_alt</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry></entry>
 
@@ -11403,7 +11666,7 @@
             <row>
               <entry>timeperiod_timerange_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -11427,7 +11690,7 @@
             <row>
               <entry>timeperiod_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -11505,7 +11768,7 @@
             <row>
               <entry>timeperiod_id</entry>
 
-              <entry>INT</entry>
+              <entry>SERIAL</entry>
 
               <entry>Unique number identifying the record</entry>
 
@@ -11541,7 +11804,7 @@
             <row>
               <entry>timeperiod_object_id</entry>
 
-              <entry>INT</entry>
+              <entry>BIGINT unsigned</entry>
 
               <entry></entry>
 
@@ -11553,7 +11816,7 @@
             <row>
               <entry>alias</entry>
 
-              <entry>VARCHAR</entry>
+              <entry>VARCHAR(255)</entry>
 
               <entry>String describing the timeperiod</entry>
 
