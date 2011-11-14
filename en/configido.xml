@@ -1,0 +1,2251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="configido" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="configido_" />Configuration of IDOUtils</title>
+
+  <note>
+    <para>This is to be considered "work in progress".</para>
+  </note>
+
+  <para><link linkend="configido_">Changes to core files</link></para>
+
+  <para><link linkend="configido-idomod">Changes in idomod.cfg </link></para>
+
+  <para><link linkend="configido-hints">Hints on performance and troubleshooting</link></para>
+
+  <para><link linkend="configido-ido2db">Changes in ido2db.cfg</link></para>
+
+  <para><link linkend="configido-idomod_options">idomod.cfg config options</link></para>
+
+  <para><link linkend="configido-ido2db_options">ido2db.cfg config options</link></para>
+
+  <para><emphasis role="bold">Core</emphasis></para>
+
+  <para>The configuration starts with setting up the directive "broker_options" in <filename>icinga.cfg</filename>. In most cases this value
+  is already present in the file but may have to be activated (by removing the leading hash sign).</para>
+
+  <important>
+    <para>Keep in mind that this setting affects <emphasis role="bold">all</emphasis> event broker modules! (for details see <link
+    xlink:href="http://www.mail-archive.com/nagios-users@lists.sourceforge.net/msg24002.html)">http://www.mail-archive.com/nagios-users@lists.sourceforge.net/msg24002.html).</link></para>
+  </important>
+
+  <para>Enable the idomod event broker module. Please note that under normal circumstances the following module definition is already
+  present in the <filename>modules</filename> subdirectory so there is no need to edit the main config file.</para>
+
+  <para>If not the definition of the broker module can be done using a <link linkend="objectdefinitions-module">module definition</link>
+  similar to the following:</para>
+
+  <para><programlisting> define module {
+    module_name   ido_mod
+    path          /usr/local/icinga/bin/idomod.o
+    module_type   neb
+    args          config_file=/usr/local/icinga/etc/idomod.cfg
+ }</programlisting></para>
+
+  <note>
+    <para>This also means that a broker_module entry in <filename>icinga.cfg</filename> must not be enabled at the same time! "define
+    module" is available starting with &name-icinga; 1.4.</para>
+  </note>
+
+  <para><anchor xml:id="configido-idomod" /><emphasis role="bold">idomod.cfg</emphasis></para>
+
+  <para>Please review the settings before actually (re)starting &name-icinga;.</para>
+
+  <para>The directive "output_type" should be set to "unixsocket" (default) or "tcpsocket" depending on whether you try access the IDO2DB
+  daemon remote. Please set the value of "output" accordingly (and "tcp_port" as well if applicable). The other options are set to values
+  suitable for starters. If you encounter difficulties during operation you might want to take a look at the following lines:</para>
+
+  <para><anchor xml:id="configido-hints" /><emphasis role="bold">Some hints on performance and troubleshooting</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para><emphasis>Buffer</emphasis></para>
+
+      <para>Increasing the buffer size will help in case of a slow ido2db daemon or RDBMS on the other side, dropping out. But keep in mind
+      that setting this value too high will cause more load on core handling live and cached data in sync. For performance reasons, it is a
+      good idea to put the buffer into a ramdisk reducing file I/O. If using a virtual environment, do not put it on the same volume as the
+      checkresults / logs are located. Side by side to <filename>status.dat</filename> will fit probably.</para>
+
+      <programlisting> output_buffer_items=
+ buffer_file=</programlisting>
+    </listitem>
+
+    <listitem>
+      <para><emphasis>Reconnect</emphasis></para>
+
+      <para>It may happen that a slow ido2db daemon or RDBMS will disconnect the client after timing out on insert/update/delete. The output
+      buffer will then being filled while waiting for a reconnect. In order to allow faster reconnect, you can decrease the default value of
+      reconnecting. But keep in mind, that too less and large values can create performance issues. Play around a bit yourself.
+      <programlisting> reconnect_interval=15
+ reconnect_warning_interval=15</programlisting><emphasis>Data Processing Options</emphasis></para>
+
+      <para>Decide what you need. Do you want to keep historical data or is it just a status database containing only current data?</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Normal operation</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>drop *TIMED_EVENT_DATA (default)</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Icinga Web requirements</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>drop *TIMED_EVENT_DATA</para>
+            </listitem>
+
+            <listitem>
+              <para>drop *CHECK_DATA</para>
+            </listitem>
+
+            <listitem>
+              <para>keep *LOG_DATA</para>
+            </listitem>
+
+            <listitem>
+              <para>keep *STATUS_DATA</para>
+            </listitem>
+
+            <listitem>
+              <para>keep *STATE_HISTORY</para>
+            </listitem>
+
+            <listitem>
+              <para>Config tables</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Only status data</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>drop *CHECK_DATA</para>
+            </listitem>
+
+            <listitem>
+              <para>drop *TIMED_EVENT_DATA</para>
+            </listitem>
+
+            <listitem>
+              <para>drop *LOG_DATA</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Historical data</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>watch *LOG_DATA</para>
+            </listitem>
+
+            <listitem>
+              <para>watch *CHECK_DATA</para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>archive older, static data into separated tables</para>
+                </listitem>
+
+                <listitem>
+                  <para>use the housekeeping cycles in <filename>ido2db.cfg</filename></para>
+                </listitem>
+              </itemizedlist>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Only performance data</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>drop *LOG_DATA</para>
+            </listitem>
+
+            <listitem>
+              <para>keep *CHECK_DATA</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+
+      <para>Use the <link xlink:href="http://labs.consol.de/nagios/ndo-data-processing-options">calculator by Consol</link> to calculate the
+      correct value in an easy way.</para>
+
+      <para>Have a look at the <link linkend="configido-data_processing_options">"data_processing_options"</link> directive for
+      details.</para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis>Config Output Options</emphasis></para>
+
+      <para>This determines what happens on start/restart/reload of the Core, dumping the configuration (main and object, to be separated in
+      the data processing options). Keep in mind that a reload is just a SIGHUP restart, not dropping memory and values. Internally IDOMOD
+      will handle this the same way fetching the data from the NEB API.</para>
+
+      <para>Using &name-web;, the default is currently "2" (retained config data), which requires to have retention data to be enabled (by
+      default) and at least being able to read the data once (so start, and reload then, dumping the configs at this stage). This won't take
+      as long as the original config dump because the config is already compiled/assembled into its respective resulting object data.</para>
+
+      <para>Taking the original configs, this will add a hook to the core config parser and add each single directive to IDOMOD too,
+      acquiring cpu cycles and generating much data upon (re)start. &name-web; can be set to use that data too.</para>
+
+      <para>Within the database itself, the icinga_hosts and icinga_services table defines the config_type column, where</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>config_type=1 &lt;==&gt; config_output_options=2 (retained)</para>
+        </listitem>
+
+        <listitem>
+          <para>config_type=0 &lt;==&gt; config_output_options=1 (original)</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>config_type itself can be used for &name-web; config as XML attribute.</para>
+
+      <para>See <link linkend="configido-config_output_options">"config_output_options"</link> for details.</para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis>Debug</emphasis></para>
+
+      <para>Keep in mind that writing a debug file may slow down the module processing data. But it will help in order to analyze what data
+      runs from the core through idomod onto the socket against ido2db.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><anchor xml:id="configido-ido2db" /><emphasis role="bold">ido2db.cfg</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para><emphasis>table trimming options</emphasis></para>
+
+      <para>By default timed events are not processed, because the remaining data would be rather useless. The rest can be set to be
+      cleaned, and holding only the current data, defined by the max age.</para>
+
+      <para>It might be a good idea to reduce this especially for logentries because this table can grow very fast.</para>
+
+      <para><emphasis role="bold">Please keep in mind:</emphasis> If you change the instance_name in <filename>idomod.cfg</filename> the
+      historical data will stay within the database. The housekeeping process will only catch columns targetted against the current active
+      instance_id (which will be read from IDOMOD and DB on ido2db startup).</para>
+
+      <programlisting> ## TABLE TRIMMING OPTIONS
+ # Several database tables containing Icinga event data can become quite large
+ # over time.  Most admins will want to trim these tables and keep only a
+ # certain amount of data in them.  The options below are used to specify the
+ # age (in MINUTES) that data should be allowd to remain in various tables
+ # before it is deleted.  Using a value of zero (0) for any value means that
+ # that particular table should NOT be automatically trimmed.
+ #
+ # Remember: There are no optimized settings, it depends on your rdbm install,
+ # number/checkinterval of host/service-checks and your desired time of data
+ # savings - historical vs live-data. Please keep in mind that low delete
+ # intervals may interfere with insert/update data from Icinga.
+
+ # ***DEFAULT***
+
+ # Keep timed events for 1 hour
+ max_timedevents_age=60
+
+ # Keep system commands for 1 day
+ max_systemcommands_age=1440
+
+ # Keep service checks for 1 day
+ max_servicechecks_age=1440
+
+ # Keep host checks for 1 day
+ max_hostchecks_age=1440
+
+ # Keep event handlers for 1 week
+ max_eventhandlers_age=10080
+
+ # Keep external commands for 1 week
+ max_externalcommands_age=10080
+
+ # Keep logentries for 31 days
+ max_logentries_age=44640
+
+ # Keep acknowledgements for 31 days
+ max_acknowledgements_age=44640</programlisting>
+
+      <para>Starting with &name-icinga; 1.6 housekeeping was extended on the notification tables so the following directives were
+      introduced.</para>
+
+      <programlisting> # Keep notifications for 31 days
+ max_notifications_age=44640
+
+ # Keep contactnotifications for 31 days
+ max_contactnotifications_age=44640
+
+ # Keep contactnotificationmethods for 31 days
+ max_contactnotificationmethods_age=44640</programlisting>
+    </listitem>
+
+    <listitem>
+      <para><emphasis>db trim interval</emphasis></para>
+
+      <para>This option can be used to adjust the overall trimming interval (the time between the dates when the table trimming delete
+      queries are actually run against the database). This value has been increased from 60 to 3600 seconds in Icinga 1.4 in order to only
+      run that every hour (and not to stress the database every minute for performance reasons).</para>
+
+      <para>Please keep in mind that the table trimming options go hand in hand with that value, so setting e.g. max_logentries_age to 30
+      minutes will also require the trimming interval to be set to less than 30*60 seconds.</para>
+
+      <para><programlisting> trim_db_interval=3600</programlisting></para>
+    </listitem>
+
+    <listitem>
+      <para><emphasis>clear tables on startup</emphasis></para>
+
+      <para>By default, host/service status and downtimes are not covered by these settings as they remain in the database itself. The rest
+      will be cleaned either way - if you require various data surviving a core restart/reload, you can disable these
+      settings:<programlisting> clean_realtime_tables_on_core_startup=1
+ clean_config_tables_on_core_startup=1</programlisting></para>
+    </listitem>
+  </itemizedlist>
+
+  <section>
+    <title><anchor xml:id="configido-idomod_options" />IDOMOD config options</title>
+
+    <para><anchor xml:id="configido-instance_name" /><emphasis role="bold">Instance name</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">instance_name=&lt;name&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">instance_name=default</emphasis> </emphasis>
+            </para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option identifies the "name" associated with this particular instance of Icinga and is used to separate data coming from
+    multiple instances. Defaults to 'default' (without quotes).</para>
+
+    <para><anchor xml:id="configido-output_type" /><emphasis role="bold">Output type</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">output_type<emphasis
+            role="bold">=</emphasis>&lt;file&gt;|&lt;tcpsocket&gt;|&lt;unixsocket&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="bold">output_type=unixsocket</emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option determines what type of output sink the IDO NEB module should use for data output.</para>
+
+    <para>Possible values are:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>file = standard text file</para>
+      </listitem>
+
+      <listitem>
+        <para>tcpsocket = TCP socket</para>
+      </listitem>
+
+      <listitem>
+        <para>unixsocket = UNIX domain socket (default)</para>
+      </listitem>
+    </itemizedlist>
+
+    <para><anchor xml:id="configido-output" /><emphasis role="bold">Output</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">output=</emphasis><emphasis role="bold">&lt;ip address&gt;|&lt;file name&gt;</emphasis>
+            </para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">output=/usr/local/icinga/var/ido.sock</emphasis>
+            </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option determines the name and path of the file or UNIX domain socket to which output will be sent if the output type option
+    specified above is "file" or "unixsocket", respectively. If the output type option is "tcpsocket", this option is used to specify the IP
+    address or fully qualified domain name of the host that the module should connect to for sending output.</para>
+
+    <para><anchor xml:id="configido-tcp_port" /><emphasis role="bold">TCP-port</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">tcp_port=&lt;n&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">tcp_port=5668</emphasis> </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option determines which port the module will connect to in order to send output. This option is only valid if the output type
+    option specified above is "tcpsocket".</para>
+
+    <para><anchor xml:id="configido-use_ssl" /><emphasis role="bold">Use encryption</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">use_ssl=</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">use_ssl=0</emphasis> </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option determines if the module will use SSL to encrypt the network traffic between module and ido2db daemon. Both sides have
+    to enable this feature which depends on SSL libraries like openssl or kerberos.</para>
+
+    <para>This option is only valid if the output type option specified above is "tcpsocket".</para>
+
+    <para><anchor xml:id="configido-output_buffer_items" /><emphasis role="bold">Output buffer size</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">output_buffer_items=&lt;n&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">output_buffer_items=5000</emphasis> </emphasis>
+            </para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option determines the size of the output buffer, which will help prevent data from getting lost if there is a temporary
+    disconnect from the data sink. The number of items specified here is the number of lines (each of variable size) of output that will be
+    buffered.</para>
+
+    <para><anchor xml:id="configido-buffer_file" /><emphasis role="bold">Buffer file</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">buffer_file=&lt;file name&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis
+            role="bold">buffer_file=/usr/local/icinga/var/idomod.tmp</emphasis> </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option is used to specify a file which will be used to store the contents of buffered data which could not be sent to the
+    IDO2DB daemon before &name-icinga; shuts down. Prior to shutting down, the IDO NEB module will write all buffered data to this file for
+    later processing. When &name-icinga; (re)starts, the IDO NEB module will read the contents of this file and send it to the IDO2DB daemon
+    for processing.</para>
+
+    <para><anchor xml:id="configido-file_rotation_interval" /><emphasis role="bold">File rotation interval</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">file_rotation_interval=&lt;seconds&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">file_rotation_interval=14400</emphasis> </emphasis>
+            </para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option determines how often (in seconds) the output file is rotated by &name-icinga;. File rotation is handled by
+    &name-icinga; by executing the command defined by the file_rotation_command option. This option has no effect if the output_type option
+    is a socket.</para>
+
+    <para><anchor xml:id="configido-file_rotation_command" /><emphasis role="bold">File rotation command</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">file_rotation_command=&lt;command&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">file_rotation_command=rotate_ido_log</emphasis>
+            </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option specified the command (as defined in &name-icinga;) that is used to rotate the output file at the interval specified
+    by the file_rotation_interval option. This option has no effect if the output_type option is a socket.</para>
+
+    <para>See the file 'misccommands.cfg' for an example command definition that you can use to rotate the log file.</para>
+
+    <para><anchor xml:id="configido-file_rotation_timeout" /><emphasis role="bold">File rotation timeout</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">file_rotation_timeout=&lt;seconds&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">file_rotation_timeout=60</emphasis> </emphasis>
+            </para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option specified the maximum number of seconds that the file rotation command should be allowed to run before being
+    terminated prematurely.</para>
+
+    <para><anchor xml:id="configido-reconnect_interval" /><emphasis role="bold">Reconnect interval</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">reconnect_interval=&lt;seconds&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">reconnect_interval=15</emphasis> </emphasis>
+            </para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option determines how often (in seconds) the IDO NEB module will attempt to re-connect to the output file or socket if a
+    connection to it is lost.</para>
+
+    <para><anchor xml:id="configido-reconnect_warning_interval" /><emphasis role="bold">Reconnect warning interval</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">reconnect_warning_interval=&lt;seconds&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">reconnect_warning_interval=15</emphasis> </emphasis>
+            </para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option determines how often (in seconds) a warning message will be logged to the &name-icinga; log file if a connection to
+    the output file or socket cannot be re-established.</para>
+
+    <para><anchor xml:id="configido-data_processing_options" /> <emphasis role="bold">Data processing options</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">data_processing_options=&lt;n&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">data_processing_options=-1</emphasis> </emphasis>
+            </para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <caution>
+      <para>Do not mess with this option unless you know what you're doing!!!</para>
+    </caution>
+
+    <para>This option determines what data the IDO NEB module will process.</para>
+
+    <para>Read the source code (<filename>module/idoutils/include/idomod.h</filename>) and look for "IDOMOD_PROCESS_" to determine what
+    values to use here.</para>
+
+    <para>Values from source code should be OR'ed to get the value to use here. A value of -1 will cause all data to be processed.</para>
+
+    <para>Basically you have to calculate from the following values</para>
+
+    <programlisting> #define IDOMOD_PROCESS_PROCESS_DATA                   1
+ #define IDOMOD_PROCESS_TIMED_EVENT_DATA               2
+ #define IDOMOD_PROCESS_LOG_DATA                       4
+ #define IDOMOD_PROCESS_SYSTEM_COMMAND_DATA            8
+ #define IDOMOD_PROCESS_EVENT_HANDLER_DATA             16
+ #define IDOMOD_PROCESS_NOTIFICATION_DATA              32
+ #define IDOMOD_PROCESS_SERVICE_CHECK_DATA             64
+ #define IDOMOD_PROCESS_HOST_CHECK_DATA                128
+ #define IDOMOD_PROCESS_COMMENT_DATA                   256
+ #define IDOMOD_PROCESS_DOWNTIME_DATA                  512
+ #define IDOMOD_PROCESS_FLAPPING_DATA                  1024
+ #define IDOMOD_PROCESS_PROGRAM_STATUS_DATA            2048
+ #define IDOMOD_PROCESS_HOST_STATUS_DATA               4096
+ #define IDOMOD_PROCESS_SERVICE_STATUS_DATA            8192
+ #define IDOMOD_PROCESS_ADAPTIVE_PROGRAM_DATA          16384
+ #define IDOMOD_PROCESS_ADAPTIVE_HOST_DATA             32768
+ #define IDOMOD_PROCESS_ADAPTIVE_SERVICE_DATA          65536
+ #define IDOMOD_PROCESS_EXTERNAL_COMMAND_DATA          131072
+ #define IDOMOD_PROCESS_OBJECT_CONFIG_DATA             262144
+ #define IDOMOD_PROCESS_MAIN_CONFIG_DATA               524288
+ #define IDOMOD_PROCESS_AGGREGATED_STATUS_DATA         1048576
+ #define IDOMOD_PROCESS_RETENTION_DATA                 2097152
+ #define IDOMOD_PROCESS_ACKNOWLEDGEMENT_DATA           4194304
+ #define IDOMOD_PROCESS_STATECHANGE_DATA               8388608
+ #define IDOMOD_PROCESS_CONTACT_STATUS_DATA            16777216
+ #define IDOMOD_PROCESS_ADAPTIVE_CONTACT_DATA          33554432
+ #
+ #define IDOMOD_PROCESS_EVERYTHING                     67108863
+ #
+ # You may use the Online Calculator by Gerhard Lausser:
+ # http://labs.consol.de/nagios/ndo-data-processing-options/
+ # (please note that there is a checkbox for everything!)
+ #
+ # The default setting will remove everything not used by default.
+ #       TIMED_EVENT_DATA        (-2)
+ #       SERVICE_CHECK_DATA      (-64)
+ #       HOST_CHECK_DATA         (-128)
+ #
+ # 67108863-(2+64+128) = 67108863-194 = 67108669
+
+ data_processing_options=67108669
+
+ # If you are planning to use NagVis you may want to use the following setting:
+ #
+ #data_processing_options=4061953
+ #
+ # You may have to experiment in your environment and find the best value yourself! </programlisting>
+
+    <para><anchor xml:id="configido-config_output_options" /> <emphasis role="bold">Config output options</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">config_output_options=&lt;0|1|2|3&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">config_output_options=2</emphasis>
+            </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option determines what types of configuration data from &name-icinga; the IDO NEB module will dump. Values can be OR'ed
+    together. Hint: "2" is the preferred value, doing a restart after initial startup.</para>
+
+    <para>Possible values are:<itemizedlist>
+        <listitem>
+          <para>0 = Don't dump any configuration information</para>
+        </listitem>
+
+        <listitem>
+          <para>1 = Dump only original config (from config files)</para>
+        </listitem>
+
+        <listitem>
+          <para>2 = Dump config only after retained information has been restored</para>
+        </listitem>
+
+        <listitem>
+          <para>3 = Dump both original and retained configuration</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para><anchor xml:id="configido-debug_level" /> <emphasis role="bold">Debug level</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">debug_level=&lt;-1|0|1|2&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">debug_level=0</emphasis> </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option determines how much (if any) debugging information will be written to the debug file. OR values together to log
+    multiple types of information.</para>
+
+    <para>Possible values are:<itemizedlist>
+        <listitem>
+          <para>-1 = Everything</para>
+        </listitem>
+
+        <listitem>
+          <para>0 = Nothing</para>
+        </listitem>
+
+        <listitem>
+          <para>1 = Process info</para>
+        </listitem>
+
+        <listitem>
+          <para>2 = SQL queries</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para><anchor xml:id="configido-debug_verbosity" /> <emphasis role="bold">Debug verbosity</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">debug_verbosity=&lt;0|1|2&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">debug_verbosity=1</emphasis>
+            </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option determines how verbose the debug log output will be.</para>
+
+    <para>Possible values are:<itemizedlist>
+        <listitem>
+          <para>0 = Brief output</para>
+        </listitem>
+
+        <listitem>
+          <para>1 = More detailed</para>
+        </listitem>
+
+        <listitem>
+          <para>2 = Very detailed</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para><anchor xml:id="configido-debug_file" /> <emphasis role="bold">Debug file name</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">debug_file=&lt;file name&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis
+            role="bold">debug_file=/usr/local/icinga/var/idomod.debug&gt;</emphasis> </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option determines where the daemon should write debugging information.</para>
+
+    <para><anchor xml:id="configido-max_debug_file_size" /> <emphasis role="bold">Maximum debug file size</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">max_debug_file_size=&lt;bytes&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">max_debug_file_size=100000000</emphasis>
+            </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option determines the maximum size (in bytes) of the debug file. If the file grows larger than this size, it will be renamed
+    with a .old extension. If a file already exists with a .old extension it will be deleted automatically. This helps to ensure that your
+    disk space usage doesn't get out of control when debugging.</para>
+  </section>
+
+  <section>
+    <title><anchor xml:id="configido-ido2db_options" /> <emphasis role="bold">IDO2DB config options</emphasis></title>
+
+    <para><anchor xml:id="configido-lock_file" /> <emphasis role="bold">Lock file</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">lock_file=&lt;file name&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">lock_file=ido2db.lock</emphasis>
+            </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This is the lockfile that IDO2DB will use to store its PID number in when it is running in daemon mode.</para>
+
+    <para><anchor xml:id="configido-ido2db_user" /><anchor xml:id="configido-ido2db_group" /> <emphasis role="bold">IDO2DB
+    user/group</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para>
+                 
+
+                <emphasis role="bold">ido2db_user=&lt;user name&gt;</emphasis>
+
+                 
+              </para> <para>
+                 
+
+                <emphasis role="bold">ido2db_group=&lt;group name&gt;</emphasis>
+
+                 
+              </para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">ido2db_user=icinga</emphasis> <emphasis
+            role="bold">ido2db_group=icinga-cmd</emphasis></emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>These options determine the user/group that the daemon should run as. You can specify a number (uid/gid) or a name for either
+    option.</para>
+
+    <para><anchor xml:id="configido-socket_type" /> <emphasis role="bold">Socket type</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">socket_type=&lt;unix|tcp&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">socket_type=unix</emphasis> </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option determines what type of socket the daemon will create and accept connections from.</para>
+
+    <para><anchor xml:id="configido-socket_name" /> <emphasis role="bold">Socket name</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">socket_name=&lt;file name&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">socket_name=/usr/local/icinga/rw/ido.sock</emphasis>
+            </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option determines the name and path of the UNIX domain socket that the daemon will create and accept connections from. This
+    option is only valid if the socket type specified above is "unix".</para>
+
+    <para><anchor xml:id="configido-tcp_port2" /><emphasis role="bold">TCP-port</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">tcp_port=&lt;n&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">tcp_port=5668</emphasis> </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option determines which port the module will connect to in order to send output. This option is only valid if the output type
+    option specified above is "tcp".</para>
+
+    <para><anchor xml:id="configido-use_ssl2" /> <emphasis role="bold">Use encryption</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">use_ssl=</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">use_ssl=0</emphasis> </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option determines if the module will use SSL to encrypt the network traffic between module and ido2db daemon. Both sides have
+    to enable this feature which depends on SSL libraries like openssl or kerberos.</para>
+
+    <para>This option is only valid if the output type option specified above is "tcp".</para>
+
+    <para><anchor xml:id="configido-db_servertype" /> <emphasis role="bold">Database server type</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">db_servertype=&lt;type&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">db_servertype=mysql</emphasis>
+            </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option determines what type of DB server the daemon should connect to. Supported databases are &name-mysql;, &name-postgres;,
+    and &name-oracle;</para>
+
+    <para>Possible values are:<itemizedlist>
+        <listitem>
+          <para>mysql (uses libdbi)</para>
+        </listitem>
+
+        <listitem>
+          <para>pqsql (uses libdbi)</para>
+        </listitem>
+
+        <listitem>
+          <para>oracle (uses ocilib)</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para><anchor xml:id="configido-db_host" /> <emphasis role="bold">Database host</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">db_host=&lt;host name|ip address&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">db_host=localhost</emphasis>
+            </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option specifies what host the DB server is running on. <emphasis role="bold">Note:</emphasis> &name-oracle; will ignore this
+    setting.</para>
+
+    <para><anchor xml:id="configido-db_port" /> <emphasis role="bold">Database port</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">db_port=&lt;n&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">db_port=3306</emphasis> </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option specifies the port that the DB server is running on.</para>
+
+    <para>Common values are:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>3306 (default &name-mysql; port)</para>
+      </listitem>
+
+      <listitem>
+        <para>5432 (default &name-postgres; port)</para>
+      </listitem>
+
+      <listitem>
+        <para>1521 (default &name-oracle; port)</para>
+      </listitem>
+    </itemizedlist>
+
+    <note>
+      <para>ocilib will ignore this, you have to modify your <filename>tnsnames.ora</filename>.</para>
+    </note>
+
+    <para><anchor xml:id="configido-db_socket" /> <emphasis role="bold">Database socket</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">db_socket=&lt;file name&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">db_socket=/var/lib/mysql/mysql.sock</emphasis>
+            </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>Optional db_socket allows to specify a different socket location. This will be passed to libdbi &name-mysql; as mysql_unix_socket,
+    while &name-postgres; overrides the port, ocilib &name-oracle; ignores this setting.</para>
+
+    <note>
+      <para>This setting overrules db_port, making it useless!</para>
+    </note>
+
+    <para><anchor xml:id="configido-db_name" /> <emphasis role="bold">Database name</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">db_name=&lt;name&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">db_name=icinga</emphasis> </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option specifies the name of the database that should be used.</para>
+
+    <note>
+      <para>&name-oracle; with ocilib requires <filename>tnsnames.ora</filename> filled with host, port and database information. Then you
+      can use one of the following: <itemizedlist>
+          <listitem>
+            <para>//DBSERVER/SID</para>
+          </listitem>
+
+          <listitem>
+            <para>SID</para>
+          </listitem>
+        </itemizedlist></para>
+    </note>
+
+    <para><anchor xml:id="configido-db_prefix" /> <emphasis role="bold">Database prefix</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">db_prefix=&lt;name&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">db_prefix=icinga_</emphasis>
+            </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>Determines the prefix (if any) that should be prepended to table names. If you modify the table prefix, you'll need to modify the
+    SQL script for creating the database as well!</para>
+
+    <note>
+      <para>&name-oracle; will ignore this prefix since the tablename length will exceed 30 characters.</para>
+    </note>
+
+    <para><anchor xml:id="configido-db_user" /><anchor xml:id="configido-db_pass" /> <emphasis role="bold">Database
+    user/password</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para>
+                 
+
+                <emphasis role="bold">db_user=&lt;user name&gt;</emphasis>
+
+                 
+              </para> <para>
+                 
+
+                <emphasis role="bold">db_pass=&lt;password&gt;</emphasis>
+
+                 
+              </para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">db_user=icinga</emphasis> <emphasis
+            role="bold">db_pass=icinga</emphasis></emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This is the username/password that will be used to authenticate to the DB. The user needs at least SELECT, INSERT, UPDATE, and
+    DELETE privileges on the database.</para>
+
+    <para><anchor xml:id="configido-debug_level2" /> <emphasis role="bold">Debug level</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">debug_level=&lt;-1|0|1|2&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">debug_level=0</emphasis> </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option determines how much (if any) debugging information will be written to the debug file. OR values together to log
+    multiple types of information.</para>
+
+    <para>Possible values are:<itemizedlist>
+        <listitem>
+          <para>-1 = Everything</para>
+        </listitem>
+
+        <listitem>
+          <para>0 = Nothing</para>
+        </listitem>
+
+        <listitem>
+          <para>1 = Process info</para>
+        </listitem>
+
+        <listitem>
+          <para>2 = SQL queries</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para><anchor xml:id="configido-debug_verbosity2" /> <emphasis role="bold">Debug verbosity</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">debug_verbosity=&lt;0|1|2&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">debug_verbosity=1</emphasis>
+            </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option determines how verbose the debug log out will be.</para>
+
+    <para>Possible values are:<itemizedlist>
+        <listitem>
+          <para>0 = Brief output</para>
+        </listitem>
+
+        <listitem>
+          <para>1 = More detailed</para>
+        </listitem>
+
+        <listitem>
+          <para>2 = Very detailed</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para><anchor xml:id="configido-debug_file2" /> <emphasis role="bold">Debug file name</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">debug_file=&lt;file name&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis
+            role="bold">debug_file=/usr/local/icinga/var/idomod.debug&gt;</emphasis> </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option determines where the daemon should write debugging information.</para>
+
+    <para><anchor xml:id="configido-max_debug_file_size2" /> <emphasis role="bold">Maximum debug file size</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">max_debug_file_size=&lt;bytes&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">max_debug_file_size=100000000</emphasis>
+            </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option determines the maximum size (in bytes) of the debug file. If the file grows larger than this size, it will be renamed
+    with a .old extension. If a file already exists with a .old extension it will automatically be deleted. This helps ensure your disk
+    space usage doesn't get out of control when debugging.</para>
+
+    <para><anchor xml:id="configido-debug_readable_timestamp" /> <emphasis role="bold">Readable debug timestamp</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">debug_readable_timestamp=&lt;0|1&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">debug_readable_timestamp=0</emphasis>
+            </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This option will allow you to set a readable timestamp instead of the default unix timestamp.</para>
+
+    <para>Possible values are:<itemizedlist>
+        <listitem>
+          <para>0 = disabled (unix timestamp)</para>
+        </listitem>
+
+        <listitem>
+          <para>1 = enabled (human readable timestamp)</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para><anchor xml:id="configido-oci_errors_to_syslog" /> <emphasis role="bold">OCI errors to syslog</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">oci_errors_to_syslog=&lt;0|1&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">oci_errors_to_syslog=0</emphasis>
+            </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>ido2db registers an error handler in ocilib which spits all messages into debug and syslog by default. Setting this option to 0,
+    syslog output will be disabled, only debug log will be used (if appropriate debug_level is set).</para>
+
+    <para><anchor xml:id="configido-oracle_trace_level" /> <emphasis role="bold">&name-oracle; trace level</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">oracle_trace_level=&lt;0|1|4|8|12&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">oracle_trace_level=0</emphasis>
+            </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This setting activates oracle session trace for each ido2db connection using trace event. Level value must be one of the currently
+    supported values (1,4,8,12) or 0 for off. This requires explicit "alter session" privilege, select rights to v$session and v$process are
+    recommended.</para>
+
+    <para>Possible values are:<itemizedlist>
+        <listitem>
+          <para>0 = pseudo level TRACE OFF</para>
+        </listitem>
+
+        <listitem>
+          <para>1 = standard SQL trace, no wait events, or bind variables</para>
+        </listitem>
+
+        <listitem>
+          <para>4 = bind variables only</para>
+        </listitem>
+
+        <listitem>
+          <para>8 = wait events only</para>
+        </listitem>
+
+        <listitem>
+          <para>12 = bind variables and wait events</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para><anchor xml:id="configido-enable_sla" /> <emphasis role="bold">Enable SLA data collection</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20" />
+
+        <colspec colname="c2" colwidth="*" />
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">enable_sla=&lt;0|1&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">enable_sla=0</emphasis> </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This setting enables collection of SLA data in the slahistory table</para>
+
+    <para>Possible values are:<itemizedlist>
+        <listitem>
+          <para>0 = disabled</para>
+        </listitem>
+
+        <listitem>
+          <para>1 = enabled</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <note>
+      <para>This option is available starting with &name-icinga; 1.6</para>
+    </note>
+
+    <indexterm zone="configido">
+      <primary>IDOUtils</primary>
+
+      <secondary>Configuration of</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-idomod">
+      <primary>IDOUtils</primary>
+
+      <secondary>idomod.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-ido2db">
+      <primary>IDOUtils</primary>
+
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-hints">
+      <primary>IDOUtils</primary>
+
+      <secondary>Hints on performance / troubleshooting</secondary>
+    </indexterm>
+
+    <indexterm zone="configido_">
+      <primary>IDOUtils</primary>
+
+      <secondary>Configuration of IDOUtils</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-idomod">
+      <primary>IDOUtils</primary>
+
+      <secondary>idomod.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-hints">
+      <primary>IDOUtils</primary>
+
+      <secondary>Some hints on performance and troubleshooting</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-ido2db">
+      <primary>IDOUtils</primary>
+
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-idomod_options">
+      <primary>IDOUtils</primary>
+
+      <secondary>IDOMOD config options</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-instance_name">
+      <primary>IDOUtils</primary>
+
+      <secondary>Instance name</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-output_type">
+      <primary>IDOUtils</primary>
+
+      <secondary>Output type</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-output">
+      <primary>IDOUtils</primary>
+
+      <secondary>Output</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-tcp_port">
+      <primary>IDOUtils</primary>
+
+      <secondary>TCP-port (idomod.cfg)</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-use_ssl">
+      <primary>IDOUtils</primary>
+
+      <secondary>Use encryption (idomod.cfg)</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-output_buffer_items">
+      <primary>IDOUtils</primary>
+
+      <secondary>Output buffer size</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-buffer_file">
+      <primary>IDOUtils</primary>
+
+      <secondary>Buffer file</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-file_rotation_interval">
+      <primary>IDOUtils</primary>
+
+      <secondary>File rotation interval</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-file_rotation_command">
+      <primary>IDOUtils</primary>
+
+      <secondary>File rotation command</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-file_rotation_timeout">
+      <primary>IDOUtils</primary>
+
+      <secondary>File rotation timeout</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-reconnect_interval">
+      <primary>IDOUtils</primary>
+
+      <secondary>Reconnect interval</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-reconnect_warning_interval">
+      <primary>IDOUtils</primary>
+
+      <secondary>Reconnect warning interval</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-data_processing_options">
+      <primary>IDOUtils</primary>
+
+      <secondary>Data processing options</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-config_output_options">
+      <primary>IDOUtils</primary>
+
+      <secondary>Config output options</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-debug_level">
+      <primary>IDOUtils</primary>
+
+      <secondary>Debug level (idomod.cfg)</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-debug_verbosity">
+      <primary>IDOUtils</primary>
+
+      <secondary>Debug verbosity (idomod.cfg)</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-debug_file">
+      <primary>IDOUtils</primary>
+
+      <secondary>Debug file name (idomod.cfg)</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-max_debug_file_size">
+      <primary>IDOUtils</primary>
+
+      <secondary>Maximum debug file size (idomod.cfg)</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-ido2db_options">
+      <primary>IDOUtils</primary>
+
+      <secondary>IDO2DB config options</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-lock_file">
+      <primary>IDOUtils</primary>
+
+      <secondary>Lock file</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-ido2db_user">
+      <primary>IDOUtils</primary>
+
+      <secondary>IDO2DB user</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-ido2db_group">
+      <primary>IDOUtils</primary>
+
+      <secondary>IDO2DB group</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-socket_type">
+      <primary>IDOUtils</primary>
+
+      <secondary>Socket type</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-socket_name">
+      <primary>IDOUtils</primary>
+
+      <secondary>Socket name</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-tcp_port2">
+      <primary>IDOUtils</primary>
+
+      <secondary>TCP-port (ido2db.cfg)</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-use_ssl2">
+      <primary>IDOUtils</primary>
+
+      <secondary>Use encryption (ido2db.cfg)</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-db_servertype">
+      <primary>IDOUtils</primary>
+
+      <secondary>Database server type</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-db_host">
+      <primary>IDOUtils</primary>
+
+      <secondary>Database host</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-db_port">
+      <primary>IDOUtils</primary>
+
+      <secondary>Database port</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-db_socket">
+      <primary>IDOUtils</primary>
+
+      <secondary>Database socket</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-db_name">
+      <primary>IDOUtils</primary>
+
+      <secondary>Database name</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-db_prefix">
+      <primary>IDOUtils</primary>
+
+      <secondary>Database prefix</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-db_user">
+      <primary>IDOUtils</primary>
+
+      <secondary>Database user</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-db_pass">
+      <primary>IDOUtils</primary>
+
+      <secondary>Database password</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-debug_level2">
+      <primary>IDOUtils</primary>
+
+      <secondary>Debug level (ido2db.cfg)</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-debug_verbosity2">
+      <primary>IDOUtils</primary>
+
+      <secondary>Debug verbosity</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-debug_file2">
+      <primary>IDOUtils</primary>
+
+      <secondary>Debug file name (ido2db.cfg)</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-max_debug_file_size2">
+      <primary>IDOUtils</primary>
+
+      <secondary>Maximum debug file size (ido2db.cfg)</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-debug_readable_timestamp">
+      <primary>IDOUtils</primary>
+
+      <secondary>Readable debug timestamp</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-oci_errors_to_syslog">
+      <primary>IDOUtils</primary>
+
+      <secondary>OCI errors to syslog</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-oracle_trace_level">
+      <primary>IDOUtils</primary>
+
+      <secondary>&name-oracle; trace level</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-enable_sla">
+      <primary>IDOUtils</primary>
+
+      <secondary>Enable SLA data collection</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-instance_name">
+      <primary>instance_name=</primary>
+
+      <secondary>idomod.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-output_type">
+      <primary>output_type=</primary>
+
+      <secondary>idomod.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-output">
+      <primary>output=</primary>
+
+      <secondary>idomod.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-tcp_port">
+      <primary>tcp_port=</primary>
+
+      <secondary>idomod.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-use_ssl">
+      <primary>use_ssl=</primary>
+
+      <secondary>idomod.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-output_buffer_items">
+      <primary>output_buffer_items=</primary>
+
+      <secondary>idomod.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-buffer_file">
+      <primary>buffer_file=</primary>
+
+      <secondary>idomod.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-file_rotation_interval">
+      <primary>file_rotation_interval=</primary>
+
+      <secondary>idomod.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-file_rotation_command">
+      <primary>file_rotation_command=</primary>
+
+      <secondary>idomod.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-file_rotation_timeout">
+      <primary>file_rotation_timeout=</primary>
+
+      <secondary>idomod.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-reconnect_interval">
+      <primary>reconnect_interval=</primary>
+
+      <secondary>idomod.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-reconnect_warning_interval">
+      <primary>reconnect_warning_interval=</primary>
+
+      <secondary>idomod.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-data_processing_options">
+      <primary>data_processing_options=</primary>
+
+      <secondary>idomod.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-config_output_options">
+      <primary>config_output_options=</primary>
+
+      <secondary>idomod.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-debug_level">
+      <primary>debug_level=</primary>
+
+      <secondary>idomod.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-debug_verbosity">
+      <primary>debug_verbosity=</primary>
+
+      <secondary>idomod.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-debug_file">
+      <primary>debug_file=</primary>
+
+      <secondary>idomod.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-max_debug_file_size">
+      <primary>max_debug_file_size=</primary>
+
+      <secondary>idomod.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-lock_file">
+      <primary>lock_file=</primary>
+
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-ido2db_user">
+      <primary>ido2db_user=</primary>
+
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-ido2db_group">
+      <primary>ido2db_group=</primary>
+
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-socket_type">
+      <primary>socket_type=</primary>
+
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-socket_name">
+      <primary>socket_name=</primary>
+
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-tcp_port2">
+      <primary>tcp_port=</primary>
+
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-use_ssl2">
+      <primary>use_ssl=</primary>
+
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-db_servertype">
+      <primary>db_servertype=</primary>
+
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-db_host">
+      <primary>db_host=</primary>
+
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-db_port">
+      <primary>db_port=</primary>
+
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-db_socket">
+      <primary>db_socket=</primary>
+
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-db_name">
+      <primary>db_name=</primary>
+
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-db_prefix">
+      <primary>db_prefix=</primary>
+
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-db_user">
+      <primary>db_user=</primary>
+
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-db_pass">
+      <primary>db_pass=</primary>
+
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-debug_level2">
+      <primary>debug_level=</primary>
+
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-debug_verbosity2">
+      <primary>debug_verbosity=</primary>
+
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-debug_file2">
+      <primary>debug_file=</primary>
+
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-max_debug_file_size2">
+      <primary>max_debug_file_size=</primary>
+
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-debug_readable_timestamp">
+      <primary>debug_readable_timestamp=</primary>
+
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-oci_errors_to_syslog">
+      <primary>oci_errors_to_syslog=</primary>
+
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-oracle_trace_level">
+      <primary>oracle_trace_level=</primary>
+
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-enable_sla">
+      <primary>enable_sla=</primary>
+
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
+  </section>
+</section>
