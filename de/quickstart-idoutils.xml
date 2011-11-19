@@ -159,6 +159,22 @@
   und (mindestens) mit den gleichen Rechten definiert sind und dass die korrekten Einstellungen in <filename>icinga_defines.sql</filename>
   vorhanden sind.</para>
 
+  <para><anchor xml:id="quickstart-idoutils_timezone-support" /><emphasis role="bold">Zeitzonenunterstützung</emphasis></para>
+  <para>Ab &name-icinga; 1.6 werden alle Zeit-/Datumsinformationen als lokale Zeitstempel in der Datenbank gespeichert. Vorher gab es für
+  jedes Datenbanksystem unterschiedliche Vorgehensweisen beim Speichern und Abrufen der Daten, was schwierig für Frontend-Applikationen war.
+  Deshalb wurden die Datentypen geändert: für &name-mysql; von DATETIME in TIMESTAMP und für &name-oracle; von DATE in LOCAL TIMESTAMP (0).
+  &name-postgres; benutzt bereits TIMESTAMP. IDO2DB wird die Sitzungszeitzone auf UTC setzen und alle Unix-Timestamps (die per Definition
+  UTC sind) als UTC-Werte speichern. Bitte stellen Sie sicher, dass Ihr System Unix-Timestamps als UTC-basierte Werte ausgibt (wie "date -u
+  '+%s'").</para>
+  <note><para>Stellen Sie sicher, dass Ihre Datenbanksitzung in der gleichen Zeitzone läuft, in der die existierenden
+  Zeit-/Datumsinformationen gespeichert wurden (überprüfen Sie Ihre lokale Zeitzone, z.B. &name-oracle;: "select sessiontimezone from
+  dual;"), wenn Sie das Upgrade-Script laufen lassen.
+  Zusätzlich für Ihre Bequemlichkeit sollten Sie in &name-oracle; das Format der Sitzungszeitstempel auf den Wert zu setzen, den Sie
+  wünschen, z.B. "alter session set nls_timestamp_format='YYYY-MM-DD HH24:MI:SS'; oder etwas ähnliches. 
+  Nun können Sie Einträge von verschiedenen &name-icinga;-Installationen in unterschiedlichen Zeitzonen ansehen, die in der gleichen
+  Datenbank gespeichert wurden, und unabhängig davon, von woher Sie darauf zugreifen, werden sie in Ihrer lokalen Zeitzone angezeigt.
+  </para></note>
+
   <para><emphasis role="bold">Installation der Pakete</emphasis></para>
 
   <para>Sie können diese Pakete mit Hilfe der folgenden Befehle installieren (als root oder mit sudo):</para>
@@ -757,5 +773,9 @@
     <primary>Quickstart</primary>
 
     <secondary>&name-icinga; mit &name-idoutils;</secondary>
+  </indexterm>
+
+  <indexterm zone="quickstart-idoutils_timezone-support">
+    <primary>&name-idoutils; / Zeitzonen-Unterstützung</primary>
   </indexterm>
 </section>

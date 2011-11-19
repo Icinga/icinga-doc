@@ -105,6 +105,17 @@
 
   <para>If you want to use Oracle as an RDBMS then we are sorry. Unfortunately it isn't that easy with &name-freebsd;.</para>
 
+  <para><anchor xml:id="quickstart_idof-timezone_support" /><emphasis role="bold">Timezone support</emphasis></para>
+  <para>Starting with &name-icinga; 1.6 all dates are stored as local timestamps in the database. Before that there was a different 
+  behaviour storing and retrieving dates for each database system which was difficult to handle for frontend apps. Therefore datatypes have   been changed for &name-mysql; from DATETIME to TIMESTAMP and for &name-oracle; from DATE to LOCAL TIMESTAMP (0). &name-postgres; is 
+  already using TIMESTAMP. IDO2DB will set session timezone to UTC and store all unix timestamps (which are UTC per definition) to UTC
+  values. Please make sure your system returns unix timestamps as real UTC based values (like "date -u '+%s'").</para>
+  <note><para>Make sure your database session runs in the same timezone in which the existing dates have been stored (check your local
+  timezone e.g. &name-oracle;:"select sessiontimezone from dual;") if you are running the upgrade script.
+  Additionally for your convenience in &name-oracle; you should set your session timestamp format to the value you want, e.g "alter session   set nls_timestamp_format='YYYY-MM-DD HH24:MI:SS';" or similar.
+  Now you can view entries from different &name-icinga; installations in different time zones which are stored in the same database and 
+  regardless from where you accessing it, all entries are returned in your local time zone.</para></note>
+
   <para><emphasis role="bold">Install the packages</emphasis></para>
 
   <para>You can install the packages from the ports or you take older packages (have a look at the <link
@@ -460,5 +471,9 @@
     <primary>Quickstart</primary>
 
     <secondary>&name-icinga; and &name-idoutils; on &name-freebsd;</secondary>
+  </indexterm>
+
+  <indexterm zone="quickstart_idof-timezone_support">
+    <primary>&name-idoutils; / timezone support</primary>
   </indexterm>
 </section>
