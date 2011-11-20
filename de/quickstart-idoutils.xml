@@ -177,12 +177,28 @@
 
   <para><emphasis role="bold">Installation der Pakete</emphasis></para>
 
-  <para>Sie können diese Pakete mit Hilfe der folgenden Befehle installieren (als root oder mit sudo):</para>
+  <para>Sie können diese Pakete mit Hilfe der folgenden Befehle installieren (als root oder mit sudo).</para>
+
+  <note><para>Unglücklicherweise ändern sich manchmal die Paketnamen zwischen verschiedenen Ausgaben der gleichen Distribution, so dass Sie
+  die Suchoption Ihres Paket-Managers nutzen sollten, falls Sie die Fehlermeldung bekommen, dass eins der Pakete nicht gefunden wurde.
+    <itemizedlist>
+      <listitem>
+        <literal>yum search &lt;package name&gt;</literal> (<emphasis>&name-fedora;/&name-rhel;/&name-centos;</emphasis>)
+      </listitem>
+      <listitem>
+        <literal>apt-cache search &lt;package name&gt;</literal> (<emphasis>&name-debian;/&name-ubuntu;</emphasis>)
+      </listitem>
+      <listitem>
+        <literal>zypper search &lt;package name&gt;</literal> (<emphasis>&name-opensuse;/&name-sles;</emphasis>)
+      </listitem>
+    </itemizedlist>
+  </para></note>
 
   <para><emphasis role="bold">&name-fedora; / &name-redhat; / &name-centos;:</emphasis></para>
 
   <programlisting> #&gt; yum install httpd gcc glibc glibc-common gd gd-devel
  #&gt; yum install libjpeg libjpeg-devel libpng libpng-devel</programlisting>
+  <note><para>ggf. sind libjpeg-turbo bzw. libjpeg-turbo-devel zu installieren</para></note>
 
   <para><emphasis role="bold">&name-mysql;:</emphasis></para>
 
@@ -217,6 +233,9 @@
 
   <para>Bitte nutzen Sie YaST für die Installation der Pakete gd, gd-devel, libjpeg, libjpeg-devel, libpng, libpng-devel und -optional-
   net-snmp, net-snmp-devel und perl-Net-SNMP.</para>
+  <para>Die Nutzung von zypper sollte ebenfalls funktionieren:</para>
+  <programlisting> #&gt; zypper install gd gd-devel libjpeg libjpeg-devel libpng libpng-devel
+ #&gt; zypper install net-snmp net-snmp-devel perl-Net-SNMP</programlisting>
 
   <note>
     <para>Die devel-Pakete sind ggf. auf den SDK-DVDs zu finden.</para>

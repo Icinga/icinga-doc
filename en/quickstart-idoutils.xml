@@ -167,12 +167,28 @@
 
   <para><emphasis role="bold">Install Packages</emphasis></para>
 
-  <para>You can install your packages by running the following commands (as root or sudo):</para>
+  <para>You can install your packages by running the following commands (as root or sudo).</para>
+
+  <note><para>Unfortunately sometimes the names of packages change between different releases of the same distribution so if you get a
+  message that one of the packages cannot be found then please use the search option of your package manager to get the new name:
+    <itemizedlist>
+      <listitem>
+        <literal>yum search &lt;package name&gt;</literal> (<emphasis>&name-fedora;/&name-rhel;/&name-centos;</emphasis>)
+      </listitem>
+      <listitem>
+        <literal>apt-cache search &lt;package name&gt;</literal> (<emphasis>&name-debian;/&name-ubuntu;</emphasis>)
+      </listitem>
+      <listitem>
+        <literal>zypper search &lt;package name&gt;</literal> (<emphasis>&name-opensuse;/&name-sles;</emphasis>)
+      </listitem>
+    </itemizedlist>
+  </para></note>
 
   <para><emphasis role="bold">&name-fedora;/&name-rhel;/&name-centos;:</emphasis></para>
 
   <programlisting> #&gt; yum install httpd gcc glibc glibc-common gd gd-devel
  #&gt; yum install libjpeg libjpeg-devel libpng libpng-devel</programlisting>
+  <note><para>You may have to use libjpeg-turbo and libjpeg-turbo-devel instead</para></note>
 
   <para><emphasis role="bold">&name-mysql;:</emphasis></para>
 
@@ -207,9 +223,12 @@
 
   <para>Please use YaST to install at least the packages gd, gd-devel, libjpeg, libjpeg-devel, libpng, libpng-devel and, optionally,
   net-snmp, net-snmp-devel and perl-Net-SNMP.</para>
+  <para>Using zypper should work as well:</para>
+  <programlisting> #&gt; zypper install gd gd-devel libjpeg libjpeg-devel libpng libpng-devel
+ #&gt; zypper install net-snmp net-snmp-devel perl-Net-SNMP</programlisting>
 
   <note>
-    <para>The devel packages might be place on the SDK DVDs.</para>
+    <para>The devel packages might be placed on the SDK DVDs.</para>
   </note>
 
   <para><emphasis role="bold">&name-mysql;:</emphasis></para>
