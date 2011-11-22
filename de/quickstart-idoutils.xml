@@ -200,13 +200,19 @@
  #&gt; yum install libjpeg libjpeg-devel libpng libpng-devel</programlisting>
   <note><para>ggf. sind libjpeg-turbo bzw. libjpeg-turbo-devel zu installieren</para></note>
 
+  <itemizedlist>
+  <listitem>
   <para><emphasis role="bold">&name-mysql;:</emphasis></para>
 
   <programlisting> #&gt; yum install mysql mysql-server libdbi libdbi-devel libdbi-drivers libdbi-dbd-mysql</programlisting>
 
+  </listitem>
+  <listitem>
   <para><emphasis role="bold">&name-postgres;:</emphasis></para>
 
   <programlisting> #&gt; yum install postgresql postgresql-server libdbi libdbi-devel libdbi-drivers libdbi-dbd-pgsql</programlisting>
+  </listitem>
+  </itemizedlist>
 
   <para><emphasis role="bold">&name-debian; / &name-ubuntu;:</emphasis></para>
 
@@ -221,13 +227,19 @@
     <para>Ab Ubuntu 10.10 heißt das Paket libpng12-0, der Name des dev-Pakets ändert sich nicht.</para>
   </note>
 
+  <itemizedlist>
+  <listitem>
   <para><emphasis role="bold">&name-mysql;:</emphasis></para>
 
   <programlisting> #&gt; apt-get install mysql-server mysql-client libdbi0 libdbi0-dev libdbd-mysql</programlisting>
+  </listitem>
 
+  <listitem>
   <para><emphasis role="bold">&name-postgres;:</emphasis></para>
 
-  <programlisting> #&gt; apt-get install postgresql libdbi0 libdbi0-dev libdbd-pgsql</programlisting>
+  <programlisting> #&gt; apt-get install postgresql libdbi1 libdbi-dev libdbd-pgsql libpg-dev</programlisting>
+  </listitem>
+  </itemizedlist>
 
   <para><emphasis role="bold">&name-opensuse;:</emphasis></para>
 
@@ -241,17 +253,23 @@
     <para>Die devel-Pakete sind ggf. auf den SDK-DVDs zu finden.</para>
   </note>
 
+  <itemizedlist>
+  <listitem>
   <para><emphasis role="bold">&name-mysql;:</emphasis></para>
 
   <para>Benutzen Sie yast zur Installation der Pakete für das RDBMS, das Sie verwenden möchten, also "mysql", "mysql-devel" sowie die
   libdbi-Pakete "libdbi", "libdbi-devel", "libdbi-drivers" und "libdbi-dbd-mysql".</para>
 
   <para>Bei OpenSuSE 11 (SLES 11) lautet der Name des Packages statt "mysql-devel" nun "libmysqlclient-devel".</para>
+  </listitem>
 
+  <listitem>
   <para><emphasis role="bold">&name-postgres;:</emphasis></para>
 
   <para>Benutzen Sie yast zur Installation der Pakete für das RDBMS, das Sie verwenden möchten, also "postgresql", "postgresql-devel" und
   "postgresql-server" sowie die libdbi-Pakete "libdbi", "libdbi-devel" und "libdbi-drivers".</para>
+  </listitem>
+  </itemizedlist>
 
   <para>Bei alten OpenSuSE- (SLES) Version einschließlich Version 10 ist es ziemlich wahrscheinlich, dass es keine libdbi-Packages gibt, so
   dass Sie die Sourcen herunterladen und kompilieren müssen. Ersetzen Sie dabei &lt;rdbm&gt; durch Ihr RDBM wie mysql oder pgsql. Bitte
@@ -363,6 +381,9 @@
     <programlisting> #&gt; export LIBS=-lsocket -lnsl</programlisting>
   </important>
 
+  <note><para>Auch mit <emphasis role="bold">&name-postgres;</emphasis> sollten Sie nicht den Parameter <literal>--enable-pgsq</literal>
+  verwenden, denn dieser wird noch nicht unterstützt.</para></note>
+ 
   <para><emphasis role="bold">Mit <emphasis role="bold">SSL</emphasis>-Verschlüsselung:</emphasis></para>
 
   <para><programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils --enable-ssl</programlisting></para>
@@ -484,12 +505,14 @@
    MAX_CONNECTIONS_PER_HOUR 0
    MAX_UPDATES_PER_HOUR 0;
    
- GRANT SELECT , INSERT , UPDATE , DELETE
+ GRANT SELECT , INSERT , UPDATE , DELETE, DROP, CREATE VIEW
    ON icinga.* TO 'icinga'@'localhost';
  
  FLUSH PRIVILEGES ;
 
  quit</programlisting>
+
+  <note><para>Ab &name-icinga; 1.6 benötigt der icinga-User zusätzlich die Rechte DROP und CREATE VIEW.</para></note>
 
   <programlisting> #&gt; cd /path/to/icinga-src/module/idoutils/db/mysql
  #&gt; mysql -u root -p icinga &lt; mysql.sql</programlisting>
