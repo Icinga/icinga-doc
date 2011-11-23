@@ -8,7 +8,7 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>Installation of the &name-web; Frontend</title>
 
-  <para><emphasis role="bold">Introducion</emphasis></para>
+  <para><emphasis role="bold">Introduction</emphasis></para>
 
   <para>The new Icinga Web is under heavy development so please keep in mind that some information in this howto might change without any
   further notice. If you require more detailed information about installing, please check doc/INSTALL.</para>
@@ -18,58 +18,118 @@
   the module architecture, please check out the development wiki of Icinga Web: <link
   xlink:href="https://dev.icinga.org/projects/icinga-development/wiki#24-Icinga-Web">&name-icingawiki;</link></para>
 
-  <para>This installation guide describes the installation of &name-web; with &name-mysql; as underlying database. &name-web; also supports
-  &name-oracle; and &name-postgres; as database backends.</para>
+  <para>This installation guide describes the installation of &name-web; with &name-mysql; or &name-postgres; as underlying database.
+  &name-web; also supports &name-oracle; as database backend.</para>
 
   <orderedlist>
     <listitem>
       <para><emphasis role="bold">Prerequisites</emphasis></para>
 
-      <para>Based on the fact that you have a running MySQL and PHP (with PEAR and CLI) environment and Icinga and IDOUtils are
-      running as well, you can continue with the second step. Otherwise:</para>
+      <itemizedlist>
+        <para><emphasis role="bold">&name-mysql;</emphasis></para>
 
-      <para><emphasis role="bold">Ubuntu / Debian</emphasis></para>
+        <listitem>
+          <para>Based on the fact that you have a running MySQL and PHP (with PEAR and CLI) environment and Icinga and IDOUtils are running
+          as well, you can continue with the second step. Otherwise:</para>
 
-      <para>Make sure you have a repository/packages for PHP 5.2.x - RHEL/CentOS (CentOS &lt;= 5.4) only support 5.1.6 out of the
-      box.</para>
+          <itemizedlist>
+            <listitem>
+              <para><emphasis role="bold">Ubuntu / Debian</emphasis></para>
 
-      <programlisting> #&gt; apt-get install php5 php5-cli php-pear php5-xmlrpc php5-xsl php5-pdo php5-gd php5-ldap php5-mysql</programlisting>
+              <programlisting> #&gt; apt-get install php5 php5-cli php-pear php5-xmlrpc php5-xsl php5-pdo php5-gd php5-ldap php5-mysql</programlisting>
 
-      <note>
-        <para>For &name-ubuntu; you install the required PDO extensions with php5 and php5-mysql! There is no php5-pdo package
-        available.</para>
-      </note>
+              <note>
+                <para>For &name-ubuntu; you install the required PDO extensions with php5 and php5-mysql! There is no php5-pdo package
+                available.</para>
+              </note>
+            </listitem>
 
-      <para><emphasis role="bold">Fedora / RHEL / CentOS</emphasis></para>
+            <listitem>
+              <para><emphasis role="bold">Fedora / RHEL / CentOS</emphasis></para>
 
-      <para><programlisting> #&gt; yum install php php-cli php-pear php-xmlrpc php-xsl php-pdo php-gd php-ldap php-mysql</programlisting></para>
+              <para><programlisting> #&gt; yum install php php-cli php-pear php-xmlrpc php-xsl php-pdo php-gd php-ldap php-mysql</programlisting></para>
 
-      <note>
-        <para>Currently, RHEL and CentOS provide old php 5.1.6 and pcre 6.6 packages. For running Icinga web you need at least php 5.2.3 and
-        pcre 7.6 - you can use an external repository, pre-built packages or compile php and pcre yourself. Precompiled PCRE and PHP
-        packages can be installed e.g. from <link xlink:href="http://blog.famillecollet.com/pages/Config-en">Les RPM de Remi</link> or <link
-        xlink:href="http://www.jasonlitka.com/category/yum-repo-news">http://www.jasonlitka.com/category/yum-repo-news/</link></para>
-      </note>
+              <note>
+                <para>Make sure you have a repository/packages for PHP 5.2.x - RHEL/CentOS (CentOS &lt;= 5.4) only support 5.1.6 out of the
+                box. For running Icinga web you need at least php 5.2.3 and pcre 7.6 - you can use an external repository, pre-built
+                packages or compile php and pcre yourself. Precompiled PCRE and PHP packages can be installed e.g. from <link
+                xlink:href="http://blog.famillecollet.com/pages/Config-en">Les RPM de Remi</link> or <link
+                xlink:href="http://www.jasonlitka.com/category/yum-repo-news">http://www.jasonlitka.com/category/yum-repo-news/</link></para>
+              </note>
+            </listitem>
 
-      <para><emphasis role="bold">OpenSuSE</emphasis></para>
+            <listitem>
+              <para><emphasis role="bold">OpenSuSE</emphasis></para>
 
-      <para>Please use yast to install the packages "php5", "php5-pear", "php5-xmlrpc", "php5-xsl", "php5-&lt;rdbm&gt;", "php5-soap",
-      "php5-gettext", "php5-ldap", "php5-gd" and "php5-mysql". The CLI is contained in the php5 package.</para>
+              <para>Please use yast to install the packages "php5", "php5-pear", "php5-xmlrpc", "php5-xsl", "php5-&lt;rdbm&gt;",
+              "php5-soap", "php5-gettext", "php5-ldap", "php5-gd" and "php5-mysql". The CLI is contained in the php5 package.</para>
 
-      <para><note>
-          <para>At least in SLES10 SP2 the function "hash_hmac" is missing.</para>
-        </note></para>
+              <para><note>
+                  <para>At least in SLES10 SP2 the function "hash_hmac" is missing.</para>
+                </note></para>
 
-      <para>Installing Icinga with IDOUtils is described in the <link linkend="quickstart-idoutils">Icinga with IDOUtils
-      Quickstart Guide</link> </para>
-    </listitem>
+              <para>Installing Icinga with IDOUtils is described in the <link linkend="quickstart-idoutils">Icinga with IDOUtils Quickstart
+              Guide</link></para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
 
-    <listitem>
+      <itemizedlist>
+        <para><emphasis role="bold">&name-postgres;</emphasis></para>
+
+        <listitem>
+          <para>Based on the fact that you have a running &name-postgres; and PHP (with PEAR and CLI) environment and Icinga and IDOUtils
+          are running as well, you can continue with the second step. Otherwise:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para><emphasis role="bold">Ubuntu / Debian</emphasis></para>
+
+              <programlisting> #&gt; apt-get install php5 php5-cli php-pear php5-xmlrpc php5-xsl php5-pdo php5-gd php5-ldap php5-pgsql</programlisting>
+
+              <note>
+                <para>For &name-ubuntu; you install the required PDO extensions with php5 and php5-pgsql! There is no php5-pdo package
+                available.</para>
+              </note>
+            </listitem>
+
+            <listitem>
+              <para><emphasis role="bold">Fedora / RHEL / CentOS</emphasis></para>
+
+              <para><programlisting> #&gt; yum install php php-cli php-pear php-xmlrpc php-xsl php-pdo php-gd php-ldap php-pgsql</programlisting></para>
+
+              <note>
+                <para>Make sure you have a repository/packages for PHP 5.2.x - RHEL/CentOS (CentOS &lt;= 5.4) only support 5.1.6 out of the
+                box. For running Icinga web you need at least php 5.2.3 and pcre 7.6 - you can use an external repository, pre-built
+                packages or compile php and pcre yourself. Precompiled PCRE and PHP packages can be installed e.g. from <link
+                xlink:href="http://blog.famillecollet.com/pages/Config-en">Les RPM de Remi</link> or <link
+                xlink:href="http://www.jasonlitka.com/category/yum-repo-news">http://www.jasonlitka.com/category/yum-repo-news/</link></para>
+              </note>
+            </listitem>
+
+            <listitem>
+              <para><emphasis role="bold">OpenSuSE</emphasis></para>
+
+              <para>Please use yast to install the packages "php5", "php5-pear", "php5-xmlrpc", "php5-xsl", "php5-&lt;rdbm&gt;",
+              "php5-soap", "php5-gettext", "php5-ldap", "php5-gd" and "php5-mysql". The CLI is contained in the php5 package.</para>
+
+              <para><note>
+                  <para>At least in SLES10 SP2 the function "hash_hmac" is missing.</para>
+                </note></para>
+
+              <para>Installing Icinga with IDOUtils is described in the <link linkend="quickstart-idoutils">Icinga with IDOUtils Quickstart
+              Guide</link></para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+
       <para><emphasis role="bold">The installation</emphasis></para>
 
       <para>Please download the archive from <link
-      xlink:href="http://sourceforge.net/projects/icinga/files/">http://sourceforge.net/projects/icinga/files/</link> or take your clone
-      from the icinga-web.git to get the freshest branch:</para>
+      xlink:href="http://sourceforge.net/projects/icinga/files/">http://sourceforge.net/projects/icinga/files/</link>. If your need a
+      function only available in the latest developer version then clone from the icinga-web.git to get the freshest branch:</para>
 
       <programlisting> #&gt; git clone git://git.icinga.org/icinga-web.git</programlisting>
 
@@ -113,7 +173,16 @@
 
       <para>to see all configure options.</para>
 
-      <para>Per default the &name-icingaweb; will be installed to /usr/local/icinga-web using:</para>
+      <para>To configure &name-web; for &name-postgres; please execute the following command:</para>
+
+      <programlisting> #&gt; ./configure --with-db-type=pgsql --with-db-port=5432</programlisting>
+
+      <para>If &name-icinga; is running using pqsql as well then please supply the api-options as well:</para>
+
+      <programlisting> #&gt; ./configure --with-db-type=pgsql --with-db-port=5432 \
+    --with-api-subtype=pgsql --with-api-port=5432</programlisting>
+
+      <para>Per default the &name-icingaweb; will be installed to <filename>/usr/local/icinga-web</filename> using:</para>
 
       <programlisting> #&gt; ./configure
  #&gt; make install</programlisting>
@@ -142,10 +211,10 @@
 
       <programlisting> #&gt; make testdeps</programlisting>
 
-      <para>All required tests should pass successfully. Maybe you have to alter the php.ini for the framework.</para>
+      <para>All required tests should pass successfully. Maybe you have to alter the <filename>php.ini</filename> for the framework.</para>
 
-      <para>In case of the gpc_magic_quote setting, you have to disable both entries (apache and cli php.ini). If you use php &lt; 5.3.0,
-      you have to set "safe_mode" to "off". The locations depend on the distributions used.</para>
+      <para>In case of the gpc_magic_quote setting, you have to disable both entries (apache and cli <filename>php.ini</filename>). If you
+      use php &lt; 5.3.0, you have to set "safe_mode" to "off". The locations depend on the distributions used.</para>
 
       <programlisting> #&gt; vi /etc/php5/apache/php.ini
    magic_quotes_gpc = off
@@ -175,9 +244,11 @@
       <programlisting> SQL&gt; GRANT USAGE ON *.* TO 'icinga_web'@'localhost' IDENTIFIED BY 'icinga_web';
  SQL&gt; GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER, INDEX ON icinga_web.* TO 'icinga_web'@'localhost';</programlisting>
 
-      <para><emphasis role="bold">&name-mysql;</emphasis></para>
+      <itemizedlist>
+        <listitem>
+          <para><emphasis role="bold">&name-mysql;</emphasis></para>
 
-      <programlisting> # mysql -u root -p
+          <programlisting> # mysql -u root -p
 
  mysql&gt; CREATE DATABASE icinga_web;
 
@@ -186,6 +257,22 @@
         GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER, INDEX ON icinga_web.* TO 'icinga_web'@'localhost';
 
         quit</programlisting>
+        </listitem>
+
+        <listitem>
+          <para><emphasis role="bold">&name-postgres;</emphasis></para>
+
+          <programlisting> #&gt; su - postgres
+
+ $ psql
+
+ postgres=# CREATE USER icinga_web;
+
+ postgres=# ALTER USER icinga_web WITH PASSWORD 'icinga_web' CREATEDB;
+
+ &lt;Ctrl&gt;+&lt;D&gt;</programlisting>
+        </listitem>
+      </itemizedlist>
 
       <para><emphasis role="bold">Create Database</emphasis></para>
 
@@ -212,6 +299,32 @@
       <programlisting> #&gt; make db-doc2sql</programlisting>
 
       <para>and then use the generated scripts on the freshly created database.</para>
+
+      <para><emphasis>&name-postgres;</emphasis></para>
+
+      <para>Please edit the file <filename>pg_hba.conf</filename> and add the following lines:</para>
+
+      <programlisting> #&gt; vi /etc/postgresql/9.x/main/pg_hba.conf
+
+ # database administrative login by UNIX sockets
+ local all postgres ident
+
+ # TYPE DATABASE USER CIDR-ADDRESS METHOD
+ #icinga_web
+ local icinga_web icinga_web trust
+
+ # "local" is for Unix domain socket connections only
+ local all all trust
+
+ # IPv4 local connections
+ host all all 127.0.0.1/32 trust
+
+ # IPV6 local connections
+ host all all ::1/128 trust</programlisting>
+
+      <para>Please keep in mind to restart &name-postgres; afterwards:</para>
+
+      <programlisting> #&gt; /etc/init.d/postgresql reload</programlisting>
     </listitem>
 
     <listitem>
@@ -231,13 +344,13 @@
       <programlisting> #&gt; vi app/config/databases.xml</programlisting>
 
       <note>
-        <para>Optional: Your specific Icinga database settings can be set in etc/conf.d/database.xml (or where your web_conf_path directive points to) and will be used in the first place. This
-        won't get overwritten during upgrade process. There are two databases : 'icinga_web' (for internal use, created above) and 'icinga', which is the database ido2db writes to. (if using oracle, you must
-        use icignaOracle as the dsn driver)</para>
+        <para>Optional: Your specific Icinga database settings can be set in <filename>etc/conf.d/database.xml</filename> (or where your
+        web_conf_path directive points to) and will be used in the first place. This won't get overwritten during upgrade process. There are
+        two databases : 'icinga_web' (for internal use, created above) and 'icinga', which is the database ido2db writes to. (if using
+        oracle, you must use icingaOracle as the dsn driver)</para>
       </note>
 
-      <para>
-           <programlisting>    &lt;databases default="icinga_web"&gt;
+      <para><programlisting>    &lt;databases default="icinga_web"&gt;
                         &lt;database name="icinga_web" class="AgaviDoctrineDatabase"&gt;
 
                                 &lt;!--
@@ -245,7 +358,10 @@
 
                                         http://www.doctrine-project.org/documentation/manual/1_1/en/introduction-to-connections
                                 --&gt;
+                                &lt;!-- ##### &name-mysql; ##### --&gt;
                                 &lt;ae:parameter name="dsn"&gt;mysql://icinga_web:icinga_web@127.0.0.1:3306/icinga_web&lt;/ae:parameter&gt;
+                                &lt;!-- ##### &name-postgres; ##### --&gt;
+                                &lt;ae:parameter name="dsn"&gt;pgsql://icinga_web:icinga_web@localhost:5432/icinga_web&lt;/ae:parameter&gt;
 
                                 &lt;!-- Generic credentials  --&gt;
                                 &lt;!-- &lt;ae:parameter name="username"&gt;icinga_web&lt;/ae:parameter&gt; --&gt;
@@ -276,7 +392,10 @@
 
                                         http://www.doctrine-project.org/documentation/manual/1_1/en/introduction-to-connections
                                 --&gt;
+                                &lt;!-- ##### &name-mysql; ##### --&gt;
                                 &lt;ae:parameter name="dsn"&gt;mysql://icinga:icinga@127.0.0.1:3306/icinga&lt;/ae:parameter&gt;
+                                &lt;!-- ##### &name-postgres; ##### --&gt;
+                                &lt;ae:parameter name="dsn"&gt;pgsql://icinga:icinga@localhost:5432/icinga&lt;/ae:parameter&gt;
 
                                 &lt;!-- Generic credentials  --&gt;
                                 &lt;!-- &lt;ae:parameter name="username"&gt;icinga&lt;/ae:parameter&gt; --&gt;
@@ -299,11 +418,10 @@
 
                         &lt;/database&gt;
                     &lt;/databases&gt;
-            </programlisting>
-      </para>
+            </programlisting></para>
 
-
-      <para>In the access.xml you can specify the locations of your command pipe and the access credentials and method (ssh or via local console). Also you define here, which icinga instance is mapped to which host.</para>
+      <para>In the <filename>access.xml</filename> you can specify the locations of your command pipe and the access credentials and method
+      (ssh or via local console). Also you define here, which icinga instance is mapped to which host.</para>
 
       <programlisting>
         &lt;!-- Map your instances to hosts here --&gt;
@@ -374,21 +492,23 @@
       <itemizedlist>
         <listitem>
           <para>mod_rewrite enabled, maybe you have to create a link:</para>
-      <para><programlisting> #&gt; ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load</programlisting></para>
 
-      <para>Using OpenSuSE or SLES you can use "a2enmod rewrite" to activate the module. If that doesn't work you have to edit the file
-      "/etc/sysconfig/apache2". The module "rewrite" has to be appended to the line "APACHE_MODULES=...".</para>
+          <para><programlisting> #&gt; ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load</programlisting></para>
 
-      <para>Using Debian or Ubuntu "a2enmod rewrite" activates the module as well.</para>
+          <para>Using OpenSuSE or SLES you can use "a2enmod rewrite" to activate the module. If that doesn't work you have to edit the file
+          "<filename>/etc/sysconfig/apache2</filename>". The module "rewrite" has to be appended to the line "APACHE_MODULES=...".</para>
 
-      <para>The httpd of RHEL / Fedora / CentOS already supports rewriting so you don't have to change anything in this regard.</para>
+          <para>Using Debian or Ubuntu "a2enmod rewrite" activates the module as well.</para>
+
+          <para>The httpd of RHEL / Fedora / CentOS already supports rewriting so you don't have to change anything in this regard.</para>
         </listitem>
 
         <listitem>
           <para>Any htaccess enabled alias settings</para>
-      <para>Edit your .htaccess in /usr/local/icinga-web/pub:</para>
 
-      <para>At line 14, change the RewriteBase direction to suit to your needs:<programlisting> DirectoryIndex index.php
+          <para>Edit your <filename>.htaccess</filename> in <filename>/usr/local/icinga-web/pub</filename>:</para>
+
+          <para>At line 14, change the RewriteBase direction to suit to your needs:<programlisting> DirectoryIndex index.php
 
  Options -MultiViews -Indexes +FollowSymLinks
  Order allow,deny
@@ -431,13 +551,12 @@
  #       AuthUserFile /path/to/my/htusers
  #       require valid-user
  #&lt;/IfModule&gt;</programlisting></para>
-
         </listitem>
       </itemizedlist>
 
       <para>Go to the webservers configuration directory. Look if the created config by <emphasis role="bold">make
-      install-apache-config</emphasis> suits to your configuration. Or create new aliases (maybe in /etc/apache2/conf.d/icinga-web.conf)
-      :</para>
+      install-apache-config</emphasis> suits to your configuration. Or create new aliases (maybe in
+      <filename>/etc/apache2/conf.d/icinga-web.conf</filename>) :</para>
 
       <para><programlisting>#&gt; cat /etc/apache2/icinga-web.conf
 
@@ -504,17 +623,16 @@ Alias /icinga-web /usr/local/icinga-web/pub
 
       <para>* Add your browser and the version</para>
 
-      <para>* If the problem is related to the data source, provide extensive information about IDOUtils, Core (version, debug
-      logs)</para>
+      <para>* If the problem is related to the data source, provide extensive information about IDOUtils, Core (version, debug logs)</para>
 
       <para>Where to look?</para>
 
       <para>* Apache Error Logs, PHP Errors, PHP files cannot be found</para>
 
-      <para>* /var/log/messages, /path/to/icinga/var/icinga.log Changes on Icinga Web Config (e.g. API IDOUtils credentials changed) are not
-      used?</para>
+      <para>* <filename>/var/log/messages</filename>, <filename>/path/to/icinga/var/icinga.log</filename> Changes on Icinga Web Config (e.g.
+      API IDOUtils credentials changed) are not used?</para>
 
-      <para>* Delete the config cache in app/cache/config/*.php</para>
+      <para>* Delete the config cache in <filename>app/cache/config/*.php</filename></para>
 
       <para>use /path/to/clearcache.sh</para>
 
@@ -551,30 +669,29 @@ Alias /icinga-web /usr/local/icinga-web/pub
       <note>
         <para>If you are using your root account for testing then make sure in advance that the specified web user has a valid shell.
         Otherwise some tests might fail. Depending on the version used you might experience wrong permissions on
-        /usr/local/icinga-web/log resulting in Icinga-Web showing "loading" coming to no end!</para>
+        <filename>/usr/local/icinga-web/log</filename> resulting in Icinga-Web showing "loading" coming to no end!</para>
       </note>
 
       <note>
-        <para>Remember - changing the php settings in php.ini requires an Apache reload/restart!</para>
+        <para>Remember - changing the php settings in <filename>php.ini</filename> requires an Apache reload/restart!</para>
       </note>
 
-      <para>* PHP Fatal error: Allowed memory size of ... bytes exhausted (tried to allocate ... bytes) =&gt; Check your php.ini (both
-      apache2 and cli) and adjust memory_limit to 128M or higher.</para>
+      <para>* PHP Fatal error: Allowed memory size of ... bytes exhausted (tried to allocate ... bytes) =&gt; Check your
+      <filename>php.ini</filename> (both apache2 and cli) and adjust memory_limit to 128M or higher.</para>
 
       <para>* PHP Fatal error: Uncaught exception 'AgaviCacheException' with message 'Failed to write cache file
       /usr/local/icinga-web/app/cache/config/config_handlers.xml_development__xxxx.php" generated from configuration file
       /usr/local/icinga-web/app/config/config_handlers.xml". Please make sure you have set correct write permissions for directory
-      /usr/local/icinga-web/app/cache.... = &gt; Check /etc/php5/apache/php.ini, set safe_mode = off.</para>
+      /usr/local/icinga-web/app/cache.... = &gt; Check <filename>/etc/php5/apache/php.ini</filename>, set safe_mode = off.</para>
 
       <para>* [PHP Error] strtotime(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone
       setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you
-      most likely misspelled the timezone identifier. We selected 'Europe/Berlin' for 'CEST/2.0/DST' instead
-      [line 1548 of /home/xxx/icinga/icinga-web/lib/doctrine/lib/Doctrine/Record.php] = &gt; You have to define date.timezone in your php.ini.</para>
+      most likely misspelled the timezone identifier. We selected 'Europe/Berlin' for 'CEST/2.0/DST' instead [line 1548 of
+      /home/xxx/icinga/icinga-web/lib/doctrine/lib/Doctrine/Record.php] = &gt; You have to define date.timezone in your
+      <filename>php.ini</filename>.</para>
 
-      <para>* -> 500 internal server error!
-      Uncaught exception AgaviException thrown!
-      Your default timezone is 'System/Localtime', ...
-      = &gt; You have to define date.timezone in your php.ini.</para>
+      <para>* -&gt; 500 internal server error! Uncaught exception AgaviException thrown! Your default timezone is 'System/Localtime', ... =
+      &gt; You have to define date.timezone in your <filename>php.ini</filename>.</para>
 
       <para>* Could not connect to API. The API Connector returned the following message: getConnection failed: Database connection failed:
       SQLSTATE[28000] [1045] Access denied for user 'icinga'@'localhost' (using password: YES))</para>
@@ -591,8 +708,8 @@ Alias /icinga-web /usr/local/icinga-web/pub
 
       <para>* Login is not shown =&gt; enable short_open_tag in your php.ini</para>
 
-      <para>=&gt; edit open_basedir in your php.ini and add icinga web location and parent location of icinga api (e.g.
-      /usr/local/icinga/share/).</para>
+      <para>=&gt; edit open_basedir in your <filename>php.ini</filename> and add icinga web location and parent location of icinga api (e.g.
+      <filename>/usr/local/icinga/share/</filename>).</para>
 
       <para>* Empty Icinga Web? =&gt; If mod_rewrite is enabled and 'index.php' appears in the request url the portal does not work. Try to
       remove the index.php from your url and everything should work</para>
@@ -605,8 +722,9 @@ Alias /icinga-web /usr/local/icinga-web/pub
       <para>* Counts in the Status Cronk do not match your configuration? =&gt; Check with the Backend, e.g. IDOUtils DB, selecting the
       counts for the status tables.</para>
 
-      <para>* No Data shown in Cronks? =&gt; Make sure that all permissions are set correctly, escecially the log/. Furthermore, you can debug
-      the data in your browser. Further instructions on that can be found in the Icinga Wiki: https://wiki.icinga.org/display/Dev/Icinga+Web+Testing</para>
+      <para>* No Data shown in Cronks? =&gt; Make sure that all permissions are set correctly, especially the log/. Furthermore, you can
+      debug the data in your browser. Further instructions on that can be found in the Icinga Wiki:
+      https://wiki.icinga.org/display/Dev/Icinga+Web+Testing</para>
 
       <para>If you have any updates on that please do not hesitate to report back! :-)</para>
     </listitem>

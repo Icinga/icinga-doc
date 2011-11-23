@@ -258,7 +258,8 @@
   <para><emphasis role="bold">&name-mysql;:</emphasis></para>
 
   <para>Benutzen Sie yast zur Installation der Pakete für das RDBMS, das Sie verwenden möchten, also "mysql", "mysql-devel" sowie die
-  libdbi-Pakete "libdbi", "libdbi-devel", "libdbi-drivers" und "libdbi-dbd-mysql".</para>
+  libdbi-Pakete "libdbi", "libdbi-devel", "libdbi-drivers" und "libdbi-dbd-mysql" oder alternativ <filename>zypper</filename></para>
+  <programlisting> #&gt; zypper install mysql mysql-devel libdbi libdbi-devel libdbi-drivers libdbi-dbd-mysql</programlisting>
 
   <para>Bei OpenSuSE 11 (SLES 11) lautet der Name des Packages statt "mysql-devel" nun "libmysqlclient-devel".</para>
   </listitem>
@@ -267,7 +268,10 @@
   <para><emphasis role="bold">&name-postgres;:</emphasis></para>
 
   <para>Benutzen Sie yast zur Installation der Pakete für das RDBMS, das Sie verwenden möchten, also "postgresql", "postgresql-devel" und
-  "postgresql-server" sowie die libdbi-Pakete "libdbi", "libdbi-devel" und "libdbi-drivers".</para>
+  "postgresql-server" sowie die libdbi-Pakete "libdbi", "libdbi-devel" und "libdbi-drivers" oder alternativ <filename>zypper></filename>.
+  </para>
+  <programlisting> #&gt; zypper install postgresql postgresql-devel postgresql-server
+ #&gt; zypper install libdbi libdbi-devel libdbi-drivers libdbi-dbd-mysql</programlisting>
   </listitem>
   </itemizedlist>
 
@@ -486,6 +490,8 @@
     bevor Sie eine Datenbank anlegen können. Im Falle von MySQL erfolgt der Start z.B. mit <code>/etc/init.d/mysql start</code>.</para>
   </note>
 
+  <itemizedlist>
+  <listitem>
   <para><emphasis role="bold">&name-mysql;:</emphasis></para>
 
   <para><emphasis>Anlegen von Datenbank, Benutzer und Berechtigungen</emphasis></para>
@@ -523,7 +529,9 @@
  db_port=3306
  db_user=icinga
  db_pass=icinga</programlisting>
+  </listitem>
 
+  <listitem>
   <para><emphasis role="bold">&name-postgres;:</emphasis></para>
 
   <para><emphasis>Anlegen von Datenbank und Benutzer</emphasis></para>
@@ -571,7 +579,9 @@
  db_port=5432
  db_user=icinga
  db_pass=icinga</programlisting>
+  </listitem>
 
+  <listitem>
   <para><emphasis role="bold">Oracle:</emphasis></para>
 
   <para>Erstellen Sie ein Datenbank-Schema und eine username/password-Kombination (lesen Sie dazu die Oracle-Dokumentation unter
@@ -590,6 +600,8 @@
   db_port=1521
   db_user=icinga
   db_pass=icinga</programlisting>
+  </listitem>
+  </itemizedlist>
 
   <para><emphasis role="bold">Installieren und konfigurieren des klassischen Web-Interface</emphasis></para>
 
@@ -601,7 +613,7 @@
  #&gt; make install-cgis
  #&gt; make install-html</programlisting>
 
-  <para>Wenn Sie (zusätzlich) das neue Icinga Web installieren wollen, lesen Sie bitte <link linkend="icinga-web-scratch">Installation des
+  <para>Wenn Sie (zusätzlich) das neue Icinga-Web installieren wollen, lesen Sie bitte <link linkend="icinga-web-scratch">Installation des
   Web-Interface</link>.</para>
 
   <para>Installieren Sie die &name-icinga;-Web-Konfigurationsdatei im &name-apache; conf.d-Verzeichnis.</para>

@@ -191,13 +191,19 @@
  #&gt; yum install libjpeg libjpeg-devel libpng libpng-devel</programlisting>
   <note><para>You may have to use libjpeg-turbo and libjpeg-turbo-devel instead</para></note>
 
-  <para><emphasis role="bold">&name-mysql;:</emphasis></para>
+  <itemizedlist>
+    <listitem>
+      <para><emphasis role="bold">&name-mysql;:</emphasis></para>
 
-  <programlisting> #&gt; yum install mysql mysql-server libdbi libdbi-devel libdbi-drivers libdbi-dbd-mysql</programlisting>
+      <programlisting> #&gt; yum install mysql mysql-server libdbi libdbi-devel libdbi-drivers libdbi-dbd-mysql</programlisting>
+    </listitem>
 
-  <para><emphasis role="bold">&name-postgres;:</emphasis></para>
+    <listitem>
+      <para><emphasis role="bold">&name-postgres;:</emphasis></para>
 
-  <programlisting> #&gt; yum install postgresql postgresql-server libdbi libdbi-devel libdbi-drivers libdbi-dbd-pgsql</programlisting>
+      <programlisting> #&gt; yum install postgresql postgresql-server libdbi libdbi-devel libdbi-drivers libdbi-dbd-pgsql</programlisting>
+    </listitem>
+  </itemizedlist>
 
   <para><emphasis role="bold">&name-debian;/&name-ubuntu;:</emphasis></para>
 
@@ -212,13 +218,19 @@
     <para>Starting with Ubuntu 10.10 the package is called libpng12-0, the name of the dev-package remains the same.</para>
   </note>
 
-  <para><emphasis role="bold">&name-mysql;:</emphasis></para>
+  <itemizedlist>
+    <listitem>
+      <para><emphasis role="bold">&name-mysql;:</emphasis></para>
 
-  <programlisting> #&gt; apt-get install mysql-server mysql-client libdbi0 libdbi0-dev libdbd-mysql</programlisting>
+      <programlisting> #&gt; apt-get install mysql-server mysql-client libdbi1 libdbi-dev libdbd-mysql</programlisting>
+    </listitem>
 
-  <para><emphasis role="bold">&name-postgres;:</emphasis></para>
+    <listitem>
+      <para><emphasis role="bold">&name-postgres;:</emphasis></para>
 
-  <programlisting> #&gt; apt-get install postgresql libdbi0 libdbi0-dev libdbd-pgsql</programlisting>
+      <programlisting> #&gt; apt-get install postgresql libdbi1 libdbi-dev libdbd-pgsql</programlisting>
+    </listitem>
+  </itemizedlist>
 
   <para><emphasis role="bold">&name-opensuse;:</emphasis></para>
 
@@ -232,19 +244,29 @@
     <para>The devel packages might be placed on the SDK DVDs.</para>
   </note>
 
-  <para><emphasis role="bold">&name-mysql;:</emphasis></para>
+  <itemizedlist>
+    <listitem>
+      <para><emphasis role="bold">&name-mysql;:</emphasis></para>
 
-  <para>Use YaST to install the packages for the RDBMS you want to use, i.e. "mysql", "mysql-devel", "mysql-client" and the libdbi packages
-  "libdbi", "libdbi-devel", "libdbi-drivers" and "libdbi-dbd-mysql".</para>
+      <para>Use YaST to install the packages for the RDBMS you want to use, i.e. "mysql", "mysql-devel", "mysql-client" and the libdbi
+      packages "libdbi", "libdbi-devel", "libdbi-drivers" and "libdbi-dbd-mysql", or alternatively <filename>zypper</filename>.</para>
+      <programlisting> #&gt; zypper install mysql mysql-devel mysql-client libdbi libdbi-devel libdbi-drivers libdbi-dbd-mysql
+      </programlisting>
 
-  <note>
-    <para>In OpenSuSE 11 (SLES 11) the name of the package was changed from "mysql-devel" to "libmysqlclient-devel".</para>
-  </note>
+      <note>
+        <para>In OpenSuSE 11 (SLES 11) the name of the package was changed from "mysql-devel" to "libmysqlclient-devel".</para>
+      </note>
+    </listitem>
 
-  <para><emphasis role="bold">&name-postgres;:</emphasis></para>
+    <listitem>
+      <para><emphasis role="bold">&name-postgres;:</emphasis></para>
 
-  <para>Use YaST to install the packages for the RDBMS you want to use, i.e. "postgresql", "postgresql-devel", "postgresql-server" and the
-  libdbi packages "libdbi", "libdbi-devel" and "libdbi-drivers".</para>
+      <para>Use YaST to install the packages for the RDBMS you want to use, i.e. "postgresql", "postgresql-devel", "postgresql-server" and
+      the libdbi packages "libdbi", "libdbi-devel" and "libdbi-drivers", or alternatively <filename>zypper</filename>.</para>
+      <programlisting> #&gt; zypper install postgresql postgresql-devel postgresql-server
+ #&gt; zypper install libdbi libdbi-devel libdbi-drivers</programlisting>
+    </listitem>
+  </itemizedlist>
 
   <para>Using old OpenSuSE (SLES) versions including version 10 it is most likely that there aren't any libdbi packages so you have to
   download and compile the sources. Replace &lt;rdbm&gt; with your desired RDBM like mysql or pgsql. Remember that the Oracle driver is not
@@ -345,6 +367,8 @@
   <para>Run the &name-icinga; configure script and enable &name-idoutils;. You will get help by using the --help flag:</para>
 
   <programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils </programlisting>
+
+  <para>Also with &name-postgres; you should not use the argument --enable-pgsq because it is not supported yet.</para>
 
   <important>
     <para>Compiling on Solaris might fail upon unresolved library dependencies on gethostbyname. In that case run this before running
@@ -459,6 +483,8 @@
       of MySQL you might use <code>/etc/init.d/mysqld start</code>.</para>
     </note></para>
 
+  <itemizedlist>
+  <listitem>
   <para><emphasis role="bold">&name-mysql;:</emphasis></para>
 
   <para>Create Database, User, Grants:</para>
@@ -470,11 +496,12 @@
    WITH MAX_QUERIES_PER_HOUR 0
    MAX_CONNECTIONS_PER_HOUR 0
    MAX_UPDATES_PER_HOUR 0;
- GRANT SELECT , INSERT , UPDATE , DELETE
+ GRANT SELECT , INSERT , UPDATE , DELETE, DROP, CREATE VIEW
    ON icinga.* TO 'icinga'@'localhost';
- FLUSH PRIVILEGES ;
+ FLUSH PRIVILEGES;
  quit</programlisting>
 
+  <note><para>Starting with &name-icinga; 1.6 the icinga user additionally needs DROP and CREATE VIEW privileges.</para></note>
   <para>Import database scheme for &name-mysql;:</para>
 
   <programlisting> #&gt; cd /path/to/icinga-src/module/idoutils/db/mysql
@@ -490,7 +517,9 @@
  db_port=3306
  db_user=icinga
  db_pass=icinga</programlisting>
+  </listitem>
 
+  <listitem>
   <para><emphasis role="bold">&name-postgres;:</emphasis></para>
 
   <para>Create database and User:</para>
@@ -538,7 +567,9 @@
  db_port=5432
  db_user=icinga
  db_pass=icinga</programlisting>
+  </listitem>
 
+  <listitem>
   <para><emphasis role="bold">Oracle:</emphasis></para>
 
   <para>Create a database schema and username/password (refer to the &name-oracle; documentation at &url-oracle; or consult your DBA).
@@ -557,6 +588,8 @@
   db_port=1521
   db_user=icinga
   db_pass=icinga</programlisting>
+  </listitem>
+  </itemizedlist>
 
   <para><emphasis role="bold">Configure the Classic Web Interface</emphasis></para>
 
