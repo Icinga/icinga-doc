@@ -36,7 +36,7 @@
             <listitem>
               <para><emphasis role="bold">Ubuntu / Debian</emphasis></para>
 
-              <programlisting> #&gt; apt-get install php5 php5-cli php-pear php5-xmlrpc php5-xsl php5-pdo php5-gd php5-ldap php5-mysql</programlisting>
+              <programlisting> #&gt; apt-get install php5 php5-cli php-pear php5-xmlrpc php5-xsl php5-pdo php5-soap php5-gd php5-ldap php5-mysql</programlisting>
 
               <note>
                 <para>For &name-ubuntu; you install the required PDO extensions with php5 and php5-mysql! There is no php5-pdo package
@@ -47,7 +47,7 @@
             <listitem>
               <para><emphasis role="bold">Fedora / RHEL / CentOS</emphasis></para>
 
-              <para><programlisting> #&gt; yum install php php-cli php-pear php-xmlrpc php-xsl php-pdo php-gd php-ldap php-mysql</programlisting></para>
+              <para><programlisting> #&gt; yum install php php-cli php-pear php-xmlrpc php-xsl php-pdo php-soap php-gd php-ldap php-mysql</programlisting></para>
 
               <note>
                 <para>Make sure you have a repository/packages for PHP 5.2.x - RHEL/CentOS (CentOS &lt;= 5.4) only support 5.1.6 out of the
@@ -186,6 +186,7 @@
 
       <programlisting> #&gt; ./configure
  #&gt; make install</programlisting>
+      <para>This may take a while so please be patient ;-).</para>
 
       <para>Install the new Apache configuration</para>
 
@@ -683,6 +684,7 @@ Alias /icinga-web /usr/local/icinga-web/pub
       /usr/local/icinga-web/app/cache/config/config_handlers.xml_development__xxxx.php" generated from configuration file
       /usr/local/icinga-web/app/config/config_handlers.xml". Please make sure you have set correct write permissions for directory
       /usr/local/icinga-web/app/cache.... = &gt; Check <filename>/etc/php5/apache/php.ini</filename>, set safe_mode = off.</para>
+      <note><para>This may also be an SELinux issue.</para></note>
 
       <para>* [PHP Error] strtotime(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone
       setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you
