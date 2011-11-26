@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="icinga-web-intro_1.6" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title>Einführung in &name-web; (&gt;= 1.6)</title>
+
+  <para>Wenn Sie den Schnellstart-Anleitungen (<link linkend="quickstart-idoutils">&name-idoutils;</link> und <link
+  linkend="icinga-web-scratch">&name-web;</link>) gefolgt sind, sollten Sie nun http://&lt;icinga server&gt;/icinga-web aufrufen können und
+  den Login-Bildschirm sehen</para>
+
+  <figure>
+    <title>&name-web; Login-Bildschirm</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-login.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para>Sie können sich mittels "root" und "password" einloggen. Dies wird Sie auf eine Überblickseite weiterleiten, wo der Status von
+  überwachten Hosts und Services dargestellt wird.</para>
+
+  <figure>
+    <title>&name-web; Überblick</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-overview_1.6.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis>Oberes Menü</emphasis></para>
+
+  <para>Das obere Menü beherbergt generelle Informationen zu &name-icinga; sowie ein Benutzer-, Gruppen-, Log- sowie
+  Task-Administrierungsmenü. Die Live-Such öffnet sich, wenn Sie auf das Vergrößerungsglas neben der Uhrzeit klicken. Rechts oben können Sie
+  den gerade eingeloggten Benutzer bearbeiten oder sich aus &name-web; ausloggen.</para>
+
+  <figure>
+    <title>&name-web; Top-Menü</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-topmenu1_1.6.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis>Suche</emphasis></para>
+
+  <para>Die Suche zeigt live Resultate, während Sie tippen. Diese werden in einem eigenen Inlay-Fenster angezeigt. Indem Sie ein Ergebnis
+  anklicken, wird ein neuer Tab mit näheren Informationen geöffnet. Die Suche beginnt am Anfang der Zeichenkette, aber Sie können auch
+  Wildcards benutzen.</para>
+
+  <figure>
+    <title>&name-web; Live-Suche</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-search1_1.6.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis>Status-Cronk</emphasis></para>
+
+  <para>Der Status-Cronk zeigt die aktuelle Anzahl von Hosts und Services aufgeteilt nach ihren aktuellen Zuständen. Sofern ein Zähler Null
+  (0) ist, wird dieser grau hinterlegt angezeigt. Klicken Sie auf einen Zustand, um einen neuen Tab zu öffnen, der nur den gewählten Zustand
+  anzeigt. Daneben finden Sie die Anzahl und den Zustand der Icinga-Instanzen. Der verbleibende Platz wird für die Anzeige allgemeiner
+  Informationen benutzt, das sind:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Hosts|Services (aktiv/passiv)</para>
+    </listitem>
+
+    <listitem>
+      <para>Host|Service Ausführungszeit (min/avg/max)</para>
+    </listitem>
+
+    <listitem>
+      <para>Host|Services Latenzzeit (min/avg/max)</para>
+    </listitem>
+  </itemizedlist>
+
+  <figure>
+    <title>&name-web; Status-Cronk</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-statuscronk_1.6.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis>Linkes Menü</emphasis></para>
+
+  <para>Im linken (versteckbaren) Menü können Sie aus verschiedenen Widgets (wir nennen diese "Cronks") auswählen, die das Arbeiten mit
+  &name-web; erleichtern werden. Sie können entweder einen Cronk doppelklicken oder diesen mit dem Mauszeiger in die zentrale Tab-Leiste
+  ziehen. Die Kategorien sind wie folgt aufgeteilt:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>"Data", um Status-, historische und Konfigurationsdaten zu erhalten. In Icinga 1.6 gibt es zwei neue Cronks: eins für
+      Informationen über Instanzen und eins für die "Tackle View"</para>
+
+      <figure>
+        <title>&name-web; Data-Cronks</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="../images/icinga-web-cronks1_1.6.png"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+    </listitem>
+
+    <listitem>
+      <para>"Tactical Overview" bietet generelle Charts und eigene angepasste an (Custom Variables)</para>
+
+      <figure>
+        <title>&name-web; Tactical Overview-Cronks</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="../images/icinga-web-cronks2_1.6.png"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+    </listitem>
+
+    <listitem>
+      <para>"Reporting" bietet Auswertungen</para>
+
+      <figure>
+        <title>&name-web; Reporting-Cronks</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="../images/icinga-web-cronks2a_1.6.png"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+    </listitem>
+
+    <listitem>
+      <para>"Misc" enthält verschiedene nützliche Cronks, wie iframe für externe Webseiten oder 1,2,3-Spaltenansichten sowie Links auf die
+      englische bzw. deutsche Dokumentation</para>
+
+      <figure>
+        <title>&name-web; "Misc"-Cronks</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="../images/icinga-web-cronks3_1.6.png"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis>Zentrale Übersicht</emphasis></para>
+
+  <para>Hier findet sich alles zusammen: Sie können mittels drag-and-drop neue Fenster hereinziehen. Die Ansichten für den aktuellen
+  Benutzer sind konfigurierbar (diese sind persistent), z.B. durch verschieben der Spaltenüberschrift an die gewünschte Stelle.
+  Rechtsklicken auf die Spaltenüberschrift ermöglicht die Einstellung der Sortierreihenfolge oder das Verstecken von Spalten. Zu öffnende
+  Suchresultate werden ebenfalls hier in einem neuen Tab geöffnet; das gilt auch für das Öffnen verfügbarer Cronks.</para>
+
+  <figure>
+    <title>&name-web; Zentrale Übersicht</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-mainscreen1_1.6.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis>Host Status</emphasis></para>
+
+  <para>Die HostStatus-Ansicht zeigt den Host-Status und darunter die Anzahl von Warning/Critical der zugehörigen Services.</para>
+
+  <figure>
+    <title>&name-web; Host-Status</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-host_1.6.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis>Service Status</emphasis></para>
+
+  <para>Die ServiceStatus-Ansicht zeigt die Services für jeden Host.</para>
+
+  <figure>
+    <title>&name-web; Service-Status</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-srv_1.6.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis>Hostgroup Status</emphasis></para>
+
+  <para>Die Hostgroup-Ansicht zeigt den Status und die Anzahl der Hosts mit dem jeweiligen Status gruppiert nach den Hostgruppen.</para>
+
+  <figure>
+    <title>&name-web; Hostgruppenstatus</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-hostgroup_1.6.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis>Log</emphasis></para>
+
+  <para>Am unteren Fensterrand wird das aktuelle Icinga-Protokoll eingeblendet. Das Log wird automatisch aktualisiert, und kann auch
+  minimiert werden, um mehr Platz für die zentrale Übersicht zu schaffen.</para>
+
+  <figure>
+    <title>&name-web; Log</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-log_1.6.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis>Tackle</emphasis></para>
+
+  <para>Der Tackle-Cronk bietet schnellen Zugriff auf alle Informationen von Hosts und Services. "Batch commands" öffnet ein neues Fenster,
+  in dem Sie mit zahlreichen Optionen die Anzahl der Objekte einschränken können, auf die ein bestimmter Befehl angewendet werden soll. Das
+  Anklicken der Status-Buttons beschränkt die Anzeige der Hosts auf die aktivierten Zustände.</para>
+
+  <para>Durch das Auswählen eines Objekts in der oberen Hälfte sehen Sie weitere Informationen in der unteren Hälfte. Der "Default"-Reiter
+  zeigt die betreffenden Direktiven, ohne dass Sie dazu verschiedene Konfigurations- oder Statusdateien öffnen müssen.</para>
+
+  <figure>
+    <title>&name-web; "Tackle"-Cronk</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-tackle1.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis role="bold">Cronks und Views</emphasis></para>
+
+  <para>&name-web; erlaubt es, mehrere Cronks für verschiedene Anwendungsgebiete zu öffnen und zu verwalten. Damit können Sie Daten
+  einsehen, Filter für unterschiedliche Views setzen oder Kommandos absenden. Die folgende Übersicht fasst die generellen Möglichkeiten
+  zusammen (einige Cronks bieten zusätzliche Items, wie etwas das Senden von Kommandos).</para>
+
+  <figure>
+    <title>&name-web; Cronk-Leiste</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-main_bar.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <itemizedlist>
+    <listitem>
+      <para>Refresh</para>
+
+      <para>Manuelle Aktualisierung der Anzeige</para>
+    </listitem>
+
+    <listitem>
+      <para>Settings</para>
+
+      <para>(De)aktivieren der automatischen Aktualisierung</para>
+
+      <para>Get this &lt;item&gt; by url</para>
+    </listitem>
+  </itemizedlist>
+
+  <figure>
+    <title>&name-web; Cronk-Leiste</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-settings.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <itemizedlist>
+    <listitem>
+      <para>Filter</para>
+
+      <para>Modify/Remove</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis>Commands</emphasis></para>
+
+  <para>In &name-web; gibt es verschiedene Kommandos (siehe Kapitel <link linkend="extcommands">"External Commands"</link> für mehr
+  Informationen), die an den Core geschickt werden können. Selektieren Sie die Einträge, die davon betroffen sein sollen, und dann das
+  Kommando, das ausgeführt werden soll.</para>
+
+  <informaltable>
+    <tgroup cols="2">
+      <tbody>
+        <row>
+          <entry valign="top"><para>Host Commands</para> <figure>
+              <title>&name-web; Host-Befehle</title>
+
+              <screenshot>
+                <mediaobject>
+                  <imageobject>
+                    <imagedata fileref="../images/icinga-web-commands_hst_1.6.png" />
+                  </imageobject>
+                </mediaobject>
+              </screenshot>
+            </figure></entry>
+
+          <entry valign="top"><para>Service Commands</para> <figure>
+              <title>&name-web; Service-Befehle</title>
+
+              <screenshot>
+                <mediaobject>
+                  <imageobject>
+                    <imagedata fileref="../images/icinga-web-commands_svc_1.6.png" />
+                  </imageobject>
+                </mediaobject>
+              </screenshot>
+            </figure></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para><emphasis>Filter</emphasis></para>
+
+  <para>Filter erlauben &name-web; eigene, angepasste Ansichten (Views) die auch in eigenen persistenten Cronks gespeichert werden können.
+  Als erstes wählen Sie bitte "Filter" und "Modify". Fügen Sie eine Restriktion aus dem Dropdown-Menü hinzu (dies ist von Cronk zu Cronk
+  unterschiedlich). Wiederholen Sie diesen Schritt, um verschiedene Restriktionen zu setzen.</para>
+
+  <figure>
+    <title>&name-web; Filtereinschränkung</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-filter1_1.6.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para>Anschließend spezifizieren Sie die Bedingung(en), unter welchen der Filter die Anzeige generieren soll (contain, does not contain,
+  is, is not). Fügen Sie zu jeder Bedingung einen Wert hinzu; Vorschläge werden eingeblendet, sobald Sie tippen.</para>
+
+  <figure>
+    <title>&name-web; Filterbedingung</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-filter2_1.3.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para>Wenden Sie den Filter auf den aktuellen Cronk an. Sofern benötigt, können Sie den Filter später modifizieren und weitere
+  Restriktionen und Bedingungen hinzufügen/entfernen. Ein aktiver Filter wird rot markiert.</para>
+
+  <figure>
+    <title>&name-web; Filter aktiv</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-filter3.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis role="bold"> </emphasis></para>
+
+  <para><anchor xml:id="web-intro_1.6-admin" /><emphasis role="bold">Administration</emphasis></para>
+
+  <para>Steigen Sie in die Administrationsübersicht ein, indem Sie "Admin" im oberen Menü auswählen. Danach wählen Sie "Users", "Groups",
+  "Logs" oder "Tasks".</para>
+
+  <figure>
+    <title>&name-web; Top-Menü Admin</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-topmenu2.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis>Benutzer</emphasis></para>
+
+  <para>Sie können Benutzer hinzufügen, löschen oder editieren.</para>
+
+  <figure>
+    <title>&name-web; Benutzer-Administration</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-admin_users1.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para>Doppelklicken Sie einen Benutzer um ein neues Inlay Fenster zu öffnen, das Ihnen erlaubt, weitere Details zu spezifizieren.
+  Dieselben Optionen stehen zur Verfügung, wenn Sie einen neuen Benutzer anlegen. Sie können die Größe des Fensters mittels
+  Mauszeigerbewegung an den Ecken beeinflussen.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>General information</para>
+    </listitem>
+
+    <listitem>
+      <para>Change password (and optional AuthKey for API)</para>
+    </listitem>
+
+    <listitem>
+      <para>Permissions; z.B. zu welcher Gruppen zugehörig</para>
+    </listitem>
+
+    <listitem>
+      <para>Principals für spezielle Rollen</para>
+    </listitem>
+  </itemizedlist>
+
+  <figure>
+    <title>&name-web; Benutzer editieren</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-admin_users2.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis>Gruppen</emphasis></para>
+
+  <para>Sie können Gruppen hinzufügen, löschen oder editieren. Die Gruppenvererbung lässt sich direkt im Gruppenbaum auf der rechten Seite
+  anpassen.</para>
+
+  <figure>
+    <title>&name-web; Gruppen-Administration</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-admin_groups1.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para>Doppelklicken Sie eine Gruppe, um ein neues Inlay-Fenster zu öffnen, das Ihnen erlaubt, weitere Details zu spezifizieren. Dieselben
+  Optionen stehen zur Verfügung, wenn Sie eine neue Gruppe anlegen. Sie können die Größe des Fensters mittels Mauszeigerbewegung an den
+  Ecken beeinflussen.</para>
+
+  <figure>
+    <title>&name-web; Gruppen</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-admin_groups2.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis>Rollen</emphasis></para>
+
+  <para>In der Benutzer- und Gruppenübersicht im Administrationsbereich können Sie Rollen hinzufügen/entfernen/editieren. Nachfolgend eine
+  Liste der verfügbaren Rollen:</para>
+
+  <figure>
+    <title>&name-web; Rollen</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-admin_principals.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis>Logs</emphasis></para>
+
+  <para>Hier können Sie verschiedene Logs betrachten, um diese als Hilfe bei Ihrer Fehlersuche zu verwenden.</para>
+
+  <figure>
+    <title>&name-web; logs</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-admin_logs1.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <para><emphasis>Task</emphasis></para>
+
+  <para>Verschiedene Dinge erfordern das Löschen des Cache. Anstatt auf die Kommandozeile zu wechseln können Sie den Befehl über das
+  "Tasks"-Menü ausführen.</para>
+
+  <figure>
+    <title>&name-web; Tasks</title>
+
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/icinga-web-admin_tasks.png"></imagedata>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+
+  <indexterm zone="icinga-web-intro_1.6">
+    <primary>&name-web;</primary>
+
+    <secondary>Überblick Version 1.6.x</secondary>
+  </indexterm>
+</section>
