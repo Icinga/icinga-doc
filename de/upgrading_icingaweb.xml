@@ -20,16 +20,44 @@
   Ihre alte &name-web;-Version wiederherstellen.</para>
 
   <para>Bitte denken Sie daran, dass <code>configure</code> mit den gleichen Optionen wie bei der vorherigen Installation aufzurufen ist!
-  Die verwendeten Optionen sehen Sie im <code>config.log</code></para>
+  Die verwendeten Optionen sehen Sie im <code>config.log.</code></para>
 
-  <para>Stellen Sie sicher, dass Sie die passende &name-api; Version installiert haben. Die Installation der &name-api; ist in der <link
-  linkend="icinga-api">Icinga-API</link> Section beschrieben.</para>
+  <note>
+    <para>Bitte beachten Sie, dass es einige wesentliche Änderungen mit Icinga 1.5 gab, die ggf. zusätzliche Aktionen erfordern
+    könnten:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Die <filename>*.site.xml</filename>-Datei für lokale Konfigurationsanpassungen wurden entfernt, Konfigurationen werden nun
+        unter <filename>etc/conf.d/</filename> abgelegt (oder dem Pfad, der während der Installation mit --with-conf-folder angegeben
+        wurde)</para>
+      </listitem>
+
+      <listitem>
+        <para>Das Log-Verzeichnis befindet sich nun unter <filename>log/</filename> (oder dem Pfad, der während der Installation mit
+        --with-log-folder angegeben wurde)</para>
+      </listitem>
+
+      <listitem>
+        <para>Die Icinga-API wurde entfernt und nun wird Doctrine für alle Datenbank-Transaktionen benutzt
+        (<filename>icinga-io.xml</filename> ist nun <filename>databases.xml</filename>)</para>
+      </listitem>
+
+      <listitem>
+        <para>Befehle werden nun durch den internen Console-Handler versandt (weil die Icinga-API entfernt wurde)</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Falls Sie Icinga-Web &lt;= 1.4x benutzen, dann empfehlen wir eine Neuinstallation anstatt einer Aktualisierung. Es ist besser,
+    Ihre alten Konfigurationsdateien in die neue Struktur zu kopieren, weil es viele geänderte und gelöschte Dateien gibt, um die wir uns
+    bei einer Aktualisierung ggf. nicht kümmern.</para>
+  </note>
 
   <para><emphasis role="bold">Die Aktualisierung von &name-web;</emphasis></para>
 
   <para>Bitte laden Sie das Archiv von <link
-  xlink:href="http://sourceforge.net/projects/icinga/files/">http://sourceforge.net/projects/icinga/files/</link> herunter oder klonen Sie
-  den aktuellsten git- Branch mit :</para>
+  xlink:href="http://sourceforge.net/projects/icinga/files/">http://sourceforge.net/projects/icinga/files/</link> herunter. Falls Sie ein
+  Problem haben, das in der aktuellen Entwicklerversion behoben ist, dann klonen Sie den aktuellsten git- Branch mit :</para>
 
   <programlisting> #&gt; git clone git://git.icinga.org/icinga-web.git</programlisting>
 
@@ -102,8 +130,10 @@
   rpm/deb-Pakete benutzen, lesen Sie bitte die Hinweise und/oder fragen Sie den Maintainer, der diese Anpassungen in der
   Installationsroutine hinzugefügt hat.</para>
 
-  <note><para>Abhängig von den Änderungen und der Größe Ihrer Datenbank kann es eine Weile dauern, die Anpassungen durchzuführen. Bitte
-  haben Sie ein wenig Geduld und brechen Sie das Script nicht ab, weil sonst ggf. Ihre Daten unbrauchbar sind.</para></note>
+  <note>
+    <para>Abhängig von den Änderungen und der Größe Ihrer Datenbank kann es eine Weile dauern, die Anpassungen durchzuführen. Bitte haben
+    Sie ein wenig Geduld und brechen Sie das Script nicht ab, weil sonst ggf. Ihre Daten unbrauchbar sind.</para>
+  </note>
 
   <para>Die Update-Dateien finden Sie zusammen mit den Datenbank-Installationsdateien in
   <code>/path/to/icinga-web/etc/schema/updates</code></para>
@@ -149,6 +179,7 @@
 
   <indexterm zone="upgrading_icingaweb">
     <primary>&name-web;</primary>
+
     <secondary>Aktualisierung von</secondary>
   </indexterm>
 
@@ -158,6 +189,7 @@
 
   <indexterm zone="upgrading_icingaweb">
     <primary>&name-web;</primary>
+
     <secondary>Datenbank-Update</secondary>
   </indexterm>
 </section>
