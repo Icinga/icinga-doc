@@ -8,8 +8,9 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>Integration of &name-pnp; into &name-web;</title>
 
-  <para>Here we'll give you some instructions on how to integrate &name-pnp; into the &name-web; frontend. If you want to integrate &name-pnp;
-  into the &name-ui; please follow the &name-pnp; <link xlink:href="&url-pnp-en;">documentation</link>.</para>
+  <para>Here we'll give you some instructions on how to integrate &name-pnp; into the &name-web; frontend. If you want to integrate
+  &name-pnp; into the &name-ui; please follow the &name-pnp; <link
+  xlink:href="http://docs.pnp4nagios.org/pnp-0.6/start">documentation</link>.</para>
 
   <para><figure>
       <title>&name-pnp; integrated in &name-web;</title>
@@ -25,7 +26,8 @@
 
   <orderedlist>
     <listitem>
-      <para>Install &name-pnp; as described in the &name-pnp; <link xlink:href="&url-pnp-en;">documentation</link></para>
+      <para>Install &name-pnp; as described in the &name-pnp; <link
+      xlink:href="http://docs.pnp4nagios.org/pnp-0.6/start">documentation</link></para>
     </listitem>
 
     <listitem>
@@ -36,12 +38,47 @@
     log_file = /var/log/icinga/npcd.log
     perfdata_spool_dir = /var/icinga/spool/
     perfdata_file = /var/icinga/perfdata.dump</programlisting> <programlisting>#&gt; vi process_perfdata.cfg
-LOG_FILE = /var/log/icinga/perfdata.log</programlisting> <programlisting>#&gt; vi config.php 
-$conf['nagios_base'] = "/icinga/cgi-bin";</programlisting></para>
+    LOG_FILE = /var/log/icinga/perfdata.log
+    XML_ENC = ISO-8859-1  # use if encountering national character issues</programlisting> <programlisting>#&gt; vi config.php 
+    $conf['nagios_base'] = "/icinga/cgi-bin";</programlisting></para>
+
+      <note>
+        <para>Be sure to use existing paths, create them if necessary, and/or adapt the settings to your distribution.</para>
+
+        <para>Please verify that the &name-icinga; command definitions for "process-host-perfdata-file" and "process-service-perfdata-file"
+        (probably in <filename>etc/objects/commands.cfg</filename>) point to the same target directory as specified in
+        perfdata_spool_dir.</para>
+      </note>
     </listitem>
   </orderedlist>
 
+  <para><emphasis role="bold">Templates Extension</emphasis></para>
+
+  <para>Since version 1.5 you can leave the grid templates untouched because we integrated XML extension to customize grid templates with
+  simple snippets. PNP integration is made with these extensions to be upgrade safe.</para>
+
+  <para>Excerpt from the <filename>INSTALL</filename> in <filename>contrib/PNP_Integration/</filename></para>
+
+  <para><screen>#&gt; cat contrib/PNP_Integration/INSTALL
+    ************************
+    * INSTALLATION
+    ************************
+
+    * To install this addon, simply copy both xml files under templateExtensions
+    * to your icinga-webs app/modules/Cronks/data/xml/extensions folder
+    * and clear the app/cache/CronkTemplates folder
+    * To remove it, just delete the extension files and clear the cache folder again</screen><emphasis>Install Script</emphasis> <screen> $&gt; cd etc/contrib/PNP_Integration
+ $&gt; sh install.sh</screen></para>
+
+  <para><note>
+      <para>Please note that you will have to reinstall the addon after Icinga-Web upgrade.</para>
+    </note></para>
+
   <para><emphasis role="bold">Create a configuration to include &name-pnp; host pages in &name-web;</emphasis></para>
+
+  <para><note>
+      <para>The following lines describing the manual integration are for version 1.4 and below</para>
+    </note></para>
 
   <orderedlist>
     <listitem>
@@ -49,8 +86,8 @@ $conf['nagios_base'] = "/icinga/cgi-bin";</programlisting></para>
 
       <para>Make a copy of the default icinga-host-template.xml in app/modules/Cronks/data/xml/grid under your &name-web; installation path,
       example: <programlisting>#&gt; cp /usr/local/icinga-web/app/modules/Cronks/data/xml/grid/icinga-host-template.xml \
-    /usr/local/icinga-web/app/modules/Cronks/data/xml/grid/icinga-my-host-template.xml</programlisting>
-      In the new file we just created add a new field definition: <programlisting>        &lt;field name="pnp4nagios_host_link"&gt;
+    /usr/local/icinga-web/app/modules/Cronks/data/xml/grid/icinga-my-host-template.xml</programlisting> In the new file we just created add
+      a new field definition: <programlisting>        &lt;field name="pnp4nagios_host_link"&gt;
             &lt;!-- datasource maps a data field from api call --&gt;
             &lt;datasource&gt;
                 &lt;parameter name="field"&gt;HOST_NAME&lt;/parameter&gt;
@@ -125,6 +162,10 @@ $conf['nagios_base'] = "/icinga/cgi-bin";</programlisting></para>
   </orderedlist>
 
   <para><emphasis role="bold">Create a configuration to include pnp4nagios service pages in icinga-web</emphasis></para>
+
+  <para><note>
+      <para>The following lines describing the manual integration are for version 1.4 and below</para>
+    </note></para>
 
   <orderedlist>
     <listitem>
@@ -217,16 +258,18 @@ $conf['nagios_base'] = "/icinga/cgi-bin";</programlisting></para>
       <para>Using your new created grid view as default (if you want)</para>
 
       <para>Please backup your original view first: <programlisting>#&gt; cp data/xml/grid/icinga-service-template.xml data/xml/grid/icinga-service-template.bak</programlisting>
-      then <programlisting>#&gt; cp data/xml/grid/icinga-my-service-template.xml data/xml/grid/icinga-service-template.xml</programlisting> Clear
+      then <programlisting>#&gt; cp data/xml/grid/icinga-my-service-template.xml data/xml/grid/icinga-service-template.xml</programlisting>Clear
       the cache, like described below. Performance graphs are now in your default "serviceStatus" Cronk!</para>
     </listitem>
   </orderedlist>
 
+  <para><emphasis role="bold">Clearing the cache</emphasis></para>
+
   <note>
-    <para>If you edit any *.xml-file you have to clear the cache afterwards!</para>
+    <para>If you edit any *.xml file you have to clear the cache afterwards!</para>
   </note>
 
-  <programlisting> #&gt; rm -f app/cache/config/*.php</programlisting>
+  <programlisting>#&gt; rm -f app/cache/config/*.php</programlisting>
 
   <para>or /path/to/clearcache.sh</para>
 

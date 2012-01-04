@@ -9,7 +9,8 @@
   <title>Integration von &name-pnp; in das &name-web; Frontend</title>
 
   <para>Mit Hilfe dieser Anleitung können Sie &name-pnp; in das &name-web;-Frontend integrieren. Wenn Sie &name-pnp; in das &name-ui;
-  integrieren möchten, lesen Sie bitte die &name-pnp; <link xlink:href="&url-pnp-de;">Dokumentation.</link></para>
+  integrieren möchten, lesen Sie bitte die &name-pnp; <link
+  xlink:href="http://docs.pnp4nagios.org/de/pnp-0.6/start">Dokumentation.</link></para>
 
   <para><figure>
       <title>&name-pnp; integriert in &name-web;</title>
@@ -25,7 +26,8 @@
 
   <orderedlist>
     <listitem>
-      <para>Installieren Sie &name-pnp; wie in der &name-pnp;-<link xlink:href="&url-pnp-de;">Dokumentation</link> beschrieben.</para>
+      <para>Installieren Sie &name-pnp; wie in der &name-pnp;-<link
+      xlink:href="http://docs.pnp4nagios.org/de/pnp-0.6/start">Dokumentation</link> beschrieben.</para>
     </listitem>
 
     <listitem>
@@ -36,22 +38,58 @@
     log_file = /var/log/icinga/npcd.log
     perfdata_spool_dir = /var/icinga/spool/
     perfdata_file = /var/icinga/perfdata.dump</programlisting> <programlisting>#&gt; vi process_perfdata.cfg
-LOG_FILE = /var/log/icinga/perfdata.log</programlisting> <programlisting>#&gt; vi config.php 
-$conf['nagios_base'] = "/icinga/cgi-bin";</programlisting></para>
+    LOG_FILE = /var/log/icinga/perfdata.log
+    XML_ENC = ISO-8859-1   # falls Sie Probleme mit Umlauten haben</programlisting> <programlisting>#&gt; vi config.php 
+    $conf['nagios_base'] = "/icinga/cgi-bin";</programlisting></para>
+
+      <note>
+        <para>Stellen Sie sicher, dass Sie bestehende Pfade benutzen, legen Sie sie an, falls notwendig, und/oder passen Sie die Angaben an
+        Ihre Distribution an.</para>
+
+        <para>Bitte überprüfen Sie, dass die command-Definitionen für "process-host-perfdata-file" und "process-service-perfdata-file"
+        (wahrscheinlich in <filename>etc/objects/commands.cfg</filename>) auf das gleiche Zielverzeichnis zeigen, das in perfdata_spool_dir
+        angegeben wurde.</para>
+      </note>
     </listitem>
   </orderedlist>
 
+  <para><emphasis role="bold">Template-Extensions</emphasis></para>
+
+  <para>Seit Version 1.5 können die Grid-Templates unberührt bleiben, weil wir XML-Extensions integriert haben, um Grid-Template mit
+  einfachen Schnipseln anzupassen. Die PNP-Integration wurde mit diesen Extensions upgrade-sicher gemacht.</para>
+
+  <para>Ausschnitt aus <filename>INSTALL</filename> in <filename>contrib/PNP_Integration/</filename></para>
+
+  <para><screen>#&gt; cat contrib/PNP_Integration/INSTALL
+    ************************
+    * INSTALLATION
+    ************************
+
+    * To install this addon, simply copy both xml files under templateExtensions
+    * to your icinga-webs app/modules/Cronks/data/xml/extensions folder
+    * and clear the app/cache/CronkTemplates folder
+    * To remove it, just delete the extension files and clear the cache folder again</screen><emphasis>Install Script</emphasis> <screen> $&gt; cd etc/contrib/PNP_Integration
+ $&gt; sh install.sh</screen></para>
+
+  <para><note>
+      <para>Bitte beachten Sie, dass Sie das Addon nach einem Icinga-Web-Upgrade erneut installieren müssen.</para>
+    </note></para>
+
   <para><emphasis role="bold">Erstellen Sie die Konfiguration, um die &name-pnp; Host-Seiten in das &name-web; zu
   integrieren</emphasis></para>
+
+  <para><note>
+      <para>Die folgenden Zeilen beschreiben die manuelle Integration für Version 1.4 und früher</para>
+    </note></para>
 
   <orderedlist>
     <listitem>
       <para>Erstellen einer neuen Host-Grid-Ansicht:</para>
 
-      <para>Bitte erstellen Sie eine Kopie von icinga-host-template.xml in app/modules/Cronks/data/xml/grid unter Ihrem icinga-web
-      Installationspfad: <programlisting>#&gt; cp /usr/local/icinga-web/app/modules/Cronks/data/xml/grid/icinga-host-template.xml \
-    /usr/local/icinga-web/app/modules/Cronks/data/xml/grid/icinga-my-host-template.xml</programlisting>
-      In der neuen Datei legen wir eine zusätzliche Feld- (field) Definition an: <programlisting>        &lt;field name="pnp4nagios_host_link"&gt;
+      <para>Bitte erstellen Sie eine Kopie von <filename>icinga-host-template.xml</filename> in
+      <filename>app/modules/Cronks/data/xml/grid</filename> unter Ihrem Icinga-web-Installationspfad: <programlisting>#&gt; cp /usr/local/icinga-web/app/modules/Cronks/data/xml/grid/icinga-host-template.xml \
+    /usr/local/icinga-web/app/modules/Cronks/data/xml/grid/icinga-my-host-template.xml</programlisting> In der neuen Datei legen wir eine
+      zusätzliche Feld- (field) Definition an: <programlisting>        &lt;field name="pnp4nagios_host_link"&gt;
             &lt;!-- datasource maps a data field from api call --&gt;
             &lt;datasource&gt;
                 &lt;parameter name="field"&gt;HOST_NAME&lt;/parameter&gt;
@@ -110,7 +148,8 @@ $conf['nagios_base'] = "/icinga/cgi-bin";</programlisting></para>
     <listitem>
       <para>Anlegen einer neuen Grid-Ansicht im "Data" Cronk-Container</para>
 
-      <para>Editieren von cronks.xml im Unterverzeichnis app/modules/Cronks/config/ unter &name-web; und hinzufügen von: <programlisting>&lt;cronk name="gridMyHostView"&gt;
+      <para>Editieren von <filename>cronks.xml</filename> im Unterverzeichnis <filename>app/modules/Cronks/config/</filename> unter
+      &name-web; und hinzufügen von: <programlisting>&lt;cronk name="gridMyHostView"&gt;
     &lt;ae:parameter name="module"&gt;Cronks&lt;/ae:parameter&gt;
     &lt;ae:parameter name="action"&gt;System.ViewProc&lt;/ae:parameter&gt;
     &lt;ae:parameter name="hide"&gt;false&lt;/ae:parameter&gt;
@@ -127,12 +166,16 @@ $conf['nagios_base'] = "/icinga/cgi-bin";</programlisting></para>
 
   <para><emphasis role="bold">Integrieren von &name-pnp; in &name-web;-Serviceansichten</emphasis></para>
 
+  <para><note>
+      <para>Die folgenden Zeilen beschreiben die manuelle Integration für Version 1.4 und früher</para>
+    </note></para>
+
   <orderedlist>
     <listitem>
       <para>Erstellen einer neuen Service-Grid-Ansicht</para>
 
-      <para>Kopieren Sie das Standardtemplate "icinga-service-template.xml" von app/modules/Cronks/data/xml/grid in Ihren &name-web;-
-      Installationspfad:</para>
+      <para>Kopieren Sie das Standard-Template "<filename>icinga-service-template.xml</filename>" von
+      <filename>app/modules/Cronks/data/xml/grid</filename> in Ihren &name-web;-Installationspfad:</para>
 
       <programlisting>#&gt; cp /usr/local/icinga-web/app/modules/Cronks/data/xml/grid/icinga-service-template.xml \
     /usr/local/icinga-web/app/modules/Cronks/data/xml/grid/icinga-my-service-template.xml</programlisting>
@@ -198,7 +241,8 @@ $conf['nagios_base'] = "/icinga/cgi-bin";</programlisting></para>
     <listitem>
       <para>Anlegen einer neuen Grid-Ansicht im "Data" Cronk-Container</para>
 
-      <para>Editieren von cronks.xml im Unterverzeichnis app/modules/Cronks/config/ unter &name-web; und hinzufügen von:</para>
+      <para>Editieren von <filename>cronks.xml</filename> im Unterverzeichnis <filename>app/modules/Cronks/config/</filename> unter
+      &name-web; und hinzufügen von:</para>
 
       <programlisting>&lt;cronk name="gridMyServiceView"&gt;
     &lt;ae:parameter name="module"&gt;Cronks&lt;/ae:parameter&gt;
@@ -215,16 +259,18 @@ $conf['nagios_base'] = "/icinga/cgi-bin";</programlisting></para>
     </listitem>
 
     <listitem>
-      <para>Verwenden der neuen Grid-Ansicht als Standard-Serviceansicht</para>
+      <para>Verwenden der neuen Grid-Ansicht als Standard-Service-Ansicht</para>
 
       <para>Bitte sichern Sie zuerst Ihre originale Ansicht: <programlisting>#&gt; cp data/xml/grid/icinga-service-template.xml data/xml/grid/icinga-service-template.bak</programlisting>
-      dann <programlisting>#&gt; cp data/xml/grid/icinga-my-service-template.xml data/xml/grid/icinga-service-template.xml</programlisting>
-      Leeren Sie den Cache wie unten beschrieben. Die Performancegraphen sind nun in Ihren "serviceStatus"-Cronk integriert!</para>
+      dann<programlisting>#&gt; cp data/xml/grid/icinga-my-service-template.xml data/xml/grid/icinga-service-template.xml</programlisting>Leeren
+      Sie den Cache wie unten beschrieben. Die Performancegraphen sind nun in Ihren "serviceStatus"-Cronk integriert!</para>
     </listitem>
   </orderedlist>
 
+  <para><emphasis role="bold">Löschen des Cache</emphasis></para>
+
   <note>
-    <para>Bitte denken Sie daran, wenn Sie eine *.xml-Datei editieren, müssen Sie danach den Cache bereinigen!</para>
+    <para>Bitte denken Sie daran, dass Sie nach dem Editieren von *.xml-Dateien den Cache bereinigen müssen!</para>
   </note>
 
   <programlisting>#&gt; rm -f app/cache/config/*.php</programlisting>
