@@ -4,17 +4,15 @@
 %all.entities;
 ]>
 <section version="5.0" xml:id="perfdata" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="perf_data" />Performance Data</title>
 
   <para><emphasis role="bold">Introduction</emphasis></para>
 
-  <para>&name-icinga; is designed to allow <link linkend="plugins">plugins</link> to return optional performance data in addition
-  to normal status data, as well as allow you to pass that performance data to external applications for processing. A description
-  of the different types of performance data, as well as information on how to go about processing that data is described
-  below...</para>
+  <para>&name-icinga; is designed to allow <link linkend="plugins">plugins</link> to return optional performance data in addition to normal
+  status data, as well as allow you to pass that performance data to external applications for processing. A description of the different
+  types of performance data, as well as information on how to go about processing that data is described below...</para>
 
   <para><emphasis role="bold">Types of Performance Data</emphasis></para>
 
@@ -30,39 +28,38 @@
     </listitem>
   </orderedlist>
 
-  <para>Check performance data is internal data that relates to the actual execution of a host or service check. This might
-  include things like service check latency (i.e. how "late" was the service check from its scheduled execution time) and the
-  number of seconds a host or service check took to execute. This type of performance data is available for all checks that are
-  performed. The <link linkend="macrolist-hostexecutiontime">$HOSTEXECUTIONTIME$</link> and <link
-  linkend="macrolist-serviceexecutiontime">$SERVICEEXECUTIONTIME$</link> <link linkend="macros">macros</link> can be used to
-  determine the number of seconds a host or service check was running and the <link
-  linkend="macrolist-hostlatency">$HOSTLATENCY$</link> and <link linkend="macrolist-servicelatency">$SERVICELATENCY$</link> macros
-  can be used to determine how "late" a regularly-scheduled host or service check was.</para>
+  <para>Check performance data is internal data that relates to the actual execution of a host or service check. This might include things
+  like service check latency (i.e. how "late" was the service check from its scheduled execution time) and the number of seconds a host or
+  service check took to execute. This type of performance data is available for all checks that are performed. The <link
+  linkend="macrolist-hostexecutiontime">$HOSTEXECUTIONTIME$</link> and <link
+  linkend="macrolist-serviceexecutiontime">$SERVICEEXECUTIONTIME$</link> <link linkend="macros">macros</link> can be used to determine the
+  number of seconds a host or service check was running and the <link linkend="macrolist-hostlatency">$HOSTLATENCY$</link> and <link
+  linkend="macrolist-servicelatency">$SERVICELATENCY$</link> macros can be used to determine how "late" a regularly-scheduled host or
+  service check was.</para>
 
-  <para>Plugin performance data is external data specific to the plugin used to perform the host or service check. Plugin-specific
-  data can include things like percent packet loss, free disk space, processor load, number of current users, etc. - basically any
-  type of metric that the plugin is measuring when it executes. Plugin-specific performance data is optional and may not be
-  supported by all plugins. Plugin-specific performance data (if available) can be obtained by using the <link
-  linkend="macrolist-hostperfdata">$HOSTPERFDATA$</link> and <link linkend="macrolist-serviceperfdata">$SERVICEPERFDATA$</link>
-  <link linkend="macros">macros</link>. Read on for more information on how plugins can return performance data to &name-icinga;
-  for inclusion in the $HOSTPERFDATA$ and $SERVICEPERFDATA$ macros.</para>
+  <para>Plugin performance data is external data specific to the plugin used to perform the host or service check. Plugin-specific data can
+  include things like percent packet loss, free disk space, processor load, number of current users, etc. - basically any type of metric
+  that the plugin is measuring when it executes. Plugin-specific performance data is optional and may not be supported by all plugins.
+  Plugin-specific performance data (if available) can be obtained by using the <link linkend="macrolist-hostperfdata">$HOSTPERFDATA$</link>
+  and <link linkend="macrolist-serviceperfdata">$SERVICEPERFDATA$</link> <link linkend="macros">macros</link>. Read on for more information
+  on how plugins can return performance data to &name-icinga; for inclusion in the $HOSTPERFDATA$ and $SERVICEPERFDATA$ macros.</para>
 
   <para><emphasis role="bold">Plugin Performance Data</emphasis></para>
 
-  <para>At a minimum, &name-icinga; plugins must return a single line of human-readable text that indicates the status of some
-  type of measurable data. For example, the check_ping plugin might return a line of text like the following:</para>
+  <para>At a minimum, &name-icinga; plugins must return a single line of human-readable text that indicates the status of some type of
+  measurable data. For example, the check_ping plugin might return a line of text like the following:</para>
 
   <screen> PING ok - Packet loss = 0%, RTA = 0.80 ms </screen>
 
   <para>With this simple type of output, the entire line of text is available in the $HOSTOUTPUT$ or $SERVICEOUTPUT$ <link
   linkend="macros">macros</link> (depending on whether this plugin was used as a host check or service check).</para>
 
-  <para>Plugins can return optional performance data in their output by sending the normal, human-readable text string that they
-  usually would, followed by a pipe character (|), and then a string containing one or more performance data metrics. Let's take
-  the check_ping plugin as an example and assume that it has been enhanced to return percent packet loss and average round trip
-  time as performance data metrics. Sample output from the plugin might look like this:</para>
+  <para>Plugins can return optional performance data in their output by sending the normal, human-readable text string that they usually
+  would, followed by a pipe character (|), and then a string containing one or more performance data metrics. Let's take the check_ping
+  plugin as an example and assume that it has been enhanced to return percent packet loss and average round trip time as performance data
+  metrics. Sample output from the plugin might look like this:</para>
 
-  <screen> PING ok - Packet loss = 0%, RTA = 0.80 ms | percent_packet_loss=0, rta=0.80</screen>
+  <screen> PING ok - Packet loss = 0%, RTA = 0.80 ms | percent_packet_loss=0 rta=0.80</screen>
 
   <para>When &name-icinga; sees this plugin output format it will split the output into two parts:</para>
 
@@ -78,19 +75,18 @@
     </listitem>
   </orderedlist>
 
-  <para>In the example above, the $HOSTOUTPUT$ or $SERVICEOUTPUT$ macro would contain "<emphasis>PING ok - Packet loss = 0%, RTA =
-  0.80 ms</emphasis>" (without quotes) and the $HOSTPERFDATA$ or $SERVICEPERFDATA$ macro would contain
-  "<emphasis>percent_packet_loss=0, rta=0.80</emphasis>" (without quotes).</para>
+  <para>In the example above, the $HOSTOUTPUT$ or $SERVICEOUTPUT$ macro would contain "<emphasis>PING ok - Packet loss = 0%, RTA = 0.80
+  ms</emphasis>" (without quotes) and the $HOSTPERFDATA$ or $SERVICEPERFDATA$ macro would contain "<emphasis>percent_packet_loss=0
+  rta=0.80</emphasis>" (without quotes).</para>
 
-  <para>Multiple lines of performace data (as well as normal text output) can be obtained from plugins, as described in the <link
+  <para>Multiple lines of performance data (as well as normal text output) can be obtained from plugins, as described in the <link
   linkend="pluginapi">plugin API documentation</link>.</para>
 
   <note>
-    <para>The &name-icinga; daemon doesn't directly process plugin performance data, so it doesn't really care what the
-    performance data looks like. There aren't really any inherent limitations on the format or content of the performance data.
-    However, if you are using an external addon to process the performance data (i.e. PerfParse), the addon may be expecting that
-    the plugin returns performance data in a specific format. Check the documentation that comes with the addon for more
-    information.</para>
+    <para>The &name-icinga; daemon doesn't directly process plugin performance data, so it doesn't really care what the performance data
+    looks like. The developer guidelines contain several rules (see <link linkend="perfdata-format">performance data format</link> below for
+    details). However, if you are using an external addon to process the performance data (i.e. PerfParse), the addon may be expecting that
+    the plugin returns performance data in a specific format. Check the documentation that comes with the addon for more information.</para>
   </note>
 
   <para><emphasis role="bold">Processing Performance Data</emphasis></para>
@@ -104,8 +100,7 @@
     </listitem>
 
     <listitem>
-      <para>Configure &name-icinga; so that performance data is either written to files and/or processed by executing
-      commands.</para>
+      <para>Configure &name-icinga; so that performance data is either written to files and/or processed by executing commands.</para>
     </listitem>
   </orderedlist>
 
@@ -113,10 +108,9 @@
 
   <para><emphasis role="bold">Processing Performance Data Using Commands</emphasis></para>
 
-  <para>The most flexible way to process performance data is by having &name-icinga; execute commands (that you specify) to
-  process or redirect the data for later processing by external applications. The commands that &name-icinga; executes to process
-  host and service performance data are determined by the <link
-  linkend="configmain-host_perfdata_command">host_perfdata_command</link> and <link
+  <para>The most flexible way to process performance data is by having &name-icinga; execute commands (that you specify) to process or
+  redirect the data for later processing by external applications. The commands that &name-icinga; executes to process host and service
+  performance data are determined by the <link linkend="configmain-host_perfdata_command">host_perfdata_command</link> and <link
   linkend="configmain-service_perfdata_command">service_perfdata_command</link> options, respectively.</para>
 
   <para>An example command definition that redirects service check performance data to a text file for later processing by another
@@ -128,19 +122,18 @@
         }</screen>
 
   <tip>
-    <para>This method, while flexible, comes with a relatively high CPU overhead. If you're processing performance data for a
-    large number of hosts and services, you'll probably want &name-icinga; to write performance data to files instead. This method
-    is described in the next section.</para>
+    <para>This method, while flexible, comes with a relatively high CPU overhead. If you're processing performance data for a large number
+    of hosts and services, you'll probably want &name-icinga; to write performance data to files instead. This method is described in the
+    next section.</para>
   </tip>
 
   <para><emphasis role="bold">Writing Performance Data To Files</emphasis></para>
 
   <para>You can have &name-icinga; write all host and service performance data directly to text files using the <link
   linkend="configmain-host_perfdata_file">host_perfdata_file</link> and <link
-  linkend="configmain-service_perfdata_file">service_perfdata_file</link> options. The format in which host and service
-  performance data is written to those files is determined by the <link
-  linkend="configmain-host_perfdata_file_template">host_perfdata_file_template</link> and <link
-  linkend="configmain-service_perfdata_file_template">service_perfdata_file_template</link> options.</para>
+  linkend="configmain-service_perfdata_file">service_perfdata_file</link> options. The format in which host and service performance data is
+  written to those files is determined by the <link linkend="configmain-host_perfdata_file_template">host_perfdata_file_template</link> and
+  <link linkend="configmain-service_perfdata_file_template">service_perfdata_file_template</link> options.</para>
 
   <para>An example file format template for service performance data might look like this:</para>
 
@@ -151,18 +144,138 @@
     <para>The above is just one example of how to define a template. This definition will NOT work for PNP!</para>
   </note>
 
-  <para>By default, the text files will be opened in "append" mode. If you need to change the modes to "write" or "non-blocking
-  read/write" (useful when writing to pipes), you can use the <link
-  linkend="configmain-host_perfdata_file_mode">host_perfdata_file_mode</link> and <link
-  linkend="configmain-service_perfdata_file_mode">service_perfdata_file_mode</link> options.</para>
+  <para>By default, the text files will be opened in "append" mode. If you need to change the modes to "write" or "non-blocking read/write"
+  (useful when writing to pipes), you can use the <link linkend="configmain-host_perfdata_file_mode">host_perfdata_file_mode</link> and
+  <link linkend="configmain-service_perfdata_file_mode">service_perfdata_file_mode</link> options.</para>
 
-  <para>Additionally, you can have &name-icinga; periodically execute commands to periocially process the performance data files
-  (e.g. rotate them) using the <link
-  linkend="configmain-host_perfdata_file_processing_command">host_perfdata_file_processing_command</link> and <link
-  linkend="configmain-service_perfdata_file_processing_command">service_perfdata_file_processing_command</link> options. The
-  interval at which these commands are executed are governed by the <link
+  <para>Additionally, you can have &name-icinga; periodically execute commands to periocially process the performance data files (e.g.
+  rotate them) using the <link linkend="configmain-host_perfdata_file_processing_command">host_perfdata_file_processing_command</link> and
+  <link linkend="configmain-service_perfdata_file_processing_command">service_perfdata_file_processing_command</link> options. The interval
+  at which these commands are executed are governed by the <link
   linkend="configmain-host_perfdata_file_processing_interval">host_perfdata_file_processing_interval</link> and <link
   linkend="configmain-service_perfdata_file_processing_interval">service_perfdata_file_processing_interval</link> options,
   respectively.</para>
-  <indexterm zone="perf_data"><primary>Performance Data</primary></indexterm>
+
+  <para><emphasis role="bold"><anchor xml:id="perfdata-format" />Performance Data Format</emphasis></para>
+
+  <para>The Nagios Developer Guidelines (<link
+  xlink:href="http://nagiosplug.sourceforge.net/developer-guidelines.html">http://nagiosplug.sourceforge.net/developer-guidelines.html</link>)
+  contain in <link xlink:href="http://nagiosplug.sourceforge.net/developer-guidelines.html#AEN201">section 2.6</link> the specification and an
+  explanation of the format of performance data. It is repeated below for your convenience:</para>
+
+  <para>----- 8&lt; -----</para>
+
+  <para><emphasis>2.6.Performance data</emphasis></para>
+
+  <para>Performance data is defined by Nagios as "everything after the | of the plugin output" - please refer to Nagios(/Icinga)
+  documentation for information on capturing this data to logfiles. However, it is the responsibility of the plugin writer to ensure the
+  performance data is in a "Nagios plugins" format. This is the expected format:</para>
+
+  <para>'label'=value[UOM];[warn];[crit];[min];[max]</para>
+
+  <para>Notes:</para>
+
+  <orderedlist>
+    <listitem>
+      <para>space separated list of label/value pairs</para>
+    </listitem>
+
+    <listitem>
+      <para>label can contain any characters</para>
+    </listitem>
+
+    <listitem>
+      <para>the single quotes for the label are optional. Required if spaces, = or ' are in the label</para>
+    </listitem>
+
+    <listitem>
+      <para>label length is arbitrary, but ideally the first 19 characters are unique (due to a limitation in RRD). Be aware of a limitation
+      in the amount of data that NRPE returns to Nagios</para>
+    </listitem>
+
+    <listitem>
+      <para>to specify a quote character, use two single quotes</para>
+    </listitem>
+
+    <listitem>
+      <para>warn, crit, min, and/or max, respectively, may be null (for example, if the threshold is not defined or min and max do not
+      apply). Trailing unfilled semicolons can be dropped</para>
+    </listitem>
+
+    <listitem>
+      <para>min and max are not required if UOM=%</para>
+    </listitem>
+
+    <listitem>
+      <para>value, min and max in class [-0-9.]. Must all be the same UOM</para>
+    </listitem>
+
+    <listitem>
+      <para>warn and crit are in the range format (see Section 2.5). Must be the same UOM</para>
+    </listitem>
+
+    <listitem>
+      <para>UOM (unit of measurement) is one of:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>no unit specified - assume a number (int or float) of things (eg, users, processes, load averages)</para>
+        </listitem>
+
+        <listitem>
+          <para>s - seconds (also us, ms)</para>
+        </listitem>
+
+        <listitem>
+          <para>% - percentage</para>
+        </listitem>
+
+        <listitem>
+          <para>B - bytes (also KB, MB, TB, GB?)</para>
+        </listitem>
+
+        <listitem>
+          <para>c - a continous counter (such as bytes transmitted on an interface)</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </orderedlist>
+
+  <para>It is up to third party programs to convert the Nagios plugins performance data into graphs.</para>
+
+  <para>----- 8&lt; -----</para>
+
+  <para>Every now and then people are curious if their performance data is valid so we'll give some examples showing the data following the
+  pipe symbol:</para>
+
+  <screen> loss=0 rta=0.80ms         # valid (rule 1,10)
+ loss=0, rta=0.80ms        # invalid (rule 1, no comma allowed)
+ loss=0 rta=0,80ms         # invalid (rule 8, no comma allowed) *1
+ packet loss=0 rta=0.80    # invalid (rule 3, single quotes needed)
+ 'packet loss'=0 rta=0.80  # valid version of line above
+ 'john''s disk'=83%        # valid (rule 5,10)
+ 'disk usage'=78%;80;90;;; # invalid (trailing semicolon after max value)
+ 'disk usage'=78%;80;90    # valid (rule 6)
+ 'data packets'=11345234c  # valid (rule 6,10)
+ drum=153482pages          # invalid (rule 10, wrong UOM) *2
+ temperature=23;;;20;30    # valid (rule 6)</screen>
+
+  <para><note>
+      <para>*1: Having a decimal comma instead of a decimal point may be a result of using your local language settings. It might be fixed
+      internally by your graphing tool but don't rely on it.</para>
+
+      <para>*2: Having "pages" or other non-standard UOMs (e.g. °C/°F) will probably result in errors or discarded performance data when
+      using addon like <link xlink:href="http://docs.pnp4nagios.org/">PNP4Nagios</link> or other tools which try to graph your performance
+      data.</para>
+    </note></para>
+
+  <indexterm zone="perf_data">
+    <primary>Performance Data</primary>
+  </indexterm>
+
+  <indexterm zone="perf_data">
+    <primary>Performance Data</primary>
+
+    <secondary>Data Format</secondary>
+  </indexterm>
 </section>
