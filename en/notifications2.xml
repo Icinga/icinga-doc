@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="notifications2" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="notifications_2" />Notifications: Examples and troubleshooting</title>
+
+  <para><emphasis role="bold">Introduction</emphasis></para>
+
+  <para>Object definitions of <link linkend="objectdefinitions-host">hosts</link>, <link
+  linkend="objectdefinitions-service">services</link>, and <link linkend="objectdefinitions-contact">contacts</link> / <link
+  linkend="objectdefinitions-contactgroup">contact groups</link> were shown in the chapter "Configuring Icinga", the several checks being
+  made to determine whether a notification will be sent or not were described in the section "<link
+  linkend="notifications">Notifications</link>".</para>
+
+  <para>Despite all the explanations it seems that there is still some level of uncertainty so we'll try to show an example using mail as
+  one way of communication.</para>
+
+  <para><important>
+      <para>Icinga does <emphasis role="bold">not</emphasis> provide any method to notify any contact you define so setting up mail, sms,
+      pager, or whichever way you may choose is entirely up to you and not part of this documentation. Regarding mail you have to install a
+      mail program (postfix, sendmail, or any other MTA you feel comfortable with), set up relaying on the Icinga server (postfix:
+      <filename>/etc/postfix/main.cf</filename>, directive "relayhost"; sendmail: <filename>/etc/mail/sendmail.cf</filename>, directive
+      "DS"), allow relaying on your central mail server for mails coming from your Icinga server and verify that you can send mails from
+      your Icinga server using the user running Icinga.</para>
+
+      <para>If you cannot send messages from the command line on your Icinga server then there is no sense in reading on.</para>
+    </important><emphasis role="bold">Prerequisites</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para>As stated above you need a working way to send messages from the command line. If that doesn't work then you have to fix it
+      first!</para>
+    </listitem>
+
+    <listitem>
+      <para>You need at least one contact definition like the following:</para>
+
+      <screen> define contact {
+        contact_name                    jdoe
+        host_notifications_enabled      1
+        host_notification_period        24x7
+        host_notification_options       d,u,r
+        host_notification_commands      host-notify-by-email
+        service_notifications_enabled   1
+        service_notification_period     workhours
+        service_notification_options    w,u,c,r
+        service_notification_commands   notify-by-email
+        email                           jdoe@some.domain.name
+        }</screen>
+
+      <para>The definition contains all required directives and one semi-optional (email).</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Notifications are enabled for both hosts and services</para>
+        </listitem>
+
+        <listitem>
+          <para>Notifications will be sent during the time period "24x7" for hosts and during "workhours" for services. These time periods
+          require appropriate <link linkend="objectdefinitions-timeperiod">time period definitions</link>. We'll assume that "24x7" means 24
+          hours 7 days a week and "workhours" monday to friday from 9 a.m. to 5 p.m. Please note that "notification_period" is different
+          from "check_period" as specified in host and service definitions. It specifies the time period in which messages will be sent if
+          all checks described in "<link linkend="notifications">Notifications</link>" have been passed successfully.</para>
+        </listitem>
+
+        <listitem>
+          <para>Messages will be sent for hosts changing to UNREACHABLE and DOWN states and when returning back to an UP state. Services
+          changing to WARNING, CRITICAL, and UNREACHABLE and returning back to an OK state will send notifications as well.</para>
+        </listitem>
+
+        <listitem>
+          <para>Hosts and services use different commands to notify the contact.</para>
+        </listitem>
+
+        <listitem>
+          <para>Apart from "email" you can specify several other addresses which might be used to notify the contact.</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para>You need different command definitions for "host-notify-by-email" and "notify-by-email". The definitions shown were taken from
+      the Icinga sample config files. The command line was reformatted.</para>
+
+      <screen> # 'notify-host-by-email' command definition
+ define command {
+        command_name   notify-host-by-email
+        command_line   /usr/bin/printf "%b" "***** Icinga *****\n\n \
+                       Notification Type: $NOTIFICATIONTYPE$\n \
+                       Host: $HOSTNAME$\n \
+                       State: $HOSTSTATE$\n \
+                       Address: $HOSTADDRESS$\n \
+                       Info: $HOSTOUTPUT$\n\n \
+                       Date/Time: $LONGDATETIME$\n" \
+                       | /usr/bin/mailx -s \
+                         "** $NOTIFICATIONTYPE$ Host Alert: \
+                         $HOSTNAME$ is $HOSTSTATE$ **" \
+                         $CONTACTEMAIL$
+        }
+
+ # 'notify-service-by-email' command definition
+ define command {
+        command_name   notify-service-by-email
+        command_line   /usr/bin/printf "%b" "***** Icinga *****\n\n \
+                       Notification Type: $NOTIFICATIONTYPE$\n\n \
+                       Service: $SERVICEDESC$\n \
+                       Host: $HOSTALIAS$\n \
+                       Address: $HOSTADDRESS$\n \
+                       State: $SERVICESTATE$\n\n \
+                       Date/Time: $LONGDATETIME$\n\n \
+                       Additional Info:\n\n \
+                       $SERVICEOUTPUT$\n" 
+                       | /usr/bin/mailx -s \
+                         "** $NOTIFICATIONTYPE$ Service Alert: \
+                         $HOSTALIAS$/$SERVICEDESC$ is $SERVICESTATE$ **" \
+                         $CONTACTEMAIL$
+        }</screen>
+
+      <note>
+        <para>Please verify that the programs (<filename>printf</filename>, <filename>mailx</filename>) actually exist at the given
+        locations. They may differ between distributions.</para>
+      </note>
+
+      <para>There are many <link linkend="macrolist">macros</link> which can be inserted to add information to the notifications.<note>
+          <para>Several macros have a limited scope, e.g. CONTACT* macros are not available within event handlers.</para>
+        </note></para>
+
+      <para>You are free to write your own notification command adding or removing macros as needed. Just ensure that it contains the
+      information the addressee requires. You may want to write a sophisticated script which checks a database to determine the way a
+      contact can be reached depending on the time the notification is sent (via mail during working hours, additionally via sms during
+      non-working hours, not at all during holidays).</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis role="bold">Some examples</emphasis></para>
+
+  <para>We will define some services containing only some directives assuming that the other (required) things were defined using a template
+  and show some things to look for:</para>
+
+  <screen> define service {
+        use                      service_template
+        host_name                san_host
+        service_description      spare_disks
+        notification_period      24x7
+        notification_interval    60
+        notification_options     c,w,r
+        check_command            check_spare!2!1
+        contacts                 jdoe
+        contact_groups           admins
+        }
+
+ define service {
+        use                      service_template
+        host_name                login_host
+        service_description      users
+        notification_period      workhours
+        notification_interval    0
+        notification_options     c,r
+        check_command            check_user!20!50
+        contacts                 jdoe
+        }        
+       
+ define service {
+        use                      service_template
+        host_name                app_host
+        service_description      memory
+        notification_period      workhours
+        notification_interval    10
+        notification_options     c,w,r,s,r,f,n
+        check_command            check_memory!90%!95%
+        contacts                 admins
+        }</screen>
+
+  <itemizedlist>
+    <listitem>
+      <para>The first service monitors the number of spare discs within a disc shelf. Normally there are two discs available. Having only
+      one should generate a warning, dropping to zero is considered critical. Notifications will be sent at all times, repeating the non-OK
+      state every 60 minutes. John Doe is not part of the admins group so he is specified separately.</para>
+    </listitem>
+
+    <listitem>
+      <para>The second service monitors the number of users logged in. Exceeding 20 users generates a warning, above 50 users is critical.
+      The shop is closed after working hours and users are logged off automatically after some idle time so there is no need for
+      notifications at other times. Please note that a warning will <emphasis>not</emphasis> send a notification because that is not
+      specified in the notification options! There will be only one notification in case of a non-OK state, even if the state changes
+      between WARNING and CRITICAL.</para>
+    </listitem>
+
+    <listitem>
+      <para>The last service checks the amount of memory on a machine running batch jobs all the time. Warnings will be generated above 90%
+      RAM usage and if beyond 95% it is considered critical. Sending out messages in a ten minute interval seems to be a good idea but
+      sending them only during workhours might be insufficient. <emphasis role="bold">But</emphasis>: although there are a lot of
+      notification options specified the admins group will not get any messages at all! The reason? Please check the meaning of each
+      possible value of "notification_options" for yourself by looking at the object definition of hosts / services.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis role="bold">Troubleshooting</emphasis></para>
+
+  <para>If notifications don't seem to work there are several things to check:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Has the host/service state already turned into a "hard" state? Check the state looking at the host/service details</para>
+    </listitem>
+
+    <listitem>
+      <para>Is the macro valid in the context where you are using it?</para>
+    </listitem>
+
+    <listitem>
+      <para>Is the program to send messages (mail / pager / ...) up and running? Is it possible to send messages from the command line with
+      the account used to run the Icinga process to the address specified in the contact definition? Note: For security reasons the login
+      shell might be disabled so you may have to change that temporarily</para>
+    </listitem>
+
+    <listitem>
+      <para>Instead of sending messages you can redirect the output to a file by changing "<literal>| /usr/bin/mail ...</literal>" to
+      something like "<literal>&gt; /tmp/notification.log</literal>" to verify that all macros are resolved correctly</para>
+    </listitem>
+
+    <listitem>
+      <para>Check the Icinga log, mail log, and system log for messages</para>
+    </listitem>
+
+    <listitem>
+      <para>Edit <filename>icinga.cfg</filename> and change the following directives</para>
+
+      <screen> debug_level=32                  # notifications
+ debug_verbosity=2               # very detailed
+ max_debug_file_size=1000000000  # max 1GB of debug file</screen>
+
+      <para>Restart Icinga and send a custom notification via the classic UI to check the settings.</para>
+    </listitem>
+  </itemizedlist>
+
+  <indexterm zone="notifications2">
+    <primary>Notifications</primary>
+
+    <secondary>Examples and troubleshooting</secondary>
+  </indexterm>
+</section>
