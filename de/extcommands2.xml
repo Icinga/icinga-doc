@@ -196,11 +196,13 @@
   <para><code>ACKNOWLEDGE_HOST_PROBLEM;</code>&lt;host_name&gt;;&lt;sticky&gt;;&lt;notify&gt;;&lt;persistent&gt;;&lt;author&gt;;&lt;comment&gt;</para>
 
   <para>Erlaubt Ihnen, das aktuelle Problem für den angegebenen Host zu bestätigen. Durch Bestätigung des aktuellen Problems werden weitere
-  Benachrichtigungen (für den gleichen Host-Status) deaktiviert. Wenn die "sticky"-Option auf zwei (2) gesetzt wird, bleibt die Bestätigung
-  bestehen, bis der Host in einen UP-Status zurückkehrt. Anderenfalls wird die Bestätigung automatisch entfernt, wenn sich der Host-Status
-  ändert. Wenn die "notify"-Option auf eins (1) gesetzt wird, werden die Kontakte über die Bestätigung informiert. Wenn die
-  "persistent"-Option auf eins (1) gesetzt wird, wird der Kommentar zu dieser Bestätigung auch über Neustarts des &name-icinga;-Prozesses
-  hinweg aufbewahrt. Anderenfalls wird der Kommentar beim nächsten Neustart des &name-icinga;-Prozesses gelöscht.</para>
+  Benachrichtigungen (für den gleichen Host-Status) deaktiviert.</para>
+  <para>Wenn die "sticky"-Option auf zwei (2) gesetzt wird, bleibt die Bestätigung bestehen, bis der Host sich erholt (in einen UP-Status
+  zurückkehrt). Anderenfalls wird die Bestätigung automatisch entfernt, wenn sich der Host-Status ändert.</para>
+  <para>Wenn die "notify"-Option auf eins (1) gesetzt wird, werden die Kontakte über die Bestätigung informiert, bei Null (0) wird keine
+  Benachrichtigung versandt.</para>
+  <para>Wenn die "persistent"-Option auf eins (1) gesetzt wird, bleibt der Kommentar der Bestätigung auch nach der Erholung des Hosts
+  bestehen.</para>
 
   <para><anchor xml:id="extcmd2-acknowledge_host_problem_expire" /> <emphasis role="bold">ACKNOWLEDGE_HOST_PROBLEM_EXPIRE</emphasis></para>
 
@@ -217,12 +219,13 @@
   <para><code>ACKNOWLEDGE_SVC_PROBLEM;</code>&lt;host_name&gt;;&lt;service_description&gt;;&lt;sticky&gt;;&lt;notify&gt;;&lt;persistent&gt;;&lt;author&gt;;&lt;comment&gt;</para>
 
   <para>Erlaubt Ihnen, das aktuelle Problem für den angegebenen Service zu bestätigen. Durch Bestätigung des aktuellen Problems werden
-  weitere Benachrichtigungen (für den gleichen Service-Status) deaktiviert. Wenn die "sticky"-Option auf zwei (2) gesetzt wird, bleibt die
-  Bestätigung bestehen, bis der Service in einen OK-Status zurückkehrt. Anderenfalls wird die Bestätigung automatisch entfernt, wenn sich
-  der Service-Status ändert. Wenn die "notify"-Option auf eins (1) gesetzt wird, werden die Kontakte über die Bestätigung informiert. Wenn
-  die "persistent"-Option auf eins (1) gesetzt wird, wird der Kommentar zu dieser Bestätigung auch über Neustarts des
-  &name-icinga;-Prozesses hinweg aufbewahrt. Anderenfalls wird der Kommentar beim nächsten Neustart des &name-icinga;-Prozesses
-  gelöscht.</para>
+  weitere Benachrichtigungen (für den gleichen Service-Status) deaktiviert.</para>
+  <para>Wenn die "sticky"-Option auf zwei (2) gesetzt wird, bleibt die Bestätigung bestehen, bis der Service sich erholt (in einen OK-Status
+  zurückkehrt). Anderenfalls wird die Bestätigung automatisch entfernt, wenn sich der Service-Status ändert.</para>
+  <para>Wenn die "notify"-Option auf eins (1) gesetzt wird, werden die Kontakte über die Bestätigung informiert, bei Null (0) wird keine
+  Benachrichtigung versandt.</para>
+  <para>Wenn die "persistent"-Option auf eins (1) gesetzt wird, bleibt der Kommentar der Bestätigung auch nach der Erholung des Service
+  bestehen.</para>
 
   <para><anchor xml:id="extcmd2-acknowledge_svc_problem_expire" /> <emphasis role="bold">ACKNOWLEDGE_SVC_PROBLEM_EXPIRE</emphasis></para>
 

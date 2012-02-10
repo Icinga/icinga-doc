@@ -195,11 +195,13 @@
   <para><code>ACKNOWLEDGE_HOST_PROBLEM;</code>&lt;host_name&gt;;&lt;sticky&gt;;&lt;notify&gt;;&lt;persistent&gt;;&lt;author&gt;;&lt;comment&gt;</para>
 
   <para>Allows you to acknowledge the current problem for the specified host. By acknowledging the current problem, future notifications
-  (for the same host state) are disabled. If the "sticky" option is set to two (2), the acknowledgement will remain until the host returns
-  to an UP state. Otherwise the acknowledgement will automatically be removed when the host changes state. If the "notify" option is set to
-  one (1), a notification will be sent out to contacts indicating that the current host problem has been acknowledged. If the "persistent"
-  option is set to one (1), the comment associated with the acknowledgement will survive across restarts of the &name-icinga; process. If
-  not, the comment will be deleted the next time &name-icinga; restarts.</para>
+  (for the same host state) are disabled.</para>
+  <para>If the "sticky" option is set to two (2), the acknowledgement will remain until the host recovers (returns to an UP state). 
+  Otherwise the acknowledgement will automatically be removed when the host changes state.</para>
+  <para>If the "notify" option is set to one (1), a notification will be sent out to contacts indicating that the current host problem has
+  been acknowledged, if set to null (0) there will be no notification.</para>
+  <para>If the "persistent" option is set to one (1), the comment associated with the acknowledgement will remain even after the host
+  recovers.</para>
 
   <para><anchor xml:id="extcmd2-acknowledge_host_problem_expire" /> <emphasis role="bold">ACKNOWLEDGE_HOST_PROBLEM_EXPIRE</emphasis></para>
 
@@ -216,11 +218,13 @@
   <para><code>ACKNOWLEDGE_SVC_PROBLEM;</code>&lt;host_name&gt;;&lt;service_description&gt;;&lt;sticky&gt;;&lt;notify&gt;;&lt;persistent&gt;;&lt;author&gt;;&lt;comment&gt;</para>
 
   <para>Allows you to acknowledge the current problem for the specified service. By acknowledging the current problem, future notifications
-  (for the same servicestate) are disabled. If the "sticky" option is set to two (2), the acknowledgement will remain until the service
-  returns to an OK state. Otherwise the acknowledgement will automatically be removed when the service changes state. If the "notify" option
-  is set to one (1), a notification will be sent out to contacts indicating that the current service problem has been acknowledged. If the
-  "persistent" option is set to one (1), the comment associated with the acknowledgement will survive across restarts of the &name-icinga;
-  process. If not, the comment will be deleted the next time &name-icinga; restarts.</para>
+  (for the same servicestate) are disabled.</para>
+  <para>If the "sticky" option is set to two (2), the acknowledgement will remain until the service recovers (returns to an OK state). 
+  Otherwise the acknowledgement will automatically be removed when the service changes state.</para>
+  <para>If the "notify" option is set to one (1), a notification will be sent out to contacts indicating that the current service problem
+  has been acknowledged, if set to null (0) there will be no notification.</para>
+  <para>If the "persistent" option is set to one (1), the comment associated with the acknowledgement will remain even after the service
+  recovers.</para>
 
   <para><anchor xml:id="extcmd2-acknowledge_svc_problem_expire" /> <emphasis role="bold">ACKNOWLEDGE_SVC_PROBLEM_EXPIRE</emphasis></para>
 
