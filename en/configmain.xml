@@ -5664,10 +5664,27 @@
     </tgroup>
   </informaltable>
 
-  <para>This boolean option determines whether services assigned to empty host groups (host groups with no host members) will cause
-  &name-icinga; to exit with error on startup (or during a configuration check) or not. The default behaviour if the option is not present
-  (or set to "0") in the main configuration file is for &name-icinga; to exit with error if services are associated with host groups whose
-  hostgroup definitions have no host_members associated with them.</para>
+  <para>This boolean option determines whether services, service dependencies, or host dependencies assigned to empty host groups (host
+  groups with no host members) will cause &name-icinga; to exit with error on startup (or during a configuration check) or not. The default
+  behaviour if the option is not present (or set to "0") in the main configuration file is for &name-icinga; to exit with error if any of
+  these objects are associated with host groups whose hostgroup definitions have no host_members associated with them.</para>
+
+  <para>Enabling this option can be useful when:</para>
+  <itemizedlist>
+    <listitem>
+      <para>Configuration files or pre-cached object files are distributed across many &name-icinga; pollers.</para>
+    </listitem>
+    <listitem>
+      <para>Automation is used to generate an &name-icinga; configuration file tree.</para>
+    </listitem>
+    <listitem>
+      <para>There is one set of services, service dependencies, or host dependencies maintained by administrators for which users may add
+        hosts through host group membership for convenience (e.g. a suite of checks associated with a remote monitoring agent) but for
+        which there is no guarantee that users will use the services associated with the host group or that the hosts will exists (e.g. a
+        remote agent that is being deprecated over time or hosts that are being decommissioned).</para>
+    </listitem>
+  </itemizedlist>
+
 
   <note>
     <para>This option is available starting with &name-icinga; 1.3.</para>

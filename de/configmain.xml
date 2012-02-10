@@ -5202,10 +5202,28 @@
     </tgroup>
   </informaltable>
 
-  <para>Diese boolesche Option legt fest, ob Services, die leeren Hostgruppen zuordnet sind (Hostgruppen ohne Host-Member), &name-icinga;
-  beim Start (oder bei der Konfigurationsprüfung) mit einem Fehler abbrechen lassen oder nicht. Das Default-Verhalten, wenn die Option nicht
-  in der Hauptkonfigurationsdatei vorhanden ist (oder auf "0" gesetzt ist), besteht darin, dass &name-icinga; mit einem Fehler abbricht,
-  wenn Services mit Hostgruppen verbunden sind, denen in der hostgroup-Definition keine Host-Member zugeordnet sind.</para>
+  <para>Diese boolesche Option legt fest, ob Services, Host-Abhängigkeiten oder Service-Abhängigkeiten, die leeren Hostgruppen zuordnet
+    sind (Hostgruppen ohne Host-Member), &name-icinga; beim Start (oder bei der Konfigurationsprüfung) mit einem Fehler abbrechen lassen
+    oder nicht. Das Default-Verhalten, wenn die Option nicht in der Hauptkonfigurationsdatei vorhanden ist (oder auf "0" gesetzt ist),
+    besteht darin, dass &name-icinga; mit einem Fehler abbricht, wenn Services, Host-Abhängigkeiten oder Service-Abhängigkeiten, mit
+    Hostgruppen verbunden sind, denen in der hostgroup-Definition keine Host-Member zugeordnet sind.</para>
+
+  <para>Aktivieren dieser Option kann sinnvoll sein, wenn:</para>
+  <itemizedlist>
+    <listitem>
+      <para>Konfigurationdateien oder vorgespeicherte Objektdateien an viele &Icinga-Poller verteilt werden.</para>
+    </listitem>
+    <listitem>
+      <para>Automation benutzt wird, um einen "Baum" mit &name-icinga;-Konfigurationsdateien zu erzeugen.</para>
+    </listitem>
+    <listitem>
+      <para>es einen Satz von Services, Host-Abhängigkeiten oder Service-Abhängigkeiten gibt, der von Administrationen verwaltet werden, be
+        dem Benutzer der Einfachheit halber Hosts über die Hostgruppenzugehörigkeit hinzufügen können (z.B. eine Suite von Prüfungen, die
+        mit einem entfernten Überwachungsagenten verbunden sind), wobei es aber keine Garantie dafür gibt, dass die Benutzer die Services
+        verwenden, die mit der Hostgruppe verbunden sind, oder dass die Hosts existieren (z.B. ein entfernter Agent, dessen Hosts
+        mit der Zeit stillgelegt werden).
+    </listitem>
+  </itemizedlist>
 
   <note>
     <para>Diese Option ist verfügbar ab &name-icinga; 1.3.</para>
