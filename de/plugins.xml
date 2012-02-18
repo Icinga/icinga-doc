@@ -107,11 +107,68 @@
 
   <important>
     <para>Führen Sie Plugins immer mit dem &name-icinga;-Benutzer aus, denn einige Plugins erstellen temporäre Dateien. Wenn Sie Plugins mit
-    einem anderen Benutzer ausführen, dann kann der &name-icinga;-Benutzer diese Dateien ggf. nicht überschreiben.</para>
+    einem anderen Benutzer ausführen, dann kann der &name-icinga;-Benutzer diese Dateien ggf. nicht überschreiben. Wenn Sie einen anderen
+    Benutzer verwenden, werden Sie nicht feststellen, ob ist der &name-icinga;-Benutzer überhaupt berechtigt ist, auf bestimmte Dateien
+    (z.B. Shared Libraries) zuzugreifen.</para>
 
     <para>Rufen Sie das Plugin nicht mit einem relativen Pfad auf (z.B. <emphasis>./check_test_plugin</emphasis>). Benutzen Sie immer
     absolute Pfade, denn so macht es auch &name-icinga; (z.B. <emphasis>&url-icinga-libexec;/check_test_plugin</emphasis>).</para>
+
+    <para>Bitte beachten Sie, dass der &name-icinga;-<emphasis>Benutzer</emphasis> eine andere Umgebung als der
+    &name-icinga;-<emphasis>Prozess</emphasis> hat. Beim Benutzer wurden Login-Skripte durchlaufen und es ist ein Terminal mit der
+    Benutzer-Sitzung verbunden, so dass die erfolgreiche Ausführung eines Plugins von der Kommandozeile aus nicht (notwendigerweise)
+    bedeutet, dass es funktioniert, wenn es vom Prozess ausgeführt wird. Außerdem wird der Prozess per Default keine Shell benutzen, sondern
+    Aufrufe von popen/execvp ausführen, abhängig vom Befehl (popen falls die Kommandozeile Metazeichen enthält, die Bedeutung für die Shell
+    haben wie z.B. <literal>!$^&amp;*()~[]\|{};&lt;&gt;?'"</literal>, execvp falls keine Metazeichen vorhanden sind).</para>
   </important>
+
+  <para><emphasis role="bold">Zum &name-icinga;-Benutzer wechseln</emphasis></para>
+
+  <para>Wechseln Sie zum &name-icinga;-Benutzer, der in <filename>icinga.cfg</filename> definiert ist, falls noch nicht geschehen, und
+  bereinigen Sie die Umgebung</para>
+
+  <screen> #&gt; su - icinga
+ #&gt; env -i</screen>
+
+  <para>Wenn Sie jetzt angemeldet sind, dann springen Sie zum Punkt "Anpassen der Umgebung".</para>
+
+  <para>Bedingt durch das Sicherheitsbewusstsein des Packagers / Systemadministrators könnte dies fehlschlagen, weil der Account für
+  Anmeldungen gesperrt ist. Bitten Sie Ihren Systemadministrator, das vorübergehend zu ändern oder führen Sie einen der folgenden Punkte
+  aus</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>ermitteln Sie die aktuelle Shell aus <filename>/etc/passwd</filename> und ändern Sie diese durch Ausführen von <screen> #&gt; OLD_SHELL=`grep icinga /etc/passwd | sed 's/.*://'`
+ #&gt; usermod -s /bin/sh icinga</screen>führen Sie die Befehle aus, nachdem Sie zum &name-icinga;-Benutzer gewechselt sind und die Umgebung
+      wie oben beschrieben bereinigt haben</para>
+
+      <para>vergessen Sie nicht, die Shell-Einstellung nach dem Testen und verlassen der Sitzung wiederherzustellen<screen> #&gt; usermod -s $OLD_SHELL icinga</screen></para>
+    </listitem>
+
+    <listitem>
+      <para>führen Sie den Befehl über "sudo -u icinga" aus</para>
+
+      <screen> #&gt; sudo -u icinga /usr/local/icinga/libexec/sample-plugin.pl ...</screen>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis role="bold">Anpassen der Umgebung</emphasis></para>
+
+  <para>Einige Prüfungen (wie check_oracle_health) hängen davon ab, dass verschiedene Umgebungsvariablen gesetzt sind. Setzen Sie diese
+  nicht in <filename>.bashrc</filename> oder anderen benutzerabhängigen Dateien, sondern wählen Sie dafür eine zentrale Stelle. Das
+  Default-Init-Skript durchläuft die Datei <filename>/etc/sysconfig/icinga</filename> (wenn sie vorhanden ist), so dass es ein idealer Platz
+  wäre. Benutzen Sie dafür nicht das Init-Skript selbst, weil Ihre Änderungen sonst bei Updates ggf. verloren gehen.</para>
+
+  <para>Beispiel für <filename>/etc/sysconfig/icinga</filename></para>
+
+  <para><screen> export ORACLE_HOME=/usr/lib/oracle/11.2/client64
+ export LD_LIBRARY_PATH=$ORACLE_HOME/lib
+ export PATH=$PATH:$ORACLE_HOME</screen>Nachdem Sie sich angemeldet haben, sind diese Variablen noch nicht verfügbar, aber das ist ziemlich
+  einfach</para>
+
+  <para><screen> $&gt; . /etc/sysconfig/icinga</screen>Bitte überprüfen Sie die Einstellungen<screen> $&gt; echo $ORACLE_HOME
+ $&gt; echo $LD_LIBRARY_PATH
+ $&gt; echo $PATH</screen></para>
 
   <para><emphasis role="bold">Integration eines neuen Plugins</emphasis></para>
 
@@ -124,7 +181,9 @@
   Compile-Vorgangs (meistens "make" oder "make all"). In den meisten Fällen wird das Plugin durch den Aufruf von "make install" in das
   Plugins-Verzeichnis (z.B. <emphasis>&url-icinga-libexec;</emphasis>) kopiert.</para>
 
-  <para>Manchmal müssen Sie das Plugin auf Ihre Umgebung anpassen (z.B. den Pfad zu "utils.pm").</para>
+  <para>Manchmal müssen Sie das Plugin auf Ihre Umgebung anpassen (z.B. den Pfad zu "utils.pm"). Sie können stattdessen einen logischen Link
+  erzeugen, der auf das Plugin-Verzeichnis weist, so dass Sie nicht das Plugin ändern müssen, um diese Änderung zu umgehen und spätere
+  Updates zu vereinfachen.</para>
 
   <para>Nach der Installation des Plugins rufen Sie es mit den nötigen Optionen von der Kommandozeile aus auf. Wenn dies funktioniert,
   können Sie es in &name-icinga; integrieren.</para>
@@ -191,6 +250,25 @@
       wird mit zwei "D" geschrieben</para>
     </listitem>
   </itemizedlist>
+
+  <para><emphasis role="bold">Raw command line</emphasis></para>
+
+  <para>Beginnend mit &name-icinga; 1.6 ermöglicht das klassische UI die Anzeige der Kommandozeile mit aufgelösten Variablen einschließlich
+  der Werte aus <filename>resource.cfg</filename>. Der Klick auf "ACTIVE" neben "Check type" in den Host-/Service Check Details gibt Ihnen
+  Zugriff auf diese Informationen. Wenn Sie noch keine Prüfung definiert haben, dann wählen Sie "View Config" aus den Hauptmenü auf der
+  linken Seite und dann "Command expansion". Bitte beachten Sie, dass der Benutzer über die Direktive <link
+  linkend="configcgi-authorized_for_full_command_resolution">authorized_for_full_command_resolution</link> in <filename>cgi.cfg</filename>
+  explizit dazu berechtigt sein muss, die Werte der Variable aus <filename>resource.cfg</filename> sehen zu dürfen. Außerdem muss der
+  Benutzer, unter dem der Web-Server läuft, Leseberechtigung auf diese Datei besitzen.</para>
+
+  <para>Wenn Sie die Kommandozeile protokollieren möchten, dann müssen Sie einige Direktiven in <filename>icinga.cfg</filename> auf die
+  folgenden Werte ändern</para>
+
+  <screen> #  16 = Host/service checks
+ # 256 = Commands
+ debug_level=272
+ debug_verbosity=2
+ max_debug_file_size=1000000000</screen>
 
   <para><emphasis role="bold">Schwellwert und Bereiche</emphasis></para>
 
@@ -341,8 +419,8 @@
           <row>
             <entry>check_stuff -w20:30 -c10:40</entry>
 
-            <entry>warnen, wenn "stuff" kleiner als 20 oder größer als 30, kritisch, wenn "stuff" kleiner als 10 oder größer als 40 <emphasis
-            role="bold">[2]</emphasis></entry>
+            <entry>warnen, wenn "stuff" kleiner als 20 oder größer als 30, kritisch, wenn "stuff" kleiner als 10 oder größer als 40
+            <emphasis role="bold">[2]</emphasis></entry>
           </row>
         </tbody>
       </tgroup>
@@ -364,7 +442,7 @@
 
   <itemizedlist>
     <listitem>
-      <para>"...resulted in a return code of 127"</para>
+      <para>"...resulted in a return code of 127" / "out of bounds"</para>
 
       <para>Das bedeutet, dass das Plugin nicht an der angegebenen Position gefunden wurde oder innerhalb des Plugins eine Datei aufgerufen
       wurde, die nicht gefunden wurde. Wenn Sie $USERn$-Makros beim Aufruf des Plugins benutzen, dann stellen Sie sicher, dass das Makros
@@ -373,11 +451,24 @@
     </listitem>
 
     <listitem>
+      <para>"...resulted in a return code of 126"</para>
+
+      <para>Meistens handelt es sich um ein Berechtigungsproblem. Der Benutzer kann ggf. das Plugin nicht ausführen bzw. darauf und/oder auf
+      zugehörige Dateien zugreifen.</para>
+    </listitem>
+
+    <listitem>
       <para>"...resulted in a return code of 13"</para>
 
       <para>Meistens handelt es sich um ein Berechtigungsproblem. Der Benutzer kann ggf. das Plugin nicht ausführen bzw. darauf und/oder auf
       zugehörige Dateien zugreifen. Das kann passieren, wenn Sie als root ein Plugin ausgeführt haben, das temporäre Dateien anlegt. Der
       &name-icinga;-Benutzer ist nicht berechtigt, diese Dateien zu überschreiben.</para>
+    </listitem>
+
+    <listitem>
+      <para>(null)</para>
+
+      <para>Der interne Aufruf von execvp lieferte nichts zurück.</para>
     </listitem>
   </itemizedlist>
 

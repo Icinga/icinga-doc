@@ -88,26 +88,81 @@
     </listitem>
 
     <listitem>
-      <para>&name-icinga;Exchange.org: <link xlink:href="http://www.monitoringexchange.org">&url-monitoringexchange;</link></para>
+      <para>&name-icinga; Exchange.org: <link xlink:href="http://www.monitoringexchange.org">&url-monitoringexchange;</link></para>
     </listitem>
   </itemizedlist>
 
   <para><anchor xml:id="plugins-howto" /><emphasis role="bold">How Do I Use Plugin X?</emphasis></para>
 
-  <para>Most all plugins will display basic usage information when you execute them using '-h' or '--help' on the command line. For example,
-  if you want to know how the check_http plugin works or what options it accepts, you should try executing the following command:</para>
+  <para>Nearly all plugins will display basic usage information when you execute them using '-h' or '--help' on the command line. For
+  example, if you want to know how the check_http plugin works or what options it accepts, you should try executing the following
+  command:</para>
 
   <screen> $&gt; ./check_http --help</screen>
 
   <anchor xml:id="plugins-hints" />
 
   <important>
-    <para>Always execute the plugin using the &name-icinga; user because some plugins will create temporary files. If you're testing plugins
-    with another user then the &name-icinga; user may not have the permissions to overwrite existing files later on.</para>
+    <para>Always execute the plugin using the &name-icinga; user (specified using the directive icinga_user in
+    <filename>icinga.cfg</filename>) because some plugins will create temporary files. If you're testing plugins with another user then the
+    &name-icinga; user may not have the permissions to overwrite existing files later on. Using another user you will not be able to find
+    out if the &name-icinga; user is allowed to access several files (e.g. shared libraries) at all.</para>
 
     <para>When testing it don't call the plugin using relative paths (i.e <emphasis>./check_test_plugin</emphasis>). Always use absolute
     paths because that's the way &name-icinga; does it (i.e. <emphasis>&url-icinga-libexec;/check_test_plugin</emphasis>).</para>
+
+    <para>Please note that the &name-icinga; <emphasis>user</emphasis> has a different environment than the &name-icinga;
+    <emphasis>process</emphasis>. Using the first the logins script have been executed and there is a terminal connected to the user session
+    so successfully running the plugin from the command line doesn't (necessarly) mean that it will run when executed by the process.
+    Furthermore the process will not use a shell per default but execute calls to popen/execvp instead depending on the command (popen in
+    case the command line contains meta characters meaningful to the shell like <literal>!$^&amp;*()~[]\|{};&lt;&gt;?'"</literal>, execvp if
+    no meta characters are present).</para>
   </important>
+
+  <para><emphasis role="bold">Switch to the &name-icinga; user</emphasis></para>
+
+  <para>Switch to the &name-icinga; user as defined in <filename>icinga.cfg</filename> unless already done and clear the environment</para>
+
+  <screen> #&gt; su - icinga
+ #&gt; env -i</screen>
+
+  <para>If you are logged in now then skip to "Extending the environment"</para>
+
+  <para>Due to security awareness of the packager / sys admin this might fail because the account is not allowed to login. Please ask your
+  sys admin to change that temporarily or do one of the following</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>get the current shell from <filename>/etc/passwd</filename> and change it by issuing something similar to <screen> #&gt; OLD_SHELL=`grep icinga /etc/passwd | sed 's/.*://'`
+ #&gt; usermod -s /bin/sh icinga</screen>execute the command(s) after switching to the &name-icinga; user and clearing the environment as
+      described above</para>
+
+      <para>don't forget to restore the shell setting after testing and leaving the session <screen> #&gt; usermod -s $OLD_SHELL icinga</screen></para>
+    </listitem>
+
+    <listitem>
+      <para>execute the command using "sudo -u icinga"</para>
+
+      <screen> #&gt; sudo -u icinga /usr/local/icinga/libexec/sample-plugin.pl ...</screen>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis role="bold">Extending the environment</emphasis></para>
+
+  <para>Several checks (like check_oracle_health) depend on various environment variables to be set. Don't put these in
+  <filename>.bashrc</filename> or similar user dependent files but choose a central location. The default init script sources the file
+  <filename>/etc/sysconfig/icinga</filename> so that would be an ideal place. Don't use the init script itself because your changes might be
+  lost during updates.</para>
+
+  <para>Example of <filename>/etc/sysconfig/icinga</filename></para>
+
+  <para><screen> export ORACLE_HOME=/usr/lib/oracle/11.2/client64
+ export LD_LIBRARY_PATH=$ORACLE_HOME/lib
+ export PATH=$PATH:$ORACLE_HOME</screen>After you logged in these variables are not set but doing so is pretty easy</para>
+
+  <para><screen> $&gt; . /etc/sysconfig/icinga</screen>Please verify the settings<screen> $&gt; echo $ORACLE_HOME
+ $&gt; echo $LD_LIBRARY_PATH
+ $&gt; echo $PATH</screen></para>
 
   <para><emphasis role="bold">Integrating a new plugin</emphasis></para>
 
@@ -119,14 +174,16 @@
   file config.log for errors regarding missing (devel) packages before issuing the actual compile command (mostly "make" or "make all"). In
   most cases the plugin is copied to the plugins directory (i.e. <emphasis>&url-icinga-libexec;</emphasis>) during "make install".</para>
 
-  <para>Sometimes you have to alter the plugin to reflect your environment (i.e. path to "utils.pm", ...).</para>
+  <para>Sometimes you have to alter the plugin to reflect your environment (i.e. path to "utils.pm", ...). You may create a logical link
+  pointing to the plugin directory instead so you don't have to change the plugin to circumvent this issue easing plugin updates later
+  on.</para>
 
   <para>After the installation of the plugin call it from the command line using the appropriate options. If this works then you can
   integrate it into &name-icinga;.</para>
 
   <para>Let's imagine you used the following call on the command line</para>
 
-  <programlisting> &url-icinga-libexec;/sample-plugin.pl -H 192.168.1.2 -a argument1 -p parameter -n 5</programlisting>
+  <programlisting> $&gt; &url-icinga-libexec;/sample-plugin.pl -H 192.168.1.2 -a argument1 -p parameter -n 5</programlisting>
 
   <para>The command definition has to contain two directives</para>
 
@@ -183,6 +240,25 @@
       a double "D"</para>
     </listitem>
   </itemizedlist>
+
+  <para><emphasis role="bold">Raw command line</emphasis></para>
+
+  <para>Starting with &name-icinga; 1.6 the classic UI allows to inspect the raw command line including values from
+  <filename>resource.cfg</filename>. Clicking on "ACTIVE" next to "Check type" within host/service check details will give access to this
+  information. If you don't have defined a check yet choose "View Config" from the main menu on the left, then "Command expansion". Please
+  note that the user has to be permitted explicitly using the directive <link
+  linkend="configcgi-authorized_for_full_command_resolution">authorized_for_full_command_resolution</link> in
+  <filename>cgi.cfg</filename> to see the values of variables from <filename>resource.cfg</filename>. The user running the web server must
+  have read access on this file, too.</para>
+
+  <para>If you intend to log the raw command line then change some directives in <filename>icinga.cfg</filename> to the following
+  values</para>
+
+  <screen> #  16 = Host/service checks
+ # 256 = Commands
+ debug_level=272
+ debug_verbosity=2
+ max_debug_file_size=1000000000</screen>
 
   <para><emphasis role="bold">Threshold and ranges</emphasis></para>
 
@@ -351,7 +427,7 @@
 
   <itemizedlist>
     <listitem>
-      <para>"...resulted in a return code of 127"</para>
+      <para>"...resulted in a return code of 127" / "out of bounds"</para>
 
       <para>This means the plugin was not found at the specified location or that a file called from within the plugin was not found. If you
       use $USERn$ macros calling the plugin then make sure that the macro really points to the location where the plugin is (is the macro
@@ -360,11 +436,24 @@
     </listitem>
 
     <listitem>
-      <para>"...resulted in a return code of 13"</para>
+      <para>"...resulted in a return code of 126"</para>
+
+      <para>Mostly this indicates a permissions problem. The process might not be able to access / execute the plugin and/or other related
+      files.</para>
+    </listitem>
+
+    <listitem>
+      <para>"...resulted in a return code of 13".</para>
 
       <para>Mostly this indicates a permissions problem. The user might not be able to access / execute the plugin and/or other related
       files. This might happen if you tested a plugin as root which creates temporary files. The &name-icinga; user is not allowed to
       overwrite these files.</para>
+    </listitem>
+
+    <listitem>
+      <para>"(null)"</para>
+
+      <para>The internal call to execvp didn't return anything.</para>
     </listitem>
   </itemizedlist>
 
