@@ -6,7 +6,7 @@
 <section version="5.0" xml:id="perfgraphs" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-  <title><anchor xml:id="perf_graphs"/>grafische Darstellung von Performance-Informationen mit &name-pnp;</title>
+  <title><anchor xml:id="perf_graphs"/>Grafische Darstellung von Performance-Informationen mit &name-pnp;</title>
 
   <para><emphasis role="bold">Einführung</emphasis></para>
 
@@ -36,9 +36,9 @@
 
   <para><link
   xlink:href="https://www.monitoringexchange.org/inventory/Check-Plugins/Software/Nagios/check_nagiostats">check_nagiostats</link> wurde von
-  <link xlink:href="http://www.nagios-portal.org/wbb/index.php?page=User&amp;userID=7773">Jochen Bern</link> erstellt. Es wird über die
-  crontab aufgerufen und liefert die Daten als passive Prüfergebnisse. Trotz des Namens funktioniert das Plugin auch mit
-  &name-icinga;.</para>
+  <link xlink:href="http://www.nagios-portal.org/wbb/index.php?page=User&amp;userID=7773">Jochen Bern</link> erstellt. Es kann als aktive
+  Service-Prüfung aufgerufen werden oder über die crontab und liefert die Daten dann als passive Prüfergebnisse. Trotz des Namens
+  funktioniert das Plugin auch mit &name-icinga;.</para>
 
   <itemizedlist>
     <listitem>
@@ -66,36 +66,60 @@
     </listitem>
 
     <listitem>
-      <para>Stellen Sie sicher, dass Ihre Objektkonfigurationsdateien eine passende Service-Definition enthalten, wie z.B.<programlisting> define service{
+      <para>Sie können das Plugin mit aktiven oder passiven Prüfungen aufrufen</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Aktiv</para>
+
+          <para>Stellen Sie sicher, dass Ihre Objektkonfigurationsdateien eine passende Service-Definition enthalten, wie
+          z.B.<programlisting> define service{
+    host_name               &lt;the &name-icinga; server&gt;
+    service_description     icingastats # (or something appropriate)
+    check_command           check_icingastats
+    check_interval          1
+    retry_interval          1
+    ...
+ }</programlisting>und eine Command-Definition<programlisting> define command{
+    command_name            check_icingastats
+    command_line            $USER1$/check_nagiostats</programlisting>Vergessen Sie nicht den Neustart von &name-icinga; nach diesen
+          Änderungen.</para>
+        </listitem>
+
+        <listitem>
+          <para>Passiv</para>
+
+          <para>Stellen Sie sicher, dass Ihre Objektkonfigurationsdateien eine passende Service-Definition enthalten, wie
+          z.B.<programlisting> define service{
     host_name               &lt;the &name-icinga; server&gt;
     service_description     icingastats # (oder etwas Passendes)
     active_checks_enabled   0
     check_command           check_stats!3!Frische-Schwellwert ueberschritten
     check_freshness         1
-    freshness_threshold     120         # Pruefintervall + x Sekunden
+    freshness_threshold     180         # Pruefintervall + x Sekunden
     ...
  }</programlisting></para>
 
-      <para>Fügen Sie eine Command-Definition hinzu</para>
+          <para>und eine Command-Definition</para>
 
-      <programlisting> define command{
+          <programlisting> define command{
     command_name            check_stats
     command_line            $USER1$/check_dummy $ARG1$ $ARG2$
  }</programlisting>
 
-      <para>Vergessen Sie nicht den Neustart von &name-icinga; nach dieser Änderung.</para>
+          <para>Vergessen Sie nicht den Neustart von &name-icinga; nach dieser Änderung.</para>
+
+          <para>Fügen Sie eine Zeile zur crontab des &name-icinga;-Benutzers hinzu, die das <filename>icingastats</filename>-Binary aufruft
+          und die Ergebnisse an die Command-Pipe weiterleitet<programlisting> * * * * * &url-icinga-base;/libexec/check_nagiostats --passive &lt;host&gt; icingastats &gt;&gt; &url-icinga-base;/var/rw/icinga.cmd</programlisting>
+          Auf diese Weise werden die Werte in regelmäßigen Intervallen aktualisiert.</para>
+        </listitem>
+      </itemizedlist>
     </listitem>
 
     <listitem>
       <para>Legen Sie einen logischen Link im (Benutzer) templates-Verzeichnis von &name-pnp; an<programlisting> $&gt; ln -s ../templates.dist/nagiostats.php check_stats.php</programlisting>
       Stellen Sie sicher, dass <emphasis>check_stats</emphasis> (ohne die Endung .php) zu dem Wert passt, den Sie als ersten Parameter im
       check_command angegeben haben</para>
-    </listitem>
-
-    <listitem>
-      <para>Fügen Sie eine Zeile zur crontab des &name-icinga;-Benutzers hinzu, die das <filename>icingastats</filename>-Binary aufruft und
-      die Ergebnisse an die Command-Pipe weiterleitet<programlisting> * * * * * &url-icinga-base;/libexec/check_nagiostats --passive &lt;host&gt; icingastats &gt;&gt; &url-icinga-base;/var/rw/icinga.cmd</programlisting>
-      Auf diese Weise werden die Werte in regelmäßigen Intervallen aktualisiert.</para>
     </listitem>
   </itemizedlist>
 
