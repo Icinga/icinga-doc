@@ -342,6 +342,15 @@
       <para>Normally you can set the database credentials during configure, but if you want to recheck or even change them, please adapt
       those to your needs.</para>
 
+		<note>
+        <para>You may find it easier to use syntax highlighting while editing xml structures to differ between comments and xml tags.</para>
+        <para>Edit <filename>/etc/vim/vimrc</filename><screen> " Vim5 and later versions support syntax highlighting. Uncommenting the next
+ " line enables syntax highlighting by default.
+ syntax on</screen> or <filename>/etc/nanorc</filename><screen> ## HTML
+ include "/usr/share/nano/html.nanorc"</screen>
+        </para>
+      </note>
+
       <programlisting> #&gt; vi app/config/databases.xml</programlisting>
 
       <note>
@@ -351,75 +360,75 @@
         oracle, you must use icingaOracle as the dsn driver)</para>
       </note>
 
-      <para><programlisting>    &lt;databases default="icinga_web"&gt;
-                        &lt;database name="icinga_web" class="AgaviDoctrineDatabase"&gt;
+      <para><programlisting>   &lt;databases default="icinga_web"&gt;
+      &lt;database name="icinga_web" class="AgaviDoctrineDatabase"&gt;
 
-                                &lt;!--
-                                        Doctrine dsn strings:
+         &lt;!--
+            Doctrine dsn strings:
 
-                                        http://www.doctrine-project.org/documentation/manual/1_1/en/introduction-to-connections
-                                --&gt;
-                                &lt;!-- ##### &name-mysql; ##### --&gt;
-                                &lt;ae:parameter name="dsn"&gt;mysql://icinga_web:icinga_web@127.0.0.1:3306/icinga_web&lt;/ae:parameter&gt;
-                                &lt;!-- ##### &name-postgres; ##### --&gt;
-                                &lt;ae:parameter name="dsn"&gt;pgsql://icinga_web:icinga_web@localhost:5432/icinga_web&lt;/ae:parameter&gt;
+            http://www.doctrine-project.org/documentation/manual/1_1/en/introduction-to-connections
+         --&gt;
+         &lt;!-- ##### &name-mysql; ##### --&gt;
+         &lt;ae:parameter name="dsn"&gt;mysql://icinga_web:icinga_web@127.0.0.1:3306/icinga_web&lt;/ae:parameter&gt;
+         &lt;!-- ##### &name-postgres; ##### --&gt;
+         &lt;ae:parameter name="dsn"&gt;pgsql://icinga_web:icinga_web@localhost:5432/icinga_web&lt;/ae:parameter&gt;
 
-                                &lt;!-- Generic credentials  --&gt;
-                                &lt;!-- &lt;ae:parameter name="username"&gt;icinga_web&lt;/ae:parameter&gt; --&gt;
-                                &lt;!-- &lt;ae:parameter name="password"&gt;icinga_web&lt;/ae:parameter&gt; --&gt;
+         &lt;!-- Generic credentials  --&gt;
+         &lt;!-- &lt;ae:parameter name="username"&gt;icinga_web&lt;/ae:parameter&gt; --&gt;
+         &lt;!-- &lt;ae:parameter name="password"&gt;icinga_web&lt;/ae:parameter&gt; --&gt;
 
-                                &lt;!-- DB encoding type --&gt;
-                                &lt;ae:parameter name="charset"&gt;utf8&lt;/ae:parameter&gt;
+         &lt;!-- DB encoding type --&gt;
+         &lt;ae:parameter name="charset"&gt;utf8&lt;/ae:parameter&gt;
 
-                                &lt;!--
-                                        Doctrine_Manager configuration
-                                --&gt;
-                                &lt;ae:parameter name="manager_attributes"&gt;
-                                        &lt;!-- This allows lazy loading of the models --&gt;
-                                        &lt;ae:parameter name="Doctrine_Core::ATTR_MODEL_LOADING"&gt;CONSERVATIVE&lt;/ae:parameter&gt;
-                                &lt;/ae:parameter&gt;
+         &lt;!--
+            Doctrine_Manager configuration
+         --&gt;
+         &lt;ae:parameter name="manager_attributes"&gt;
+            &lt;!-- This allows lazy loading of the models --&gt;
+            &lt;ae:parameter name="Doctrine_Core::ATTR_MODEL_LOADING"&gt;CONSERVATIVE&lt;/ae:parameter&gt;
+         &lt;/ae:parameter&gt;
 
-                                &lt;!-- The path to our models --&gt;
-                                &lt;ae:parameter name="load_models"&gt;%core.module_dir%/AppKit/lib/database/models/generated&lt;/ae:parameter&gt;
-                                &lt;ae:parameter name="models_directory"&gt;%core.module_dir%/AppKit/lib/database/models&lt;/ae:parameter&gt;
+         &lt;!-- The path to our models --&gt;
+         &lt;ae:parameter name="load_models"&gt;%core.module_dir%/AppKit/lib/database/models/generated&lt;/ae:parameter&gt;
+         &lt;ae:parameter name="models_directory"&gt;%core.module_dir%/AppKit/lib/database/models&lt;/ae:parameter&gt;
 
-                        &lt;/database&gt;
+      &lt;/database&gt;
 
-                         &lt;-- The ido2db  icinga database--&gt;
-                        &lt;database name="icinga" class="AgaviDoctrineDatabase"&gt;
+      &lt;-- The ido2db  icinga database--&gt;
+      &lt;database name="icinga" class="AgaviDoctrineDatabase"&gt;
 
-                                &lt;!--
-                                        Doctrine dsn strings:
+         &lt;!--
+            Doctrine dsn strings:
 
-                                        http://www.doctrine-project.org/documentation/manual/1_1/en/introduction-to-connections
-                                --&gt;
-                                &lt;!-- ##### &name-mysql; ##### --&gt;
-                                &lt;ae:parameter name="dsn"&gt;mysql://icinga:icinga@127.0.0.1:3306/icinga&lt;/ae:parameter&gt;
-                                &lt;!-- ##### &name-postgres; ##### --&gt;
-                                &lt;ae:parameter name="dsn"&gt;pgsql://icinga:icinga@localhost:5432/icinga&lt;/ae:parameter&gt;
+            http://www.doctrine-project.org/documentation/manual/1_1/en/introduction-to-connections
+         --&gt;
+         &lt;!-- ##### &name-mysql; ##### --&gt;
+         &lt;ae:parameter name="dsn"&gt;mysql://icinga:icinga@127.0.0.1:3306/icinga&lt;/ae:parameter&gt;
+         &lt;!-- ##### &name-postgres; ##### --&gt;
+         &lt;ae:parameter name="dsn"&gt;pgsql://icinga:icinga@localhost:5432/icinga&lt;/ae:parameter&gt;
 
-                                &lt;!-- Generic credentials  --&gt;
-                                &lt;!-- &lt;ae:parameter name="username"&gt;icinga&lt;/ae:parameter&gt; --&gt;
-                                &lt;!-- &lt;ae:parameter name="password"&gt;icinga&lt;/ae:parameter&gt; --&gt;
+         &lt;!-- Generic credentials  --&gt;
+         &lt;!-- &lt;ae:parameter name="username"&gt;icinga&lt;/ae:parameter&gt; --&gt;
+         &lt;!-- &lt;ae:parameter name="password"&gt;icinga&lt;/ae:parameter&gt; --&gt;
 
-                                &lt;!-- DB encoding type --&gt;
-                                &lt;ae:parameter name="charset"&gt;utf8&lt;/ae:parameter&gt;
+         &lt;!-- DB encoding type --&gt;
+         &lt;ae:parameter name="charset"&gt;utf8&lt;/ae:parameter&gt;
 
-                                &lt;!--
-                                        Doctrine_Manager configuration
-                                --&gt;
-                                &lt;ae:parameter name="manager_attributes"&gt;
-                                        &lt;!-- This allows lazy loading of the models --&gt;
-                                        &lt;ae:parameter name="Doctrine_Core::ATTR_MODEL_LOADING"&gt;CONSERVATIVE&lt;/ae:parameter&gt;
-                                &lt;/ae:parameter&gt;
+         &lt;!--
+            Doctrine_Manager configuration
+         --&gt;
+         &lt;ae:parameter name="manager_attributes"&gt;
+            &lt;!-- This allows lazy loading of the models --&gt;
+            &lt;ae:parameter name="Doctrine_Core::ATTR_MODEL_LOADING"&gt;CONSERVATIVE&lt;/ae:parameter&gt;
+         &lt;/ae:parameter&gt;
 
-                                &lt;!-- The path to our models --&gt;
-                                &lt;ae:parameter name="load_models"&gt;%core.module_dir%/Api/lib/database/models/generated&lt;/ae:parameter&gt;
-                                &lt;ae:parameter name="models_directory"&gt;%core.module_dir%/Api/lib/database/models&lt;/ae:parameter&gt;
+         &lt;!-- The path to our models --&gt;
+         &lt;ae:parameter name="load_models"&gt;%core.module_dir%/Api/lib/database/models/generated&lt;/ae:parameter&gt;
+         &lt;ae:parameter name="models_directory"&gt;%core.module_dir%/Api/lib/database/models&lt;/ae:parameter&gt;
 
-                        &lt;/database&gt;
-                    &lt;/databases&gt;
-            </programlisting></para>
+      &lt;/database&gt;
+   &lt;/databases&gt;
+      </programlisting></para>
 
       <para>In the <filename>access.xml</filename> you can specify the locations of your command pipe and the access credentials and method
       (ssh or via local console). Also you define here, which icinga instance is mapped to which host.</para>
