@@ -6,8 +6,64 @@
 <section version="5.0" xml:id="icinga-api" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-    <title>Installation and use of the &name-icinga; API</title>
+    <title>No &name-api; to install anymore</title>
 
+    <important>
+      <para>In the days leading up to the v1.5 release, we bid our &name-api; goodbye and usher in a new API and Web concept.</para>
+
+      <para>You may ask yourself, what was this API anyway? Indeed, if you weren’t developing or adapting extensions for the new web
+        interface, you wouldn’t have had much contact with this important project component. When &name-icinga; was conceived, one of the
+        main missions was to facilitate the development of addons and plugins. The API provided a set of commonly used request operations,
+        removing the need to write sql-queries and generally a lot of excess code.</para>
+
+      <para>All was well until we decided to offer some extra database flexibility. When we added support for &name-oracle; and 
+        &name-postgres; on top of &name-mysql;, we also gave our &name-api; team some extra work. With each change, bug fix or new feature,
+        Marius, Michael L and Jannis had to edit the queries for each database back-end separately. This process was not only complicated
+        and error-prone, but also a sign that we needed a more flexible architecture.</para>
+
+      <para>As of &name-icinga; 1.5, the external &name-api; was replaced by an internal database layer Doctrine, and merged into 
+        &name-web;. Much like before, queries will run through this layer between the database (&name-idoutils;) and the web interface.
+        However, with Doctrine we can use several database back-ends and querying the database is now much easier. In contrast to SQL, its
+        object relational mapper (ORM) uses Doctrine Query Language, so we now have the flexibility minus the code duplication.</para>
+
+      <para><inlinemediaobject>
+          <imageobject>
+            <imagedata fileref="../images/Architecture_1.5_800px.png" format="PNG"></imagedata>
+          </imageobject>
+        </inlinemediaobject></para>
+
+      <para>That being said, queries from the old API still exist, thanks to the ‘legacy layer’ which will transform old API queries into
+        this new ORM type. In this way, we maintain compatibility with addons designed for older &name-icinga; versions. The Rest API is
+        also still there as part of &name-web;, extending on our Doctrine layer with HTTP for addons that require only certain bits of
+        monitoring info.</para>
+
+      <para>With the departure of a standalone API, the average &name-icinga; user will barely notice a change, apart from the fact that
+        the configuration has now been moved to the <filename>databases.xml</filename>. Best of all, every module developer can now easily
+        access the &name-icinga; database without much code overhead– so addon developers get hacking and let us know how you go!</para>
+
+      <para>For more information see our Wiki:
+        <itemizedlist>
+          <listitem>
+            <para>
+              <link xlink:href="https://wiki.icinga.org/display/Dev/Development+guide+for+Icinga-Web">Development Guide for &name-web;</link>
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              <link xlink:href="https://wiki.icinga.org/display/Dev/Icinga+Database+essentials">Icinga Database Essentials</link>
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              <link xlink:href="https://wiki.icinga.org/display/Dev/Icinga-Web+REST+API">&name-web; REST API</link>
+            </para>
+          </listitem>
+        </itemizedlist>
+      </para>
+    </important>
+
+    <important><para>The following is deprecated and only kept for reference</para></important>
+    <para><emphasis role="bold">Installation and use of the &name-icinga; API</emphasis></para>
     <para><emphasis role="bold">Prerequisites</emphasis></para>
 
     <para>You need &name-icinga; Core and &name-idoutils; or <link xlink:href="http://mathias-kettner.de/checkmk_livestatus.html">&name-mklive;</link>
