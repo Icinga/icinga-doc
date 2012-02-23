@@ -8,136 +8,247 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>What's New in &name-icinga; &ver-icinga;</title>
 
-  <para><emphasis role="bold">1.5.0</emphasis></para>
+  <para><emphasis role="bold">1.6.2</emphasis></para>
 
   <itemizedlist>
-  <listitem><para><emphasis role="bold">Enhancements</emphasis></para>
+    <listitem><para><emphasis role="bold">Enhancements</emphasis></para>
 
-  <para><emphasis role="bold">&name-core;:</emphasis></para>
-  <itemizedlist>
-    <listitem>
-      <para>do not update host/service status during scheduler initialization on startup (idoutils already know that) #1741</para>
+      <para><emphasis role="bold">&name-web;:</emphasis></para>
+      <itemizedlist>
+        <listitem><para>LDAP TLS feature #1980</para></listitem>
+        <listitem><para>Logout for HTTP BASIC AUTH #1005</para></listitem>
+        <listitem><para>Analogue head summary counts to classic interface #2159, #2328</para></listitem>
+        <listitem><para>Manual refresh counter for head cronks</para></listitem>
+        <listitem><para>New security layer for new api (DOCTRINE filter chain) #2297</para></listitem>
+        <listitem><para>Added tackle components for object info #2132</para></listitem>
+        <listitem><para>More logging, verbose query logging #2277</para></listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem><para><emphasis role="bold">Fixes</emphasis></para>
+
+      <para><emphasis role="bold">&name-web;:</emphasis></para>
+      <itemizedlist>
+        <listitem><para>Fixed old JS objects the JSHINT way (performance, IE compat)</para></listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem><para><emphasis role="bold">Changes</emphasis></para>
+
+      <para><emphasis role="bold">&name-web;:</emphasis></para>
+        <itemizedlist>
+          <listitem><para>Some UI enhancements (congruent icons, label and locations) #1558</para></listitem>
+          <listitem><para>Cleaner configuration way, more overwrites #2080</para></listitem>
+          <listitem><para>Default reporting cronk for admins only</para></listitem>
+          <listitem><para>Disabled tackle per default #2275 (not ready yet)</para></listitem>
+          <listitem><para>Removed useless SQL counts for views: history, logs, notification </para></listitem>
+        </itemizedlist>
     </listitem>
   </itemizedlist>
 
-  <para><emphasis role="bold">Classic UI:</emphasis></para>
+  <para><emphasis role="bold">1.6.1</emphasis></para>
+
   <itemizedlist>
-    <listitem><para>Added option to suppress colouring of hosts/services in maintenance #992</para></listitem>
-    <listitem><para>Added option to show partial hostgroups #1013</para></listitem>
-    <listitem><para>changing drop down menu in status.cgi to jquery-dd #1644</para></listitem>
-    <listitem><para>default downtime duration is configurable in cgi.cfg #1642</para></listitem>
-    <listitem><para>Added ability to combine host and service in one CGI parameter (Aaron Brady) #1633</para></listitem>
-    <listitem><para>Changed tac.cgi to distinct between active, passive and disabled properly #1120</para></listitem>
-    <listitem><para>Add log entries to json output of avail.cgi #1659</para></listitem>
-    <listitem><para>add host urgency sort order in status.cgi (Jochen Bern) #1452</para></listitem>
-    <listitem><para>add author to comment tooltips in status.cgi #1691</para></listitem>
-    <listitem><para>reduce the header part of status.cgi #1507 (&amp;nostatusheader used in frameset menu, info table is smaller)</para></listitem>
-    <listitem><para>authorization for * in cgi.cfg via contactgroups (Stephen Gran) #1752 (authorized_contactgroup_for_all_hosts,
-      authorized_contactgroup_for_all_services, authorized_contactgroup_for_system_information,
-      authorized_contactgroup_for_configuration_information, authorized_contactgroup_for_all_host_commands,
-      authorized_contactgroup_for_all_service_commands, authorized_contactgroup_for_system_commands, authorized_contactgroup_for_read_only)
-    </para></listitem>
-    <listitem><para>add xml output to avail.cgi for direct source of jasper reports #1712</para></listitem>
-    <listitem><para>add combined view of all unhandled hosts and services including the multiple command dropdowns for each (initial idea by Thruk) #1328</para></listitem>
-    <listitem><para>add &quot;link to this page&quot; to all cgis #1783</para></listitem>
-    <listitem><para>add export icons instead of &quot;export to...&quot; text on cgis supporting it (csv, json, xml, link) #1789</para></listitem>
-    <listitem><para>add highlight_table_rows to status.cgi, can be disabled via cfg option #1777</para></listitem>
+    <listitem><para><emphasis role="bold">Enhancements</emphasis></para>
+
+      <para><emphasis role="bold">&name-web;:</emphasis></para>
+      <itemizedlist>
+        <listitem><para>Choice of group inheritance model #2188</para></listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem><para><emphasis role="bold">Fixes</emphasis></para>
+
+      <para><emphasis role="bold">&name-core;:</emphasis></para>
+      <itemizedlist>
+        <listitem><para>fix freshness checks are generating stale alerts, even if result was received in time #2136</para></listitem>
+      </itemizedlist>
+
+      <para><emphasis role="bold">&name-web;:</emphasis></para>
+      <itemizedlist>
+        <listitem><para>JS/UI/Translation fixes</para></listitem>
+        <listitem><para>Fixes for counts in views #2192 #2164</para></listitem>
+        <listitem><para>Database fixes for oracle</para></listitem>
+        <listitem><para>Doctrine related fixes</para></listitem>
+        <listitem><para>Performance for TO's and permission data</para></listitem>
+        <listitem><para>Portal cronk JS only cronk</para></listitem>
+        <listitem><para>Group manager inheritance tree and selection fix</para></listitem>
+        <listitem><para>Empty field fixes (removed caching)</para></listitem>
+        <listitem><para>Auth dispatcher fix #2142</para></listitem>
+        <listitem><para>Grid view persistence fix (full support for all grid states)</para></listitem>
+      </itemizedlist>
+
+    </listitem>
   </itemizedlist>
 
-  <para><emphasis role="bold">&name-idoutils;:</emphasis></para>
-  <itemizedlist>
-    <listitem><para>add update-version-schema for updating the idoutils db schema versions automagically, independant of update-version #1616</para></listitem>
-    <listitem><para>dump multiline mbufs as bulk inserts #1110 (configfile/runtime variables, host contacts/parents, service contacts,
-      timeranges, host/service/contactgroup members; oracle uses bulk arrays binded on prepared insert statements)</para></listitem>
-    <listitem><para>remove host and service checks from default data_processing_options as they are not used by icinga-web #1757</para></listitem>
-    <listitem><para>&name-oracle;: add logging of bind variable value #1314</para></listitem>
-    <listitem><para>&name-oracle;: change perfdata columns to clob #1749</para></listitem>
-    <listitem><para>&name-oracle;: change logentry_data type to clob #1750</para></listitem>
-  </itemizedlist>
+  <para><emphasis role="bold">1.6.0</emphasis></para>
 
-  <para><emphasis role="bold">Install:</emphasis></para>
   <itemizedlist>
-    <listitem><para>add --with-p1-file-dir allowing custom location (default is now $libdir instead of $bindir) #1569 (only when embedded
-      perl is enabled; affects (new_)mini_epn and icinga.cfg</para></listitem>
-    <listitem><para>add configure option to set log dir and cgi log dir and phpapi log dir #1715 (e.g. 
-      <literal>--with-phpapi-log-dir=/var/log/icinga/api --with-log-dir=/var/log/icinga --with-cgi-log-dir=/var/log/icinga/gui</literal>;
-      apache user permissions</para></listitem>
-    <listitem><para>after daemon stop in init script, retry and then issue a kill -9 on the daemon #1747</para></listitem>
-  </itemizedlist>
+    <listitem><para><emphasis role="bold">Enhancements</emphasis></para>
 
-  <para><emphasis role="bold">Config:</emphasis></para>
-  <itemizedlist>
-    <listitem><para>add easy-to-use config examples and scripts for notifications #1697 (advanced notify-by-email; notify-by-jabber,
-      notify-by-twitter examples</para></listitem>
-    <listitem><para>add check_dummy command definitions as example to commands.cfg #1719</para></listitem>
-    <listitem><para>tune icinga.cfg for performance, enable_environment_macros=0, enable_embedded_perl=0 by default #1635</para></listitem>
-  </itemizedlist>
+      <para><emphasis role="bold">&name-core;:</emphasis></para>
+      <itemizedlist>
+        <listitem><para>acknowledgements can now expire by providing an end_time through commands #770</para></listitem>
+        <listitem><para>allow startup with no hosts/services/contacts defined, only warn #2015</para></listitem>
+        <listitem><para>log error on non-existing host/service/contact/*group when sending a command to the core #1737</para></listitem>
+        <listitem><para>reduce notification load by moving notification viability check into notification list creation (Opsview Team) #1744</para></listitem>
+        <listitem><para>protect downtime and comment list modification with a lock (Andreas Ericsson) #2025</para></listitem>
+        <listitem><para>determine last_program_stop from creation of retention.dat and use that for decision if passive checks are fresh or not (Andreas Ericsson) #2027</para></listitem>
+        <listitem><para>add icinga startup delay checks to example configs, including perfdata  #1937</para></listitem>
+        <listitem><para>indicate event loop start in logs #2036</para></listitem>
+        <listitem><para>add notifications to stalking hosts/services, not only logging/event handlers #1367</para></listitem>
+        <listitem><para>add eventloop mutex, will be used by IcingaMQ #2040</para></listitem>
+      </itemizedlist>
 
-  <para><emphasis role="bold">Style:</emphasis></para>
-  <itemizedlist>
-    <listitem><para>add new indent tools #1617</para></listitem>
-  </itemizedlist>
-  </listitem>
+      <para><emphasis role="bold">Classic UI:</emphasis></para>
+      <itemizedlist>
+        <listitem><para>add expiry option and end_time to acknowledgements on cmd.cgi #770</para></listitem>
+        <listitem><para>Acknowledge child hosts from on blocking outages #1858</para></listitem>
+        <listitem><para>add opt-in extinfo_show_child_hosts to show child hosts in extinfo.cgi #1820</para></listitem>
+        <listitem><para>add complete command line to config.cgi #1329</para></listitem>
+        <listitem><para>Add more info of (ack, downtime, ... ) status to json export in status.cgi (ivo) #1988</para></listitem>
+        <listitem><para>add hostgroup and servicegroup summary to menu.html #2007</para></listitem>
+        <listitem><para>Change markup color for unreachable hosts in statusmap.c #1464</para></listitem>
+      </itemizedlist>
 
-  <listitem><para><emphasis role="bold">Fixes</emphasis></para>
+      <para><emphasis role="bold">&name-web;:</emphasis></para>
+      <itemizedlist>
+        <listitem><para>New user / group interface #1948</para></listitem>
+        <listitem><para>SLA feature (interface to core SLA in ido2db) #1942</para></listitem>
+        <listitem><para>Introducing new working view (Tackle Cronk) #1941</para></listitem>
+        <listitem><para>New search handler #1951</para></listitem>
+        <listitem><para>Jump back to last opened tab #2020</para></listitem>
+        <listitem><para>Unhandled problems in overview #1952</para></listitem>
+        <listitem><para>Showing customvars and maybe hide special vars #1453</para></listitem>
+      </itemizedlist>
 
-  <para><emphasis role="bold">&name-core;</emphasis></para>
-  <itemizedlist>
-    <listitem><para>remove duplicated unlinks for check result files with multiple results (Ton Voon) #1615</para></listitem>
-    <listitem><para>fix retain status file over an init script reload #1579</para></listitem>
-    <listitem><para>fix freshness_threshold problem in host checks by using check_interval in HARD or OK state, else retry_interval (like service checks) (Andreas Ericsson) #1331</para></listitem>
-    <listitem><para>make command_check_interval=-1 equal to 5s instead of 60s, targetting as often as possible (Andreas Ericsson) #1651</para></listitem>
-    <listitem><para>fix problem where acknowledgements were getting reset when a hard state change occurred (Ton Voon) #1618</para></listitem>
-    <listitem><para>avoid using global macros when sending notifications (Andreas Ericsson) #1653</para></listitem>
-    <listitem><para>avoid sending notifications to the wrong contact (Andreas Ericsson) #1654</para></listitem>
-    <listitem><para>try to avoid a single check being reaped multiple times (Andreas Ericsson) #1652</para></listitem>
-    <listitem><para>Fix typo in configure.in preventing compilation on FreeBSD (thanks sag47) #1732</para></listitem>
-  </itemizedlist>
+      <para><emphasis role="bold">&name-idoutils;:</emphasis></para>
+      <itemizedlist>
+        <listitem><para>add SLA monitoring via opt-in enable_sla cfg option #2037</para></listitem>
+        <listitem><para>added end_time column for acknowledgelemts expiry #770</para></listitem>
+        <listitem><para>add Indices for notification queries for Icinga Web #1964</para></listitem>
+        <listitem><para>add option to format debug log timestamp like locale %c (debug_readable_timestamp in ido2db.cfg) #2033</para></listitem>
+        <listitem><para>add max_notifications_age, max_contactnotifications_age, max_contactnotificationmethods_age as housekeeping for notification tables #2051</para></listitem>
+        <listitem><para>use local timestamp datatype instead of date/datetime, store icinga timestamps as UTC #1954</para></listitem>
+        <listitem><para>change timestamp to use time zone by default in postgresql (thx Florian Helmberger) #2106</para></listitem>
+      </itemizedlist>
 
-  <para><emphasis role="bold">Classic UI</emphasis></para>
-  <itemizedlist>
-    <listitem><para>fix cross site scripting vulnerability in config.cgi on config expander arguments #1605</para></listitem>
-    <listitem><para>better handling of writing to cgi.log in cmd.cgi #1161</para></listitem>
-    <listitem><para>fixing tac.cgi header problems with counting and adding pending and descriptions #1505 #1506 #1508</para></listitem>
-    <listitem><para>corrected behaviour of pending states in tac header #1508</para></listitem>
-    <listitem><para>fix counting for services in tac header is wrong #1508</para></listitem>
-    <listitem><para>remove sidebar.html inclusion in index.html causing troubles on reload #1632</para></listitem>
-    <listitem><para>fixed: User can execute host/servicegroup commands even if not authorized for (Sven Nierlein) #1679</para></listitem>
-    <listitem><para>fixed: plugin_output_short didn't get checked properly and caused segfault in status.cgi #1673</para></listitem>
-    <listitem><para>fixed: submitting non existent host/service on avail.cgi causes segfault #1700</para></listitem>
-    <listitem><para>fixed: Alert History State filter for HARD/SOFT state not working (Lennart Betz) #1722</para></listitem>
-    <listitem><para>fixed: jquery 1.5.2 triggers memory leak in IE #1740</para></listitem>
-    <listitem><para>fixed: ssi files don't get included if icinga path contains uppercase letters #1716</para></listitem>
-  </itemizedlist>
+      <para><emphasis role="bold">Config:</emphasis></para>
+      <itemizedlist>
+        <listitem><para>add config examples for local monitoring - check_procs for ido2db #1870</para></listitem>
+        <listitem><para>enable cmd.cgi logging by default #2124</para></listitem>
+      </itemizedlist>
 
-  <para><emphasis role="bold">Install</emphasis></para>
-  <itemizedlist>
-    <listitem><para>do not update start_time of already started downtimes #1658</para></listitem>
-    <listitem><para>fix started downtime update for table scheduleddowntime in oracle #1658</para></listitem>
-    <listitem><para>remove leftover socket file in init-script startup, e.g. from a system crash #1745</para></listitem>
-    <listitem><para>simplify ido2db_get_object_id oracle function #1655</para></listitem>
-    <listitem><para>fix oracle long_output column in eventhandlers missed #1748</para></listitem>
-    <listitem><para>fix oracle ocilib 3.9.2+ fixes causing wrong 4byte->8Byte casts #1751</para></listitem>
-    <listitem><para>fix ORA-00600 while executing merge #1362</para></listitem>
-  </itemizedlist>
+      <para><emphasis role="bold">Docs:</emphasis></para>
+      <itemizedlist>
+        <listitem><para>acknowledgement with expiration #1973</para></listitem>
+        <listitem><para>added PostgreSQL to quickstart-idoutils / icinga-web... </para></listitem>
+        <listitem><para>added links to wiki pages</para></listitem>
+        <listitem><para>added some man pages</para></listitem>
+      </itemizedlist>
+    </listitem>
 
-  <para><emphasis role="bold">Classic UI</emphasis></para>
-  <itemizedlist>
-    <listitem><para>fix event handlers cmd file location in contrib #1501</para></listitem>
-    <listitem><para>icinga.spec should not provide nagios version #1562</para></listitem>
-    <listitem><para>don't include git meta data in upstream tarballs #1562</para></listitem>
-    <listitem><para>fix make install-idoutils overwrites sample - adding idoutils.cfg-sample instead #1625</para></listitem>
-    <listitem><para>fix icinga.cmd and log dir replacement in icinga-api aubmodule #1573 #1715</para></listitem>
-    <listitem><para>fix DEBUG_LOG_PATH in p1.pl, will now be using configurable log-dir #1715</para></listitem>
-    <listitem><para>do not overwrite config in make fullinstall #1754</para></listitem>
-    <listitem><para>fix configure should tell if ocilib or libdbi if idoutils enabled in summary #1780</para></listitem>
-  </itemizedlist>
+    <listitem><para><emphasis role="bold">Fixes</emphasis></para>
 
-  <para><emphasis role="bold">Config</emphasis></para>
-  <itemizedlist>
-    <listitem><para>deprecate log_external_commands_user #1619</para></listitem>
-  </itemizedlist>
-  </listitem>
+      <para><emphasis role="bold">&name-core;</emphasis></para>
+      <itemizedlist>
+        <listitem><para>fix downtime and comments delete with wrong loop pointers causing segfaults #1979</para></listitem>
+        <listitem><para>fix $NOTIFICATIONRECIPIENTS$ macro contains all contacts assigned to host|service, not only notified contacts #2023</para></listitem>
+        <listitem><para>plug memory leak in downtimes comment add (Dorian Guillois) #1979</para></listitem>
+        <listitem><para>make first_notification_delay depend on the first !OK hard state change and don't reset timer for new hard states which would replace it (Rogerio F Cunha) #1918</para></listitem>
+        <listitem><para>fix memory leak in xodtemplate.c (thx Dorian Guillois)</para></listitem>
+      </itemizedlist>
+
+      <para><emphasis role="bold">Classic UI</emphasis></para>
+      <itemizedlist>
+        <listitem><para>fix for Classic-UI displays bad timeperiods #1989</para></listitem>
+        <listitem><para>fixed wrong color in histogram and trends for unknown/unreachable #2042</para></listitem>
+        <listitem><para>fixed search not returning all results, only first match (without * at the end) #844</para></listitem>
+        <listitem><para>fixed wrong output from status.cgi with option hostservicedetail #2019</para></listitem>
+        <listitem><para>fix typo in histogram.c (thanks Sven-Göran Bergh)</para></listitem>
+      </itemizedlist>
+
+      <para><emphasis role="bold">&name-web;</emphasis></para>
+      <itemizedlist>
+        <listitem><para>Fixing interface bugs in user / group section: #728, #1007, #1054, #1124</para></listitem>
+        <listitem><para>Several fixes for commands (multiline, missing options): #1436, #1593</para></listitem>
+        <listitem><para>Interface enhancements: #1243, #1812, #1546, #1557, #1914, #1893, #2045 (Reordering cronks, Duration view respect
+          systemstart, Wording and translation, Notification view, Instance grid / overview, Opening submodules in own tabs (allow browser
+          handling)</para></listitem>
+        <listitem><para>Timezone issues</para></listitem>
+      </itemizedlist>
+
+      <para><emphasis role="bold">IDOUtils</emphasis></para>
+      <itemizedlist>
+        <listitem><para>host state change last_hard_state overrides last_state, last_hard_state always -1 #1932</para></listitem>
+        <listitem><para>extend conninfo.agent_version field  to varchar(16) #2104</para></listitem>
+        <listitem><para>terminate threads cleanly, including db connection</para></listitem>
+      </itemizedlist>
+
+      <para><emphasis role="bold">Install</emphasis></para>
+      <itemizedlist>
+        <listitem><para>rework the version updates in icinga and idoutils</para></listitem>
+        <listitem><para>--libexecdir does not point to possible location of nagios-plugins in resource.cfg:$USER1$ #2123</para></listitem>
+      </itemizedlist>
+
+      <para><emphasis role="bold">Docs:</emphasis></para>
+      <itemizedlist>
+        <listitem><para>incorrect installation instructions for &name-oracle; #2122</para></listitem>
+        <listitem><para>date format description is wrong  #2088</para></listitem>
+        <listitem><para>Typos / clarifications / reformatting</para></listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem><para><emphasis role="bold">Changes</emphasis></para>
+
+      <para><emphasis role="bold">Packages</emphasis></para>
+      <itemizedlist>
+        <listitem><para>package: complete remove icinga-api as module #1935</para></listitem>
+      </itemizedlist>
+
+      <para><emphasis role="bold">&name-core;</emphasis></para>
+      <itemizedlist>
+        <listitem><para>new commands and event (CMD_ACKNOWLEDGE_HOST_PROBLEM_EXPIRE / CMD_ACKNOWLEDGE_SVC_PROBLEM_EXPIRE / 
+          EVENT_EXPIRE_ACKNOWLEDGEMENT</para></listitem>
+        <listitem><para>new notification type (NOTIFICATION_STALKING)</para></listitem>
+      </itemizedlist>
+
+      <para><emphasis role="bold">Classic UI</emphasis></para>
+      <itemizedlist>
+        <listitem><para>"showlog_initial_states" and "showlog_current_states" are now disabled by default to prevent browser freezes #1172</para></listitem>
+        <listitem><para>highlight_table_rows is now enabled by default #1777</para></listitem>
+        <listitem><para>removed unused javascript libraries</para></listitem>
+        <listitem><para>new regex search uses 'search_string' instead of 'navbarsearch=1&amp;host=', both are kept for compatibility reasons #844</para></listitem>
+      </itemizedlist>
+
+      <para><emphasis role="bold">&name-web;</emphasis></para>
+      <itemizedlist>
+        <listitem><para>Cleanup package: Removed useless files (templates, icons)</para></listitem>
+      </itemizedlist>
+
+      <para><emphasis role="bold">Config</emphasis></para>
+      <itemizedlist>
+        <listitem><para>icinga.cfg: stalking_notifications_for_hosts=0 stalking_notifications_for_services=0</para></listitem>
+        <listitem><para>default_expiring_acknowledgement_duration=86400, extinfo_show_child_hosts=0 added,
+          authorized_for_full_command_resolution and authorized_contactgroup_for_full_command_resolution added</para></listitem>
+        <listitem><para>add objects/ido2db_check_proc.cfg (not included by default) #1870</para></listitem>
+        <listitem><para>enable_sla=0, debug_readable_timestamp=0, max_notifications_age, max_contactnotifications_age,
+          max_contactnotificationmethods_age</para></listitem>
+      </itemizedlist>
+
+      <para><emphasis role="bold">Install</emphasis></para>
+      <itemizedlist>
+        <listitem><para>icinga.spec: enable cmd.cgi logging by default in rpm</para></listitem>
+      </itemizedlist>
+
+      <para><emphasis role="bold">Docs</emphasis></para>
+      <itemizedlist>
+        <listitem><para>"ICINGA_" instead of "NAGIOS_" environment variables #2093</para></listitem>
+        <listitem><para>changed idoutils timezone behaviour #2092</para></listitem>
+        <listitem><para>remove Icinga-API #2090</para></listitem>
+      </itemizedlist>
+
+    </listitem>
   </itemizedlist>
 
   <para><link xlink:href="https://wiki.icinga.org/display/Dev/Releases">More at Icinga Wiki</link></para>
