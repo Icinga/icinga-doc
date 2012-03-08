@@ -8,14 +8,17 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>&name-icinga; with &name-idoutils; Quickstart</title>
 
-  <para><emphasis role="bold"><anchor xml:id="introduction_idoutils" />Introduction</emphasis></para>
+  <para><emphasis role="bold"><anchor xml:id="introduction_idoutils"/>Introduction</emphasis></para>
 
-  <note><para>Instead of installing &name-icinga; from scratch you may want to use a package which might be available for your OS. Please
-    take a look at the <link xlink:href="https://www.icinga.org/download/packages">table of packages</link>.
-    </para>
+  <note>
+    <para>Instead of installing &name-icinga; from scratch you may want to use a package which might be available for your OS. Please take a
+    look at the <link xlink:href="https://www.icinga.org/download/packages">table of packages</link>.</para>
+
     <para>If you are planning to install from source then please use the official release tarball.</para>
   </note>
-  <important><para>Please don't use git snapshots unless you have an issue which might be solved in the current developer version.</para>
+
+  <important>
+    <para>Please don't use git snapshots unless you have an issue which might be solved in the current developer version.</para>
   </important>
 
   <para>This guide is intended to provide you with simple instructions on how to install &name-icinga; from source (code) and have it
@@ -34,7 +37,7 @@
   <para>Other distributions may inherit from these examples.</para>
 
   <para><emphasis role="bold">If you are planning to use &name-icinga; without &name-idoutils; please read <xref
-  linkend="quickstart-icinga" /> instead!</emphasis></para>
+  linkend="quickstart-icinga"/> instead!</emphasis></para>
 
   <para><emphasis role="bold">What You'll End Up With</emphasis></para>
 
@@ -86,10 +89,13 @@
 
     <listitem>
       <para>libdbi/libdbi-drivers, database like &name-mysql; or &name-postgres;</para>
-      <note><para>&name-postgres;: Due to changes on insert statements PostgreSQL 8.1 does no longer work (and is already <link
+
+      <note>
+        <para>&name-postgres;: Due to changes on insert statements PostgreSQL 8.1 does no longer work (and is already <link
         xlink:href="http://wiki.postgresql.org/wiki/PostgreSQL_Release_Support_Policy">end-of-life</link> since November 2010) so please use
-        8.2 or even better 8.4. String escaping in &name-postgres; 9.x is still in an experimental state (refer to <link xlink:href=
-        "https://dev.icinga.org/issues/1974">issue #1974</link>).</para></note>
+        8.2 or even better 8.4. String escaping in &name-postgres; 9.x is still in an experimental state (refer to <link
+        xlink:href="https://dev.icinga.org/issues/1974">issue #1974</link>).</para>
+      </note>
     </listitem>
   </itemizedlist>
 
@@ -108,11 +114,15 @@
 
   <para>If you want Oracle as RDBMS you'll need to install ocilib instead of libdbi.</para>
 
-  <note><para>Using &name-idoutils; 1.5.0 with &name-oracle; requires at least OCILIB 3.9.2 - don&apos;t install 3.9.0 or 3.9.1 as they
-  remain buggy.</para></note>
+  <note>
+    <para>Using &name-idoutils; 1.5.0 with &name-oracle; requires at least OCILIB 3.9.2 - don't install 3.9.0 or 3.9.1 as they remain
+    buggy.</para>
+  </note>
 
-  <note><para>More detailed instructions using &name-idoutils; with &name-oracle; you can find in our wiki howto series about
-  <link xlink:href="https://wiki.icinga.org/display/howtos/Icinga+and+Oracle">&name-oracle;</link>.</para></note>
+  <note>
+    <para>More detailed instructions using &name-idoutils; with &name-oracle; you can find in our wiki howto series about <link
+    xlink:href="https://wiki.icinga.org/display/howtos/Icinga+and+Oracle">&name-oracle;</link>.</para>
+  </note>
 
   <itemizedlist>
     <listitem>
@@ -143,53 +153,87 @@
   applying <filename>oracle.sql</filename>. For your convenience there is a new script <filename>create_oracle_sys.sql</filename> included,
   which should help you to create the necessary tablespaces and an &name-icinga; application user and must run as SYS. It will make use of
   <filename>icinga_defines.sql</filename> as well. Object creation has been moved from <filename>oracle.sql</filename> to the script
-  <filename>create_icinga_objects_oracle.sql</filename>. The former <filename>oracle.sql</filename> has been redesigned as a master script
-  to record all other scripts as includes and expects these includes within the current directory. For this reason you should start
-  <filename>sqlplus</filename> executing <filename>oracle.sql</filename> within this directory. This way the creation of user and
-  tablespaces and the creation of &name-icinga; tables runs in one step. As an all-in-one sample you will find a new script
-  <filename>db/scripts/create_oracledb.sh</filename>. Edit variables to suit your needs and enjoy. If you prefer to do SYS steps for
-  yourself, please uncomment <filename>create_oracle_sys.sql</filename> and make sure that your database &name-icinga; user and tables exist
-  and are defined with the same (or more) rights and that the correct settings have been applied to
-  <filename>icinga_defines.sql</filename>.</para>
+  <filename>create_icinga_objects_oracle.sql</filename>.</para>
 
-  <para><anchor xml:id="quickstart-idoutils_timezone-support" /><emphasis role="bold">Timezone support</emphasis></para>
+  <para>The former <filename>oracle.sql</filename> has been redesigned as a master script to record all other scripts as includes and
+  expects these includes within the current directory. For this reason you should start <filename>sqlplus</filename> executing
+  <filename>oracle.sql</filename> within this directory. This way the creation of user and tablespaces and the creation of &name-icinga;
+  tables runs in one step. As an all-in-one sample you will find a new script <filename>db/scripts/create_oracledb.sh</filename>. Edit
+  variables to suit your needs and enjoy. If you prefer to do SYS steps for yourself, please uncomment
+  <filename>create_oracle_sys.sql</filename> and make sure that your database &name-icinga; user and tables exist and are defined with the
+  same (or more) rights and that the correct settings have been applied to <filename>icinga_defines.sql</filename>.</para>
+
+  <para><anchor xml:id="quickstart-idoutils_timezone-support"/><emphasis role="bold">Timezone support</emphasis></para>
+
   <para>Starting with &name-icinga; 1.6 all dates are stored as local timestamps in the database. Before that there was a different
   behaviour storing and retrieving dates for each database system which was difficult to handle for frontend apps. Therefore datatypes have
   been changed for &name-mysql; from DATETIME to TIMESTAMP and for &name-oracle; from DATE to LOCAL TIMESTAMP (0). &name-postgres; was
   already using TIMESTAMP but has been changed to TIMESTAMP WITH TIME ZONE. IDO2DB will set session timezone to UTC and store all unix
   timestamps (which are UTC per definition) as UTC based values. Please make sure your system returns unix timestamps as real UTC based
   values (like "date -u '+%s'").</para>
-  <note><para>Make sure your database session runs in the same timezone in which the existing dates have been stored (check your local
-  timezone e.g. &name-oracle;:"select sessiontimezone from dual;") if you are running the upgrade script.
-  Additionally for your convenience in &name-oracle; you should set your session timestamp format to the value you want, e.g "alter session
-  set nls_timestamp_format='YYYY-MM-DD HH24:MI:SS';" or similar.
-  Now you can view entries from different &name-icinga; installations in different time zones which are stored in the same database and
-  regardless from where you accessing it, all entries are returned in your local time zone.</para></note>
+
+  <note>
+    <para>Make sure your database session runs in the same timezone in which the existing dates have been stored (check your local timezone
+    e.g. &name-oracle;:"select sessiontimezone from dual;") if you are running the upgrade script. Additionally for your convenience in
+    &name-oracle; you should set your session timestamp format to the value you want, e.g "alter session set
+    nls_timestamp_format='YYYY-MM-DD HH24:MI:SS';" or similar. Now you can view entries from different &name-icinga; installations in
+    different time zones which are stored in the same database and regardless from where you accessing it, all entries are returned in your
+    local time zone.</para>
+  </note>
 
   <para><emphasis role="bold">Install Packages</emphasis></para>
 
   <para>You can install your packages by running the following commands (as root or sudo).</para>
 
-  <note><para>Unfortunately sometimes the names of packages change between different releases of the same distribution so if you get a
-  message that one of the packages cannot be found then please use the search option of your package manager to get the new name:
-    <itemizedlist>
-      <listitem>
-        <literal>yum search &lt;package name&gt;</literal> (<emphasis>&name-fedora;/&name-rhel;/&name-centos;</emphasis>)
-      </listitem>
-      <listitem>
-        <literal>apt-cache search &lt;package name&gt;</literal> (<emphasis>&name-debian;/&name-ubuntu;</emphasis>)
-      </listitem>
-      <listitem>
-        <literal>zypper search &lt;package name&gt;</literal> (<emphasis>&name-opensuse;/&name-sles;</emphasis>)
-      </listitem>
-    </itemizedlist>
-  </para></note>
+  <note>
+    <para>Unfortunately sometimes the names of packages change between different releases of the same distribution so if you get a message
+    that one of the packages cannot be found then please use the search option of your package manager to get the new name: <itemizedlist>
+        <listitem>
+           
+
+          <literal>yum search &lt;package name&gt;</literal>
+
+           (
+
+          <emphasis>&name-fedora;/&name-rhel;/&name-centos;</emphasis>
+
+          ) 
+        </listitem>
+
+        <listitem>
+           
+
+          <literal>apt-cache search &lt;package name&gt;</literal>
+
+           (
+
+          <emphasis>&name-debian;/&name-ubuntu;</emphasis>
+
+          ) 
+        </listitem>
+
+        <listitem>
+           
+
+          <literal>zypper search &lt;package name&gt;</literal>
+
+           (
+
+          <emphasis>&name-opensuse;/&name-sles;</emphasis>
+
+          ) 
+        </listitem>
+      </itemizedlist></para>
+  </note>
 
   <para><emphasis role="bold">&name-fedora;/&name-rhel;/&name-centos;:</emphasis></para>
 
   <programlisting> #&gt; yum install httpd gcc glibc glibc-common gd gd-devel
  #&gt; yum install libjpeg libjpeg-devel libpng libpng-devel</programlisting>
-  <note><para>You may have to use libjpeg-turbo and libjpeg-turbo-devel instead</para></note>
+
+  <note>
+    <para>You may have to use libjpeg-turbo and libjpeg-turbo-devel instead</para>
+  </note>
 
   <itemizedlist>
     <listitem>
@@ -236,7 +280,9 @@
 
   <para>Please use YaST to install at least the packages gd, gd-devel, libjpeg, libjpeg-devel, libpng, libpng-devel and, optionally,
   net-snmp, net-snmp-devel and perl-Net-SNMP.</para>
+
   <para>Using zypper should work as well:</para>
+
   <programlisting> #&gt; zypper install gd gd-devel libjpeg libjpeg-devel libpng libpng-devel
  #&gt; zypper install net-snmp net-snmp-devel perl-Net-SNMP</programlisting>
 
@@ -250,6 +296,7 @@
 
       <para>Use YaST to install the packages for the RDBMS you want to use, i.e. "mysql", "mysql-devel", "mysql-client" and the libdbi
       packages "libdbi", "libdbi-devel", "libdbi-drivers" and "libdbi-dbd-mysql", or alternatively <filename>zypper</filename>.</para>
+
       <programlisting> #&gt; zypper install mysql mysql-devel mysql-client libdbi libdbi-devel libdbi-drivers libdbi-dbd-mysql
       </programlisting>
 
@@ -263,6 +310,7 @@
 
       <para>Use YaST to install the packages for the RDBMS you want to use, i.e. "postgresql", "postgresql-devel", "postgresql-server" and
       the libdbi packages "libdbi", "libdbi-devel" and "libdbi-drivers", or alternatively <filename>zypper</filename>.</para>
+
       <programlisting> #&gt; zypper install postgresql postgresql-devel postgresql-server
  #&gt; zypper install libdbi libdbi-devel libdbi-drivers</programlisting>
     </listitem>
@@ -473,8 +521,12 @@
   <para><emphasis role="bold">Enable the idomod event broker module</emphasis></para>
 
   <important>
+     
+
     <para>Under normal circumstances the following module definition is already present in the <filename>modules</filename> subdirectory so
     there is no need to edit the main config file</para>
+
+     
 
     <screen> define module{
         module_name    ido_mod
@@ -482,22 +534,23 @@
         module_type    neb
         args           config_file=&url-icinga-base;/etc/idomod.cfg
         }</screen>
-	 This also means that a broker_module entry must not be enabled!
+
+     This also means that a broker_module entry must not be enabled! 
   </important>
 
   <para><emphasis role="bold">Creation of Database and &name-idoutils;</emphasis><note>
       <para>If you just installed a new database system then you have to start the database server before you can create a database. In case
-      of MySQL you might use <code>/etc/init.d/mysqld start</code> (or <code>/etc/init.d/mysql</code>, depending on your distribution).
-      </para>
+      of MySQL you might use <code>/etc/init.d/mysqld start</code> (or <code>/etc/init.d/mysql</code>, depending on your
+      distribution).</para>
     </note></para>
 
   <itemizedlist>
-  <listitem>
-  <para><emphasis role="bold">&name-mysql;:</emphasis></para>
+    <listitem>
+      <para><emphasis role="bold">&name-mysql;:</emphasis></para>
 
-  <para>Create Database, User, Grants:</para>
+      <para>Create Database, User, Grants:</para>
 
-  <programlisting> #&gt; mysql -u root -p
+      <programlisting> #&gt; mysql -u root -p
  mysql&gt; CREATE DATABASE icinga;
  GRANT USAGE ON *.* TO 'icinga'@'localhost'
    IDENTIFIED BY 'icinga'
@@ -509,47 +562,54 @@
  FLUSH PRIVILEGES;
  quit</programlisting>
 
-  <note><para>Starting with &name-icinga; 1.6 the icinga user additionally needs DROP and CREATE VIEW privileges.</para></note>
-  <para>Import database scheme for &name-mysql;:</para>
+      <note>
+        <para>Starting with &name-icinga; 1.6 the icinga user additionally needs DROP and CREATE VIEW privileges.</para>
+      </note>
 
-  <programlisting> #&gt; cd /path/to/icinga-src/module/idoutils/db/mysql
+      <para>Import database scheme for &name-mysql;:</para>
+
+      <programlisting> #&gt; cd /path/to/icinga-src/module/idoutils/db/mysql
  #&gt; mysql -u root -p icinga &lt; mysql.sql</programlisting>
 
-  <para>Edit the DB config file to customize &name-idoutils;</para>
+      <para>Edit the DB config file to customize &name-idoutils;</para>
 
-  <!--  <link xlink:href="http://www.phpmyadmin.net">phpMyAdmin</link> -->
+      <!--  <link xlink:href="http://www.phpmyadmin.net">phpMyAdmin</link> -->
 
-  <programlisting> #&gt; vi &url-icinga-base;/etc/ido2db.cfg
+      <programlisting> #&gt; vi &url-icinga-base;/etc/ido2db.cfg
 
  db_servertype=mysql
  db_port=3306
  db_user=icinga
  db_pass=icinga</programlisting>
-  </listitem>
+    </listitem>
 
-  <listitem>
-  <para><emphasis role="bold">&name-postgres;:</emphasis></para>
+    <listitem>
+      <para><emphasis role="bold">&name-postgres;:</emphasis></para>
 
-  <para>Create database and User:</para>
+      <para>Create database and User:</para>
 
-  <programlisting> #&gt; su - postgres
- $ createlang plpgsql icinga;
+      <programlisting> #&gt; su - postgres
+ 
  $ psql
  postgres=# CREATE USER icinga;
  postgres=# ALTER USER icinga WITH PASSWORD 'icinga';
- postgres=# CREATE DATABASE icinga; </programlisting>
+ postgres=# CREATE DATABASE icinga;
+ postgres=# \q
+ $ createlang plpgsql icinga;</programlisting>
 
-  <para><emphasis role="bold">&name-debian;:</emphasis></para>
+      <para>Starting with &name-postgres; 9.1 "createlang ..." is obsolete.</emphasis></para>
 
-  <programlisting> #&gt; vi /etc/postgresql/8.x/main/pg_hba.conf</programlisting>
+      <para><emphasis role="bold">&name-debian;:</emphasis></para>
 
-  <para><emphasis role="bold">&name-fedora;/&name-rhel;/&name-centos;:</emphasis></para>
+      <programlisting> #&gt; vi /etc/postgresql/8.x/main/pg_hba.conf</programlisting>
 
-  <programlisting> #&gt; vi /var/lib/pgsql/data/pg_hba.conf</programlisting>
+      <para><emphasis role="bold">&name-fedora;/&name-rhel;/&name-centos;:</emphasis></para>
 
-  <para>Edit the config e.g. like this (local user must be trusted)</para>
+      <programlisting> #&gt; vi /var/lib/pgsql/data/pg_hba.conf</programlisting>
 
-  <programlisting> # database administrative login by UNIX sockets
+      <para>Edit the config e.g. like this (local user must be trusted)</para>
+
+      <programlisting> # database administrative login by UNIX sockets
  local    all        postgres                  ident
  # TYPE   DATABASE   USER       CIDR-ADDRESS   METHOD 
  #icinga
@@ -561,42 +621,42 @@
  # IPV6 local connections
  host     all        all        ::1/128        trust</programlisting>
 
-  <para>Reload and configure database scheme.</para>
+      <para>Reload and configure database scheme.</para>
 
-  <programlisting> #&gt; /etc/init.d/postgresql-8.x reload</programlisting>
+      <programlisting> #&gt; /etc/init.d/postgresql-8.x reload</programlisting>
 
-  <programlisting> #&gt; cd /path/to/icinga-src/module/idoutils/db/pgsql
+      <programlisting> #&gt; cd /path/to/icinga-src/module/idoutils/db/pgsql
  #&gt; psql -U icinga -d icinga &lt; pgsql.sql</programlisting>
 
-  <para>Edit the DB config file to customize &name-idoutils;</para>
+      <para>Edit the DB config file to customize &name-idoutils;</para>
 
-  <programlisting> #&gt; vi /usr/local/icinga/etc/ido2db.cfg
+      <programlisting> #&gt; vi /usr/local/icinga/etc/ido2db.cfg
  db_servertype=pgsql
  db_port=5432
  db_user=icinga
  db_pass=icinga</programlisting>
-  </listitem>
+    </listitem>
 
-  <listitem>
-  <para><emphasis role="bold">Oracle:</emphasis></para>
+    <listitem>
+      <para><emphasis role="bold">Oracle:</emphasis></para>
 
-  <para>Create a database schema and username/password (refer to the &name-oracle; documentation at &url-oracle; or consult your DBA).
-  Import the database scheme with sqlplus (or your preferred method). Copy <filename>module/idoutils/db/oracle/*</filename> to
-  $ORACLE_HOME and edit <filename>icinga_defines.sql</filename> to match tablespace and user credential information.</para>
+      <para>Create a database schema and username/password (refer to the &name-oracle; documentation at &url-oracle; or consult your DBA).
+      Import the database scheme with sqlplus (or your preferred method). Copy <filename>module/idoutils/db/oracle/*</filename> to
+      $ORACLE_HOME and edit <filename>icinga_defines.sql</filename> to match tablespace and user credential information.</para>
 
-  <programlisting> #&gt; su - oracle
+      <programlisting> #&gt; su - oracle
  $&gt; sqlplus dbuser/dbpass
  SQL&gt; @oracle.sql</programlisting>
 
-  <para>Edit the DB config file to customize IDOUtils. Remember that Oracle ignores the db host, instead point db_name to
-  //DBSERVER/DBNAME</para>
+      <para>Edit the DB config file to customize IDOUtils. Remember that Oracle ignores the db host, instead point db_name to
+      //DBSERVER/DBNAME</para>
 
-  <programlisting> #&gt; vi /usr/local/icinga/etc/ido2db.cfg
+      <programlisting> #&gt; vi /usr/local/icinga/etc/ido2db.cfg
   db_servertype=oracle
   db_port=1521
   db_user=icinga
   db_pass=icinga</programlisting>
-  </listitem>
+    </listitem>
   </itemizedlist>
 
   <para><emphasis role="bold">Configure the Classic Web Interface</emphasis></para>
