@@ -8,16 +8,19 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>&name-icinga;-Schnellstart mit &name-idoutils; auf FreeBSD</title>
 
-  <para><emphasis role="bold"><anchor xml:id="introduction_idoutils_freebsd" />Einführung</emphasis></para>
+  <para><emphasis role="bold"><anchor xml:id="introduction_idoutils_freebsd"/>Einführung</emphasis></para>
 
-  <note><para>Anstatt &name-icinga; von Grund auf zu installieren möchten Sie vielleicht ein Paket benutzen, das es möglicherweise für Ihr
-    Betriebssystem gibt. Bitte werfen Sie einen Blick auf die
-    <link xlink:href="https://www.icinga.org/download/packages">Tabelle der Pakete</link>.
-    </para>
+  <note>
+    <para>Anstatt &name-icinga; von Grund auf zu installieren möchten Sie vielleicht ein Paket benutzen, das es möglicherweise für Ihr
+    Betriebssystem gibt. Bitte werfen Sie einen Blick auf die <link xlink:href="https://www.icinga.org/download/packages">Tabelle der
+    Pakete</link>.</para>
+
     <para>Falls Sie aus den Sourcen installieren möchten, dann benutzen Sie bitte die offiziellen Release-Tarballs.</para>
   </note>
-  <important><para>Bitte benutzen Sie keine GIT-Snapshots, solange Sie kein Problem haben, das in der aktuellen Entwicklerversion ggf.
-    gelöst ist.</para>
+
+  <important>
+    <para>Bitte benutzen Sie keine GIT-Snapshots, solange Sie kein Problem haben, das in der aktuellen Entwicklerversion ggf. gelöst
+    ist.</para>
   </important>
 
   <para>Diese Schnellstartanleitung ist dazu gedacht, Ihnen einfache Anweisungen zu liefern, wie Sie &name-icinga; innerhalb von 30 Minuten
@@ -32,8 +35,11 @@
 
   <para>Spätere Distributionen von &name-freebsd; werden wahrscheinlich auch mit diesen Anweisungen funktionieren.</para>
 
-  <note><para>Inzwischen gibt es einen &name-freebsd;-Port von &name-icinga; (net-mgmt/icinga), so dass Sie den vielleicht installieren möchten ;-)</para></note>
- 
+  <note>
+    <para>Inzwischen gibt es einen &name-freebsd;-Port von &name-icinga; (net-mgmt/icinga), so dass Sie den vielleicht installieren möchten
+    ;-)</para>
+  </note>
+
   <para><emphasis role="bold">Was dabei herauskommt</emphasis></para>
 
   <para>Wenn Sie diesen Anweisungen folgen, werden Sie am Ende folgendes haben:</para>
@@ -83,9 +89,13 @@
 
     <listitem>
       <para>libdbi-Treiber, eine Datenbank wie z.B. &name-mysql; oder &name-postgres;</para>
-      <note><para>PostgreSQL: Aufgrund von Änderungen an Insert-Statements funktioniert PostgreSQL 8.1 nicht länger (und ist auch bereits
-        <link xlink:href="http://wiki.postgresql.org/wiki/PostgreSQL_Release_Support_Policy">"End-of-life"</link> seit November 2010), also
-        benutzen Sie bitte 8.2 oder besser noch 8.4. String escaping mit PostgreSQL 9.x befindet sich noch in einem experimentellen Stadium         (siehe auch <link xlink:href="https://dev.icinga.org/issues/1974">issue #1974</link>).</para></note>
+
+      <note>
+        <para>PostgreSQL: Aufgrund von Änderungen an Insert-Statements funktioniert PostgreSQL 8.1 nicht länger (und ist auch bereits <link
+        xlink:href="http://wiki.postgresql.org/wiki/PostgreSQL_Release_Support_Policy">"End-of-life"</link> seit November 2010), also
+        benutzen Sie bitte 8.2 oder besser noch 8.4. String escaping mit PostgreSQL 9.x befindet sich noch in einem experimentellen Stadium
+        (siehe auch <link xlink:href="https://dev.icinga.org/issues/1974">issue #1974</link>).</para>
+      </note>
     </listitem>
   </itemizedlist>
 
@@ -108,21 +118,23 @@
 
   <para>Wenn Sie Oracle als RDBMS einsetzen möchten, dann ist das unter &name-freebsd; leider nicht so ohne weiteres möglich.</para>
 
-  <para><anchor xml:id="quickstart-idoutils_timezone-support" /><emphasis role="bold">Zeitzonenunterstützung</emphasis></para>
+  <para><anchor xml:id="quickstart-idoutils_timezone-support"/><emphasis role="bold">Zeitzonenunterstützung</emphasis></para>
+
   <para>Ab &name-icinga; 1.6 werden alle Zeit-/Datumsinformationen als lokale Zeitstempel in der Datenbank gespeichert. Vorher gab es für
   jedes Datenbanksystem unterschiedliche Vorgehensweisen beim Speichern und Abrufen der Daten, was schwierig für Frontend-Applikationen war.
   Deshalb wurden die Datentypen geändert: für &name-mysql; von DATETIME in TIMESTAMP und für &name-oracle; von DATE in LOCAL TIMESTAMP (0).
   &name-postgres; benutzt bereits TIMESTAMP, es wurde aber in TIMESTAMP WITH TIME ZONE geändert. IDO2DB wird die Sitzungszeitzone auf UTC
   setzen und alle Unix-Timestamps (die per Definition UTC sind) als UTC-basierte Werte speichern. Bitte stellen Sie sicher, dass Ihr System
   Unix-Timestamps als UTC-basierte Werte ausgibt (wie "date -u '+%s'").</para>
-  <note><para>Stellen Sie sicher, dass Ihre Datenbanksitzung in der gleichen Zeitzone läuft, in der die existierenden
-  Zeit-/Datumsinformationen gespeichert wurden (überprüfen Sie Ihre lokale Zeitzone, z.B. &name-oracle;: "select sessiontimezone from
-  dual;"), wenn Sie das Upgrade-Script laufen lassen.
-  Zusätzlich für Ihre Bequemlichkeit sollten Sie in &name-oracle; das Format der Sitzungszeitstempel auf den Wert zu setzen, den Sie
-  wünschen, z.B. "alter session set nls_timestamp_format='YYYY-MM-DD HH24:MI:SS'; oder etwas ähnliches.
-  Nun können Sie Einträge von verschiedenen &name-icinga;-Installationen in unterschiedlichen Zeitzonen ansehen, die in der gleichen
-  Datenbank gespeichert wurden, und unabhängig davon, von woher Sie darauf zugreifen, werden sie in Ihrer lokalen Zeitzone angezeigt.
-  </para></note>
+
+  <note>
+    <para>Stellen Sie sicher, dass Ihre Datenbanksitzung in der gleichen Zeitzone läuft, in der die existierenden Zeit-/Datumsinformationen
+    gespeichert wurden (überprüfen Sie Ihre lokale Zeitzone, z.B. &name-oracle;: "select sessiontimezone from dual;"), wenn Sie das
+    Upgrade-Script laufen lassen. Zusätzlich für Ihre Bequemlichkeit sollten Sie in &name-oracle; das Format der Sitzungszeitstempel auf den
+    Wert zu setzen, den Sie wünschen, z.B. "alter session set nls_timestamp_format='YYYY-MM-DD HH24:MI:SS'; oder etwas ähnliches. Nun können
+    Sie Einträge von verschiedenen &name-icinga;-Installationen in unterschiedlichen Zeitzonen ansehen, die in der gleichen Datenbank
+    gespeichert wurden, und unabhängig davon, von woher Sie darauf zugreifen, werden sie in Ihrer lokalen Zeitzone angezeigt.</para>
+  </note>
 
   <para><emphasis role="bold">Installation der Pakete</emphasis></para>
 
@@ -213,17 +225,15 @@
     <para>Das angehängte <emphasis>CPPFLAGS=-I/usr/local/include</emphasis> ist wichtig für die &name-idoutils; bzw. das
     Broker-Modul.</para>
   </important>
+
   <note>
     <para>Sie sollten <literal>CFLAGS=..."</literal> wie oben angegeben benutzen. Anderenfalls finden Sie ggf. später folgende Zeilen in
-    <filename>icinga.log</filename>:
-    <screen> Error: Module ‘/usr/local/icinga/bin/idomod.o’ is using an old or unspecified version of the event broker API. Module will
+    <filename>icinga.log</filename>: <screen> Error: Module ‘/usr/local/icinga/bin/idomod.o’ is using an old or unspecified version of the event broker API. Module will
  be unloaded.
- Event broker module ‘/usr/local/icinga/bin/idomod.o’ deinitialized successfully.</screen>
-    Mehr Informationen zu diesem Fehler finden Sie <link xlink:href="http://www.mazej.net/icinga-idomod-o-is-using-an-old-or-unspecified-version-of-the-event-broker-api/">
-    hier</link>.
-    </para>
+ Event broker module ‘/usr/local/icinga/bin/idomod.o’ deinitialized successfully.</screen> Mehr Informationen zu diesem Fehler finden Sie
+    <link xlink:href="http://www.mazej.net/icinga-idomod-o-is-using-an-old-or-unspecified-version-of-the-event-broker-api/">
+    hier</link>.</para>
   </note>
-
 
   <para><emphasis role="bold">Mit SSL-Verschlüsselung:</emphasis></para>
 
@@ -237,12 +247,11 @@
 
   <programlisting> #&gt; gmake all</programlisting>
 
-
   <para>Installieren Sie die Binaries, das Init-Script, Beispiel-Konfigurationsdateien, Beispiel-Eventhandler und setzen Sie die
   Berechtigungen für das External-Command-Verzeichnis. <programlisting> #&gt; make install
  #&gt; gmake install-init
  #&gt; gmake install-config
- #&gt; gmake install-contrib-eventhandlers
+ #&gt; gmake install-eventhandlers
  #&gt; gmake install-commandmode </programlisting> oder kürzer <programlisting> #&gt; make fullinstall
  #&gt; gmake install-config</programlisting></para>
 
@@ -252,13 +261,12 @@
   </note>
 
   <note>
-    <para>Ab &name-icinga; 1.7.0 werden mit <literal>make install-contrib-eventhandlers</literal> einige Beispiel-Eventhandler installiert.
-    Das ist lediglich in <literal>make fullinstall</literal>enthalten, um ein versehentliches Überschreiben der Dateien zu
-    verhindern.</para>
+    <para>Ab &name-icinga; 1.7.0 werden mit <literal>make install-eventhandlers</literal> einige Beispiel-Eventhandler installiert. Das ist
+    lediglich in <literal>make fullinstall</literal> enthalten, um ein versehentliches Überschreiben der Dateien zu verhindern.</para>
   </note>
 
   <note>
-    <para>Die &name-icinga;-API diente als eine in PHP geschriebene Datenbank-Abstraktionsschicht. Seit &name-icinga; ist sie durch eine 
+    <para>Die &name-icinga;-API diente als eine in PHP geschriebene Datenbank-Abstraktionsschicht. Seit &name-icinga; ist sie durch eine
     interne Datenbank-Abstraktionsschicht ersetzt worden, so dass &name-icinga;-API nicht mehr installiert werden muss.</para>
   </note>
 
@@ -285,7 +293,8 @@
  output_type=tcpsocket
  output=127.0.0.1</programlisting>
 
-  <para>(passen Sie die IP-Adresse an, wenn sich Ihre Datenbank nicht auf localhost befindet!) und in der <filename>ido2db.cfg</filename> mit</para>
+  <para>(passen Sie die IP-Adresse an, wenn sich Ihre Datenbank nicht auf localhost befindet!) und in der <filename>ido2db.cfg</filename>
+  mit</para>
 
   <programlisting> use_ssl=1
  socket_type=tcp </programlisting>
@@ -298,8 +307,12 @@
   <para><emphasis role="bold">Aktivieren Sie das idomod-Eventbroker-Modul</emphasis></para>
 
   <important>
+     
+
     <para>Unter normalen Umständen gibt es im <filename>modules</filename>-Unterverzeichnis bereits die folgende module-Definition, so dass
     Sie keine Änderungen an der Hauptkonfigurationsdatei vornehmen müssen.</para>
+
+     
 
     <screen> define module{
         module_name    ido_mod
@@ -307,7 +320,8 @@
         module_type    neb
         args           config_file=&url-icinga-base;/etc/idomod.cfg
         }</screen>
-    Das bedeutet auch, dass ein entsprechender broker_module-Eintrag nicht aktiviert werden darf!
+
+     Das bedeutet auch, dass ein entsprechender broker_module-Eintrag nicht aktiviert werden darf! 
   </important>
 
   <para><emphasis role="bold">Konfigurieren von Datenbank und &name-idoutils;</emphasis></para>
@@ -462,7 +476,7 @@
   <para>Sie werden ohne Zweifel mehr als nur Ihre lokale Maschine überwachen wollen, so dass Sie u.a. das folgende <link
   linkend="ch02">Kapitel</link> lesen sollten...</para>
 
-  <para></para>
+  <para/>
 
   <para>Pakete für &name-icinga;</para>
 
