@@ -6,7 +6,7 @@
 <section version="5.0" xml:id="configmain" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-  <title><anchor xml:id="config_main" />Main Configuration File Options</title>
+  <title><anchor xml:id="config_main"/>Main Configuration File Options</title>
 
   <para><emphasis role="bold">Notes</emphasis></para>
 
@@ -604,9 +604,11 @@
     <listitem>
       <para><link linkend="configmain-allow_empty_hostgroup_assignment">Allow empty hostgroup assignment</link></para>
     </listitem>
+
     <listitem>
       <para><link linkend="configmain-process_empty_results">Process empty host performance results</link></para>
     </listitem>
+
     <listitem>
       <para><link linkend="configmain-process_empty_results">Process empty service performance results</link></para>
     </listitem>
@@ -614,26 +616,26 @@
 
   <para>Below you will find descriptions of each main &name-icinga; configuration file option...</para>
 
-  <para><anchor xml:id="configmain-log_file" /> <emphasis role="bold">Log File</emphasis></para>
+  <para><anchor xml:id="configmain-log_file"/> <emphasis role="bold">Log File</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">log_file=&lt;file_name&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">log_file=&lt;file_name&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">log_file=&url-icinga-base;/var/icinga.log</emphasis>
-          </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">log_file=&url-icinga-base;/var/icinga.log</emphasis>
+          </emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -644,61 +646,28 @@
   you have <link linkend="configmain-log_rotation_method">log rotation</link> enabled, this file will automatically be rotated every hour,
   day, week, or month.</para>
 
-  <para><anchor xml:id="configmain-cfg_file" /> <emphasis role="bold">Object Configuration File</emphasis></para>
+  <para><anchor xml:id="configmain-cfg_file"/> <emphasis role="bold">Object Configuration File</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">cfg_file=&lt;file_name&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">cfg_file=&lt;file_name&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para>
-               
-
-              <emphasis condition="red" role="color">
-                 
-
-                <emphasis role="bold">cfg_file=&url-icinga-base;/etc/hosts.cfg</emphasis>
-
-                 
-              </emphasis>
-
-               
-            </para> <para>
-               
-
-              <emphasis condition="red" role="color">
-                 
-
-                <emphasis role="bold">cfg_file=&url-icinga-base;/etc/services.cfg</emphasis>
-
-                 
-              </emphasis>
-
-               
-            </para> <para>
-               
-
-              <emphasis condition="red" role="color">
-                 
-
-                <emphasis role="bold">cfg_file=&url-icinga-base;/etc/commands.cfg</emphasis>
-
-                 
-              </emphasis>
-
-               
-            </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">cfg_file=&url-icinga-base;/etc/conf.d/hosts.cfg</emphasis></emphasis></para><para><emphasis condition="red"
+          role="color"><emphasis role="bold">cfg_file=&url-icinga-base;/etc/conf.d/services.cfg</emphasis></emphasis></para><para><emphasis condition="red" role="color"><emphasis role="bold">cfg_file=&url-icinga-base;/etc/conf.d/commands.cfg</emphasis>
+          </emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -709,61 +678,32 @@
   groups, services, commands, etc. You can separate your configuration information into several files and specify multiple
   <emphasis>cfg_file=</emphasis> statements to have each of them processed.</para>
 
-  <para><anchor xml:id="configmain-cfg_dir" /> <emphasis role="bold">Object Configuration Directory</emphasis></para>
+  <note>
+    <para>Using <filename>cfg_file=.../foo/bar.cfg</filename> for a file in the same directory which is specified in a
+    <filename>cfg_dir=.../foo</filename> directive will result in the file being processed twice and lead to config verification
+    errors.</para>
+  </note>
+
+  <para><anchor xml:id="configmain-cfg_dir"/> <emphasis role="bold">Object Configuration Directory</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">cfg_dir=&lt;directory_name&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">cfg_dir=&lt;directory_name&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para>
-               
-
-              <emphasis condition="red" role="color">
-                 
-
-                <emphasis role="bold">cfg_dir=&url-icinga-base;/etc/commands</emphasis>
-
-                 
-              </emphasis>
-
-               
-            </para> <para>
-               
-
-              <emphasis condition="red" role="color">
-                 
-
-                <emphasis role="bold">cfg_dir=&url-icinga-base;/etc/services</emphasis>
-
-                 
-              </emphasis>
-
-               
-            </para> <para>
-               
-
-              <emphasis condition="red" role="color">
-                 
-
-                <emphasis role="bold">cfg_dir=&url-icinga-base;/etc/hosts</emphasis>
-
-                 
-              </emphasis>
-
-               
-            </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">cfg_dir=&url-icinga-base;/etc/conf.d</emphasis>
+          </emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -775,26 +715,32 @@
   You can separate your configuration files into different directories and specify multiple <emphasis>cfg_dir=</emphasis> statements to have
   all config files in each directory processed.</para>
 
-  <para><anchor xml:id="configmain-object_cache_file" /> <emphasis role="bold">Object Cache File</emphasis></para>
+  <note>
+    <para>Using <filename>cfg_file=.../foo/bar.cfg</filename> for a file in the same directory which is specified in a
+    <filename>cfg_dir=.../foo</filename> directive will result in the file being processed twice and lead to config verification
+    errors.</para>
+  </note>
+
+  <para><anchor xml:id="configmain-object_cache_file"/> <emphasis role="bold">Object Cache File</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">object_cache_file=&lt;file_name&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">object_cache_file=&lt;file_name&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis
-          role="bold">object_cache_file=&url-icinga-base;/var/objects.cache</emphasis> </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">object_cache_file=&url-icinga-base;/var/objects.cache</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -805,26 +751,26 @@
   file caching in the CGIs and allow you to edit the source <link linkend="configmain-cfg_file">object config files</link> while
   &name-icinga; is running without affecting the output displayed in the CGIs.</para>
 
-  <para><anchor xml:id="configmain-precached_object_file" /> <emphasis role="bold">Precached Object File</emphasis></para>
+  <para><anchor xml:id="configmain-precached_object_file"/> <emphasis role="bold">Precached Object File</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">precached_object_file=&lt;file_name&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">precached_object_file=&lt;file_name&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis
-          role="bold">precached_object_file=&url-icinga-base;/var/objects.precache</emphasis> </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">precached_object_file=&url-icinga-base;/var/objects.precache</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -834,26 +780,26 @@
   definitions</link> should be stored. This file can be used to drastically improve startup times in large/complex &name-icinga;
   installations. Read more information on how to speed up start times <link linkend="faststartup">here</link>.</para>
 
-  <para><anchor xml:id="configmain-resource_file" /> <emphasis role="bold">Resource File</emphasis></para>
+  <para><anchor xml:id="configmain-resource_file"/> <emphasis role="bold">Resource File</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">resource_file=&lt;file_name&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">resource_file=&lt;file_name&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis
-          role="bold">resource_file=&url-icinga-base;/etc/resource.cfg</emphasis> </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">resource_file=&url-icinga-base;/etc/resource.cfg</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -866,26 +812,26 @@
   will process them all. See the sample resource.cfg file in the <emphasis>sample-config/</emphasis> subdirectory of the &name-icinga;
   distribution for an example of how to define $USERn$ macros.</para>
 
-  <para><anchor xml:id="configmain-temp_file" /> <emphasis role="bold">Temp File</emphasis></para>
+  <para><anchor xml:id="configmain-temp_file"/> <emphasis role="bold">Temp File</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">temp_file=&lt;file_name&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">temp_file=&lt;file_name&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">temp_file=&url-icinga-base;/var/icinga.tmp</emphasis>
-          </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">temp_file=&url-icinga-base;/var/icinga.tmp</emphasis>
+          </emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -894,25 +840,25 @@
   <para>This is a temporary file that &name-icinga; periodically creates to use when updating comment data, status data, etc. The file is
   deleted when it is no longer needed.</para>
 
-  <para><anchor xml:id="configmain-temp_path" /> <emphasis role="bold">Temp Path</emphasis></para>
+  <para><anchor xml:id="configmain-temp_path"/> <emphasis role="bold">Temp Path</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">temp_path=&lt;dir_name&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">temp_path=&lt;dir_name&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">temp_path=/tmp</emphasis> </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">temp_path=/tmp</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -922,26 +868,26 @@
   should run <emphasis>tmpwatch</emphasis>, or a similiar utility, on this directory occassionally to delete files older than 24
   hours.</para>
 
-  <para><anchor xml:id="configmain-status_file" /> <emphasis role="bold">Status File</emphasis></para>
+  <para><anchor xml:id="configmain-status_file"/> <emphasis role="bold">Status File</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">status_file=&lt;file_name&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">status_file=&lt;file_name&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis
-          role="bold">status_file=&url-icinga-base;/var/status.dat</emphasis> </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">status_file=&url-icinga-base;/var/status.dat</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -951,25 +897,25 @@
   CGIs so that current monitoring status can be reported via a web interface. The CGIs must have read access to this file in order to
   function properly. This file is deleted every time &name-icinga; stops and recreated when it starts.</para>
 
-  <para><anchor xml:id="configmain-status_update_interval" /> <emphasis role="bold">Status File Update Interval</emphasis></para>
+  <para><anchor xml:id="configmain-status_update_interval"/> <emphasis role="bold">Status File Update Interval</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">status_update_interval=&lt;seconds&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">status_update_interval=&lt;seconds&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">status_update_interval=15</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">status_update_interval=15</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -979,25 +925,25 @@
   <para>This setting determines how often (in seconds) that &name-icinga; will update status data in the <link
   linkend="configmain-status_file">status file</link>. The minimum update interval is 1 second.</para>
 
-  <para><anchor xml:id="configmain-icinga_user" /> <emphasis role="bold">&name-icinga; User</emphasis></para>
+  <para><anchor xml:id="configmain-icinga_user"/> <emphasis role="bold">&name-icinga; User</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">icinga_user=&lt;username/UID&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">icinga_user=&lt;username/UID&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">icinga_user=icinga</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">icinga_user=icinga</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -1008,25 +954,25 @@
   starting to monitor anything, &name-icinga; will drop its effective privileges and run as this user. You may specify either a username or
   a UID.</para>
 
-  <para><anchor xml:id="configmain-icinga_group" /> <emphasis role="bold">&name-icinga; Group</emphasis></para>
+  <para><anchor xml:id="configmain-icinga_group"/> <emphasis role="bold">&name-icinga; Group</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">icinga_group=&lt;groupname/GID&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">icinga_group=&lt;groupname/GID&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">icinga_group=icinga</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">icinga_group=icinga</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -1037,25 +983,25 @@
   starting to monitor anything, &name-icinga; will drop its effective privileges and run as this group. You may specify either a groupname
   or a GID.</para>
 
-  <para><anchor xml:id="configmain-enable_notifications" /> <emphasis role="bold">Notifications Option</emphasis></para>
+  <para><anchor xml:id="configmain-enable_notifications"/> <emphasis role="bold">Notifications Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">enable_notifications=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">enable_notifications=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">enable_notifications=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">enable_notifications=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -1086,25 +1032,25 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-execute_service_checks" /> <emphasis role="bold">Service Check Execution Option</emphasis></para>
+  <para><anchor xml:id="configmain-execute_service_checks"/> <emphasis role="bold">Service Check Execution Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">execute_service_checks=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">execute_service_checks=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">execute_service_checks=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">execute_service_checks=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -1138,26 +1084,26 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-accept_passive_service_checks" /> <emphasis role="bold">Passive Service Check Acceptance
+  <para><anchor xml:id="configmain-accept_passive_service_checks"/> <emphasis role="bold">Passive Service Check Acceptance
   Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">accept_passive_service_checks=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">accept_passive_service_checks=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">accept_passive_service_checks=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">accept_passive_service_checks=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -1188,25 +1134,25 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-execute_host_checks" /> <emphasis role="bold">Host Check Execution Option</emphasis></para>
+  <para><anchor xml:id="configmain-execute_host_checks"/> <emphasis role="bold">Host Check Execution Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">execute_host_checks=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">execute_host_checks=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">execute_host_checks=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">execute_host_checks=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -1240,26 +1186,26 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-accept_passive_host_checks" /> <emphasis role="bold">Passive Host Check Acceptance
+  <para><anchor xml:id="configmain-accept_passive_host_checks"/> <emphasis role="bold">Passive Host Check Acceptance
   Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">accept_passive_host_checks=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">accept_passive_host_checks=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">accept_passive_host_checks=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">accept_passive_host_checks=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -1290,25 +1236,25 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-enable_event_handlers" /> <emphasis role="bold">Event Handler Option</emphasis></para>
+  <para><anchor xml:id="configmain-enable_event_handlers"/> <emphasis role="bold">Event Handler Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">enable_event_handlers=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">enable_event_handlers=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">enable_event_handlers=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">enable_event_handlers=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -1339,25 +1285,25 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-log_rotation_method" /> <emphasis role="bold">Log Rotation Method</emphasis></para>
+  <para><anchor xml:id="configmain-log_rotation_method"/> <emphasis role="bold">Log Rotation Method</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">log_rotation_method=&lt;n/h/d/w/m&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">log_rotation_method=&lt;n/h/d/w/m&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">log_rotation_method=d</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">log_rotation_method=d</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -1388,26 +1334,26 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-log_archive_path" /> <emphasis role="bold">Log Archive Path</emphasis></para>
+  <para><anchor xml:id="configmain-log_archive_path"/> <emphasis role="bold">Log Archive Path</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">log_archive_path=&lt;path&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">log_archive_path=&lt;path&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis
-          role="bold">log_archive_path=&url-icinga-base;/var/archives/</emphasis> </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">log_archive_path=&url-icinga-base;/var/archives/</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -1416,25 +1362,25 @@
   <para>This is the directory where &name-icinga; should place log files that have been rotated. This option is ignored if you choose to not
   use the <link linkend="configmain-log_rotation_method">log rotation</link> functionality.</para>
 
-  <para><anchor xml:id="configmain-check_external_commands" /> <emphasis role="bold">External Command Check Option</emphasis></para>
+  <para><anchor xml:id="configmain-check_external_commands"/> <emphasis role="bold">External Command Check Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">check_external_commands=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">check_external_commands=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">check_external_commands=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">check_external_commands=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -1455,25 +1401,25 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-command_check_interval" /> <emphasis role="bold">External Command Check Interval</emphasis></para>
+  <para><anchor xml:id="configmain-command_check_interval"/> <emphasis role="bold">External Command Check Interval</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">command_check_interval=&lt;xxx&gt;[s]</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">command_check_interval=&lt;xxx&gt;[s]</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">command_check_interval=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">command_check_interval=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -1492,26 +1438,26 @@
     can be found <link linkend="extcommands">here</link>.</para>
   </note>
 
-  <para><anchor xml:id="configmain-command_file" /> <emphasis role="bold">External Command File</emphasis></para>
+  <para><anchor xml:id="configmain-command_file"/> <emphasis role="bold">External Command File</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">command_file=&lt;file_name&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">command_file=&lt;file_name&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis
-          role="bold">command_file=&url-icinga-base;/var/rw/icinga.cmd</emphasis> </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">command_file=&url-icinga-base;/var/rw/icinga.cmd</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -1522,26 +1468,26 @@
   and removed when it shuts down. If the file exists when &name-icinga; starts, the &name-icinga; process will terminate with an error
   message. More information on external commands can be found <link linkend="extcommands">here</link>.</para>
 
-  <para><anchor xml:id="configmain-external_command_buffer_slots" /> <emphasis role="bold">External Command Buffer Slots</emphasis></para>
+  <para><anchor xml:id="configmain-external_command_buffer_slots"/> <emphasis role="bold">External Command Buffer Slots</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">external_command_buffer_slots=&lt;#&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">external_command_buffer_slots=&lt;#&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">external_command_buffer_slots=512</emphasis>
-          </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">external_command_buffer_slots=512</emphasis>
+          </emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -1552,29 +1498,29 @@
     that have been read from the external command file by a worker thread, but have not yet been processed by the main thread of the
     &name-icinga; deamon. Each slot can hold one external command, so this option essentially determines how many commands can be buffered.
     For installations where you process a large number of passive checks (e.g. <link linkend="distributed">distributed setups</link>), you
-    may need to increase this number. You should consider using &name-pnp; to graph &name-icinga;'s usage of external command buffers. You can
-    read more on how to configure graphing <link linkend="perfgraphs">here</link>.</para>
+    may need to increase this number. You should consider using &name-pnp; to graph &name-icinga;'s usage of external command buffers. You
+    can read more on how to configure graphing <link linkend="perfgraphs">here</link>.</para>
   </note>
 
-  <para><anchor xml:id="configmain-Update-Checks" /><emphasis role="bold">Update Checks</emphasis></para>
+  <para><anchor xml:id="configmain-Update-Checks"/><emphasis role="bold">Update Checks</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para><emphasis role="bold">check_for_updates=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">check_for_updates=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para><emphasis condition="red" role="color"> <emphasis role="bold">check_for_updates=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">check_for_updates=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -1585,25 +1531,25 @@
 
   <para>&name-icinga; ignores this option. Starting with version 1.2 you will receive a warning.</para>
 
-  <para><anchor xml:id="configmain-Bare-Update-Checks" /><emphasis role="bold">Bare Update Checks</emphasis></para>
+  <para><anchor xml:id="configmain-Bare-Update-Checks"/><emphasis role="bold">Bare Update Checks</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para><emphasis role="bold">bare_update_checks=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">bare_update_checks=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para><emphasis condition="red" role="color"> <emphasis role="bold">bare_update_checks=0</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">bare_update_checks=0</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -1614,25 +1560,25 @@
 
   <para>&name-icinga; ignores this option. Starting with version 1.2 you will receive a warning.</para>
 
-  <para><anchor xml:id="configmain-lock_file" /> <emphasis role="bold">Lock File</emphasis></para>
+  <para><anchor xml:id="configmain-lock_file"/> <emphasis role="bold">Lock File</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">lock_file=&lt;file_name&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">lock_file=&lt;file_name&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">lock_file=/tmp/icinga.lock</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">lock_file=/tmp/icinga.lock</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -1642,25 +1588,25 @@
   <para>This option specifies the location of the lock file that &name-icinga; should create when it runs as a daemon (when started with the
   -d command line argument). This file contains the process id (PID) number of the running &name-icinga; process.</para>
 
-  <para><anchor xml:id="configmain-retain_state_information" /> <emphasis role="bold">State Retention Option</emphasis></para>
+  <para><anchor xml:id="configmain-retain_state_information"/> <emphasis role="bold">State Retention Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">retain_state_information=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">retain_state_information=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">retain_state_information=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">retain_state_information=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -1682,26 +1628,26 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-state_retention_file" /> <emphasis role="bold">State Retention File</emphasis></para>
+  <para><anchor xml:id="configmain-state_retention_file"/> <emphasis role="bold">State Retention File</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">state_retention_file=&lt;file_name&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">state_retention_file=&lt;file_name&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis
-          role="bold">state_retention_file=&url-icinga-base;/var/retention.dat</emphasis> </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">state_retention_file=&url-icinga-base;/var/retention.dat</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -1712,26 +1658,26 @@
   starts monitoring anything. In order to make &name-icinga; retain state information between program restarts, you must enable the <link
   linkend="configmain-retain_state_information">retain_state_information</link> option.</para>
 
-  <para><anchor xml:id="configmain-sync_retention_file" /> <emphasis role="bold">Sync Retention File</emphasis></para>
+  <para><anchor xml:id="configmain-sync_retention_file"/> <emphasis role="bold">Sync Retention File</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">sync_retention_file=&lt;file_name&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">sync_retention_file=&lt;file_name&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis
-          role="bold">sync_retention_file=&url-icinga-base;/var/sync.dat</emphasis> </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">sync_retention_file=&url-icinga-base;/var/sync.dat</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -1744,26 +1690,26 @@
   that host or service. After the sync file has been read, it will be removed. To disable, comment out the option. This option can be used
   starting with &name-icinga; 1.0.2.</para>
 
-  <para><anchor xml:id="configmain-retention_update_interval" /> <emphasis role="bold">Automatic State Retention Update
+  <para><anchor xml:id="configmain-retention_update_interval"/> <emphasis role="bold">Automatic State Retention Update
   Interval</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">retention_update_interval=&lt;minutes&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">retention_update_interval=&lt;minutes&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">retention_update_interval=60</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">retention_update_interval=60</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -1775,25 +1721,25 @@
   shutting down or restarting. If you have disabled state retention (with the <link
   linkend="configmain-retain_state_information">retain_state_information</link> option), this option has no effect.</para>
 
-  <para><anchor xml:id="configmain-use_retained_program_state" /> <emphasis role="bold">Use Retained Program State Option</emphasis></para>
+  <para><anchor xml:id="configmain-use_retained_program_state"/> <emphasis role="bold">Use Retained Program State Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">use_retained_program_state=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">use_retained_program_state=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">use_retained_program_state=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">use_retained_program_state=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -1819,26 +1765,26 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-use_retained_scheduling_info" /> <emphasis role="bold">Use Retained Scheduling Info
+  <para><anchor xml:id="configmain-use_retained_scheduling_info"/> <emphasis role="bold">Use Retained Scheduling Info
   Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">use_retained_scheduling_info=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">use_retained_scheduling_info=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">use_retained_scheduling_info=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">use_retained_scheduling_info=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -1859,16 +1805,16 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-retained_host_attribute_mask" /></para>
+  <para><anchor xml:id="configmain-retained_host_attribute_mask"/></para>
 
-  <para><anchor xml:id="configmain-retained_service_attribute_mask" /> <emphasis role="bold">Retained Host and Service Attribute
+  <para><anchor xml:id="configmain-retained_service_attribute_mask"/> <emphasis role="bold">Retained Host and Service Attribute
   Masks</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
@@ -1928,16 +1874,16 @@
   a bitwise AND of values specified by the "MODATTR_" definitions in the include/common.h source code file. By default, all host and service
   attributes are retained.</para>
 
-  <para><anchor xml:id="configmain-retained_process_host_attribute_mask" /></para>
+  <para><anchor xml:id="configmain-retained_process_host_attribute_mask"/></para>
 
-  <para><anchor xml:id="configmain-retained_process_service_attribute_mask" /> <emphasis role="bold">Retained Process Attribute
+  <para><anchor xml:id="configmain-retained_process_service_attribute_mask"/> <emphasis role="bold">Retained Process Attribute
   Masks</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
@@ -1998,16 +1944,16 @@
   while service checks are still enabled. The values for these options are a bitwise AND of values specified by the "MODATTR_" definitions
   in the include/common.h source code file. By default, all process attributes are retained.</para>
 
-  <para><anchor xml:id="configmain-retained_contact_host_attribute_mask" /></para>
+  <para><anchor xml:id="configmain-retained_contact_host_attribute_mask"/></para>
 
-  <para><anchor xml:id="configmain-retained_contact_service_attribute_mask" /> <emphasis role="bold">Retained Contact Attribute
+  <para><anchor xml:id="configmain-retained_contact_service_attribute_mask"/> <emphasis role="bold">Retained Contact Attribute
   Masks</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
@@ -2067,25 +2013,25 @@
   often separate host and service contact attributes that can be changed. The values for these options are a bitwise AND of values specified
   by the "MODATTR_" definitions in the include/common.h source code file. By default, all process attributes are retained.</para>
 
-  <para><anchor xml:id="configmain-use_syslog" /> <emphasis role="bold">Syslog Logging Option</emphasis></para>
+  <para><anchor xml:id="configmain-use_syslog"/> <emphasis role="bold">Syslog Logging Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">use_syslog=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">use_syslog=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">use_syslog=1</emphasis> </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">use_syslog=1</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -2103,25 +2049,25 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-use_syslog_local_facility" /> <emphasis role="bold">Local Syslog Facility Option</emphasis></para>
+  <para><anchor xml:id="configmain-use_syslog_local_facility"/> <emphasis role="bold">Local Syslog Facility Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">use_syslog_local_facility=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">use_syslog_local_facility=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">use_syslog_local_facility=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">use_syslog_local_facility=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -2142,25 +2088,25 @@
 
   <para>This option can be used starting with &name-icinga; 1.0.2.</para>
 
-  <para><anchor xml:id="configmain-syslog_local_facility" /> <emphasis role="bold">Syslog Local Facility Value</emphasis></para>
+  <para><anchor xml:id="configmain-syslog_local_facility"/> <emphasis role="bold">Syslog Local Facility Value</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">syslog_local_facility=&lt;0|1|2|3|4|5|6|7&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">syslog_local_facility=&lt;0|1|2|3|4|5|6|7&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">syslog_local_facility=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">syslog_local_facility=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -2170,25 +2116,25 @@
   <para>If you enabled use_syslog_local_facility you can choose which local facility to use. Valid values are from 0 to 7. This option can
   be used starting with &name-icinga; 1.0.2.</para>
 
-  <para><anchor xml:id="configmain-log_notifications" /> <emphasis role="bold">Notification Logging Option</emphasis></para>
+  <para><anchor xml:id="configmain-log_notifications"/> <emphasis role="bold">Notification Logging Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">log_notifications=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">log_notifications=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">log_notifications=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">log_notifications=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -2208,25 +2154,25 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-log_service_retries" /> <emphasis role="bold">Service Check Retry Logging Option</emphasis></para>
+  <para><anchor xml:id="configmain-log_service_retries"/> <emphasis role="bold">Service Check Retry Logging Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">log_service_retries=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">log_service_retries=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">log_service_retries=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">log_service_retries=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -2248,25 +2194,25 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-log_host_retries" /> <emphasis role="bold">Host Check Retry Logging Option</emphasis></para>
+  <para><anchor xml:id="configmain-log_host_retries"/> <emphasis role="bold">Host Check Retry Logging Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">log_host_retries=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">log_host_retries=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">log_host_retries=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">log_host_retries=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -2286,25 +2232,25 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-log_event_handlers" /> <emphasis role="bold">Event Handler Logging Option</emphasis></para>
+  <para><anchor xml:id="configmain-log_event_handlers"/> <emphasis role="bold">Event Handler Logging Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">log_event_handlers=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">log_event_handlers=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">log_event_handlers=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">log_event_handlers=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -2325,25 +2271,25 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-log_initial_states" /> <emphasis role="bold">Initial States Logging Option</emphasis></para>
+  <para><anchor xml:id="configmain-log_initial_states"/> <emphasis role="bold">Initial States Logging Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">log_initial_states=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">log_initial_states=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">log_initial_states=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">log_initial_states=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -2365,25 +2311,25 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-log_external_commands" /> <emphasis role="bold">External Command Logging Option</emphasis></para>
+  <para><anchor xml:id="configmain-log_external_commands"/> <emphasis role="bold">External Command Logging Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">log_external_commands=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">log_external_commands=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">log_external_commands=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">log_external_commands=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -2409,26 +2355,26 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-log_external_commands_user" /> <emphasis role="bold">External Commands User Logging
+  <para><anchor xml:id="configmain-log_external_commands_user"/> <emphasis role="bold">External Commands User Logging
   Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">log_external_commands_user=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">log_external_commands_user=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">log_external_commands_user=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">log_external_commands_user=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -2438,8 +2384,11 @@
   <para>This option allows you to enable the logging of the current user of external commands. The syntax will be CMD;username;cmdargs
   instead of CMD;cmdargs written to the logs, if the external application sends that correctly. Since this will break compatibility with
   existing log parsers, it is intentionally disabled by default.</para>
-  <note><para>This option is deprecated starting with &name-icinga; 1.4 because you can use the directive
-  <link linkend="configcgi-use_logging">use_logging</link> to enable logging of CGI commands.</para></note>
+
+  <note>
+    <para>This option is deprecated starting with &name-icinga; 1.4 because you can use the directive <link
+    linkend="configcgi-use_logging">use_logging</link> to enable logging of CGI commands.</para>
+  </note>
 
   <itemizedlist>
     <listitem>
@@ -2455,25 +2404,25 @@
     <para>This option is available starting with &name-icinga; 1.0.3.</para>
   </note>
 
-  <para><anchor xml:id="configmain-log_passive_checks" /> <emphasis role="bold">Passive Check Logging Option</emphasis></para>
+  <para><anchor xml:id="configmain-log_passive_checks"/> <emphasis role="bold">Passive Check Logging Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">log_passive_checks=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">log_passive_checks=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">log_passive_checks=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">log_passive_checks=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -2495,25 +2444,25 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-log_current_states" /> <emphasis role="bold">Current State Logging Option</emphasis></para>
+  <para><anchor xml:id="configmain-log_current_states"/> <emphasis role="bold">Current State Logging Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">log_current_states=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">log_current_states=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">log_current_states=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">log_current_states=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -2537,25 +2486,25 @@
     <para>This option is available starting with &name-icinga; 1.0.3.</para>
   </note>
 
-  <para><anchor xml:id="configmain-log_long_plugin_output" /> <emphasis role="bold">Long Plugin Output Logging Option</emphasis></para>
+  <para><anchor xml:id="configmain-log_long_plugin_output"/> <emphasis role="bold">Long Plugin Output Logging Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">log_long_plugin_output=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">log_long_plugin_output=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">log_long_plugin_output=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">log_long_plugin_output=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -2579,26 +2528,26 @@
     <para>This option is available starting with &name-icinga; 1.0.3.</para>
   </note>
 
-  <para><anchor xml:id="configmain-global_host_event_handler" /> <emphasis role="bold">Global Host Event Handler Option</emphasis></para>
+  <para><anchor xml:id="configmain-global_host_event_handler"/> <emphasis role="bold">Global Host Event Handler Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">global_host_event_handler=&lt;command&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">global_host_event_handler=&lt;command&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis
-          role="bold">global_host_event_handler=log-host-event-to-db</emphasis> </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">global_host_event_handler=log-host-event-to-db</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -2611,27 +2560,27 @@
   linkend="configmain-event_handler_timeout">event_handler_timeout</link> option. More information on event handlers can be found <link
   linkend="eventhandlers">here</link>.</para>
 
-  <para><anchor xml:id="configmain-global_service_event_handler" /> <emphasis role="bold">Global Service Event Handler
+  <para><anchor xml:id="configmain-global_service_event_handler"/> <emphasis role="bold">Global Service Event Handler
   Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">global_service_event_handler=&lt;command&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">global_service_event_handler=&lt;command&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis
-          role="bold">global_service_event_handler=log-service-event-to-db</emphasis> </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">global_service_event_handler=log-service-event-to-db</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -2644,17 +2593,17 @@
   linkend="configmain-event_handler_timeout">event_handler_timeout</link> option. More information on event handlers can be found <link
   linkend="eventhandlers">here</link>.</para>
 
-  <para><anchor xml:id="configmain-stalking_event_handlers_for_hosts" /> <emphasis role="bold"> Event handlers for stalked
+  <para><anchor xml:id="configmain-stalking_event_handlers_for_hosts"/> <emphasis role="bold"> Event handlers for stalked
   hosts</emphasis></para>
 
-  <para><anchor xml:id="configmain-stalking_event_handlers_for_services" /> <emphasis role="bold"> Event handlers for stalked
+  <para><anchor xml:id="configmain-stalking_event_handlers_for_services"/> <emphasis role="bold"> Event handlers for stalked
   services</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
@@ -2678,8 +2627,8 @@
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">stalking_event_handlers_for_hosts=1</emphasis>
-          </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">stalking_event_handlers_for_hosts=1</emphasis>
+          </emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -2702,41 +2651,49 @@
     <para>This option is available starting with &name-icinga; 1.0.3.</para>
   </note>
 
-  <para>
-    <anchor xml:id="configmain-stalking_notifications_for_hosts" /> <emphasis role="bold">Notifications for stalked hosts</emphasis>
-  </para>
-  <para>
-    <anchor xml:id="configmain-stalking_notifications_for_services" /> <emphasis role="bold">Notifications for stalked services</emphasis>
-  </para>
+  <para><anchor xml:id="configmain-stalking_notifications_for_hosts"/> <emphasis role="bold">Notifications for stalked
+  hosts</emphasis></para>
+
+  <para><anchor xml:id="configmain-stalking_notifications_for_services"/> <emphasis role="bold">Notifications for stalked
+  services</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry>
-            <para><emphasis role="bold">stalking_notification_for_hosts=&lt;0|1&gt;</emphasis></para>
+          <entry><para>
+               
 
-            <para><emphasis role="bold">stalking_notifications_for_services=&lt;0|1&gt;</emphasis></para>
-          </entry>
+              <emphasis role="bold">stalking_notification_for_hosts=&lt;0|1&gt;</emphasis>
+
+               
+            </para> <para>
+               
+
+              <emphasis role="bold">stalking_notifications_for_services=&lt;0|1&gt;</emphasis>
+
+               
+            </para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">stalking_notifications_for_hosts=1</emphasis>
-          </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">stalking_notifications_for_hosts=1</emphasis>
+          </emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
   </informaltable>
 
   <para>These options specify globally for all contacts whether or not &name-icinga; sends notifications for stalked hosts/services.</para>
+
   <note>
     <para>Unless there are no stalking_options defined on a host/service, the global definitions above won't affect anything.</para>
   </note>
@@ -2755,25 +2712,25 @@
     <para>This option is available starting with &name-icinga; 1.6.</para>
   </note>
 
-  <para><anchor xml:id="configmain-sleep_time" /> <emphasis role="bold">Inter-Check Sleep Time</emphasis></para>
+  <para><anchor xml:id="configmain-sleep_time"/> <emphasis role="bold">Inter-Check Sleep Time</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">sleep_time=&lt;seconds&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">sleep_time=&lt;seconds&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">sleep_time=1</emphasis> </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">sleep_time=1</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -2783,27 +2740,27 @@
   scheduling queue should be executed. Note that &name-icinga; will only sleep after it "catches up" with queued service checks that have
   fallen behind.</para>
 
-  <para><anchor xml:id="configmain-service_inter_check_delay_method" /> <emphasis role="bold">Service Inter-Check Delay
+  <para><anchor xml:id="configmain-service_inter_check_delay_method"/> <emphasis role="bold">Service Inter-Check Delay
   Method</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">service_inter_check_delay_method=&lt;n/d/s/x.xx&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">service_inter_check_delay_method=&lt;n/d/s/x.xx&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">service_inter_check_delay_method=s</emphasis>
-          </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">service_inter_check_delay_method=s</emphasis>
+          </emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -2834,25 +2791,25 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-max_service_check_spread" /> <emphasis role="bold">Maximum Service Check Spread</emphasis></para>
+  <para><anchor xml:id="configmain-max_service_check_spread"/> <emphasis role="bold">Maximum Service Check Spread</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">max_service_check_spread=&lt;minutes&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">max_service_check_spread=&lt;minutes&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">max_service_check_spread=30</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">max_service_check_spread=30</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -2867,25 +2824,25 @@
   linkend="configmain-use_retained_scheduling_info">use_retained_scheduling_info</link> option. Default value is <emphasis
   role="bold">30</emphasis> (minutes).</para>
 
-  <para><anchor xml:id="configmain-service_interleave_factor" /> <emphasis role="bold">Service Interleave Factor</emphasis></para>
+  <para><anchor xml:id="configmain-service_interleave_factor"/> <emphasis role="bold">Service Interleave Factor</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">service_interleave_factor=&lt;s|x&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">service_interleave_factor=&lt;s|x&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">service_interleave_factor=s</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">service_interleave_factor=s</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -2911,25 +2868,25 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-max_concurrent_checks" /> <emphasis role="bold">Maximum Concurrent Service Checks</emphasis></para>
+  <para><anchor xml:id="configmain-max_concurrent_checks"/> <emphasis role="bold">Maximum Concurrent Service Checks</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">max_concurrent_checks=&lt;max_checks&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">max_concurrent_checks=&lt;max_checks&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">max_concurrent_checks=20</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">max_concurrent_checks=20</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -2943,25 +2900,25 @@
   (processor utilization, memory, etc.). More information on how to estimate how many concurrent checks you should allow can be found <link
   linkend="checkscheduling-max_concurrent_checks">here</link>.</para>
 
-  <para><anchor xml:id="configmain-check_result_reaper_frequency" /> <emphasis role="bold">Check Result Reaper Frequency</emphasis></para>
+  <para><anchor xml:id="configmain-check_result_reaper_frequency"/> <emphasis role="bold">Check Result Reaper Frequency</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">check_result_reaper_frequency=&lt;frequency_in_seconds&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">check_result_reaper_frequency=&lt;frequency_in_seconds&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">check_result_reaper_frequency=5</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">check_result_reaper_frequency=5</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -2972,25 +2929,25 @@
   process the results from host and service checks that have finished executing. These events consitute the core of the monitoring logic in
   &name-icinga;.</para>
 
-  <para><anchor xml:id="configmain-max_check_result_reaper_time" /> <emphasis role="bold">Maximum Check Result Reaper Time</emphasis></para>
+  <para><anchor xml:id="configmain-max_check_result_reaper_time"/> <emphasis role="bold">Maximum Check Result Reaper Time</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">max_check_result_reaper_time=&lt;seconds&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">max_check_result_reaper_time=&lt;seconds&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">max_check_result_reaper_time=30</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">max_check_result_reaper_time=30</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -3003,26 +2960,26 @@
   service checks. This variable allows you to limit the amount of time that an individual reaper event will run before it hands control back
   over to &name-icinga; for other portions of the monitoring logic.</para>
 
-  <para><anchor xml:id="configmain-check_result_path" /> <emphasis role="bold">Check Result Path</emphasis></para>
+  <para><anchor xml:id="configmain-check_result_path"/> <emphasis role="bold">Check Result Path</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">check_result_path=&lt;path&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">check_result_path=&lt;path&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis
-          role="bold">check_result_path=/var/spool/icinga/checkresults</emphasis> </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">check_result_path=/var/spool/icinga/checkresults</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -3038,25 +2995,25 @@
     the wrong instance of &name-icinga;!</para>
   </note>
 
-  <para><anchor xml:id="configmain-max_check_result_file_age" /> <emphasis role="bold">Max Check Result File Age</emphasis></para>
+  <para><anchor xml:id="configmain-max_check_result_file_age"/> <emphasis role="bold">Max Check Result File Age</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">max_check_result_file_age=&lt;seconds&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">max_check_result_file_age=&lt;seconds&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">max_check_result_file_age=3600</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">max_check_result_file_age=3600</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -3068,25 +3025,25 @@
   threshold will be deleted by &name-icinga; and the check results they contain will not be processed. By using a value of zero (0) with
   this option, &name-icinga; will process all check result files - even if they're older than your hardware :-).</para>
 
-  <para><anchor xml:id="configmain-host_inter_check_delay_method" /> <emphasis role="bold">Host Inter-Check Delay Method</emphasis></para>
+  <para><anchor xml:id="configmain-host_inter_check_delay_method"/> <emphasis role="bold">Host Inter-Check Delay Method</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">host_inter_check_delay_method=&lt;n/d/s/x.xx&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">host_inter_check_delay_method=&lt;n/d/s/x.xx&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">host_inter_check_delay_method=s</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">host_inter_check_delay_method=s</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -3118,25 +3075,25 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-max_host_check_spread" /> <emphasis role="bold">Maximum Host Check Spread</emphasis></para>
+  <para><anchor xml:id="configmain-max_host_check_spread"/> <emphasis role="bold">Maximum Host Check Spread</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">max_host_check_spread=&lt;minutes&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">max_host_check_spread=&lt;minutes&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">max_host_check_spread=30</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">max_host_check_spread=30</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -3150,25 +3107,25 @@
   linkend="configmain-use_retained_scheduling_info">use_retained_scheduling_info</link> option. Default value is <emphasis
   role="bold">30</emphasis> (minutes).</para>
 
-  <para><anchor xml:id="configmain-interval_length" /> <emphasis role="bold">Timing Interval Length</emphasis></para>
+  <para><anchor xml:id="configmain-interval_length"/> <emphasis role="bold">Timing Interval Length</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">interval_length=&lt;seconds&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">interval_length=&lt;seconds&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">interval_length=60</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">interval_length=60</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -3182,25 +3139,25 @@
   object configuration file will mean 60 seconds (1 minute). We have not really tested other values for this variable, so proceed at your
   own risk if you decide to do so!</para>
 
-  <para><anchor xml:id="configmain-auto_reschedule_checks" /> <emphasis role="bold">Auto-Rescheduling Option</emphasis></para>
+  <para><anchor xml:id="configmain-auto_reschedule_checks"/> <emphasis role="bold">Auto-Rescheduling Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">auto_reschedule_checks=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">auto_reschedule_checks=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">auto_reschedule_checks=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">auto_reschedule_checks=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -3214,25 +3171,25 @@
   <para><emphasis role="bold">WARNING:</emphasis> THIS IS AN EXPERIMENTAL FEATURE AND MAY BE REMOVED IN FUTURE VERSIONS. ENABLING THIS
   OPTION CAN DEGRADE PERFORMANCE - RATHER THAN INCREASE IT - IF USED IMPROPERLY!</para>
 
-  <para><anchor xml:id="configmain-auto_rescheduling_interval" /> <emphasis role="bold">Auto-Rescheduling Interval</emphasis></para>
+  <para><anchor xml:id="configmain-auto_rescheduling_interval"/> <emphasis role="bold">Auto-Rescheduling Interval</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">auto_rescheduling_interval=&lt;seconds&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">auto_rescheduling_interval=&lt;seconds&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">auto_rescheduling_interval=30</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">auto_rescheduling_interval=30</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -3246,25 +3203,25 @@
   <para><emphasis role="bold">WARNING:</emphasis> THIS IS AN EXPERIMENTAL FEATURE AND MAY BE REMOVED IN FUTURE VERSIONS. ENABLING THE
   AUTO-RESCHEDULING OPTION CAN DEGRADE PERFORMANCE - RATHER THAN INCREASE IT - IF USED IMPROPERLY!</para>
 
-  <para><anchor xml:id="configmain-auto_rescheduling_window" /> <emphasis role="bold">Auto-Rescheduling Window</emphasis></para>
+  <para><anchor xml:id="configmain-auto_rescheduling_window"/> <emphasis role="bold">Auto-Rescheduling Window</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">auto_rescheduling_window=&lt;seconds&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">auto_rescheduling_window=&lt;seconds&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">auto_rescheduling_window=180</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">auto_rescheduling_window=180</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -3279,27 +3236,27 @@
   <para><emphasis role="bold">WARNING:</emphasis> THIS IS AN EXPERIMENTAL FEATURE AND MAY BE REMOVED IN FUTURE VERSIONS. ENABLING THE
   AUTO-RESCHEDULING OPTION CAN DEGRADE PERFORMANCE - RATHER THAN INCREASE IT - IF USED IMPROPERLY!</para>
 
-  <para><anchor xml:id="configmain-use_agressive_host_checking" /></para>
+  <para><anchor xml:id="configmain-use_agressive_host_checking"/></para>
 
-  <para><anchor xml:id="configmain-use_aggressive_host_checking" /> <emphasis role="bold">Aggressive Host Checking Option</emphasis></para>
+  <para><anchor xml:id="configmain-use_aggressive_host_checking"/> <emphasis role="bold">Aggressive Host Checking Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">use_aggressive_host_checking=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">use_aggressive_host_checking=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">use_aggressive_host_checking=0</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">use_aggressive_host_checking=0</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -3321,26 +3278,26 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-translate_passive_host_checks" /> <emphasis role="bold">Translate Passive Host Checks
+  <para><anchor xml:id="configmain-translate_passive_host_checks"/> <emphasis role="bold">Translate Passive Host Checks
   Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">translate_passive_host_checks=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">translate_passive_host_checks=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">translate_passive_host_checks=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">translate_passive_host_checks=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -3362,26 +3319,26 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-passive_host_checks_are_soft" /> <emphasis role="bold">Passive Host Checks Are SOFT
+  <para><anchor xml:id="configmain-passive_host_checks_are_soft"/> <emphasis role="bold">Passive Host Checks Are SOFT
   Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">passive_host_checks_are_soft=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">passive_host_checks_are_soft=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">passive_host_checks_are_soft=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">passive_host_checks_are_soft=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -3402,27 +3359,27 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-enable_predictive_host_dependency_checks" /> <emphasis role="bold">Predictive Host Dependency Checks
+  <para><anchor xml:id="configmain-enable_predictive_host_dependency_checks"/> <emphasis role="bold">Predictive Host Dependency Checks
   Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">enable_predictive_host_dependency_checks=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">enable_predictive_host_dependency_checks=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">enable_predictive_host_dependency_checks=1</emphasis>
-          </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">enable_predictive_host_dependency_checks=1</emphasis>
+          </emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -3443,27 +3400,27 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-enable_predictive_service_dependency_checks" /> <emphasis role="bold">Predictive Service Dependency
-  Checks Option</emphasis></para>
+  <para><anchor xml:id="configmain-enable_predictive_service_dependency_checks"/> <emphasis role="bold">Predictive Service Dependency Checks
+  Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">enable_predictive_service_dependency_checks=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">enable_predictive_service_dependency_checks=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis
-          role="bold">enable_predictive_service_dependency_checks=1</emphasis> </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">enable_predictive_service_dependency_checks=1</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -3484,25 +3441,25 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-cached_host_check_horizon" /> <emphasis role="bold">Cached Host Check Horizon</emphasis></para>
+  <para><anchor xml:id="configmain-cached_host_check_horizon"/> <emphasis role="bold">Cached Host Check Horizon</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">cached_host_check_horizon=&lt;seconds&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">cached_host_check_horizon=&lt;seconds&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">cached_host_check_horizon=15</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">cached_host_check_horizon=15</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -3515,25 +3472,25 @@
   performance hit for host checks. Use a value of 0 if you want to disable host check caching. More information on cached checks can be
   found <link linkend="cachedchecks">here</link>.</para>
 
-  <para><anchor xml:id="configmain-cached_service_check_horizon" /> <emphasis role="bold">Cached Service Check Horizon</emphasis></para>
+  <para><anchor xml:id="configmain-cached_service_check_horizon"/> <emphasis role="bold">Cached Service Check Horizon</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">cached_service_check_horizon=&lt;seconds&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">cached_service_check_horizon=&lt;seconds&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">cached_service_check_horizon=15</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">cached_service_check_horizon=15</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -3546,26 +3503,25 @@
   value for this option may result in inaccuracies in the service dependency logic. Use a value of 0 if you want to disable service check
   caching. More information on cached checks can be found <link linkend="cachedchecks">here</link>.</para>
 
-  <para><anchor xml:id="configmain-use_large_installation_tweaks" /> <emphasis role="bold">Large Installation Tweaks
-  Option</emphasis></para>
+  <para><anchor xml:id="configmain-use_large_installation_tweaks"/> <emphasis role="bold">Large Installation Tweaks Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">use_large_installation_tweaks=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">use_large_installation_tweaks=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">use_large_installation_tweaks=0</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">use_large_installation_tweaks=0</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -3586,25 +3542,25 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-free_child_process_memory" /> <emphasis role="bold">Child Process Memory Option</emphasis></para>
+  <para><anchor xml:id="configmain-free_child_process_memory"/> <emphasis role="bold">Child Process Memory Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">free_child_process_memory=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">free_child_process_memory=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">free_child_process_memory=0</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">free_child_process_memory=0</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -3626,25 +3582,25 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-child_processes_fork_twice" /> <emphasis role="bold">Child Processes Fork Twice</emphasis></para>
+  <para><anchor xml:id="configmain-child_processes_fork_twice"/> <emphasis role="bold">Child Processes Fork Twice</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">child_processes_fork_twice=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">child_processes_fork_twice=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">child_processes_fork_twice=0</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">child_processes_fork_twice=0</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -3666,25 +3622,25 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-enable_environment_macros" /> <emphasis role="bold">Environment Macros Option</emphasis></para>
+  <para><anchor xml:id="configmain-enable_environment_macros"/> <emphasis role="bold">Environment Macros Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">enable_environment_macros=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">enable_environment_macros=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">enable_environment_macros=0</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">enable_environment_macros=0</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -3706,28 +3662,30 @@
     </listitem>
   </itemizedlist>
 
-  <note><para>The default has changed starting with &name-icinga; 1.5. Prior to this version the directive has been enabled, now it is
-  <emphasis>disabled</emphasis>.</para></note>
+  <note>
+    <para>The default has changed starting with &name-icinga; 1.5. Prior to this version the directive has been enabled, now it is
+    <emphasis>disabled</emphasis>.</para>
+  </note>
 
-  <para><anchor xml:id="configmain-enable_flap_detection" /> <emphasis role="bold">Flap Detection Option</emphasis></para>
+  <para><anchor xml:id="configmain-enable_flap_detection"/> <emphasis role="bold">Flap Detection Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">enable_flap_detection=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">enable_flap_detection=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">enable_flap_detection=0</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">enable_flap_detection=0</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -3748,7 +3706,7 @@
     retention is active (and the <link linkend="configmain-use_retained_program_state">use_retained_program_state</link> is enabled), you'll
     have to use the appropriate <link linkend="extcommands">external command</link> or change it via the web interface.</para>
   </note>
- 
+
   <itemizedlist>
     <listitem>
       <para>0 = Don't enable flap detection (default)</para>
@@ -3759,25 +3717,25 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-low_service_flap_threshold" /> <emphasis role="bold">Low Service Flap Threshold</emphasis></para>
+  <para><anchor xml:id="configmain-low_service_flap_threshold"/> <emphasis role="bold">Low Service Flap Threshold</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">low_service_flap_threshold=&lt;percent&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">low_service_flap_threshold=&lt;percent&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">low_service_flap_threshold=25.0</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">low_service_flap_threshold=25.0</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -3787,26 +3745,26 @@
   <para>This option is used to set the low threshold for detection of service flapping. For more information on how flap detection and
   handling works (and how this option affects things) read <link linkend="flapping">this</link>.</para>
 
-  <para><anchor xml:id="configmain-high_service_flap_threshold" /> <emphasis role="bold">High Service Flap Threshold</emphasis></para>
+  <para><anchor xml:id="configmain-high_service_flap_threshold"/> <emphasis role="bold">High Service Flap Threshold</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">high_service_flap_threshold=&lt;percent&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">high_service_flap_threshold=&lt;percent&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">high_service_flap_threshold=50.0</emphasis>
-          </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">high_service_flap_threshold=50.0</emphasis>
+          </emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -3815,25 +3773,25 @@
   <para>This option is used to set the high threshold for detection of service flapping. For more information on how flap detection and
   handling works (and how this option affects things) read <link linkend="flapping">this</link>.</para>
 
-  <para><anchor xml:id="configmain-low_host_flap_threshold" /> <emphasis role="bold">Low Host Flap Threshold</emphasis></para>
+  <para><anchor xml:id="configmain-low_host_flap_threshold"/> <emphasis role="bold">Low Host Flap Threshold</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">low_host_flap_threshold=&lt;percent&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">low_host_flap_threshold=&lt;percent&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">low_host_flap_threshold=25.0</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">low_host_flap_threshold=25.0</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -3843,25 +3801,25 @@
   <para>This option is used to set the low threshold for detection of host flapping. For more information on how flap detection and handling
   works (and how this option affects things) read <link linkend="flapping">this</link>.</para>
 
-  <para><anchor xml:id="configmain-high_host_flap_threshold" /> <emphasis role="bold">High Host Flap Threshold</emphasis></para>
+  <para><anchor xml:id="configmain-high_host_flap_threshold"/> <emphasis role="bold">High Host Flap Threshold</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">high_host_flap_threshold=&lt;percent&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">high_host_flap_threshold=&lt;percent&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">high_host_flap_threshold=50.0</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">high_host_flap_threshold=50.0</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -3871,25 +3829,25 @@
   <para>This option is used to set the high threshold for detection of host flapping. For more information on how flap detection and
   handling works (and how this option affects things) read <link linkend="flapping">this</link>.</para>
 
-  <para><anchor xml:id="configmain-soft_state_dependencies" /> <emphasis role="bold">Soft State Dependencies Option</emphasis></para>
+  <para><anchor xml:id="configmain-soft_state_dependencies"/> <emphasis role="bold">Soft State Dependencies Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">soft_state_dependencies=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">soft_state_dependencies=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">soft_state_dependencies=0</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">soft_state_dependencies=0</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -3911,25 +3869,25 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-service_check_timeout" /> <emphasis role="bold">Service Check Timeout</emphasis></para>
+  <para><anchor xml:id="configmain-service_check_timeout"/> <emphasis role="bold">Service Check Timeout</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">service_check_timeout=&lt;seconds&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">service_check_timeout=&lt;seconds&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">service_check_timeout=60</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">service_check_timeout=60</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -3944,25 +3902,25 @@
   each service check normally finishes executing within this time limit. If a service check runs longer than this limit, &name-icinga; will
   kill it off thinking it is a runaway processes.</para>
 
-  <para><anchor xml:id="configmain-service_check_timeout_state" /> <emphasis role="bold">Service Check Timeout State</emphasis></para>
+  <para><anchor xml:id="configmain-service_check_timeout_state"/> <emphasis role="bold">Service Check Timeout State</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">service_check_timeout_state=&lt;c/u/w/o&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">service_check_timeout_state=&lt;c/u/w/o&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">service_check_timeout_state=u</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">service_check_timeout_state=u</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -3973,25 +3931,25 @@
   service_check_timeout seconds. This can be useful if a machine is running at too high a load and you do not want to consider a failed
   service check to be critical. The default was changed to service_check_timeout_state=u in &name-icinga;1.0.1</para>
 
-  <para><anchor xml:id="configmain-host_check_timeout" /> <emphasis role="bold">Host Check Timeout</emphasis></para>
+  <para><anchor xml:id="configmain-host_check_timeout"/> <emphasis role="bold">Host Check Timeout</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">host_check_timeout=&lt;seconds&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">host_check_timeout=&lt;seconds&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">host_check_timeout=60</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">host_check_timeout=60</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -4006,25 +3964,25 @@
   each host check normally finishes executing within this time limit. If a host check runs longer than this limit, &name-icinga; will kill
   it off thinking it is a runaway processes.</para>
 
-  <para><anchor xml:id="configmain-event_handler_timeout" /> <emphasis role="bold">Event Handler Timeout</emphasis></para>
+  <para><anchor xml:id="configmain-event_handler_timeout"/> <emphasis role="bold">Event Handler Timeout</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">event_handler_timeout=&lt;seconds&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">event_handler_timeout=&lt;seconds&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">event_handler_timeout=60</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">event_handler_timeout=60</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -4039,25 +3997,25 @@
   each event handler command normally finishes executing within this time limit. If an event handler runs longer than this limit,
   &name-icinga; will kill it off thinking it is a runaway processes.</para>
 
-  <para><anchor xml:id="configmain-notification_timeout" /> <emphasis role="bold">Notification Timeout</emphasis></para>
+  <para><anchor xml:id="configmain-notification_timeout"/> <emphasis role="bold">Notification Timeout</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">notification_timeout=&lt;seconds&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">notification_timeout=&lt;seconds&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">notification_timeout=60</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">notification_timeout=60</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -4072,25 +4030,25 @@
   each notification command finishes executing within this time limit. If a notification command runs longer than this limit, &name-icinga;
   will kill it off thinking it is a runaway processes.</para>
 
-  <para><anchor xml:id="configmain-ocsp_timeout" /> <emphasis role="bold">Obsessive Compulsive Service Processor Timeout</emphasis></para>
+  <para><anchor xml:id="configmain-ocsp_timeout"/> <emphasis role="bold">Obsessive Compulsive Service Processor Timeout</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">ocsp_timeout=&lt;seconds&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">ocsp_timeout=&lt;seconds&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">ocsp_timeout=5</emphasis> </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">ocsp_timeout=5</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -4099,25 +4057,25 @@
   <para>This is the maximum number of seconds that &name-icinga; will allow an <link linkend="configmain-ocsp_command">obsessive compulsive
   service processor command</link> to be run. If a command exceeds this time limit it will be killed and a warning will be logged.</para>
 
-  <para><anchor xml:id="configmain-ochp_timeout" /> <emphasis role="bold">Obsessive Compulsive Host Processor Timeout</emphasis></para>
+  <para><anchor xml:id="configmain-ochp_timeout"/> <emphasis role="bold">Obsessive Compulsive Host Processor Timeout</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">ochp_timeout=&lt;seconds&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">ochp_timeout=&lt;seconds&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">ochp_timeout=5</emphasis> </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">ochp_timeout=5</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -4126,25 +4084,25 @@
   <para>This is the maximum number of seconds that &name-icinga; will allow an <link linkend="configmain-ochp_command">obsessive compulsive
   host processor command</link> to be run. If a command exceeds this time limit it will be killed and a warning will be logged.</para>
 
-  <para><anchor xml:id="configmain-perfdata_timeout" /> <emphasis role="bold">Performance Data Processor Command Timeout</emphasis></para>
+  <para><anchor xml:id="configmain-perfdata_timeout"/> <emphasis role="bold">Performance Data Processor Command Timeout</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">perfdata_timeout=&lt;seconds&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">perfdata_timeout=&lt;seconds&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">perfdata_timeout=5</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">perfdata_timeout=5</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -4155,25 +4113,25 @@
   performance data processor command</link> or <link linkend="configmain-service_perfdata_command">service performance data processor
   command</link> to be run. If a command exceeds this time limit it will be killed and a warning will be logged.</para>
 
-  <para><anchor xml:id="configmain-obsess_over_services" /> <emphasis role="bold">Obsess Over Services Option</emphasis></para>
+  <para><anchor xml:id="configmain-obsess_over_services"/> <emphasis role="bold">Obsess Over Services Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">obsess_over_services=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">obsess_over_services=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">obsess_over_services=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">obsess_over_services=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -4195,26 +4153,26 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-ocsp_command" /> <emphasis role="bold">Obsessive Compulsive Service Processor Command</emphasis></para>
+  <para><anchor xml:id="configmain-ocsp_command"/> <emphasis role="bold">Obsessive Compulsive Service Processor Command</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">ocsp_command=&lt;command&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">ocsp_command=&lt;command&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">ocsp_command=obsessive_service_handler</emphasis>
-          </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">ocsp_command=obsessive_service_handler</emphasis>
+          </emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -4230,25 +4188,25 @@
   <emphasis>obsess_over_service</emphasis> directive in the <link linkend="objectdefinitions-service">service definition</link> is
   enabled.</para>
 
-  <para><anchor xml:id="configmain-obsess_over_hosts" /> <emphasis role="bold">Obsess Over Hosts Option</emphasis></para>
+  <para><anchor xml:id="configmain-obsess_over_hosts"/> <emphasis role="bold">Obsess Over Hosts Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">obsess_over_hosts=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">obsess_over_hosts=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">obsess_over_hosts=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">obsess_over_hosts=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -4270,26 +4228,26 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-ochp_command" /> <emphasis role="bold">Obsessive Compulsive Host Processor Command</emphasis></para>
+  <para><anchor xml:id="configmain-ochp_command"/> <emphasis role="bold">Obsessive Compulsive Host Processor Command</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">ochp_command=&lt;command&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">ochp_command=&lt;command&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">ochp_command=obsessive_host_handler</emphasis>
-          </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">ochp_command=obsessive_host_handler</emphasis>
+          </emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -4304,25 +4262,25 @@
   linkend="configmain-obsess_over_hosts">obsess_over_hosts</link> option is enabled globally and if the
   <emphasis>obsess_over_host</emphasis> directive in the <link linkend="objectdefinitions-host">host definition</link> is enabled.</para>
 
-  <para><anchor xml:id="configmain-process_performance_data" /> <emphasis role="bold">Performance Data Processing Option</emphasis></para>
+  <para><anchor xml:id="configmain-process_performance_data"/> <emphasis role="bold">Performance Data Processing Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">process_performance_data=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">process_performance_data=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">process_performance_data=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">process_performance_data=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -4342,27 +4300,26 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-host_perfdata_command" /> <emphasis role="bold">Host Performance Data Processing
-  Command</emphasis></para>
+  <para><anchor xml:id="configmain-host_perfdata_command"/> <emphasis role="bold">Host Performance Data Processing Command</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">host_perfdata_command=&lt;command&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">host_perfdata_command=&lt;command&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">host_perfdata_command=process-host-perfdata</emphasis>
-          </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">host_perfdata_command=process-host-perfdata</emphasis>
+          </emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -4375,27 +4332,27 @@
   globally and if the <emphasis>process_perf_data</emphasis> directive in the <link linkend="objectdefinitions-host">host definition</link>
   is enabled.</para>
 
-  <para><anchor xml:id="configmain-service_perfdata_command" /> <emphasis role="bold">Service Performance Data Processing
+  <para><anchor xml:id="configmain-service_perfdata_command"/> <emphasis role="bold">Service Performance Data Processing
   Command</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">service_perfdata_command=&lt;command&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">service_perfdata_command=&lt;command&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis
-          role="bold">service_perfdata_command=process-service-perfdata</emphasis> </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">service_perfdata_command=process-service-perfdata</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -4408,26 +4365,26 @@
   globally and if the <emphasis>process_perf_data</emphasis> directive in the <link linkend="objectdefinitions-service">service
   definition</link> is enabled.</para>
 
-  <para><anchor xml:id="configmain-host_perfdata_file" /> <emphasis role="bold">Host Performance Data File</emphasis></para>
+  <para><anchor xml:id="configmain-host_perfdata_file"/> <emphasis role="bold">Host Performance Data File</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">host_perfdata_file=&lt;file_name&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">host_perfdata_file=&lt;file_name&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis
-          role="bold">host_perfdata_file=&url-icinga-base;/var/host-perfdata.dat</emphasis> </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">host_perfdata_file=&url-icinga-base;/var/host-perfdata.dat</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -4439,26 +4396,26 @@
   if the <link linkend="configmain-process_performance_data">process_performance_data</link> option is enabled globally and if the
   <emphasis>process_perf_data</emphasis> directive in the <link linkend="objectdefinitions-host">host definition</link> is enabled.</para>
 
-  <para><anchor xml:id="configmain-service_perfdata_file" /> <emphasis role="bold">Service Performance Data File</emphasis></para>
+  <para><anchor xml:id="configmain-service_perfdata_file"/> <emphasis role="bold">Service Performance Data File</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">service_perfdata_file=&lt;file_name&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">service_perfdata_file=&lt;file_name&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis
-          role="bold">service_perfdata_file=&url-icinga-base;/var/service-perfdata.dat</emphasis> </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">service_perfdata_file=&url-icinga-base;/var/service-perfdata.dat</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -4471,29 +4428,28 @@
   <emphasis>process_perf_data</emphasis> directive in the <link linkend="objectdefinitions-service">service definition</link> is
   enabled.</para>
 
-  <para><anchor xml:id="configmain-host_perfdata_file_template" /> <emphasis role="bold">Host Performance Data File
+  <para><anchor xml:id="configmain-host_perfdata_file_template"/> <emphasis role="bold">Host Performance Data File
   Template</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">host_perfdata_file_template=&lt;template&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">host_perfdata_file_template=&lt;template&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis
+          <entry><para><emphasis condition="red" role="color"><emphasis
           role="bold">host_perfdata_file_template=[HOSTPERFDATA]\t$TIMET$\t$HOSTNAME$ \
-   \t$HOSTEXECUTIONTIME$\t$HOSTOUTPUT$\t$HOSTPERFDATA$</emphasis>
-          </emphasis> </para></entry>
+          \t$HOSTEXECUTIONTIME$\t$HOSTOUTPUT$\t$HOSTPERFDATA$</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -4503,30 +4459,29 @@
   file</link>. The template may contain <link linkend="macros">macros</link>, special characters (\t for tab, \r for carriage return, \n for
   newline) and plain text. A newline is automatically added after each write to the performance data file.</para>
 
-  <para><anchor xml:id="configmain-service_perfdata_file_template" /> <emphasis role="bold">Service Performance Data File
+  <para><anchor xml:id="configmain-service_perfdata_file_template"/> <emphasis role="bold">Service Performance Data File
   Template</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">service_perfdata_file_template=&lt;template&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">service_perfdata_file_template=&lt;template&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis
+          <entry><para><emphasis condition="red" role="color"><emphasis
           role="bold">service_perfdata_file_template=[SERVICEPERFDATA]\t$TIMET$\t$HOSTNAME$ \
-   \t$SERVICEDESC$\t$SERVICEEXECUTIONTIME$\t$SERVICELATENCY$ \
-   \t$SERVICEOUTPUT$\t$SERVICEPERFDATA$</emphasis>
-          </emphasis> </para></entry>
+          \t$SERVICEDESC$\t$SERVICEEXECUTIONTIME$\t$SERVICELATENCY$ \ \t$SERVICEOUTPUT$\t$SERVICEPERFDATA$</emphasis></emphasis>
+          </para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -4536,25 +4491,25 @@
   data file</link>. The template may contain <link linkend="macros">macros</link>, special characters (\t for tab, \r for carriage return,
   \n for newline) and plain text. A newline is automatically added after each write to the performance data file.</para>
 
-  <para><anchor xml:id="configmain-host_perfdata_file_mode" /> <emphasis role="bold">Host Performance Data File Mode</emphasis></para>
+  <para><anchor xml:id="configmain-host_perfdata_file_mode"/> <emphasis role="bold">Host Performance Data File Mode</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">host_perfdata_file_mode=&lt;mode&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">host_perfdata_file_mode=&lt;mode&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">host_perfdata_file_mode=a</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">host_perfdata_file_mode=a</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -4578,25 +4533,25 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-service_perfdata_file_mode" /> <emphasis role="bold">Service Performance Data File Mode</emphasis></para>
+  <para><anchor xml:id="configmain-service_perfdata_file_mode"/> <emphasis role="bold">Service Performance Data File Mode</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">service_perfdata_file_mode=&lt;mode&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">service_perfdata_file_mode=&lt;mode&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">service_perfdata_file_mode=a</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">service_perfdata_file_mode=a</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -4620,27 +4575,27 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-host_perfdata_file_processing_interval" /> <emphasis role="bold">Host Performance Data File Processing
+  <para><anchor xml:id="configmain-host_perfdata_file_processing_interval"/> <emphasis role="bold">Host Performance Data File Processing
   Interval</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">host_perfdata_file_processing_interval=&lt;seconds&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">host_perfdata_file_processing_interval=&lt;seconds&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">host_perfdata_file_processing_interval=0</emphasis>
-          </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">host_perfdata_file_processing_interval=0</emphasis>
+          </emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -4650,27 +4605,27 @@
   performance data file</link> is processed using the <link linkend="configmain-host_perfdata_file_processing_command">host performance data
   file processing command</link>. A value of 0 indicates that the performance data file should not be processed at regular intervals.</para>
 
-  <para><anchor xml:id="configmain-service_perfdata_file_processing_interval" /> <emphasis role="bold">Service Performance Data File
+  <para><anchor xml:id="configmain-service_perfdata_file_processing_interval"/> <emphasis role="bold">Service Performance Data File
   Processing Interval</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">service_perfdata_file_processing_interval=&lt;seconds&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">service_perfdata_file_processing_interval=&lt;seconds&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">service_perfdata_file_processing_interval=0</emphasis>
-          </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">service_perfdata_file_processing_interval=0</emphasis>
+          </emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -4681,27 +4636,27 @@
   performance data file processing command</link>. A value of 0 indicates that the performance data file should not be processed at regular
   intervals.</para>
 
-  <para><anchor xml:id="configmain-host_perfdata_file_processing_command" /> <emphasis role="bold">Host Performance Data File Processing
+  <para><anchor xml:id="configmain-host_perfdata_file_processing_command"/> <emphasis role="bold">Host Performance Data File Processing
   Command</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">host_perfdata_file_processing_command=&lt;command&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">host_perfdata_file_processing_command=&lt;command&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis
-          role="bold">host_perfdata_file_processing_command=process-host-perfdata-file</emphasis> </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">host_perfdata_file_processing_command=process-host-perfdata-file</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -4713,27 +4668,27 @@
   which this command is executed is determined by the <link
   linkend="configmain-host_perfdata_file_processing_interval">host_perfdata_file_processing_interval</link> directive.</para>
 
-  <para><anchor xml:id="configmain-service_perfdata_file_processing_command" /> <emphasis role="bold">Service Performance Data File
+  <para><anchor xml:id="configmain-service_perfdata_file_processing_command"/> <emphasis role="bold">Service Performance Data File
   Processing Command</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">service_perfdata_file_processing_command=&lt;command&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">service_perfdata_file_processing_command=&lt;command&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis
-          role="bold">service_perfdata_file_processing_command=process-service-perfdata-file</emphasis> </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">service_perfdata_file_processing_command=process-service-perfdata-file</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -4745,25 +4700,25 @@
   interval at which this command is executed is determined by the <link
   linkend="configmain-service_perfdata_file_processing_interval">service_perfdata_file_processing_interval</link> directive.</para>
 
-  <para><anchor xml:id="configmain-check_for_orphaned_services" /> <emphasis role="bold">Orphaned Service Check Option</emphasis></para>
+  <para><anchor xml:id="configmain-check_for_orphaned_services"/> <emphasis role="bold">Orphaned Service Check Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">check_for_orphaned_services=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">check_for_orphaned_services=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">check_for_orphaned_services=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">check_for_orphaned_services=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -4788,25 +4743,25 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-check_for_orphaned_hosts" /> <emphasis role="bold">Orphaned Host Check Option</emphasis></para>
+  <para><anchor xml:id="configmain-check_for_orphaned_hosts"/> <emphasis role="bold">Orphaned Host Check Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">check_for_orphaned_hosts=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">check_for_orphaned_hosts=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">check_for_orphaned_hosts=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">check_for_orphaned_hosts=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -4831,25 +4786,25 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-check_service_freshness" /> <emphasis role="bold">Service Freshness Checking Option</emphasis></para>
+  <para><anchor xml:id="configmain-check_service_freshness"/> <emphasis role="bold">Service Freshness Checking Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">check_service_freshness=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">check_service_freshness=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">check_service_freshness=0</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">check_service_freshness=0</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -4870,27 +4825,27 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-service_freshness_check_interval" /> <emphasis role="bold">Service Freshness Check
+  <para><anchor xml:id="configmain-service_freshness_check_interval"/> <emphasis role="bold">Service Freshness Check
   Interval</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">service_freshness_check_interval=&lt;seconds&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">service_freshness_check_interval=&lt;seconds&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">service_freshness_check_interval=60</emphasis>
-          </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">service_freshness_check_interval=60</emphasis>
+          </emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -4900,25 +4855,25 @@
   you have disabled service freshness checking (with the <link linkend="configmain-check_service_freshness">check_service_freshness</link>
   option), this option has no effect. More information on freshness checking can be found <link linkend="freshness">here</link>.</para>
 
-  <para><anchor xml:id="configmain-check_host_freshness" /> <emphasis role="bold">Host Freshness Checking Option</emphasis></para>
+  <para><anchor xml:id="configmain-check_host_freshness"/> <emphasis role="bold">Host Freshness Checking Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">check_host_freshness=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">check_host_freshness=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">check_host_freshness=0</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">check_host_freshness=0</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -4939,26 +4894,26 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-host_freshness_check_interval" /> <emphasis role="bold">Host Freshness Check Interval</emphasis></para>
+  <para><anchor xml:id="configmain-host_freshness_check_interval"/> <emphasis role="bold">Host Freshness Check Interval</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">host_freshness_check_interval=&lt;seconds&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">host_freshness_check_interval=&lt;seconds&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">host_freshness_check_interval=60</emphasis>
-          </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">host_freshness_check_interval=60</emphasis>
+          </emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -4968,26 +4923,26 @@
   have disabled host freshness checking (with the <link linkend="configmain-check_host_freshness">check_host_freshness</link> option), this
   option has no effect. More information on freshness checking can be found <link linkend="freshness">here</link>.</para>
 
-  <para><anchor xml:id="configmain-additional_freshness_latency" /> <emphasis role="bold">Additional Freshness Threshold Latency
+  <para><anchor xml:id="configmain-additional_freshness_latency"/> <emphasis role="bold">Additional Freshness Threshold Latency
   Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">additional_freshness_latency=&lt;#&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">additional_freshness_latency=&lt;#&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">additional_freshness_latency=15</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">additional_freshness_latency=15</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -4998,25 +4953,25 @@
   calculates (e.g. those not specified explicity by the user). More information on freshness checking can be found <link
   linkend="freshness">here</link>.</para>
 
-  <para><anchor xml:id="configmain-enable_embedded_perl" /> <emphasis role="bold">Embedded Perl Interpreter Option</emphasis></para>
+  <para><anchor xml:id="configmain-enable_embedded_perl"/> <emphasis role="bold">Embedded Perl Interpreter Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">enable_embedded_perl=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">enable_embedded_perl=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">enable_embedded_perl=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">enable_embedded_perl=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -5027,29 +4982,30 @@
   compiled with support for embedded Perl for this option to have an effect. More information on the embedded Perl interpreter can be found
   <link linkend="embeddedperl">here</link>.</para>
 
-  <note><para>The default has changed starting with &name-icinga; 1.5. Prior to this version the directive has been enabled, now it is
-  <emphasis>disabled</emphasis>.</para></note>
+  <note>
+    <para>The default has changed starting with &name-icinga; 1.5. Prior to this version the directive has been enabled, now it is
+    <emphasis>disabled</emphasis>.</para>
+  </note>
 
-  <para><anchor xml:id="configmain-use_embedded_perl_implicitly" /> <emphasis role="bold">Embedded Perl Implicit Use
-  Option</emphasis></para>
+  <para><anchor xml:id="configmain-use_embedded_perl_implicitly"/> <emphasis role="bold">Embedded Perl Implicit Use Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">use_embedded_perl_implicitly=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">use_embedded_perl_implicitly=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">use_embedded_perl_implicitly=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">use_embedded_perl_implicitly=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -5060,25 +5016,25 @@
   enable/disable it. &name-icinga; must be compiled with support for embedded Perl for this option to have an effect. More information on
   the embedded Perl interpreter and the effect of this setting can be found <link linkend="embeddedperl">here</link>.</para>
 
-  <para><anchor xml:id="configmain-date_format" /> <emphasis role="bold">Date Format</emphasis></para>
+  <para><anchor xml:id="configmain-date_format"/> <emphasis role="bold">Date Format</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">date_format=&lt;option&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">date_format=&lt;option&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">date_format=us</emphasis> </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">date_format=us</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -5089,19 +5045,19 @@
 
   <informaltable frame="all">
     <tgroup cols="3">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="10*" />
+      <colspec colname="c2" colwidth="10*"/>
 
-      <colspec colname="c3" colwidth="10*" />
+      <colspec colname="c3" colwidth="10*"/>
 
       <tbody>
         <row>
-          <entry><para> <emphasis role="bold">Option</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">Option</emphasis></para></entry>
 
-          <entry><para> <emphasis role="bold">Output Format</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">Output Format</emphasis></para></entry>
 
-          <entry><para> <emphasis role="bold">Sample Output</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">Sample Output</emphasis></para></entry>
         </row>
 
         <row>
@@ -5139,25 +5095,25 @@
     </tgroup>
   </informaltable>
 
-  <para><anchor xml:id="configmain-use_timezone" /> <emphasis role="bold">Timezone Option</emphasis></para>
+  <para><anchor xml:id="configmain-use_timezone"/> <emphasis role="bold">Timezone Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">use_timezone=&lt;tz&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">use_timezone=&lt;tz&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">use_timezone=US/Mountain</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">use_timezone=US/Mountain</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -5181,26 +5137,26 @@
 
   <para>&lt;/Directory&gt;</para>
 
-  <para><anchor xml:id="configmain-illegal_object_name_chars" /> <emphasis role="bold">Illegal Object Name Characters</emphasis></para>
+  <para><anchor xml:id="configmain-illegal_object_name_chars"/> <emphasis role="bold">Illegal Object Name Characters</emphasis></para>
 
   <para><informaltable frame="none">
       <tgroup cols="2">
-        <colspec colname="c1" colwidth="5*" />
+        <colspec colname="c1" colwidth="5*"/>
 
-        <colspec colname="c2" colwidth="50*" />
+        <colspec colname="c2" colwidth="50*"/>
 
         <tbody>
           <row>
             <entry><para>Format:</para></entry>
 
-            <entry><para> <emphasis role="bold">illegal_object_name_chars=&lt;chars...&gt;</emphasis> </para></entry>
+            <entry><para><emphasis role="bold">illegal_object_name_chars=&lt;chars...&gt;</emphasis></para></entry>
           </row>
 
           <row>
             <entry><para>Example:</para></entry>
 
-            <entry><para> <emphasis condition="red" role="color"> <emphasis
-            role="bold">illegal_object_name_chars=`~!$%^&amp;*"|'&lt;&gt;?,()=</emphasis> </emphasis> </para></entry>
+            <entry><para><emphasis condition="red" role="color"><emphasis
+            role="bold">illegal_object_name_chars=`~!$%^&amp;*"|'&lt;&gt;?,()=</emphasis></emphasis></para></entry>
           </row>
         </tbody>
       </tgroup>
@@ -5208,26 +5164,26 @@
   of other object types. &name-icinga; will allow you to use most characters in object definitions, but we recommend not using the
   characters shown in the example above. Doing may give you problems in the web interface, notification commands, etc.</para>
 
-  <para><anchor xml:id="configmain-illegal_macro_output_chars" /> <emphasis role="bold">Illegal Macro Output Characters</emphasis></para>
+  <para><anchor xml:id="configmain-illegal_macro_output_chars"/> <emphasis role="bold">Illegal Macro Output Characters</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">illegal_macro_output_chars=&lt;chars...&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">illegal_macro_output_chars=&lt;chars...&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis
-          role="bold">illegal_macro_output_chars=`~$^&amp;"|'&lt;&gt;</emphasis> </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">illegal_macro_output_chars=`~$^&amp;"|'&lt;&gt;</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -5244,25 +5200,25 @@
   role="bold">$SERVICEOUTPUT$</emphasis>, <emphasis role="bold">$SERVICEPERFDATA$</emphasis>, <emphasis
   role="bold">$SERVICEACKAUTHOR$</emphasis>, and <emphasis role="bold">$SERVICEACKCOMMENT$</emphasis></para>
 
-  <para><anchor xml:id="configmain-use_regexp_matching" /> <emphasis role="bold">Regular Expression Matching Option</emphasis></para>
+  <para><anchor xml:id="configmain-use_regexp_matching"/> <emphasis role="bold">Regular Expression Matching Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">use_regexp_matching=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">use_regexp_matching=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">use_regexp_matching=0</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">use_regexp_matching=0</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -5282,26 +5238,26 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-use_true_regexp_matching" /> <emphasis role="bold">True Regular Expression Matching
+  <para><anchor xml:id="configmain-use_true_regexp_matching"/> <emphasis role="bold">True Regular Expression Matching
   Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">use_true_regexp_matching=&lt;0/1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">use_true_regexp_matching=&lt;0/1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">use_true_regexp_matching=0</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">use_true_regexp_matching=0</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -5325,26 +5281,26 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-admin_email" /> <emphasis role="bold">Administrator Email Address</emphasis></para>
+  <para><anchor xml:id="configmain-admin_email"/> <emphasis role="bold">Administrator Email Address</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">admin_email=&lt;email_address&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">admin_email=&lt;email_address&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">admin_email=root@localhost.localdomain</emphasis>
-          </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">admin_email=root@localhost.localdomain</emphasis>
+          </emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -5353,54 +5309,54 @@
   <para>This is the email address for the administrator of the local machine (i.e. the one that &name-icinga; is running on). This value can
   be used in notification commands by using the <emphasis role="bold">$ADMINEMAIL$</emphasis> <link linkend="macros">macro</link>.</para>
 
-  <para><anchor xml:id="configmain-admin_pager" /> <emphasis role="bold">Administrator Pager</emphasis></para>
+  <para><anchor xml:id="configmain-admin_pager"/> <emphasis role="bold">Administrator Pager</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">admin_pager=&lt;pager_number_or_pager_email_gateway&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">admin_pager=&lt;pager_number_or_pager_email_gateway&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">admin_pager=pageroot@localhost.localdomain</emphasis>
-          </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">admin_pager=pageroot@localhost.localdomain</emphasis>
+          </emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
   </informaltable>
 
   <para>This is the pager number (or pager email gateway) for the administrator of the local machine (i.e. the one that &name-icinga; is
-  running on). The pager number/address can be used in notification commands by using the <emphasis role="bold">$ADMINPAGER$</emphasis> <link
-  linkend="macros">macro</link>.</para>
+  running on). The pager number/address can be used in notification commands by using the <emphasis role="bold">$ADMINPAGER$</emphasis>
+  <link linkend="macros">macro</link>.</para>
 
-  <para><anchor xml:id="configmain-event_broker_options" /> <emphasis role="bold">Event Broker Options</emphasis></para>
+  <para><anchor xml:id="configmain-event_broker_options"/> <emphasis role="bold">Event Broker Options</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">event_broker_options=&lt;#&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">event_broker_options=&lt;#&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">event_broker_options=-1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">event_broker_options=-1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -5425,26 +5381,26 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-broker_module" /> <emphasis role="bold">Event Broker Modules</emphasis></para>
+  <para><anchor xml:id="configmain-broker_module"/> <emphasis role="bold">Event Broker Modules</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">broker_module=&lt;modulepath&gt; [moduleargs]</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">broker_module=&lt;modulepath&gt; [moduleargs]</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">broker_module=&url-icinga-base;/bin/idomod.o \
-          cfg_file=/usr/local/icinga/etc/idomod.cfg</emphasis> </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">broker_module=&url-icinga-base;/bin/idomod.o \
+          cfg_file=/usr/local/icinga/etc/idomod.cfg</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -5472,26 +5428,26 @@
     </listitem>
   </orderedlist>
 
-  <para><anchor xml:id="configmain-debug_file" /> <emphasis role="bold">Debug File</emphasis></para>
+  <para><anchor xml:id="configmain-debug_file"/> <emphasis role="bold">Debug File</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">debug_file=&lt;file_name&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">debug_file=&lt;file_name&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis
-          role="bold">debug_file=&url-icinga-base;/var/icinga.debug</emphasis> </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">debug_file=&url-icinga-base;/var/icinga.debug</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -5502,25 +5458,25 @@
   options. You can have &name-icinga; automaticaly rotate the debug file when it reaches a certain size by using the <link
   linkend="configmain-max_debug_file_size">max_debug_file_size</link> option.</para>
 
-  <para><anchor xml:id="configmain-debug_level" /> <emphasis role="bold">Debug Level</emphasis></para>
+  <para><anchor xml:id="configmain-debug_level"/> <emphasis role="bold">Debug Level</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">debug_level=&lt;#&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">debug_level=&lt;#&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">debug_level=24</emphasis> </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">debug_level=24</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -5567,25 +5523,25 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-debug_verbosity" /> <emphasis role="bold">Debug Verbosity</emphasis></para>
+  <para><anchor xml:id="configmain-debug_verbosity"/> <emphasis role="bold">Debug Verbosity</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">debug_verbosity=&lt;#&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">debug_verbosity=&lt;#&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">debug_verbosity=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">debug_verbosity=1</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -5609,25 +5565,25 @@
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configmain-max_debug_file_size" /> <emphasis role="bold">Maximum Debug File Size</emphasis></para>
+  <para><anchor xml:id="configmain-max_debug_file_size"/> <emphasis role="bold">Maximum Debug File Size</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">max_debug_file_size=&lt;#&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">max_debug_file_size=&lt;#&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">max_debug_file_size=1000000</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">max_debug_file_size=1000000</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -5638,27 +5594,27 @@
   larger than this size, it will be renamed with a .old extension. If a file already exists with a .old extension it will automatically be
   deleted. This helps ensure your disk space usage doesn't get out of control when debugging &name-icinga;.</para>
 
-  <para><anchor xml:id="configmain-allow_empty_hostgroup_assignment" /> <emphasis role="bold">Allow Empty Hostgroup
+  <para><anchor xml:id="configmain-allow_empty_hostgroup_assignment"/> <emphasis role="bold">Allow Empty Hostgroup
   Assignment</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">allow_empty_hostgroup_assignment=&lt;0|1&gt;</emphasis> </para></entry>
+          <entry><para><emphasis role="bold">allow_empty_hostgroup_assignment=&lt;0|1&gt;</emphasis></para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">allow_empty_hostgroup_assignment=1</emphasis>
-          </emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">allow_empty_hostgroup_assignment=1</emphasis>
+          </emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -5670,49 +5626,83 @@
   these objects are associated with host groups whose hostgroup definitions have no host_members associated with them.</para>
 
   <para>Enabling this option can be useful when:</para>
+
   <itemizedlist>
     <listitem>
       <para>Configuration files or pre-cached object files are distributed across many &name-icinga; pollers.</para>
     </listitem>
+
     <listitem>
       <para>Automation is used to generate an &name-icinga; configuration file tree.</para>
     </listitem>
+
     <listitem>
       <para>There is one set of services, service dependencies, or host dependencies maintained by administrators for which users may add
-        hosts through host group membership for convenience (e.g. a suite of checks associated with a remote monitoring agent) but for
-        which there is no guarantee that users will use the services associated with the host group or that the hosts will exists (e.g. a
-        remote agent that is being deprecated over time or hosts that are being decommissioned).</para>
+      hosts through host group membership for convenience (e.g. a suite of checks associated with a remote monitoring agent) but for which
+      there is no guarantee that users will use the services associated with the host group or that the hosts will exists (e.g. a remote
+      agent that is being deprecated over time or hosts that are being decommissioned).</para>
     </listitem>
   </itemizedlist>
-
 
   <note>
     <para>This option is available starting with &name-icinga; 1.3.</para>
   </note>
 
-  <para><anchor xml:id="configmain-process_empty_results" /> <emphasis role="bold">Process empty performance results</emphasis></para>
+  <para><anchor xml:id="configmain-process_empty_results"/> <emphasis role="bold">Process empty performance results</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="5*" />
+      <colspec colname="c1" colwidth="5*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
           <entry><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">host_perfdata_process_empty_results=&lt;0|1&gt;</emphasis> </para>
-          <para> <emphasis role="bold">service_perfdata_process_empty_results=&lt;0|1&gt;</emphasis> </para></entry>
+          <entry><para>
+               
+
+              <emphasis role="bold">host_perfdata_process_empty_results=&lt;0|1&gt;</emphasis>
+
+               
+            </para> <para>
+               
+
+              <emphasis role="bold">service_perfdata_process_empty_results=&lt;0|1&gt;</emphasis>
+
+               
+            </para></entry>
         </row>
 
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para> <emphasis condition="red" role="color"> <emphasis role="bold">host_perfdata_process_empty_results=1</emphasis>
-          </emphasis></para>
-          <para> <emphasis condition="red" role="color"> <emphasis role="bold">service_perfdata_process_empty_results=1</emphasis>
-          </emphasis></para></entry>
+          <entry><para>
+               
+
+              <emphasis condition="red" role="color">
+                 
+
+                <emphasis role="bold">host_perfdata_process_empty_results=1</emphasis>
+
+                 
+              </emphasis>
+
+               
+            </para> <para>
+               
+
+              <emphasis condition="red" role="color">
+                 
+
+                <emphasis role="bold">service_perfdata_process_empty_results=1</emphasis>
+
+                 
+              </emphasis>
+
+               
+            </para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -5725,7 +5715,6 @@
   <note>
     <para>These options are available starting with &name-icinga; 1.4</para>
   </note>
-
 
   <indexterm zone="config_main">
     <primary>Main Configuration File Options</primary>
