@@ -237,16 +237,25 @@
 
   <programlisting> #&gt; gmake all</programlisting>
 
-  <para>Installieren Sie die Binaries, das Init-Script, Beispiel-Konfigurationsdateien und setzen Sie die Berechtigungen für das
-  External-Command-Verzeichnis.<programlisting> #&gt; gmake install 
- #&gt; gmake install-init 
- #&gt; gmake install-config 
- #&gt; gmake install-commandmode
- #&gt; gmake install-idoutils</programlisting> oder kürzer <programlisting> #&gt; gmake fullinstall
+
+  <para>Installieren Sie die Binaries, das Init-Script, Beispiel-Konfigurationsdateien, Beispiel-Eventhandler und setzen Sie die
+  Berechtigungen für das External-Command-Verzeichnis. <programlisting> #&gt; make install
+ #&gt; gmake install-init
+ #&gt; gmake install-config
+ #&gt; gmake install-contrib-eventhandlers
+ #&gt; gmake install-commandmode </programlisting> oder kürzer <programlisting> #&gt; make fullinstall
  #&gt; gmake install-config</programlisting></para>
 
-  <note><para>Ab &name-icinga; 1.5.0 ist <literal>gmake install-config</literal> NICHT mehr in <literal>gmake fullinstall </literal> 
-  enthalten, um ein versehentliches Überschreiben der Konfigurationsdateien zu verhindern.</para></note>
+  <note>
+    <para>Ab &name-icinga; 1.5.0 ist <literal>make install-config</literal> NICHT mehr in <literal>make fullinstall </literal>enthalten, um
+    ein versehentliches Überschreiben der Konfigurationsdateien zu verhindern.</para>
+  </note>
+
+  <note>
+    <para>Ab &name-icinga; 1.7.0 werden mit <literal>make install-contrib-eventhandlers</literal> einige Beispiel-Eventhandler installiert.
+    Das ist lediglich in <literal>make fullinstall</literal>enthalten, um ein versehentliches Überschreiben der Dateien zu
+    verhindern.</para>
+  </note>
 
   <note>
     <para>Die &name-icinga;-API diente als eine in PHP geschriebene Datenbank-Abstraktionsschicht. Seit &name-icinga; ist sie durch eine 

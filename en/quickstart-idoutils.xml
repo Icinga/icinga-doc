@@ -407,16 +407,23 @@
 
   <programlisting> #&gt; make all</programlisting>
 
-  <para>Install binaries, init script, sample config files and set permissions on the external command directory. Also install the
-  &name-idoutils;. <programlisting> #&gt; make install 
- #&gt; make install-init 
- #&gt; make install-config 
- #&gt; make install-commandmode 
- #&gt; make install-idoutils </programlisting> or shorter <programlisting> #&gt; make fullinstall
+  <para>Install binaries, init script, sample config files, some eventhanders, and set permissions on the external command directory.
+  <programlisting> #&gt; make install
+ #&gt; make install-init
+ #&gt; make install-config
+ #&gt; make install-contrib-eventhandlers
+ #&gt; make install-commandmode </programlisting> or shorter <programlisting> #&gt; make fullinstall
  #&gt; make install-config</programlisting></para>
 
-  <note><para>Starting with &name-icinga; 1.5.0 <literal>make install-config</literal> is NOT included in <literal>make fullinstall
-  </literal> anymore to avoid accidently overwriting of your config files.</para></note>
+  <note>
+    <para>Starting with &name-icinga; 1.5.0 <literal>make install-config</literal> is NOT included in <literal>make fullinstall
+    </literal>anymore to avoid accidently overwriting of your config files.</para>
+  </note>
+
+  <note>
+    <para>Starting with &name-icinga; 1.7.0 <literal>make install-contrib-eventhandlers</literal> will install some event handler routines.
+    To prevent undesired behaviour it is only included when you use <literal>make fullinstall</literal>.</para>
+  </note>
 
   <note>
     <para>Install IDOUtils and applicable event broker modules only using the primary "make install" target. Do not manually copy and

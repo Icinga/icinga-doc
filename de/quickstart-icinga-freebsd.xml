@@ -136,15 +136,24 @@
 
   <programlisting> # make all</programlisting>
 
-  <para>Installieren Sie die Binaries, das Init-Script, Beispiel-Konfigurationsdateien und setzen Sie die Berechtigungen für das
-  External-Command-Verzeichnis.<programlisting> # make install 
- # make install-init 
- # make install-config 
- # make install-commandmode </programlisting> oder kürzer <programlisting> # make fullinstall
- # make install-config</programlisting></para>
+  <para>Installieren Sie die Binaries, das Init-Script, Beispiel-Konfigurationsdateien, Beispiel-Eventhandler und setzen Sie die
+  Berechtigungen für das External-Command-Verzeichnis. <programlisting> #&gt; make install
+ #&gt; make install-init
+ #&gt; make install-config
+ #&gt; make install-contrib-eventhandlers
+ #&gt; make install-commandmode </programlisting> oder kürzer <programlisting> #&gt; make fullinstall
+ #&gt; make install-config</programlisting></para>
 
-  <note><para>Ab &name-icinga; 1.5.0 ist <literal>make install-config</literal> NICHT mehr in <literal>make fullinstall </literal> 
-  enthalten, um ein versehentliches Überschreiben der Konfigurationsdateien zu verhindern.</para></note>
+  <note>
+    <para>Ab &name-icinga; 1.5.0 ist <literal>make install-config</literal> NICHT mehr in <literal>make fullinstall </literal>enthalten, um
+    ein versehentliches Überschreiben der Konfigurationsdateien zu verhindern.</para>
+  </note>
+
+  <note>
+    <para>Ab &name-icinga; 1.7.0 werden mit <literal>make install-contrib-eventhandlers</literal> einige Beispiel-Eventhandler installiert.
+    Das ist lediglich in <literal>make fullinstall</literal>enthalten, um ein versehentliches Überschreiben der Dateien zu
+    verhindern.</para>
+  </note>
 
   <para>Die Icinga-API wird beim Aufruf von "make install" installiert, wenn Sie nur die Icinga-API (nach)installieren möchten, nutzen Sie:
   <programlisting> # make install-api</programlisting>Die Icinga-API ist Voraussetzung für das Icinga Web-Interface (nicht für die

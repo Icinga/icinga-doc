@@ -8,16 +8,19 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>&name-icinga;-Schnellstart auf &name-linux;</title>
 
-  <para><emphasis role="bold"><anchor xml:id="introduction_quickstart_icinga" />Einführung</emphasis></para>
+  <para><emphasis role="bold"><anchor xml:id="introduction_quickstart_icinga"/>Einführung</emphasis></para>
 
-  <note><para>Anstatt &name-icinga; von Grund auf zu installieren möchten Sie vielleicht ein Paket benutzen, das es möglicherweise für Ihr
-    Betriebssystem gibt. Bitte werfen Sie einen Blick auf die
-    <link xlink:href="https://www.icinga.org/download/packages">Tabelle der Pakete</link>.
-    </para>
+  <note>
+    <para>Anstatt &name-icinga; von Grund auf zu installieren möchten Sie vielleicht ein Paket benutzen, das es möglicherweise für Ihr
+    Betriebssystem gibt. Bitte werfen Sie einen Blick auf die <link xlink:href="https://www.icinga.org/download/packages">Tabelle der
+    Pakete</link>.</para>
+
     <para>Falls Sie aus den Sourcen installieren möchten, dann benutzen Sie bitte die offiziellen Release-Tarballs.</para>
   </note>
-  <important><para>Bitte benutzen Sie keine GIT-Snapshots, solange Sie kein Problem haben, das in der aktuellen Entwicklerversion ggf.
-    gelöst ist.</para>
+
+  <important>
+    <para>Bitte benutzen Sie keine GIT-Snapshots, solange Sie kein Problem haben, das in der aktuellen Entwicklerversion ggf. gelöst
+    ist.</para>
   </important>
 
   <para>Diese Schnellstartanleitung ist dazu gedacht, Ihnen einfache Anweisungen zu liefern, wie Sie &name-icinga; innerhalb von 20 Minuten
@@ -90,27 +93,54 @@
 
   <para>Sie können diese Pakete mit Hilfe der folgenden Befehle installieren (als root oder mit sudo).</para>
 
-  <note><para>Unglücklicherweise ändern sich manchmal die Paketnamen zwischen verschiedenen Ausgaben der gleichen Distribution, so dass Sie
-  die Suchoption Ihres Paket-Managers nutzen sollten, falls Sie die Fehlermeldung bekommen, dass eins der Pakete nicht gefunden wurde.
+  <note>
+    <para>Unglücklicherweise ändern sich manchmal die Paketnamen zwischen verschiedenen Ausgaben der gleichen Distribution, so dass Sie die
+    Suchoption Ihres Paket-Managers nutzen sollten, falls Sie die Fehlermeldung bekommen, dass eins der Pakete nicht gefunden wurde.
     <itemizedlist>
-      <listitem>
-        <literal>yum search &lt;package name&gt;</literal> (<emphasis>&name-fedora;/&name-rhel;/&name-centos;</emphasis>)
-      </listitem>
-      <listitem>
-        <literal>apt-cache search &lt;package name&gt;</literal> (<emphasis>&name-debian;/&name-ubuntu;</emphasis>)
-      </listitem>
-      <listitem>
-        <literal>zypper search &lt;package name&gt;</literal> (<emphasis>&name-opensuse;/&name-sles;</emphasis>)
-      </listitem>
-    </itemizedlist>
-  </para></note>
+        <listitem>
+
+          <literal>yum search &lt;package name&gt;</literal>
+
+           (
+
+          <emphasis>&name-fedora;/&name-rhel;/&name-centos;</emphasis>
+
+          )
+        </listitem>
+
+        <listitem>
+
+          <literal>apt-cache search &lt;package name&gt;</literal>
+
+           (
+
+          <emphasis>&name-debian;/&name-ubuntu;</emphasis>
+
+          )
+        </listitem>
+
+        <listitem>
+
+          <literal>zypper search &lt;package name&gt;</literal>
+
+           (
+
+          <emphasis>&name-opensuse;/&name-sles;</emphasis>
+
+          )
+        </listitem>
+      </itemizedlist></para>
+  </note>
 
   <para><emphasis>&name-fedora; / &name-redhat; / &name-centos;</emphasis></para>
 
   <programlisting> #&gt; yum install httpd gcc glibc glibc-common gd gd-devel
  #&gt; yum install libjpeg libjpeg-devel libpng libpng-devel
  #&gt; yum install net-snmp net-snmp-devel net-snmp-utils</programlisting>
-  <note><para>ggf. sind libjpeg-turbo bzw. libjpeg-turbo-devel zu installieren</para></note>
+
+  <note>
+    <para>ggf. sind libjpeg-turbo bzw. libjpeg-turbo-devel zu installieren</para>
+  </note>
 
   <para><emphasis>&name-debian; / &name-ubuntu;</emphasis></para>
 
@@ -130,7 +160,9 @@
 
   <para>Bitte nutzen Sie YaST für die Installation der Pakete gd, gd-devel, libjpeg, libjpeg-devel, libpng, libpng-devel und -optional-
   net-snmp, net-snmp-devel und perl-Net-SNMP.</para>
+
   <para>Die Nutzung von zypper sollte ebenfalls funktionieren:</para>
+
   <programlisting> #&gt; zypper install gd gd-devel libjpeg libjpeg-devel libpng libpng-devel
  #&gt; zypper install net-snmp net-snmp-devel perl-Net-SNMP</programlisting>
 
@@ -160,6 +192,7 @@
   <programlisting> #&gt; /usr/sbin/groupadd icinga-cmd
  #&gt; /usr/sbin/usermod -a -G icinga-cmd icinga
  #&gt; /usr/sbin/usermod -a -G icinga-cmd www-data</programlisting>
+
   <para>(oder www, wwwrun, apache je nach Distribution)</para>
 
   <note>
@@ -196,19 +229,27 @@
 
   <programlisting> #&gt; make all</programlisting>
 
-  <para>Installieren Sie die Binaries, das Init-Script, Beispiel-Konfigurationsdateien und setzen Sie die Berechtigungen für das
-  External-Command-Verzeichnis. <programlisting> #&gt; make install 
- #&gt; make install-init 
- #&gt; make install-config 
+  <para>Installieren Sie die Binaries, das Init-Script, Beispiel-Konfigurationsdateien, Beispiel-Eventhandler und setzen Sie die
+  Berechtigungen für das External-Command-Verzeichnis. <programlisting> #&gt; make install
+ #&gt; make install-init
+ #&gt; make install-config
+ #&gt; make install-contrib-eventhandlers
  #&gt; make install-commandmode </programlisting> oder kürzer <programlisting> #&gt; make fullinstall
  #&gt; make install-config</programlisting></para>
 
-  <note><para>Ab &name-icinga; 1.5.0 ist <literal>make install-config</literal> NICHT mehr in <literal>make fullinstall </literal>
-  enthalten, um ein versehentliches Überschreiben der Konfigurationsdateien zu verhindern.</para></note>
+  <note>
+    <para>Ab &name-icinga; 1.5.0 ist <literal>make install-config</literal> NICHT mehr in <literal>make fullinstall </literal>enthalten, um
+    ein versehentliches Überschreiben der Konfigurationsdateien zu verhindern.</para>
+  </note>
 
+  <note>
+    <para>Ab &name-icinga; 1.7.0 werden mit <literal>make install-contrib-eventhandlers</literal> einige Beispiel-Eventhandler installiert.
+    Das ist lediglich in <literal>make fullinstall</literal>enthalten, um ein versehentliches Überschreiben der Dateien zu
+    verhindern.</para>
+  </note>
 
-  <para>Die Icinga-API wird beim Aufruf von "make install" installiert, wenn Sie nur die Icinga-Api (nach)installieren möchten, nutzen Sie:
-  <programlisting> # make install-api</programlisting> Die Icinga-API ist Voraussetzung für das &name-icinga;-Web-Interface (nicht für die
+  <para>Die Icinga-API wird beim Aufruf von "make install" installiert, wenn Sie nur die Icinga-API (nach)installieren möchten, nutzen Sie:
+  <programlisting> # make install-api</programlisting>Die Icinga-API ist Voraussetzung für das &name-icinga;-Web-Interface (nicht für die
   klassische Ansicht!).</para>
 
   <para>Bitte starten Sie &name-icinga; noch nicht - es gibt noch ein paar Dinge zu tun...</para>
@@ -286,8 +327,9 @@
 
   <para><emphasis role="bold">Anpassen der SE&name-linux;-Einstellungen</emphasis></para>
 
-  <para>&name-rhel; und ähnliche Distributionen wie &name-fedora; oder &name-centos; werden mit installiertem SE&name-linux; (Security Enhanced 
-  &name-linux;) ausgeliefert und laufen im "Enforcing"-Modus. Dies kann zu "Internal Server Error"-Fehlern führen, wenn Sie versuchen, die  &name-icinga;-CGIs aufzurufen.</para>
+  <para>&name-rhel; und ähnliche Distributionen wie &name-fedora; oder &name-centos; werden mit installiertem SE&name-linux; (Security
+  Enhanced &name-linux;) ausgeliefert und laufen im "Enforcing"-Modus. Dies kann zu "Internal Server Error"-Fehlern führen, wenn Sie
+  versuchen, die &name-icinga;-CGIs aufzurufen.</para>
 
   <para>Schauen Sie, ob SE&name-linux; im Enforcing-Modus läuft.</para>
 
