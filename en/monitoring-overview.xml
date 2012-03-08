@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="monitoring-overview" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="monitoring_overview"/>Monitoring Overview</title>
+
+  <para><emphasis role="bold">Introduction</emphasis></para>
+
+  <para>&name-icinga; is intended to monitor devices (e.g. server, router, printer, and other hardware like temperature sensors) and
+  services (processes running on these devices, metrics, etc.). There are several ways to do that and different approaches for different
+  devices depending on your needs or the infrastructure.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><link linkend="activechecks">Active checks</link></para>
+
+      <para>The checks are initiated from the monitoring server repeated at given intervals. The server is waiting for the check results.
+      The values and thresholds are set on the monitoring server. Check results can be retrieved</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>using SNMP. The remote system runs an SNMP daemon allowing to read the requested values. Depending on the plugin and the
+          daemon SNMP v1, v2c, or v3 are supported</para>
+        </listitem>
+
+        <listitem>
+          <para>using <link linkend="nrpe">NRPE</link>, calling an NRPE daemon on the remote system which executes a check and returns the
+          results to NRPE which in turn delivers it to the &name-icinga; process</para>
+        </listitem>
+
+        <listitem>
+          <para>calling a plugin using SSH to call a check on the remote system which returns the data to the plugin</para>
+        </listitem>
+
+        <listitem>
+          <para>using the plugin check_nt to connect to a service (e.g. "<link xlink:href="http://nsclient.org">NSClient++</link>") on the
+          remote windows box and return data on several metrics</para>
+        </listitem>
+
+        <listitem>
+          <para>using addons like <link xlink:href="http://my-plugin.de">check_multi</link> or <link
+          xlink:href="http://mathias-kettner.de/check_mk_overview.html">check_mk</link> which call plugins on their own to decrease the
+          performance impact on the monitoring process (due to parallel calls). The configuration of values and thresholds is mostly moved
+          to these addons which might increase the time of administration</para>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="passivechecks">Passive checks</link></para>
+
+      <para>The checks are initiated on remote systems (not necessarily the system to be monitored but probably "satellite systems", aka
+      "pollers", which monitor an organisational unit). The check results are transmitted to the monitoring server using <link
+      linkend="nsca">NSCA</link> consisting of send_nsca on the client system and the nsca daemon on the monitoring server and processed
+      there to update the current status. Setting <link linkend="freshness">freshness thresholds</link> will notify you if results do not
+      appear in time. Depending on the configuration tools used administration might be more complex but using firewalls or other
+      limitations imposed by security, customers, and/or other means you might not have the choice. Using passive checks will decrease the
+      load on your monitoring system, too, because it only has to process the check results instead of executing checks itself. You can use
+      entries in the crontab to execute checks at fixed times, execute long running queries when necessary or execute backup jobs returning
+      only the results.</para>
+    </listitem>
+
+    <listitem>
+      <para><!--<link xlink:href="http://www.teamix.org/projects/nagixsc">-->A mix of both<!--</link>--></para>
+
+      <para>You might have remote systems running checks at given intervals providing data via a secret and secure page on a web server. The
+      monitoring server is not able to check the systems directly (due to firewalls, customer regulations, etc.) but can access the document
+      provided by the web server. It will retrieve the data using scripts (checks?) and injecting the results via <link
+      linkend="extcommands">external commands</link>.</para>
+    </listitem>
+
+    <listitem>
+      <para>SNMP-Traps</para>
+
+      <para>Sometimes you don't want to check things periodically because they are running smoothly and it would impose unnecessary network
+      load. Several devices will inform you themselves when something goes wrong by using SNMP traps.</para>
+    </listitem>
+  </itemizedlist>
+
+  <indexterm zone="adaptive_monitoring">
+    <primary>Monitoring Overview</primary>
+  </indexterm>
+</section>
