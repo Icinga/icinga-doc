@@ -35,8 +35,8 @@
   </orderedlist>
 
   <note>
-    <para>Please try to avoid special characters in the object definitions. Currently (&name-icinga; &lt;= 1.5.0) there is a bug which
-    prevents forcing reschedules from the classic ui resulting in the error message that you are not authorized.</para>
+    <para>Please try to avoid special characters in the object definitions. In &name-icinga; &lt;= 1.5.0 there was a bug which prevented
+    forcing reschedules from the classic ui resulting in the error message that you are not authorized.</para>
   </note>
 
   <para><anchor xml:id="objectdefinitions-retention_notes"/><emphasis role="bold">Retention Notes</emphasis></para>
@@ -323,7 +323,13 @@
             <entry><para>[o,d,u]</para></entry>
           </row>
 
-          <!--<tr><td></td><td class="Optional">failure_prediction_enabled</td><td class="Optional">[0/1]</td></tr>//-->
+          <row>
+            <entry><para/></entry>
+
+            <entry><para>failure_prediction_enabled</para></entry>
+
+            <entry><para>[0/1]</para></entry>
+          </row>
 
           <row>
             <entry><para/></entry>
@@ -744,14 +750,12 @@
             states.</para></entry>
           </row>
 
-          <!--
-<tr>
-<td valign="top"><strong>failure_prediction_enabled</strong>:</td>
-<td>
-This directive is used to determine whether or not failure prediction is enabled for this host.  Values: 0 = disable host failure prediction, 1 = enable host failure prediction.
-</td>
-</tr>
-//-->
+          <row>
+            <entry><para><emphasis role="bold">failure_prediction_enabled</emphasis>:</para></entry>
+
+            <entry><para>This directive is used to determine whether or not failure prediction is enabled for this host. Values: 0 = disable
+            host failure prediction, 1 = enable host failure prediction. </para></entry>
+          </row>
 
           <row>
             <entry align="left" valign="top"><para><emphasis role="bold">process_perf_data *</emphasis>:</para></entry>
@@ -835,10 +839,11 @@ This directive is used to determine whether or not failure prediction is enabled
             role="bold">u</emphasis> = send notifications on an UNREACHABLE state, <emphasis role="bold">r</emphasis> = send notifications
             on recoveries (OK state), <emphasis role="bold">f</emphasis> = send notifications when the host starts and stops <link
             linkend="flapping">flapping</link>, and <emphasis role="bold">s</emphasis> = send notifications when <link
-            linkend="downtime">scheduled downtime</link> starts and ends. If you specify <emphasis role="bold">n</emphasis> (none) as an
-            option, no host notifications will be sent out. If you do not specify any notification options, &name-icinga; will assume that
-            you want notifications to be sent out for all possible states. Example: If you specify <emphasis role="bold">d,r</emphasis> in
-            this field, notifications will only be sent out when the host goes DOWN and when it recovers from a DOWN state.</para></entry>
+            linkend="downtime">scheduled downtime</link> starts and ends. <emphasis condition="red" role="color">If you specify <emphasis
+            role="bold">n</emphasis> (none) as an option, no host notifications will be sent out.</emphasis> If you do not specify any
+            notification options, &name-icinga; will assume that you want notifications to be sent out for all possible states. Example: If
+            you specify <emphasis role="bold">d,r</emphasis> in this field, notifications will only be sent out when the host goes DOWN and
+            when it recovers from a DOWN state.</para></entry>
           </row>
 
           <row>
@@ -1367,7 +1372,13 @@ This directive is used to determine whether or not failure prediction is enabled
             <entry><para>[o,w,c,u]</para></entry>
           </row>
 
-          <!--<tr><td></td><td class="Optional">failure_prediction_enabled</td><td class="Optional">[0/1]</td></tr>//-->
+          <row>
+            <entry><para/></entry>
+
+            <entry><para>failure_prediction_enabled</para></entry>
+
+            <entry><para>[0/1]</para></entry>
+          </row>
 
           <row>
             <entry><para/></entry>
@@ -1729,14 +1740,12 @@ This directive is used to determine whether or not failure prediction is enabled
             role="bold">u</emphasis> = UNKNOWN states.</para></entry>
           </row>
 
-          <!--
-<tr>
-<td valign="top"><strong>failure_prediction_enabled</strong>:</td>
-<td>
-This directive is used to determine whether or not failure prediction is enabled for this service.  Values: 0 = disable service failure prediction, 1 = enable service failure prediction.
-</td>
-</tr>
-//-->
+          <row>
+            <entry><para><emphasis role="bold">failure_prediction_enabled</emphasis>:</para></entry>
+
+            <entry><para>This directive is used to determine whether or not failure prediction is enabled for this service. Values: 0 =
+            disable service failure prediction, 1 = enable service failure prediction.</para></entry>
+          </row>
 
           <row>
             <entry align="left" valign="top"><para><emphasis role="bold">process_perf_data *</emphasis>:</para></entry>
@@ -1799,10 +1808,11 @@ This directive is used to determine whether or not failure prediction is enabled
             notifications on a CRITICAL state, <emphasis role="bold">r</emphasis> = send notifications on recoveries (OK state), <emphasis
             role="bold">f</emphasis> = send notifications when the service starts and stops <link linkend="flapping">flapping</link>, and
             <emphasis role="bold">s</emphasis> = send notifications when <link linkend="downtime">scheduled downtime</link> starts and ends.
-            If you specify <emphasis role="bold">n</emphasis> (none) as an option, no service notifications will be sent out. If you do not
-            specify any notification options, &name-icinga; will assume that you want notifications to be sent out for all possible states.
-            Example: If you specify <emphasis role="bold">w,r</emphasis> in this field, notifications will only be sent out when the service
-            goes into a WARNING state and when it recovers from a WARNING state.</para></entry>
+            <emphasis condition="red" role="color">If you specify <emphasis role="bold">n</emphasis> (none) as an option, no service
+            notifications will be sent out.</emphasis> If you do not specify any notification options, &name-icinga; will assume that you
+            want notifications to be sent out for all possible states. Example: If you specify <emphasis role="bold">w,r</emphasis> in this
+            field, notifications will only be sent out when the service goes into a WARNING state and when it recovers from a WARNING
+            state.</para></entry>
           </row>
 
           <row>
@@ -1820,7 +1830,7 @@ This directive is used to determine whether or not failure prediction is enabled
             this service. Multiple contacts should be separated by commas. Useful if you want notifications to go to just a few people and
             don't want to configure <link linkend="objectdefinitions-contactgroup">contact groups</link>. <emphasis condition="red"
             role="color">You must specify at least one contact or contact group in each service definition or nobody at all will be
-            notified</emphasis>..</para></entry>
+            notified</emphasis>.</para></entry>
           </row>
 
           <row>
@@ -2370,8 +2380,9 @@ This directive is used to determine whether or not failure prediction is enabled
             <emphasis role="bold">u</emphasis> = notify on UNREACHABLE host states, <emphasis role="bold">r</emphasis> = notify on host
             recoveries (UP states), <emphasis role="bold">f</emphasis> = notify when the host starts and stops <link
             linkend="flapping">flapping</link>, and <emphasis role="bold">s</emphasis> = send notifications when host or service <link
-            linkend="downtime">scheduled downtime</link> starts and ends. If you specify <emphasis role="bold">n</emphasis> (none) as an
-            option, the contact will not receive any type of host notifications.</para></entry>
+            linkend="downtime">scheduled downtime</link> starts and ends. <emphasis condition="red" role="color">If you specify <emphasis
+            role="bold">n</emphasis> (none) as an option, the contact will not receive any type of host
+            notifications.</emphasis></para></entry>
           </row>
 
           <row>
@@ -2381,9 +2392,9 @@ This directive is used to determine whether or not failure prediction is enabled
             options are a combination of one or more of the following: <emphasis role="bold">w</emphasis> = notify on WARNING service
             states, <emphasis role="bold">u</emphasis> = notify on UNKNOWN service states, <emphasis role="bold">c</emphasis> = notify on
             CRITICAL service states, <emphasis role="bold">r</emphasis> = notify on service recoveries (OK states), and <emphasis
-            role="bold">f</emphasis> = notify when the service starts and stops <link linkend="flapping">flapping</link>. If you specify
-            <emphasis role="bold">n</emphasis> (none) as an option, the contact will not receive any type of service
-            notifications.</para></entry>
+            role="bold">f</emphasis> = notify when the service starts and stops <link linkend="flapping">flapping</link>.<emphasis
+            condition="red" role="color"> If you specify <emphasis role="bold">n</emphasis> (none) as an option, the contact will not
+            receive any type of service notifications.</emphasis></para></entry>
           </row>
 
           <row>
@@ -4037,18 +4048,16 @@ This directive is used to determine whether or not failure prediction is enabled
   <section>
     <title><anchor xml:id="objectdefinitions-hostextinfo"/>Hostextinfo Definition</title>
 
+    <important>
+      <para>This definition type is deprecated and may be removed in the future. Please use the directives in the host definition
+      instead.</para>
+    </important>
+
     <para><emphasis>Description:</emphasis></para>
 
     <para>Extended host information entries are basically used to make the output from the <link linkend="cgis-status_cgi">status</link>,
-    <link linkend="cgis-statusmap_cgi">statusmap</link>, <link linkend="cgis-statuswrl_cgi">statuswrl</link>, and <link
+    <link linkend="cgis-statusmap_cgi">statusmap</link>, <!--<link linkend="cgis-statuswrl_cgi">statuswrl</link>,--> and <link
     linkend="cgis-extinfo_cgi">extinfo</link> CGIs look pretty. They have no effect on monitoring and are completely optional.</para>
-
-    <tip>
-      <para>All directives contained in extended host information definitions are also available in <link
-      linkend="objectdefinitions-host">host definitions</link>. Thus, you can choose to define the directives below in your host definitions
-      if it makes your configuration simpler. Separate extended host information definitions will continue to be supported for backward
-      compatibility.</para>
-    </tip>
 
     <para><emphasis>Definition Format:</emphasis></para>
 
@@ -4076,6 +4085,14 @@ This directive is used to determine whether or not failure prediction is enabled
             <entry><emphasis condition="red" role="color">host_name</emphasis></entry>
 
             <entry><para>host_name</para></entry>
+          </row>
+
+          <row>
+            <entry><para/></entry>
+
+            <entry><para>hostgroup_name</para></entry>
+
+            <entry>note_string</entry>
           </row>
 
           <row>
@@ -4187,6 +4204,15 @@ This directive is used to determine whether or not failure prediction is enabled
 
             <entry><para>This variable is used to identify the <emphasis>short name</emphasis> of the <link
             linkend="objectdefinitions-host">host</link> which the data is associated with.</para></entry>
+          </row>
+
+          <row>
+            <entry align="left" valign="top"><para><emphasis role="bold">hostgroup_name</emphasis>:</para></entry>
+
+            <entry><para>This directive is used to identify the <emphasis>short name(s)</emphasis> of the <link
+            linkend="objectdefinitions-hostgroup">hostgroup(s)</link> that the definition should apply to. Multiple hostgroups should be
+            separated by commas. If this is used, the definition will apply to all hosts that are members of the specified
+            hostgroup(s).</para></entry>
           </row>
 
           <row>
@@ -4306,23 +4332,21 @@ This directive is used to determine whether or not failure prediction is enabled
   <section>
     <title><anchor xml:id="objectdefinitions-serviceextinfo"/>Serviceextinfo Definition</title>
 
+    <important>
+      <para>This definition type is deprecated and may be removed in the future. Please use the directives in the service definition
+      instead.</para>
+    </important>
+
     <para><emphasis>Description:</emphasis></para>
 
     <para>Extended service information entries are basically used to make the output from the <link linkend="cgis-status_cgi">status</link>
     and <link linkend="cgis-extinfo_cgi">extinfo</link> CGIs look pretty. They have no effect on monitoring and are completely
     optional.</para>
 
-    <tip>
-      <para>As of &name-nagios; 3.x, all directives contained in extended service information definitions are also available in <link
-      linkend="objectdefinitions-service">service definitions</link>. Thus, you can choose to define the directives below in your service
-      definitions if it makes your configuration simpler. Separate extended service information definitions will continue to be supported
-      for backward compatibility.</para>
-    </tip>
-
     <para><emphasis>Definition Format:</emphasis></para>
 
     <note>
-      <para><emphasis condition="red" role="color">"Directives"</emphasis>are required while the others are optional. However, you need to
+      <para><emphasis condition="red" role="color">"Directives"</emphasis> are required while the others are optional. However, you need to
       supply at least one optional variable in each definition for it to be of much use.</para>
     </note>
 
@@ -4353,6 +4377,14 @@ This directive is used to determine whether or not failure prediction is enabled
             <entry><emphasis condition="red" role="color">service_description</emphasis></entry>
 
             <entry><para>service_description</para></entry>
+          </row>
+
+          <row>
+            <entry><para/></entry>
+
+            <entry><para>hostgroup_name</para></entry>
+
+            <entry><para>hostgroup_name</para></entry>
           </row>
 
           <row>
@@ -4436,6 +4468,15 @@ This directive is used to determine whether or not failure prediction is enabled
 
             <entry><para>This directive is description of the <link linkend="objectdefinitions-service">service</link> which the data is
             associated with.</para></entry>
+          </row>
+
+          <row>
+            <entry align="left" valign="top"><para><emphasis role="bold">hostgroup_name</emphasis>:</para></entry>
+
+            <entry><para>This directive is used to identify the <emphasis>short name(s)</emphasis> of the <link
+            linkend="objectdefinitions-hostgroup">hostgroup(s)</link> that the definition should apply to. Multiple hostgroups should be
+            separated by commas. If this is used, the definition will apply to all hosts that are members of the specified
+            hostgroup(s).</para></entry>
           </row>
 
           <row>

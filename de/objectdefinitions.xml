@@ -38,9 +38,8 @@
   </orderedlist>
 
   <note>
-    <para>Bitte vermeiden Sie die Verwendung von Sonderzeichen in den Objektdefinitionen. Im Moment (&name-icinga; &lt;= 1.5.0) gibt es
-    einen Fehler, der die Ausführung von "forced reschedules" im Classic UI verhindert, wobei als Meldung ein "not authorized" angezeigt
-    wird.</para>
+    <para>Bitte vermeiden Sie die Verwendung von Sonderzeichen in den Objektdefinitionen. In &name-icinga; &lt;= 1.5.0 gab es einen Fehler,
+    der die Ausführung von "forced reschedules" im Classic UI verhinderte, wobei als Meldung ein "not authorized" angezeigt wurde.</para>
   </note>
 
   <para><anchor xml:id="objectdefinitions-retention_notes"/><emphasis role="bold">Anmerkungen zur Aufbewahrung</emphasis> (Retention
@@ -325,6 +324,14 @@
             <entry><para>flap_detection_options</para></entry>
 
             <entry><para>[o,d,u]</para></entry>
+          </row>
+
+          <row>
+            <entry><para/></entry>
+
+            <entry><para>failure_prediction_enabled</para></entry>
+
+            <entry><para>[0/1]</para></entry>
           </row>
 
           <row>
@@ -748,6 +755,13 @@
           </row>
 
           <row>
+            <entry><para><emphasis role="bold">failure_prediction_enabled</emphasis>:</para></entry>
+
+            <entry><para>Diese Direktive wird benutzt, um festzulegen, ob Fehlervorhersage für diesen Host aktiviert ist. Werte: 0 =
+            Fehlervorhersage deaktivieren, 1 = Fehlervorhersage aktivieren.</para></entry>
+          </row>
+
+          <row>
             <entry align="left" valign="top"><para><emphasis role="bold">process_perf_data *</emphasis>:</para></entry>
 
             <entry><para>Diese Direktive wird benutzt, um festzulegen, ob die Verarbeitung von Performance-Daten für diesen Host aktiviert
@@ -832,11 +846,11 @@
             versenden, <emphasis role="bold">r</emphasis> = Benachrichtigungen bei Erholungen (OK-Zustand) versenden, <emphasis
             role="bold">f</emphasis> = Benachrichtigungen versenden, wenn der Host mit <link linkend="flapping">Flattern</link> anfängt bzw.
             aufhört und <emphasis role="bold">s</emphasis> = Benachrichtigungen versenden, wenn eine <link linkend="downtime">geplante
-            Ausfallzeit</link> anfängt oder aufhört. Wenn Sie <emphasis role="bold">n</emphasis> (none) als Option angeben, werden keine
-            Host-Benachrichtigungen versandt. Wenn Sie keine Benachrichtigungsoptionen angeben, geht &name-icinga; davon aus, dass Sie
-            Benachrichtigungen zu allen möglichen Zuständen haben möchten. Beispiel: wenn Sie <emphasis role="bold">d,r</emphasis> in diesem
-            Feld angeben, werden Benachrichtigungen nur dann versandt, wenn der Host in einen DOWN-Zustand geht und sich wieder von einem
-            DOWN-Zustand erholt.</para></entry>
+            Ausfallzeit</link> anfängt oder aufhört. <emphasis condition="red" role="color">Wenn Sie <emphasis role="bold">n</emphasis>
+            (none) als Option angeben, werden keine Host-Benachrichtigungen versandt.</emphasis> Wenn Sie keine Benachrichtigungsoptionen
+            angeben, geht &name-icinga; davon aus, dass Sie Benachrichtigungen zu allen möglichen Zuständen haben möchten. Beispiel: wenn
+            Sie <emphasis role="bold">d,r</emphasis> in diesem Feld angeben, werden Benachrichtigungen nur dann versandt, wenn der Host in
+            einen DOWN-Zustand geht und sich wieder von einem DOWN-Zustand erholt.</para></entry>
           </row>
 
           <row>
@@ -906,6 +920,12 @@
             das durch das <emphasis>&lt;icon_image&gt;</emphasis>-Argument angegeben wurde.</para></entry>
           </row>
 
+          <row>
+            <entry align="left" valign="top"><para><emphasis role="bold">vrml_image</emphasis>:</para></entry>
+
+            <entry><para>Diese Direktive wird in &name-icinga; nicht unterstützt.</para></entry>
+          </row>
+
           <!---->
 
           <row>
@@ -934,6 +954,12 @@
             die linke, obere Ecke des Icons. Anmerkung: Machen Sie sich keine Sorgen über die maximalen X- und Y-Koordinaten, die Sie
             benutzen können. Das CGI wird automatisch die maximale Größe des zu erstellenden Bildes aufgrund der größten X- und
             Y-Koordinaten festlegen, die Sie angegeben haben.</para></entry>
+          </row>
+
+          <row>
+            <entry align="left" valign="top"><para><emphasis role="bold">3d_coords</emphasis>:</para></entry>
+
+            <entry><para>Diese Direktive wird in &name-icinga; nicht unterstützt.</para></entry>
           </row>
         </tbody>
       </tgroup>
@@ -1345,6 +1371,14 @@
           <row>
             <entry><para/></entry>
 
+            <entry><para>failure_prediction_enabled</para></entry>
+
+            <entry><para>[0/1]</para></entry>
+          </row>
+
+          <row>
+            <entry><para/></entry>
+
             <entry><para>process_perf_data</para></entry>
 
             <entry><para>[0/1]</para></entry>
@@ -1708,6 +1742,13 @@
           </row>
 
           <row>
+            <entry><para><emphasis role="bold">failure_prediction_enabled</emphasis>:</para></entry>
+
+            <entry><para>Diese Direktive wird benutzt, um festzulegen, ob Fehlervorhersage für diesen Service aktiviert ist. Werte: 0 =
+            Fehlervorhersage deaktivieren, 1 = Fehlervorhersage aktivieren.</para></entry>
+          </row>
+
+          <row>
             <entry align="left" valign="top"><para><emphasis role="bold">process_perf_data *</emphasis>:</para></entry>
 
             <entry><para>Diese Direktive wird benutzt, um festzulegen, ob die Verarbeitung von Performance-Daten für diesen Service
@@ -1771,11 +1812,11 @@
             versenden, <emphasis role="bold">r</emphasis> = Benachrichtigungen bei Erholungen (OK-Zustand) versenden, <emphasis
             role="bold">f</emphasis> = Benachrichtigungen versenden, wenn der Service mit <link linkend="flapping">Flattern</link> anfängt
             bzw. aufhört und <emphasis role="bold">s</emphasis> = Benachrichtigungen versenden, wenn eine <link linkend="downtime">geplante
-            Ausfallzeit</link> anfängt oder aufhört. Wenn Sie <emphasis role="bold">n</emphasis> (none) als Option angeben, werden keine
-            Service-Benachrichtigungen versandt. Wenn Sie keine Benachrichtigungsoptionen angeben, geht &name-icinga; davon aus, dass Sie
-            Benachrichtigungen zu allen möglichen Zuständen haben möchten. Beispiel: wenn Sie <emphasis role="bold">w,r</emphasis> in diesem
-            Feld angeben, werden Benachrichtigungen nur dann versandt, wenn der Service in einen WARNING-Zustand geht und sich wieder von
-            einem WARNING-Zustand erholt.</para></entry>
+            Ausfallzeit</link> anfängt oder aufhört. <emphasis condition="red" role="color">Wenn Sie <emphasis role="bold">n</emphasis>
+            (none) als Option angeben, werden keine Service-Benachrichtigungen versandt.</emphasis> Wenn Sie keine Benachrichtigungsoptionen
+            angeben, geht &name-icinga; davon aus, dass Sie Benachrichtigungen zu allen möglichen Zuständen haben möchten. Beispiel: wenn
+            Sie <emphasis role="bold">w,r</emphasis> in diesem Feld angeben, werden Benachrichtigungen nur dann versandt, wenn der Service
+            in einen WARNING-Zustand geht und sich wieder von einem WARNING-Zustand erholt.</para></entry>
           </row>
 
           <row>
@@ -2345,8 +2386,9 @@
             Benachrichtigungen bei einem UNREACHABLE-Zustand versenden, <emphasis role="bold">r</emphasis> = Benachrichtigungen bei
             Erholungen (UP-Zustand) versenden, <emphasis role="bold">f</emphasis> = Benachrichtigungen versenden, wenn der Host mit <link
             linkend="flapping">Flattern</link> anfängt bzw. aufhört und <emphasis role="bold">s</emphasis> = Benachrichtigungen versenden,
-            wenn eine <link linkend="downtime">geplante Ausfallzeit</link> anfängt oder aufhört. Wenn Sie <emphasis role="bold">n</emphasis>
-            (none) als Option angeben, werden keine Host-Benachrichtigungen versandt.</para></entry>
+            wenn eine <link linkend="downtime">geplante Ausfallzeit</link> anfängt oder aufhört. <emphasis condition="red" role="color">Wenn
+            Sie <emphasis role="bold">n</emphasis> (none) als Option angeben, werden keine Host-Benachrichtigungen
+            versandt.</emphasis></para></entry>
           </row>
 
           <row>
@@ -2359,8 +2401,8 @@
             UNKNOWN-Zustand versenden, <emphasis role="bold">r</emphasis> = Benachrichtigungen bei Erholungen (OK-Zustand) versenden,
             <emphasis role="bold">f</emphasis> = Benachrichtigungen versenden, wenn der Service mit <link linkend="flapping">Flattern</link>
             anfängt bzw. aufhört und <emphasis role="bold">s</emphasis> = Benachrichtigungen versenden, wenn eine <link
-            linkend="downtime">geplante Ausfallzeit</link> anfängt oder aufhört. Wenn Sie <emphasis role="bold">n</emphasis> (none) als
-            Option angeben, werden keine Service-Benachrichtigungen versandt.</para></entry>
+            linkend="downtime">geplante Ausfallzeit</link> anfängt oder aufhört. <emphasis condition="red" role="color">Wenn Sie <emphasis
+            role="bold">n</emphasis> (none) als Option angeben, werden keine Service-Benachrichtigungen versandt.</emphasis></para></entry>
           </row>
 
           <row>
@@ -4077,6 +4119,14 @@
           <row>
             <entry><para/></entry>
 
+            <entry><para>hostgroup_name</para></entry>
+
+            <entry>hostgroup_name</entry>
+          </row>
+
+          <row>
+            <entry><para/></entry>
+
             <entry><para>notes</para></entry>
 
             <entry>note_string</entry>
@@ -4182,6 +4232,15 @@
 
             <entry><para>Diese Variable wird benutzt, um den/die <emphasis>Kurznamen</emphasis> des/der <link
             linkend="objectdefinitions-host">Hosts</link> zu identifizieren, mit dem/denen diese Daten verbunden sind.</para></entry>
+          </row>
+
+          <row>
+            <entry align="left" valign="top"><para><emphasis role="bold">hostgroup_name</emphasis>:</para></entry>
+
+            <entry><para>Diese Direktive wird benutzt, um den/die <emphasis>Kurznamen</emphasis> der <link
+            linkend="objectdefinitions-host">Hostgruppen</link> anzugeben, für den diese Definition gilt. Mehrere Hostgruppen werden durch
+            Kommata von einander getrennt. Wenn diese Direktive benutzt wird, trifft die Definition auf alle Hosts zu, die Mitglied der
+            angegebenen Hostgruppe(n) sind.</para></entry>
           </row>
 
           <row>
@@ -4363,6 +4422,14 @@
           <row>
             <entry><para/></entry>
 
+            <entry><para>hostgroup_name</para></entry>
+
+            <entry>hostgroup_name</entry>
+          </row>
+
+          <row>
+            <entry><para/></entry>
+
             <entry><para>notes</para></entry>
 
             <entry>note_string</entry>
@@ -4441,6 +4508,15 @@
 
             <entry><para>Diese ist die Beschreibung des <link linkend="objectdefinitions-service">Service</link>, mit dem/denen diese Daten
             verbunden sind.</para></entry>
+          </row>
+
+          <row>
+            <entry align="left" valign="top"><para><emphasis role="bold">hostgroup_name</emphasis>:</para></entry>
+
+            <entry><para>Diese Direktive wird benutzt, um den/die <emphasis>Kurznamen</emphasis> der <link
+            linkend="objectdefinitions-host">Hostgruppen</link> anzugeben, für den diese Definition gilt. Mehrere Hostgruppen werden durch
+            Kommata von einander getrennt. Wenn diese Direktive benutzt wird, trifft die Definition auf alle Hosts zu, die Mitglied der
+            angegebenen Hostgruppe(n) sind.</para></entry>
           </row>
 
           <row>
