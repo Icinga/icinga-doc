@@ -6,7 +6,7 @@
 <section version="5.0" xml:id="upgrading" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-  <title><anchor xml:id="upgrading_nagios" />Upgrading (to) &name-icinga;</title>
+  <title><anchor xml:id="upgrading_nagios"/>Upgrading (to) &name-icinga;</title>
 
   <para><emphasis role="bold">Contents</emphasis></para>
 
@@ -28,7 +28,7 @@
     upgrading_icingaweb</link> as well.</para>
   </note>
 
-  <para><emphasis role="bold"><anchor xml:id="upgrading-icinga" /> Upgrading from previous &name-icinga; Releases</emphasis></para>
+  <para><emphasis role="bold"><anchor xml:id="upgrading-icinga"/> Upgrading from previous &name-icinga; Releases</emphasis></para>
 
   <para>During development there may be cases where the handling of bugfixes might touch the userspace. We try to avoid this as far as
   possible but sometimes it is inevitable.</para>
@@ -51,9 +51,9 @@
   you did with the old version. <programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils</programlisting>
   Compile the source. <programlisting> #&gt; make all</programlisting> Please make sure that you don't overwrite your configs - always make
   a backup! Don't use <code>make install-config</code> and/or <code>make install-webconf</code> if you want to manually diff the config
-  files. <programlisting> #&gt; make install install-base install-cgis install-html install-init install-commandmode install-idoutils</programlisting>
-  or decide what you want to upgrade by just typing 'make' which shows all available options. Check your config and restart Icinga.
-  <programlisting> #&gt; /etc/init.d/icinga checkconfig
+  files. <programlisting> #&gt; make install install-base install-cgis install-html install-init \
+    install-commandmode install-idoutils</programlisting> or decide what you want to upgrade by just typing 'make' which shows all available
+  options. Check your config and restart Icinga. <programlisting> #&gt; /etc/init.d/icinga checkconfig
  #&gt; /etc/init.d/icinga restart</programlisting>That's it!</para>
 
   <para><emphasis role="bold">&name-icinga; 0.8.0 to &name-icinga; &ver-icinga;</emphasis></para>
@@ -73,7 +73,7 @@
    mv $oldfilename $newfilename
  done</programlisting>
 
-  <para><emphasis role="bold"><anchor xml:id="upgrading-nagios3x" /> Upgrading from &name-nagios; 3.x Releases</emphasis></para>
+  <para><emphasis role="bold"><anchor xml:id="upgrading-nagios3x"/> Upgrading from &name-nagios; 3.x Releases</emphasis></para>
 
   <para>We try to be compatible with the configuration files of the current &name-nagios; 3.x versions so there should be very little you
   have to do to "upgrade" from &name-nagios; 3.x to &name-icinga; &ver-icinga;. Assuming you've already installed &name-nagios; from source
@@ -148,9 +148,15 @@
  #&gt; make install
  #&gt; make install-cgis
  #&gt; make install-init</screen>
-  <para>or simply</para><screen> #&gt; make fullinstall</screen>
-  <important><para>Not till &name-icinga; 1.5.0 <literal>make install-config</literal> is NOT included in <literal>make fullinstall</literal> 
-  anymore to avoid accidental overwriting of your config files.</para></important>
+
+  <para>or simply</para>
+
+  <screen> #&gt; make fullinstall</screen>
+
+  <important>
+    <para>Not till &name-icinga; 1.5.0 <literal>make install-config</literal> is NOT included in <literal>make fullinstall</literal> anymore
+    to avoid accidental overwriting of your config files.</para>
+  </important>
 
   <para>Instead of using "<code>make install-config</code>" copy your configuration files from <filename>&lt;Nagios-path&gt;/etc/</filename>
   to <filename>&lt;Icinga-path&gt;/etc/</filename>. Before starting &name-icinga; you have to alter some things:</para>
@@ -219,7 +225,7 @@
     </listitem>
   </itemizedlist>
 
-  <para><emphasis role="bold"><anchor xml:id="upgrading-nagios2x" /> Upgrading from &name-nagios; 2.x Releases</emphasis></para>
+  <para><emphasis role="bold"><anchor xml:id="upgrading-nagios2x"/> Upgrading from &name-nagios; 2.x Releases</emphasis></para>
 
   <para>It shouldn't be too difficult to upgrade from &name-nagios; 2.x to &name-icinga; &ver-icinga;. The upgrade is essentially the same
   as what is described above for upgrading from &name-nagios; 3.x releases. You will, however, have to change your configuration files a bit
@@ -269,7 +275,7 @@
   that were made to the &name-icinga; code since the latest stable release of &name-nagios; 3.0.6. Quite a bit has changed, so make sure you
   read it over.</para>
 
-  <para><emphasis role="bold"><anchor xml:id="upgrading-rpm" /> Upgrading From an RPM Installation</emphasis></para>
+  <para><emphasis role="bold"><anchor xml:id="upgrading-rpm"/> Upgrading From an RPM Installation</emphasis></para>
 
   <para>If you currently have an RPM- or Debian/Ubuntu APT package-based installation of &name-nagios; and you would like to transition to
   installing &name-icinga; from the official source code distribution, here's the basic process you should follow:</para>
