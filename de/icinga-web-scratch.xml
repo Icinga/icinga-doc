@@ -195,8 +195,8 @@
       <programlisting> #&gt; ./configure
  #&gt; make install</programlisting>
 
-      <para>unter <filename>/usr/local/icinga-web</filename> installiert. Das kann eine Weile dauern, also bitte nicht ungeduldig werden ;-)
-      </para>
+      <para>unter <filename>/usr/local/icinga-web</filename> installiert. Das kann eine Weile dauern, also bitte nicht ungeduldig werden
+      ;-)</para>
 
       <para>Installation der neuen Apache-Konfiguration</para>
 
@@ -364,12 +364,11 @@
       <note>
         <para>Möglicherweise finden Sie es einfacher, beim Editieren von XML-Strukturen Syntax-Hightlighting zu benutzen, um zwischen
         Kommentaren und XML-Tags zu unterscheiden.</para>
-        <para> Editieren Sie <filename>/etc/vim/vimrc</filename>
-          <screen> " Vim5 and later versions support syntax highlighting. Uncommenting the next
+
+        <para>Editieren Sie <filename>/etc/vim/vimrc</filename> <screen> " Vim5 and later versions support syntax highlighting. Uncommenting the next
  " line enables syntax highlighting by default.
  syntax on</screen> oder <filename>/etc/nanorc</filename><screen> ## HTML
- include "/usr/share/nano/html.nanorc"</screen>
-        </para>
+ include "/usr/share/nano/html.nanorc"</screen></para>
       </note>
 
       <programlisting> #&gt; vi app/config/databases.xml</programlisting>
@@ -637,58 +636,103 @@ Alias /icinga-web /usr/local/icinga-web/pub
     </listitem>
 
     <listitem>
-      <para><anchor xml:id="icinga-web-scratch-errors" /> <emphasis role="bold">Test &amp; Fehler?</emphasis></para>
+      <para><anchor xml:id="icinga-web-scratch-errors"/> <emphasis role="bold">Test &amp; Fehler?</emphasis></para>
 
-      <para>Diese Sammlung enthält einige nützliche Informationen, wie Sie Fehler finden und lösen können. Ebenso wird darauf hingewiesen,
-      welche Informationen Sie im Fehlerfall angeben sollten, wenn Sie eine Frage auf den Mailinglisten oder auf <link
+      <para><note>
+          <para>Der folgende Abschnitt versucht, einige Hinweise zu üblichen Problemen zu geben, aber aufgrund der Natur von "geschriebenem"
+          Material wird die Wiki-Seite <uri>https://wiki.icinga.org/display/testing/Icinga+Web+Testing</uri> höchstwahrscheinlich aktueller
+          sein, so dass es dort ggf. eine Lösung gibt, die Sie hier nicht finden.</para>
+        </note>Diese Sammlung enthält einige nützliche Informationen, wie Sie Fehler finden und lösen können. Ebenso wird darauf
+      hingewiesen, welche Informationen Sie im Fehlerfall angeben sollten, wenn Sie eine Frage auf den Mailinglisten oder auf <link
       xlink:href="http://www.icinga-portal.org">http://www.icinga-portal.org</link> stellen.</para>
 
-      <para>* Geben Sie immer die verwendete Version an - tar.gz oder GIT?</para>
+      <itemizedlist>
+        <listitem>
+          <para>Geben Sie immer die verwendete Version an - Paket, tar.gz oder GIT?</para>
+        </listitem>
 
-      <para>* Browser, Version</para>
+        <listitem>
+          <para>Browser, Version</para>
+        </listitem>
 
-      <para>* Falls das Problem mit der Datenquelle besteht: Ausführliche Informationen zu API, IDOUtils, Core (Version, Debug Logs).</para>
+        <listitem>
+          <para>Falls das Problem mit der Datenquelle besteht: Ausführliche Informationen zu API, IDOUtils, Core (Version, Debug
+          Logs).</para>
+        </listitem>
+      </itemizedlist>
 
       <para>Wo können Sie nachsehen?</para>
 
-      <para>* Apache Error Logs, PHP Errors, PHP Dateien können nicht gefunden werden</para>
+      <itemizedlist>
+        <listitem>
+          <para>Apache Error Logs, PHP Errors, PHP Dateien können nicht gefunden werden</para>
+        </listitem>
 
-      <para>* <filename>/var/log/messages</filename>, /path/to/icinga/var/icinga.log</para>
+        <listitem>
+          <para><filename>/var/log/messages</filename>, /path/to/icinga/var/icinga.log</para>
+        </listitem>
+      </itemizedlist>
 
       <para>Änderungen an der &name-web;-Konfiguration (z.B. API/IDOUtils-Einstellungen geändert) werden nicht aktualisiert?</para>
 
-      <para>* Löschen Sie den Konfigurationscache in app/cache/config/*.php</para>
+      <itemizedlist>
+        <listitem>
+          <para>Löschen Sie den Konfigurationscache in app/cache/config/*.php</para>
+        </listitem>
+      </itemizedlist>
 
       <programlisting> /usr/local/icinga-web/bin/clearcache.sh</programlisting>
 
       <para>Icinga-Web zeigt eine leere Seite?</para>
 
-      <para>* Apache Errors Logs =&gt; mod_rewrite enabled, PHP-Abhängigkeiten ok? 'make testdeps'. Bei Debian gibt es u.a. die folgende
-      Fehlermeldung: ".htaccess: Invalid command 'RewriteEngine', perhaps misspelled or defined by a module not included in the server
-      configuration"</para>
+      <itemizedlist>
+        <listitem>
+          <para>Apache Errors Logs =&gt; mod_rewrite enabled, PHP-Abhängigkeiten ok? 'make testdeps'. Bei Debian gibt es u.a. die folgende
+          Fehlermeldung: ".htaccess: Invalid command 'RewriteEngine', perhaps misspelled or defined by a module not included in the server
+          configuration"</para>
+        </listitem>
+      </itemizedlist>
 
       <para>Icinga Web - Login erfolgt- aber die Seite lädt und lädt...</para>
 
-      <para>* Request failed, Ressource /icinga-web/appkit/ext/application State could not be loaded - is the url correct? =&gt; mod_rewrite
-      enabled ?</para>
+      <itemizedlist>
+        <listitem>
+          <para>Request failed, Ressource /icinga-web/appkit/ext/application State could not be loaded - is the url correct? =&gt;
+          mod_rewrite enabled ?</para>
+        </listitem>
 
-      <para>* .htaccess/VHost-Konfiguration =&gt; Pfade nicht korrekt? Icinga-Web zeigt keine Daten?</para>
+        <listitem>
+          <para>.htaccess/VHost-Konfiguration =&gt; Pfade nicht korrekt? Icinga-Web zeigt keine Daten?</para>
+        </listitem>
 
-      <para>* Datenbankzugriff verweigert =&gt; Überprüfen Sie, ob die Datenbankeinstellungen für &name-web; korrekt sind.</para>
+        <listitem>
+          <para>Datenbankzugriff verweigert =&gt; Überprüfen Sie, ob die Datenbankeinstellungen für &name-web; korrekt sind.</para>
+        </listitem>
+      </itemizedlist>
 
       <para>IDOUtils-Datenbank wird nicht gefüllt?</para>
 
-      <para>* "Error writing to data sink" =&gt; Überprüfen Sie die IDOUtils (ido2db läuft 2x - ok?), ido2db.cfg debug_level=-1,
-      debug_verbosity=2, restarten Sie IDOUtils und suchen Sie Fehler in <filename>ido2db.debug</filename></para>
+      <itemizedlist>
+        <listitem>
+          <para>"Error writing to data sink" =&gt; Überprüfen Sie die IDOUtils (ido2db läuft 2x - ok?), ido2db.cfg debug_level=-1,
+          debug_verbosity=2, restarten Sie IDOUtils und suchen Sie Fehler in <filename>ido2db.debug</filename></para>
+        </listitem>
 
-      <para>* Keine Daten vorhanden =&gt; Überprüfen Sie <filename>icinga.log</filename>, ob IDOMOD zu Beginn geladen wird. Falls nicht,
-      aktivieren Sie das Event Broker Modul in <filename>icinga.cfg</filename> so wie im Icinga Core im <link
-      linkend="quickstart-idoutils">IDOUtils Quickstart Guide</link> beschrieben.</para>
+        <listitem>
+          <para>Keine Daten vorhanden =&gt; Überprüfen Sie <filename>icinga.log</filename>, ob IDOMOD zu Beginn geladen wird. Falls nicht,
+          aktivieren Sie das Event Broker Modul in <filename>icinga.cfg</filename> so wie im Icinga Core im <link
+          linkend="quickstart-idoutils">IDOUtils Quickstart Guide</link> beschrieben.</para>
+        </listitem>
 
-      <para>* IDOUtils DB-Schema ist die aktuellste Version? =&gt; Falls nicht, überprüfen Sie mögliche Upgrades anhand der Docs
-      dafür.</para>
+        <listitem>
+          <para>IDOUtils DB-Schema ist die aktuellste Version? =&gt; Falls nicht, überprüfen Sie mögliche Upgrades anhand der Docs
+          dafür.</para>
+        </listitem>
 
-      <para>* Sockets sind korrekt definiert? =&gt; Unix oder TCP Socket, TCP wahlweise mit oder ohne SSL</para>
+        <listitem>
+          <para>Sockets sind korrekt definiert? =&gt; Unix oder TCP Socket, TCP wahlweise mit oder ohne SSL</para>
+        </listitem>
+      </itemizedlist>
 
       <para><emphasis role="bold">Testing the Web (stellen Sie sicher, dass PHPUnit installiert ist): </emphasis></para>
 
@@ -707,54 +751,78 @@ Alias /icinga-web /usr/local/icinga-web/pub
         reload/restart!</para>
       </note>
 
-      <para>* PHP Fatal error: Allowed memory size of ... bytes exhausted (tried to allocate ... bytes) =&gt; Überprüfen Sie Ihre
-      <filename>php.ini</filename> (apache2 und cli) und setzen Sie den Wert memory_limit auf 128M oder höher.</para>
+      <itemizedlist>
+        <listitem>
+          <para>PHP Fatal error: Allowed memory size of ... bytes exhausted (tried to allocate ... bytes) =&gt; Überprüfen Sie Ihre
+          <filename>php.ini</filename> (apache2 und cli) und setzen Sie den Wert memory_limit auf 128M oder höher</para>
+        </listitem>
 
-      <para>* PHP Fatal error: Uncaught exception 'AgaviCacheException' with message 'Failed to write cache file
-      /usr/local/icinga-web/app/cache/config/config_handlers.xml_development__xxxx.php" generated from configuration file
-      /usr/local/icinga-web/app/config/config_handlers.xml". Please make sure you have set correct write permissions for directory
-      /usr/local/icinga-web/app/cache.... =&gt; Setzen von safe_mode = off in /etc/php5/apache/php.ini.</para>
-      <note><para>Das kann auch ein Hinweis auf ein aktiviertes SELinux sein.</para></note>
+        <listitem>
+          <para>PHP Fatal error: Uncaught exception 'AgaviCacheException' with message 'Failed to write cache file
+          /usr/local/icinga-web/app/cache/config/config_handlers.xml_development__xxxx.php" generated from configuration file
+          /usr/local/icinga-web/app/config/config_handlers.xml". Please make sure you have set correct write permissions for directory
+          /usr/local/icinga-web/app/cache.... =&gt; Setzen von safe_mode = off in /etc/php5/apache/php.ini.</para>
 
-      <para>* [PHP Error] strtotime(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone
-      setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you
-      most likely misspelled the timezone identifier. We selected 'Europe/Berlin' for 'CEST/2.0/DST' instead [line 1548 of
-      /home/xxx/icinga/icinga-web/lib/doctrine/lib/Doctrine/Record.php] =&gt; Sie müssen date.timezone in der <filename>php.ini</filename>
-      definieren.</para>
+          <note>
+            <para>Das kann auch ein Hinweis auf ein aktiviertes SELinux sein.</para>
+          </note>
+        </listitem>
 
-      <para>* -&gt; 500 internal server error! Uncaught exception AgaviException thrown! Your default timezone is 'System/Localtime', ... =
-      &gt; Sie müssen date.timezone in der <filename>php.ini</filename> definieren.</para>
+        <listitem>
+          <para>[PHP Error] strtotime(): It is not safe to rely on the system's timezone settings. You are *required* to use the
+          date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting
+          this warning, you most likely misspelled the timezone identifier. We selected 'Europe/Berlin' for 'CEST/2.0/DST' instead [line
+          1548 of /home/xxx/icinga/icinga-web/lib/doctrine/lib/Doctrine/Record.php] =&gt; Sie müssen date.timezone in der
+          <filename>php.ini</filename> definieren.</para>
+        </listitem>
 
-      <para>* Keine Verbindung zur API. The API Connector returned the following message: getConnection failed: Database connection failed:
-      SQLSTATE[28000] [1045] Access denied for user 'icinga'@'localhost' (using password: YES))</para>
+        <listitem>
+          <para>-&gt; 500 internal server error! Uncaught exception AgaviException thrown! Your default timezone is 'System/Localtime', ...
+          = &gt; Sie müssen date.timezone in der <filename>php.ini</filename> definieren.</para>
+        </listitem>
 
-      <para>=&gt; Überprüfen Sie Ihre IDOUtils DB-Referenzen in der <filename>ido2db.cfg</filename> und fügen Sie diese in Ihre
-      &name-web;-Konfiguration als bevorzugte DB-Referenzen für Ihre IDO hinzu (siehe Konfiguration der &name-api;). Ab &name-web;1.0.3
-      können die Werte direkt während des configure gesetzt werden.</para>
+        <listitem>
+          <para>Keine Verbindung zur API. The API Connector returned the following message: getConnection failed: Database connection
+          failed: SQLSTATE[28000] [1045] Access denied for user 'icinga'@'localhost' (using password: YES)) =&gt; Überprüfen Sie Ihre
+          IDOUtils DB-Referenzen in der <filename>ido2db.cfg</filename> und fügen Sie diese in Ihre &name-web;-Konfiguration als bevorzugte
+          DB-Referenzen für Ihre IDO hinzu (siehe Konfiguration der &name-api;). Ab &name-web;1.0.3 können die Werte direkt während des
+          configure gesetzt werden.</para>
+        </listitem>
 
-      <para>* touch: cannot touch `/usr/local/icinga-web/.../cache/testfile.txt': Permission denied</para>
+        <listitem>
+          <para>touch: cannot touch `/usr/local/icinga-web/.../cache/testfile.txt': Permission denied =&gt; Die Konfiguration in den
+          xml-Dateien wird vom Framework ge-'pre-cached'. Daher müssen spezielle Berechtigungen für die Caching-Verzeichnisse gesetzt
+          werden. Durch die Ausführung von icingaWebTesting.php in etc/tests können die richtigen Berechtigungen automatisch gesetzt
+          werden.</para>
+        </listitem>
 
-      <para>=&gt; Die Konfiguration in den xml-Dateien wird vom Framework ge-'pre-cached'. Daher müssen spezielle Berechtigungen für die
-      Caching-Verzeichnisse gesetzt werden. Durch die Ausführung von icingaWebTesting.php in etc/tests können die richtigen Berechtigungen
-      automatisch gesetzt werden.</para>
+        <listitem>
+          <para>PHP Fatal error: Uncaught exception '...' with message 'Couldn't locate driver named mysql' =&gt; Stellen Sie sicher, dass
+          php pdo installiert und geladen ist, auch wenn testdeps sagt, dass alles in Ordnung ist.</para>
+        </listitem>
 
-      <para>* PHP Fatal error: Uncaught exception '...' with message 'Couldn't locate driver named mysql' =&gt; Stellen Sie sicher, dass php
-      pdo installiert und geladen ist, auch wenn testdeps sagt, dass alles in Ordnung ist.</para>
+        <listitem>
+          <para>Das Login wird nicht angezeigt =&gt; Aktivieren Sie short_open_tag in Ihrer <filename>php.ini</filename>. =&gt; Editieren
+          Sie open_basedir in Ihrer <filename>php.ini</filename> und fügen Sie die Installationsverzeichnisse von &name-web; und von
+          &name-api; (z.B. <filename>/usr/local/icinga/share/</filename>) hinzu.</para>
+        </listitem>
 
-      <para>* Das Login wird nicht angezeigt =&gt; Aktivieren Sie short_open_tag in Ihrer <filename>php.ini</filename>.</para>
+        <listitem>
+          <para>Leeres &name-web;? =&gt; Wenn mod_rewrite aktiviert ist und 'index.php' erscheint in der angefragten URL, dann funktioniert
+          das Portal nicht. Entfernen Sie index.php aus Ihrer URL und alles sollte funktionieren</para>
+        </listitem>
 
-      <para>=&gt; Editieren Sie open_basedir in Ihrer <filename>php.ini</filename> und fügen Sie die Installationsverzeichnisse von
-      &name-web; und von &name-api; (z.B. <filename>/usr/local/icinga/share/</filename>) hinzu.</para>
+        <listitem>
+          <para>Die Ergebnisse in den Status Cronks passen nicht zu Ihrer Konfiguration? =&gt; Überprüfen Sie in Ihrem Backend, d.h.
+          IDOUtils DB, welche Werte für die Status-Tabellen selektiert werden.</para>
+        </listitem>
 
-      <para>* Leeres &name-web;? =&gt; Wenn mod_rewrite aktiviert ist und 'index.php' erscheint in der angefragten URL, dann funktioniert
-      das Portal nicht. Entfernen Sie index.php aus Ihrer URL und alles sollte funktionieren</para>
-
-      <para>* Die Ergebnisse in den Status Cronks passen nicht zu Ihrer Konfiguration? =&gt; Überprüfen Sie in Ihrem Backend, d.h. IDOUtils
-      DB, welche Werte für die Status-Tabellen selektiert werden.</para>
-
-      <para>* Keine Daten in den Cronks ? =&gt; Überprüfen Sie ob alle Berechtigungen korrekt gesetzt sind, insbesondere von log/. Weiterhin
-      können Sie die angezeigten Daten in Ihrem Browser debuggen. Ausführliche Informationen dazu finden Sie im Icinga Wiki
-      https://wiki.icinga.org/display/Dev/Icinga+Web+Testing</para>
+        <listitem>
+          <para>Keine Daten in den Cronks ? =&gt; Überprüfen Sie ob alle Berechtigungen korrekt gesetzt sind, insbesondere von log/.
+          Weiterhin können Sie die angezeigten Daten in Ihrem Browser debuggen. Ausführliche Informationen dazu finden Sie im Icinga-Wiki
+          <uri>https://wiki.icinga.org/display/Dev/Icinga+Web+Testing</uri></para>
+        </listitem>
+      </itemizedlist>
 
       <para>Sofern Sie Fragen oder Updates haben, zögern Sie bitte nicht, uns diese mitzuteilen! :-)</para>
     </listitem>
