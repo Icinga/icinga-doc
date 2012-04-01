@@ -4,9 +4,8 @@
 %all.entities;
 ]>
 <section version="5.0" xml:id="objectinheritance" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>Objektvererbung</title>
 
   <para><emphasis role="bold">Einführung</emphasis></para>
@@ -15,8 +14,8 @@
   linkend="objectdefinitions">Objektdefinitionen</link> genutzt werden kann.</para>
 
   <para>Wenn Sie nach dem Lesen verwirrt sind, wie Rekursion und Vererbung arbeiten, sollten Sie einen Blick in die
-  Beispielobjektkonfigurationsdateien in der &name-icinga;-Distribution werfen. Wenn das immer noch nicht hilft, dann senden Sie
-  eine (englischsprachige) e-Mail mit einer <emphasis>detaillierten</emphasis> Beschreibung Ihres Problems an die
+  Beispielobjektkonfigurationsdateien in der &name-icinga;-Distribution werfen. Wenn das immer noch nicht hilft, dann senden Sie eine
+  (englischsprachige) e-Mail mit einer <emphasis>detaillierten</emphasis> Beschreibung Ihres Problems an die
   <emphasis>icinga-users</emphasis>-Mailing-List.</para>
 
   <para><emphasis role="bold">Grundlagen</emphasis></para>
@@ -31,29 +30,26 @@
         register      [0/1]
         }</screen>
 
-  <para>Die erste Variable heißt <emphasis>name</emphasis>. Das ist lediglich ein "Vorlagen"-Name (template name), auf den in
-  anderen Objektdefinitonen verwiesen wird, so dass diese die Objekteigenschaften/Variablen erben. Vorlagennamen müssen innerhalb
-  der Objekte des gleichen Typs eindeutig sein, so dass Sie nicht zwei oder mehr Host-Definitionen mit "hosttemplate" als Namen
-  haben können.</para>
+  <para>Die erste Variable heißt <emphasis>name</emphasis>. Das ist lediglich ein "Vorlagen"-Name (template name), auf den in anderen
+  Objektdefinitonen verwiesen wird, so dass diese die Objekteigenschaften/Variablen erben. Vorlagennamen müssen innerhalb der Objekte des
+  gleichen Typs eindeutig sein, so dass Sie nicht zwei oder mehr Host-Definitionen mit "hosttemplate" als Namen haben können.</para>
 
-  <para>Die zweite Variable heißt <emphasis>use</emphasis>. Hier geben Sie den Namen der Vorlage an, deren Eigenschaften/Variablen
-  Sie erben möchten. Der Name, den Sie für diese Variable angeben, muss als Vorlage definiert sein (mit Hilfe der
+  <para>Die zweite Variable heißt <emphasis>use</emphasis>. Hier geben Sie den Namen der Vorlage an, deren Eigenschaften/Variablen Sie erben
+  möchten. Der Name, den Sie für diese Variable angeben, muss als Vorlage definiert sein (mit Hilfe der
   <emphasis>name</emphasis>-Variable).</para>
 
-  <para>Die dritte Variable heißt <emphasis>register</emphasis>. Diese Variable wird benutzt, um anzuzeigen, ob die
-  Objektdefinition "registriert" werden soll. Per Default werden alle Objektdefinitionen registriert. Wenn Sie eine partielle
-  Objektdefinition als Vorlage nutzen, möchten Sie verhindern, dass sie registriert wird (ein Beispiel dazu folgt). Die Werte sind
-  wie folgt: 0 = die Objektdefinition NICHT registrieren, 1 = die Objektdefinition registrieren (das ist der Default). Diese
-  Variable wird NICHT vererbt, bei jeder als Vorlage genutzten (Teil-) Objektdefinition muss explizit die
-  <emphasis>register</emphasis>-Direktive auf <emphasis>0</emphasis> gesetzt werden. Dies verhindert die Notwendigkeit, eine
-  vererbte <emphasis>register</emphasis>-Direktive für jedes zu registrierende Objekt mit einem Wert von <emphasis>1</emphasis> zu
-  übersteuern.</para>
+  <para>Die dritte Variable heißt <emphasis>register</emphasis>. Diese Variable wird benutzt, um anzuzeigen, ob die Objektdefinition
+  "registriert" werden soll. Per Default werden alle Objektdefinitionen registriert. Wenn Sie eine partielle Objektdefinition als Vorlage
+  nutzen, möchten Sie verhindern, dass sie registriert wird (ein Beispiel dazu folgt). Die Werte sind wie folgt: 0 = die Objektdefinition
+  NICHT registrieren, 1 = die Objektdefinition registrieren (das ist der Default). Diese Variable wird NICHT vererbt, bei jeder als Vorlage
+  genutzten (Teil-) Objektdefinition muss explizit die <emphasis>register</emphasis>-Direktive auf <emphasis>0</emphasis> gesetzt werden.
+  Dies verhindert die Notwendigkeit, eine vererbte <emphasis>register</emphasis>-Direktive für jedes zu registrierende Objekt mit einem Wert
+  von <emphasis>1</emphasis> zu übersteuern.</para>
 
   <para><emphasis role="bold">Lokale Variablen gegenüber vererbten Variablen</emphasis></para>
 
-  <para>Bei der Vererbung ist es wichtig zu wissen, dass "lokale" Objektvariablen immer Vorrang vor Variablen aus der Vorlage
-  haben. Werfen Sie einen Blick auf das folgende Beispiel mit zwei Host-Definitionen (nicht alle notwendigen Variablen sind
-  dargestellt):</para>
+  <para>Bei der Vererbung ist es wichtig zu wissen, dass "lokale" Objektvariablen immer Vorrang vor Variablen aus der Vorlage haben. Werfen
+  Sie einen Blick auf das folgende Beispiel mit zwei Host-Definitionen (nicht alle notwendigen Variablen sind dargestellt):</para>
 
   <screen> define host{
         host_name               bighost1
@@ -69,9 +65,9 @@
         }</screen>
 
   <para>Sie werden bemerken, dass die Definiton für den Host <emphasis>bighost1</emphasis> mit Hilfe der Vorlage
-  <emphasis>hosttemplate1</emphasis> definiert wurde. Die Definition für Host <emphasis>bighost2</emphasis> nutzt die Definition
-  von <emphasis>bighost1</emphasis> als Vorlagenobjekt. Sobald &name-icinga; diese Daten verarbeitet hat, wäre die resultierende
-  Definition von <emphasis>bighost2</emphasis> äquivalent zu dieser Definition:</para>
+  <emphasis>hosttemplate1</emphasis> definiert wurde. Die Definition für Host <emphasis>bighost2</emphasis> nutzt die Definition von
+  <emphasis>bighost1</emphasis> als Vorlagenobjekt. Sobald &name-icinga; diese Daten verarbeitet hat, wäre die resultierende Definition von
+  <emphasis>bighost2</emphasis> äquivalent zu dieser Definition:</para>
 
   <screen> define host{
         host_name               bighost2
@@ -80,24 +76,23 @@
         max_check_attempts      3
         }</screen>
 
-  <para>Sie sehen, dass die <emphasis>check_command</emphasis>- und <emphasis>notification_options</emphasis>-Variablen vom
-  Vorlagenobjekt geerbt wurden (wo Host <emphasis>bighost1</emphasis> definiert wird). Trotzdem wurden die
-  <emphasis>host_name</emphasis>- und <emphasis>check_attempts</emphasis>-Variablen nicht vom Vorlagenobjekt geerbt, weil sie
-  lokal definiert wurden. Erinnern Sie sich, dass von einem Vorlagenobjekt geerbte Variablen von lokal definierten Variablen
-  überschrieben werden. Das sollte ein ziemlich einfach zu verstehendes Konzept sein.</para>
+  <para>Sie sehen, dass die <emphasis>check_command</emphasis>- und <emphasis>notification_options</emphasis>-Variablen vom Vorlagenobjekt
+  geerbt wurden (wo Host <emphasis>bighost1</emphasis> definiert wird). Trotzdem wurden die <emphasis>host_name</emphasis>- und
+  <emphasis>check_attempts</emphasis>-Variablen nicht vom Vorlagenobjekt geerbt, weil sie lokal definiert wurden. Erinnern Sie sich, dass
+  von einem Vorlagenobjekt geerbte Variablen von lokal definierten Variablen überschrieben werden. Das sollte ein ziemlich einfach zu
+  verstehendes Konzept sein.</para>
 
   <para><inlinemediaobject>
       <imageobject>
-        <imagedata fileref="../images/tip.gif" format="GIF"></imagedata>
+        <imagedata fileref="../images/tip.gif" format="GIF"/>
       </imageobject>
-    </inlinemediaobject> Hinweis: wenn Sie möchten, dass lokale Zeichenketten-Variablen an geerbte Zeichenkettenwerte angehängt
-  werden, können Sie das tun. Lesen Sie <link linkend="objectinheritance-add_string">weiter unten</link> mehr darüber, wie das
-  erreicht werden kann.</para>
+    </inlinemediaobject> Hinweis: wenn Sie möchten, dass lokale Zeichenketten-Variablen an geerbte Zeichenkettenwerte angehängt werden,
+  können Sie das tun. Lesen Sie <link linkend="objectinheritance-add_string">weiter unten</link> mehr darüber, wie das erreicht werden
+  kann.</para>
 
   <para><emphasis role="bold">Vererbungsverkettung</emphasis></para>
 
-  <para>Objekte können Eigenschaften/Variablen aus mehreren Ebenen von Vorlagenobjekten erben. Nehmen Sie das folgende
-  Beispiel:</para>
+  <para>Objekte können Eigenschaften/Variablen aus mehreren Ebenen von Vorlagenobjekten erben. Nehmen Sie das folgende Beispiel:</para>
 
   <screen> define host{
         host_name               bighost1
@@ -118,9 +113,8 @@
         }</screen>
 
   <para>Sie werden bemerken, dass die Definition von Host <emphasis>bighost3</emphasis> Variablen von der Definition von
-  <emphasis>bighost2</emphasis> erbt, die wiederum Variablen von der Definition von Host <emphasis>bighost1</emphasis> erbt.
-  Sobald &name-icinga; diese Konfigurationsdaten verarbeitet, sind die resultierenden Host-Definition äquivalent zu den
-  folgenden:</para>
+  <emphasis>bighost2</emphasis> erbt, die wiederum Variablen von der Definition von Host <emphasis>bighost1</emphasis> erbt. Sobald
+  &name-icinga; diese Konfigurationsdaten verarbeitet, sind die resultierenden Host-Definition äquivalent zu den folgenden:</para>
 
   <screen> define host{
         host_name               bighost1
@@ -141,15 +135,15 @@
         max_check_attempts      3
         }</screen>
 
-  <para>Es gibt keine eingebaute Beschränkung, wie "tief" Vererbung gehen kann, aber Sie sollten sich vielleicht selbst auf ein
-  paar Ebenen beschränken, um die Übersicht zu behalten.</para>
+  <para>Es gibt keine eingebaute Beschränkung, wie "tief" Vererbung gehen kann, aber Sie sollten sich vielleicht selbst auf ein paar Ebenen
+  beschränken, um die Übersicht zu behalten.</para>
 
   <para><emphasis role="bold">Unvollständige Objektdefinitionen als Vorlagen nutzen</emphasis></para>
 
-  <para>Es ist möglich, unvollständige Objektdefinitionen als Vorlage für andere Objektdefinitionen zu nutzen. Mit
-  "unvollständiger" Definition meinen wir, dass nicht alle benötigten Variablen in der Objektdefinition angegeben wurden. Es mag
-  komisch klingen, unvollständige Definitionen als Vorlagen zu nutzen, aber es ist tatsächlich empfohlen, dies zu tun. Warum? Nun,
-  sie können als ein Satz von Defaults für alle anderen Objektdefinitionen dienen. Nehmen Sie das folgende Beispiel:</para>
+  <para>Es ist möglich, unvollständige Objektdefinitionen als Vorlage für andere Objektdefinitionen zu nutzen. Mit "unvollständiger"
+  Definition meinen wir, dass nicht alle benötigten Variablen in der Objektdefinition angegeben wurden. Es mag komisch klingen,
+  unvollständige Definitionen als Vorlagen zu nutzen, aber es ist tatsächlich empfohlen, dies zu tun. Warum? Nun, sie können als ein Satz
+  von Defaults für alle anderen Objektdefinitionen dienen. Nehmen Sie das folgende Beispiel:</para>
 
   <screen> define host{
         check_command           check-host-alive
@@ -169,16 +163,15 @@
         use                     generichosttemplate
         }</screen>
 
-  <para>Beachten Sie, dass die erste Host-Definition unvollständig ist, weil die erforderliche
-  <emphasis>host_name</emphasis>-Variable fehlt. Wir müssen keinen Host-Namen angeben, weil wir diese Definition als Vorlage
-  nutzen wollen. Um &name-icinga; daran zu hindern, diese Definition als einen normalen Host anzusehen, setzen wir die
-  <emphasis>register</emphasis>-Variable auf 0.</para>
+  <para>Beachten Sie, dass die erste Host-Definition unvollständig ist, weil die erforderliche <emphasis>host_name</emphasis>-Variable
+  fehlt. Wir müssen keinen Host-Namen angeben, weil wir diese Definition als Vorlage nutzen wollen. Um &name-icinga; daran zu hindern, diese
+  Definition als einen normalen Host anzusehen, setzen wir die <emphasis>register</emphasis>-Variable auf 0.</para>
 
   <para>Die Definitionen von <emphasis>bighost1</emphasis> und <emphasis>bighost2</emphasis> erben ihre Werte von der generischen
-  Host-Definition. Die einzige Variable, die überschrieben wird, ist die <emphasis>address</emphasis>-Variable. Das bedeutet, dass
-  beide Hosts exakt die gleichen Eigenschaften haben, bis auf die <emphasis>host_name</emphasis>- und
-  <emphasis>address</emphasis>-Variablen. Sobald &name-icinga; die Konfigurationsdaten im Beispiel verarbeitet, wären die
-  resultierenden Host-Definitionen äquivalent zu folgenden:</para>
+  Host-Definition. Die einzige Variable, die überschrieben wird, ist die <emphasis>address</emphasis>-Variable. Das bedeutet, dass beide
+  Hosts exakt die gleichen Eigenschaften haben, bis auf die <emphasis>host_name</emphasis>- und <emphasis>address</emphasis>-Variablen.
+  Sobald &name-icinga; die Konfigurationsdaten im Beispiel verarbeitet, wären die resultierenden Host-Definitionen äquivalent zu
+  folgenden:</para>
 
   <screen> define host{
         host_name               bighost1
@@ -195,13 +188,13 @@
         max_check_attempts      5
         }</screen>
 
-  <para>Die Nutzung einer Vorlagendefinition für Default-Werte erspart Ihnen mindestens eine Menge Tipparbeit. Es spart Ihnen auch
-  eine Menge Kopfschmerzen, wenn Sie später die Default-Werte von Variablen für eine große Zahl von Hosts wollen.</para>
+  <para>Die Nutzung einer Vorlagendefinition für Default-Werte erspart Ihnen mindestens eine Menge Tipparbeit. Es spart Ihnen auch eine
+  Menge Kopfschmerzen, wenn Sie später die Default-Werte von Variablen für eine große Zahl von Hosts wollen.</para>
 
   <para><emphasis role="bold">eigene Objektvariablen</emphasis> (custom object variables)</para>
 
-  <para>Jede <link linkend="customobjectvars">eigene Objektvariable</link>, die Sie in Ihren Host-, Service- oder
-  Kontaktdefinitionen definieren, wird wie jede andere Standardvariable vererbt. Nehmen Sie das folgende Beispiel:</para>
+  <para>Jede <link linkend="customobjectvars">eigene Objektvariable</link>, die Sie in Ihren Host-, Service- oder Kontaktdefinitionen
+  definieren, wird wie jede andere Standardvariable vererbt. Nehmen Sie das folgende Beispiel:</para>
 
   <screen> define host{
         _customvar1             somevalue  ; &lt;-- Custom host variable
@@ -216,8 +209,8 @@
         }</screen>
 
   <para>Der Host <emphasis>bighost1</emphasis> wird die eigenen Host-Variablen <emphasis>_customvar1</emphasis> und
-  <emphasis>_snmp_community</emphasis> von der <emphasis>generichosttemplate</emphasis>-Definition erben, zusammen mit den
-  entsprechenden Werten. Die daraus resultierende Definition für <emphasis>bighost1</emphasis> sieht wie folgt aus:</para>
+  <emphasis>_snmp_community</emphasis> von der <emphasis>generichosttemplate</emphasis>-Definition erben, zusammen mit den entsprechenden
+  Werten. Die daraus resultierende Definition für <emphasis>bighost1</emphasis> sieht wie folgt aus:</para>
 
   <screen> define host{
         host_name               bighost1
@@ -226,8 +219,7 @@
         _snmp_community         public
         }</screen>
 
-  <para><anchor xml:id="objectinheritance-cancel_string" /><emphasis role="bold">Vererbung für Zeichenketten-Werte
-  aufheben</emphasis></para>
+  <para><anchor xml:id="objectinheritance-cancel_string"/><emphasis role="bold">Vererbung für Zeichenketten-Werte aufheben</emphasis></para>
 
   <para>In einigen Fällen möchten Sie vielleicht nicht, dass Ihre Host-, Service- oder Kontakt-Definitionen Werte von
   Zeichenketten-Variablen aus Vorlagen erben. Wenn das der Fall ist, können Sie "<emphasis role="bold">null</emphasis>" (ohne
@@ -245,25 +237,24 @@
         use                     generichosttemplate
         }</screen>
 
-  <para>In diesem Fall wird der Host <emphasis>bighost1</emphasis> nicht den Wert der <emphasis>event_handler</emphasis>-Variable
-  erben, die in der <emphasis>generichosttemplate</emphasis>-Vorlage definiert ist. Die resultierende Definition von
-  <emphasis>bighost1</emphasis> sieht wie folgt aus:</para>
+  <para>In diesem Fall wird der Host <emphasis>bighost1</emphasis> nicht den Wert der <emphasis>event_handler</emphasis>-Variable erben, die
+  in der <emphasis>generichosttemplate</emphasis>-Vorlage definiert ist. Die resultierende Definition von <emphasis>bighost1</emphasis>
+  sieht wie folgt aus:</para>
 
   <screen> define host{
         host_name               bighost1
         address                 192.168.1.3
         }</screen>
 
-  <para><anchor xml:id="objectinheritance-add_string" /><emphasis role="bold">additive Vererbung von
-  Zeichenketten-Werten</emphasis></para>
+  <para><anchor xml:id="objectinheritance-add_string"/><emphasis role="bold">additive Vererbung von Zeichenketten-Werten</emphasis></para>
 
-  <para>&name-icinga; gibt lokalen Variablen Vorrang vor Werten, die von Vorlagen vererbt werden. In den meisten Fällen
-  überschreiben lokale Variablenwerte jene, die in Vorlagen definiert sind. In einigen Fällen ist es sinnvoll, dass &name-icinga;
-  die Werte von geerbten <emphasis>und</emphasis> lokalen Variablen gemeinsam nutzt.</para>
+  <para>&name-icinga; gibt lokalen Variablen Vorrang vor Werten, die von Vorlagen vererbt werden. In den meisten Fällen überschreiben lokale
+  Variablenwerte jene, die in Vorlagen definiert sind. In einigen Fällen ist es sinnvoll, dass &name-icinga; die Werte von geerbten
+  <emphasis>und</emphasis> lokalen Variablen gemeinsam nutzt.</para>
 
   <para>Diese "additive Vererbung" kann durch Voranstellen eines Pluszeichens (<emphasis role="bold">+</emphasis>) vor den lokalen
-  Variablenwert erreicht werden. Dieses Feature ist nur für Standard-Variablen verfügbar, die Zeichenketten-Werte enthalten.
-  Nehmen Sie das folgende Beispiel:</para>
+  Variablenwert erreicht werden. Dieses Feature ist nur für Standard-Variablen verfügbar, die Zeichenketten-Werte enthalten. Nehmen Sie das
+  folgende Beispiel:</para>
 
   <screen> define host{
         hostgroups              all-servers
@@ -276,32 +267,32 @@
         use                     generichosttemplate
         }</screen>
 
-  <para>In diesem Fall wird der <emphasis>linuxserver1</emphasis> den Wert der lokalen <emphasis>hostgroups</emphasis>-Variablen
-  dem der <emphasis>generichosttemplate</emphasis>-Vorlage hinzufügen. Die resultierende Definition von
-  <emphasis>linuxserver1</emphasis> sieht wie folgt aus:</para>
+  <para>In diesem Fall wird der <emphasis>linuxserver1</emphasis> den Wert der lokalen <emphasis>hostgroups</emphasis>-Variablen dem der
+  <emphasis>generichosttemplate</emphasis>-Vorlage hinzufügen. Die resultierende Definition von <emphasis>linuxserver1</emphasis> sieht wie
+  folgt aus:</para>
 
   <screen> define host{
         host_name               linuxserver1
         hostgroups              all-servers,linux-servers,web-servers
         }</screen>
 
-  <para><anchor xml:id="objectinheritance-implied_inheritance" /><emphasis role="bold">Implizite Vererbung</emphasis></para>
+  <para><anchor xml:id="objectinheritance-implied_inheritance"/><emphasis role="bold">Implizite Vererbung</emphasis></para>
 
-  <para>Normalerweise müssen Sie entweder explizit den Wert einer erforderlichen Variable in einer Objektdefinition angeben oder
-  sie von einer Vorlage erben. Es gibt ein paar Ausnahmen zu dieser Regel, in denen &name-icinga; annimmt, dass Sie einen Wert
-  benutzen wollen, der statt dessen von einem verbundenen Objekt kommt. Die Werte einiger Service-Variablen werden zum Beispiel
-  vom Host kopiert, mit dem der Service verbunden ist, wenn Sie diese nicht anderweitig angeben.</para>
+  <para>Normalerweise müssen Sie entweder explizit den Wert einer erforderlichen Variable in einer Objektdefinition angeben oder sie von
+  einer Vorlage erben. Es gibt ein paar Ausnahmen zu dieser Regel, in denen &name-icinga; annimmt, dass Sie einen Wert benutzen wollen, der
+  statt dessen von einem verbundenen Objekt kommt. Die Werte einiger Service-Variablen werden zum Beispiel vom Host kopiert, mit dem der
+  Service verbunden ist, wenn Sie diese nicht anderweitig angeben.</para>
 
-  <para>Die folgende Tabelle führt die Objektvariablen auf, die implizit von verbundenen Objekten vererbt werden, wenn Sie deren
-  Werte nicht explizit angeben oder sie von einer Vorlage erben.</para>
+  <para>Die folgende Tabelle führt die Objektvariablen auf, die implizit von verbundenen Objekten vererbt werden, wenn Sie deren Werte nicht
+  explizit angeben oder sie von einer Vorlage erben.</para>
 
   <informaltable frame="all">
     <tgroup cols="3">
-      <colspec colname="c1" colwidth="10*" />
+      <colspec colname="c1" colwidth="10*"/>
 
-      <colspec colname="c2" colwidth="20*" />
+      <colspec colname="c2" colwidth="20*"/>
 
-      <colspec colname="c3" colwidth="20*" />
+      <colspec colname="c3" colwidth="20*"/>
 
       <tbody>
         <row>
@@ -339,8 +330,7 @@
         </row>
 
         <row>
-          <entry align="center" morerows="3" valign="middle"><para> <emphasis role="bold">Host Escalations</emphasis>
-          </para></entry>
+          <entry align="center" morerows="3" valign="middle"><para> <emphasis role="bold">Host Escalations</emphasis> </para></entry>
 
           <entry><para> <emphasis>contact_groups</emphasis> </para></entry>
 
@@ -366,8 +356,7 @@
         </row>
 
         <row>
-          <entry align="center" morerows="3" valign="middle"><para> <emphasis role="bold">Service Escalations</emphasis>
-          </para></entry>
+          <entry align="center" morerows="3" valign="middle"><para> <emphasis role="bold">Service Escalations</emphasis> </para></entry>
 
           <entry><para> <emphasis>contact_groups</emphasis> </para></entry>
 
@@ -395,15 +384,21 @@
     </tgroup>
   </informaltable>
 
-  <para><anchor xml:id="objectinheritance-impliedescalations" /><emphasis role="bold">implizite/additive Vererbung bei
+  <note>
+    <para>Diese Werte werden nur im Falle des Zustandswechsels eines Objekts vererbt, so dass sich "in der verbundenen ... Definition" nur
+    auf die eine Host/Service-Kombination bezieht, die fehlschlägt/sich erholt, obwohl es möglich ist, einen Service für ein oder mehrere
+    Hostgruppen auszuführen.</para>
+  </note>
+
+  <para><anchor xml:id="objectinheritance-impliedescalations"/><emphasis role="bold">implizite/additive Vererbung bei
   Eskalationen</emphasis></para>
 
-  <para>Service- und Host-Eskalationsdefinitionen können eine spezielle Regel benutzen, die die Möglichkeiten von impliziter und
-  additiver Vererbung kombiniert. Wenn Eskalationen 1) nicht die Werte ihrer <emphasis>contact_groups</emphasis>- oder
-  <emphasis>contacts</emphasis>-Direktiven von anderen Eskalationsvorlagen erben und 2) ihre <emphasis>contact_groups</emphasis>-
-  oder <emphasis>contacts</emphasis>-Direktiven mit einen Plus-Zeichen (+) beginnen, dann werden die Werte der
-  <emphasis>contact_groups</emphasis> oder <emphasis>contacts</emphasis>-Direktiven der entsprechenden Host- oder
-  Service-Definitionen in der additiven Vererbungslogik benutzt.</para>
+  <para>Service- und Host-Eskalationsdefinitionen können eine spezielle Regel benutzen, die die Möglichkeiten von impliziter und additiver
+  Vererbung kombiniert. Wenn Eskalationen 1) nicht die Werte ihrer <emphasis>contact_groups</emphasis>- oder
+  <emphasis>contacts</emphasis>-Direktiven von anderen Eskalationsvorlagen erben und 2) ihre <emphasis>contact_groups</emphasis>- oder
+  <emphasis>contacts</emphasis>-Direktiven mit einen Plus-Zeichen (+) beginnen, dann werden die Werte der
+  <emphasis>contact_groups</emphasis> oder <emphasis>contacts</emphasis>-Direktiven der entsprechenden Host- oder Service-Definitionen in
+  der additiven Vererbungslogik benutzt.</para>
 
   <para>Verwirrt? Hier ein Beispiel:</para>
 
@@ -426,21 +421,21 @@
         ...
         }</screen>
 
-    <para><anchor xml:id="objectinheritance-important_values" /><emphasis role="bold">Wichtige Werte</emphasis> (important values)</para>
+  <para><anchor xml:id="objectinheritance-important_values"/><emphasis role="bold">Wichtige Werte</emphasis> (important values)</para>
 
-    <para>Service-Vorlagen können eine spezielle Regel benutzen, die ihrem check_command-Wert Vorrang gibt. Wenn das check_command mit einem
-    Ausrufungszeichen (!) beginnt, dann wird das check_command der Vorlage als wichtig markiert und wird statt des im Service definierten
-    check_command (dies ist der CSS-Syntax nachempfunden, die ! als wichtiges Attribut benutzt).</para>
+  <para>Service-Vorlagen können eine spezielle Regel benutzen, die ihrem check_command-Wert Vorrang gibt. Wenn das check_command mit einem
+  Ausrufungszeichen (!) beginnt, dann wird das check_command der Vorlage als wichtig markiert und wird statt des im Service definierten
+  check_command (dies ist der CSS-Syntax nachempfunden, die ! als wichtiges Attribut benutzt).</para>
 
-    <para>Warum ist das nützlich? Es ist hauptsächlich dann sinnvoll, wenn ein unterschiedliches check_command für verteilte Systeme gesetzt wird.
-    Sie wollen vielleicht einen Frische-Schwellwert und ein check_command setzen, der den Service in einen fehlerhaften Status versetzt, aber
-    das funktioniert nicht mit dem normalen Vorlagensystem. Dieses "wichtig"-Kennzeichen erlaubt es, das angepasste check_command zu schreiben,
-    aber eine allgemeine verteilte Vorlage zu benutzen, die das check_command überlagert, wenn es auf dem zentralen &name-icinga;-Server
-    eingesetzt wird.</para>
+  <para>Warum ist das nützlich? Es ist hauptsächlich dann sinnvoll, wenn ein unterschiedliches check_command für verteilte Systeme gesetzt
+  wird. Sie wollen vielleicht einen Frische-Schwellwert und ein check_command setzen, der den Service in einen fehlerhaften Status versetzt,
+  aber das funktioniert nicht mit dem normalen Vorlagensystem. Dieses "wichtig"-Kennzeichen erlaubt es, das angepasste check_command zu
+  schreiben, aber eine allgemeine verteilte Vorlage zu benutzen, die das check_command überlagert, wenn es auf dem zentralen
+  &name-icinga;-Server eingesetzt wird.</para>
 
-    <para>Zum Beispiel:</para>
+  <para>Zum Beispiel:</para>
 
-    <screen># On master
+  <screen># On master
 define service {
         name                   service-distributed
         register               0
@@ -463,21 +458,22 @@ define service {
         ...
         }</screen>
 
-    <note><para>Bitte beachten Sie, dass nur eine Vererbungsebene bei diesen wichtigen Werten möglich ist. Das bedeutet, dass Sie nicht das
-    check_command von einer Vorlage zu einer weiteren und von dort zum Service vererben können.
-    <programlisting> Template1 =&gt; Service1                &lt;== funktioniert
- Template1 =&gt; Template2 =&gt; Service1   &lt;== funktioniert NICHT</programlisting></para></note>
+  <note>
+    <para>Bitte beachten Sie, dass nur eine Vererbungsebene bei diesen wichtigen Werten möglich ist. Das bedeutet, dass Sie nicht das
+    check_command von einer Vorlage zu einer weiteren und von dort zum Service vererben können. <programlisting> Template1 =&gt; Service1                &lt;== funktioniert
+ Template1 =&gt; Template2 =&gt; Service1   &lt;== funktioniert NICHT</programlisting></para>
+  </note>
 
-  <para><anchor xml:id="objectinheritance-multiple_templates" /><emphasis role="bold">Mehrere Vererbungsquellen</emphasis></para>
+  <para><anchor xml:id="objectinheritance-multiple_templates"/><emphasis role="bold">Mehrere Vererbungsquellen</emphasis></para>
 
-  <para>Bisher haben alle Beispiele Objektdefinitionen gezeigt, die Variablen/Werte von einer einzelnen Quelle erben. Sie können
-  für komplexere Konfigurationen auch Variablen/Werte von mehreren Quellen erben, wie unten gezeigt.</para>
+  <para>Bisher haben alle Beispiele Objektdefinitionen gezeigt, die Variablen/Werte von einer einzelnen Quelle erben. Sie können für
+  komplexere Konfigurationen auch Variablen/Werte von mehreren Quellen erben, wie unten gezeigt.</para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="50*" />
+      <colspec colname="c1" colwidth="50*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
@@ -506,7 +502,7 @@ define service {
 
           <entry align="center" valign="top"><para> <inlinemediaobject>
               <imageobject>
-                <imagedata fileref="../images/multiple-templates1.png" format="PNG"></imagedata>
+                <imagedata fileref="../images/multiple-templates1.png" format="PNG"/>
               </imageobject>
             </inlinemediaobject> </para></entry>
         </row>
@@ -514,12 +510,11 @@ define service {
     </tgroup>
   </informaltable>
 
-  <para>Im obigen Beispiel erbt <emphasis>devweb1</emphasis> Variablen/Werte von zwei Quellen: <emphasis>generic-host</emphasis>
-  und <emphasis>development-server</emphasis>. Sie werden bemerken, dass in beiden Quellen eine
-  <emphasis>check_interval</emphasis>-Variable definiert ist. Weil <emphasis>generic-host</emphasis> die erste in
-  <emphasis>devweb1</emphasis> durch die <emphasis>use</emphasis>-Direktive angegebene Vorlage ist, wird der Wert für die
-  <emphasis>check_interval</emphasis>-Variable durch den <emphasis>devweb1</emphasis>-Host vererbt. Nach der Vererbung sieht die
-  Definition von <emphasis>devweb1</emphasis> wie folgt aus:</para>
+  <para>Im obigen Beispiel erbt <emphasis>devweb1</emphasis> Variablen/Werte von zwei Quellen: <emphasis>generic-host</emphasis> und
+  <emphasis>development-server</emphasis>. Sie werden bemerken, dass in beiden Quellen eine <emphasis>check_interval</emphasis>-Variable
+  definiert ist. Weil <emphasis>generic-host</emphasis> die erste in <emphasis>devweb1</emphasis> durch die
+  <emphasis>use</emphasis>-Direktive angegebene Vorlage ist, wird der Wert für die <emphasis>check_interval</emphasis>-Variable durch den
+  <emphasis>devweb1</emphasis>-Host vererbt. Nach der Vererbung sieht die Definition von <emphasis>devweb1</emphasis> wie folgt aus:</para>
 
   <screen> # Development web server
  define host{
@@ -532,41 +527,69 @@ define service {
 
   <para><emphasis role="bold">Vorrang bei mehreren Vererbungsquellen</emphasis></para>
 
-  <para>Wenn Sie mehrere Vererbungsquellen nutzen, ist es wichtig zu wissen, wie &name-icinga; Variablen behandelt, die in
-  mehreren Quellen definiert sind. In diesen Fällen wird &name-icinga; die Variable/den Wert aus der ersten Quelle benutzen, die
-  in der <emphasis>use</emphasis>-Direktive angegeben ist. Weil Vererbungsquellen ebenfalls Variablen/Werte aus ein oder mehreren
-  Quellen erben können, kann es kompliziert werden herauszufinden, welche Variablen/Werte-Paare Vorrang haben.</para>
+  <para>Wenn Sie mehrere Vererbungsquellen nutzen, ist es wichtig zu wissen, wie &name-icinga; Variablen behandelt, die in mehreren Quellen
+  definiert sind. In diesen Fällen wird &name-icinga; die Variable/den Wert aus der ersten Quelle benutzen, die in der
+  <emphasis>use</emphasis>-Direktive angegeben ist. Weil Vererbungsquellen ebenfalls Variablen/Werte aus ein oder mehreren Quellen erben
+  können, kann es kompliziert werden herauszufinden, welche Variablen/Werte-Paare Vorrang haben.</para>
 
   <informaltable frame="none">
     <tgroup cols="2">
-      <colspec colname="c1" colwidth="50*" />
+      <colspec colname="c1" colwidth="50*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
       <tbody>
         <row>
-          <entry align="left" valign="top"><para> Betrachten Sie die folgende Host-Definition, die drei Vorlagen
-          referenziert:</para> <screen> # Development web server
+          <entry align="left" valign="top"><para> Betrachten Sie die folgende Host-Definition, die drei Vorlagen referenziert:</para>
+          <screen> # Development web server
  define host{
         use  1,  4,  8
         host_name devweb1 ...
- } </screen> <para>Wenn einige dieser referenzierten Vorlagen selbst Variablen/Werte von ein oder mehreren Vorlagen erben, werden
-          die Vorrangregeln auf der rechten Seite gezeigt.</para> <para>Test, Versuch und Irrtum werden Ihnen helfen, besser zu
-          verstehen, wie die Dinge in komplexen Vererbungssituationen wie dieser funktionieren. :-)</para></entry>
+ } </screen> <para>Wenn einige dieser referenzierten Vorlagen selbst Variablen/Werte von ein oder mehreren Vorlagen erben, werden die
+          Vorrangregeln auf der rechten Seite gezeigt.</para> <para>Test, Versuch und Irrtum werden Ihnen helfen, besser zu verstehen, wie
+          die Dinge in komplexen Vererbungssituationen wie dieser funktionieren. :-)</para></entry>
 
           <entry align="center" valign="top"><para> <inlinemediaobject>
               <imageobject>
-                <imagedata fileref="../images/multiple-templates2.png" format="PNG"></imagedata>
+                <imagedata fileref="../images/multiple-templates2.png" format="PNG"/>
               </imageobject>
             </inlinemediaobject> </para></entry>
         </row>
       </tbody>
     </tgroup>
   </informaltable>
-  <indexterm zone="objectinheritance"><primary>Objektvererbung</primary></indexterm>
-  <indexterm zone="objectinheritance-cancel_string"><primary>Objektvererbung</primary><secondary>Vererbung für Zeichenketten-Werte aufheben</secondary></indexterm>
-  <indexterm zone="objectinheritance-add_string"><primary>Objektvererbung</primary><secondary>additive Vererbung von Zeichenketten-Werten</secondary></indexterm>
-  <indexterm zone="objectinheritance-implied_inheritance"><primary>Objektvererbung</primary><secondary>Implizite Vererbung</secondary></indexterm>
-  <indexterm zone="objectinheritance-impliedescalations"><primary>Objektvererbung</primary><secondary>Implizite/additive Vererbung in Eskalationen</secondary></indexterm>
-  <indexterm zone="objectinheritance-multiple_templates"><primary>Objektvererbung</primary><secondary>mehrere Vererbungsquellen</secondary></indexterm>
+
+  <indexterm zone="objectinheritance">
+    <primary>Objektvererbung</primary>
+  </indexterm>
+
+  <indexterm zone="objectinheritance-cancel_string">
+    <primary>Objektvererbung</primary>
+
+    <secondary>Vererbung für Zeichenketten-Werte aufheben</secondary>
+  </indexterm>
+
+  <indexterm zone="objectinheritance-add_string">
+    <primary>Objektvererbung</primary>
+
+    <secondary>additive Vererbung von Zeichenketten-Werten</secondary>
+  </indexterm>
+
+  <indexterm zone="objectinheritance-implied_inheritance">
+    <primary>Objektvererbung</primary>
+
+    <secondary>Implizite Vererbung</secondary>
+  </indexterm>
+
+  <indexterm zone="objectinheritance-impliedescalations">
+    <primary>Objektvererbung</primary>
+
+    <secondary>Implizite/additive Vererbung in Eskalationen</secondary>
+  </indexterm>
+
+  <indexterm zone="objectinheritance-multiple_templates">
+    <primary>Objektvererbung</primary>
+
+    <secondary>mehrere Vererbungsquellen</secondary>
+  </indexterm>
 </section>

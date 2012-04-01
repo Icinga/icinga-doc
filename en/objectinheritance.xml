@@ -6,50 +6,51 @@
 <section version="5.0" xml:id="objectinheritance" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-    <title><anchor xml:id="object_inheritance" />Object Inheritance</title>
+  <title><anchor xml:id="object_inheritance"/>Object Inheritance</title>
 
-    <para><emphasis role="bold">Introduction</emphasis></para>
+  <para><emphasis role="bold">Introduction</emphasis></para>
 
-    <para>This documentation attempts to explain object inheritance and how it can be used in your <link linkend="objectdefinitions">object
-    definitions</link>.</para>
+  <para>This documentation attempts to explain object inheritance and how it can be used in your <link linkend="objectdefinitions">object
+  definitions</link>.</para>
 
-    <para>If you are confused about how recursion and inheritance work after reading this, take a look at the sample object config files provided in
-    the &name-icinga; distribution. If that still doesn't help, drop an email message with a <emphasis>detailed</emphasis> description of your problem
-    to the <emphasis>icinga-users</emphasis> mailing list.</para>
+  <para>If you are confused about how recursion and inheritance work after reading this, take a look at the sample object config files
+  provided in the &name-icinga; distribution. If that still doesn't help, drop an email message with a <emphasis>detailed</emphasis>
+  description of your problem to the <emphasis>icinga-users</emphasis> mailing list.</para>
 
-    <para><emphasis role="bold">Basics</emphasis></para>
+  <para><emphasis role="bold">Basics</emphasis></para>
 
-    <para>There are three variables affecting recursion and inheritance that are present in all object definitions. They are
-    <emphasis>"indicated"</emphasis> as follows...</para>
+  <para>There are three variables affecting recursion and inheritance that are present in all object definitions. They are
+  <emphasis>"indicated"</emphasis> as follows...</para>
 
-    <screen> define <emphasis> someobjecttype</emphasis>{
+  <screen> define <emphasis> someobjecttype</emphasis>{
        <emphasis> object-specific variables</emphasis> ...
         name           <emphasis> template_name</emphasis>
         use            <emphasis> name_of_template_to_use</emphasis>
         register        [0/1]
         }</screen>
 
-    <para>The first variable is <emphasis>name</emphasis>. Its just a "template" name that can be referenced in other object definitions so they can
-    inherit the objects properties/variables. Template names must be unique amongst objects of the same type, so you can't have two or more host
-    definitions that have "hosttemplate" as their template name.</para>
+  <para>The first variable is <emphasis>name</emphasis>. Its just a "template" name that can be referenced in other object definitions so
+  they can inherit the objects properties/variables. Template names must be unique amongst objects of the same type, so you can't have two
+  or more host definitions that have "hosttemplate" as their template name.</para>
 
-    <para>The second variable is <emphasis>use</emphasis>. This is where you specify the name of the template object that you want to inherit
-    properties/variables from. The name you specify for this variable must be defined as another object's template named (using the
-    <emphasis>name</emphasis> variable).</para>
+  <para>The second variable is <emphasis>use</emphasis>. This is where you specify the name of the template object that you want to inherit
+  properties/variables from. The name you specify for this variable must be defined as another object's template named (using the
+  <emphasis>name</emphasis> variable).</para>
 
-    <para>The third variable is <emphasis>register</emphasis>. This variable is used to indicate whether or not the object definition should be
-    "registered" with &name-icinga;. By default, all object definitions are registered. If you are using a partial object definition as a template,
-    you would want to prevent it from being registered (an example of this is provided later). Values are as follows: 0 = do NOT register object
-    definition, 1 = register object definition (this is the default). This variable is NOT inherited; every (partial) object definition used as a
-    template must explicitly set the <emphasis>register</emphasis> directive to be <emphasis>0</emphasis>. This prevents the need to override an
-    inherited <emphasis>register</emphasis> directive with a value of <emphasis>1</emphasis> for every object that should be registered.</para>
+  <para>The third variable is <emphasis>register</emphasis>. This variable is used to indicate whether or not the object definition should
+  be "registered" with &name-icinga;. By default, all object definitions are registered. If you are using a partial object definition as a
+  template, you would want to prevent it from being registered (an example of this is provided later). Values are as follows: 0 = do NOT
+  register object definition, 1 = register object definition (this is the default). This variable is NOT inherited; every (partial) object
+  definition used as a template must explicitly set the <emphasis>register</emphasis> directive to be <emphasis>0</emphasis>. This prevents
+  the need to override an inherited <emphasis>register</emphasis> directive with a value of <emphasis>1</emphasis> for every object that
+  should be registered.</para>
 
-    <para><emphasis role="bold">Local Variables vs. Inherited Variables</emphasis></para>
+  <para><emphasis role="bold">Local Variables vs. Inherited Variables</emphasis></para>
 
-    <para>One important thing to understand with inheritance is that "local" object variables always take precedence over variables defined in the
-    template object. Take a look at the following example of two host definitions (not all required variables have been supplied):</para>
+  <para>One important thing to understand with inheritance is that "local" object variables always take precedence over variables defined in
+  the template object. Take a look at the following example of two host definitions (not all required variables have been supplied):</para>
 
-    <screen> define host{
+  <screen> define host{
         host_name               bighost1
         check_command           check-host-alive
         notification_options    d,u,r
@@ -65,34 +66,34 @@
         use                     hosttemplate1
         }</screen>
 
-    <para>You'll note that the definition for host <emphasis>bighost1</emphasis> has been defined as having <emphasis>hosttemplate1</emphasis> as its
-    template name. The definition for host <emphasis>bighost2</emphasis> is using the definition of <emphasis>bighost1</emphasis> as its template
-    object. Once &name-icinga; processes this data, the resulting definition of host <emphasis>bighost2</emphasis> would be equivalent to this
-    definition:</para>
+  <para>You'll note that the definition for host <emphasis>bighost1</emphasis> has been defined as having <emphasis>hosttemplate1</emphasis>
+  as its template name. The definition for host <emphasis>bighost2</emphasis> is using the definition of <emphasis>bighost1</emphasis> as
+  its template object. Once &name-icinga; processes this data, the resulting definition of host <emphasis>bighost2</emphasis> would be
+  equivalent to this definition:</para>
 
-    <screen> define host{
+  <screen> define host{
         host_name               bighost2
         check_command           check-host-alive
         notification_options    d,u,r
         max_check_attempts      3
         }</screen>
 
-    <para>You can see that the <emphasis>check_command</emphasis> and <emphasis>notification_options</emphasis> variables were inherited from the
-    template object (where host <emphasis>bighost1</emphasis> was defined). However, the <emphasis>host_name</emphasis> and
-    <emphasis>max_check_attempts</emphasis> variables were not inherited from the template object because they were defined locally. Remember, locally
-    defined variables override variables that would normally be inherited from a template object. That should be a fairly easy concept to
-    understand.</para>
+  <para>You can see that the <emphasis>check_command</emphasis> and <emphasis>notification_options</emphasis> variables were inherited from
+  the template object (where host <emphasis>bighost1</emphasis> was defined). However, the <emphasis>host_name</emphasis> and
+  <emphasis>max_check_attempts</emphasis> variables were not inherited from the template object because they were defined locally. Remember,
+  locally defined variables override variables that would normally be inherited from a template object. That should be a fairly easy concept
+  to understand.</para>
 
-    <tip>
-        <para>If you would like local string variables to be appended to inherited string values, you can do so. Read more about how to accomplish
-        this <link linkend="objectinheritance-add_string">below</link>.</para>
-    </tip>
+  <tip>
+    <para>If you would like local string variables to be appended to inherited string values, you can do so. Read more about how to
+    accomplish this <link linkend="objectinheritance-add_string">below</link>.</para>
+  </tip>
 
-    <para><emphasis role="bold">Inheritance Chaining</emphasis></para>
+  <para><emphasis role="bold">Inheritance Chaining</emphasis></para>
 
-    <para>Objects can inherit properties/variables from multiple levels of template objects. Take the following example:</para>
+  <para>Objects can inherit properties/variables from multiple levels of template objects. Take the following example:</para>
 
-    <screen> define host{
+  <screen> define host{
         host_name               bighost1
         check_command           check-host-alive
         notification_options    d,u,r
@@ -116,11 +117,11 @@
         use                     hosttemplate2
         }</screen>
 
-    <para>You'll notice that the definition of host <emphasis>bighost3</emphasis> inherits variables from the definition of host
-    <emphasis>bighost2</emphasis>, which in turn inherits variables from the definition of host <emphasis>bighost1</emphasis>. Once &name-icinga;
-    processes this configuration data, the resulting host definitions are equivalent to the following:</para>
+  <para>You'll notice that the definition of host <emphasis>bighost3</emphasis> inherits variables from the definition of host
+  <emphasis>bighost2</emphasis>, which in turn inherits variables from the definition of host <emphasis>bighost1</emphasis>. Once
+  &name-icinga; processes this configuration data, the resulting host definitions are equivalent to the following:</para>
 
-    <screen> define host{
+  <screen> define host{
         host_name               bighost1
         check_command           check-host-alive
         notification_options    d,u,r
@@ -141,17 +142,17 @@
         max_check_attempts      3
         }</screen>
 
-    <para>There is no inherent limit on how "deep" inheritance can go, but you'll probably want to limit yourself to at most a few levels in order to
-    maintain sanity.</para>
+  <para>There is no inherent limit on how "deep" inheritance can go, but you'll probably want to limit yourself to at most a few levels in
+  order to maintain sanity.</para>
 
-    <para><emphasis role="bold">Using Incomplete Object Definitions as Templates</emphasis></para>
+  <para><emphasis role="bold">Using Incomplete Object Definitions as Templates</emphasis></para>
 
-    <para>It is possible to use imcomplete object definitions as templates for use by other object definitions. By "incomplete" definition, I mean
-    that all required variables in the object have not been supplied in the object definition. It may sound odd to use incomplete definitions as
-    templates, but it is in fact recommended that you use them. Why? Well, they can serve as a set of defaults for use in all other object
-    definitions. Take the following example:</para>
+  <para>It is possible to use imcomplete object definitions as templates for use by other object definitions. By "incomplete" definition, I
+  mean that all required variables in the object have not been supplied in the object definition. It may sound odd to use incomplete
+  definitions as templates, but it is in fact recommended that you use them. Why? Well, they can serve as a set of defaults for use in all
+  other object definitions. Take the following example:</para>
 
-    <screen> define host{
+  <screen> define host{
         check_command           check-host-alive
         notification_options    d,u,r
         max_check_attempts      5
@@ -175,16 +176,16 @@
         use                     generichosthosttemplate
         }</screen>
 
-    <para>Notice that the first host definition is incomplete because it is missing the required <emphasis>host_name</emphasis> variable. We don't
-    need to supply a host name because we just want to use this definition as a generic host template. In order to prevent this definition from being
-    registered with &name-icinga; as a normal host, we set the <emphasis>register</emphasis> variable to 0.</para>
+  <para>Notice that the first host definition is incomplete because it is missing the required <emphasis>host_name</emphasis> variable. We
+  don't need to supply a host name because we just want to use this definition as a generic host template. In order to prevent this
+  definition from being registered with &name-icinga; as a normal host, we set the <emphasis>register</emphasis> variable to 0.</para>
 
-    <para>The definitions of hosts <emphasis>bighost1</emphasis> and <emphasis>bighost2</emphasis> inherit their values from the generic host
-    definition. The only variable we've chosed to override is the <emphasis>address</emphasis> variable. This means that both hosts will have the
-    exact same properties, except for their <emphasis>host_name</emphasis> and <emphasis>address</emphasis> variables. Once &name-icinga; processes
-    the config data in the example, the resulting host definitions would be equivalent to specifying the following:</para>
+  <para>The definitions of hosts <emphasis>bighost1</emphasis> and <emphasis>bighost2</emphasis> inherit their values from the generic host
+  definition. The only variable we've chosed to override is the <emphasis>address</emphasis> variable. This means that both hosts will have
+  the exact same properties, except for their <emphasis>host_name</emphasis> and <emphasis>address</emphasis> variables. Once &name-icinga;
+  processes the config data in the example, the resulting host definitions would be equivalent to specifying the following:</para>
 
-    <screen> define host{
+  <screen> define host{
         host_name               bighost1
         address                 192.168.1.3
         check_command           check-host-alive
@@ -200,15 +201,15 @@
         max_check_attempts      5
         }</screen>
 
-    <para>At the very least, using a template definition for default variables will save you a lot of typing. It'll also save you a lot of headaches
-    later if you want to change the default values of variables for a large number of hosts.</para>
+  <para>At the very least, using a template definition for default variables will save you a lot of typing. It'll also save you a lot of
+  headaches later if you want to change the default values of variables for a large number of hosts.</para>
 
-    <para><emphasis role="bold">Custom Object Variables</emphasis></para>
+  <para><emphasis role="bold">Custom Object Variables</emphasis></para>
 
-    <para>Any <link linkend="customobjectvars">custom object variables</link> that you define in your host, service, or contact definition templates
-    will be inherited just like other standard variables. Take the following example:</para>
+  <para>Any <link linkend="customobjectvars">custom object variables</link> that you define in your host, service, or contact definition
+  templates will be inherited just like other standard variables. Take the following example:</para>
 
-    <screen> define host{
+  <screen> define host{
         _customvar1             somevalue  ; &lt;-- Custom host variable
         _snmp_community         public  ; &lt;-- Custom host variable
                 
@@ -224,24 +225,24 @@
         use                     generichosthosttemplate
         }</screen>
 
-    <para>The host <emphasis>bighost1</emphasis> will inherit the custom host variables <emphasis>_customvar1</emphasis> and
-    <emphasis>_snmp_community</emphasis>, as well as their respective values, from the <emphasis>generichosttemplate</emphasis> definition. The
-    effective result is a definition for <emphasis>bighost1</emphasis> that looks like this:</para>
+  <para>The host <emphasis>bighost1</emphasis> will inherit the custom host variables <emphasis>_customvar1</emphasis> and
+  <emphasis>_snmp_community</emphasis>, as well as their respective values, from the <emphasis>generichosttemplate</emphasis> definition.
+  The effective result is a definition for <emphasis>bighost1</emphasis> that looks like this:</para>
 
-    <screen> define host{
+  <screen> define host{
         host_name               bighost1
         address                 192.168.1.3
         _customvar1             somevalue
         _snmp_community         public
         }</screen>
 
-    <para><anchor xml:id="objectinheritance-cancel_string" /><emphasis role="bold">Cancelling Inheritance of String Values</emphasis></para>
+  <para><anchor xml:id="objectinheritance-cancel_string"/><emphasis role="bold">Cancelling Inheritance of String Values</emphasis></para>
 
-    <para>In some cases you may not want your host, service, or contact definitions to inherit values of string variables from the templates they
-    reference. If this is the case, you can specify "<emphasis role="bold">null</emphasis>" (without quotes) as the value of the variable that you do
-    not want to inherit. Take the following example:</para>
+  <para>In some cases you may not want your host, service, or contact definitions to inherit values of string variables from the templates
+  they reference. If this is the case, you can specify "<emphasis role="bold">null</emphasis>" (without quotes) as the value of the variable
+  that you do not want to inherit. Take the following example:</para>
 
-    <screen> define host{
+  <screen> define host{
         event_handler           my-event-handler-command
                 
         name                    generichosttemplate
@@ -257,26 +258,26 @@
         use                     generichosthosttemplate
         }</screen>
 
-    <para>In this case, the host <emphasis>bighost1</emphasis> will not inherit the value of the <emphasis>event_handler</emphasis> variable that is
-    defined in the <emphasis>generichosttemplate</emphasis>. The resulting effective definition of <emphasis>bighost1</emphasis> is the
-    following:</para>
+  <para>In this case, the host <emphasis>bighost1</emphasis> will not inherit the value of the <emphasis>event_handler</emphasis> variable
+  that is defined in the <emphasis>generichosttemplate</emphasis>. The resulting effective definition of <emphasis>bighost1</emphasis> is
+  the following:</para>
 
-    <screen> define host{
+  <screen> define host{
         host_name               bighost1
         address                 192.168.1.3
         }</screen>
 
-    <para><anchor xml:id="objectinheritance-add_string" /><emphasis role="bold">Additive Inheritance of String Values</emphasis></para>
+  <para><anchor xml:id="objectinheritance-add_string"/><emphasis role="bold">Additive Inheritance of String Values</emphasis></para>
 
-    <para>&name-icinga; gives preference to local variables instead of values inherited from templates. In most cases local variable values override
-    those that are defined in templates. In some cases it makes sense to allow &name-icinga; to use the values of inherited <emphasis>and</emphasis>
-    local variables together.</para>
+  <para>&name-icinga; gives preference to local variables instead of values inherited from templates. In most cases local variable values
+  override those that are defined in templates. In some cases it makes sense to allow &name-icinga; to use the values of inherited
+  <emphasis>and</emphasis> local variables together.</para>
 
-    <para>This "additive inheritance" can be accomplished by prepending the local variable value with a plus sign (<emphasis
-    role="bold">+</emphasis>). This features is only available for standard (non-custom) variables that contain string values. Take the following
-    example:</para>
+  <para>This "additive inheritance" can be accomplished by prepending the local variable value with a plus sign (<emphasis
+  role="bold">+</emphasis>). This features is only available for standard (non-custom) variables that contain string values. Take the
+  following example:</para>
 
-    <screen> define host{
+  <screen> define host{
         hostgroups              all-servers
                 
         name                    generichosttemplate
@@ -291,133 +292,140 @@
         use                     generichosthosttemplate
         }</screen>
 
-    <para>In this case, the host <emphasis>linuxserver1</emphasis> will append the value of its local <emphasis>hostgroups</emphasis> variable to that
-    from <emphasis>generichosttemplate</emphasis>. The resulting effective definition of <emphasis>linuxserver1</emphasis> is the following:</para>
+  <para>In this case, the host <emphasis>linuxserver1</emphasis> will append the value of its local <emphasis>hostgroups</emphasis> variable
+  to that from <emphasis>generichosttemplate</emphasis>. The resulting effective definition of <emphasis>linuxserver1</emphasis> is the
+  following:</para>
 
-    <screen> define host{
+  <screen> define host{
         host_name               linuxserver1
         hostgroups              all-servers,linux-servers,web-servers
         }</screen>
 
-    <para><anchor xml:id="objectinheritance-implied_inheritance" /><emphasis role="bold">Implied Inheritance</emphasis></para>
+  <para><anchor xml:id="objectinheritance-implied_inheritance"/><emphasis role="bold">Implied Inheritance</emphasis></para>
 
-    <para>Normally you have to either explicitly specify the value of a required variable in an object definition or inherit it from a template. There
-    are a few exceptions to this rule, where &name-icinga; will assume that you want to use a value that instead comes from a related object. For
-    example, the values of some service variables will be copied from the host the service is associated with if you don't otherwise specify
-    them.</para>
+  <para>Normally you have to either explicitly specify the value of a required variable in an object definition or inherit it from a
+  template. There are a few exceptions to this rule, where &name-icinga; will assume that you want to use a value that instead comes from a
+  related object. For example, the values of some service variables will be copied from the host the service is associated with if you don't
+  otherwise specify them.</para>
 
-    <para>The following table lists the object variables that will be implicitly inherited from related objects if you don't explicitly specify their
-    value in your object definition or inherit them from a template.</para>
+  <para>The following table lists the object variables that will be implicitly inherited from related objects if you don't explicitly
+  specify their value in your object definition or inherit them from a template.</para>
 
-    <informaltable frame="all">
-        <tgroup cols="3">
-            <colspec colname="c1" colwidth="5*" />
+  <informaltable frame="all">
+    <tgroup cols="3">
+      <colspec colname="c1" colwidth="5*"/>
 
-            <colspec colname="c2" colwidth="10*" />
+      <colspec colname="c2" colwidth="10*"/>
 
-            <colspec colname="c3" colwidth="10*" />
+      <colspec colname="c3" colwidth="10*"/>
 
-            <tbody>
-                <row>
-                    <entry><para> <emphasis role="bold">Object Type</emphasis> </para></entry>
+      <tbody>
+        <row>
+          <entry><para> <emphasis role="bold">Object Type</emphasis> </para></entry>
 
-                    <entry><para> <emphasis role="bold">Object Variable</emphasis> </para></entry>
+          <entry><para> <emphasis role="bold">Object Variable</emphasis> </para></entry>
 
-                    <entry><para> <emphasis role="bold">Implied Source</emphasis> </para></entry>
-                </row>
+          <entry><para> <emphasis role="bold">Implied Source</emphasis> </para></entry>
+        </row>
 
-                <row>
-                    <entry align="left" morerows="3" valign="middle"><para> <emphasis role="bold">Services</emphasis> </para></entry>
+        <row>
+          <entry align="left" morerows="3" valign="middle"><para> <emphasis role="bold">Services</emphasis> </para></entry>
 
-                    <entry><para> <emphasis>contact_groups</emphasis> </para></entry>
+          <entry><para> <emphasis>contact_groups</emphasis> </para></entry>
 
-                    <entry><para><emphasis>contact_groups</emphasis> in the associated host definition</para></entry>
-                </row>
+          <entry><para><emphasis>contact_groups</emphasis> in the associated host definition</para></entry>
+        </row>
 
-                <row>
-                    <entry><para> <emphasis>contacts</emphasis> </para></entry>
+        <row>
+          <entry><para> <emphasis>contacts</emphasis> </para></entry>
 
-                    <entry><para><emphasis>contacts</emphasis> in the associated host definition</para></entry>
-                </row>
+          <entry><para><emphasis>contacts</emphasis> in the associated host definition</para></entry>
+        </row>
 
-                <row>
-                    <entry><para> <emphasis>notification_interval</emphasis> </para></entry>
+        <row>
+          <entry><para> <emphasis>notification_interval</emphasis> </para></entry>
 
-                    <entry><para><emphasis>notification_interval</emphasis> in the associated host definition</para></entry>
-                </row>
+          <entry><para><emphasis>notification_interval</emphasis> in the associated host definition</para></entry>
+        </row>
 
-                <row>
-                    <entry><para> <emphasis>notification_period</emphasis> </para></entry>
+        <row>
+          <entry><para> <emphasis>notification_period</emphasis> </para></entry>
 
-                    <entry><para><emphasis>notification_period</emphasis> in the associated host definition</para></entry>
-                </row>
+          <entry><para><emphasis>notification_period</emphasis> in the associated host definition</para></entry>
+        </row>
 
-                <row>
-                    <entry align="left" morerows="3" valign="middle"><para> <emphasis role="bold">Host Escalations</emphasis> </para></entry>
+        <row>
+          <entry align="left" morerows="3" valign="middle"><para> <emphasis role="bold">Host Escalations</emphasis> </para></entry>
 
-                    <entry><para> <emphasis>contact_groups</emphasis> </para></entry>
+          <entry><para> <emphasis>contact_groups</emphasis> </para></entry>
 
-                    <entry><para><emphasis>contact_groups</emphasis> in the associated host definition</para></entry>
-                </row>
+          <entry><para><emphasis>contact_groups</emphasis> in the associated host definition</para></entry>
+        </row>
 
-                <row>
-                    <entry><para> <emphasis>contacts</emphasis> </para></entry>
+        <row>
+          <entry><para> <emphasis>contacts</emphasis> </para></entry>
 
-                    <entry><para><emphasis>contacts</emphasis> in the associated host definition</para></entry>
-                </row>
+          <entry><para><emphasis>contacts</emphasis> in the associated host definition</para></entry>
+        </row>
 
-                <row>
-                    <entry><para> <emphasis>notification_interval</emphasis> </para></entry>
+        <row>
+          <entry><para> <emphasis>notification_interval</emphasis> </para></entry>
 
-                    <entry><para><emphasis>notification_interval</emphasis> in the associated host definition</para></entry>
-                </row>
+          <entry><para><emphasis>notification_interval</emphasis> in the associated host definition</para></entry>
+        </row>
 
-                <row>
-                    <entry><para> <emphasis>escalation_period</emphasis> </para></entry>
+        <row>
+          <entry><para> <emphasis>escalation_period</emphasis> </para></entry>
 
-                    <entry><para><emphasis>notification_period</emphasis> in the associated host definition</para></entry>
-                </row>
+          <entry><para><emphasis>notification_period</emphasis> in the associated host definition</para></entry>
+        </row>
 
-                <row>
-                    <entry align="left" morerows="3" valign="middle"><para> <emphasis role="bold">Service Escalations</emphasis> </para></entry>
+        <row>
+          <entry align="left" morerows="3" valign="middle"><para> <emphasis role="bold">Service Escalations</emphasis> </para></entry>
 
-                    <entry><para> <emphasis>contact_groups</emphasis> </para></entry>
+          <entry><para> <emphasis>contact_groups</emphasis> </para></entry>
 
-                    <entry><para><emphasis>contact_groups</emphasis> in the associated service definition</para></entry>
-                </row>
+          <entry><para><emphasis>contact_groups</emphasis> in the associated service definition</para></entry>
+        </row>
 
-                <row>
-                    <entry><para> <emphasis>contacts</emphasis> </para></entry>
+        <row>
+          <entry><para> <emphasis>contacts</emphasis> </para></entry>
 
-                    <entry><para><emphasis>contacts</emphasis> in the associated service definition</para></entry>
-                </row>
+          <entry><para><emphasis>contacts</emphasis> in the associated service definition</para></entry>
+        </row>
 
-                <row>
-                    <entry><para> <emphasis>notification_interval</emphasis> </para></entry>
+        <row>
+          <entry><para> <emphasis>notification_interval</emphasis> </para></entry>
 
-                    <entry><para><emphasis>notification_interval</emphasis> in the associated service definition</para></entry>
-                </row>
+          <entry><para><emphasis>notification_interval</emphasis> in the associated service definition</para></entry>
+        </row>
 
-                <row>
-                    <entry><para> <emphasis>escalation_period</emphasis> </para></entry>
+        <row>
+          <entry><para> <emphasis>escalation_period</emphasis> </para></entry>
 
-                    <entry><para><emphasis>notification_period</emphasis> in the associated service definition</para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
+          <entry><para><emphasis>notification_period</emphasis> in the associated service definition</para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
 
-    <para><anchor xml:id="objectinheritance-impliedescalations" /><emphasis role="bold">Implied/Additive Inheritance in Escalations</emphasis></para>
+  <note>
+    <para>These values are inherited in case of an object changing its state so "in the associated ... definition" only means the one
+    host/service combination failing/recovering although it is possibly to execute a service for one or more host groups.</para>
+  </note>
 
-    <para>Service and host escalation definitions can make use of a special rule that combines the features of implied and additive inheritance. If
-    escalations 1) do not inherit the values of their <emphasis>contact_groups</emphasis> or <emphasis>contacts</emphasis> directives from another
-    escalation template and 2) their <emphasis>contact_groups</emphasis> or <emphasis>contacts</emphasis> directives begin with a plus sign (+), then
-    the values of their corresponding host or service definition's <emphasis>contact_groups</emphasis> or <emphasis>contacts</emphasis> directives
-    will be used in the additive inheritance logic.</para>
+  <para><anchor xml:id="objectinheritance-impliedescalations"/><emphasis role="bold">Implied/Additive Inheritance in
+  Escalations</emphasis></para>
 
-    <para>Confused? Here's an example:</para>
+  <para>Service and host escalation definitions can make use of a special rule that combines the features of implied and additive
+  inheritance. If escalations 1) do not inherit the values of their <emphasis>contact_groups</emphasis> or <emphasis>contacts</emphasis>
+  directives from another escalation template and 2) their <emphasis>contact_groups</emphasis> or <emphasis>contacts</emphasis> directives
+  begin with a plus sign (+), then the values of their corresponding host or service definition's <emphasis>contact_groups</emphasis> or
+  <emphasis>contacts</emphasis> directives will be used in the additive inheritance logic.</para>
 
-    <screen> define host{
+  <para>Confused? Here's an example:</para>
+
+  <screen> define host{
         name            linux-server
         contact_groups  linux-admins
         ...
@@ -429,28 +437,28 @@
         ...
         }</screen>
 
-    <para>This is a much simpler equivalent to:</para>
+  <para>This is a much simpler equivalent to:</para>
 
-    <screen> define hostescalation{
+  <screen> define hostescalation{
         host_name       linux-server
         contact_groups  linux-admins,management
         ...
         }</screen>
 
-    <para><anchor xml:id="objectinheritance-important_values" /><emphasis role="bold">Important values</emphasis></para>
+  <para><anchor xml:id="objectinheritance-important_values"/><emphasis role="bold">Important values</emphasis></para>
 
-    <para>Service templates can make use of a special rule which gives precedence to their check_command value. If the check_command is prefixed with
-    an exclamation mark (!), then the template's check_command is marked as important and will be used over the check_command defined for the service
-    (this is styled after CSS syntax, which uses ! as an important attribute).</para>
+  <para>Service templates can make use of a special rule which gives precedence to their check_command value. If the check_command is
+  prefixed with an exclamation mark (!), then the template's check_command is marked as important and will be used over the check_command
+  defined for the service (this is styled after CSS syntax, which uses ! as an important attribute).</para>
 
-    <para>Why is this useful? It is mainly useful when setting a different check_command for distributed systems. You may want to set a freshness
-    threshold and a check_command that forces the service into a failed state, but this doesn't work with the normal templating system. Using this
-    important flag allows the custom check_command to be written, but a general distributed template can be used to overrule the check_command when
-    used on a central Icinga-erver.</para>
+  <para>Why is this useful? It is mainly useful when setting a different check_command for distributed systems. You may want to set a
+  freshness threshold and a check_command that forces the service into a failed state, but this doesn't work with the normal templating
+  system. Using this important flag allows the custom check_command to be written, but a general distributed template can be used to
+  overrule the check_command when used on a central Icinga-erver.</para>
 
-    <para>For instance:</para>
+  <para>For instance:</para>
 
-    <screen># On master
+  <screen># On master
 define service {
         name                   service-distributed
         register               0
@@ -473,25 +481,26 @@ define service {
         ...
         }</screen>
 
-    <note><para>Please note that only one level of inheritance is possible using important values. That means that you cannot inherit 
-    the check_command from one template to another and from the latter to a service.
-    <programlisting> Template1 =&gt; Service1                &lt;== will work
- Template1 =&gt; Template2 =&gt; Service1   &lt;== will NOT work</programlisting></para></note>
+  <note>
+    <para>Please note that only one level of inheritance is possible using important values. That means that you cannot inherit the
+    check_command from one template to another and from the latter to a service. <programlisting> Template1 =&gt; Service1                &lt;== will work
+ Template1 =&gt; Template2 =&gt; Service1   &lt;== will NOT work</programlisting></para>
+  </note>
 
-    <para><anchor xml:id="objectinheritance-multiple_templates" /><emphasis role="bold">Multiple Inheritance Sources</emphasis></para>
+  <para><anchor xml:id="objectinheritance-multiple_templates"/><emphasis role="bold">Multiple Inheritance Sources</emphasis></para>
 
-    <para>Thus far, all examples of inheritance have shown object definitions inheriting variables/values from just a single source. You are also able
-    to inherit variables/values from multiple sources for more complex configurations, as shown below.</para>
+  <para>Thus far, all examples of inheritance have shown object definitions inheriting variables/values from just a single source. You are
+  also able to inherit variables/values from multiple sources for more complex configurations, as shown below.</para>
 
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="50*" />
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="50*"/>
 
-            <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
-            <tbody>
-                <row>
-                    <entry><para> <screen># Generic host template
+      <tbody>
+        <row>
+          <entry><para> <screen># Generic host template
 define host{
         name                    generic-host
         active_checks_enabled   1
@@ -516,23 +525,24 @@ define host{
         ...
         }</screen> </para></entry>
 
-                    <entry align="center" valign="top"><para> <inlinemediaobject>
-                            <imageobject>
-                                <imagedata fileref="../images/multiple-templates1.png" format="PNG"></imagedata>
-                            </imageobject>
-                        </inlinemediaobject> </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
+          <entry align="center" valign="top"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/multiple-templates1.png" format="PNG"/>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
 
-    <para>In the example above, <emphasis>devweb1</emphasis> is inheriting variables/values from two sources: <emphasis>generic-host</emphasis> and
-    <emphasis>development-server</emphasis>. You'll notice that a <emphasis>check_interval</emphasis> variable is defined in both sources. Since
-    <emphasis>generic-host</emphasis> was the first template specified in <emphasis>devweb1</emphasis>'s <emphasis>use</emphasis> directive, its value
-    for the <emphasis>check_interval</emphasis> variable is inherited by the <emphasis>devweb1</emphasis> host. After inheritance, the effective
-    definition of <emphasis>devweb1</emphasis> would be as follows:</para>
+  <para>In the example above, <emphasis>devweb1</emphasis> is inheriting variables/values from two sources:
+  <emphasis>generic-host</emphasis> and <emphasis>development-server</emphasis>. You'll notice that a <emphasis>check_interval</emphasis>
+  variable is defined in both sources. Since <emphasis>generic-host</emphasis> was the first template specified in
+  <emphasis>devweb1</emphasis>'s <emphasis>use</emphasis> directive, its value for the <emphasis>check_interval</emphasis> variable is
+  inherited by the <emphasis>devweb1</emphasis> host. After inheritance, the effective definition of <emphasis>devweb1</emphasis> would be
+  as follows:</para>
 
-    <screen># Development web server
+  <screen># Development web server
 define host{
         host_name               devweb1
         active_checks_enabled   1
@@ -541,76 +551,76 @@ define host{
         ...
         }</screen>
 
-    <para><emphasis role="bold">Precedence With Multiple Inheritance Sources</emphasis></para>
+  <para><emphasis role="bold">Precedence With Multiple Inheritance Sources</emphasis></para>
 
-    <para>When you use multiple inheritance sources, it is important to know how &name-icinga; handles variables that are defined in multiple sources.
-    In these cases &name-icinga; will use the variable/value from the first source that is specified in the <emphasis>use</emphasis> directive. Since
-    inheritance sources can themselves inherit variables/values from one or more other sources, it can get tricky to figure out what variable/value
-    pairs take precedence.</para>
+  <para>When you use multiple inheritance sources, it is important to know how &name-icinga; handles variables that are defined in multiple
+  sources. In these cases &name-icinga; will use the variable/value from the first source that is specified in the <emphasis>use</emphasis>
+  directive. Since inheritance sources can themselves inherit variables/values from one or more other sources, it can get tricky to figure
+  out what variable/value pairs take precedence.</para>
 
-    <informaltable frame="none">
-        <tgroup cols="2">
-            <colspec colname="c1" colwidth="50*" />
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="50*"/>
 
-            <colspec colname="c2" colwidth="50*" />
+      <colspec colname="c2" colwidth="50*"/>
 
-            <tbody>
-                <row>
-                    <entry align="left" valign="top"><para> Consider the following host definition that references three templates:</para> <screen> # Development web server
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para> Consider the following host definition that references three templates:</para> <screen> # Development web server
  define host{ 
        use        1,  4,  8 
        host_name  devweb1 ...
- } </screen> <para>If some of those referenced templates themselves inherit variables/values from one or more other templates, the precendence rules
-                    are shown to the right.</para> <para>Testing, trial, and error will help you better understand exactly how things work in complex
-                    inheritance situations like this. :-)</para></entry>
+ } </screen> <para>If some of those referenced templates themselves inherit variables/values from one or more other templates, the
+          precendence rules are shown to the right.</para> <para>Testing, trial, and error will help you better understand exactly how
+          things work in complex inheritance situations like this. :-)</para></entry>
 
-                    <entry align="center" valign="top"><para> <inlinemediaobject>
-                            <imageobject>
-                                <imagedata fileref="../images/multiple-templates2.png" format="PNG"></imagedata>
-                            </imageobject>
-                        </inlinemediaobject> </para></entry>
-                </row>
-            </tbody>
-        </tgroup>
-    </informaltable>
+          <entry align="center" valign="top"><para> <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/multiple-templates2.png" format="PNG"/>
+              </imageobject>
+            </inlinemediaobject> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
 
-    <indexterm zone="object_inheritance">
-        <primary>Object Inheritance</primary>
-    </indexterm>
+  <indexterm zone="object_inheritance">
+    <primary>Object Inheritance</primary>
+  </indexterm>
 
-    <indexterm zone="objectinheritance-cancel_string">
-        <primary>Object Inheritance</primary>
+  <indexterm zone="objectinheritance-cancel_string">
+    <primary>Object Inheritance</primary>
 
-        <secondary>Cancelling Inheritance of String Values</secondary>
-    </indexterm>
+    <secondary>Cancelling Inheritance of String Values</secondary>
+  </indexterm>
 
-    <indexterm zone="objectinheritance-add_string">
-        <primary>Object Inheritance</primary>
+  <indexterm zone="objectinheritance-add_string">
+    <primary>Object Inheritance</primary>
 
-        <secondary>Additive Inheritance of String Values</secondary>
-    </indexterm>
+    <secondary>Additive Inheritance of String Values</secondary>
+  </indexterm>
 
-    <indexterm zone="objectinheritance-implied_inheritance">
-        <primary>Object Inheritance</primary>
+  <indexterm zone="objectinheritance-implied_inheritance">
+    <primary>Object Inheritance</primary>
 
-        <secondary>Implied Inheritance</secondary>
-    </indexterm>
+    <secondary>Implied Inheritance</secondary>
+  </indexterm>
 
-    <indexterm zone="objectinheritance-impliedescalations">
-        <primary>Object Inheritance</primary>
+  <indexterm zone="objectinheritance-impliedescalations">
+    <primary>Object Inheritance</primary>
 
-        <secondary>Implied/Additive Inheritance in Escalations</secondary>
-    </indexterm>
+    <secondary>Implied/Additive Inheritance in Escalations</secondary>
+  </indexterm>
 
-    <indexterm zone="objectinheritance-important_values">
-        <primary>Object Inheritance</primary>
+  <indexterm zone="objectinheritance-important_values">
+    <primary>Object Inheritance</primary>
 
-        <secondary>Important values</secondary>
-    </indexterm>
+    <secondary>Important values</secondary>
+  </indexterm>
 
-    <indexterm zone="objectinheritance-multiple_templates">
-        <primary>Object Inheritance</primary>
+  <indexterm zone="objectinheritance-multiple_templates">
+    <primary>Object Inheritance</primary>
 
-        <secondary>Multiple Inheritance Sources</secondary>
-    </indexterm>
+    <secondary>Multiple Inheritance Sources</secondary>
+  </indexterm>
 </section>
