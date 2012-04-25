@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="modified_attr" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="modified-attr"/>Modified attributes</title>
+
+  <para><emphasis role="bold">Introduction</emphasis></para>
+
+  <para>Several attributes of hosts, services, and contacts can be changed during runtime, e.g. when disabling notifications through the
+  webinterface, thus overriding the local configuration default. The core will <emphasis role="bold">always</emphasis> use the modified
+  attributes in the first place.</para>
+
+  <para>If "<link linkend="configmain-retain_state_information">retain_state_information</link>" is enabled (this is the default) these
+  changes will be saved across restarts. If you choose to disable this setting the changes will only last until the next restart.</para>
+
+  <para>Apart from changing them automatically via several commands in the classic UI you can alter the values using <link
+  xlink:linkend="extcommands">external commands</link>.</para>
+
+  <para><emphasis role="bold">List of external commands to modify attributes</emphasis> (for details see the <link
+  linkend="extcommands2">list of external commands</link>)</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>change host attributes: <code>CHANGE_HOST_MODATTR;</code>&lt;host_name&gt;;&lt;value&gt;</para>
+    </listitem>
+
+    <listitem>
+      <para>change service attributes: <code>CHANGE_SVC_MODATTR;</code>&lt;host_name&gt;;&lt;service_description&gt;;&lt;value&gt;</para>
+    </listitem>
+
+    <listitem>
+      <para>change contact attributes: <code>CHANGE_CONTACT_MODATTR;</code>&lt;contact_name&gt;;&lt;value&gt;</para>
+    </listitem>
+
+    <listitem>
+      <para>change contact attributes: <code>CHANGE_CONTACT_MODHATTR;</code>&lt;contact_name&gt;;&lt;value&gt;</para>
+    </listitem>
+
+    <listitem>
+      <para>change contact attributes: <code>CHANGE_CONTACT_MODSATTR;</code>&lt;contact_name&gt;;&lt;value&gt;</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>The value is a logical OR of the different values from the table at the end of this section. "Logical OR" means that you have to add
+  the values and use the result.</para>
+
+  <para><emphasis role="bold">Example</emphasis></para>
+
+  <para>The following lines show a general example how to submit external commands to the command file.</para>
+
+  <programlisting> #!/bin/sh
+ # Adjust variables to fit your environment as necessary.
+
+ now=`date +%s`
+ commandfile='/usr/local/icinga/var/rw/icinga.cmd'
+
+ /bin/printf "[%lu] CHANGE_HOST_MODATTR;Host1;11\n" $now &gt; $commandfile</programlisting>
+
+  <para>The above command will modify several attributes on "Host1":</para>
+
+  <screen>enable notifications      1
+enable active checks      2
+enable the eventhandler   8
+                         --
+                         11</screen>
+
+  <para><anchor xml:id="modified_attr-table"/><emphasis role="bold">Excerpt from include/common.h</emphasis></para>
+
+  <screen>/************************MODIFIED ATTRIBUTES *************************/
+#define MODATTR_NONE                            0
+#define MODATTR_NOTIFICATIONS_ENABLED           1
+#define MODATTR_ACTIVE_CHECKS_ENABLED           2
+#define MODATTR_PASSIVE_CHECKS_ENABLED          4
+#define MODATTR_EVENT_HANDLER_ENABLED           8
+#define MODATTR_FLAP_DETECTION_ENABLED          16
+#define MODATTR_FAILURE_PREDICTION_ENABLED      32
+#define MODATTR_PERFORMANCE_DATA_ENABLED        64
+#define MODATTR_OBSESSIVE_HANDLER_ENABLED       128
+#define MODATTR_EVENT_HANDLER_COMMAND           256
+#define MODATTR_CHECK_COMMAND                   512
+#define MODATTR_NORMAL_CHECK_INTERVAL           1024
+#define MODATTR_RETRY_CHECK_INTERVAL            2048
+#define MODATTR_MAX_CHECK_ATTEMPTS              4096
+#define MODATTR_FRESHNESS_CHECKS_ENABLED        8192
+#define MODATTR_CHECK_TIMEPERIOD                16384
+#define MODATTR_CUSTOM_VARIABLE                 32768
+#define MODATTR_NOTIFICATION_TIMEPERIOD         65536</screen>
+
+  <indexterm zone="modified_attr">
+    <primary>Modified attributes</primary>
+
+    <secondary>Possible values</secondary>
+  </indexterm>
+
+  <indexterm zone="modified_attr-table">
+    <primary>Modified attributes</primary>
+
+    <secondary>Possible values</secondary>
+  </indexterm>
+</section>
