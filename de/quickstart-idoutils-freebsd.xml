@@ -228,9 +228,9 @@
 
   <note>
     <para>Sie sollten <literal>CFLAGS=..."</literal> wie oben angegeben benutzen. Anderenfalls finden Sie ggf. später folgende Zeilen in
-    <filename>icinga.log</filename>: <screen> Error: Module ‘/usr/local/icinga/bin/idomod.o’ is using an old or unspecified version of the event broker API. Module will
+    <filename>icinga.log</filename>: <screen> Error: Module ‘/usr/local/icinga/bin/idomod.so’ is using an old or unspecified version of the event broker API. Module will
  be unloaded.
- Event broker module ‘/usr/local/icinga/bin/idomod.o’ deinitialized successfully.</screen> Mehr Informationen zu diesem Fehler finden Sie
+ Event broker module ‘/usr/local/icinga/bin/idomod.so’ deinitialized successfully.</screen> Mehr Informationen zu diesem Fehler finden Sie
     <link xlink:href="http://www.mazej.net/icinga-idomod-o-is-using-an-old-or-unspecified-version-of-the-event-broker-api/">
     hier</link>.</para>
   </note>
@@ -316,7 +316,7 @@
 
     <screen> define module{
         module_name    ido_mod
-        path           &url-icinga-base;/bin/idomod.o
+        path           &url-icinga-base;/bin/idomod.so
         module_type    neb
         args           config_file=&url-icinga-base;/etc/idomod.cfg
         }</screen>

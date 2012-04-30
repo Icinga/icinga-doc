@@ -479,7 +479,7 @@
 
   <note>
     <para>Install IDOUtils and applicable event broker modules only using the primary "make install" target. Do not manually copy and
-    overwrite the existing module as this will result in a segfault on icinga core which is using <filename>idomod.o</filename> directly
+    overwrite the existing module as this will result in a segfault on icinga core which is using <filename>idomod.so</filename> directly
     preventing usage of a temporary copy explicitly. This is useful for <link xlink:href="http://omdistro.org/">OMD.</link></para>
   </note>
 
@@ -534,7 +534,7 @@
 
     <screen> define module{
         module_name    ido_mod
-        path           &url-icinga-base;/bin/idomod.o
+        path           &url-icinga-base;/bin/idomod.so
         module_type    neb
         args           config_file=&url-icinga-base;/etc/idomod.cfg
         }</screen>
