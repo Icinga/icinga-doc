@@ -6,7 +6,7 @@
 <section version="5.0" xml:id="perfgraphs" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-  <title><anchor xml:id="perf_graphs" />Graphing Performance Info With &name-pnp;</title>
+  <title><anchor xml:id="perf_graphs"/>Graphing Performance Info With &name-pnp;</title>
 
   <para><emphasis role="bold">Introduction</emphasis></para>
 
@@ -68,13 +68,24 @@
     host_name               &lt;the &name-icinga; server&gt;
     service_description     icingastats # (or something appropriate)
     active_checks_enabled   0
-    check_command           check_dummy!0
+    check_command           check_stats!3!Freshness threshold exceeded
+    check_freshness         1
+    freshness_threshold     180         # check interval + x seconds
     ...
- }</programlisting>Don't forget to restart &name-icinga; after this change.</para>
+ }</programlisting></para>
+
+      <para>Add a command definition</para>
+
+      <programlisting> define command{
+    command_name            check_stats
+    command_line            $USER1$/check_dummy $ARG1$ $ARG2$
+ }</programlisting>
+
+      <para>Don't forget to restart &name-icinga; after this change.</para>
     </listitem>
 
     <listitem>
-      <para>Create a symbolic link in the templates folder of &name-pnp;<programlisting> $&gt; ln -s ../templates.dist/nagiostats.php icingastats.php</programlisting>Make
+      <para>Create a symbolic link in the (user) templates folder of &name-pnp;<programlisting> $&gt; ln -s ../templates.dist/nagiostats.php icingastats.php</programlisting>Make
       sure that <emphasis>icingastats</emphasis> (without the extension .php) matches the value you specified for the service description.
       Blanks in the service description have to be replaced by underscores in the filename (e.g. "Icinga Stats" --&gt;
       "Icinga_Stats.php")</para>
@@ -82,8 +93,8 @@
 
     <listitem>
       <para>Add a line to the crontab of the &name-icinga; user which will call the <filename>icingastats</filename> binary and submit the
-      results to the command pipe<programlisting> * * * * * &url-icinga-base;/libexec/check_nagiostats --passive &lt;host&gt; &lt;service&gt; &gt;&gt; &url-icinga-base;/var/rw/icinga.cmd</programlisting>
-      This way the values are updated in regular intervals.</para>
+      results to the command pipe<programlisting> * * * * * &url-icinga-base;/libexec/check_nagiostats --passive &lt;host&gt; icingastats &gt;&gt; &url-icinga-base;/var/rw/icinga.cmd</programlisting>
+      This way the values are updated at regular intervals.</para>
     </listitem>
   </itemizedlist>
 
@@ -98,7 +109,7 @@
 
     <mediaobject>
       <imageobject>
-        <imagedata fileref="../images/perfdata_lat.png" format="PNG"></imagedata>
+        <imagedata fileref="../images/perfdata_lat.png" format="PNG"/>
       </imageobject>
     </mediaobject>
   </figure>
@@ -151,7 +162,7 @@
 
     <mediaobject>
       <imageobject>
-        <imagedata fileref="../images/perfdata_svc.png" format="PNG"></imagedata>
+        <imagedata fileref="../images/perfdata_svc.png" format="PNG"/>
       </imageobject>
     </mediaobject>
   </figure>
@@ -184,7 +195,7 @@
 
     <mediaobject>
       <imageobject>
-        <imagedata fileref="../images/perfdata_host.png" format="PNG"></imagedata>
+        <imagedata fileref="../images/perfdata_host.png" format="PNG"/>
       </imageobject>
     </mediaobject>
   </figure>
@@ -217,7 +228,7 @@
 
     <mediaobject>
       <imageobject>
-        <imagedata fileref="../images/perfdata_exec.png" format="PNG"></imagedata>
+        <imagedata fileref="../images/perfdata_exec.png" format="PNG"/>
       </imageobject>
     </mediaobject>
   </figure>
@@ -256,7 +267,7 @@
 
     <mediaobject>
       <imageobject>
-        <imagedata fileref="../images/perfdata_extcmd.png" format="PNG"></imagedata>
+        <imagedata fileref="../images/perfdata_extcmd.png" format="PNG"/>
       </imageobject>
     </mediaobject>
   </figure>
@@ -286,7 +297,7 @@
 
     <mediaobject>
       <imageobject>
-        <imagedata fileref="../images/perfdata_cmdbuf.png" format="PNG"></imagedata>
+        <imagedata fileref="../images/perfdata_cmdbuf.png" format="PNG"/>
       </imageobject>
     </mediaobject>
   </figure>
@@ -306,7 +317,7 @@
 
     <mediaobject>
       <imageobject>
-        <imagedata fileref="../images/perfdata_cached.png" format="PNG"></imagedata>
+        <imagedata fileref="../images/perfdata_cached.png" format="PNG"/>
       </imageobject>
     </mediaobject>
   </figure>
@@ -330,7 +341,7 @@
 
     <mediaobject>
       <imageobject>
-        <imagedata fileref="../images/perfdata_state_chg.png" format="PNG"></imagedata>
+        <imagedata fileref="../images/perfdata_state_chg.png" format="PNG"/>
       </imageobject>
     </mediaobject>
   </figure>
