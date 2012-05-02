@@ -80,7 +80,8 @@
     ...
  }</programlisting>and a command definition<programlisting> define command{
     command_name            check_icingastats
-    command_line            $USER1$/check_nagiostats</programlisting>Don't forget to restart &name-icinga; after these changes.</para>
+    command_line            $USER1$/check_nagiostats
+ }</programlisting>Don't forget to restart &name-icinga; after these changes.</para>
         </listitem>
 
         <listitem>
@@ -106,7 +107,7 @@
           <para>Don't forget to restart &name-icinga; after this change.</para>
 
           <para>Add a line to the crontab of the &name-icinga; user which will call the <filename>icingastats</filename> binary and submit
-          the results to the command pipe<programlisting> * * * * * &url-icinga-base;/libexec/check_nagiostats --passive &lt;host&gt; &lt;service&gt; &gt;&gt; &url-icinga-base;/var/rw/icinga.cmd</programlisting>
+          the results to the command pipe<programlisting> * * * * * &url-icinga-base;/libexec/check_nagiostats --passive &lt;host&gt; icingastats &gt;&gt; &url-icinga-base;/var/rw/icinga.cmd</programlisting>
           This way the values are updated in regular intervals.</para>
         </listitem>
       </itemizedlist>
