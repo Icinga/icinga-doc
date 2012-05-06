@@ -10,11 +10,13 @@
 
   <para><emphasis role="bold">Wo sind meine Konfigurationsdateien? </emphasis></para>
 
-  <para>Wir versuchen die Verwendung von globalen Konfigurationsdateien zu minimieren. Die &name-web;-Konfigurationseinstellungen für die
-  &name-api;, die Authentifizierung und die Datenbank werden in <filename>etc/conf.d/</filename> gespeichert. Diese Dateien werden bei einer
-  Aktualisierung von &name-web; nicht überschrieben. Das Verzeichnis kann bei der Installation mit --with-conf-dir (--with-conf-folder bis
-  &name-icinga; 1.6.x) geändert
-  werden.</para>
+  <para>Mit &name-icinga; 1.7 hat sich der Platz von einigen Konfigurationsdateien erneut geändert, um die Pflege für Benutzer, Packetierer
+  und Entwickler gleichermaßen zu vereinfachen. Die von &name-web; bereitgestellten Konfigurationsdateien stehen weiterhin unter
+  <filename>app/config</filename>, aber Site-spezifische, die vorher im gleichen Ordner zu finden waren, sind nun in den
+  Web-Konfigurationsordner gewandert (per Default <filename>etc/conf.d</filename>), der bei Aktualisierungen nicht überschrieben wird. Der
+  Ordner kann während der Installation mit Hilfe von --with-conf-dir (bzw. --with-conf-folder &name-icinga; &lt;= 1.6.x) geändert werden.
+  Bitte beachten Sie, dass sich - bedingt durch den neuen Ablageort - der Dateiname geändert hat. Die Kennzeichnung "site." ist entfallen,
+  so dass die Namen nun identisch zu denen in <filename>app/config</filename> sind.</para>
 
   <para>&name-web; arbeitet mit Modulen und jedes Modul hat seine eigene Konfiguration. Das gilt ebenfalls für die Libraries. Wenn Sie
   weitere Informationen zu den Cronk-Libraries benötigen, schauen Sie in <filename>app/modules/Cronks/lib</filename> (für js in
@@ -32,27 +34,169 @@
 
   <para><emphasis role="bold">Index</emphasis></para>
 
+  <table border="1">
+    <caption>Konfigurationsdateien</caption>
+
+    <tr>
+      <td><emphasis role="bold">Dateiname</emphasis></td>
+
+      <td><emphasis role="bold">Ablageort</emphasis></td>
+
+      <td><emphasis role="bold">Bemerkung</emphasis></td>
+    </tr>
+
+    <tr>
+      <td><link linkend="configweb-access">access.xml</link></td>
+
+      <td>app/modules/Api/config/</td>
+
+      <td>Controls commands and where Icinga commands goes to</td>
+    </tr>
+
+    <tr>
+      <td><link linkend="configweb-auth">auth.xml</link></td>
+
+      <td>app/modules/AppKit/config/</td>
+
+      <td>Authentication configuration</td>
+    </tr>
+
+    <tr>
+      <td>cronks.xml</td>
+
+      <td>app/modules/Cronks/config/</td>
+
+      <td>System cronk and categories which are not changeable by users</td>
+    </tr>
+
+    <tr>
+      <td><link linkend="configweb-databases">databases.xml</link></td>
+
+      <td>app/config/</td>
+
+      <td>Upgrade safe database connections</td>
+    </tr>
+
+    <tr>
+      <td><link linkend="configweb-factories">factories.xml</link></td>
+
+      <td>app/config/</td>
+
+      <td>Agavi system config, storage and session configuration</td>
+    </tr>
+
+    <tr>
+      <td>icinga.xml</td>
+
+      <td>app/config/</td>
+
+      <td>Icinga settings, e.g. version and prefixes / version name</td>
+    </tr>
+
+    <tr>
+      <td><link linkend="configweb-logging">logging.xml</link></td>
+
+      <td>app/config/</td>
+
+      <td>Disable log levels or write new logfiles</td>
+    </tr>
+
+    <tr>
+      <td>module_appkit.xml</td>
+
+      <td>app/modules/AppKit/config/</td>
+
+      <td>Overwrite settings for AppKit module (ajax timeout, SQL query logging)</td>
+    </tr>
+
+    <tr>
+      <td>module_cronks.xml</td>
+
+      <td>app/modules/Cronks/config/</td>
+
+      <td>Overwrite settings for Cronks module</td>
+    </tr>
+
+    <tr>
+      <td>module_reporting.xml</td>
+
+      <td>app/modules/Reporting/config/</td>
+
+      <td>Overwrite settings for Reporting (multiple JasperServer ...)</td>
+    </tr>
+
+    <tr>
+      <td>module_web.xml</td>
+
+      <td>app/modules/Web/config/</td>
+
+      <td>Overwrite setting for Web module</td>
+    </tr>
+
+    <tr>
+      <td><link linkend="configweb-settings">settings.xml</link></td>
+
+      <td>app/config/</td>
+
+      <td>Change agavi core settings (Title, availability, debug-mode, ...)</td>
+    </tr>
+
+    <tr>
+      <td>sla.xml</td>
+
+      <td>app/modules/Api/config/</td>
+
+      <td>SLA settings for the provider (Only used by tackle view)</td>
+    </tr>
+
+    <tr>
+      <td>translation.xml</td>
+
+      <td>app/config/</td>
+
+      <td>Default language, date and time formats and settings</td>
+    </tr>
+  </table>
+
   <itemizedlist>
     <listitem>
       <para><link linkend="configweb-globalconfig">Globale Konfiguration</link></para>
 
       <itemizedlist>
         <listitem>
+          <para><link linkend="configweb-access">access.xml</link></para>
+        </listitem>
+
+        <listitem>
           <para><link linkend="configweb-databases">databases.xml</link></para>
         </listitem>
 
         <listitem>
-          <para><link linkend="configweb-access">access.xml</link></para>
+          <para><link linkend="configweb-factories">factories.xml</link></para>
+
+          <itemizedlist>
+            <listitem>
+              <para><link linkend="configweb-session-lifetime">Session Cookie Lifetime</link></para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para><link linkend="configweb-logging">logging.xml</link></para>
+        </listitem>
+
+        <listitem>
+          <para><link linkend="configweb-settings">settings.xml</link></para>
+        </listitem>
+
+        <listitem>
+          <para><link linkend="configweb-translation">translation.xml</link></para>
         </listitem>
       </itemizedlist>
     </listitem>
 
     <listitem>
-      <para><link linkend="configweb-session-lifetime">Session Cookie Lifetime</link></para>
-    </listitem>
-
-    <listitem>
-      <para><link linkend="configweb-timezone">Zeitzone</link></para>
+      <para><link linkend="configweb-timezone">Default-Zeitzone ändern</link></para>
     </listitem>
 
     <listitem>
@@ -64,15 +208,11 @@
     </listitem>
 
     <listitem>
-      <para><link linkend="configweb-api">&name-api; Verbindungseinstellung</link></para>
-    </listitem>
-
-    <listitem>
-      <para><link linkend="configweb-customconfig">Benutzerdefinierte Konfiguration</link></para>
+      <para><link linkend="configweb-customconfig">Benutzerdefinitierte Konfiguration</link></para>
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configweb-globalconfig" /> <emphasis role="bold">Globale Konfiguration</emphasis></para>
+  <para><anchor xml:id="configweb-globalconfig"/> <emphasis role="bold">Globale Konfiguration</emphasis></para>
 
   <para><emphasis role="bold">app/config</emphasis></para>
 
@@ -83,12 +223,223 @@
 
   <itemizedlist>
     <listitem>
-      <para><anchor xml:id="configweb-databases" /><filename>databases.xml</filename> - enthält die Verbindungseinstellungen für Ihre
+      <para><anchor xml:id="configweb-access"/>access.xml</para>
+
+      <para>Die Konfigurationsdatei <filename>access.xml</filename> hat zwei Hauptzwecke:<itemizedlist>
+          <listitem>
+            <para>definieren von Hosts, auf die von Icinga-Web (via System oder ssh) zugegriffen werden kann und definieren von Dateien, auf
+            die lesend/schreibend zugegriffen werden kann bzw. auszuführenden Programmen</para>
+          </listitem>
+
+          <listitem>
+            <para>zuordnen von Icinga-Instanzen zu diesen Hosts</para>
+          </listitem>
+        </itemizedlist>Die <filename>access.xml</filename>-Konfiguration wird von Icinga-Webs Console-Handler-Implementation genutzt und
+      bietet zusätzliche Sicherheit, weil sie willkürliche Ausführung/Manipulation von Dateien in letzter Instanz verhindert.</para>
+
+      <para>
+        <emphasis role="bold">Abschnitte</emphasis>
+      </para>
+
+      <itemizedlist>
+        <listitem>
+          <para>
+            <emphasis>Instanzen</emphasis>
+          </para>
+
+          <para>Das Einrichten von Instanzen erfolgt im &lt;instances&gt;-Abschnitt:</para>
+
+          <para>Beispiel: Zuordnen der Instanz 'default' zum Host 'localhost' <screen>&lt;!-- Map your instances to hosts here --&gt;
+ &lt;instances&gt;
+    &lt;instance name="default"&gt;localhost&lt;/instance&gt;
+ &lt;/instances&gt;</screen></para>
+
+          <para>Zulässige Unterelemente</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>instance: Nur "instance" ist als Unterelement zulässig. Dieser Knoten ordnet einem Host (s.u.) einen Instanznamen zu,
+              der durch den Wert des Attributs "name" festgelegt ist: <screen> &lt;instance name="%icinga instance name%"&gt;%host name%&lt;/instance&gt;</screen></para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>
+            <emphasis>Standardwerte</emphasis>
+          </para>
+
+          <para>Der "default"-Abschnitt definiert Standardwerte für Host-Einstellungen, z.B. auf welche Dateien schreibend/lesend
+          zugegriffen werden bzw. welche ausgeführt werden können. Auch der Standard-Host, der von Icinga-Web benutzt werden soll, wird hier
+          definiert.</para>
+
+          <para>Zulässige Unterelemente</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>defaultHost: definiert den Hos, der für Aktionen benutzt wird, wenn kein Host angegeben ist. Momentan (v1.6) ist dies
+              nur für einige Module wichtig und es betrifft nicht Icinga-Webs Standardleistungsumfang. <screen> &lt;defaultHost&gt;localhost&lt;/defaultHost&gt;</screen>Der
+              Host muss im hosts-Abschnitt definiert werden.</para>
+            </listitem>
+
+            <listitem>
+              <para>access: Icinga-Web (und Module, wenn sie korrekt geschrieben sind) greifen nicht direkt auf System-Ressourcen zu,
+              sondern über ein Console-Interface, das sich um die Sicherheit kümmert. Im Zugriffsabschnitt definieren Sie, welche
+              System-Ressources von dieser Behandlungsroutine aufgerufen werden dürfen und wo sie sich befinden. Außerdem geben Sie
+              System-Ressourcen einen Ressourcen-Namen. Der Console-Handler bspw. greift auf die Icinga-Pipe nur über den Ressource-Namen
+              "icinga_pipe" zu.</para>
+
+              <para>Der Zugriffsabschnitt hat vier zulässige Unterelemente: 'readwrite', 'read', 'write' und 'execute', die die
+              Zugriffsebene für darunterliegende Ressourcen definieren. Ressourcen selbst werden unter den Tags 'folders' oder 'files'
+              definiert und mit 'resource' eingeschlossen: Das folgende Beispiel erlaubt Schreib-/Lesezugriff auf Icingas
+              <filename>objects</filename>-Ordner. Schreiben, Lesen und Ausführen funktionieren analog, das 'readwrite'-Tag wird jeweils
+              durch das entsprechende Tag ausgetauscht.</para>
+            </listitem>
+          </itemizedlist>
+
+          <para><screen> &lt;readwrite&gt;
+    &lt;folders&gt;
+       &lt;resource name="icinga_objects"&gt;/usr/local/icinga/etc/objects&lt;/resource&gt;
+    &lt;/folders&gt;
+    &lt;files&gt;
+       &lt;resource name="icinga_cfg"&gt;/usr/local/icinga/etc/icinga.cfg&lt;/resource&gt;
+    &lt;/files&gt;
+ &lt;/readwrite&gt;</screen>Wie oben erwähnt ordnet jede Ressource ein Ressourcen-Symbol (Name) einem Pfad zu. Dies ist optional, wird aber
+          empfohlen. Wenn ein Symbol mehrfach existiert, dann wird das letzte benutzt.</para>
+
+          <note>
+            <para>
+              <emphasis>Eigene Default-Definitionen in Ihrem Konfigurationsordner</emphasis>
+            </para>
+
+            <para>If you override a custom section, like readwrite, all previously set definitions will be ignored and must be redefined if
+            you want to use them. Das betrifft nicht Modul-KonfigurationenThis doesn't affect module configurations.</para>
+          </note>
+        </listitem>
+
+        <listitem>
+          <para>
+            <emphasis>Hosts</emphasis>
+          </para>
+
+          <para>Im host-Abschnitt werden Zugriffsmethoden und Anmeldeinformation, aber auch spezifische Rechte für Hosts definiert.</para>
+
+          <para>Zulässige Unterelemente:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>host: definiert einen einzelnen Host und gibt ihm einen Namen, der benutzt werden kann, um auf diesen Host zu
+              referenzieren (wie z.B. im "instance"-Abschnitt). <screen> &lt;!-- Example for ssh connection with user/password auth --&gt;
+ &lt;host name="vm_host1"&gt;
+    &lt;type&gt;ssh&lt;/type&gt;
+    &lt;ssh-config&gt;
+       &lt;host&gt;localhost&lt;/host&gt;
+       &lt;port&gt;22&lt;/port&gt;
+       &lt;auth&gt;
+          &lt;type&gt;password&lt;/type&gt;
+          &lt;user&gt;john_doe&lt;/user&gt;
+          &lt;password&gt;foobar&lt;/password&gt;
+       &lt;/auth&gt;
+    &lt;/ssh-config&gt;
+
+    &lt;access useDefaults="true" /&gt;
+ &lt;/host&gt;</screen> Das 'host'-Tag hat eine Reihe von Unterelementen:</para>
+            </listitem>
+
+            <listitem>
+              <para>type: Entweder "local" oder "ssh". Definiert, ob Befehl direkt auf der Maschine ausgeführt werden, auf der Icinga-Web
+              läuft, oder via ssh.</para>
+            </listitem>
+
+            <listitem>
+              <para>access: sh. den "access"-Abschnitt weiter oben. Zusätzlich kann 'useDefaults' gesetzt werden, um dem Command-Interface
+              mitzuteilen, dass alle Standardzugriffsdefinitionen benutzt werden sollen (wenn sie nicht in diesem Abschnitt überschrieben
+              werden).</para>
+            </listitem>
+
+            <listitem>
+              <para>ssh-config: (nur falls type:ssh) Dies legt fest, wie auf den Host per ssh zugegriffen werden soll. Es gibt drei
+              Authentifizierungsmethoden für ssh: 'none', 'password' oder 'key', die im folgenden Abschnitt erläutert werden. Unabhängig
+              davon, welche Methode Sie wählen, müssen die 'host'- und 'port'-Einträge für jeden Host gesetzt werden.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>
+            <emphasis>SSH-Config auth</emphasis>
+          </para>
+
+          <para>Dieser Abschnitt erklärt den Authentifizierungsblock der ssh-Konfigurationseinstellungen, die wir im vorigen Anschnitt
+          angesprochen haben. Die Elemente unterhalb des 'auth'-Tags sind abhängig vom ausgewählten Authentifizierungstyp.</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Auth type: none</para>
+
+              <para>Dies teilt der Console-Verbindung mit, dass nur ein Benutzername für die Authentifizierung verwendet wird:<screen> &lt;ssh-config&gt;
+    &lt;host&gt;localhost&lt;/host&gt;
+    &lt;port&gt;22&lt;/port&gt;
+    &lt;auth&gt;
+       &lt;type&gt;none&lt;/type&gt;
+       &lt;user&gt;john_doe&lt;/user&gt;
+    &lt;/auth&gt;
+ &lt;/ssh-config&gt;</screen>In diesem Beispiel wird nur der Benutzername 'john_doe' für die Authentifizierung geliefert. Dies kann sinnvoll
+              sein, wenn Ihre Maschinen automatische Schlüssel-Authentifizierung benutzen.</para>
+            </listitem>
+
+            <listitem>
+              <para>Auth type: password</para>
+
+              <para>Dies teilt der Console-Verbindung mit, dass Benutzername und Passwort für die Authentifizierung verwendet
+              werden:<screen> &lt;ssh-config&gt;
+    &lt;host&gt;localhost&lt;/host&gt;
+    &lt;port&gt;22&lt;/port&gt;
+    &lt;auth&gt;
+       &lt;type&gt;password&lt;/type&gt;
+       &lt;user&gt;john_doe&lt;/user&gt;
+       &lt;password&gt;foobar&lt;/password&gt;
+    &lt;/auth&gt;
+ &lt;/ssh-config&gt;</screen>In diesem Beispiel werden nur der Benutzername 'john_doe' und das Passwort 'foobar' für die Authentifizierung
+              verwendet.</para>
+            </listitem>
+
+            <listitem>
+              <para>Auth type: key</para>
+
+              <important>
+                <para>Experimentell! Probieren Sie es aus und öffnen Sie ein Ticket, wenn Sie Probleme haben!</para>
+              </important>
+
+              <para>Dies teilt der Console-Verbindung mit, eine Schlüsseldatei für die Authentifizierung zu benutzen, die optional mit einem
+              Password geschützt ist<screen> &lt;ssh-config&gt;
+    &lt;host&gt;localhost&lt;/host&gt;
+    &lt;port&gt;22&lt;/port&gt;
+    &lt;auth&gt;
+       &lt;type&gt;key&lt;/type&gt;
+       &lt;user&gt;testuser&lt;/user&gt;
+       &lt;private-key&gt;/usr/local/icinga-web/app/modules/Api/lib/.ssh/host1_rsa&lt;/private-key&gt;
+       &lt;password&gt;secret123&lt;/password&gt;
+    &lt;/auth&gt;
+ &lt;/ssh-config&gt;</screen> Hier wird der private Schlüssel benutzt, der im 'private-key'-Tag definiert wird. Sie sollten und müssen
+              diesen Pfad <emphasis>nicht</emphasis> im host-Zugriffsabschnitt definieren!</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+
+    <listitem>
+      <para><anchor xml:id="configweb-databases"/><filename>databases.xml</filename> - enthält die Verbindungseinstellungen für Ihre
       &name-web;-Datenbank</para>
 
       <itemizedlist>
         <listitem>
-          <para><anchor xml:id="configweb-general" /><emphasis>Allgemeine Einstellungen</emphasis></para>
+          <para>
+            <anchor xml:id="configweb-general"/>
+
+            <emphasis>Allgemeine Einstellungen</emphasis>
+          </para>
 
           <para>Die folgenden Einstellungen gelten für jede in &name-web; definierte Datenbank.</para>
 
@@ -319,14 +670,18 @@
         </listitem>
 
         <listitem>
-          <para><emphasis>Die "icinga_web"-Datenbank</emphasis></para>
+          <para>
+            <emphasis>Die "icinga_web"-Datenbank</emphasis>
+          </para>
 
           <para>Sie müssen eine Icinga-Web-Datenbank haben, die Informationen über Benutzer, Anmeldeinformationen, View-Persistenz, etc.
           enthält. Diese Datenbank muss 'icinga_web' heißen. Alle Einstellungen sind im vorigen Abschnitt beschrieben.</para>
         </listitem>
 
         <listitem>
-          <para><emphasis>Die "icinga"-Datenbank</emphasis></para>
+          <para>
+            <emphasis>Die "icinga"-Datenbank</emphasis>
+          </para>
 
           <para>Ab Icinga-Web v1.5 wird die Icinga-API über Doctrine angesprochen (vorher gab es ein eigenes Projekt, die 'icinga-api'). Im
           Folgenden werden nur spezielle bzw. zusätzliche Einstellungen erklärt. Solange nicht anders erwähnt, gelten alle Regeln aus <link
@@ -388,7 +743,9 @@
         </listitem>
 
         <listitem>
-          <para><emphasis>Komplettes Listing</emphasis></para>
+          <para>
+            <emphasis>Komplettes Listing</emphasis>
+          </para>
 
           <screen>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
  <!--    databases.xml
@@ -443,245 +800,76 @@
     </listitem>
 
     <listitem>
-      <para><anchor xml:id="configweb-access" />access.xml</para>
+      <para><anchor xml:id="configweb-factories"/><filename>factories.xml</filename> - Agavi Systemkonfiguration, Storage- und
+      Session-Konfiguration</para>
 
-      <para>Die Konfigurationsdatei <filename>access.xml</filename> hat zwei Hauptzwecke:<itemizedlist>
-          <listitem>
-            <para>definieren von Hosts, auf die von Icinga-Web (via System oder ssh) zugegriffen werden kann und definieren von Dateien, auf
-            die lesend/schreibend zugegriffen werden kann bzw. auszuführenden Programmen</para>
-          </listitem>
+      <para>holds the config for your web session, e.g. the session_cookie_lifetime-parameter</para>
 
-          <listitem>
-            <para>zuordnen von Icinga-Instanzen zu diesen Hosts</para>
-          </listitem>
-        </itemizedlist>Die <filename>access.xml</filename>-Konfiguration wird von Icinga-Webs Console-Handler-Implementation genutzt und
-      bietet zusätzliche Sicherheit, weil sie willkürliche Ausführung/Manipulation von Dateien in letzter Instanz verhindert.</para>
+      <para>
+        <anchor xml:id="configweb-session-lifetime"/>
 
-      <para><emphasis role="bold">Abschnitte</emphasis></para>
+        <emphasis role="bold">Session Cookie Lifetime</emphasis>
+      </para>
 
-      <itemizedlist>
-        <listitem>
-          <para><emphasis>Instanzen</emphasis></para>
+      <para>Beispiel: Ändern von session_cookie_lifetime</para>
 
-          <para>Das Einrichten von Instanzen erfolgt im &lt;instances&gt;-Abschnitt:</para>
+      <para>Die Session Lifetime ist die Zeit in Sekunden, bis die &name-web;-Session abläuft. Sie kann auf globaler Ebene in der Datei
+      <filename>app/config/factories.xml</filename> konfiguriert werden.</para>
 
-          <para>Beispiel: Zuordnen der Instanz 'default' zum Host 'localhost' <screen>&lt;!-- Map your instances to hosts here --&gt;
- &lt;instances&gt;
-    &lt;instance name="default"&gt;localhost&lt;/instance&gt;
- &lt;/instances&gt;</screen></para>
+      <programlisting>&lt;ae:parameter name="session_cookie_lifetime"&gt;3600&lt;ae:parameter&gt;</programlisting>
 
-          <para>Zulässige Unterelemente</para>
-
-          <itemizedlist>
-            <listitem>
-              <para>instance: Nur "instance" ist als Unterelement zulässig. Dieser Knoten ordnet einem Host (s.u.) einen Instanznamen zu,
-              der durch den Wert des Attributs "name" festgelegt ist: <screen> &lt;instance name="%icinga instance name%"&gt;%host name%&lt;/instance&gt;</screen></para>
-            </listitem>
-          </itemizedlist>
-        </listitem>
-
-        <listitem>
-          <para><emphasis>Standardwerte</emphasis></para>
-
-          <para>Der "default"-Abschnitt definiert Standardwerte für Host-Einstellungen, z.B. auf welche Dateien schreibend/lesend
-          zugegriffen werden bzw. welche ausgeführt werden können. Auch der Standard-Host, der von Icinga-Web benutzt werden soll, wird hier
-          definiert.</para>
-
-          <para>Zulässige Unterelemente</para>
-
-          <itemizedlist>
-            <listitem>
-              <para>defaultHost: definiert den Hos, der für Aktionen benutzt wird, wenn kein Host angegeben ist. Momentan (v1.6) ist dies
-              nur für einige Module wichtig und es betrifft nicht Icinga-Webs Standardleistungsumfang. <screen> &lt;defaultHost&gt;localhost&lt;/defaultHost&gt;</screen>Der
-              Host muss im hosts-Abschnitt definiert werden.</para>
-            </listitem>
-
-            <listitem>
-              <para>access: Icinga-Web (und Module, wenn sie korrekt geschrieben sind) greifen nicht direkt auf System-Ressourcen zu,
-              sondern über ein Console-Interface, das sich um die Sicherheit kümmert. Im Zugriffsabschnitt definieren Sie, welche
-              System-Ressources von dieser Behandlungsroutine aufgerufen werden dürfen und wo sie sich befinden. Außerdem geben Sie
-              System-Ressourcen einen Ressourcen-Namen. Der Console-Handler bspw. greift auf die Icinga-Pipe nur über den Ressource-Namen
-              "icinga_pipe" zu.</para>
-
-              <para>Der Zugriffsabschnitt hat vier zulässige Unterelemente: 'readwrite', 'read', 'write' und 'execute', die die
-              Zugriffsebene für darunterliegende Ressourcen definieren. Ressourcen selbst werden unter den Tags 'folders' oder 'files'
-              definiert und mit 'resource' eingeschlossen: Das folgende Beispiel erlaubt Schreib-/Lesezugriff auf Icingas
-              <filename>objects</filename>-Ordner. Schreiben, Lesen und Ausführen funktionieren analog, das 'readwrite'-Tag wird jeweils
-              durch das entsprechende Tag ausgetauscht.</para>
-            </listitem>
-          </itemizedlist>
-
-          <para><screen> &lt;readwrite&gt;
-    &lt;folders&gt;
-       &lt;resource name="icinga_objects"&gt;/usr/local/icinga/etc/objects&lt;/resource&gt;
-    &lt;/folders&gt;
-    &lt;files&gt;
-       &lt;resource name="icinga_cfg"&gt;/usr/local/icinga/etc/icinga.cfg&lt;/resource&gt;
-    &lt;/files&gt;
- &lt;/readwrite&gt;</screen>Wie oben erwähnt ordnet jede Ressource ein Ressourcen-Symbol (Name) einem Pfad zu. Dies ist optional, wird aber
-          empfohlen. Wenn ein Symbol mehrfach existiert, dann wird das letzte benutzt.</para>
-
-          <note>
-            <para><emphasis>Eigene Default-Definitionen in Ihrem Konfigurationsordner</emphasis></para>
-
-            <para>If you override a custom section, like readwrite, all previously set definitions will be ignored and must be redefined if
-            you want to use them. Das betrifft nicht Modul-KonfigurationenThis doesn't affect module configurations.</para>
-          </note>
-        </listitem>
-
-        <listitem>
-          <para><emphasis>Hosts</emphasis></para>
-
-          <para>Im host-Abschnitt werden Zugriffsmethoden und Anmeldeinformation, aber auch spezifische Rechte für Hosts definiert.</para>
-
-          <para>Zulässige Unterelemente:</para>
-
-          <itemizedlist>
-            <listitem>
-              <para>host: definiert einen einzelnen Host und gibt ihm einen Namen, der benutzt werden kann, um auf diesen Host zu
-              referenzieren (wie z.B. im "instance"-Abschnitt). <screen> &lt;!-- Example for ssh connection with user/password auth --&gt;
- &lt;host name="vm_host1"&gt;
-    &lt;type&gt;ssh&lt;/type&gt;
-    &lt;ssh-config&gt;
-       &lt;host&gt;localhost&lt;/host&gt;
-       &lt;port&gt;22&lt;/port&gt;
-       &lt;auth&gt;
-          &lt;type&gt;password&lt;/type&gt;
-          &lt;user&gt;john_doe&lt;/user&gt;
-          &lt;password&gt;foobar&lt;/password&gt;
-       &lt;/auth&gt;
-    &lt;/ssh-config&gt;
-
-    &lt;access useDefaults="true" /&gt;
- &lt;/host&gt;</screen> Das 'host'-Tag hat eine Reihe von Unterelementen:</para>
-            </listitem>
-
-            <listitem>
-              <para>type: Entweder "local" oder "ssh". Definiert, ob Befehl direkt auf der Maschine ausgeführt werden, auf der Icinga-Web
-              läuft, oder via ssh.</para>
-            </listitem>
-
-            <listitem>
-              <para>access: sh. den "access"-Abschnitt weiter oben. Zusätzlich kann 'useDefaults' gesetzt werden, um dem Command-Interface
-              mitzuteilen, dass alle Standardzugriffsdefinitionen benutzt werden sollen (wenn sie nicht in diesem Abschnitt überschrieben
-              werden).</para>
-            </listitem>
-
-            <listitem>
-              <para>ssh-config: (nur falls type:ssh) Dies legt fest, wie auf den Host per ssh zugegriffen werden soll. Es gibt drei
-              Authentifizierungsmethoden für ssh: 'none', 'password' oder 'key', die im folgenden Abschnitt erläutert werden. Unabhängig
-              davon, welche Methode Sie wählen, müssen die 'host'- und 'port'-Einträge für jeden Host gesetzt werden.</para>
-            </listitem>
-          </itemizedlist>
-        </listitem>
-
-        <listitem>
-          <para><emphasis>SSH-Config auth</emphasis></para>
-
-          <para>Dieser Abschnitt erklärt den Authentifizierungsblock der ssh-Konfigurationseinstellungen, die wir im vorigen Anschnitt
-          angesprochen haben. Die Elemente unterhalb des 'auth'-Tags sind abhängig vom ausgewählten Authentifizierungstyp.</para>
-
-          <itemizedlist>
-            <listitem>
-              <para>Auth type: none</para>
-
-              <para>Dies teilt der Console-Verbindung mit, dass nur ein Benutzername für die Authentifizierung verwendet wird:<screen> &lt;ssh-config&gt;
-    &lt;host&gt;localhost&lt;/host&gt;
-    &lt;port&gt;22&lt;/port&gt;
-    &lt;auth&gt;
-       &lt;type&gt;none&lt;/type&gt;
-       &lt;user&gt;john_doe&lt;/user&gt;
-    &lt;/auth&gt;
- &lt;/ssh-config&gt;</screen>In diesem Beispiel wird nur der Benutzername 'john_doe' für die Authentifizierung geliefert. Dies kann sinnvoll
-              sein, wenn Ihre Maschinen automatische Schlüssel-Authentifizierung benutzen.</para>
-            </listitem>
-
-            <listitem>
-              <para>Auth type: password</para>
-
-              <para>Dies teilt der Console-Verbindung mit, dass Benutzername und Passwort für die Authentifizierung verwendet
-              werden:<screen> &lt;ssh-config&gt;
-    &lt;host&gt;localhost&lt;/host&gt;
-    &lt;port&gt;22&lt;/port&gt;
-    &lt;auth&gt;
-       &lt;type&gt;password&lt;/type&gt;
-       &lt;user&gt;john_doe&lt;/user&gt;
-       &lt;password&gt;foobar&lt;/password&gt;
-    &lt;/auth&gt;
- &lt;/ssh-config&gt;</screen>In diesem Beispiel werden nur der Benutzername 'john_doe' und das Passwort 'foobar' für die Authentifizierung
-              verwendet.</para>
-            </listitem>
-
-            <listitem>
-              <para>Auth type: key</para>
-
-              <important>
-                <para>Experimentell! Probieren Sie es aus und öffnen Sie ein Ticket, wenn Sie Probleme haben!</para>
-              </important>
-
-              <para>Dies teilt der Console-Verbindung mit, eine Schlüsseldatei für die Authentifizierung zu benutzen, die optional mit einem
-              Password geschützt ist<screen> &lt;ssh-config&gt;
-    &lt;host&gt;localhost&lt;/host&gt;
-    &lt;port&gt;22&lt;/port&gt;
-    &lt;auth&gt;
-       &lt;type&gt;key&lt;/type&gt;
-       &lt;user&gt;testuser&lt;/user&gt;
-       &lt;private-key&gt;/usr/local/icinga-web/app/modules/Api/lib/.ssh/host1_rsa&lt;/private-key&gt;
-       &lt;password&gt;secret123&lt;/password&gt;
-    &lt;/auth&gt;
- &lt;/ssh-config&gt;</screen> Hier wird der private Schlüssel benutzt, der im 'private-key'-Tag definiert wird. Sie sollten und müssen
-              diesen Pfad <emphasis>nicht</emphasis> im host-Zugriffsabschnitt definieren!</para>
-            </listitem>
-          </itemizedlist>
-        </listitem>
-      </itemizedlist>
-
-      <para><emphasis role="bold">Fehlersuche</emphasis></para>
-
-      <itemizedlist>
-        <listitem>
-          <para>Ich kann keine Befehle senden/ausführen!</para>
-
-          <para>Stellen Sie sicher, dass der WebServer-Benutzer Schreibberechtigung auf die Icinga-Pipe besitzt und dass das
-          "icinga_pipe"-Symbol im "readwrite"- oder "write"-Abschnitt Ihres Host (oder im default-Abschnitt) vorhanden ist. Stellen Sie
-          sicher, dass der Pfad korrekt ist.</para>
-        </listitem>
-      </itemizedlist>
+      <para>Wenn Sie die session_cookie_lifetime ändern möchten, editieren Sie bitte
+      <filename>app/config/factories.site.xml</filename></para>
     </listitem>
 
     <listitem>
-      <para><filename>factories.xml</filename> - enthält die Konfiguration für Ihre Web Session</para>
+      <para><anchor xml:id="configweb-logging"/><filename>logging.xml</filename> - enthält die Verbindungsinformationen für Ihr
+      &name-web;</para>
     </listitem>
 
     <listitem>
-      <para><filename>icinga.xml</filename> - enthält die Konfiguration für Ihr &name-web; ROOT-Verzeichnis und den Icinga-Web Pfad.</para>
+      <para><anchor xml:id="configweb-settings"/><filename>settings.xml</filename> - Icinga-Einstellungen, z.B. Version und Präfixe /
+      Versionsname</para>
+
+      <para>enthält auch <filename>icinga.xml</filename> (enthält die Konfiguration für Ihr &name-web; ROOT-Verzeichnis und den Icinga-Web
+      Pfad)</para>
     </listitem>
+
+    <listitem>
+      <para><anchor xml:id="configweb-translation"/><filename>translation.xml</filename> - Default-Sprache, Datum- und Zeitformate und
+      Einstellungen</para>
+    </listitem>
+
+    <para>
+      <emphasis role="bold">Fehlersuche</emphasis>
+    </para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Ich kann keine Befehle senden/ausführen!</para>
+
+        <para>Stellen Sie sicher, dass der WebServer-Benutzer Schreibberechtigung auf die Icinga-Pipe besitzt und dass das
+        "icinga_pipe"-Symbol im "readwrite"- oder "write"-Abschnitt Ihres Host (oder im default-Abschnitt) vorhanden ist. Stellen Sie
+        sicher, dass der Pfad korrekt ist.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>
+      <anchor xml:id="configweb-timezone"/>
+
+      <emphasis role="bold">&name-web;-Zeitzone</emphasis>
+    </para>
+
+    <para>Beispiel: Ändern der Zeitzone für &name-web;</para>
+
+    <para>Wenn die Zeitzone von &name-web; von Ihrer lokalen Zeitzone abweicht, überprüfen Sie bitte den Parameter "date.timezone" in
+    <filename>app/modules/AppKit/config/module.xml</filename> (z.B. 'Europe/Berlin')</para>
+
+    <programlisting>#&gt; vi app/modules/AppKit/config/module.xml
+&lt;ae:parameter name="date.timezone"&gt;GMT&lt;/ae:parameter&gt;</programlisting>
   </itemizedlist>
 
-  <para><anchor xml:id="configweb-session-lifetime" /> <emphasis role="bold">Session Cookie Lifetime</emphasis></para>
-
-  <para>Beispiel: Ändern von session_cookie_lifetime</para>
-
-  <para>Die Session Lifetime ist die Zeit in Sekunden, bis die &name-web;- Session abläuft. Sie kann auf globaler Ebene in der Datei
-  <filename>app/config/factories.xml</filename> konfiguriert werden.</para>
-
-  <programlisting>#&gt; vi app/config/factories.xml
-
-&lt;ae:parameter name="session_cookie_lifetime"&gt;3600&lt;ae:parameter&gt;</programlisting>
-
-  <para>Wenn Sie die session_cookie_lifetime ändern möchten, editieren Sie bitte <filename>app/config/factories.site.xml</filename></para>
-
-  <para><anchor xml:id="configweb-timezone" /> <emphasis role="bold">&name-web;- Zeitzone</emphasis></para>
-
-  <para>Beispiel: Ändern der Zeitzone für &name-web;</para>
-
-  <para>Wenn die Zeitzone von &name-web; von Ihrer lokalen Zeitzone abweicht, überprüfen Sie bitte den Parameter "date.timezone" in
-  <filename>app/modules/AppKit/config/module.xml</filename> (z.B. 'Europe/Berlin')</para>
-
-  <programlisting>#&gt; vi app/modules/AppKit/config/module.xml
-&lt;ae:parameter name="date.timezone"&gt;GMT&lt;/ae:parameter&gt;</programlisting>
-
-  <para><anchor xml:id="configweb-module" /> <emphasis role="bold">Modul-Konfiguration:</emphasis></para>
+  <para><anchor xml:id="configweb-module"/> <emphasis role="bold">Modul-Konfiguration:</emphasis></para>
 
   <itemizedlist>
     <listitem>
@@ -689,7 +877,7 @@
 
       <para>Hier "lebt" das Framework: Authentifikation, Menüs und weiteres.</para>
 
-      <para><anchor xml:id="configweb-auth" /> <emphasis role="bold">Authentifizierung</emphasis></para>
+      <para><anchor xml:id="configweb-auth"/> <emphasis role="bold">Authentifizierung</emphasis></para>
 
       <para>Beispiel: LDAP-Authentifizierung</para>
 
@@ -757,40 +945,11 @@ autoload.xml  config_handlers.xml  cronks.xml  module.xml  validators.xml</progr
       <para><emphasis role="bold">app/modules/Web</emphasis></para>
 
       <para>Oder besser:<emphasis role="bold"> Icinga</emphasis>. Dieses Modul enthält alle Icinga relevanten Dinge wie IcingaAPI2Json und
-      die Statusinformationen. Auch die &name-api;-Verbindungseinstellungen werden hier konfiguriert.</para>
-
-      <para><anchor xml:id="configweb-api" /> <emphasis role="bold">&name-api; Verbindungseinstellungen</emphasis></para>
-
-      <para>Beispiel: Ändern der &name-api;-Verbindungseinstellungen</para>
-
-      <para>Sehen Sie in <filename>app/modules/Web/config/icinga-io.xml</filename>, hier finden Sie die Standardeinstellungen für die
-      &name-api;-Verbindung.</para>
-
-      <programlisting>#&gt; vi app/modules/Web/config/icinga-io.xml
-
-          &lt;setting name="api.interfaces.data"&gt;
-                                        &lt;!-- IcingaApi connection interface --&gt;
-                                        &lt;ae:parameter name="api_type"&gt;IcingaApi::CONNECTION_IDO&lt;/ae:parameter&gt;
-
-                                        &lt;!-- Suits for all interfaes --&gt;
-                                        &lt;ae:parameter name="config_type"&gt;mysql&lt;/ae:parameter&gt;
-                                        &lt;ae:parameter name="config_host"&gt;localhost&lt;/ae:parameter&gt;
-                                        &lt;ae:parameter name="config_port"&gt;3306&lt;/ae:parameter&gt;
-
-                                        &lt;!-- ###BEGIN_CONNECTION_IDO### --&gt;
-                                        &lt;!-- Database specific (IcingaApi::CONNECTION_IDO) --&gt;
-                                        &lt;ae:parameter name="config_database"&gt;icinga&lt;/ae:parameter&gt;
-                                        &lt;ae:parameter name="config_user"&gt;icinga&lt;/ae:parameter&gt;
-                                        &lt;ae:parameter name="config_password"&gt;icinga&lt;/ae:parameter&gt;
-                                        &lt;ae:parameter name="config_table_prefix"&gt;icinga_&lt;/ae:parameter&gt;
-                                        &lt;!-- ###END_CONNECTION_IDO### --&gt;</programlisting>
-
-      <para>Wenn Sie diese Einstellungen ändern möchten, editieren Sie bitte
-      <filename>app/modules/Web/config/icinga-io.site.xml</filename>.</para>
+      die Statusinformationen.</para>
     </listitem>
   </itemizedlist>
 
-  <para><anchor xml:id="configweb-customconfig" /><emphasis role="bold">Benutzerdefinierte Konfiguration</emphasis></para>
+  <para><anchor xml:id="configweb-customconfig"/><emphasis role="bold">Benutzerdefinierte Konfiguration</emphasis></para>
 
   <para><emphasis role="bold">Bitte beachten:</emphasis></para>
 
@@ -803,13 +962,6 @@ autoload.xml  config_handlers.xml  cronks.xml  module.xml  validators.xml</progr
 
     <listitem>
       <para>Variablennamen sind case-sensitive</para>
-    </listitem>
-
-    <listitem>
-      <para>Die &name-web;-Konfigurationseinstellungen für die &name-api;, die Authentifizierung und die Datenbank werden in
-      <filename>etc/conf.d/</filename> gespeichert (vor v1.5 waren sie in app/modules/Appkit(/Cronks/Web)/config/abgelegt). Diese Dateien
-      werden bei einer Aktualisierung von &name-web; nicht überschrieben. Das Verzeichnis kann bei der Installation mit --with-conf-dir 
-      (--with-conf-folder bis &name-icinga; 1.6.x) geändert werden.</para>
     </listitem>
   </itemizedlist>
 
@@ -852,11 +1004,5 @@ autoload.xml  config_handlers.xml  cronks.xml  module.xml  validators.xml</progr
     <primary>&name-web;</primary>
 
     <secondary>Authentifizierung</secondary>
-  </indexterm>
-
-  <indexterm zone="configweb-api">
-    <primary>&name-web;</primary>
-
-    <secondary>&name-api; connection</secondary>
   </indexterm>
 </section>
