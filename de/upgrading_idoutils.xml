@@ -6,14 +6,16 @@
 <section version="5.0" xml:id="upgrading_idoutils" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-  <title><anchor xml:id="upgrading_idoutils2" />&name-idoutils;-Datenbank aktualisieren</title>
+  <title><anchor xml:id="upgrading_idoutils2"/>&name-idoutils;-Datenbank aktualisieren</title>
 
   <para>Es mag einen Bug im Datenbankschema geben, der behoben wurde. Wenn Sie eine ältere &name-idoutils;-Version aktualisieren, dann
   müssen Sie außerdem diese Anpassungen manuell ausführen. Wenn Sie rpm/deb-Pakete benutzen, lesen Sie bitte die Hinweise und/oder fragen
   Sie den Maintainer, ob er diese Anpassungen in der Installationsroutine hinzugefügt hat.</para>
 
-  <note><para>Abhängig von den Änderungen und der Größe Ihrer Datenbank kann es eine Weile dauern, die Anpassungen durchzuführen. Bitte
-  haben Sie ein wenig Geduld und brechen Sie das Script nicht ab, weil sonst ggf. Ihre Daten unbrauchbar sind.</para></note>
+  <note>
+    <para>Abhängig von den Änderungen und der Größe Ihrer Datenbank kann es eine Weile dauern, die Anpassungen durchzuführen. Bitte haben
+    Sie ein wenig Geduld und brechen Sie das Script nicht ab, weil sonst ggf. Ihre Daten unbrauchbar sind.</para>
+  </note>
 
   <para>Die Update-Dateien finden Sie zusammen mit den Datenbank-Installationsdateien in
   <code>/path/to/icinga-src/module/idoutils/db/DeineDB/</code></para>
@@ -56,26 +58,39 @@
  $ sqlplus dbuser/dbpass
  SQL&gt; @oracle-upgrade-&lt;version&gt;.sql</programlisting></para>
 
-  <anchor xml:id="upgrading_idoutils_1.5" />
+  <para><emphasis role="bold">Aktualisierung der &name-idoutils; auf 1.7</emphasis></para>
+
+  <para>Beginnend mit Icinga 1.7 wurden Ort und Name der idomod shared-Library von <filename>$bindir/idomod.o</filename> in
+  <filename>$libdir/idomod.so</filename> geändert. Bitte beachten Sie, dass auch die Endung ".o" in ".so" geändert wurde. Abhängig von der
+  verwendeten Methode müssen Sie entweder den Aufruf im "broker_module"-Eintrag in <filename>icinga.cfg</filename> ODER die Moduldefinition
+  in <filename>module/idomod.cfg</filename> anpassen. Die alte Datei <filename>idomod.o</filename> wird entfernt, falls sie gefunden wird.
+  Sie erhalten auch eine Warnung beim Aufruf von "make install-idoutils" über diese Änderung.</para>
+
+  <para>Bitte lesen Sie auch den Abschnitt "CHANGES for users" in <filename>changelog</filename>.</para>
+
+  <anchor xml:id="upgrading_idoutils_1.5"/>
 
   <para><emphasis role="bold">Aktualisierung der &name-idoutils; auf 1.5</emphasis></para>
 
   <para><emphasis role="bold">Oracle</emphasis></para>
 
-  <note><para>Zum Einsatz von &name-idoutils; 1.5.0 mit &name-oracle; benötigen Sie OCILIB 3.9.2 - installieren Sie nicht 3.9.0 oder
-  3.9.1, denn diese Version sind fehlerbehaftet.</para></note>
+  <note>
+    <para>Zum Einsatz von &name-idoutils; 1.5.0 mit &name-oracle; benötigen Sie OCILIB 3.9.2 - installieren Sie nicht 3.9.0 oder 3.9.1, denn
+    diese Version sind fehlerbehaftet.</para>
+  </note>
 
   <para>Passen Sie <filename>oracle-upgrade-1.5.0.sql</filename> an und definieren Sie Ihre Tablespaces ähnlich den folgenden Zeilen. Sie
-  können auch Ihre bestehenden Tablespace-Namen für alle Definitionen benutzen.
-  <programlisting> /* set real TBS names on which you have quota, no checks are implemented!*/
+  können auch Ihre bestehenden Tablespace-Namen für alle Definitionen benutzen. <programlisting> /* set real TBS names on which you have quota, no checks are implemented!*/
  define DATATBS='icinga';
  define LOBTBS='icinga';
  define IXTBS='icinga';</programlisting></para>
 
-  <note><para>Detailliertere Informationen zu &name-idoutils; mit &name-oracle; finden Sie in unserer Wiki-HowTo-Serie zu
-  <link xlink:href="https://wiki.icinga.org/display/howtos/Icinga+and+Oracle">&name-oracle;</link>.</para></note>
+  <note>
+    <para>Detailliertere Informationen zu &name-idoutils; mit &name-oracle; finden Sie in unserer Wiki-HowTo-Serie zu <link
+    xlink:href="https://wiki.icinga.org/display/howtos/Icinga+and+Oracle">&name-oracle;</link>.</para>
+  </note>
 
-  <anchor xml:id="upgrading_idoutils_1.4" />
+  <anchor xml:id="upgrading_idoutils_1.4"/>
 
   <para><emphasis role="bold">Aktualisierung der &name-idoutils; auf 1.4</emphasis></para>
 
@@ -89,8 +104,8 @@
 
     <listitem>
       <para>Die optionale Trennung von Daten-, Index- und LOB-Tablespaces wird eingeführt. Passen Sie <filename>oracle-upgrade-1.4.0.sql
-      </filename> an und definieren Sie Ihre Tablespaces. Sie können auch Ihre bestehenden Tablespace-Namen für alle Definitionen benutzen.
-      </para>
+      </filename> an und definieren Sie Ihre Tablespaces. Sie können auch Ihre bestehenden Tablespace-Namen für alle Definitionen
+      benutzen.</para>
 
       <para>Aktionen:</para>
 
@@ -140,7 +155,7 @@
     </orderedlist>
   </caution>
 
-  <anchor xml:id="upgrading_idoutils_1.3" />
+  <anchor xml:id="upgrading_idoutils_1.3"/>
 
   <para><emphasis role="bold">Aktualisieren der &name-idoutils; auf 1.3</emphasis></para>
 
@@ -160,7 +175,7 @@
     <para>Der Oracle-Tabellenname lautet "dbversion" (anstatt "icinga_dbversion").</para>
   </note>
 
-  <anchor xml:id="upgrading_idoutils_1.0.3" />
+  <anchor xml:id="upgrading_idoutils_1.0.3"/>
 
   <para><emphasis role="bold">Aktualisieren der &name-idoutils; auf 1.0.3</emphasis></para>
 
@@ -182,7 +197,7 @@
 
   <para>Bitte verwenden Sie das Update-Skript für ihre Datenbank wie oben beschrieben.</para>
 
-  <anchor xml:id="upgrading_idoutils_1.0.2" />
+  <anchor xml:id="upgrading_idoutils_1.0.2"/>
 
   <para><emphasis role="bold">Aktualisieren der &name-idoutils; auf 1.0.2</emphasis></para>
 
@@ -220,7 +235,7 @@
 
   <para>* mysql-upgrade-1.0.2.sql</para>
 
-  <anchor xml:id="upgrading_idoutils_1.0.1" />
+  <anchor xml:id="upgrading_idoutils_1.0.1"/>
 
   <para><emphasis role="bold">Aktualisieren der &name-idoutils; auf 1.0.1</emphasis></para>
 
@@ -279,7 +294,7 @@
   Prozedur ist auskommentiert, und wird ohne Garantie auf Datenkonsistenz zur Verfügung gestellt. Ziehen Sie Ihren DBA zu Rate, wenn Sie
   bestehende Datensätze importieren wollen.</para>
 
-  <anchor xml:id="upgrading_idoutils_1.0" />
+  <anchor xml:id="upgrading_idoutils_1.0"/>
 
   <para><emphasis role="bold">Aktualisieren der &name-idoutils; auf 1.0</emphasis></para>
 
