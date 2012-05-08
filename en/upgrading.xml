@@ -21,6 +21,14 @@
   <note>
     <para>If you are using &name-idoutils; then you have to update it, too. Please take a look at <link linkend="upgrading_idoutils">
     upgrading_idoutils</link> as well.</para>
+
+    <para><emphasis condition="red" role="color">Starting with Icinga 1.7 the location of the idomod shared library changed from
+    <filename>$bindir/idomod.o</filename> to <filename>$libdir/idomod.so</filename>. Please note that the extension ".o" changed to ".so" as
+    well. Depending on the method you are using you have to alter the "broker_module" entry in <filename>icinga.cfg</filename> OR the module
+    definition in <filename>module/idomod.cfg</filename> to reflect the changes.</emphasis> The old file <filename>idomod.o</filename> will
+    be removed if found. You will receive a warning during "make install-idoutils" about this change.</para>
+
+    <para>Please have a look at the section "CHANGES for users" in the <filename>changelog</filename> as well.</para>
   </note>
 
   <note>
