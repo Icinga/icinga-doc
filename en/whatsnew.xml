@@ -8,209 +8,132 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>What's New in &name-icinga; &ver-icinga;</title>
 
+  <para>As usual this is only a brief overview. Please take a look at the Changelog as well if you are missing something.</para>
+
   <para><emphasis role="bold">CHANGES</emphasis></para>
 
   <itemizedlist>
     <listitem>
-      <para>you can now use new configure flags</para>
-
-      <itemizedlist>
-        <listitem>
-          <para>--with-temp-file=&lt;filepath&gt;</para>
-        </listitem>
-
-        <listitem>
-          <para>--with-plugin-dir=&lt;path&gt;</para>
-        </listitem>
-
-        <listitem>
-          <para>--with-eventhandler-dir=&lt;path&gt;</para>
-        </listitem>
-
-        <listitem>
-          <para>--enable-cgi-log</para>
-        </listitem>
-
-        <listitem>
-          <para>--with-http-auth-file</para>
-        </listitem>
-      </itemizedlist>
+      <para><emphasis condition="red" role="color">move bindir/idomod.o to libdir/idomod.so - make sure to update your configs after
+      upgrade!</emphasis></para>
     </listitem>
 
     <listitem>
-      <para>--enable-libtap is now deprecated</para>
+      <para>move from /var/icinga to /var/spool/icinga in icinga.spec (upgrade safe)</para>
     </listitem>
 
     <listitem>
-      <para>you can now use new make targets</para>
+      <para>rename icinga-idoutils rpm to icinga-idoutils-libdbi-mysql|pgsql in icinga.spec</para>
+    </listitem>
 
-      <itemizedlist>
-        <listitem>
-          <para>make install-eventhandlers</para>
-        </listitem>
-      </itemizedlist>
+    <listitem>
+      <para>--enable-libtap is deprecated, make test now works out-of-the-box with rewritten tests core</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis role="bold">Core</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para>avoid insane looping through event list when rescheduling checks (Mathias Kettner, Andreas Ericsson) #2182</para>
+    </listitem>
+
+    <listitem>
+      <para>add a lot of configure params to allow easier packaging (see CHANGES)</para>
+    </listitem>
+
+    <listitem>
+      <para>introduce lib/ for modules with new .so extension</para>
+    </listitem>
+
+    <listitem>
+      <para>add nebmodule version/name check for idomod (this allows future version dependencies) #2569</para>
+    </listitem>
+
+    <listitem>
+      <para>add trigger_time to downtimes to allow calculating of flexible downtimes endtime #2537</para>
+    </listitem>
+
+    <listitem>
+      <para>* fix scheduled_downtime_depth falsely incremented if in flexible downtime with duration &lt; end-starttime window #2536</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis role="bold">Classic UI </emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para>add option for max log entries displayed in showlog.cgi #2145</para>
     </listitem>
   </itemizedlist>
 
   <itemizedlist>
     <listitem>
-      <para>put your own configs into <filename>etc/conf.d</filename></para>
-    </listitem>
-  </itemizedlist>
-
-  <para><emphasis role="bold"> IDOUtils Special</emphasis></para>
-
-  <itemizedlist>
-    <listitem>
-      <para>change default target location of idomod.so from $bindir to $libdir</para>
-    </listitem>
-
-    <listitem>
-      <para>change idomod extension from .o to .so, make .so the default extension for modules</para>
-
-      <itemizedlist>
-        <listitem>
-          <para>make sure to UPDATE the location in your CONFIG !!!</para>
-        </listitem>
-      </itemizedlist>
-    </listitem>
-
-    <listitem>
-      <para>limit long_output and perfdata database storage in mysql to 32k</para>
-    </listitem>
-
-    <listitem>
-      <para>enlarge field "FAILURE_PREDICTION_OPTIONS" in table hosts from 64 to 128 Bytes</para>
-    </listitem>
-
-    <listitem>
-      <para>Oracle only-&gt;change method retrieving lastid, introduce individual sequence caching sizes</para>
-    </listitem>
-
-    <listitem>
-      <para>pgsql unix_timestamp cannot handle timestamp with timezone</para>
-    </listitem>
-
-    <listitem>
-      <para>change varchar(255) to TEXT in mysql</para>
-    </listitem>
-  </itemizedlist>
-
-  <para><emphasis role="bold">Core Special</emphasis></para>
-
-  <itemizedlist>
-    <listitem>
-      <para>add trigger_time to downtimes (see backends)</para>
-    </listitem>
-  </itemizedlist>
-
-  <para><emphasis role="bold">Classic UI Special</emphasis></para>
-
-  <itemizedlist>
-    <listitem>
-      <para>statuswml.cgi and statuswrl.cgi are DEPRECATED</para>
+      <para>add statusmap resizing with exclude/include button (thanks to Mat) #2186</para>
     </listitem>
 
     <listitem>
       <para>add javascript to refresh page/pause easier #2119</para>
-
-      <itemizedlist>
-        <listitem>
-          <para>DO A FULL PAGE RELOAD AFTER UPGRADING</para>
-        </listitem>
-
-        <listitem>
-          <para>no reload necessary to pause refresh</para>
-        </listitem>
-
-        <listitem>
-          <para>selecting item in status.cgi/extinfo.cgi resets' refresh counter</para>
-        </listitem>
-
-        <listitem>
-          <para>added cgi config option "refresh_type" to choose between http header refresh and javascript refresh</para>
-        </listitem>
-      </itemizedlist>
     </listitem>
 
     <listitem>
-      <para>fixed Commit commands with more then 500 multiple pairs of hosts and services</para>
-
-      <itemizedlist>
-        <listitem>
-          <para>now it's possible to submit ~990 commands at the same time</para>
-        </listitem>
-      </itemizedlist>
+      <para>add display_status_totals as cgi.cfg option in order to allow the status totals to be shown again #2443</para>
     </listitem>
 
     <listitem>
-      <para>new cgi.cfg options</para>
-
-      <itemizedlist>
-        <listitem>
-          <para>default_num_displayed_log_entries</para>
-        </listitem>
-
-        <listitem>
-          <para>display_status_totals</para>
-        </listitem>
-
-        <listitem>
-          <para>refresh_type</para>
-        </listitem>
-      </itemizedlist>
+      <para>add readonly cgi.cfg view into the config section #1776</para>
     </listitem>
 
     <listitem>
-      <para>statusmap resizing with exclude/include button</para>
+      <para>add is_in_effect and trigger_time to downtime view for html, csv, json #2538</para>
     </listitem>
 
     <listitem>
-      <para>changed all forms to POST request</para>
+      <para>add modified attributes view and reset cmd #2473 #2474</para>
     </listitem>
 
     <listitem>
-      <para>readonly cgi.cfg view into the config section</para>
+      <para>fix status totals are wrong when searching #1524</para>
     </listitem>
 
     <listitem>
-      <para>cmd.cgi now accepts change commands with attr command</para>
-
-      <itemizedlist>
-        <listitem>
-          <para>but ONLY 0 = reset, other values will trigger an error</para>
-        </listitem>
-      </itemizedlist>
+      <para>fix reset forms on return after submitting command #2117</para>
     </listitem>
   </itemizedlist>
 
-  <para><emphasis role="bold">CGI JSON Special</emphasis></para>
+  <para><emphasis role="bold">IDOutils</emphasis></para>
 
   <itemizedlist>
     <listitem>
-      <para>fixed json output for comments and downtimes in extinfo.cgi sometimes invalid</para>
-
-      <itemizedlist>
-        <listitem>
-          <para>changes array names in json output of extinfo.cgi</para>
-        </listitem>
-
-        <listitem>
-          <para>comments -&gt; host_comments / service_comments</para>
-        </listitem>
-
-        <listitem>
-          <para>downtimes -&gt; host_downtimes / service_downtimes</para>
-        </listitem>
-      </itemizedlist>
+      <para>change varchar(255) to TEXT in mysql (not cs and address rfc columns) #2181</para>
     </listitem>
 
     <listitem>
-      <para>add is_in_effect and trigger_time to downtime output</para>
+      <para>set module info in idomod, to be checked on neb module load in future versions #2569</para>
     </listitem>
 
     <listitem>
-      <para>add modified_attributes to extinfo.cgi</para>
+      <para>change standard string escaping for postgresql queries to use the E'foo' notation #1974</para>
+    </listitem>
+
+    <listitem>
+      <para>fix lob handling in Oracle #2303,#2342</para>
+    </listitem>
+
+    <listitem>
+      <para>fix OCI-21500 when freeing lobs #2509</para>
+    </listitem>
+
+    <listitem>
+      <para>fix pgsql unix_timestamp cannot handle timstamp with timezone #2203</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><emphasis role="bold">Docs</emphasis></para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Hints how to use recurring downtimes #1867</para>
     </listitem>
   </itemizedlist>
 
