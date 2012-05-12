@@ -98,82 +98,66 @@
     <para>Unfortunately sometimes the names of packages change between different releases of the same distribution so if you get a message
     that one of the packages cannot be found then please use the search option of your package manager to get the new name: <itemizedlist>
         <listitem>
-           
-
-          <literal>yum search &lt;package name&gt;</literal>
-
-           ( 
-
-          <emphasis>&name-fedora;/&name-rhel;/&name-centos;</emphasis>
-
-           ) 
+          <para><code>yum search &lt;package name&gt;</code> (<emphasis>&name-fedora;/&name-rhel;/&name-centos;</emphasis>)</para>
         </listitem>
 
         <listitem>
-           
-
-          <literal>apt-cache search &lt;package name&gt;</literal>
-
-           ( 
-
-          <emphasis>&name-debian;/&name-ubuntu;</emphasis>
-
-           ) 
+          <para><code>apt-cache search &lt;package name&gt;</code> (<emphasis>&name-debian;/&name-ubuntu;</emphasis>)</para>
         </listitem>
 
         <listitem>
-           
-
-          <literal>zypper search &lt;package name&gt;</literal>
-
-           ( 
-
-          <emphasis>&name-opensuse;/&name-sles;</emphasis>
-
-           ) 
+          <para><code>zypper search &lt;package name&gt;</code> (<emphasis>&name-opensuse;/&name-sles;</emphasis>)</para>
         </listitem>
       </itemizedlist></para>
   </note>
 
-  <para><emphasis>&name-fedora;/&name-rhel;/&name-centos;</emphasis></para>
+  <itemizedlist>
+    <listitem>
+      <para><emphasis>&name-fedora;/&name-rhel;/&name-centos;</emphasis></para>
 
-  <programlisting> #&gt; yum install httpd gcc glibc glibc-common gd gd-devel
+      <programlisting> #&gt; yum install httpd gcc glibc glibc-common gd gd-devel
  #&gt; yum install libjpeg libjpeg-devel libpng libpng-devel
  #&gt; yum install net-snmp net-snmp-devel net-snmp-utils</programlisting>
 
-  <note>
-    <para>You may have to use libjpeg-turbo and libjpeg-turbo-devel instead</para>
-  </note>
+      <note>
+        <para>You may have to use libjpeg-turbo and libjpeg-turbo-devel instead</para>
+      </note>
+    </listitem>
 
-  <para><emphasis>&name-debian;/&name-ubuntu;</emphasis></para>
+    <listitem>
+      <para><emphasis>&name-debian;/&name-ubuntu;</emphasis></para>
 
-  <programlisting> #&gt; apt-get install apache2 build-essential libgd2-xpm-dev
+      <programlisting> #&gt; apt-get install apache2 build-essential libgd2-xpm-dev
  #&gt; apt-get install libjpeg62 libjpeg62-dev libpng12 libpng12-dev
  #&gt; apt-get install snmp libsnmp5-dev</programlisting>
 
-  <note>
-    <para>The numbers &lt;62/12&gt; might differ, depending on your distribution</para>
-  </note>
+      <note>
+        <para>The numbers &lt;62/12&gt; might differ, depending on your distribution</para>
+      </note>
 
-  <note>
-    <para>Starting with &name-debian; 6.0 / &name-ubuntu; 10.10 the package is called libpng-12-0, the name of the dev-package hasn't
-    changed.</para>
-  </note>
+      <note>
+        <para>Starting with &name-debian; 6.0 / &name-ubuntu; 10.10 the package is called libpng-12-0, the name of the dev-package hasn't
+        changed.</para>
+      </note>
+    </listitem>
 
-  <para><emphasis>&name-opensuse;/&name-sles;</emphasis></para>
+    <listitem>
+      <para><emphasis>&name-opensuse;/&name-sles;</emphasis></para>
 
-  <para>Please use YaST to install at least the packages gd, gd-devel, libjpeg, libjpeg-devel, libpng, libpng-devel and, optionally,
-  net-snmp, net-snmp-devel and perl-Net-SNMP.</para>
+      <para>Please use YaST to install at least the packages gd, gd-devel, libjpeg, libjpeg-devel, libpng, libpng-devel and, optionally,
+      net-snmp, net-snmp-devel and perl-Net-SNMP.</para>
 
-  <para>Using zypper should work as well:</para>
+      <para>Using zypper should work as well:</para>
 
-  <programlisting> #&gt; zypper install gd gd-devel libjpeg libjpeg-devel libpng libpng-devel
+      <programlisting> #&gt; zypper install gd gd-devel libjpeg libjpeg-devel libpng libpng-devel
  #&gt; zypper install net-snmp net-snmp-devel perl-Net-SNMP</programlisting>
 
-  <note>
-    <para>Depending on the software selection during the installation of the OS you may need to install additional packages (i.e. apache2,
-    gcc). The devel packages might be placed on the SDK DVDs.</para>
-  </note>
+      <note>
+        <para>Depending on the software selection during the installation of the OS you may need to install additional packages (i.e.
+        apache2, gcc). The devel packages might be placed on the SDK DVDs.</para>
+      </note>
+    </listitem>
+  </itemizedlist>
 
   <para><emphasis role="bold">Create Account Information</emphasis></para>
 
@@ -222,8 +206,8 @@
 
   <para>Extract the &name-icinga; source code tarball (or change directory to the GIT snapshot)</para>
 
-  <programlisting> #&gt; cd /usr/src/ 
- #&gt; tar xvzf icinga-&ver-icinga;.tar.gz 
+  <programlisting> #&gt; cd /usr/src/
+ #&gt; tar xvzf icinga-&ver-icinga;.tar.gz
  #&gt; cd icinga-&ver-icinga;</programlisting>
 
   <para>Run the &name-icinga; configure script. You will get help by using the --help flag.</para>
@@ -235,11 +219,11 @@
   <programlisting> #&gt; make all</programlisting>
 
   <para>Install binaries, init script, sample config files, some eventhandlers, and set permissions on the external command directory.
-  <programlisting> #&gt; make install 
- #&gt; make install-init 
- #&gt; make install-config 
+  <programlisting> #&gt; make install
+ #&gt; make install-init
+ #&gt; make install-config
  #&gt; make install-eventhandlers
- #&gt; make install-commandmode </programlisting> or shorter <programlisting> #&gt; make fullinstall
+ #&gt; make install-commandmode</programlisting> or shorter <programlisting> #&gt; make fullinstall
  #&gt; make install-config</programlisting></para>
 
   <note>
@@ -295,19 +279,25 @@
 
   <para>Reload/Restart Apache to make the new settings take effect.</para>
 
-  <para><emphasis>&name-fedora;/&name-rhel;/&name-centos;</emphasis></para>
+  <itemizedlist>
+    <listitem>
+      <para><emphasis>&name-fedora;/&name-rhel;/&name-centos;</emphasis></para>
 
-  <programlisting> #&gt; service httpd restart</programlisting>
+      <programlisting> #&gt; service httpd restart</programlisting>
+    </listitem>
 
-  <para><emphasis>&name-debian;/&name-ubuntu;/&name-opensuse;</emphasis></para>
+    <listitem>
+      <para><emphasis>&name-debian;/&name-ubuntu;/&name-opensuse;</emphasis></para>
 
-  <programlisting> #&gt; /etc/init.d/apache2 reload</programlisting>
+      <programlisting> #&gt; /etc/init.d/apache2 reload</programlisting>
+    </listitem>
+  </itemizedlist>
 
   <para><emphasis role="bold">Compile and Install the Nagios Plugins</emphasis></para>
 
   <para>Extract the &name-nagios; plugins source code tarball.</para>
 
-  <programlisting> #&gt; cd /usr/src 
+  <programlisting> #&gt; cd /usr/src
  #&gt; tar xvzf nagios-plugins-&ver-nagiosplug;.tar.gz
  #&gt; cd nagios-plugins-&ver-nagiosplug; </programlisting>
 
@@ -316,8 +306,8 @@
   <programlisting> #&gt; ./configure \
     --prefix=&url-icinga-base; --with-cgiurl=/icinga/cgi-bin --with-htmurl=/icinga \
     --with-nagios-user=icinga --with-nagios-group=icinga
- #&gt; make 
- #&gt; make install </programlisting>
+ #&gt; make
+ #&gt; make install</programlisting>
 
   <para><emphasis role="bold">Adjusting the SE&name-linux; settings</emphasis></para>
 
@@ -341,7 +331,7 @@
 
   <programlisting> #&gt; chcon -R -t httpd_sys_script_exec_t &url-icinga-base;/sbin/
  #&gt; chcon -R -t httpd_sys_content_t &url-icinga-base;/share/
- #&gt; chcon -t httpd_sys_script_rw_t &url-icinga-base;/var/rw/icinga.cmd</programlisting>
+ #&gt; chcon -R -t httpd_sys_script_rw_t &url-icinga-base;/var/rw/</programlisting>
 
   <para>Visit the &name-nagios;Community.org-Wiki at <link xlink:href="http://www.nagioscommunity.org/wiki">&url-nagios-community;</link> to
   get information how to run the &name-icinga;-CGIs in enforcing mode with a targeted policy.</para>
@@ -351,31 +341,41 @@
   <para>Add &name-icinga; to the list of system services and have it automatically start when the system boots (make sure you have installed
   the init script before).</para>
 
-  <para><emphasis>&name-fedora;/&name-rhel;/&name-centos;/&name-opensuse;</emphasis></para>
+  <itemizedlist>
+    <listitem>
+      <para><emphasis>&name-fedora;/&name-rhel;/&name-centos;/&name-opensuse;</emphasis></para>
 
-  <programlisting> #&gt; chkconfig --add icinga 
+      <programlisting> #&gt; chkconfig --add icinga 
  #&gt; chkconfig icinga on </programlisting>
+    </listitem>
 
-  <para><emphasis>&name-debian;/&name-ubuntu;</emphasis></para>
+    <listitem>
+      <para><emphasis>&name-debian;/&name-ubuntu;</emphasis></para>
 
-  <programlisting> #&gt; update-rc.d icinga defaults</programlisting>
+      <programlisting> #&gt; update-rc.d icinga defaults</programlisting>
 
-  <para>Verify the sample &name-icinga; configuration files.</para>
+      <para>Verify the sample &name-icinga; configuration files.</para>
 
-  <programlisting> #&gt; &url-icinga-bin; -v &url-icinga-cfg;</programlisting>
+      <programlisting> #&gt; &url-icinga-bin; -v &url-icinga-cfg;</programlisting>
 
-  <para>Instead of specifying the paths to binary and config file you can issue <programlisting> #&gt; /etc/init.d/icinga show-errors</programlisting>which
-  results in an OK message if everything is fine or several lines which show the location of the error(s).</para>
+      <para>Instead of specifying the paths to binary and config file you can issue <programlisting> #&gt; /etc/init.d/icinga show-errors</programlisting>which
+      results in an OK message if everything is fine or several lines which show the location of the error(s).</para>
 
-  <para>If there are no errors, start &name-icinga;.</para>
+      <para>If there are no errors, start &name-icinga;.</para>
+    </listitem>
 
-  <para><emphasis>&name-fedora;/&name-rhel;/&name-centos;/&name-ubuntu;</emphasis></para>
+    <listitem>
+      <para><emphasis>&name-fedora;/&name-rhel;/&name-centos;/&name-ubuntu;</emphasis></para>
 
-  <programlisting> #&gt; service icinga start</programlisting>
+      <programlisting> #&gt; service icinga start</programlisting>
+    </listitem>
 
-  <para><emphasis>&name-debian;/&name-opensuse;</emphasis></para>
+    <listitem>
+      <para><emphasis>&name-debian;/&name-opensuse;</emphasis></para>
 
-  <programlisting> #&gt; /etc/init.d/icinga start</programlisting>
+      <programlisting> #&gt; /etc/init.d/icinga start</programlisting>
+    </listitem>
+  </itemizedlist>
 
   <para><emphasis role="bold">Login to the Classic Web Interface</emphasis></para>
 
