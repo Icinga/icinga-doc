@@ -76,12 +76,12 @@
           z.B.<programlisting> define service{
     host_name               &lt;the &name-icinga; server&gt;
     service_description     icingastats # (oder etwas Passendes)
-    check_command           check_icingastats
+    check_command           check_stats
     check_interval          1
     retry_interval          1
     ...
  }</programlisting>und eine Command-Definition<programlisting> define command{
-    command_name            check_icingastats
+    command_name            check_stats
     command_line            $USER1$/check_nagiostats
   }</programlisting>Vergessen Sie nicht den Neustart von &name-icinga; nach diesen Änderungen.</para>
         </listitem>
@@ -120,29 +120,6 @@
       <para>Legen Sie einen logischen Link im (Benutzer) templates-Verzeichnis von &name-pnp; an<programlisting> $&gt; ln -s ../templates.dist/nagiostats.php check_stats.php</programlisting>
       Stellen Sie sicher, dass <emphasis>check_stats</emphasis> (ohne die Endung .php) zu dem Wert passt, den Sie als ersten Parameter im
       check_command angegeben haben</para>
-    </listitem>
-
-    <listitem>
-      <para>Fügen Sie eine Command-Definition hinzu</para>
-
-      <programlisting> define command{
-    command_name            check_stats
-    command_line            $USER1$/check_dummy $ARG1$ $ARG2$
- }</programlisting>
-
-      <para>Vergessen Sie nicht den Neustart von &name-icinga; nach dieser Änderung.</para>
-    </listitem>
-
-    <listitem>
-      <para>Legen Sie einen logischen Link im (Benutzer) templates-Verzeichnis von &name-pnp; an<programlisting> $&gt; ln -s ../templates.dist/nagiostats.php check_stats.php</programlisting>
-      Stellen Sie sicher, dass <emphasis>check_stats</emphasis> (ohne die Endung .php) zu dem Wert passt, den Sie als ersten Parameter im
-      check_command angegeben haben</para>
-    </listitem>
-
-    <listitem>
-      <para>Fügen Sie eine Zeile zur crontab des &name-icinga;-Benutzers hinzu, die das <filename>icingastats</filename>-Binary aufruft und
-      die Ergebnisse an die Command-Pipe weiterleitet<programlisting> * * * * * &url-icinga-base;/libexec/check_nagiostats --passive &lt;host&gt; icingastats &gt;&gt; &url-icinga-base;/var/rw/icinga.cmd</programlisting>
-      Auf diese Weise werden die Werte in regelmäßigen Intervallen aktualisiert.</para>
     </listitem>
   </itemizedlist>
 
