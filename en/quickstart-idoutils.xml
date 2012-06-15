@@ -524,12 +524,12 @@
 
       <programlisting> #&gt; mysql -u root -p
  mysql&gt; CREATE DATABASE icinga;
- GRANT USAGE ON *.* TO 'icinga'@'localhost'
+ GRANT USAGE ON icinga.* TO 'icinga'@'localhost'
    IDENTIFIED BY 'icinga'
    WITH MAX_QUERIES_PER_HOUR 0
    MAX_CONNECTIONS_PER_HOUR 0
    MAX_UPDATES_PER_HOUR 0;
- GRANT SELECT , INSERT , UPDATE , DELETE, DROP, CREATE VIEW
+ GRANT SELECT , INSERT , UPDATE , DELETE, DROP, CREATE VIEW, INDEX
    ON icinga.* TO 'icinga'@'localhost';
  FLUSH PRIVILEGES;
  quit</programlisting>
