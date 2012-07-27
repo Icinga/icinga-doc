@@ -741,6 +741,52 @@
   oder &name-gd;2-Format sein. Das &name-gd;2-Format (vorzugsweise im unkomprimierten Format) wird empfohlen, weil es die CPU-Belastung
   reduziert, wenn das CGI das Kartenbild generiert.</para>
 
+  <para><anchor xml:id="configcgi-color_transparency_index"/> <emphasis role="bold">Statusmap Transparency Index Colour</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para>
+
+
+              <emphasis role="bold">color_transparency_index_r=&lt;0...255&gt;</emphasis>
+
+
+            </para> <para>
+
+
+              <emphasis role="bold">color_transparency_index_g=&lt;0...255&gt;</emphasis>
+
+
+            </para> <para>
+
+
+              <emphasis role="bold">color_transparency_index_b=&lt;0...255&gt;</emphasis>
+
+
+            </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">color_transparency_index_r=255</emphasis>
+          </emphasis></para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Diese Optionen geben die RGB-Werte der Hintergrundfarbe an, die in der Statusmap-CGI benutzt werden soll, so dass bei Browsern, die
+  keine PNG-Transparenz anzeigen können, stattdessen diese Farbe angezeigt wird. Default ist weiß: (R,G,B) = (255,255,255).</para>
+
   <para><anchor xml:id="configcgi-default_statusmap_layout"/><emphasis role="bold">Standard-Statusmap-Layout-Methode</emphasis></para>
 
   <informaltable frame="none">
@@ -898,35 +944,41 @@
           <entry align="left" valign="top"><para>Format:</para></entry>
 
           <entry><para>
-               
+
 
               <emphasis role="bold">host_unreachable_sound=&lt;sound_file&gt;</emphasis>
 
-               
+
             </para> <para>
-               
+
 
               <emphasis role="bold">host_down_sound=&lt;sound_file&gt;</emphasis>
 
-               
+
             </para> <para>
-               
+
 
               <emphasis role="bold">service_critical_sound=&lt;sound_file&gt;</emphasis>
 
-               
+
             </para> <para>
-               
+
 
               <emphasis role="bold">service_warning_sound=&lt;sound_file&gt;</emphasis>
 
-               
+
             </para> <para>
-               
+
 
               <emphasis role="bold">service_unknown_sound=&lt;sound_file&gt;</emphasis>
 
-               
+
+            </para> <para>
+
+
+              <emphasis role="bold">normal_sound=&lt;sound_file&gt;</emphasis>
+
+
             </para></entry>
         </row>
 
@@ -937,62 +989,74 @@
                
 
               <emphasis condition="red" role="color">
-                 
+
 
                 <emphasis role="bold">host_unreachable_sound=hostu.wav</emphasis>
 
-                 
+
               </emphasis>
 
-               
+
             </para> <para>
-               
+
 
               <emphasis condition="red" role="color">
-                 
+
 
                 <emphasis role="bold">host_down_sound=hostd.wav</emphasis>
 
-                 
+
               </emphasis>
 
-               
+
             </para> <para>
-               
+
 
               <emphasis condition="red" role="color">
-                 
+
 
                 <emphasis role="bold">service_critical_sound=critical.wav</emphasis>
 
-                 
+
               </emphasis>
 
-               
+
             </para> <para>
-               
+
 
               <emphasis condition="red" role="color">
-                 
+
 
                 <emphasis role="bold">service_warning_sound=warning.wav</emphasis>
 
-                 
+
               </emphasis>
 
-               
+
             </para> <para>
-               
+
 
               <emphasis condition="red" role="color">
-                 
+
 
                 <emphasis role="bold">service_unknown_sound=unknown.wav</emphasis>
 
-                 
+
               </emphasis>
 
-               
+
+            </para> <para>
+
+
+              <emphasis condition="red" role="color">
+
+
+                <emphasis role="bold">normal_sound=noproblem.wav</emphasis>
+
+
+              </emphasis>
+
+
             </para></entry>
         </row>
       </tbody>
@@ -1219,6 +1283,67 @@
 
   <note>
     <para>Diese Option ist verfügbar ab &name-icinga; 1.0.3.</para>
+  </note>
+
+  <para><anchor xml:id="configcgi-csv_delimiter"/> <emphasis role="bold">Feldtrennzeichen für CSV-Export setzen</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">csv_delimiter=&lt;char&gt;</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">csv_delimiter=,</emphasis></emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Diese Option legt fest, welche Zeichen als Feldtrenner benutzt werden soll. Default ist Semikolon (;).</para>
+
+  <note>
+    <para>Diese Option ist verfügbar seit &name-icinga; 1.2.</para>
+  </note>
+
+  <para><anchor xml:id="configcgi-csv_data_enclosure"/> <emphasis role="bold">Set field enclosure character for CSV export</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">csv_data_enclosure=&lt;char&gt;</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">csv_data_enclosure='</emphasis></emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Diese Option legt fest, mit welchem Zeichen Felder begrenzt werden sollen. Default ist ein Apostroph (').</para>
+
+  <note>
+    <para>Diese Option ist verfügbar seit &name-icinga; 1.2.</para>
   </note>
 
   <para><anchor xml:id="configcgi-showlog_initial_states"/> <emphasis role="bold">Initialen Status anzeigen</emphasis></para>
@@ -1578,6 +1703,10 @@
 
   <itemizedlist>
     <listitem>
+      <para>n = niemals ("none" - die Protokolldatei wird nie rotieren)</para>
+    </listitem>
+
+    <listitem>
       <para>d = täglich ("daily" - die Protokolldatei jeden Tag um Mitternacht rotieren - Default)</para>
     </listitem>
 
@@ -1926,6 +2055,35 @@
     <para>Diese Option ist verfügbar ab &name-icinga; 1.5.</para>
   </note>
 
+  <para><anchor xml:id="configcgi-use_pending_states"/> <emphasis role="bold">Anzeige für PENDING-Status auswählen</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">use_pending_states=&lt;0|1&gt;</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">use_pending_states=0</emphasis></emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Diese Option legt fest, welcher Zustand im Web-Interface für Hosts/Services angezeigt werden soll, die bisher noch nicht geprüft
+  wirden. Werte: 0 = Hosts/Services, die noch nicht geprüft wurden, in ihrem ursprünglichen Zustand belassen; 1 = Hosts/Services, die noch
+  nicht geprüft wurden, als PENDING anzeigen (default).</para>
+
   <para><anchor xml:id="configcgi-default_expiring_acknowledgement_duration"/> <emphasis role="bold">Verfallszeit von Bestätigungen
   setzen</emphasis></para>
 
@@ -2025,7 +2183,7 @@
         <row>
           <entry align="left" valign="top"><para>Format:</para></entry>
 
-          <entry><para> <emphasis
+          <entry><para><emphasis
           role="bold">authorized_for_full_command_resolution=&lt;user1&gt;,&lt;user2&gt;,&lt;user3&gt;,...&lt;usern&gt; </emphasis>
           </para></entry>
         </row>
@@ -2067,7 +2225,7 @@
         <row>
           <entry align="left" valign="top"><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">display_status_totals=0|1 </emphasis> </para></entry>
+          <entry><para><emphasis role="bold">display_status_totals=0|1 </emphasis> </para></entry>
         </row>
 
         <row>
@@ -2080,7 +2238,7 @@
     </tgroup>
   </informaltable>
 
-  <para>Diese Option legt fest, ob die Gesamtanzahlen von Host-/Service-Zuständen angezeigt werden sollen. Default ist 1.</para>
+  <para>Diese Option legt fest, ob die Gesamtanzahlen von Host-/Service-Zuständen angezeigt werden sollen. Default ist 0.</para>
 
   <note>
     <para>Diese Option ist verfügbar ab &name-icinga; 1.7.</para>
@@ -2099,7 +2257,7 @@
         <row>
           <entry align="left" valign="top"><para>Format:</para></entry>
 
-          <entry><para> <emphasis role="bold">default_num_displayed_log_entries=&lt;n&gt; </emphasis> </para></entry>
+          <entry><para><emphasis role="bold">default_num_displayed_log_entries=&lt;n&gt; </emphasis> </para></entry>
         </row>
 
         <row>
@@ -2269,6 +2427,12 @@
     <secondary>Statusmap-CGI-Hintergrundbild</secondary>
   </indexterm>
 
+  <indexterm zone="configcgi-color_transparency_index">
+    <primary>color_transparency_index=</primary>
+
+    <secondary>Statusmap Transparency Index Colour</secondary>
+  </indexterm>
+
   <indexterm zone="configcgi-default_statusmap_layout">
     <primary>default_statusmap_layout=</primary>
 
@@ -2333,6 +2497,18 @@
     <primary>persistent_ack_comments=</primary>
 
     <secondary>Persistente Bestätigungskommentare</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-csv_delimiter">
+    <primary>csv_delimiter=</primary>
+
+    <secondary>CSV Export Field Separator Character</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-csv_data_enclosure">
+    <primary>csv_data_enclosure=</primary>
+
+    <secondary>CSV Export Field Enclosure Character</secondary>
   </indexterm>
 
   <indexterm zone="configcgi-showlog_initial_states">
@@ -2433,6 +2609,12 @@
     <primary>highlight_table_rows=</primary>
 
     <secondary>Zeilen in status.cgi hervorheben</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-use_pending_states">
+    <primary>use_pending_states=</primary>
+
+    <secondary>Anzeige für PENDING-Status auswählen</secondary>
   </indexterm>
 
   <indexterm zone="configcgi-default_expiring_acknowledgement_duration">
