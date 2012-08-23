@@ -11,7 +11,7 @@
 
 <!-- Due to problems with german umlauts while creating PDF output
      changed from utf-8 to old fashioned iso-8859-1 (Wolfgang) -->
-<xsl:param name="chunker.output.encoding" select="'iso-8859-1'"/>
+<xsl:param name="chunker.output.encoding" select="'utf-8'"/>
 
 <xsl:param name="chunk.first.sections" select="'1'"/>
 
@@ -31,9 +31,7 @@
 <xsl:param name="chunker.output.indent" select="'yes'"/>
 
 <!-- Hendrik: Here we get our CSS Stylesheet -->
-<!--
-<xsl:param name="html.stylesheet" select="'nagios.css'" />
--->
+<xsl:param name="html.stylesheet" select="'../stylesheets/icinga-docs.css'" />
 
 <!-- Hendrik: Copyright Information on each page -->
 

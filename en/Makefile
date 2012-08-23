@@ -1,11 +1,7 @@
 
-all:
-	@echo ""
-	@echo "Please type what you want"
-	@echo "make en"
-	@echo ""
+all: en
 
 en:
-	xsltproc --xinclude ../xsl/html-chunked.xsl Icinga.xml 
+	xsltproc --xinclude ../xsl/html-chunked.xsl Icinga.xml
 
 
