@@ -575,7 +575,7 @@
   the user must be an authorised contact for the service too in order to view it. Keep in mind that setting the user in
   authorized_for_all_services obsoletes this option (included starting with &name-icinga; 1.0.2)</para>
 
-  <para><anchor xml:id="configcgi-authorized_for_read_only"/> <emphasis role="bold">Deny access to commands and comments</emphasis></para>
+  <para><anchor xml:id="configcgi-authorized_for_read_only"/> <emphasis role="bold">Deny Access To Commands And Comments</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
@@ -611,6 +611,90 @@
   <note>
     <para>Starting with &name-icinga; 1.5.0 you can alternatively specify <literal>authorized_contactgroup_for_read_only</literal> to
     authorise a contactgroup instead of a contact.</para>
+  </note>
+
+  <para><anchor xml:id="configcgi-authorized_for_comments_read_only"/> <emphasis role="bold">Read-Only For Comments</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="3">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="30*"/>
+
+      <colspec colname="c3" colwidth="40*"/>
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis
+          role="bold">authorized_for_comments_read_only=&lt;user1&gt;,&lt;user2&gt;,&lt;user3&gt;,...&lt;usern&gt;</emphasis></para></entry>
+
+          <entry><para><emphasis
+          role="bold">authorized_contactgroup_for_comments_read_only=&lt;contactgroup1&gt;,&lt;contactgroup2&gt;,...&lt;contactgroupn&gt;</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">authorized_for_comments_read_only=icingalook</emphasis></emphasis> </para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">authorized_contactgroup_for_comments_read_only=readonlyusers</emphasis></emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This is comma-delimited list of usernames or contactgroups that have rights to view comments in the CGIs. If the user/contactgroup
+  is defined as read-only and you add the same user/contactgroup to this option, then the user/contactgroup can see the comments. If the
+  user is NOT read-only then the options to delete comments in extinfo.cgi are not displayed as well.</para>
+
+  <note>
+    <para>This option is available starting with &name-icinga; 1.8</para>
+  </note>
+
+  <para><anchor xml:id="configcgi-authorized_for_downtimes_read_only"/> <emphasis role="bold">Read-Only For Downtimes</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="3">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="30*"/>
+
+      <colspec colname="c3" colwidth="40*"/>
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">authorized_for_downtimes_read_only=&lt;user1&gt;,&lt;user2&gt;,&lt;user3&gt;,...&lt;usern&gt;
+          </emphasis></para></entry>
+
+          <entry><para><emphasis
+          role="bold">authorized_contactgroup_for_downtimes_read_only=&lt;contactgroup1&gt;,&lt;contactgroup2&gt;,...&lt;contactgroupn&gt;</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">authorized_for_downtimes_read_only=icingalook</emphasis></emphasis> </para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">authorized_contactgroup_for_downtimes_read_only=readonlyusers</emphasis></emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This is a comma-delimited list of usernames or contactgroups that have rights to view downtimes in the CGIs. If the user is defined
+  as read-only and you add the same user/contactgroup to this options, then the user/contactgroup can still see downtimes. If the user is
+  NOT read-only then the options to delete downtimes in extinfo.cgi are not displayed as well.</para>
+
+  <note>
+    <para>This option is available starting with &name-icinga; 1.8</para>
   </note>
 
   <para><anchor xml:id="configcgi-lock_author_names"/> <emphasis role="bold">Lock Author Names</emphasis></para>
@@ -2295,6 +2379,18 @@
     <primary>authorized_contactgroup_for_read_only=</primary>
 
     <secondary>Deny access to commands and comments (contactgroup)</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-authorized_for_comments_read_only">
+    <primary>authorized_for_comments_read_only=</primary>
+
+    <secondary>Grant read-only access for comments</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-authorized_for_downtimes_read_only">
+    <primary>authorized_for_downtimes_read_only=</primary>
+
+    <secondary>Grant read-only access for downtimes</secondary>
   </indexterm>
 
   <indexterm zone="configcgi-lock_author_names">
