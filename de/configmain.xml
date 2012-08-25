@@ -4670,6 +4670,32 @@
   role="bold">$SERVICEOUTPUT$</emphasis>, <emphasis role="bold">$SERVICEPERFDATA$</emphasis>, <emphasis
   role="bold">$SERVICEACKAUTHOR$</emphasis>, und <emphasis role="bold">$SERVICEACKCOMMENT$</emphasis></para>
 
+<para><anchor xml:id="configmain-keep_unknown_macros"/> <emphasis role="bold">Option Behalten von unbekannten Makros</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">keep_unknown_macros=&lt;0/1&gt;</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry><para>Beispiel:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">keep_unknown_macros=0</emphasis></emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+<para>Diese Option kann verwendet werden, um unbekannte Makros in der Ausgabe zu belassen, z.B. check_proc -C $foo$, verbleibt in der Kommandozeile. Die Shell versucht $foo zu interpretieren und belässt ein einzelnes $- Zeichen in der Ausgabe. Ab &name-icinga; 1.8 werden solche unbekannten Makros aus der Ausgabe gelöscht. Siehe auch <link xlink:href="https://dev.icinga.org/issues/2291">#2291 </link>für weitere Informationen. Um das alte Verhalten wieder herzustellen muss diese Option aktiviert werden.</para>
+
   <para><anchor xml:id="configmain-use_regexp_matching"/><emphasis role="bold">Option Anpassung regulärer Ausdrücke</emphasis> (Regular
   Expression Matching Option)</para>
 
@@ -5916,7 +5942,11 @@
 
     <secondary>Illegale Makroausgabe</secondary>
   </indexterm>
+<indexterm zone="configmain-keep_unknown_macros">
+    <primary>keep_unknown_macros=</primary>
 
+    <secondary>Unbekannte Makros</secondary>
+  </indexterm>
   <indexterm zone="configmain-use_regexp_matching">
     <primary>use_regexp_matching=</primary>
 

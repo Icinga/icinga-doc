@@ -561,7 +561,11 @@
       <para><link linkend="configmain-illegal_macro_output_chars">Illegal macro output characters</link></para>
     </listitem>
   </itemizedlist>
-
+<itemizedlist>
+<listitem>
+      <para><link linkend="configmain-keep_unknown_macros">Keep unknown macros</link></para>
+    </listitem>
+  </itemizedlist>
   <itemizedlist>
     <listitem>
       <para><link linkend="configmain-use_regexp_matching">Regular expression matching option</link></para>
@@ -5142,6 +5146,32 @@
   role="bold">$SERVICEOUTPUT$</emphasis>, <emphasis role="bold">$SERVICEPERFDATA$</emphasis>, <emphasis
   role="bold">$SERVICEACKAUTHOR$</emphasis>, and <emphasis role="bold">$SERVICEACKCOMMENT$</emphasis></para>
 
+<para><anchor xml:id="configmain-keep_unknown_macros"/> <emphasis role="bold">Keep Unknown Marcos Option</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">keep_unknown_macros=&lt;0/1&gt;</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry><para>Example:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">keep_unknown_macros=0</emphasis></emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+<para>This option can be used to keep unknown macros within the output, e.g. check_proc -C $foo$ will remain on the commandline. This was the default in versions older than &name-icinga; 1.8, but now the default is to remove those macros from the output, causing the shell to interpret $foo and leaving a single $ there. See <link xlink:href="https://dev.icinga.org/issues/2291">#2291</link>for further information. Make sure to escape single dollar signs with another '$', as the docs describe. Other than that, enable this setting to revert to the old behaviour.</para>
+
   <para><anchor xml:id="configmain-use_regexp_matching"/> <emphasis role="bold">Regular Expression Matching Option</emphasis></para>
 
   <informaltable frame="none">
@@ -6404,6 +6434,12 @@
     <primary>illegal_macro_output_chars=</primary>
 
     <secondary>Illegal Macro Output</secondary>
+  </indexterm>
+
+<indexterm zone="configmain-keep_unknown_macros">
+    <primary>keep_unknown_macros=</primary>
+
+    <secondary>Keep Unknown Macros</secondary>
   </indexterm>
 
   <indexterm zone="configmain-use_regexp_matching">
