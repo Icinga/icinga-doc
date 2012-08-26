@@ -284,8 +284,6 @@
 
       <programlisting> #&gt; make db-drop            - drops your database with a security query to avoid casualties</programlisting>
 
-      <programlisting> #&gt; make db-doc2sql         - if you require plain SQL scripts, use this option to generate SQL from Doctrine. This can be useful for packaging or manual db install</programlisting>
-
       <para>To use the database creation commands you have to grant privileges to the user who will execute the commands on your dbms. If
       the user defined via configure is a low-privileged one, 'make' asks about a more privileged one e.g. a root user. If this does not
       work for you, alter 'etc/build.properties' to match the requirements of a root user.</para>
@@ -296,13 +294,19 @@
 
       <para><emphasis role="bold">Manually create Database</emphasis></para>
 
-      <para>If you require manual database creation e.g. for package building, you can extract the plain SQL scripts using:</para>
+      <para>If you require manual database creation e.g. for package building, you can extract the needed SQL script from
+      &lt;/path/to/icinga-web/etc/schema/&gt;</para>
 
-      <programlisting> #&gt; make db-doc2sql</programlisting>
+      <para>and then import the script into your freshly created database:</para>
 
-      <para>and then use the generated scripts on the freshly created database.</para>
+      <para><emphasis role="bold">MySQL</emphasis><programlisting> $ mysql -u root -p icinga_web  &lt; /path/to/icinga-web/etc/schema/mysql.sql</programlisting></para>
 
-      <para><emphasis>&name-postgres;</emphasis></para>
+      <para><emphasis role="bold">Oracle</emphasis> <programlisting> #&gt; su - oracle
+ $ sqlplus dbuser/dbpass
+ SQL&gt; @oracle.sql</programlisting></para>
+
+      <para><emphasis role="bold">Postgresql</emphasis> <programlisting> #&gt; su - postgres
+ $ psql -U icinga_web -d icinga_web &lt; /path/to/icinga-web/etc/schema/pgsql.sql</programlisting></para>
 
       <para>Please edit the file <filename>pg_hba.conf</filename> and add the following lines:</para>
 
