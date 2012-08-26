@@ -305,10 +305,6 @@
       <programlisting> #&gt; make db-drop            - löscht die komplette Datenbank, inklusive
                             - Security-Abfrage, um ungewolltes Löschen zu verhindern</programlisting>
 
-      <programlisting> #&gt; make db-doc2sql         - falls Sie SQL scripts beispielsweise für Packaging oder
-                            - manuelles Setup benötigen, können Sie diese Option verwenden,
-                            - verwenden, um die SQL-Scripts aus Doctrine zu extrahieren</programlisting>
-
       <para>Um die Datenbankanlege-Befehle nutzen zu können, müssen Sie dem Benutzer, der diese DB-Befehle ausführen soll, auch die
       entsprechenden Privilegien zuordnen. Falls derjenige Benutzer, der für das Icinga-Web in <filename>configure</filename> vorgesehen
       wurde, zu wenig Berechtigungen hat, gibt es in 'make' eine Abfrage, ob Sie einen anderen Benutzer mit mehr Privilegien verwenden
@@ -321,16 +317,20 @@
 
       <para><emphasis role="bold">Manuelles Anlegen der Datenbank</emphasis></para>
 
-      <para>Sofern Sie die Datenbank manuell installieren wollen, z.B. für Package building, können Sie mit diesem Befehl die SQL-Scripts
-      extrahieren</para>
+      <para>Sofern Sie die Datenbank manuell installieren wollen, z.B. für Package building, so finden Sie unter
+      &lt;/path/to/icinga-web/etc/schema/&gt; das zu importierende SQL-Script.</para>
 
-      <programlisting> #&gt; make db-doc2sql</programlisting>
+      <para><emphasis role="bold">MySQL</emphasis><programlisting> $ mysql -u root -p icinga_web  &lt; /path/to/icinga-web/etc/schema/mysql.sql</programlisting></para>
+      <para><emphasis role="bold">Oracle</emphasis>
 
-      <para>und diese dann in die frisch angelegte Datenbank importieren.</para>
+          <programlisting> #&gt; su - oracle
+ $ sqlplus dbuser/dbpass
+ SQL&gt; @oracle.sql</programlisting>
+        </para> 
+<para><emphasis role="bold">Postgresql</emphasis> <programlisting> #&gt; su - postgres
+ $ psql -U icinga_web -d icinga_web &lt; /path/to/icinga-web/etc/schema/pgsql.sql</programlisting></para>
 
-      <para><emphasis>&name-postgres;</emphasis></para>
-
-      <para>Bitte editieren Sie die Datei <filename>pg_hba.conf</filename> und tragen Sie die folgenden Zeilen ein:</para>
+      <para>Bitte editieren Sie außerdem die Datei <filename>pg_hba.conf</filename> und tragen Sie die folgenden Zeilen ein:</para>
 
       <programlisting> #&gt; vi /etc/postgresql/9.x/main/pg_hba.conf
 
