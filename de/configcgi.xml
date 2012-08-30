@@ -709,7 +709,7 @@
   Downtimes der CGIs haben. Wenn der Benutzer bzw. die Benutzergruppe als "authorized_for_read_only" definiert wurde, kann er bzw. die
   Gruppe mit dieser Option berechtigt werden die Downtimes anzusehen.Wird bei dieser Option ein Benutzer bzw. eine Gruppe angegeben die
   NICHT als "authorized_for_read_only" definiert wurde, bewirkt "authorized_for_downtimes_read_only", dass der Benutzer keine Downtimes mehr
-  löschen kann, die Option delete downtime in der extinfo.cgi wird nicht mehr angezeigt. </para>
+  löschen kann, die Option delete downtime in der extinfo.cgi wird nicht mehr angezeigt.</para>
 
   <note>
     <para>Diese Option ist ab &name-icinga; 1.8 verfügbar.</para>
@@ -753,6 +753,37 @@
       <para>1 = Benutzer daran hindern, den Autorennamen zu ändern (default)</para>
     </listitem>
   </itemizedlist>
+
+  <para><anchor xml:id="configcgi-default_expiring_disabled_notifictions_duration"/> <emphasis role="bold">Standard- Verfallsdauer für
+  global deaktivierte Benachrichtigungen</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">default_expiring_disabled_notifications_duration=[seconds]</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold"><emphasis role="bold"><emphasis condition="red"
+          role="bold">default_expiring_disabled_notifications_duration=86400</emphasis></emphasis> </emphasis></emphasis></para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Ab &name-icinga; 1.8 kann die globale Deaktivierung von Benachrichtigungen mit einer Ablaufzeit versehen werden. Der Standardwert
+  ist 86400 Sekunden (1Tag), wünschen Sie eine kürzere oder längere Dauer passen Sie diesen Wert an. Wenn Sie in den CGI's (Process Info,
+  extinfo.cgi) die Benachrichtigungen global deaktivieren und die Option <emphasis role="bold">Expire time</emphasis> verwenden, werden nach
+  1 Tag die Benachrichtigungen wieder global aktiviert.</para>
 
   <para><anchor xml:id="configcgi-status_show_long_plugin_output"/> <emphasis role="bold">Status Show Long Plugin Output</emphasis></para>
 
@@ -842,23 +873,23 @@
           <entry align="left" valign="top"><para>Format:</para></entry>
 
           <entry><para>
-
+               
 
               <emphasis role="bold">color_transparency_index_r=&lt;0...255&gt;</emphasis>
 
-
+               
             </para> <para>
-
+               
 
               <emphasis role="bold">color_transparency_index_g=&lt;0...255&gt;</emphasis>
 
-
+               
             </para> <para>
-
+               
 
               <emphasis role="bold">color_transparency_index_b=&lt;0...255&gt;</emphasis>
 
-
+               
             </para></entry>
         </row>
 
@@ -1032,41 +1063,41 @@
           <entry align="left" valign="top"><para>Format:</para></entry>
 
           <entry><para>
-
+               
 
               <emphasis role="bold">host_unreachable_sound=&lt;sound_file&gt;</emphasis>
 
-
+               
             </para> <para>
-
+               
 
               <emphasis role="bold">host_down_sound=&lt;sound_file&gt;</emphasis>
 
-
+               
             </para> <para>
-
+               
 
               <emphasis role="bold">service_critical_sound=&lt;sound_file&gt;</emphasis>
 
-
+               
             </para> <para>
-
+               
 
               <emphasis role="bold">service_warning_sound=&lt;sound_file&gt;</emphasis>
 
-
+               
             </para> <para>
-
+               
 
               <emphasis role="bold">service_unknown_sound=&lt;sound_file&gt;</emphasis>
 
-
+               
             </para> <para>
-
+               
 
               <emphasis role="bold">normal_sound=&lt;sound_file&gt;</emphasis>
 
-
+               
             </para></entry>
         </row>
 
@@ -1077,74 +1108,74 @@
                
 
               <emphasis condition="red" role="color">
-
+                 
 
                 <emphasis role="bold">host_unreachable_sound=hostu.wav</emphasis>
 
-
+                 
               </emphasis>
 
-
+               
             </para> <para>
-
+               
 
               <emphasis condition="red" role="color">
-
+                 
 
                 <emphasis role="bold">host_down_sound=hostd.wav</emphasis>
 
-
+                 
               </emphasis>
 
-
+               
             </para> <para>
-
+               
 
               <emphasis condition="red" role="color">
-
+                 
 
                 <emphasis role="bold">service_critical_sound=critical.wav</emphasis>
 
-
+                 
               </emphasis>
 
-
+               
             </para> <para>
-
+               
 
               <emphasis condition="red" role="color">
-
+                 
 
                 <emphasis role="bold">service_warning_sound=warning.wav</emphasis>
 
-
+                 
               </emphasis>
 
-
+               
             </para> <para>
-
+               
 
               <emphasis condition="red" role="color">
-
+                 
 
                 <emphasis role="bold">service_unknown_sound=unknown.wav</emphasis>
 
-
+                 
               </emphasis>
 
-
+               
             </para> <para>
-
+               
 
               <emphasis condition="red" role="color">
-
+                 
 
                 <emphasis role="bold">normal_sound=noproblem.wav</emphasis>
 
-
+                 
               </emphasis>
 
-
+               
             </para></entry>
         </row>
       </tbody>
@@ -2331,7 +2362,8 @@
   <note>
     <para>Diese Option ist verfügbar ab &name-icinga; 1.7.</para>
   </note>
-<para><anchor xml:id="configcgi-result_limit"/> <emphasis role="bold">Anzahl anzuzeigender Seiteneinträge beschränken</emphasis></para>
+
+  <para><anchor xml:id="configcgi-result_limit"/> <emphasis role="bold">Anzahl anzuzeigender Seiteneinträge beschränken</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
@@ -2349,14 +2381,14 @@
         <row>
           <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
-          <entry><para><emphasis condition="red" role="color"><emphasis
-          role="bold">result_limit=50</emphasis></emphasis> </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">result_limit=50</emphasis></emphasis> </para></entry>
         </row>
       </tbody>
     </tgroup>
   </informaltable>
 
-  <para>Mit dieser Option können Sie die Anzahl von Einträgen pro Seite in diversen CGI's einstellen. Um standardmäßig alle Einträge anzeigen zu lassen, setzen Sie diese Option auf 0.</para>
+  <para>Mit dieser Option können Sie die Anzahl von Einträgen pro Seite in diversen CGI's einstellen. Um standardmäßig alle Einträge
+  anzeigen zu lassen, setzen Sie diese Option auf 0.</para>
 
   <note>
     <para>Diese Option ist verfügbar ab &name-icinga; 1.8</para>
@@ -2510,6 +2542,12 @@
     <primary>authorized_for_downtimes_read_only=</primary>
 
     <secondary>Lesenden Zugang für Downtimes erlauben</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-default_expiring_disabled_notifictions_duration">
+    <primary>default_expiring_disabled_notifictions_duration=</primary>
+
+    <secondary>Standard- Ablaufdauer für global deaktivierte Benachrichtigungen</secondary>
   </indexterm>
 
   <indexterm zone="configcgi-lock_author_names">
