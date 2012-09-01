@@ -9,28 +9,27 @@
 
 <xsl:output method="xml" encoding="utf-8"/>
 
-<!-- Due to problems with german umlauts while creating PDF output
-     changed from utf-8 to old fashioned iso-8859-1 (Wolfgang) -->
+<!-- encoding (utf8) -->
 <xsl:param name="chunker.output.encoding" select="'utf-8'"/>
 
 <xsl:param name="chunk.first.sections" select="'1'"/>
 
 <!-- <xsl:param name="email.nospam" select="'1'"/> -->
 
-<!-- Hendrik: uses chapter/section ids as filenames -->
+<!-- chapter/section ids as filenames -->
 <xsl:param name="use.id.as.filename" select="'1'"/>
 
-<!-- Hendrik: uses images for note, tip, warning,caution and important -->
+<!-- images for note, tip, warning,caution and important -->
 <xsl:param name="admon.graphics.path">../images/</xsl:param>
 <xsl:param name="admon.graphics" select="'1'"/>
 
-<!-- Hendrik: we want some nice navigation icons in header and footer -->
+<!-- nice navigation icons in header and footer -->
 <!-- <xsl:param name="navig.graphics" select="'1'"/> -->
 
-<!-- Hendrik: yes - we want nicer html output... not all on one line -->
+<!-- nicer html output... not all on one line -->
 <xsl:param name="chunker.output.indent" select="'yes'"/>
 
-<!-- Hendrik: Here we get our CSS Stylesheet -->
+<!-- CSS Stylesheet -->
 <xsl:param name="html.stylesheet" select="'../stylesheets/icinga-docs.css'" />
 
 <!-- Hendrik: Copyright Information on each page -->
@@ -39,7 +38,41 @@
 <CENTER><IMG src="../images/logofullsize.png" border="0" alt="Icinga" title="Icinga"/></CENTER>
 </xsl:template>
 
-<!-- 
+<!-- toc 2 deep -->
+<xsl:param name="toc.section.depth">2</xsl:param>
+
+<!-- section numbering -->
+<xsl:param name="section.autolabel">1</xsl:param>
+<xsl:param name="section.label.includes.component.label">1</xsl:param>
+
+
+<!-- change display of some elements -->
+<xsl:template match="productname">
+	<xsl:call-template name="inline.charseq"/>
+</xsl:template>
+<xsl:template match="structfield">
+	<xsl:call-template name="inline.monoseq"/>
+</xsl:template>
+<xsl:template match="structname">
+	<xsl:call-template name="inline.monoseq"/>
+</xsl:template>
+<xsl:template match="symbol">
+	<xsl:call-template name="inline.monoseq"/>
+</xsl:template>
+<xsl:template match="systemitem">
+	<xsl:call-template name="inline.charseq"/>
+</xsl:template>
+<xsl:template match="token">
+	<xsl:call-template name="inline.monoseq"/>
+</xsl:template>
+<xsl:template match="type">
+	<xsl:call-template name="inline.monoseq"/>
+</xsl:template>
+<xsl:template match="programlisting/emphasis">
+	<xsl:call-template name="inline.boldseq"/>
+</xsl:template>
+
+<!--
 <xsl:template name="user.footer.content">
   <HR/><P class="copyright">&#x00A9; 2009-2012 Icinga Development Team, http://www.icinga.org</P>
 </xsl:template>
