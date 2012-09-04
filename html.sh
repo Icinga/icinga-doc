@@ -1,5 +1,5 @@
 #!/bin/bash +x
-
+#set -x
 LANG=$1
 [ -z "$LANG" ] && exit 99
 shift
