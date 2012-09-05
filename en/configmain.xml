@@ -561,11 +561,13 @@
       <para><link linkend="configmain-illegal_macro_output_chars">Illegal macro output characters</link></para>
     </listitem>
   </itemizedlist>
-<itemizedlist>
-<listitem>
+
+  <itemizedlist>
+    <listitem>
       <para><link linkend="configmain-keep_unknown_macros">Keep unknown macros</link></para>
     </listitem>
   </itemizedlist>
+
   <itemizedlist>
     <listitem>
       <para><link linkend="configmain-use_regexp_matching">Regular expression matching option</link></para>
@@ -670,7 +672,8 @@
 
           <entry><para><emphasis condition="red" role="color"><emphasis
           role="bold">cfg_file=&url-icinga-base;/etc/conf.d/hosts.cfg</emphasis></emphasis></para><para><emphasis condition="red"
-          role="color"><emphasis role="bold">cfg_file=&url-icinga-base;/etc/conf.d/services.cfg</emphasis></emphasis></para><para><emphasis condition="red" role="color"><emphasis role="bold">cfg_file=&url-icinga-base;/etc/conf.d/commands.cfg</emphasis>
+          role="color"><emphasis role="bold">cfg_file=&url-icinga-base;/etc/conf.d/services.cfg</emphasis></emphasis></para><para><emphasis
+          condition="red" role="color"><emphasis role="bold">cfg_file=&url-icinga-base;/etc/conf.d/commands.cfg</emphasis>
           </emphasis></para></entry>
         </row>
       </tbody>
@@ -947,8 +950,7 @@
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">icinga_user=icinga</emphasis></emphasis>
-          </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">icinga_user=icinga</emphasis></emphasis> </para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -1393,7 +1395,9 @@
 
   <para>This option determines whether or not &name-icinga; will check the <link linkend="configmain-command_file">command file</link> for
   commands that should be executed. This option must be enabled if you plan on using the <link linkend="cgis-cmd_cgi">command CGI</link> to
-  issue commands via the web interface. More information on external commands can be found <link linkend="extcommands">here</link>.</para>
+  issue commands via the web interface. &name-web; and other addons like &name-nagvis;, Nagios Checker, Nagstamon and &name-nagiosql; also
+  use this file to issue commands to &name-icinga;. More information on external commands can be found <link
+  linkend="extcommands">here</link>.</para>
 
   <itemizedlist>
     <listitem>
@@ -1433,7 +1437,8 @@
   <para>If you specify a number with an "s" appended to it (i.e. 30s), this is the number of <emphasis>seconds</emphasis> to wait between
   external command checks. If you leave off the "s", this is the number of "time units" to wait between external command checks. Unless
   you've changed the <link linkend="configmain-interval_length">interval_length</link> value (as defined below) from the default value of
-  60, this number will mean minutes.</para>
+  60, this number will mean minutes. </para>
+<note>Icinga will also check for external commands after event handlers are executed.</note>
 
   <note>
     <para>By setting this value to <emphasis role="bold">-1</emphasis>, &name-icinga; will check for external commands as often as possible.
@@ -1467,10 +1472,10 @@
     </tgroup>
   </informaltable>
 
-  <para>This is the file that &name-icinga; will check for external commands to process. The <link linkend="cgis-cmd_cgi">command CGI</link>
-  writes commands to this file. The external command file is implemented as a named pipe (FIFO), which is created when &name-icinga; starts
-  and removed when it shuts down. If the file exists when &name-icinga; starts, the &name-icinga; process will terminate with an error
-  message. More information on external commands can be found <link linkend="extcommands">here</link>.</para>
+  <para>This is the file that &name-icinga; will check for external commands to process. The <link linkend="cgis-cmd_cgi">command
+  CGI</link>, &name-web; and other addons write commands to this file. The external command file is implemented as a named pipe (FIFO), which is created when
+  &name-icinga; starts and removed when it shuts down. If the file exists when &name-icinga; starts, the &name-icinga; process will
+  terminate with an error message. More information on external commands can be found <link linkend="extcommands">here</link>.</para>
 
   <para><anchor xml:id="configmain-external_command_buffer_slots"/> <emphasis role="bold">External Command Buffer Slots</emphasis></para>
 
@@ -2158,8 +2163,7 @@
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">log_host_retries=1</emphasis></emphasis>
-          </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">log_host_retries=1</emphasis></emphasis> </para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -3071,8 +3075,7 @@
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">interval_length=60</emphasis></emphasis>
-          </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">interval_length=60</emphasis></emphasis> </para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -4048,8 +4051,7 @@
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">perfdata_timeout=5</emphasis></emphasis>
-          </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">perfdata_timeout=5</emphasis></emphasis> </para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -4917,7 +4919,7 @@
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">enable_embedded_perl=1</emphasis></emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">enable_embedded_perl=0</emphasis></emphasis>
           </para></entry>
         </row>
       </tbody>
@@ -5146,7 +5148,7 @@
   role="bold">$SERVICEOUTPUT$</emphasis>, <emphasis role="bold">$SERVICEPERFDATA$</emphasis>, <emphasis
   role="bold">$SERVICEACKAUTHOR$</emphasis>, and <emphasis role="bold">$SERVICEACKCOMMENT$</emphasis></para>
 
-<para><anchor xml:id="configmain-keep_unknown_macros"/> <emphasis role="bold">Keep Unknown Marcos Option</emphasis></para>
+  <para><anchor xml:id="configmain-keep_unknown_macros"/> <emphasis role="bold">Keep Unknown Marcos Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
@@ -5170,7 +5172,12 @@
       </tbody>
     </tgroup>
   </informaltable>
-<para>This option can be used to keep unknown macros within the output, e.g. check_proc -C $foo$ will remain on the commandline. This was the default in versions older than &name-icinga; 1.8, but now the default is to remove those macros from the output, causing the shell to interpret $foo and leaving a single $ there. See <link xlink:href="https://dev.icinga.org/issues/2291">#2291</link>for further information. Make sure to escape single dollar signs with another '$', as the docs describe. Other than that, enable this setting to revert to the old behaviour.</para>
+
+  <para>This option can be used to keep unknown macros within the output, e.g. check_proc -C $foo$ will remain on the commandline. This was
+  the default in versions older than &name-icinga; 1.8, but now the default is to remove those macros from the output, causing the shell to
+  interpret $foo and leaving a single $ there. See <link xlink:href="https://dev.icinga.org/issues/2291">#2291</link>for further
+  information. Make sure to escape single dollar signs with another '$', as the docs describe. Other than that, enable this setting to
+  revert to the old behaviour.</para>
 
   <para><anchor xml:id="configmain-use_regexp_matching"/> <emphasis role="bold">Regular Expression Matching Option</emphasis></para>
 
@@ -5513,8 +5520,7 @@
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">debug_verbosity=1</emphasis></emphasis>
-          </para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">debug_verbosity=1</emphasis></emphasis> </para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -6436,7 +6442,7 @@
     <secondary>Illegal Macro Output</secondary>
   </indexterm>
 
-<indexterm zone="configmain-keep_unknown_macros">
+  <indexterm zone="configmain-keep_unknown_macros">
     <primary>keep_unknown_macros=</primary>
 
     <secondary>Keep Unknown Macros</secondary>

@@ -813,7 +813,7 @@
 
   <para>Diese Option legt fest, ob &name-icinga; das <link linkend="configmain-command_file">command file</link> auf auszuführende Befehle
   prüfen soll. Diese Option muss aktiviert sein, wenn Sie planen, das <link linkend="cgis-cmd_cgi">Command-CGI</link> zu nutzen, um Befehle
-  über das Web-Interface zu erteilen. Mehr Informationen zu externen Befehlen finden Sie <link linkend="extcommands">hier</link>.</para>
+  über das Web-Interface zu erteilen. &name-web; und Addons wie &name-nagvis;, Nagios Checker, Nagstamon oder auch &name-nagiosql; nutzen ebenfalls das &name-icinga; Command File um Befehle an &name-icinga; zu senden. Mehr Informationen zu externen Befehlen finden Sie <link linkend="extcommands">hier</link>.</para>
 
   <itemizedlist>
     <listitem>
@@ -855,7 +855,8 @@
   zwischen Prüfungen auf externe Befehle gewartet werden soll. Wenn Sie das "s" weglassen, ist dies die Zahl von "Zeiteinheiten", die
   zwischen den Prüfungen auf externe Befehle gewartet werden soll. Solange Sie nicht den Standardwert (60) der <link
   linkend="configmain-interval_length">interval_length</link>-Direktive geändert haben (wie weiter unten definiert), bedeutet dieser Wert
-  Minuten.</para>
+  Minuten.</para> 
+<note>&name-icinga; prüft auch nach der Ausführung von Event- Handlern auf externe Befehle.</note>
 
   <para>Anmerkung: durch das Setzen dieses Wertes auf <emphasis role="bold">-1</emphasis> wird &name-icinga; so oft wie möglich auf externe
   Befehle prüfen. Jedes Mal, wenn &name-icinga; auf externe Befehle prüft, wird es alle im <link linkend="configmain-command_file">command
@@ -881,14 +882,14 @@
           <entry><para>Beispiel:</para></entry>
 
           <entry><para><emphasis condition="red" role="color"><emphasis
-          role="bold">command_file=&url-icinga-base;/var/rw/nagios.cmd</emphasis></emphasis></para></entry>
+          role="bold">command_file=&url-icinga-base;/var/rw/icinga.cmd</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
   </informaltable>
 
   <para>Dies ist die Datei, die &name-icinga; auf zu verarbeitende externe Befehle prüfen wird. Das <link
-  linkend="cgis-cmd_cgi">Command-CGI</link> schreibt Befehle in diese Datei. Die externe Befehlsdatei ist als "named pipe" (FIFO)
+  linkend="cgis-cmd_cgi">Command-CGI</link>, &name-web; und diverse Addons schreiben Befehle in diese Datei. Die externe Befehlsdatei ist als "named pipe" (FIFO)
   implementiert, die beim Start von &name-icinga; angelegt und beim Herunterfahren wieder gelöscht wird. Wenn die Datei beim Start von
   &name-icinga; existiert, wird der &name-icinga;-Prozess mit einer Fehlermeldung enden. Mehr Informationen zu externen Befehlen finden Sie
   <link linkend="extcommands">hier</link>.</para>
@@ -1686,7 +1687,7 @@
 
   <itemizedlist>
     <listitem>
-      <para>0 = keine anfänglichen Zusände protokollieren (Default)</para>
+      <para>0 = keine anfänglichen Zustände protokollieren (Default)</para>
     </listitem>
 
     <listitem>
@@ -4434,7 +4435,7 @@
         <row>
           <entry><para>Beispiel:</para></entry>
 
-          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">enable_embedded_perl=1</emphasis> </emphasis>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">enable_embedded_perl=0</emphasis> </emphasis>
           </para></entry>
         </row>
       </tbody>
