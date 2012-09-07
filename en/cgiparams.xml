@@ -171,38 +171,6 @@
         </row>
 
         <row>
-          <entry><anchor xml:id="cgiparams-archive"/>archive</entry>
-
-          <entry/>
-
-          <entry/>
-
-          <entry/>
-
-          <entry/>
-
-          <entry/>
-
-          <entry>X</entry>
-
-          <entry>X</entry>
-
-          <entry/>
-
-          <entry>X</entry>
-
-          <entry/>
-
-          <entry/>
-
-          <entry/>
-
-          <entry/>
-
-          <entry/>
-        </row>
-
-        <row>
           <entry><anchor xml:id="cgiparams-assumeinitialstates"/>assumeinitialstates</entry>
 
           <entry>X</entry>
@@ -1675,31 +1643,31 @@
         </row>
 
         <row>
-          <entry><anchor xml:id="cgiparams-limit"/>limit</entry>
-
-          <entry/>
-
-          <entry/>
-
-          <entry/>
-
-          <entry/>
-
-          <entry/>
-
-          <entry/>
-
-          <entry/>
-
-          <entry/>
-
-          <entry/>
+          <entry><anchor xml:id="cgiparams-limit"/>limit [5]</entry>
 
           <entry/>
 
           <entry/>
 
           <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry/>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry/>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry/>
+
+          <entry/>
 
           <entry/>
 
@@ -2923,6 +2891,38 @@
         </row>
 
         <row>
+          <entry><anchor xml:id="cgiparams-start"/>start [5]</entry>
+
+          <entry/>
+
+          <entry/>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry/>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry/>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry/>
+
+          <entry/>
+
+          <entry/>
+
+          <entry/>
+        </row>
+
+        <row>
           <entry><anchor xml:id="cgiparams-start_time"/>start_time</entry>
 
           <entry/>
@@ -3319,18 +3319,6 @@
           <entry>1=host alerts; 2=service alerts; 3=host and service alerts</entry>
 
           <entry>alerttypes=3</entry>
-
-          <entry/>
-        </row>
-
-        <row>
-          <entry><link linkend="cgiparams-archive">archive</link></entry>
-
-          <entry/>
-
-          <entry>0-n</entry>
-
-          <entry/>
 
           <entry/>
         </row>
@@ -3894,13 +3882,13 @@
         <row>
           <entry><link linkend="cgiparams-limit">limit</link></entry>
 
-          <entry>Number of items to display</entry>
+          <entry>Number of items to display per page</entry>
 
           <entry>1-n</entry>
 
           <entry>limit=10</entry>
 
-          <entry>Default is 25</entry>
+          <entry>Default is 25, used for paging-ability [5].</entry>
         </row>
 
         <row>
@@ -4160,11 +4148,12 @@
 
           <entry>Send a notification for the acknowledgement</entry>
 
-          <entry/>
+          <entry>0=disabled, 1=enabled (default)</entry>
 
           <entry>send_notification</entry>
 
-          <entry/>
+          <entry>[5] cmd.cgi requires 0|1 vars, if not set, default is 1. View <link xlink:href="https://dev.icinga.org/issues/2926">Bug
+          #2926</link> for additional informations.</entry>
         </row>
 
         <row>
@@ -4362,6 +4351,18 @@
         </row>
 
         <row>
+          <entry><link linkend="cgiparams-start">start</link></entry>
+
+          <entry>Resultcounter</entry>
+
+          <entry/>
+
+          <entry/>
+
+          <entry>[5] Resultcounter for pagination.</entry>
+        </row>
+
+        <row>
           <entry><link linkend="cgiparams-start_time">start_time</link></entry>
 
           <entry>Start of the fixed downtime</entry>
@@ -4402,11 +4403,12 @@
 
           <entry>The acknowledgement will be "sticky"</entry>
 
-          <entry/>
+          <entry>0=disabled, 1=enabled (default)</entry>
 
           <entry>sticky_ack</entry>
 
-          <entry/>
+          <entry>[5] cmd.cgi requires 0|1 vars, if not set, default is 1. View <link xlink:href="https://dev.icinga.org/issues/2926">Bug
+          #2926 </link>for additional informations.</entry>
         </row>
 
         <row>
@@ -4738,6 +4740,8 @@
 
   <para>[4] Available starting with &name-icinga; 1.7.</para>
 
+  <para>[5] Available starting with &name-icinga; 1.8.</para>
+
   <indexterm zone="cgiparams">
     <primary>CGIs</primary>
 
@@ -4782,12 +4786,6 @@
     <primary>CGI parameter</primary>
 
     <secondary>alerttypes</secondary>
-  </indexterm>
-
-  <indexterm zone="cgiparams-archive">
-    <primary>CGI parameter</primary>
-
-    <secondary>archive</secondary>
   </indexterm>
 
   <indexterm zone="cgiparams-assumeinitialstates">
@@ -5298,6 +5296,12 @@
     <primary>CGI parameter</primary>
 
     <secondary>standardreport</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-start">
+    <primary>CGI parameter</primary>
+
+    <secondary>start</secondary>
   </indexterm>
 
   <indexterm zone="cgiparams-start_time">
