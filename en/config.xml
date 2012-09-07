@@ -4,66 +4,89 @@
 %all.entities;
 ]>
 <section version="5.0" xml:id="config" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
-  <title><anchor xml:id="config_overview" />Configuration Overview</title>
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="config_overview"/>Configuration Overview</title>
 
   <para><emphasis role="bold">Introduction</emphasis></para>
 
-  <para>There are several different configuration files that you're going to need to create or edit before you start monitoring
-  anything. Be patient! Configuring &name-icinga; can take quite a while, especially if you're first-time user. Once you figure
-  out how things work, it'll all be well worth your time. :-)</para>
+  <para>There are several different configuration files that you're going to need to create or edit before you start monitoring anything. Be
+  patient! Configuring &name-icinga; can take quite a while, especially if you're first-time user. Once you figure out how things work,
+  it'll all be well worth your time. :-)</para>
 
   <note>
-    <para>Sample configuration files are installed in the <emphasis>&url-icinga-base;/etc/</emphasis> directory when you follow
-    the <link linkend="quickstart">quickstart installation guide</link>.</para>
+    <para>Sample configuration files are installed in the <emphasis>&url-icinga-base;/etc/</emphasis> directory when you follow the <link
+    linkend="quickstart">quickstart installation guide</link>.</para>
   </note>
 
-  <para><inlinemediaobject>
+  <para><mediaobject>
       <imageobject>
-        <imagedata fileref="../images/configoverview.png" format="PNG"></imagedata>
+        <imagedata align="right" fileref="../images/configoverview.png" format="PNG"/>
       </imageobject>
-    </inlinemediaobject></para>
+    </mediaobject></para>
+
+  <para><anchor xml:id="config_overview-filenames"/><emphasis role="bold">File names</emphasis></para>
+
+  <para>Names and locations of these configuration files are all up to you but it is commonly accepted to have files called
+  <filename>icinga.cfg</filename>, <filename>resource.cfg</filename>, and <filename>cgi.cfg</filename> in the main config directory.</para>
+
+  <para>The names of the object definition files may show the type of definitions (<filename>contacts.cfg, commands.cfg</filename>,
+  <filename>timeperiods.cfg</filename>, <filename>notifications.cfg</filename>), the type of hardware (<filename>printer.cfg</filename>,
+  <filename>switch.cfg</filename>), or the object which is described (<filename>localhost.cfg</filename>). If your installation doesn't
+  contain any of these files then there is no need to panic. Using a web-based configuration tool, a database driven script, or editing the
+  files with your favourite editor the files may be in separate folders per geographical location (country, branch, ...) and a file per
+  physical or logical unit (room, rack, application, development, ...), or the concept which seems to suit your needs best.</para>
 
   <para><emphasis role="bold">Main Configuration File</emphasis></para>
 
-  <para>The main configuration file contains a number of directives that affect how the &name-icinga; daemon operates. This config
-  file is read by both the &name-icinga; daemon and the CGIs. This is where you're going to want to get started in your
-  configuration adventures.</para>
+  <para>The main configuration file contains a number of directives that affect how the &name-icinga; daemon operates and links to several
+  other files. This config file is read by both the &name-icinga; daemon and the CGIs. This is where you're going to want to get started in
+  your configuration adventures.</para>
 
   <para>Documentation for the main configuration file can be found <link linkend="configmain">here</link>.</para>
 
   <para><emphasis role="bold">Resource File(s)</emphasis></para>
 
-  <para>Resource files can be used to store user-defined macros. The main point of having resource files is to use them to store
-  sensitive configuration information (like passwords), without making them available to the CGIs.</para>
+  <para>Resource files can be used to store user-defined macros. The main point of having resource files is to use them to store sensitive
+  configuration information (like passwords), without making them available to the CGIs.</para>
 
-  <para>You can specify one or more optional resource files by using the <link
-  linkend="configmain-resource_file">resource_file</link> directive in your main configuration file.</para>
+  <para>You can specify one or more optional resource files by using the <link linkend="configmain-resource_file">resource_file</link>
+  directive in your main configuration file.</para>
 
   <para><emphasis role="bold">Object Definition Files</emphasis></para>
 
-  <para>Object definition files are used to define hosts, services, hostgroups, contacts, contactgroups, commands, etc. This is
-  where you define all the things you want monitor and how you want to monitor them.</para>
+  <para>Object definition files are used to define hosts, services, hostgroups, contacts, contactgroups, commands, etc. This is where you
+  define all the things you want to monitor and how you want to monitor them.</para>
 
-  <para>You can specify one or more object definition files by using the <link linkend="configmain-cfg_file">cfg_file</link>
-  and/or <link linkend="configmain-cfg_dir">cfg_dir</link> directives in your main configuration file.</para>
+  <para>You can specify one or more object definition files by using the <link linkend="configmain-cfg_file">cfg_file</link> and/or <link
+  linkend="configmain-cfg_dir">cfg_dir</link> directives in your main configuration file, but it is advisable to stick to one type of
+  directive (<emphasis>either</emphasis> cfg_dir <emphasis>or</emphasis> cfg_file until you understand the implications using both at a
+  time).</para>
 
   <para>An introduction to object definitions, and how they relate to each other, can be found <link
   linkend="configobject">here</link>.</para>
 
   <para>Your object definition files can in turn include other files using the <link linkend="configobject-include_file">include_file</link>
-  or <link linkend="configobject-include_dir">include_dir</link> directives. These can only occur outside of the actual object
-  definitions, and behave very much like the <link linkend="configmain-cfg_file">cfg_file=</link> and
-  <link linkend="configmain-cfg_dir">cfg_dir=</link> directives in the main configuration file.</para>
+  or <link linkend="configobject-include_dir">include_dir</link> directives. These can only occur outside of the actual object definitions,
+  and behave very much like the <link linkend="configmain-cfg_file">cfg_file=</link> and <link linkend="configmain-cfg_dir">cfg_dir=</link>
+  directives in the main configuration file.</para>
 
   <para><emphasis role="bold">CGI Configuration File</emphasis></para>
 
-  <para>The CGI configuration file contains a number of directives that affect the operation of the <link
-  linkend="cgis">CGIs</link>. It also contains a reference the main configuration file, so the CGIs know how you've configured
-  &name-icinga; and where your object definitions are stored.</para>
+  <para>The CGI configuration file contains a number of directives that affect the operation of the <link linkend="cgis">CGIs</link>. It
+  also contains a reference to the main configuration file, so the CGIs know how you've configured &name-icinga; and where your object
+  definitions are stored.</para>
 
   <para>Documentation for the CGI configuration file can be found <link linkend="configcgi">here</link>.</para>
-  <indexterm zone="config_overview"><primary>Configuration Overview</primary></indexterm>
+
+  <indexterm zone="config_overview">
+    <primary>Configuration Overview</primary>
+  </indexterm>
+
+  <indexterm zone="config_overview-filenames">
+    <primary>Configuration Overview</primary>
+
+    <secondary>icinga.cfg, resource.cfg, cgi.cfg, commands.cfg, contacts.cfg, notifications.cfg, timeperiods.cfg, printer.cfg, switch.cfg,
+    windows.cfg</secondary>
+  </indexterm>
 </section>
