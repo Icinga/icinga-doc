@@ -4,30 +4,29 @@
 %all.entities;
 ]>
 <section version="5.0" xml:id="macros" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
-  <title><anchor xml:id="macro_overview" />Understanding Macros and How They Work</title>
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="macro_overview"/>Understanding Macros and How They Work</title>
 
   <para><emphasis role="bold">Macros</emphasis></para>
 
-  <para>One of the main features that make &name-icinga; so flexible is the ability to use macros in command definitions. Macros
-  allow you to reference information from hosts, services, and other sources in your commands.</para>
+  <para>One of the main features that make &name-icinga; so flexible is the ability to use macros in command definitions. Macros allow you
+  to reference information from hosts, services, and other sources in your commands.</para>
 
   <para><emphasis role="bold">Macro Substitution - How Macros Work</emphasis></para>
 
-  <para>Before &name-icinga; executes a command, it will replace any macros it finds in the command definition with their
-  corresponding values. This macro substitution occurs for all types of commands that &name-icinga; executes - host and service
-  checks, notifications, event handlers, etc.</para>
+  <para>Before &name-icinga; executes a command, it will replace any macros it finds in the command definition with their corresponding
+  values. This macro substitution occurs for all types of commands that &name-icinga; executes - host and service checks, notifications,
+  event handlers, etc.</para>
 
-  <para>Certain macros may themselves contain other macros. These include the $HOSTNOTES$, $HOSTNOTESURL$, $HOSTACTIONURL$,
-  $SERVICENOTES$, $SERVICENOTESURL$, and $SERVICEACTIONURL$ macros.</para>
+  <para>Certain macros may themselves contain other macros. These include the $HOSTNOTES$, $HOSTNOTESURL$, $HOSTACTIONURL$, $SERVICENOTES$,
+  $SERVICENOTESURL$, and $SERVICEACTIONURL$ macros.</para>
 
   <para><emphasis role="bold">Example 1: Host Address Macro</emphasis></para>
 
-  <para>When you use host and service macros in command definitions, they refer to values for the host or service for which the
-  command is being run. Let's try an example. Assuming we are using a host definition and a <emphasis>check_ping</emphasis>
-  command defined like this:</para>
+  <para>When you use host and service macros in command definitions, they refer to values for the host or service for which the command is
+  being run. Let's try an example. Assuming we are using a host definition and a <emphasis>check_ping</emphasis> command defined like
+  this:</para>
 
   <screen> define host{
         host_name       linuxbox
@@ -38,35 +37,34 @@
         
  define command{
         command_name    check_ping
-        command_line    &url-icinga-base;/libexec/check_ping -H $HOSTADDRESS$ -w 100.0,90% -c 200.0,60%
+        command_line    &url-icinga-base;/libexec/check_ping -H $HOSTADDRESS$ -w 100.0,25% -c 200.0,50%
         }</screen>
 
   <para>the expanded/final command line to be executed for the host's check command would look like this:</para>
 
-  <screen>$&gt; &url-icinga-base;/libexec/check_ping -H 192.168.1.2 -w 100.0,90% -c 200.0,60%</screen>
+  <screen>$&gt; &url-icinga-base;/libexec/check_ping -H 192.168.1.2 -w 100.0,25% -c 200.0,50%</screen>
 
-  <para>Pretty simple, right? The beauty in this is that you can use a single command definition to check an unlimited number of
-  hosts. Each host can be checked with the same command definition because each host's address is automatically substituted in the
-  command line before execution.</para>
+  <para>Pretty simple, right? The beauty in this is that you can use a single command definition to check an unlimited number of hosts. Each
+  host can be checked with the same command definition because each host's address is automatically substituted in the command line before
+  execution.</para>
 
   <para><emphasis role="bold">Example 2: Command Argument Macros</emphasis></para>
 
-  <para>You can pass arguments to commands as well, which is quite handy if you'd like to keep your command definitions rather
-  generic. Arguments are specified in the object (i.e. host or service) definition, by separating them from the command name with
-  exclamation marks (!) like so:</para>
+  <para>You can pass arguments to commands as well, which is quite handy if you'd like to keep your command definitions rather generic.
+  Arguments are specified in the object (i.e. host or service) definition, by separating them from the command name with exclamation marks
+  (!) like so:</para>
 
   <screen> define service{
         host_name               linuxbox
         service_description     PING
-        check_command           check_ping!200.0,80%!400.0,40%
+        check_command           check_ping!200.0,25%!400.0,50%
         ...
         }</screen>
 
   <para>In the example above, the service check command has two arguments (which can be referenced with <link
-  linkend="macrolist-arg">$ARGn$</link> macros). The $ARG1$ macro will be "<emphasis condition="red"
-  role="color">200.0,80%</emphasis>" and $ARG2$ will be "<emphasis condition="red" role="color">400.0,40%</emphasis>" (both
-  without quotes). Assuming we are using the host definition given earlier and a <emphasis>check_ping</emphasis> command defined
-  like this:</para>
+  linkend="macrolist-arg">$ARGn$</link> macros). The $ARG1$ macro will be "<emphasis condition="red" role="color">200.0,25%</emphasis>" and
+  $ARG2$ will be "<emphasis condition="red" role="color">400.0,50%</emphasis>" (both without quotes). Assuming we are using the host
+  definition given earlier and a <emphasis>check_ping</emphasis> command defined like this:</para>
 
   <screen> define command{
         command_name    check_ping
@@ -75,23 +73,37 @@
 
   <para>the expanded/final command line to be executed for the service's check command would look like this:</para>
 
-  <screen>$&gt; &url-icinga-base;/libexec/check_ping -H 192.168.1.2 -w 200.0,80% -c 400.0,40%</screen>
+  <screen>$&gt; &url-icinga-base;/libexec/check_ping -H 192.168.1.2 -w 200.0,25% -c 400.0,50%</screen>
 
   <tip>
-    <para>If you need to pass bang (!) characters in your command arguments, you can do so by escaping them with a backslash (\).
-    If you need to include backslashes in your command arguments, they should also be escaped with a backslash.</para>
+    <anchor xml:id="macros-bang"/>
+
+    <para>If you need to pass bang (!) characters in your command arguments, you can do so by escaping them with a backslash (\). If you
+    need to include backslashes in your command arguments, they should also be escaped with a backslash.</para>
+  </tip>
+
+  <tip>
+    <anchor xml:id="macros-semicolon"/>
+
+    <para>If you need to pass a semicolon (;) character in your command arguments, you cannot write the character in the definition because
+    it is handled as the start of a comment. You define a $USER$-variable in the resource file instead and use that variable in your
+    definition.</para>
+
+    <para>Resource file<programlisting>$USER255$=;</programlisting>Command definition<programlisting>define command{ 
+       command_name   ...
+       command_line   $USER1$/your_plugin "some text with a semicolor ($USER255$)"
+}</programlisting></para>
   </tip>
 
   <para><emphasis role="bold">On-Demand Macros</emphasis></para>
 
-  <para>Normally when you use host and service macros in command definitions, they refer to values for the host or service for
-  which the command is being run. For instance, if a host check command is being executed for a host named "linuxbox", all the
-  <link linkend="macrolist">standard host macros</link> will refer to values for that host ("linuxbox").</para>
+  <para>Normally when you use host and service macros in command definitions, they refer to values for the host or service for which the
+  command is being run. For instance, if a host check command is being executed for a host named "linuxbox", all the <link
+  linkend="macrolist">standard host macros</link> will refer to values for that host ("linuxbox").</para>
 
-  <para>If you would like to reference values for another host or service in a command (for which the command is not being run),
-  you can use what are called "on-demand" macros. On-demand macros look like normal macros, except for the fact that they contain
-  an identifier for the host or service from which they should get their value. Here's the basic format for on-demand
-  macros:</para>
+  <para>If you would like to reference values for another host or service in a command (for which the command is not being run), you can use
+  what are called "on-demand" macros. On-demand macros look like normal macros, except for the fact that they contain an identifier for the
+  host or service from which they should get their value. Here's the basic format for on-demand macros:</para>
 
   <itemizedlist>
     <listitem>
@@ -103,16 +115,15 @@
     </listitem>
   </itemizedlist>
 
-  <para>Replace <emphasis>HOSTMACRONAME</emphasis> and <emphasis>SERVICEMACRONAME</emphasis> with the name of one of the standard
-  host of service macros found <link linkend="macrolist">here</link>.</para>
+  <para>Replace <emphasis>HOSTMACRONAME</emphasis> and <emphasis>SERVICEMACRONAME</emphasis> with the name of one of the standard host of
+  service macros found <link linkend="macrolist">here</link>.</para>
 
-  <para>Note that the macro name is separated from the host or service identifier by a colon (:). For on-demand service macros,
-  the service identifier consists of both a host name and a service description - these are separated by a colon (:) as
-  well.</para>
+  <para>Note that the macro name is separated from the host or service identifier by a colon (:). For on-demand service macros, the service
+  identifier consists of both a host name and a service description - these are separated by a colon (:) as well.</para>
 
   <tip>
-    <para>On-demand service macros can contain an empty host name field. In this case the name of the host associated with the
-    service will automatically be used.</para>
+    <para>On-demand service macros can contain an empty host name field. In this case the name of the host associated with the service will
+    automatically be used.</para>
   </tip>
 
   <para>Examples of on-demand host and service macros follow:</para>
@@ -130,9 +141,9 @@
 
   <para><emphasis role="bold">On-Demand Group Macros</emphasis></para>
 
-  <para>You can obtain the values of a macro across all contacts, hosts, or services in a specific group by using a special format
-  for your on-demand macro declaration. You do this by referencing a specific host group, service group, or contact group name in
-  an on-demand macro, like so:</para>
+  <para>You can obtain the values of a macro across all contacts, hosts, or services in a specific group by using a special format for your
+  on-demand macro declaration. You do this by referencing a specific host group, service group, or contact group name in an on-demand macro,
+  like so:</para>
 
   <itemizedlist>
     <listitem>
@@ -148,9 +159,9 @@
     </listitem>
   </itemizedlist>
 
-  <para>Replace <emphasis>HOSTMACRONAME</emphasis>, <emphasis>SERVICEMACRONAME</emphasis>, and
-  <emphasis>CONTACTMACRONAME</emphasis> with the name of one of the standard host, service, or contact macros found <link
-  linkend="macrolist">here</link>. The delimiter you specify is used to separate macro values for each group member.</para>
+  <para>Replace <emphasis>HOSTMACRONAME</emphasis>, <emphasis>SERVICEMACRONAME</emphasis>, and <emphasis>CONTACTMACRONAME</emphasis> with
+  the name of one of the standard host, service, or contact macros found <link linkend="macrolist">here</link>. The delimiter you specify is
+  used to separate macro values for each group member.</para>
 
   <para>For example, the following macro will return a comma-separated list of host state ids for hosts that are members of the
   <emphasis>hg1</emphasis> hostgroup:</para>
@@ -163,8 +174,8 @@
 
   <para><emphasis role="bold">Custom Variable Macros</emphasis></para>
 
-  <para>Any <link linkend="customobjectvars">custom object variables</link> that you define in host, service, or contact
-  definitions are also available as macros. Custom variable macros are named as follows:</para>
+  <para>Any <link linkend="customobjectvars">custom object variables</link> that you define in host, service, or contact definitions are
+  also available as macros. Custom variable macros are named as follows:</para>
 
   <itemizedlist>
     <listitem>
@@ -190,15 +201,15 @@
         }</screen>
 
   <para>The _MACADDRESS custom variable would be available in a macro called <emphasis condition="red"
-  role="color">$_HOSTMACADDRESS$</emphasis>. More information on custom object variables and how they can be used in macros can be
-  found <link linkend="customobjectvars">here</link>.</para>
+  role="color">$_HOSTMACADDRESS$</emphasis>. More information on custom object variables and how they can be used in macros can be found
+  <link linkend="customobjectvars">here</link>.</para>
 
   <para><emphasis role="bold">Macro Cleansing</emphasis></para>
 
-  <para>Some macros are stripped of potentially dangerous shell metacharacters before being substituted into commands to be
-  executed. Which characters are stripped from the macros depends on the setting of the <link
-  linkend="configmain-illegal_macro_output_chars">illegal_macro_output_chars</link> directive. The following macros are stripped
-  of potentially dangerous characters:</para>
+  <para>Some macros are stripped of potentially dangerous shell metacharacters before being substituted into commands to be executed. Which
+  characters are stripped from the macros depends on the setting of the <link
+  linkend="configmain-illegal_macro_output_chars">illegal_macro_output_chars</link> directive. The following macros are stripped of
+  potentially dangerous characters:</para>
 
   <orderedlist>
     <listitem>
@@ -245,17 +256,21 @@
   <para><emphasis role="bold">Macros as Environment Variables</emphasis></para>
 
   <para>Most macros are made available as environment variables for easy reference by scripts or commands that are executed by
-  &name-icinga;. For purposes of security and sanity, <link linkend="macrolist-user">$USERn$</link> and "on-demand" host and
-  service macros are <emphasis role="underline">not</emphasis> made available as environment variables.</para>
+  &name-icinga;. For purposes of security and sanity, <link linkend="macrolist-user">$USERn$</link> and "on-demand" host and service macros
+  are <emphasis role="underline">not</emphasis> made available as environment variables.</para>
 
   <para>Environment variables that contain standard macros are named the same as their corresponding macro names (listed <link
   linkend="macrolist">here</link>), with "ICINGA_" prepended to their names. For example, the <link
-  linkend="macrolist-hostname">$HOSTNAME$</link> macro would be available as an environment variable named
-  "ICINGA_HOSTNAME".</para>
+  linkend="macrolist-hostname">$HOSTNAME$</link> macro would be available as an environment variable named "ICINGA_HOSTNAME".</para>
 
   <para><emphasis role="bold">Available Macros</emphasis></para>
 
-  <para>A list of all the macros that are available in &name-icinga;, as well as a chart of when they can be used, can be found
-  <link linkend="macrolist">here</link>.</para>
-  <indexterm zone="macro_overview"><primary>Macros</primary><secondary>Understanding Macros and How They Work</secondary></indexterm>
+  <para>A list of all the macros that are available in &name-icinga;, as well as a chart of when they can be used, can be found <link
+  linkend="macrolist">here</link>.</para>
+
+  <indexterm zone="macro_overview">
+    <primary>Macros</primary>
+
+    <secondary>Understanding Macros and How They Work</secondary>
+  </indexterm>
 </section>
