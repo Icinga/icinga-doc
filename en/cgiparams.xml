@@ -24,17 +24,17 @@
 
   <para>Instead of using your browser you may want to run the CGIs on the command line and process the results with other tools. For a first
   impression change to the folder containing the *.cgi modules (e.g. <filename>/usr/local/icinga/sbin</filename>), set some environment
-  variables and execute one of the CGIs:<programlisting> $&gt; export REMOTE_USER=icingaadmin   # or choose the appropriate user
+  variables and execute one of the CGIs:<screen> $&gt; export REMOTE_USER=icingaadmin   # or choose the appropriate user
  $&gt; export REQUEST_METHOD='GET'      # if you enter queries
  $&gt; export QUERY_STRING='host=all'   # see the tables below 
 
- $&gt; ./status.cgi</programlisting>Depending on the number of hosts this may return a lot of lines containing HTML code in between which
+ $&gt; ./status.cgi</screen>Depending on the number of hosts this may return a lot of lines containing HTML code in between which
   most people will find hard to read so you should add "&amp;csvoutput" or "&amp;jsonoutput" to QUERY_STRING along with other
   arguments.</para>
 
   <para>Set QUERY_STRING as needed and execute the desired CGI.</para>
 
-  <para>If you forgot to set the environment variables you'll receive the following lines:<programlisting> $&gt; ./status.cgi
+  <para>If you forgot to set the environment variables you'll receive the following lines:<screen> $&gt; ./status.cgi
  getcgivars(): Unsupported REQUEST_METHOD -&gt; ''
 
  I'm guessing you're trying to execute the CGI from a command line.
@@ -45,7 +45,7 @@
  using the POST method, data is read from standard input. Also of
  note: if you've enabled authentication in the CGIs, you must set the
  "REMOTE_USER" environment variable to be the name of the user you're
- "authenticated" as.</programlisting></para>
+ "authenticated" as.</screen></para>
 
   <para>You will find some examples <link linkend="cgicmd">here</link>.</para>
 
@@ -1303,9 +1303,9 @@
 
           <entry/>
 
-          <entry/>
+          <entry>X[5]</entry>
 
-          <entry/>
+          <entry>X[5]</entry>
 
           <entry/>
 
@@ -2455,9 +2455,9 @@
 
           <entry/>
 
-          <entry/>
+          <entry>X[5]</entry>
 
-          <entry/>
+          <entry>X[5]</entry>
 
           <entry/>
 
@@ -4716,7 +4716,7 @@
 
   <para><anchor xml:id="cgiparams-statustypes"/><emphasis role="bold">Excerpt from include/statusdata.h</emphasis></para>
 
-  <para><screen>/*************************** SERVICE STATES ***************************/
+  <para><programlisting>/*************************** SERVICE STATES ***************************/
 #define SERVICE_PENDING  1
 #define SERVICE_OK       2
 #define SERVICE_WARNING  4
@@ -4727,7 +4727,7 @@
 #define HOST_PENDING     1
 #define HOST_UP          2
 #define HOST_DOWN        4
-#define HOST_UNREACHABLE 8</screen></para>
+#define HOST_UNREACHABLE 8</programlisting></para>
 
   <para>[1] Logical OR means that the numbers are added and only the objects will be displayed satisfying ALL conditions
   (properties).</para>
