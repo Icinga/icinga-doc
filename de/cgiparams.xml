@@ -925,9 +925,9 @@
 
           <entry/>
 
-          <entry/>
+          <entry>X[5]</entry>
 
-          <entry/>
+          <entry>X[5]</entry>
 
           <entry/>
 
@@ -1363,7 +1363,7 @@
         <row>
           <entry><anchor xml:id="cgiparams-hoststatustypes"/>hoststatustypes</entry>
 
-          <entry>X</entry>
+          <entry/>
 
           <entry/>
 
@@ -2001,7 +2001,7 @@
         </row>
 
         <row>
-          <entry><anchor xml:id="cgiparams-oldestfirst"/>oldestfirst</entry>
+          <entry><anchor xml:id="cgiparams-oldestfirst"/>oldestfirst [6]</entry>
 
           <entry/>
 
@@ -2020,6 +2020,38 @@
           <entry/>
 
           <entry>X</entry>
+
+          <entry/>
+
+          <entry/>
+
+          <entry/>
+
+          <entry/>
+
+          <entry/>
+        </row>
+
+        <row>
+          <entry><anchor xml:id="cgiparams-order"/>order [5]</entry>
+
+          <entry/>
+
+          <entry/>
+
+          <entry/>
+
+          <entry/>
+
+          <entry/>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry/>
+
+          <entry/>
 
           <entry/>
 
@@ -2973,9 +3005,9 @@
 
           <entry/>
 
-          <entry/>
+          <entry>X[5]</entry>
 
-          <entry/>
+          <entry>X[5]</entry>
 
           <entry/>
 
@@ -3264,6 +3296,70 @@
           <entry/>
 
           <entry/>
+
+          <entry/>
+
+          <entry/>
+
+          <entry/>
+
+          <entry/>
+
+          <entry/>
+
+          <entry/>
+
+          <entry/>
+        </row>
+
+        <row>
+          <entry><anchor xml:id="cgiparams-ts_end"/>ts_end [5]</entry>
+
+          <entry/>
+
+          <entry>X</entry>
+
+          <entry/>
+
+          <entry/>
+
+          <entry/>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
+
+          <entry/>
+
+          <entry/>
+
+          <entry/>
+
+          <entry/>
+
+          <entry/>
+
+          <entry/>
+
+          <entry/>
+        </row>
+
+        <row>
+          <entry><anchor xml:id="cgiparams-ts_start"/>ts_start [5]</entry>
+
+          <entry/>
+
+          <entry>X</entry>
+
+          <entry/>
+
+          <entry/>
+
+          <entry/>
+
+          <entry>X</entry>
+
+          <entry>X</entry>
 
           <entry/>
 
@@ -4072,7 +4168,19 @@
 
           <entry>oldestfirst</entry>
 
-          <entry>Default: aktuelles Einträge zuerst anzeigen</entry>
+          <entry>Default: aktuelle Einträge zuerst anzeigen; siehe [6]</entry>
+        </row>
+
+        <row>
+          <entry><link linkend="cgiparams-order">order</link></entry>
+
+          <entry>Sortierreihenfolge festlegen</entry>
+
+          <entry>old2new / new2old</entry>
+
+          <entry>order=old2new</entry>
+
+          <entry>Default: aktuelle Einträge zuerst anzeigen; siehe [5]</entry>
         </row>
 
         <row>
@@ -4331,7 +4439,7 @@
         </row>
 
         <row>
-          <entry>show_log_entries</entry>
+          <entry><link linkend="show_log_entries">show_log_entries</link></entry>
 
           <entry>Log-Eintrage anzeigen</entry>
 
@@ -4418,7 +4526,7 @@
         <row>
           <entry><link linkend="cgiparams-start">start</link></entry>
 
-          <entry>Ergebinszähler</entry>
+          <entry>Ergebniszähler</entry>
 
           <entry/>
 
@@ -4502,7 +4610,7 @@
         </row>
 
         <row>
-          <entry>t1</entry>
+          <entry><link linkend="cgiparams-t1">t1</link></entry>
 
           <entry>Startpunkt eines maßgeschneiderten Zeitfensters</entry>
 
@@ -4514,7 +4622,7 @@
         </row>
 
         <row>
-          <entry>t2</entry>
+          <entry><link linkend="cgiparams-t2">t2</link></entry>
 
           <entry>Endpunkt eines maßgeschneiderten Zeitfensters</entry>
 
@@ -4548,6 +4656,30 @@
           <entry/>
 
           <entry/>
+        </row>
+
+        <row>
+          <entry><link linkend="cgiparams-ts_end">ts_end</link></entry>
+
+          <entry>Daten bis zu ts_end anzeigen (Unix-Timestamp)</entry>
+
+          <entry>Ein gültiger Unix-Timestamp</entry>
+
+          <entry/>
+
+          <entry>siehe [5]</entry>
+        </row>
+
+        <row>
+          <entry><link linkend="cgiparams-ts_start">ts_start</link></entry>
+
+          <entry>Daten ab ts_start anzeigen (Unix-Timestamp)</entry>
+
+          <entry>Ein gültiger Unix-Timestamp</entry>
+
+          <entry/>
+
+          <entry>siehe [5]</entry>
         </row>
 
         <row>
@@ -4806,6 +4938,8 @@
   <para>[4] Verfügbar ab &name-icinga; 1.7.</para>
 
   <para>[5] Verfügbar ab &name-icinga; 1.8.</para>
+
+  <para>[6] Entfällt ab &name-icinga; 1.8.</para>
 
   <indexterm zone="cgiparams">
     <primary>CGIs</primary>
@@ -5207,6 +5341,12 @@
     <secondary>oldestfirst</secondary>
   </indexterm>
 
+  <indexterm zone="cgiparams-order">
+    <primary>CGI-Parameter</primary>
+
+    <secondary>order</secondary>
+  </indexterm>
+
   <indexterm zone="cgiparams-performance_data">
     <primary>CGI-Parameter</primary>
 
@@ -5439,6 +5579,18 @@
     <primary>CGI-Parameter</primary>
 
     <secondary>trigger</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-ts_end">
+    <primary>CGI-Parameter</primary>
+
+    <secondary>ts_end</secondary>
+  </indexterm>
+
+  <indexterm zone="cgiparams-ts_start">
+    <primary>CGI-Parameter</primary>
+
+    <secondary>ts_start</secondary>
   </indexterm>
 
   <indexterm zone="cgiparams-type">
