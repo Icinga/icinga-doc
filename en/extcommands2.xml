@@ -475,10 +475,11 @@
 
   <para><anchor xml:id="extcmd2-del_downtime_by_host_name"/> <emphasis role="bold">DEL_DOWNTIME_BY_HOST_NAME</emphasis></para>
 
-  <para><code>DEL_DOWNTIME_BY_HOST_NAME;</code>&lt;host_name&gt;</para>
+  <para><code>DEL_DOWNTIME_BY_HOST_NAME;</code>&lt;host_name&gt;[;&lt;servicedesc&gt;[;&lt;starttime&gt;[;&lt;commentstring&gt;]]]</para>
 
-  <para>Deletes the host downtime entry for the host whose host_name matches the "host_name" argument. If the downtime is currently in
-  effect, the host will come out of scheduled downtime (as long as there are no other overlapping active downtime entries).</para>
+  <para>Deletes the host downtime entry and associated services for the host whose host_name matches the "host_name" argument. If the
+  downtime is currently in effect, the host will come out of scheduled downtime (as long as there are no other overlapping active downtime
+  entries). Please note that you can add more (optional) "filters" to limit the scope.</para>
 
   <note>
     <para>This command is available starting with &name-icinga; 1.4. Changes provided by the <link xlink:href="http://www.opsview.com/">
@@ -487,11 +488,11 @@
 
   <para><anchor xml:id="extcmd2-del_downtime_by_hostgroup_name"/> <emphasis role="bold">DEL_DOWNTIME_BY_HOSTGROUP_NAME</emphasis></para>
 
-  <para><code>DEL_DOWNTIME_BY_HOSTGROUP_NAME;</code>&lt;hostgroup_name&gt;</para>
+  <para><code>DEL_DOWNTIME_BY_HOSTGROUP_NAME;</code>&lt;hostgroup_name&gt;[;&lt;hostname&gt;[;&lt;servicedesc&gt;[;&lt;starttime&gt;[;&lt;commentstring&gt;]]]]</para>
 
-  <para>Deletes the host downtime entries of all hosts of the host group matching the "hostgroup_name" argument. If the downtime is
-  currently in effect, the host will come out of scheduled downtime (as long as there are no other overlapping active downtime
-  entries).</para>
+  <para>Deletes the host downtime entries and associated services of all hosts of the host group matching the "hostgroup_name" argument. If
+  the downtime is currently in effect, the host will come out of scheduled downtime (as long as there are no other overlapping active
+  downtime entries). Please note that you can add more (optional) "filters" to limit the scope.</para>
 
   <note>
     <para>This command is available starting with &name-icinga; 1.4. Changes provided by the <link xlink:href="http://www.opsview.com/">
@@ -501,9 +502,10 @@
   <para><anchor xml:id="extcmd2-del_downtime_by_start_time_comment"/> <emphasis
   role="bold">DEL_DOWNTIME_BY_START_TIME_COMMENT</emphasis></para>
 
-  <para><code>DEL_DOWNTIME_BY_START_TIME_COMMENT;</code>&lt;start time[;comment_id]&gt;</para>
+  <para><code>DEL_DOWNTIME_BY_START_TIME_COMMENT;</code>&lt;start time[;comment_string]&gt;</para>
 
-  <para>Deletes downtimes with start times matching the timestamp specified by the "start time" argument and an optional comment ID.</para>
+  <para>Deletes downtimes with start times matching the timestamp specified by the "start time" argument and an optional comment
+  string.</para>
 
   <note>
     <para>This command is available starting with &name-icinga; 1.4. Changes provided by the <link xlink:href="http://www.opsview.com/">
@@ -702,7 +704,7 @@
   <para><anchor xml:id="extcmd2-disable_notifications_expire_time"/> <emphasis
   role="bold">DISABLE_NOTIFICATIONS_EXPIRE_TIME</emphasis></para>
 
-  <para><code>DISABLE_NOTIFICATIONS_EXPIRE_TIME;&lt;schedule_time&gt;;&lt;expire_time&gt;</code> </para>
+  <para><code>DISABLE_NOTIFICATIONS_EXPIRE_TIME;&lt;schedule_time&gt;;&lt;expire_time&gt;</code></para>
 
   <para>&lt;schedule_time&gt; has no effect currently, set it to current timestamp in your scripts.</para>
 
