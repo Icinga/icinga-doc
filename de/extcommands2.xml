@@ -484,9 +484,10 @@
 
   <para><anchor xml:id="extcmd2-del_downtime_by_host_name"/> <emphasis role="bold">DEL_DOWNTIME_BY_HOST_NAME</emphasis></para>
 
-  <para><code>DEL_DOWNTIME_BY_HOST_NAME;</code>&lt;host_name&gt;</para>
+  <para><code>DEL_DOWNTIME_BY_HOST_NAME;</code>&lt;host_name&gt;[;&lt;servicedesc&gt;[;&lt;starttime&gt;[;&lt;commentstring&gt;]]]</para>
 
-  <para>Löscht die Ausfallzeiten des Hosts, der über "host_name" angegeben wurde.</para>
+  <para>Löscht die Ausfallzeiten des Hosts, der über "host_name" angegeben wurde, sowie dessen verbundene Services. Bitte beachten Sie, dass
+  Sie den Bereich mit optionalen "Filtern" weiter einschränken können.</para>
 
   <note>
     <para>Dieser Befehl ist ab &name-icinga; 1.4 verfügbar. Die Änderungen stammen vom <link
@@ -495,9 +496,10 @@
 
   <para><anchor xml:id="extcmd2-del_downtime_by_hostgroup_name"/> <emphasis role="bold">DEL_DOWNTIME_BY_HOSTGROUP_NAME</emphasis></para>
 
-  <para><code>DEL_DOWNTIME_BY_HOSTGROUP_NAME;</code>&lt;hostgroup_name&gt;</para>
+  <para><code>DEL_DOWNTIME_BY_HOSTGROUP_NAME;</code>&lt;hostgroup_name&gt;[host_name&gt;[;&lt;servicedesc&gt;[;&lt;starttime&gt;[;&lt;commentstring&gt;]]]]</para>
 
-  <para>Löscht die Ausfallzeiten aller Hosts der Hostgruppe, die über "hostgroup_name" angegeben wurde.</para>
+  <para>Löscht die Ausfallzeiten aller Hosts der Hostgruppe, die über "hostgroup_name" angegeben wurde, sowie deren verbundene Services.
+  Bitte beachten Sie, dass Sie den Bereich mit optionalen "Filtern" weiter einschränken können.</para>
 
   <note>
     <para>Dieser Befehl ist ab &name-icinga; 1.4 verfügbar. Die Änderungen stammen vom <link
@@ -507,10 +509,10 @@
   <para><anchor xml:id="extcmd2-del_downtime_by_start_time_comment"/> <emphasis
   role="bold">DEL_DOWNTIME_BY_START_TIME_COMMENT</emphasis></para>
 
-  <para><code>DEL_DOWNTIME_BY_START_TIME_COMMENT;</code>&lt;start time[;comment_id]&gt;</para>
+  <para><code>DEL_DOWNTIME_BY_START_TIME_COMMENT;</code>&lt;start time[;commentstring]&gt;</para>
 
   <para>Löscht die Ausfallzeiten mit Startzeiten, die dem Zeitstempel entsprechen, der über "start time" angegeben wurde. Optional wird
-  zusätzlich auch die Kommentar-ID überprüft.</para>
+  zusätzlich auch der Kommentar überprüft.</para>
 
   <note>
     <para>Dieser Befehl ist ab &name-icinga; 1.4 verfügbar. Die Änderungen stammen vom <link
@@ -712,7 +714,7 @@
   <para><anchor xml:id="extcmd2-disable_notifications_expire_time"/> <emphasis
   role="bold">DISABLE_NOTIFICATIONS_EXPIRE_TIME</emphasis></para>
 
-  <para><code>DISABLE_NOTIFICATIONS_EXPIRE_TIME;&lt;schedule_time&gt;;&lt;expire_time&gt;</code> </para>
+  <para><code>DISABLE_NOTIFICATIONS_EXPIRE_TIME;&lt;schedule_time&gt;;&lt;expire_time&gt;</code></para>
 
   <para>Die &lt;schedule_time&gt; hat derzeit noch keine Funktion, setzen Sie sie auf die aktuelle Zeit.</para>
 
