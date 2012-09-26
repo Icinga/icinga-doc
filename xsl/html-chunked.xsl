@@ -41,6 +41,9 @@
 <!-- toc 2 deep -->
 <xsl:param name="toc.section.depth">2</xsl:param>
 
+<!-- section toc 2 deep -->
+<xsl:param name="generate.section.toc.level">2</xsl:param>
+
 <!-- section numbering -->
 <xsl:param name="section.autolabel">1</xsl:param>
 <xsl:param name="section.label.includes.component.label">1</xsl:param>
