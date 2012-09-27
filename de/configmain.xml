@@ -784,7 +784,41 @@
   <para>Dies ist das Verzeichnis, in dem &name-icinga; die Protokolldateien ablegen soll, die rotiert wurden. Diese Option wird ignoriert,
   wenn Sie die Funktionalität der <link linkend="configmain-log_rotation_method">Protokollrotation</link> (log rotation) nicht
   nutzen.</para>
+<para><anchor xml:id="configmain-use_daemon_log"/><emphasis role="bold">Protokollierungsoptionen des Daemons</emphasis> (LOGGING OPTIONS FOR DAEMON)</para>
 
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">use_daemon_log=&lt;0/1&gt;</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry><para>Beispiel:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">use_daemon_log=1</emphasis></emphasis></para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Mit dieser Option können Sie die Protokollierung des Log-Daemons in die Protokolldatei (normalerweise icinga.log) ein- und abschalten.</para>
+ <itemizedlist>
+    <listitem>
+      <para>0 = keine Protokollierung</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = Protokollierung (Default)</para>
+    </listitem>
+  </itemizedlist>
   <para><anchor xml:id="configmain-check_external_commands"/><emphasis role="bold">Option externe Befehle prüfen</emphasis> (External
   Command Check Option)</para>
 
@@ -813,7 +847,9 @@
 
   <para>Diese Option legt fest, ob &name-icinga; das <link linkend="configmain-command_file">command file</link> auf auszuführende Befehle
   prüfen soll. Diese Option muss aktiviert sein, wenn Sie planen, das <link linkend="cgis-cmd_cgi">Command-CGI</link> zu nutzen, um Befehle
-  über das Web-Interface zu erteilen. &name-web; und Addons wie &name-nagvis;, Nagios Checker, Nagstamon oder auch &name-nagiosql; nutzen ebenfalls das &name-icinga; Command File um Befehle an &name-icinga; zu senden. Mehr Informationen zu externen Befehlen finden Sie <link linkend="extcommands">hier</link>.</para>
+  über das Web-Interface zu erteilen. &name-web; und Addons wie &name-nagvis;, Nagios Checker, Nagstamon oder auch &name-nagiosql; nutzen
+  ebenfalls das &name-icinga; Command File um Befehle an &name-icinga; zu senden. Mehr Informationen zu externen Befehlen finden Sie <link
+  linkend="extcommands">hier</link>.</para>
 
   <itemizedlist>
     <listitem>
@@ -855,8 +891,11 @@
   zwischen Prüfungen auf externe Befehle gewartet werden soll. Wenn Sie das "s" weglassen, ist dies die Zahl von "Zeiteinheiten", die
   zwischen den Prüfungen auf externe Befehle gewartet werden soll. Solange Sie nicht den Standardwert (60) der <link
   linkend="configmain-interval_length">interval_length</link>-Direktive geändert haben (wie weiter unten definiert), bedeutet dieser Wert
-  Minuten.</para> 
-<note>&name-icinga; prüft auch nach der Ausführung von Event- Handlern auf externe Befehle.</note>
+  Minuten.</para>
+
+  <note>
+    <para>&name-icinga; prüft auch nach der Ausführung von Event- Handlern auf externe Befehle.</para>
+  </note>
 
   <para>Anmerkung: durch das Setzen dieses Wertes auf <emphasis role="bold">-1</emphasis> wird &name-icinga; so oft wie möglich auf externe
   Befehle prüfen. Jedes Mal, wenn &name-icinga; auf externe Befehle prüft, wird es alle im <link linkend="configmain-command_file">command
@@ -889,10 +928,10 @@
   </informaltable>
 
   <para>Dies ist die Datei, die &name-icinga; auf zu verarbeitende externe Befehle prüfen wird. Das <link
-  linkend="cgis-cmd_cgi">Command-CGI</link>, &name-web; und diverse Addons schreiben Befehle in diese Datei. Die externe Befehlsdatei ist als "named pipe" (FIFO)
-  implementiert, die beim Start von &name-icinga; angelegt und beim Herunterfahren wieder gelöscht wird. Wenn die Datei beim Start von
-  &name-icinga; existiert, wird der &name-icinga;-Prozess mit einer Fehlermeldung enden. Mehr Informationen zu externen Befehlen finden Sie
-  <link linkend="extcommands">hier</link>.</para>
+  linkend="cgis-cmd_cgi">Command-CGI</link>, &name-web; und diverse Addons schreiben Befehle in diese Datei. Die externe Befehlsdatei ist
+  als "named pipe" (FIFO) implementiert, die beim Start von &name-icinga; angelegt und beim Herunterfahren wieder gelöscht wird. Wenn die
+  Datei beim Start von &name-icinga; existiert, wird der &name-icinga;-Prozess mit einer Fehlermeldung enden. Mehr Informationen zu externen
+  Befehlen finden Sie <link linkend="extcommands">hier</link>.</para>
 
   <para><anchor xml:id="configmain-external_command_buffer_slots"/><emphasis role="bold">externe Befehlspuffer-Slots</emphasis> (External
   Command Buffer Slots)</para>
@@ -1135,6 +1174,46 @@
 
     <listitem>
       <para>1 = aufbewahrten Programmzustand nutzen (Default)</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><anchor xml:id="configmain-dump_retained_host_service_states_to_neb"/><emphasis role="bold">Option Weitergabe der
+  Statusinformationen an Neb-Module </emphasis> (Dump Retained Host Service States To Neb Option)</para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">dump_retained_host_service_states_to_neb=&lt;0/1&gt;</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry><para>Beispiel:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">dump_retained_host_service_states_to_neb=1</emphasis>
+          </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Diese Einstellung legt fest, ob &name-icinga; die in der <link
+  linkend="configmain-state_retention_file">Statusaufbewahrungsdatei</link> gespeicherten Statusinformationen der Host- und Services an die
+  NEB-Module weitergibt. Wenn Sie das nicht wünschen, deaktivieren Sie diese Option auf Ihr eigenes Risiko.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>0 = Statusinformationen nicht weitergeben</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = Statusinformationen weitergeben (Default)</para>
     </listitem>
   </itemizedlist>
 
@@ -3290,6 +3369,35 @@
     </listitem>
   </itemizedlist>
 
+  <para><anchor xml:id="configmain-time_change_threshold"/><emphasis role="bold">Schwellwert für die Abweichung von der
+  Systemzeit</emphasis> (Time Change Threshold Option)</para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">time_change_threshold=(seconds)</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry><para>Beispiel:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">time_change_threshold=900</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Diese Option legt fest, wann &name-icinga; auf festgestellte System-Zeit-Abweichungen reagieren soll (vorwärts- wie
+  rückwärts).</para>
+
   <para><anchor xml:id="configmain-service_check_timeout"/><emphasis role="bold">Service-Prüfungs-Zeitüberschreitung</emphasis> (Service
   Check Timeout)</para>
 
@@ -4671,7 +4779,7 @@
   role="bold">$SERVICEOUTPUT$</emphasis>, <emphasis role="bold">$SERVICEPERFDATA$</emphasis>, <emphasis
   role="bold">$SERVICEACKAUTHOR$</emphasis>, und <emphasis role="bold">$SERVICEACKCOMMENT$</emphasis></para>
 
-<para><anchor xml:id="configmain-keep_unknown_macros"/> <emphasis role="bold">Option Behalten von unbekannten Makros</emphasis></para>
+  <para><anchor xml:id="configmain-keep_unknown_macros"/> <emphasis role="bold">Option Behalten von unbekannten Makros</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
@@ -4695,7 +4803,11 @@
       </tbody>
     </tgroup>
   </informaltable>
-<para>Diese Option kann verwendet werden, um unbekannte Makros in der Ausgabe zu belassen, z.B. check_proc -C $foo$, verbleibt in der Kommandozeile. Die Shell versucht $foo zu interpretieren und belässt ein einzelnes $- Zeichen in der Ausgabe. Ab &name-icinga; 1.8 werden solche unbekannten Makros aus der Ausgabe gelöscht. Siehe auch <link xlink:href="https://dev.icinga.org/issues/2291">#2291 </link>für weitere Informationen. Um das alte Verhalten wieder herzustellen muss diese Option aktiviert werden.</para>
+
+  <para>Diese Option kann verwendet werden, um unbekannte Makros in der Ausgabe zu belassen, z.B. check_proc -C $foo$, verbleibt in der
+  Kommandozeile. Die Shell versucht $foo zu interpretieren und belässt ein einzelnes $- Zeichen in der Ausgabe. Ab &name-icinga; 1.8 werden
+  solche unbekannten Makros aus der Ausgabe gelöscht. Siehe auch <link xlink:href="https://dev.icinga.org/issues/2291">#2291 </link>für
+  weitere Informationen. Um das alte Verhalten wieder herzustellen muss diese Option aktiviert werden.</para>
 
   <para><anchor xml:id="configmain-use_regexp_matching"/><emphasis role="bold">Option Anpassung regulärer Ausdrücke</emphasis> (Regular
   Expression Matching Option)</para>
@@ -5355,7 +5467,11 @@
 
     <secondary>Protokollarchiv-Pfad</secondary>
   </indexterm>
+<indexterm zone="configmain-use_daemon_log">
+    <primary>use_daemon_log=</primary>
 
+    <secondary>Protokollierungs-Daemon</secondary>
+  </indexterm>
   <indexterm zone="configmain-check_external_commands">
     <primary>check_external_commands=</primary>
 
@@ -5408,6 +5524,12 @@
     <primary>use_retained_program_state=</primary>
 
     <secondary>benutzen des aufbewahrten Programmzustands</secondary>
+  </indexterm>
+
+  <indexterm zone="configmain-dump_retained_host_service_states_to_neb">
+    <primary>dump_retained_host_service_states_to_neb=</primary>
+
+    <secondary>Weitergabe von Statusinformation an die Neb-Module</secondary>
   </indexterm>
 
   <indexterm zone="configmain-use_retained_scheduling_info">
@@ -5716,6 +5838,12 @@
     <secondary>Soft-Status-Abhängigkeiten</secondary>
   </indexterm>
 
+  <indexterm zone="configmain-time_change_threshold">
+    <primary>time_change_threshold=</primary>
+
+    <secondary>Systemzeitabweichung- Schwellenwert</secondary>
+  </indexterm>
+
   <indexterm zone="configmain-service_check_timeout">
     <primary>service_check_timeout=</primary>
 
@@ -5943,11 +6071,13 @@
 
     <secondary>Illegale Makroausgabe</secondary>
   </indexterm>
-<indexterm zone="configmain-keep_unknown_macros">
+
+  <indexterm zone="configmain-keep_unknown_macros">
     <primary>keep_unknown_macros=</primary>
 
     <secondary>Unbekannte Makros</secondary>
   </indexterm>
+
   <indexterm zone="configmain-use_regexp_matching">
     <primary>use_regexp_matching=</primary>
 

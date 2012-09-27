@@ -128,8 +128,10 @@
     <listitem>
       <para><link linkend="configmain-log_archive_path">Log archive path</link></para>
     </listitem>
+<listitem>
+      <para><link linkend="configmain-use_daemon_log">Logging options for daemon</link></para>
+</listitem>
   </itemizedlist>
-
   <itemizedlist>
     <listitem>
       <para><link linkend="configmain-check_external_commands">External command check option</link></para>
@@ -173,6 +175,10 @@
 
     <listitem>
       <para><link linkend="configmain-use_retained_program_state">Use retained program state option</link></para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="configmain-dump_retained_host_service_states_to_neb">Dump retained host service states to neb</link></para>
     </listitem>
 
     <listitem>
@@ -395,6 +401,12 @@
   <itemizedlist>
     <listitem>
       <para><link linkend="configmain-soft_state_dependencies">Soft state dependencies option</link></para>
+    </listitem>
+  </itemizedlist>
+
+  <itemizedlist>
+    <listitem>
+      <para><link linkend="configmain-time_change_threshold">Time change threshold option</link></para>
     </listitem>
   </itemizedlist>
 
@@ -1368,6 +1380,41 @@
   <para>This is the directory where &name-icinga; should place log files that have been rotated. This option is ignored if you choose to not
   use the <link linkend="configmain-log_rotation_method">log rotation</link> functionality.</para>
 
+<para><anchor xml:id="configmain-use_daemon_log"/><emphasis role="bold">Logging Options for Daemon</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">use_daemon_log=&lt;0/1&gt;</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry><para>Example:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">use_daemon_log=1</emphasis></emphasis></para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option determines if the log daemon writes to the log file (usually icinga.log).</para>
+ <itemizedlist>
+    <listitem>
+      <para>0 = logging disabled</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = logging enabled (default)</para>
+    </listitem>
+  </itemizedlist>
   <para><anchor xml:id="configmain-check_external_commands"/> <emphasis role="bold">External Command Check Option</emphasis></para>
 
   <informaltable frame="none">
@@ -1437,8 +1484,11 @@
   <para>If you specify a number with an "s" appended to it (i.e. 30s), this is the number of <emphasis>seconds</emphasis> to wait between
   external command checks. If you leave off the "s", this is the number of "time units" to wait between external command checks. Unless
   you've changed the <link linkend="configmain-interval_length">interval_length</link> value (as defined below) from the default value of
-  60, this number will mean minutes. </para>
-<note>Icinga will also check for external commands after event handlers are executed.</note>
+  60, this number will mean minutes.</para>
+
+  <note>
+    <para>Icinga will also check for external commands after event handlers are executed.</para>
+  </note>
 
   <note>
     <para>By setting this value to <emphasis role="bold">-1</emphasis>, &name-icinga; will check for external commands as often as possible.
@@ -1473,9 +1523,10 @@
   </informaltable>
 
   <para>This is the file that &name-icinga; will check for external commands to process. The <link linkend="cgis-cmd_cgi">command
-  CGI</link>, &name-web; and other addons write commands to this file. The external command file is implemented as a named pipe (FIFO), which is created when
-  &name-icinga; starts and removed when it shuts down. If the file exists when &name-icinga; starts, the &name-icinga; process will
-  terminate with an error message. More information on external commands can be found <link linkend="extcommands">here</link>.</para>
+  CGI</link>, &name-web; and other addons write commands to this file. The external command file is implemented as a named pipe (FIFO),
+  which is created when &name-icinga; starts and removed when it shuts down. If the file exists when &name-icinga; starts, the &name-icinga;
+  process will terminate with an error message. More information on external commands can be found <link
+  linkend="extcommands">here</link>.</para>
 
   <para><anchor xml:id="configmain-external_command_buffer_slots"/> <emphasis role="bold">External Command Buffer Slots</emphasis></para>
 
@@ -1713,6 +1764,46 @@
 
     <listitem>
       <para>1 = Use retained program state (default)</para>
+    </listitem>
+  </itemizedlist>
+
+  <para><anchor xml:id="configmain-dump_retained_host_service_states_to_neb"/><emphasis role="bold">Dump Retained Host Service States To
+  Neb</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">dump_retained_host_service_states_to_neb=&lt;0/1&gt;</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry><para>Example:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">dump_retained_host_service_states_to_neb=1</emphasis>
+          </emphasis> </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This setting determines whether or not &name-icinga; will dump host and service states based on the values saved in the <link
+  linkend="configmain-state_retention_file">retention file</link> to the neb modules. If you don't want that, use at your own risk and
+  disable it.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>0 = Don't dump status informations to neb</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = Dump status informations to neb (default)</para>
     </listitem>
   </itemizedlist>
 
@@ -3818,6 +3909,34 @@
     </listitem>
   </itemizedlist>
 
+  <para><anchor xml:id="configmain-time_change_threshold"/><emphasis role="bold">Zeitabweichungs- </emphasis> (Time Change Threshold
+  Option)</para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">time_change_threshold=seconds</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry><para>Example:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">time_change_threshold=900</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>These option determines when &name-icinga; will react to detected changes in system time (either forward or backwards).</para>
+
   <para><anchor xml:id="configmain-service_check_timeout"/> <emphasis role="bold">Service Check Timeout</emphasis></para>
 
   <informaltable frame="none">
@@ -5823,7 +5942,11 @@
 
     <secondary>Log Archive Path</secondary>
   </indexterm>
+<indexterm zone="configmain-use_daemon_log">
+    <primary>use_daemon_log=</primary>
 
+    <secondary>Log Daemon</secondary>
+  </indexterm>
   <indexterm zone="configmain-check_external_commands">
     <primary>check_external_commands=</primary>
 
@@ -5876,6 +5999,12 @@
     <primary>use_retained_program_state=</primary>
 
     <secondary>Use Retained Program State</secondary>
+  </indexterm>
+
+  <indexterm zone="configmain-dump_retained_host_service_states_to_neb">
+    <primary>dump_retained_host_service_states_to_neb=</primary>
+
+    <secondary>Dump Retained Host Service States To Neb</secondary>
   </indexterm>
 
   <indexterm zone="configmain-use_retained_scheduling_info">
@@ -6212,6 +6341,12 @@
     <primary>soft_state_dependencies=</primary>
 
     <secondary>Soft State Dependencies</secondary>
+  </indexterm>
+
+  <indexterm zone="configmain-time_change_threshold">
+    <primary>time_change_threshold=</primary>
+
+    <secondary>Time Change Adjustment Threshold</secondary>
   </indexterm>
 
   <indexterm zone="configmain-service_check_timeout">
