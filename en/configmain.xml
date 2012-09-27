@@ -547,8 +547,10 @@
       <para><link linkend="configmain-host_freshness_check_interval">Host freshness check interval</link></para>
     </listitem>
   </itemizedlist>
-
-  <itemizedlist>
+<itemizedlist>
+    <listitem>
+      <para><link linkend="configmain-p1_file_location">P1.PL File Location</link></para>
+ </listitem>
     <listitem>
       <para><link linkend="configmain-enable_embedded_perl">Embedded Perl interpreter option</link></para>
     </listitem>
@@ -598,13 +600,16 @@
     <listitem>
       <para><link linkend="configmain-admin_pager">Administrator pager</link></para>
     </listitem>
+</itemizedlist>
+<itemizedlist>
+<listitem>
+      <para><link linkend="configmain-daemon_dumps_core">Daemon Core Dumps</link></para>
+    </listitem>
   </itemizedlist>
-
   <itemizedlist>
     <listitem>
       <para><link linkend="configmain-debug_file">Debug file</link></para>
     </listitem>
-
     <listitem>
       <para><link linkend="configmain-debug_level">Debug level</link></para>
     </listitem>
@@ -5019,6 +5024,25 @@
   <para>This option determines the number of seconds &name-icinga; will add to any host or services freshness threshold it automatically
   calculates (e.g. those not specified explicity by the user). More information on freshness checking can be found <link
   linkend="freshness">here</link>.</para>
+<para><anchor xml:id="configmain-p1_file_location"/><emphasis role="bold">P1.PL File Location</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">p1_file=@P1FILELOC@/p1.pl</emphasis></para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This value determines where the p1.pl perl script (used by the embedded Perl interpreter) is located. If you didn't compile &name-icinga; with embedded Perl support, this option has no effect.</para>
 
   <para><anchor xml:id="configmain-enable_embedded_perl"/> <emphasis role="bold">Embedded Perl Interpreter Option</emphasis></para>
 
@@ -5435,7 +5459,40 @@
   <para>This is the pager number (or pager email gateway) for the administrator of the local machine (i.e. the one that &name-icinga; is
   running on). The pager number/address can be used in notification commands by using the <emphasis role="bold">$ADMINPAGER$</emphasis>
   <link linkend="macros">macro</link>.</para>
+<para><anchor xml:id="configmain-daemon_dumps_core"/> <emphasis role="bold">Daemon Core Dump Option</emphasis></para>
 
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">daemon_dumps_core=&lt;0/1&gt;</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry><para>Example:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">daemon_dumps_core=1</emphasis></emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+<para>This option determines whether or not Icinga is allowed to create a core dump when it runs as a daemon.  Note that it is generally considered bad form to allow this, but it may be useful for debugging purposes.  Enabling this option doesn't guarantee that a core file will be produced, but that's just life.</para>
+ <itemizedlist>
+    <listitem>
+      <para>0 = Don't allow core dumps (default)</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = Allow core dumps</para>
+    </listitem>
+</itemizedlist>
   <para><anchor xml:id="configmain-event_broker_options"/> <emphasis role="bold">Event Broker Options</emphasis></para>
 
   <informaltable frame="none">
@@ -6576,7 +6633,11 @@
 
     <secondary>Additional Freshness Threshold Latency</secondary>
   </indexterm>
+<indexterm zone="configmain-p1_file_location">
+<primary>p1_file=</primary>
 
+    <secondary>P1.PL Perl Script Location</secondary>
+  </indexterm>
   <indexterm zone="configmain-enable_embedded_perl">
     <primary>enabled_embedded_perl=</primary>
 

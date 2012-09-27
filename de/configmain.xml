@@ -784,7 +784,9 @@
   <para>Dies ist das Verzeichnis, in dem &name-icinga; die Protokolldateien ablegen soll, die rotiert wurden. Diese Option wird ignoriert,
   wenn Sie die Funktionalität der <link linkend="configmain-log_rotation_method">Protokollrotation</link> (log rotation) nicht
   nutzen.</para>
-<para><anchor xml:id="configmain-use_daemon_log"/><emphasis role="bold">Protokollierungsoptionen des Daemons</emphasis> (LOGGING OPTIONS FOR DAEMON)</para>
+
+  <para><anchor xml:id="configmain-use_daemon_log"/><emphasis role="bold">Protokollierungsoptionen des Daemons</emphasis> (LOGGING OPTIONS
+  FOR DAEMON)</para>
 
   <informaltable frame="none">
     <tgroup cols="2">
@@ -802,15 +804,16 @@
         <row>
           <entry><para>Beispiel:</para></entry>
 
-          <entry><para><emphasis condition="red" role="color"><emphasis
-          role="bold">use_daemon_log=1</emphasis></emphasis></para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">use_daemon_log=1</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
   </informaltable>
 
-  <para>Mit dieser Option können Sie die Protokollierung des Log-Daemons in die Protokolldatei (normalerweise icinga.log) ein- und abschalten.</para>
- <itemizedlist>
+  <para>Mit dieser Option können Sie die Protokollierung des Log-Daemons in die Protokolldatei (normalerweise icinga.log) ein- und
+  abschalten.</para>
+
+  <itemizedlist>
     <listitem>
       <para>0 = keine Protokollierung</para>
     </listitem>
@@ -819,6 +822,7 @@
       <para>1 = Protokollierung (Default)</para>
     </listitem>
   </itemizedlist>
+
   <para><anchor xml:id="configmain-check_external_commands"/><emphasis role="bold">Option externe Befehle prüfen</emphasis> (External
   Command Check Option)</para>
 
@@ -4524,6 +4528,28 @@
   es automatisch berechnet (d.h., die nicht explizit durch den Benutzer angegeben wurden). Mehr Informationen zur Frische-Prüfung finden Sie
   <link linkend="freshness">hier</link>.</para>
 
+  <para><anchor xml:id="configmain-p1_file_location"/><emphasis role="bold">Lokation des P1.pl Perl-Skriptes</emphasis> (P1.PL File
+  Location)</para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">p1_file=@P1FILELOC@/p1.pl</emphasis></para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Diese Option gibt den Speicherort des p1.pl Perl-Skriptes an das vom eingebetteten Perl- Interpreter genutzt wird. Diese Option ist
+  aktiv wenn Sie &name-icinga; mit eingebetteten Perl- Interpreter compiliert haben.</para>
+
   <para><anchor xml:id="configmain-enable_embedded_perl"/><emphasis role="bold">eingebetteter-Perl-Interpreter-Option</emphasis> (Embedded
   Perl Interpreter Option)</para>
 
@@ -4950,7 +4976,39 @@
   <para>Dies ist die Pager-Nummer (oder die des Pager-e-Mail-Gateways) des Administrators der lokalen Maschine (d.h. die, auf der
   &name-icinga; läuft). Die Pager-Nummer/Adresse kann mit Hilfe des <emphasis role="bold">$ADMINPAGER$</emphasis>-<link
   linkend="macros">Makros</link> in Benachrichtigungsbefehlen benutzt werden.</para>
+<para><anchor xml:id="configmain-daemon_dumps_core"/> <emphasis role="bold">Daemon Core Dump Option</emphasis></para>
 
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">daemon_dumps_core=&lt;0/1&gt;</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry><para>Beispiel:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">daemon_dumps_core=1</emphasis></emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+<para>Diese Direktive bestimmt ob es &name-icinga;, wenn es als Daemon gestartet wird, erlaubt ist Core Dumps zu erstellen. Dies kann im Fehlerfall sehr hilfsreich sein, allerdings garantiert das Aktivieren dieser Option nicht, dass auch wirklich ein Core Dump erstellt wird.</para>
+ <itemizedlist>
+    <listitem>
+      <para>0 = Keine Core Dumps (Default)</para>
+    </listitem>
+
+    <listitem>
+      <para>1 = Erlaube Core Dumps</para>
+    </listitem>
   <para><anchor xml:id="configmain-event_broker_options"/><emphasis role="bold">Ereignisvermittler-Optionen</emphasis> (Event Broker
   Options)</para>
 
@@ -5503,11 +5561,13 @@
 
     <secondary>Protokollarchiv-Pfad</secondary>
   </indexterm>
-<indexterm zone="configmain-use_daemon_log">
+
+  <indexterm zone="configmain-use_daemon_log">
     <primary>use_daemon_log=</primary>
 
     <secondary>Protokollierungs-Daemon</secondary>
   </indexterm>
+
   <indexterm zone="configmain-check_external_commands">
     <primary>check_external_commands=</primary>
 
@@ -6072,6 +6132,12 @@
     <secondary>zusätzliche Frische-Verschiebung</secondary>
   </indexterm>
 
+  <indexterm zone="configmain-p1_file_location">
+    <primary>p1_file_location=</primary>
+
+    <secondary>P1.PL Perl Skript Lokation</secondary>
+  </indexterm>
+
   <indexterm zone="configmain-enable_embedded_perl">
     <primary>enabled_embedded_perl=</primary>
 
@@ -6137,7 +6203,11 @@
 
     <secondary>Administrator-Pager</secondary>
   </indexterm>
+<indexterm zone="configmain-daemon_dumps_core">
+    <primary>daemon_dumps_core=</primary>
 
+    <secondary>Daemon Core Dumps</secondary>
+  </indexterm>
   <indexterm zone="configmain-event_broker_options">
     <primary>event_broker_options=</primary>
 
