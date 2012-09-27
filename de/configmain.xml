@@ -894,7 +894,7 @@
   Minuten.</para>
 
   <note>
-    <para>&name-icinga; prüft auch nach der Ausführung von Event- Handlern auf externe Befehle.</para>
+    <para>&name-icinga; prüft auch nach der Ausführung von Event-Handlern auf externe Befehle.</para>
   </note>
 
   <para>Anmerkung: durch das Setzen dieses Wertes auf <emphasis role="bold">-1</emphasis> wird &name-icinga; so oft wie möglich auf externe
@@ -5336,6 +5336,42 @@
     <para>Diese Optionen sind verfügbar ab &name-icinga; 1.4</para>
   </note>
 
+  <para><anchor xml:id="configmain-max_check_result_list_items"/><emphasis role="bold">Anzahl von Einträgen in Check-Result-Liste begrenzen
+  </emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry><para>Format:</para></entry>
+
+          <entry><para> <emphasis role="bold">max_check_result_list_items=&lt;n&gt;</emphasis> </para></entry>
+        </row>
+
+        <row>
+          <entry><para>Beispiel:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"> <emphasis role="bold">max_check_result_list_items=1024</emphasis> </emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Diese experimentelle Option erlaubt es Ihnen, die maximale Anzahl von Einträgen zu begrenzen, die der Check-Result-Reaper in die
+  Check-Result-Liste stellt, damit sie vom Code weiter bearbeitet wird. Wenn dies zuviele sind, wird das "Reaping" vorzeitig beendet, damit
+  der Coe die Ergebnisse früher verarbeiten kann. In größeren Setups könnte diese Liste zu sehr wachsen und die Performance verschlechtern.
+  Sie können mit diesem Wert experimentieren, wobei der Core-Default "0" ist, wodurch dieses Feature deaktiviert ist (die Größe der Liste
+  wird nicht begrenzt). Werte: 0 = Deaktieren der Begrenzung; Anzahl = max. Anzahl der Einträge in der Check-Result-Liste</para>
+
+  <note>
+    <para>Diese Option ist verfügbar ab &name-icinga; 1.8</para>
+  </note>
+
   <indexterm zone="configmain">
     <primary>Konfiguration</primary>
 
@@ -6154,5 +6190,11 @@
     <primary>service_perfdata_process_empty_results</primary>
 
     <secondary>Leere Service-Performance-Daten-Ergebnisse verarbeiten</secondary>
+  </indexterm>
+
+  <indexterm zone="configmain-max_check_result_list_items">
+    <primary>max_check_result_list_items</primary>
+
+    <secondary>Anzahl von Einträgen in Check-Result-Liste begrenzen</secondary>
   </indexterm>
 </section>
