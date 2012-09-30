@@ -509,6 +509,8 @@
     disconnect from the data sink. The number of items specified here is the number of lines (each of variable size) of output that will be
     buffered.</para>
 
+    
+
     <para><anchor xml:id="configido-buffer_file"/><emphasis role="bold">Buffer file</emphasis></para>
 
     <informaltable frame="none">
@@ -1071,7 +1073,7 @@
     <para>This option determines the name and path of the UNIX domain socket that the daemon will create and accept connections from. This
     option is only valid if the socket type specified above is "unix".</para>
 
-<para><anchor xml:id="configido-socket_perm"/><emphasis role="bold">Socket Permissions</emphasis></para>
+    <para><anchor xml:id="configido-socket_perm"/><emphasis role="bold">Socket Permissions</emphasis></para>
 
     <informaltable frame="none">
       <tgroup cols="2">
@@ -1095,7 +1097,8 @@
       </tgroup>
     </informaltable>
 
-    <para>This option determines the permissons of the Unix domain socket. This option is only valid if the socket type specified above is "unix". Default 	permissions are set to 0755.</para>
+    <para>This option determines the permissons of the Unix domain socket. This option is only valid if the socket type specified above is
+    "unix". Default permissions are set to 0755.</para>
 
     <para><anchor xml:id="configido-tcp_port2"/><emphasis role="bold">TCP-port</emphasis></para>
 
@@ -1152,6 +1155,33 @@
     to enable this feature which depends on SSL libraries like openssl or kerberos.</para>
 
     <para>This option is only valid if the output type option specified above is "tcp".</para>
+<para><anchor xml:id="configido-libdbi_driver_directory"/><emphasis role="bold">Libdbi Driver Directory</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20"/>
+
+        <colspec colname="c2" colwidth="*"/>
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">libdbi_driver_dir=@LIBDBIDRIVERDIR@</emphasis></para></entry>
+          </row>
+ 	<row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis role="bold">libdbi_driver_dir=/usr/local/lib/dbd</emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <note>
+      <para>!!!EXPERIMENTAL!!! This option is only valid when using libdbi as database abstraction layer (so not oracle) on compile time. By
+      default, libdbi will figure out the correct path itsself. If you want to change it, enable and change the value. Default: not in use.</para>
+    </note>
 
     <para><anchor xml:id="configido-db_servertype"/> <emphasis role="bold">Database server type</emphasis></para>
 
@@ -2173,7 +2203,7 @@
       <secondary>ido2db.cfg</secondary>
     </indexterm>
 
-<indexterm zone="configido-socket_perm">
+    <indexterm zone="configido-socket_perm">
       <primary>socket_perm=</primary>
 
       <secondary>ido2db.cfg</secondary>
@@ -2190,7 +2220,11 @@
 
       <secondary>ido2db.cfg</secondary>
     </indexterm>
+<indexterm zone="configido-libdbi_driver_directory">
+      <primary>libdbi_driver_directory=</primary>
 
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
     <indexterm zone="configido-db_servertype">
       <primary>db_servertype=</primary>
 
