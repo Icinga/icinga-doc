@@ -8,42 +8,45 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="cgi_cmd"/>Executing CGIs on the command line</title>
 
-  <para><emphasis role="bold">Introduction</emphasis></para>
+  <section>
+    <title>Introduction</title>
 
-  <para>In most cases you will use your browser to retrieve the information you need. There may be situations where you want to process the
-  data with other tools to create wiki entries, send mails and so on. Together with the <link linkend="cgiparams">information on the CGI
-  parameters</link> you can call the CGIs from the command line.</para>
+    <para>In most cases you will use your browser to retrieve the information you need. There may be situations where you want to process
+    the data with other tools to create wiki entries, send mails and so on. Together with the <link linkend="cgiparams">information on the
+    CGI parameters</link> you can call the CGIs from the command line.</para>
+  </section>
 
-  <para><emphasis role="bold">Prerequisites</emphasis></para>
+  <section>
+    <title>Prerequisites</title>
 
-  <para>Before actually calling the CGIs you have to set three environment variables: <itemizedlist>
-      <listitem>
-        <para>REMOTE_USER</para>
+    <para>Before actually calling the CGIs you have to set three environment variables: <itemizedlist>
+        <listitem>
+          <para>REMOTE_USER</para>
 
-        <para>This variable is set to the user which has permission to retrieve the information. In most cases this will be "icingaadmin"
-        (<literal>set REMOTE_USER='icingaadmin')</literal></para>
-      </listitem>
+          <para>This variable is set to the user which has permission to retrieve the information. In most cases this will be "icingaadmin"
+          (<literal>set REMOTE_USER='icingaadmin')</literal></para>
+        </listitem>
 
-      <listitem>
-        <para>REQUEST_METHOD</para>
+        <listitem>
+          <para>REQUEST_METHOD</para>
 
-        <para><literal>set REQUEST_METHOD='GET'</literal>. Possible values are "GET", "POST" and "HEAD"</para>
-      </listitem>
+          <para><literal>set REQUEST_METHOD='GET'</literal>. Possible values are "GET", "POST" and "HEAD"</para>
+        </listitem>
 
-      <listitem>
-        <para>QUERY_STRING</para>
+        <listitem>
+          <para>QUERY_STRING</para>
 
-        <para>Instead of passing arguments to the CGIs via the command line you have to set the variable "QUERY_STRING" with the appropriate
-        values.</para>
+          <para>Instead of passing arguments to the CGIs via the command line you have to set the variable "QUERY_STRING" with the
+          appropriate values.</para>
 
-        <note>
-          <para>Most people find it difficult to read HTML output so it may be a good idea to add "jsonoutput" or "csvoutput" to this
-          variable (<literal>QUERY_STRING='jsonoutput&amp;...'</literal> or <literal>QUERY_STRING='jsonoutput'</literal>) .</para>
-        </note>
-      </listitem>
-    </itemizedlist></para>
+          <note>
+            <para>Most people find it difficult to read HTML output so it may be a good idea to add "jsonoutput" or "csvoutput" to this
+            variable (<literal>QUERY_STRING='jsonoutput&amp;...'</literal> or <literal>QUERY_STRING='jsonoutput'</literal>) .</para>
+          </note>
+        </listitem>
+      </itemizedlist></para>
 
-  <para>If you forgot to set the environment variables you'll receive the following lines:<programlisting> $&gt; ./status.cgi
+    <para>If you forgot to set the environment variables you'll receive the following lines:<screen> $&gt; ./status.cgi
  getcgivars(): Unsupported REQUEST_METHOD -&gt; ''
 
  I'm guessing you're trying to execute the CGI from a command line.
@@ -54,46 +57,49 @@
  using the POST method, data is read from standard input. Also of
  note: if you've enabled authentication in the CGIs, you must set the
  "REMOTE_USER" environment variable to be the name of the user you're
- "authenticated" as.</programlisting></para>
+ "authenticated" as.</screen></para>
+  </section>
 
-  <para><emphasis role="bold">Examples</emphasis></para>
+  <section>
+    <title>Examples</title>
 
-  <note>
-    <para>The CGIs are called from within the folder which contains the *.cgi files (e.g. <filename>/usr/local/icinga/sbin</filename>). This
-    is not necessary but for the sake of simplicity. Unless otherwise specified the REQUEST_METHOD is set to 'GET'.</para>
-  </note>
+    <note>
+      <para>The CGIs are called from within the folder which contains the *.cgi files (e.g. <filename>/usr/local/icinga/sbin</filename>).
+      This is not necessary but for the sake of simplicity. Unless otherwise specified the REQUEST_METHOD is set to 'GET'.</para>
+    </note>
 
-  <para>Tactical overview<programlisting> $&gt; set QUERY_STRING='jsonoutput'
- $&gt; ./tac.cgi</programlisting></para>
+    <para>Tactical overview<screen> $&gt; set QUERY_STRING='jsonoutput'
+ $&gt; ./tac.cgi</screen></para>
 
-  <para>All hosts in DOWN state<programlisting> $&gt; set QUERY_STRING='jsonoutput&amp;style=hostdetail&amp;hoststatustypes=4'
- $&gt; ./status.cgi</programlisting></para>
+    <para>All hosts in DOWN state<screen> $&gt; set QUERY_STRING='jsonoutput&amp;style=hostdetail&amp;hoststatustypes=4'
+ $&gt; ./status.cgi</screen></para>
 
-  <para>All hosts in DOWN state being unacknowledged <emphasis>and</emphasis> not in a downtime<programlisting> $&gt; set QUERY_STRING='jsonoutput&amp;style=hostdetail&amp;hoststatustypes=4&amp;hostprops=10'
- $&gt; ./status.cgi</programlisting></para>
+    <para>All hosts in DOWN state being unacknowledged <emphasis>and</emphasis> not in a downtime<screen> $&gt; set QUERY_STRING='jsonoutput&amp;style=hostdetail&amp;hoststatustypes=4&amp;hostprops=10'
+ $&gt; ./status.cgi</screen></para>
 
-  <para>All service in non-OK state<programlisting> $&gt; set QUERY_STRING='jsonoutput&amp;style=detail&amp;servicestatustypes=28'
- $&gt; ./status.cgi</programlisting></para>
+    <para>All service in non-OK state<screen> $&gt; set QUERY_STRING='jsonoutput&amp;style=detail&amp;servicestatustypes=28'
+ $&gt; ./status.cgi</screen></para>
 
-  <para>All services being in CRITICAL state and being passive checks<programlisting> $&gt; set QUERY_STRING='jsonoutput&amp;style=detail&amp;servicestatustypes=28&amp;serviceprops=65536'
- $&gt; ./status.cgi</programlisting></para>
+    <para>All services being in CRITICAL state and being passive checks<screen> $&gt; set QUERY_STRING='jsonoutput&amp;style=detail&amp;servicestatustypes=28&amp;serviceprops=65536'
+ $&gt; ./status.cgi</screen></para>
 
-  <para>Comments for all objects<programlisting> $&gt; set QUERY_STRING='jsonoutput&amp;type=3'
- $&gt; ./extinfo.cgi</programlisting></para>
+    <para>Comments for all objects<screen> $&gt; set QUERY_STRING='jsonoutput&amp;type=3'
+ $&gt; ./extinfo.cgi</screen></para>
 
-  <para>Trends for router_02 specifying a custom timeperiod using unix timestamps<programlisting> $&gt; set QUERY_STRING='jsonoutput&amp;host=router_02&amp;timeperiod=custom&amp;t1=130748400&amp;t2=1307570400'
- $&gt; ./extinfo.cgi</programlisting></para>
+    <para>Trends for router_02 specifying a custom timeperiod using unix timestamps<screen> $&gt; set QUERY_STRING='jsonoutput&amp;host=router_02&amp;timeperiod=custom&amp;t1=130748400&amp;t2=1307570400'
+ $&gt; ./extinfo.cgi</screen></para>
 
-  <para>Trends for router_02 specifying a custom timeperiod using date and time<programlisting> $&gt; set QUERY_STRING='jsonoutput&amp;host=router_02&amp;timeperiod=custom\
+    <para>Trends for router_02 specifying a custom timeperiod using date and time<screen> $&gt; set QUERY_STRING='jsonoutput&amp;host=router_02&amp;timeperiod=custom\
  &amp;sday=6&amp;smon=6&amp;syear=2011&amp;shour=0&amp;smin=0&amp;ssec=0\
  &amp;eday=7&amp;emon=6&amp;eyear=2011&amp;ehour=0&amp;emin=0&amp;esec=0'
- $&gt; ./extinfo.cgi</programlisting></para>
+ $&gt; ./extinfo.cgi</screen></para>
 
-  <para>(to be continued)</para>
+    <para>(to be continued)</para>
 
-  <indexterm zone="cgicmd">
-    <primary>CGIs</primary>
+    <indexterm zone="cgicmd">
+      <primary>CGIs</primary>
 
-    <secondary>Executing CGIs on the command line</secondary>
-  </indexterm>
+      <secondary>Executing CGIs on the command line</secondary>
+    </indexterm>
+  </section>
 </section>
