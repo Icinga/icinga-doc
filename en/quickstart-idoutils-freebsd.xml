@@ -118,35 +118,41 @@
 
   <para><emphasis role="bold">New features for the &name-idoutils;:</emphasis></para>
 
-  <para><emphasis role="bold">SSL-encryption between idomod and ido2db</emphasis></para>
+  <itemizedlist>
+    <listitem>
+      <para><emphasis role="bold">SSL-encryption between idomod and ido2db</emphasis></para>
 
-  <para>If you want to use <emphasis role="bold">SSL-encryption </emphasis>: it is already installed.</para>
+      <para>If you want to use <emphasis role="bold">SSL-encryption </emphasis>: it is already installed.</para>
 
-  <note>
-    <para>SSL has to be activated on all idomod clients, otherwise you will lose data!!!</para>
-  </note>
+      <note>
+        <para>SSL has to be activated on all idomod clients, otherwise you will lose data!!!</para>
+      </note>
+    </listitem>
 
-  <para><emphasis role="bold">Oracle database support</emphasis></para>
+    <listitem>
+      <para><emphasis role="bold">Oracle database support</emphasis></para>
 
-  <para>If you want to use Oracle as an RDBMS then we are sorry. Unfortunately it isn't that easy with &name-freebsd;.</para>
+      <para>If you want to use Oracle as an RDBMS then we are sorry. Unfortunately it isn't that easy with &name-freebsd;.</para>
 
-  <para><anchor xml:id="quickstart_idof-timezone_support"/><emphasis role="bold">Timezone support</emphasis></para>
+      <para><anchor xml:id="quickstart_idof-timezone_support"/><emphasis role="bold">Timezone support</emphasis></para>
 
-  <para>Starting with &name-icinga; 1.6 all dates are stored as local timestamps in the database. Before that there was a different
-  behaviour storing and retrieving dates for each database system which was difficult to handle for frontend apps. Therefore datatypes have
-  been changed for &name-mysql; from DATETIME to TIMESTAMP and for &name-oracle; from DATE to LOCAL TIMESTAMP (0). &name-postgres; was
-  already using TIMESTAMP but has been changed to TIMESTAMP WITH TIME ZONE. IDO2DB will set session timezone to UTC and store all unix
-  timestamps (which are UTC per definition) as UTC based values. Please make sure your system returns unix timestamps as real UTC based
-  values (like "date -u '+%s'").</para>
+      <para>Starting with &name-icinga; 1.6 all dates are stored as local timestamps in the database. Before that there was a different
+      behaviour storing and retrieving dates for each database system which was difficult to handle for frontend apps. Therefore datatypes
+      have been changed for &name-mysql; from DATETIME to TIMESTAMP and for &name-oracle; from DATE to LOCAL TIMESTAMP (0). &name-postgres;
+      was already using TIMESTAMP but has been changed to TIMESTAMP WITH TIME ZONE. IDO2DB will set session timezone to UTC and store all
+      unix timestamps (which are UTC per definition) as UTC based values. Please make sure your system returns unix timestamps as real UTC
+      based values (like "date -u '+%s'").</para>
 
-  <note>
-    <para>Make sure your database session runs in the same timezone in which the existing dates have been stored (check your local timezone
-    e.g. &name-oracle;:"select sessiontimezone from dual;") if you are running the upgrade script. Additionally for your convenience in
-    &name-oracle; you should set your session timestamp format to the value you want, e.g "alter session set
-    nls_timestamp_format='YYYY-MM-DD HH24:MI:SS';" or similar. Now you can view entries from different &name-icinga; installations in
-    different time zones which are stored in the same database and regardless from where you accessing it, all entries are returned in your
-    local time zone.</para>
-  </note>
+      <note>
+        <para>Make sure your database session runs in the same timezone in which the existing dates have been stored (check your local
+        timezone e.g. &name-oracle;:"select sessiontimezone from dual;") if you are running the upgrade script. Additionally for your
+        convenience in &name-oracle; you should set your session timestamp format to the value you want, e.g "alter session set
+        nls_timestamp_format='YYYY-MM-DD HH24:MI:SS';" or similar. Now you can view entries from different &name-icinga; installations in
+        different time zones which are stored in the same database and regardless from where you accessing it, all entries are returned in
+        your local time zone.</para>
+      </note>
+    </listitem>
+  </itemizedlist>
 
   <para><emphasis role="bold">Install the packages</emphasis></para>
 
@@ -160,55 +166,61 @@
 
   <para>Please update your ports before doing so.</para>
 
-  <programlisting> #&gt; cd /usr/ports/devel/libtool/ &amp;&amp; make all install clean
+  <screen> #&gt; cd /usr/ports/devel/libtool/ &amp;&amp; make all install clean
  #&gt; cd /usr/ports/graphics/jpeg &amp;&amp; make all install clean
  #&gt; cd /usr/ports/graphics/png &amp;&amp; make all install clean
- #&gt; cd /usr/ports/graphics/gd &amp;&amp; make all install clean</programlisting>
+ #&gt; cd /usr/ports/graphics/gd &amp;&amp; make all install clean</screen>
 
   <note>
     <para>Please make sure you have Apache installed - the process will not be discussed here, however the lead is <emphasis># cd
     /usr/ports/www/apache22 &amp;&amp; make clean &amp;&amp; make</emphasis>.</para>
   </note>
 
-  <programlisting> #&gt; cd /usr/ports/devel/gmake &amp;&amp; make all install clean 
- #&gt; cd /usr/ports/devel/libltdl &amp;&amp; make all install clean &lt;-- unless installed already</programlisting>
+  <screen> #&gt; cd /usr/ports/devel/gmake &amp;&amp; make all install clean 
+ #&gt; cd /usr/ports/devel/libltdl &amp;&amp; make all install clean &lt;-- unless installed already</screen>
 
-  <para><emphasis role="bold">&name-mysql;</emphasis></para>
+  <itemizedlist>
+    <listitem>
+      <para><emphasis role="bold">&name-mysql;</emphasis></para>
 
-  <programlisting> #&gt; cd /usr/ports/databases/mysql51-server &amp;&amp; make all install clean 
- #&gt; cd /usr/ports/databases/libdbi-drivers &amp;&amp; make all install clean</programlisting>
+      <screen> #&gt; cd /usr/ports/databases/mysql51-server &amp;&amp; make all install clean 
+ #&gt; cd /usr/ports/databases/libdbi-drivers &amp;&amp; make all install clean</screen>
 
-  <para>please choose the correct driver for the database used</para>
+      <para>please choose the correct driver for the database used</para>
+    </listitem>
 
-  <para><emphasis role="bold">&name-postgres;</emphasis></para>
+    <listitem>
+      <para><emphasis role="bold">&name-postgres;</emphasis></para>
 
-  <programlisting> #&gt; cd /usr/ports/databases/postgresql84-server &amp;&amp; make all install clean 
- #&gt; cd /usr/ports/databases/libdbi-drivers &amp;&amp; make all install clean</programlisting>
+      <screen> #&gt; cd /usr/ports/databases/postgresql84-server &amp;&amp; make all install clean 
+ #&gt; cd /usr/ports/databases/libdbi-drivers &amp;&amp; make all install clean</screen>
 
-  <para>please choose the correct driver for the database used</para>
+      <para>please choose the correct driver for the database used</para>
+    </listitem>
+  </itemizedlist>
 
   <para><emphasis role="bold">Create Account Information</emphasis></para>
 
   <para>Become the root user.</para>
 
-  <programlisting> $&gt; su -l</programlisting>
+  <screen> $&gt; su -l</screen>
 
   <para>Create a new <emphasis>icinga</emphasis> user account without a password and without the ability to log-in (set no password when
   asked):</para>
 
-  <programlisting> #&gt; adduser -D -w no -s nologin</programlisting>
+  <screen> #&gt; adduser -D -w no -s nologin</screen>
 
   <para>For sending commands from the classic web interface to &name-icinga;, you'll need to create a new group icinga-cmd and add the
   webuser (www) and the &name-icinga;user to this group:</para>
 
-  <programlisting> #&gt; pw groupadd -n icinga-cmd -M icinga,www </programlisting>
+  <screen> #&gt; pw groupadd -n icinga-cmd -M icinga,www </screen>
 
   <para><emphasis role="bold">Download &name-icinga; and the plugins</emphasis></para>
 
   <para>Change to your local source directory i.e. ~/src</para>
 
-  <programlisting> #&gt; mkdir ~/src
- #&gt; cd ~/src</programlisting>
+  <screen> #&gt; mkdir ~/src
+ #&gt; cd ~/src</screen>
 
   <para>Get the current source from the <link xlink:href="http://www.icinga.org/">&name-icinga; Website</link>.</para>
 
@@ -218,9 +230,9 @@
 
   <para>Extract the &name-icinga; source code tarball (or change directory to the GIT snapshot)</para>
 
-  <programlisting> #&gt; cd ~/src/ 
+  <screen> #&gt; cd ~/src/ 
  #&gt; tar xvzf icinga-&ver-icinga;.tar.gz 
- #&gt; cd icinga-&ver-icinga;</programlisting>
+ #&gt; cd icinga-&ver-icinga;</screen>
 
   <note>
     <para>This absolute path is meant if we use the description '/path/to/icinga-src/'.</para>
@@ -228,10 +240,10 @@
 
   <para>Run the &name-icinga; configure script. You will get help by using the --help flag.</para>
 
-  <programlisting> #&gt; ./configure --with-command-group=icinga-cmd \
+  <screen> #&gt; ./configure --with-command-group=icinga-cmd \
     --enable-idoutils CPPFLAGS=-I/usr/local/include \
     CFLAGS="-I/usr/local/include -L/usr/local/lib" \
-    --with-dbi-lib=/usr/local/lib --with-dbi-inc=/usr/local/include</programlisting>
+    --with-dbi-lib=/usr/local/lib --with-dbi-inc=/usr/local/include</screen>
 
   <important>
     <para>Appending <emphasis>CPPFLAGS=-I/usr/local/include</emphasis> is important for the &name-idoutils; and the broker modul
@@ -248,22 +260,22 @@
 
   <para><emphasis role="bold">With SSL-encryption:</emphasis></para>
 
-  <programlisting> #&gt; ./configure --with-command-group=icinga-cmd \
+  <screen> #&gt; ./configure --with-command-group=icinga-cmd \
     --enable-idoutils --enable-ssl CPPFLAGS=-I/usr/local/include \
-    --with-dbi-lib=/usr/local/lib --with-dbi-inc=/usr/local/include</programlisting>
+    --with-dbi-lib=/usr/local/lib --with-dbi-inc=/usr/local/include</screen>
 
   <para>Compile the &name-icinga; source code. There is a separate option for &name-idoutils; (<emphasis>make idoutils</emphasis>) if you
   just want to recompile this module. To see possible option just call "make".</para>
 
-  <programlisting> #&gt; gmake all</programlisting>
+  <screen> #&gt; gmake all</screen>
 
   <para>Install binaries, init script, sample config files, some eventhandlers, and set permissions on the external command directory.
-  <programlisting> #&gt; make install
+  <screen> #&gt; make install
  #&gt; make install-init
  #&gt; make install-config
  #&gt; make install-eventhandlers
- #&gt; make install-commandmode </programlisting> or shorter <programlisting> #&gt; make fullinstall
- #&gt; make install-config</programlisting></para>
+ #&gt; make install-commandmode </screen> or shorter <screen> #&gt; make fullinstall
+ #&gt; make install-config</screen></para>
 
   <note>
     <para>Starting with &name-icinga; 1.5.0 <literal>make install-config</literal> is NOT included in <literal>make fullinstall
@@ -284,18 +296,18 @@
 
   <para><emphasis role="bold">Customise Configuration</emphasis></para>
 
-  <para>Sample configuration files have been installed using <programlisting> #&gt; gmake install-config</programlisting>into
-  &url-icinga-base;/etc/. You'll need to make just one change before you proceed...</para>
+  <para>Sample configuration files have been installed using <screen> #&gt; gmake install-config</screen>into &url-icinga-base;/etc/. You'll
+  need to make just one change before you proceed...</para>
 
   <para>Edit the <emphasis>&url-icinga-base;/etc/objects/contacts.cfg</emphasis> config file with your favourite editor and change the email
   address associated with the <emphasis>icingaadmin</emphasis> contact definition to the address you'd like to use for receiving
   alerts.</para>
 
-  <programlisting> #&gt; vi &url-icinga-base;/etc/objects/contacts.cfg</programlisting>
+  <screen> #&gt; vi &url-icinga-base;/etc/objects/contacts.cfg</screen>
 
-  <programlisting> #&gt; cd &url-icinga-base;/etc
+  <screen> #&gt; cd &url-icinga-base;/etc
  #&gt; mv idomod.cfg-sample idomod.cfg
- #&gt; mv ido2db.cfg-sample ido2db.cfg</programlisting>
+ #&gt; mv ido2db.cfg-sample ido2db.cfg</screen>
 
   <para>If you compiled the &name-idoutils; with SSL then you have to activate SSL in <filename>idomod.cfg</filename> setting</para>
 
@@ -317,26 +329,28 @@
 
   <important>
     <para>Under normal circumstances the following module definition is already present in the <filename>modules</filename> subdirectory so
-    there is no need to edit the main config file <screen> define module{
+    there is no need to edit the main config file <programlisting> define module{
         module_name    ido_mod
         path           &url-icinga-base;/lib/idomod.so
         module_type    neb
         args           config_file=&url-icinga-base;/etc/idomod.cfg
-        }</screen> This also means that a broker_module entry must not be enabled!</para>
+        }</programlisting> This also means that a broker_module entry must not be enabled!</para>
   </important>
 
   <para><emphasis role="bold">Compile database and &name-idoutils;</emphasis></para>
 
-  <para><emphasis role="bold">&name-mysql;:</emphasis></para>
+  <itemizedlist>
+    <listitem>
+      <para><emphasis role="bold">&name-mysql;:</emphasis></para>
 
-  <para><emphasis>Create database, user, and permissions</emphasis></para>
+      <para><emphasis>Create database, user, and permissions</emphasis></para>
 
-  <note>
-    <para>If you just installed the RDBMS like decribed above then you have to start the database server before you can create a database.
-    Having &name-mysql; please use <code>/usr/local/etc/rc.d/mysql-server start</code> to start.</para>
-  </note>
+      <note>
+        <para>If you just installed the RDBMS like decribed above then you have to start the database server before you can create a
+        database. Having &name-mysql; please use <code>/usr/local/etc/rc.d/mysql-server start</code> to start.</para>
+      </note>
 
-  <programlisting> #&gt; mysql -u root -p
+      <screen> #&gt; mysql -u root -p
 
  mysql&gt; CREATE DATABASE icinga;
 
@@ -350,30 +364,34 @@
 
  FLUSH PRIVILEGES ;
 
- quit</programlisting>
+ quit</screen>
 
-  <programlisting> #&gt; cd /path/to/icinga-src/module/idoutils/db/mysql
- #&gt; mysql -u root -p icinga &lt; mysql.sql</programlisting>
+      <screen> #&gt; cd /path/to/icinga-src/module/idoutils/db/mysql
+ #&gt; mysql -u root -p icinga &lt; mysql.sql</screen>
 
-  <programlisting> #&gt; vi &url-icinga-base;/etc/ido2db.cfg
+      <screen> #&gt; vi &url-icinga-base;/etc/ido2db.cfg</screen>
 
- db_servertype=mysql
+      <programlisting> db_servertype=mysql
  db_port=3306
  db_user=icinga
  db_pass=icinga</programlisting>
+    </listitem>
 
-  <para><emphasis role="bold">&name-postgres;:</emphasis></para>
+    <listitem>
+      <para><emphasis role="bold">&name-postgres;:</emphasis></para>
 
-  <para><emphasis>To Do</emphasis></para>
+      <para><emphasis>To Do</emphasis></para>
+    </listitem>
+  </itemizedlist>
 
   <para><emphasis role="bold">Install and configure the Classic Web Interface</emphasis></para>
 
   <para>&name-icinga; ships with the Classic Web Interface ("the CGIs") which can be installed via</para>
 
-  <programlisting> #&gt; cd /path/to/icinga-src
+  <screen> #&gt; cd /path/to/icinga-src
  #&gt; make cgis
  #&gt; make install-cgis
- #&gt; make install-html</programlisting>
+ #&gt; make install-html</screen>
 
   <para>If you are interested in the new &name-icinga; Web, please refer to <link linkend="icinga-web-scratch">Install &name-icinga; Web
   Interface</link>.</para>
@@ -386,35 +404,35 @@
     to <programlisting> $(INSTALL) -m 644 sample-config/httpd.conf $(DESTDIR)$(HTTPD_CONF)/icinga.conf</programlisting></para>
   </note>
 
-  <programlisting> #&gt; make install-webconf</programlisting>
+  <screen> #&gt; make install-webconf</screen>
 
   <para>Create an <emphasis>icingaadmin</emphasis> account for logging into the &name-icinga; classic web interface. If you want to change
   it later, use the same command. Remember the password you assign to this account - you'll need it later.</para>
 
-  <programlisting> #&gt; htpasswd -c &url-icinga-base;/etc/htpasswd.users icingaadmin</programlisting>
+  <screen> #&gt; htpasswd -c &url-icinga-base;/etc/htpasswd.users icingaadmin</screen>
 
   <para>If you want to change it later or want to add another user, use the following command:</para>
 
-  <programlisting> #&gt; htpasswd &url-icinga-base;/etc/htpasswd.users &lt;USERNAME&gt;</programlisting>
+  <screen> #&gt; htpasswd &url-icinga-base;/etc/htpasswd.users &lt;USERNAME&gt;</screen>
 
   <para>Reload/Restart Apache to make the new settings take effect.</para>
 
-  <programlisting> #&gt; /usr/local/etc/rc.d/apache22 reload</programlisting>
+  <screen> #&gt; /usr/local/etc/rc.d/apache22 reload</screen>
 
   <para><emphasis role="bold">Compile and Install the Nagios-/Perl Plugins</emphasis></para>
 
   <para>Extract the &name-nagios; plugins source code tarball.</para>
 
-  <programlisting> #&gt; cd ~/src 
+  <screen> #&gt; cd ~/src 
  #&gt; tar xvzf nagios-plugins-&ver-nagiosplug;.tar.gz
- #&gt; cd nagios-plugins-&ver-nagiosplug; </programlisting>
+ #&gt; cd nagios-plugins-&ver-nagiosplug; </screen>
 
   <para>Compile and install the plugins by changing install directory to &url-icinga-base;</para>
 
-  <programlisting> #&gt; ./configure --prefix=&url-icinga-base; --with-cgiurl=/icinga/cgi-bin \
+  <screen> #&gt; ./configure --prefix=&url-icinga-base; --with-cgiurl=/icinga/cgi-bin \
     --with-htmurl=/icinga --with-nagios-user=icinga --with-nagios-group=icinga
  #&gt; make 
- #&gt; make install </programlisting>
+ #&gt; make install </screen>
 
   <note>
     <para>There is a port for the plugins but it will install them in a different directory. You can set certain variables to tweak its make
@@ -423,8 +441,8 @@
 
   <para>Compile and install the Perl plugin:</para>
 
-  <programlisting> #&gt; cd /usr/ports/net-mgmt/p5-Nagios-Plugin
- #&gt; make all install clean</programlisting>
+  <screen> #&gt; cd /usr/ports/net-mgmt/p5-Nagios-Plugin
+ #&gt; make all install clean</screen>
 
   <para><emphasis role="bold">Starting &name-idoutils; and &name-icinga;</emphasis></para>
 
@@ -432,37 +450,37 @@
 
   <para><emphasis role="bold">Starting &name-idoutils;</emphasis></para>
 
-  <programlisting> #&gt; /usr/local/etc/rc.d/ido2db start</programlisting>
+  <screen> #&gt; /usr/local/etc/rc.d/ido2db start</screen>
 
   <para><emphasis role="bold">Stopping &name-idoutils;</emphasis></para>
 
-  <programlisting> #&gt; /usr/local/etc/rc.d/ido2db stop</programlisting>
+  <screen> #&gt; /usr/local/etc/rc.d/ido2db stop</screen>
 
   <para><emphasis role="bold">Start &name-icinga;</emphasis></para>
 
   <para>Add &name-icinga; to the list of system services and have it automatically start when the system boots (make sure you have installed
   the init script before).</para>
 
-  <programlisting> #&gt; echo icinga_enable=\"YES\" &gt;&gt; /etc/rc.conf</programlisting>
+  <screen> #&gt; echo icinga_enable=\"YES\" &gt;&gt; /etc/rc.conf</screen>
 
   <para>Verify the sample &name-icinga; configuration files.</para>
 
-  <programlisting> #&gt; &url-icinga-bin; -v &url-icinga-cfg;</programlisting>
+  <screen> #&gt; &url-icinga-bin; -v &url-icinga-cfg;</screen>
 
   <para>If there are no errors, start &name-icinga;.</para>
 
-  <programlisting> #&gt; /usr/local/etc/rc.d/icinga start</programlisting>
+  <screen> #&gt; /usr/local/etc/rc.d/icinga start</screen>
 
   <para><emphasis role="bold">Login to the Classic Web Interface</emphasis></para>
 
   <para>You should now be able to access the &name-icinga; classic web interface at the URL below. You'll be prompted for the username (
   <emphasis>icingaadmin</emphasis>) and password you specified earlier.</para>
 
-  <programlisting> http://localhost/icinga/</programlisting>
+  <screen> http://localhost/icinga/</screen>
 
   <para>or</para>
 
-  <programlisting> http://yourdomain.com/icinga/</programlisting>
+  <screen> http://yourdomain.com/icinga/</screen>
 
   <para>Click on the "Service Detail" navbar link to see details of what's being monitored on your local machine. It will take a few minutes
   for &name-icinga; to check all the services associated with your machine.</para>
@@ -472,7 +490,7 @@
   <para>Make sure your system's firewall rules are configured to allow access to the web server if you want to access the &name-icinga;
   classic interface remotely.</para>
 
-  <programlisting> #&gt; TCP port 80</programlisting>
+  <screen> #&gt; TCP port 80</screen>
 
   <para>Setting up your mail transfer agent (MTA) like exim, sendmail or postfix to allow &name-icinga; sending notification emails won't be
   explained here.</para>

@@ -3,343 +3,367 @@
 <!ENTITY % all.entities SYSTEM "all-entities.ent">
 %all.entities;
 ]>
-<section version="5.0" xml:id="monitoring-windows" xmlns="http://docbook.org/ns/docbook"
-         xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-         xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+<section version="5.0" xml:id="monitoring-windows" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>Windows-Maschinen überwachen</title>
 
-  <para><emphasis role="bold">Einführung</emphasis></para>
+  <indexterm zone="monitoring-windows">
+    <primary>Überwachung</primary>
 
-  <para>Dieses Dokument beschreibt, wie Sie "private" Dienste und Attribute von Windows-Rechnern überwachen können, wie
-  z.B.:</para>
+    <secondary>Windows-Rechner überwachen</secondary>
+  </indexterm>
 
-  <itemizedlist>
-    <listitem>
-      <para>Speicherbelegung</para>
-    </listitem>
+  <indexterm zone="monitoring-windows">
+    <primary>Monitoring</primary>
 
-    <listitem>
-      <para>CPU-Auslastung</para>
-    </listitem>
+    <secondary>Windows-Rechner überwachen</secondary>
+  </indexterm>
 
-    <listitem>
-      <para>Plattenbelegung</para>
-    </listitem>
+  <indexterm zone="monitoring-windows">
+    <primary>NSClient++</primary>
 
-    <listitem>
-      <para>Zustände von Diensten</para>
-    </listitem>
+    <secondary>Windows-Rechner überwachen</secondary>
+  </indexterm>
 
-    <listitem>
-      <para>laufende Prozesse</para>
-    </listitem>
+  <section>
+    <title>Einführung</title>
 
-    <listitem>
-      <para>etc.</para>
-    </listitem>
-  </itemizedlist>
+    <para>Dieses Dokument beschreibt, wie Sie "private" Dienste und Attribute von Windows-Rechnern überwachen können, wie z.B.:</para>
 
-  <para>Öffentlich nutzbare Dienste, die von Windows-Rechnern zur Verfügung gestellt werden (HTTP, FTP, POP3, etc.), können
-  einfach mit Hilfe der Dokumentation <link linkend="monitoring-publicservices">öffentlich zugängliche Dienste überwachen</link>
-  kontrolliert werden.</para>
+    <itemizedlist>
+      <listitem>
+        <para>Speicherbelegung</para>
+      </listitem>
 
-  <para><inlinemediaobject>
+      <listitem>
+        <para>CPU-Auslastung</para>
+      </listitem>
+
+      <listitem>
+        <para>Plattenbelegung</para>
+      </listitem>
+
+      <listitem>
+        <para>Zustände von Diensten</para>
+      </listitem>
+
+      <listitem>
+        <para>laufende Prozesse</para>
+      </listitem>
+
+      <listitem>
+        <para>etc.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Öffentlich nutzbare Dienste, die von Windows-Rechnern zur Verfügung gestellt werden (HTTP, FTP, POP3, etc.), können einfach mit
+    Hilfe der Dokumentation <link linkend="monitoring-publicservices">öffentlich zugängliche Dienste überwachen</link> kontrolliert
+    werden.</para>
+
+    <para><inlinemediaobject>
+        <imageobject>
+          <imagedata fileref="../images/note.gif" format="GIF"/>
+        </imageobject>
+      </inlinemediaobject> Anmerkung: Diese Anweisungen gehen davon aus, dass Sie &name-icinga; anhand der <link
+    linkend="quickstart">Schnellstartanleitung</link> installiert haben. Die nachfolgenden Beispiel-Konfigurationseinträge beziehen sich auf
+    Objekte, die in den Beispiel-Konfigurationsdateien (<emphasis>commands.cfg</emphasis>, <emphasis>templates.cfg</emphasis>, etc.)
+    definiert sind. Diese Dateien werden installiert, wenn Sie der Schnellstartanleitung folgen.</para>
+  </section>
+
+  <section>
+    <title>Überblick</title>
+
+    <mediaobject>
       <imageobject>
-        <imagedata fileref="../images/note.gif" format="GIF"></imagedata>
+        <imagedata fileref="../images/monitoring-windows.png" format="PNG"/>
       </imageobject>
-    </inlinemediaobject> Anmerkung: Diese Anweisungen gehen davon aus, dass Sie &name-icinga; anhand der <link
-  linkend="quickstart">Schnellstartanleitung</link> installiert haben. Die nachfolgenden Beispiel-Konfigurationseinträge beziehen
-  sich auf Objekte, die in den Beispiel-Konfigurationsdateien (<emphasis>commands.cfg</emphasis>,
-  <emphasis>templates.cfg</emphasis>, etc.) definiert sind. Diese Dateien werden installiert, wenn Sie der Schnellstartanleitung
-  folgen.</para>
+    </mediaobject>
 
-  <para><emphasis role="bold">Überblick</emphasis></para>
+    <para>Die Überwachung von privaten Diensten oder Attributen eines Windows-Rechners erfordert die Installation eines Agenten. Dieser
+    Agent dient als ein Bindeglied zwischen der Überwachung und dem eigentlichen Dienst oder Attribut auf dem Windows-Rechner. Ohne diesen
+    Agenten wäre &name-icinga; nicht in der Lage, private Dienste oder Attribute auf dem Window-Rechner zu überwachen.</para>
 
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="../images/monitoring-windows.png" format="PNG"></imagedata>
-    </imageobject>
-  </mediaobject>
+    <para>Für dieses Beispiel installieren wir das <link xlink:href="http://sourceforge.net/projects/nscplus">&name-nsclient;</link>-Addon
+    auf dem Windows-Rechner und werden das <emphasis>check_nt</emphasis>-Plugin zur Kommunikation mit dem &name-nsclient;-Addon benutzen.
+    Das <emphasis>check_nt</emphasis>-Plugin sollte bereits auf dem &name-icinga;-Server installiert sein, wenn Sie der
+    Schnellstartanleitung gefolgt sind.</para>
 
-  <para>Die Überwachung von privaten Diensten oder Attributen eines Windows-Rechners erfordert die Installation eines Agenten.
-  Dieser Agent dient als ein Bindeglied zwischen der Überwachung und dem eigentlichen Dienst oder Attribut auf dem
-  Windows-Rechner. Ohne diesen Agenten wäre &name-icinga; nicht in der Lage, private Dienste oder Attribute auf dem Window-Rechner
-  zu überwachen.</para>
+    <para>Andere Windows-Agenten (wie <link xlink:href="http://sourceforge.net/projects/nc-net">NC_Net</link>) können statt &name-nsclient;
+    genutzt werden, wenn Sie möchten - vorausgesetzt, Sie passen die Befehls- und Service-Definitionen usw. entsprechend an. Aus Gründen der
+    Einfachheit werden wir nur das &name-nsclient;-Addon in diesen Anweisungen berücksichtigen.</para>
+  </section>
 
-  <para>Für dieses Beispiel installieren wir das <link
-  xlink:href="http://sourceforge.net/projects/nscplus">&name-nsclient;</link>-Addon auf dem Windows-Rechner und werden das
-  <emphasis>check_nt</emphasis>-Plugin zur Kommunikation mit dem &name-nsclient;-Addon benutzen. Das
-  <emphasis>check_nt</emphasis>-Plugin sollte bereits auf dem &name-icinga;-Server installiert sein, wenn Sie der
-  Schnellstartanleitung gefolgt sind.</para>
+  <section>
+    <title>Schritte</title>
 
-  <para>Andere Windows-Agenten (wie <link xlink:href="http://sourceforge.net/projects/nc-net">NC_Net</link>) können statt
-  &name-nsclient; genutzt werden, wenn Sie möchten - vorausgesetzt, Sie passen die Befehls- und Service-Definitionen usw.
-  entsprechend an. Aus Gründen der Einfachheit werden wir nur das &name-nsclient;-Addon in diesen Anweisungen
-  berücksichtigen.</para>
+    <para>Es gibt einige Schritte, die Sie durchführen müssen, um einen neuen Windows-Rechner zu überwachen. Das sind:</para>
 
-  <para><emphasis role="bold">Schritte</emphasis></para>
+    <orderedlist>
+      <listitem>
+        <para>erfüllen Sie einmalige Voraussetzungen</para>
+      </listitem>
 
-  <para>Es gibt einige Schritte, die Sie durchführen müssen, um einen neuen Windows-Rechner zu überwachen. Das sind:</para>
+      <listitem>
+        <para>installieren Sie einen Überwachungsagenten auf dem Windows-Rechner</para>
+      </listitem>
 
-  <orderedlist>
-    <listitem>
-      <para>erfüllen Sie einmalige Voraussetzungen</para>
-    </listitem>
+      <listitem>
+        <para>erstellen Sie neue Host- und Service-Definitione zur Überwachung des Windows-Rechners</para>
+      </listitem>
 
-    <listitem>
-      <para>installieren Sie einen Überwachungsagenten auf dem Windows-Rechner</para>
-    </listitem>
+      <listitem>
+        <para>starten Sie den &name-icinga;-Daemon neu</para>
+      </listitem>
+    </orderedlist>
+  </section>
 
-    <listitem>
-      <para>erstellen Sie neue Host- und Service-Definitione zur Überwachung des Windows-Rechners</para>
-    </listitem>
+  <section>
+    <title>Was bereits für Sie vorbereitet wurde</title>
 
-    <listitem>
-      <para>starten Sie den &name-icinga;-Daemon neu</para>
-    </listitem>
-  </orderedlist>
+    <para>Um Ihnen das Leben ein wenig zu erleichtern, wurden bereits ein paar Konfigurationsaufgaben für Sie erledigt:</para>
 
-  <para><emphasis role="bold">Was bereits für Sie vorbereitet wurde</emphasis></para>
+    <itemizedlist>
+      <listitem>
+        <para>Eine <emphasis>check_nt</emphasis>-Befehlsdefinition ist in der <emphasis>commands.cfg</emphasis>-Datei vorhanden. Das erlaubt
+        Ihnen die Nutzung des <emphasis>check_nt</emphasis>-Plugins zur Überwachung von Windows-Diensten.</para>
+      </listitem>
 
-  <para>Um Ihnen das Leben ein wenig zu erleichtern, wurden bereits ein paar Konfigurationsaufgaben für Sie erledigt:</para>
+      <listitem>
+        <para>Eine Host-Vorlage für Windows-Server (namens <emphasis>windows-server</emphasis>) wurde bereits in der
+        <emphasis>templates.cfg</emphasis>-Datei erstellt. Das erlaubt es Ihnen, Windows-Host-Definitionen auf einfache Weise
+        hinzuzufügen.</para>
+      </listitem>
+    </itemizedlist>
 
-  <itemizedlist>
-    <listitem>
-      <para>Eine <emphasis>check_nt</emphasis>-Befehlsdefinition ist in der <emphasis>commands.cfg</emphasis>-Datei vorhanden. Das
-      erlaubt Ihnen die Nutzung des <emphasis>check_nt</emphasis>-Plugins zur Überwachung von Windows-Diensten.</para>
-    </listitem>
+    <para>Die o.g. Konfigurationsdateien finden Sie im <emphasis>&url-icinga-base;/etc/objects/</emphasis>-Verzeichnis. Sie können diese und
+    andere Definitionen anpassen, damit Sie Ihren Anforderungen besser entsprechen. Allerdings empfehlen wir Ihnen, noch ein wenig damit zu
+    warten, bis Sie besser mit der Konfiguration von &name-icinga; vertraut sind. Für den Moment folgen Sie einfach den nachfolgenden
+    Anweisungen und Sie werden im Nu Ihre Windows-Rechner überwachen.</para>
+  </section>
 
-    <listitem>
-      <para>Eine Host-Vorlage für Windows-Server (namens <emphasis>windows-server</emphasis>) wurde bereits in der
-      <emphasis>templates.cfg</emphasis>-Datei erstellt. Das erlaubt es Ihnen, Windows-Host-Definitionen auf einfache Weise
-      hinzuzufügen.</para>
-    </listitem>
-  </itemizedlist>
+  <section>
+    <title>Voraussetzungen</title>
 
-  <para>Die o.g. Konfigurationsdateien finden Sie im <emphasis>&url-icinga-base;/etc/objects/</emphasis>-Verzeichnis. Sie können
-  diese und andere Definitionen anpassen, damit Sie Ihren Anforderungen besser entsprechen. Allerdings empfehlen wir Ihnen, noch
-  ein wenig damit zu warten, bis Sie besser mit der Konfiguration von &name-icinga; vertraut sind. Für den Moment folgen Sie
-  einfach den nachfolgenden Anweisungen und Sie werden im Nu Ihre Windows-Rechner überwachen.</para>
+    <para>Wenn Sie &name-icinga; das erste Mal konfigurieren, um einen Windows-Rechner zu überwachen, dann müssen Sie ein paar zusätzliche
+    Dinge tun. Denken Sie daran, dass Sie dies nur für den *ersten* Windows-Rechner machen müssen, den Sie überwachen wollen.</para>
 
-  <para><emphasis role="bold">Voraussetzungen</emphasis></para>
+    <para>Editieren Sie die Hauptkonfigurationsdatei.</para>
 
-  <para>Wenn Sie &name-icinga; das erste Mal konfigurieren, um einen Windows-Rechner zu überwachen, dann müssen Sie ein paar
-  zusätzliche Dinge tun. Denken Sie daran, dass Sie dies nur für den *ersten* Windows-Rechner machen müssen, den Sie überwachen
-  wollen.</para>
+    <screen>#&gt; vi &url-icinga-base;/etc/icinga.cfg</screen>
 
-  <para>Editieren Sie die Hauptkonfigurationsdatei.</para>
+    <para>Entfernen Sie das führende Hash-(#)-Zeichen der folgenden Zeile in der Hauptkonfigurationsdatei:</para>
 
-  <screen>#&gt; vi &url-icinga-base;/etc/icinga.cfg</screen>
+    <screen>#cfg_file=&url-icinga-base;/etc/objects/windows.cfg</screen>
 
-  <para>Entfernen Sie das führende Hash-(#)-Zeichen der folgenden Zeile in der Hauptkonfigurationsdatei:</para>
+    <para>Speichern Sie die Datei und verlassen den Editor.</para>
 
-  <screen>#cfg_file=&url-icinga-base;/etc/objects/windows.cfg</screen>
+    <para>Was haben Sie gerade getan? Sie haben &name-icinga; mitgeteilt, in der
+    <emphasis>&url-icinga-base;/etc/objects/windows.cfg</emphasis>-Datei nach weiteren Objektdefinitionen zu schauen. Dort werden Sie Host-
+    und Service-Definitionen für Windows-Rechner einfügen. Diese Konfigurationsdatei enthält bereits einige Beispiel-Host-, Hostgroup- und
+    Service-Definitionen. Für den *ersten* Windows-Rechner, den Sie überwachen, passen Sie einfach die Beispiel-Host- und
+    Service-Definitionen an, statt neue zu erstellen.</para>
+  </section>
 
-  <para>Speichern Sie die Datei und verlassen den Editor.</para>
+  <section>
+    <title>Installation des Windows-Agenten</title>
 
-  <para>Was haben Sie gerade getan? Sie haben &name-icinga; mitgeteilt, in der
-  <emphasis>&url-icinga-base;/etc/objects/windows.cfg</emphasis>-Datei nach weiteren Objektdefinitionen zu schauen. Dort werden
-  Sie Host- und Service-Definitionen für Windows-Rechner einfügen. Diese Konfigurationsdatei enthält bereits einige
-  Beispiel-Host-, Hostgroup- und Service-Definitionen. Für den *ersten* Windows-Rechner, den Sie überwachen, passen Sie einfach
-  die Beispiel-Host- und Service-Definitionen an, statt neue zu erstellen.</para>
+    <para>Bevor Sie mit der Überwachung von privaten Diensten und Attributen von Windows-Rechnern beginnen, müssen Sie einen Agenten auf
+    diesen Rechnern installieren. Wir empfehlen das &name-nsclient;-Addon zu nutzen, das Sie unter <link
+    xlink:href="http://sourceforge.net/projects/nscplus">&url-sf-projects;nscplus</link> finden. Diese Anweisungen werden Sie durch eine
+    Basisinstallation des &name-nsclient;-Addons und die &name-icinga;-Konfiguration für die Überwachung des Windows-Rechners führen.</para>
 
-  <para><emphasis role="bold">Installation des Windows-Agenten</emphasis></para>
+    <para>1. Laden Sie die letzte stabile Version des &name-nsclient;-Addons von <link
+    xlink:href="http://sourceforge.net/projects/nscplus">&url-sf-projects;nscplus</link></para>
 
-  <para>Bevor Sie mit der Überwachung von privaten Diensten und Attributen von Windows-Rechnern beginnen, müssen Sie einen Agenten
-  auf diesen Rechnern installieren. Wir empfehlen das &name-nsclient;-Addon zu nutzen, das Sie unter <link
-  xlink:href="http://sourceforge.net/projects/nscplus">&url-sf-projects;nscplus</link> finden. Diese Anweisungen werden Sie durch
-  eine Basisinstallation des &name-nsclient;-Addons und die &name-icinga;-Konfiguration für die Überwachung des Windows-Rechners
-  führen.</para>
+    <para>2. Entpacken Sie die &name-nsclient;-Dateien in ein neues C:\&name-nsclient;-Verzeichnis</para>
 
-  <para>1. Laden Sie die letzte stabile Version des &name-nsclient;-Addons von <link
-  xlink:href="http://sourceforge.net/projects/nscplus">&url-sf-projects;nscplus</link></para>
+    <para>3. Gehen Sie auf die Kommandozeile und wechseln Sie in das C:\&name-nsclient;-Verzeichnis</para>
 
-  <para>2. Entpacken Sie die &name-nsclient;-Dateien in ein neues C:\&name-nsclient;-Verzeichnis</para>
+    <para>4. Registrieren Sie den &name-nsclient;-Dienst mit dem folgenden Befehl:</para>
 
-  <para>3. Gehen Sie auf die Kommandozeile und wechseln Sie in das C:\&name-nsclient;-Verzeichnis</para>
+    <screen> nsclient++ /install</screen>
 
-  <para>4. Registrieren Sie den &name-nsclient;-Dienst mit dem folgenden Befehl:</para>
+    <para>5. Öffnen Sie die Dienste-Applikation und stellen Sie sicher, dass der &name-nsclient;-Dienst mit dem Desktop kommunizieren darf
+    (Reiter "Anmelden", Häkchen bei "Datenaustausch zwischen Dienst und Desktop zulassen" gesetzt). Setzen Sie ggf. das Häkchen.</para>
 
-  <screen> nsclient++ /install</screen>
+    <para><inlinemediaobject>
+        <imageobject>
+          <imagedata fileref="../images/nscpp.png" format="PNG"/>
+        </imageobject>
+      </inlinemediaobject></para>
 
-  <para>5. Öffnen Sie die Dienste-Applikation und stellen Sie sicher, dass der &name-nsclient;-Dienst mit dem Desktop
-  kommunizieren darf (Reiter "Anmelden", Häkchen bei "Datenaustausch zwischen Dienst und Desktop zulassen" gesetzt). Setzen Sie
-  ggf. das Häkchen.</para>
+    <para>6. Editieren Sie die NSC.INI-Datei (im C:\&name-nsclient;-Verzeichnis) und machen Sie folgende Änderungen:</para>
 
-  <para><inlinemediaobject>
-      <imageobject>
-        <imagedata fileref="../images/nscpp.png" format="PNG"></imagedata>
-      </imageobject>
-    </inlinemediaobject></para>
+    <itemizedlist>
+      <listitem>
+        <para>entfernen Sie die Kommentarzeichen (;) im [modules]-Abschnitt, außer für CheckWMI.dll und RemoteConfiguration.dll</para>
+      </listitem>
 
-  <para>6. Editieren Sie die NSC.INI-Datei (im C:\&name-nsclient;-Verzeichnis) und machen Sie folgende Änderungen:</para>
+      <listitem>
+        <para>definieren Sie optional ein Passwort für Clients, indem Sie die 'password'-Option im [Settings]-Abschnitt setzen.</para>
+      </listitem>
 
-  <itemizedlist>
-    <listitem>
-      <para>entfernen Sie die Kommentarzeichen (;) im [modules]-Abschnitt, außer für CheckWMI.dll und
-      RemoteConfiguration.dll</para>
-    </listitem>
+      <listitem>
+        <para>entfernen Sie das Kommentarzeichen (;) vor der 'allowed_hosts'-Option im [Settings]-Abschnitt. Fügen Sie die IP-Adresse des
+        &name-icinga;-Servers ein, mit ip.add.ress/Bits einen Bereich oder lassen Sie diese Angabe leer, so dass sich alle Hosts verbinden
+        können.</para>
+      </listitem>
 
-    <listitem>
-      <para>definieren Sie optional ein Passwort für Clients, indem Sie die 'password'-Option im [Settings]-Abschnitt
-      setzen.</para>
-    </listitem>
+      <listitem>
+        <para>entfernen Sie ggf. das Kommentarzeichen vor der 'port'-Option im [NSClient]-Abschnitt und setzen Sie den Wert auf '12489'
+        (Standard).</para>
+      </listitem>
+    </itemizedlist>
 
-    <listitem>
-      <para>entfernen Sie das Kommentarzeichen (;) vor der 'allowed_hosts'-Option im [Settings]-Abschnitt. Fügen Sie die
-      IP-Adresse des &name-icinga;-Servers ein, mit ip.add.ress/Bits einen Bereich oder lassen Sie diese Angabe leer, so
-      dass sich alle Hosts verbinden können.</para>
-    </listitem>
+    <para>7. Starten Sie den &name-nsclient;-Dienst mit dem folgenden Befehl:</para>
 
-    <listitem>
-      <para>entfernen Sie ggf. das Kommentarzeichen vor der 'port'-Option im [NSClient]-Abschnitt und setzen Sie den Wert auf
-      '12489' (Standard).</para>
-    </listitem>
-  </itemizedlist>
+    <screen> nsclient++ /start</screen>
 
-  <para>7. Starten Sie den &name-nsclient;-Dienst mit dem folgenden Befehl:</para>
+    <para>8. Geschafft! Der Windows-Rechner kann nun der &name-icinga;-Überwachungskonfiguration hinzugefügt werden...</para>
+  </section>
 
-  <screen> nsclient++ /start</screen>
+  <section>
+    <title>&name-icinga; konfigurieren</title>
 
-  <para>8. Geschafft! Der Windows-Rechner kann nun der &name-icinga;-Überwachungskonfiguration hinzugefügt werden...</para>
+    <para>Nun ist es Zeit, einige <link linkend="objectdefinitions">Objektdefinitionen</link> in Ihren &name-icinga;-Konfigurationsdateien
+    anzulegen, um den neuen Windows-Rechner zu überwachen.</para>
 
-  <para><emphasis role="bold">&name-icinga; konfigurieren</emphasis></para>
+    <para>Editieren Sie die <emphasis>windows.cfg</emphasis>-Datei.</para>
 
-  <para>Nun ist es Zeit, einige <link linkend="objectdefinitions">Objektdefinitionen</link> in Ihren
-  &name-icinga;-Konfigurationsdateien anzulegen, um den neuen Windows-Rechner zu überwachen.</para>
+    <screen>#&gt; vi &url-icinga-base;/etc/objects/windows.cfg</screen>
 
-  <para>Editieren Sie die <emphasis>windows.cfg</emphasis>-Datei.</para>
+    <para>Fügen Sie eine neue <link linkend="objectdefinitions-host">Host</link>-Definition für den Windows-Rechner hinzu, den Sie
+    überwachen möchten. Wenn dies der *erste* Windows-Rechner ist, den Sie überwachen, dann können Sie einfach die Beispiel-Definitionen in
+    der <emphasis>windows.cfg</emphasis>-Datei anpassen. Ändern Sie die <emphasis>host_name</emphasis>-, <emphasis>alias</emphasis>- und
+    <emphasis>address</emphasis>-Felder auf die entsprechenden Werte des Windows-Rechners.</para>
 
-  <screen>#&gt; vi &url-icinga-base;/etc/objects/windows.cfg</screen>
-
-  <para>Fügen Sie eine neue <link linkend="objectdefinitions-host">Host</link>-Definition für den Windows-Rechner hinzu, den Sie
-  überwachen möchten. Wenn dies der *erste* Windows-Rechner ist, den Sie überwachen, dann können Sie einfach die
-  Beispiel-Definitionen in der <emphasis>windows.cfg</emphasis>-Datei anpassen. Ändern Sie die <emphasis>host_name</emphasis>-,
-  <emphasis>alias</emphasis>- und <emphasis>address</emphasis>-Felder auf die entsprechenden Werte des Windows-Rechners.</para>
-
-  <screen> define host{
+    <programlisting> define host{
         ; Standard-Werte von einer Windows-Server-Vorlage erben
         use             windows-server  ; diese Zeile nicht löschen!
         host_name       winserver
         alias           My Windows Server
         address         192.168.1.2
-        }</screen>
+        }</programlisting>
 
-  <para>Gut. Nun können Sie (in der gleichen Konfigurationsdatei) einige Service-Definitionen hinzufügen, um &name-icinga;
-  mitzuteilen, welche Dinge auf dem Windows-Server zu überwachen sind. Wenn dies der *erste* Windows-Rechner ist, den Sie
-  überwachen, dann können Sie einfach die Beispiel-Definitionen in der <emphasis>windows.cfg</emphasis>-Datei anpassen.</para>
+    <para>Gut. Nun können Sie (in der gleichen Konfigurationsdatei) einige Service-Definitionen hinzufügen, um &name-icinga; mitzuteilen,
+    welche Dinge auf dem Windows-Server zu überwachen sind. Wenn dies der *erste* Windows-Rechner ist, den Sie überwachen, dann können Sie
+    einfach die Beispiel-Definitionen in der <emphasis>windows.cfg</emphasis>-Datei anpassen.</para>
 
-  <note>
-    <para>Ersetzen Sie "<emphasis>winserver</emphasis>" in den folgenden Beispiel-Definitionen durch den Namen, den Sie in der
-    <emphasis>host_name</emphasis>-Direktive der Host-Definitionen angegeben haben, die Sie gerade hinzugefügt haben.</para>
-  </note>
+    <note>
+      <para>Ersetzen Sie "<emphasis>winserver</emphasis>" in den folgenden Beispiel-Definitionen durch den Namen, den Sie in der
+      <emphasis>host_name</emphasis>-Direktive der Host-Definitionen angegeben haben, die Sie gerade hinzugefügt haben.</para>
+    </note>
 
-  <para>Fügen Sie die folgende Service-Definition hinzu, um die Version des &name-nsclient;-Addons zu überwachen, das auf dem
-  Windows-Rechner läuft. Dies ist nützlich, wenn Sie Ihre Windows-Server mit einer neueren Version des Addons aktualisieren
-  möchten, weil Sie sehen können, welche Windows-Rechner noch auf die neueste Version des &name-nsclient;-Addon aktualisiert
-  werden muss.</para>
+    <para>Fügen Sie die folgende Service-Definition hinzu, um die Version des &name-nsclient;-Addons zu überwachen, das auf dem
+    Windows-Rechner läuft. Dies ist nützlich, wenn Sie Ihre Windows-Server mit einer neueren Version des Addons aktualisieren möchten, weil
+    Sie sehen können, welche Windows-Rechner noch auf die neueste Version des &name-nsclient;-Addon aktualisiert werden muss.</para>
 
-  <screen> define service{
+    <programlisting> define service{
         use                     generic-service
         host_name               winserver
         service_description     &name-nsclient; Version
         check_command           check_nt!CLIENTVERSION
-        }</screen>
+        }</programlisting>
 
-  <para>Fügen Sie die folgende Service-Definition hinzu, um die Laufzeit des Windows-Servers zu überwachen.</para>
+    <para>Fügen Sie die folgende Service-Definition hinzu, um die Laufzeit des Windows-Servers zu überwachen.</para>
 
-  <screen> define service{
+    <programlisting> define service{
         use                     generic-service
         host_name               winserver
         service_description     Uptime
         check_command           check_nt!UPTIME
-        }</screen>
+        }</programlisting>
 
-  <para>Fügen Sie die folgende Service-Definition hinzu, um die CPU-Belastung des Windows-Servers zu überwachen und einen
-  CRITICAL-Alarm zu erzeugen, wenn die 5-Minuten-Belastung mindestens 90% beträgt oder einen WARNING-Alarm, wenn die
-  5-Minuten-Belastung mindestens 80% beträgt.</para>
+    <para>Fügen Sie die folgende Service-Definition hinzu, um die CPU-Belastung des Windows-Servers zu überwachen und einen CRITICAL-Alarm
+    zu erzeugen, wenn die 5-Minuten-Belastung mindestens 90% beträgt oder einen WARNING-Alarm, wenn die 5-Minuten-Belastung mindestens 80%
+    beträgt.</para>
 
-  <screen> define service{
+    <programlisting> define service{
         use                     generic-service
         host_name               winserver
         service_description     CPU Load
         check_command           check_nt!CPULOAD!-l 5,80,90
-        }</screen>
+        }</programlisting>
 
-  <para>Fügen Sie die folgende Service-Definition hinzu, um die Speicherbelegung des Windows-Servers zu überwachen und einen
-  CRITICAL-Alarm zu erzeugen, wenn die Belegung mindestens 90% beträgt oder einen WARNING-Alarm, wenn die Belegung mindestens 80%
-  beträgt.</para>
+    <para>Fügen Sie die folgende Service-Definition hinzu, um die Speicherbelegung des Windows-Servers zu überwachen und einen
+    CRITICAL-Alarm zu erzeugen, wenn die Belegung mindestens 90% beträgt oder einen WARNING-Alarm, wenn die Belegung mindestens 80%
+    beträgt.</para>
 
-  <screen> define service{
+    <programlisting> define service{
         use                     generic-service
         host_name               winserver
         service_description     Memory Usage
         check_command           check_nt!MEMUSE!-w 80 -c 90
-        }</screen>
+        }</programlisting>
 
-  <para>Fügen Sie die folgende Service-Definition hinzu, um die Plattenbelegung von Laufwerk C: des Windows-Servers zu überwachen
-  und einen CRITICAL-Alarm zu erzeugen, wenn die Belegung mindestens 90% beträgt oder einen WARNING-Alarm, wenn die Belegung
-  mindestens 80% beträgt.</para>
+    <para>Fügen Sie die folgende Service-Definition hinzu, um die Plattenbelegung von Laufwerk C: des Windows-Servers zu überwachen und
+    einen CRITICAL-Alarm zu erzeugen, wenn die Belegung mindestens 90% beträgt oder einen WARNING-Alarm, wenn die Belegung mindestens 80%
+    beträgt.</para>
 
-  <screen> define service{
+    <programlisting> define service{
         use                     generic-service
         host_name               winserver
         service_description     C:\ Drive Space
         check_command           check_nt!USEDDISKSPACE!-l c -w 80 -c 90
-        }</screen>
+        }</programlisting>
 
-  <para>Fügen Sie die folgende Service-Definition hinzu, um den W3SVC-Dienst des Windows-Servers zu überwachen und einen
-  CRITICAL-Alarm zu erzeugen, wenn der Dienst gestoppt ist.</para>
+    <para>Fügen Sie die folgende Service-Definition hinzu, um den W3SVC-Dienst des Windows-Servers zu überwachen und einen CRITICAL-Alarm zu
+    erzeugen, wenn der Dienst gestoppt ist.</para>
 
-  <screen> define service{
+    <programlisting> define service{
         use                     generic-service
         host_name               winserver
         service_description     W3SVC
         check_command           check_nt!SERVICESTATE!-d SHOWALL -l W3SVC
-        }</screen>
+        }</programlisting>
 
-  <para>Fügen Sie die folgende Service-Definition hinzu, um den Explorer.exe-Prozess des Windows-Servers zu überwachen und einen
-  CRITICAL-Alarm zu erzeugen, wenn der Prozess nicht läuft.</para>
+    <para>Fügen Sie die folgende Service-Definition hinzu, um den Explorer.exe-Prozess des Windows-Servers zu überwachen und einen
+    CRITICAL-Alarm zu erzeugen, wenn der Prozess nicht läuft.</para>
 
-  <screen> define service{
+    <programlisting> define service{
         use                     generic-service
         host_name               winserver
         service_description     Explorer
         check_command           check_nt!PROCSTATE!-d SHOWALL -l Explorer.exe
-        }</screen>
+        }</programlisting>
 
-  <note><para>Nun ja. Eigentlich ist es ziemlich unsinnig, zu überwachen, ob der Explorer läuft. Allerdings läßt sich auf
-  diese Weise sehr einfach prüfen, ob alles wie gewünscht funktioniert ;-)</para></note>
-  <para>Das war es vorerst. Sie haben einige grundlegende Dienste hinzugefügt, die auf dem Windows-Rechner überwacht werden
-  sollen. Speichern Sie die Konfigurationsdatei.</para>
+    <note>
+      <para>Nun ja. Eigentlich ist es ziemlich unsinnig, zu überwachen, ob der Explorer läuft. Allerdings läßt sich auf diese Weise sehr
+      einfach prüfen, ob alles wie gewünscht funktioniert ;-)</para>
+    </note>
 
-  <para><emphasis role="bold">Passwortschutz</emphasis></para>
+    <para>Das war es vorerst. Sie haben einige grundlegende Dienste hinzugefügt, die auf dem Windows-Rechner überwacht werden sollen.
+    Speichern Sie die Konfigurationsdatei.</para>
+  </section>
 
-  <para>Wenn Sie ein Passwort in der &name-nsclient;-Konfigurationsdatei auf dem Windows-Rechner angegeben haben, dann müssen Sie
-  die <emphasis>check_nt</emphasis>-Befehlsdefinition anpassen, damit sie das Passwort enthält. Öffnen Sie die
-  <emphasis>commands.cfg</emphasis>-Datei.</para>
+  <section>
+    <title>Passwortschutz</title>
 
-  <screen>#&gt; vi &url-icinga-base;/etc/objects/commands.cfg</screen>
+    <para>Wenn Sie ein Passwort in der &name-nsclient;-Konfigurationsdatei auf dem Windows-Rechner angegeben haben, dann müssen Sie die
+    <emphasis>check_nt</emphasis>-Befehlsdefinition anpassen, damit sie das Passwort enthält. Öffnen Sie die
+    <emphasis>commands.cfg</emphasis>-Datei.</para>
 
-  <para>Ändern Sie die Definition des <emphasis>check_nt</emphasis>-Befehls, damit sie das "-s &lt;PASSWORD&gt;"-Argument enthält
-  (wobei PASSWORD das Passwort ist, das Sie auf dem Windows-Rechner angegeben haben):</para>
+    <screen> #&gt; vi &url-icinga-base;/etc/objects/commands.cfg</screen>
 
-  <screen> define command{
+    <para>Ändern Sie die Definition des <emphasis>check_nt</emphasis>-Befehls, damit sie das "-s &lt;PASSWORD&gt;"-Argument enthält (wobei
+    PASSWORD das Passwort ist, das Sie auf dem Windows-Rechner angegeben haben):</para>
+
+    <programlisting> define command{
         command_name    check_nt
         command_line    $USER1$/check_nt -H $HOSTADDRESS$ -p 12489 -s PASSWORD -v $ARG1$ $ARG2$
-        }</screen>
+        }</programlisting>
 
-  <para>Speichern Sie die Datei</para>
+    <para>Speichern Sie die Datei</para>
+  </section>
 
-  <para><emphasis role="bold">&name-icinga; neu starten</emphasis></para>
+  <section>
+    <title>&name-icinga; neu starten</title>
 
-  <para>Sie sind fertig mit der Anpassung der &name-icinga;-Konfiguration, so dass Sie nun <link linkend="verifyconfig">die
-  Konfigurationsdateien überprüfen</link> und <link linkend="startstop">&name-icinga; neu starten</link> müssen.</para>
+    <para>Sie sind fertig mit der Anpassung der &name-icinga;-Konfiguration, so dass Sie nun <link linkend="verifyconfig">die
+    Konfigurationsdateien überprüfen</link> und <link linkend="startstop">&name-icinga; neu starten</link> müssen.</para>
 
-  <para>Wenn die Überprüfung irgendwelche Fehler enthält, dann müssen Sie diese beheben, bevor Sie fortfahren. Stellen Sie sicher,
-  dass Sie &name-icinga; nicht (erneut) starten, bevor die Überprüfung ohne Fehler durchgelaufen ist!</para>
-  <indexterm zone="monitoring-windows"><primary>Überwachung</primary><secondary>Windows-Rechner überwachen</secondary></indexterm>
-  <indexterm zone="monitoring-windows"><primary>Monitoring</primary><secondary>Windows-Rechner überwachen</secondary></indexterm>
-  <indexterm zone="monitoring-windows"><primary>NSClient++</primary><secondary>Windows-Rechner überwachen</secondary></indexterm>
+    <para>Wenn die Überprüfung irgendwelche Fehler enthält, dann müssen Sie diese beheben, bevor Sie fortfahren. Stellen Sie sicher, dass
+    Sie &name-icinga; nicht (erneut) starten, bevor die Überprüfung ohne Fehler durchgelaufen ist!</para>
+  </section>
 </section>

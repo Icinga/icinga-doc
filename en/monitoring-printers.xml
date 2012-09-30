@@ -8,8 +8,10 @@
          xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="monitoring_printers" />Monitoring Network Printers</title>
+  <indexterm zone="monitoring_printers"><primary>Monitoring</primary><secondary>Monitoring Network Printers</secondary></indexterm>
 
-  <para><emphasis role="bold">Introduction</emphasis></para>
+<section>
+  <title>Introduction</title>
 
   <para><informalfigure>
       <mediaobject>
@@ -72,7 +74,8 @@
     quickstart.</para>
   </note>
 
-  <para><emphasis role="bold">Overview</emphasis></para>
+</section><section>
+  <title>Overview</title>
 
   <para><informalfigure>
       <mediaobject>
@@ -91,7 +94,8 @@
   in the source directory. Take a look at the <link linkend="quickstart-icinga">Quickstart Guide</link> for details.
   </para></important>
 
-  <para><emphasis role="bold">Steps</emphasis></para>
+</section><section>
+  <title>Steps</title>
 
   <para>There are several steps you'll need to follow in order to monitor a new network printer. They are:</para>
 
@@ -109,7 +113,8 @@
     </listitem>
   </orderedlist>
 
-  <para><emphasis role="bold">What's Already Done For You</emphasis></para>
+</section><section>
+  <title>What's Already Done For You</title>
 
   <para>To make your life a bit easier, a few configuration tasks have already been done for you:</para>
 
@@ -130,7 +135,8 @@
   waiting until you're more familiar with configuring &name-icinga; before doing so. For the time being, just follow the
   directions outlined below and you'll be monitoring your network printers in no time.</para>
 
-  <para><emphasis role="bold">Prerequisites</emphasis></para>
+</section><section>
+  <title>Prerequisites</title>
 
   <para>The first time you configure &name-icinga; to monitor a network printer, you'll need to do a bit of extra work. Remember,
   you only need to do this for the *first* printer you monitor.</para>
@@ -141,7 +147,7 @@
 
   <para>Remove the leading hash (#) sign from the following line in the main configuration file:</para>
 
-  <screen> #cfg_file=&url-icinga-base;/etc/objects/printer.cfg</screen>
+  <programlisting> #cfg_file=&url-icinga-base;/etc/objects/printer.cfg</programlisting>
 
   <para>Save the file and exit.</para>
 
@@ -150,7 +156,8 @@
   configuration file already contains some sample host, hostgroup, and service definitions. For the *first* printer you monitor,
   you can simply modify the sample host and service definitions in that file, rather than creating new ones.</para>
 
-  <para><emphasis role="bold">Configuring &name-icinga;</emphasis></para>
+</section><section>
+  <title>Configuring &name-icinga;</title>
 
   <para>You'll need to create some <link linkend="objectdefinitions">object definitions</link> in order to monitor a new
   printer.</para>
@@ -164,13 +171,13 @@
   <emphasis>printer.cfg</emphasis>. Change the <emphasis>host_name</emphasis>, <emphasis>alias</emphasis>, and
   <emphasis>address</emphasis> fields to appropriate values for the printer.</para>
 
-  <screen> define host{
+  <programlisting> define host{
         use             generic-printer ; Inherit default values from a template
         host_name       hplj2605dn      ; The name we're giving to this printer
         alias           HP LaserJet 2605dn      ; A longer name associated with the printer
         address         192.168.1.30            ; IP address of the printer
         hostgroups      allhosts                ; Host groups this printer is associated with
-        } </screen>
+        }</programlisting>
 
   <para>Now you can add some service definitions (to the same configuration file) to monitor different aspects of the printer. If
   this is the *first* printer you're monitoring, you can simply modify the sample service definition in
@@ -185,30 +192,31 @@
   <emphasis>check_hpjd</emphasis> plugin to check the status of the printer every 10 minutes by default. The SNMP community string
   used to query the printer is "public" in this example.</para>
 
-  <screen> define service{
+  <programlisting> define service{
         use                   generic-service   ; Inherit values from a template
         host_name             hplj2605dn        ; The name of the host the service is associated with
         service_description   Printer Status    ; The service description
         check_command         check_hpjd!-C public    ; The command used to monitor the service
         check_interval        10      ; Check the service every 10 minutes under normal conditions
         retry_interval        1       ; Re-check every minute until its final/hard state is determined
-        }</screen>
+        }</programlisting>
 
   <para>Add the following service definition to ping the printer every 10 minutes by default. This is useful for monitoring RTA,
   packet loss, and general network connectivity.</para>
 
-  <screen> define service{
+  <programlisting> define service{
         use                     generic-service
         host_name               hplj2605dn
         service_description     PING
         check_command           check_ping!3000.0,80%!5000.0,100%
         check_interval          10
         retry_interval          1
-        }</screen>
+        }</programlisting>
 
   <para>Save the file.</para>
 
-  <para><emphasis role="bold">Restarting &name-icinga;</emphasis></para>
+</section><section>
+  <title>Restarting &name-icinga;</title>
 
   <para>Once you've added the new host and service definitions to the <emphasis>printer.cfg</emphasis> file, you're ready to start
   monitoring the printer. To do this, you'll need to <link linkend="verifyconfig">verify your configuration</link> and <link
@@ -216,5 +224,5 @@
 
   <para>If the verification process produces any errors messages, fix your configuration file before continuing. Make sure that
   you don't (re)start &name-icinga; until the verification process completes without any errors!</para>
-  <indexterm zone="monitoring_printers"><primary>Monitoring</primary><secondary>Monitoring Network Printers</secondary></indexterm>
+</section>
 </section>

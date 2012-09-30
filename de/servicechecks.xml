@@ -4,103 +4,117 @@
 %all.entities;
 ]>
 <section version="5.0" xml:id="servicechecks" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>Service-Prüfungen (Service Checks)</title>
 
-  <para><emphasis role="bold">Einführung</emphasis></para>
+  <section>
+    <title>Einführung</title>
 
-  <para>Die grundlegenden Tätigkeiten von Service-Prüfungen werden hier beschrieben...</para>
+    <para>Die grundlegenden Tätigkeiten von Service-Prüfungen werden hier beschrieben...</para>
+  </section>
 
-  <para><emphasis role="bold">Wann werden Service-Prüfungen durchgeführt?</emphasis></para>
+  <section>
+    <title>Wann werden Service-Prüfungen durchgeführt?</title>
 
-  <para>Services werden durch den &name-icinga;-Daemon geprüft</para>
+    <para>Services werden durch den &name-icinga;-Daemon geprüft</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>in regelmäßigen Intervallen, wie sie durch die <emphasis>check_interval</emphasis> und
-      <emphasis>retry_interval</emphasis>-Optionen in Ihren <link linkend="objectdefinitions-service">Service-Definitionen</link>
-      festgelegt sind.</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>in regelmäßigen Intervallen, wie sie durch die <emphasis>check_interval</emphasis> und
+        <emphasis>retry_interval</emphasis>-Optionen in Ihren <link linkend="objectdefinitions-service">Service-Definitionen</link>
+        festgelegt sind.</para>
+      </listitem>
 
-    <listitem>
-      <para>nach Bedarf bei <link linkend="dependencychecks">vorausschauende Host-Abhängigkeitsprüfungen</link>.</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>nach Bedarf bei <link linkend="dependencychecks">vorausschauende Host-Abhängigkeitsprüfungen</link>.</para>
+      </listitem>
+    </itemizedlist>
 
-  <para>Prüfungen nach Bedarf werden als Teil der <link linkend="dependencychecks">vorausschauenden
-  Service-Abhängigkeitsprüfung</link>s-Logik durchgeführt. Diese Prüfungen helfen sicherzustellen, dass die Abhängigkeitslogik so
-  genau wie möglich ist. Falls Sie die <link linkend="objectdefinitions-servicedependency">Service-Abhängigkeiten</link> nicht
-  nutzen, wird &name-icinga; keine Service-Prüfungen nach Bedarf durchführen.</para>
+    <para>Prüfungen nach Bedarf werden als Teil der <link linkend="dependencychecks">vorausschauenden
+    Service-Abhängigkeitsprüfung</link>s-Logik durchgeführt. Diese Prüfungen helfen sicherzustellen, dass die Abhängigkeitslogik so genau
+    wie möglich ist. Falls Sie die <link linkend="objectdefinitions-servicedependency">Service-Abhängigkeiten</link> nicht nutzen, wird
+    &name-icinga; keine Service-Prüfungen nach Bedarf durchführen.</para>
 
-  <para><emphasis role="bold">zwischengespeicherte Service-Prüfungen</emphasis> (cached service checks)</para>
+    <para><emphasis role="bold">zwischengespeicherte Service-Prüfungen</emphasis> (cached service checks)</para>
 
-  <para>Die Performance von Service-Prüfungen nach Bedarf kann signifikant durch den Einsatz von "cached checks" erhöht werden,
-  die es &name-icinga; erlauben, auf eine Service-Prüfung zu verzichten, wenn es feststellt, dass ein relativ frisches
-  Prüfungsergebnis genügt. Cached checks werden nur dann einen Performance-Gewinn ergeben, wenn Sie <link
-  linkend="objectdefinitions-servicedependency">Service-Abhängigkeiten</link> nutzen. Mehr Informationen zu "cached checks" finden
-  Sie <link linkend="cachedchecks">hier</link>.</para>
+    <para>Die Performance von Service-Prüfungen nach Bedarf kann signifikant durch den Einsatz von "cached checks" erhöht werden, die es
+    &name-icinga; erlauben, auf eine Service-Prüfung zu verzichten, wenn es feststellt, dass ein relativ frisches Prüfungsergebnis genügt.
+    Cached checks werden nur dann einen Performance-Gewinn ergeben, wenn Sie <link
+    linkend="objectdefinitions-servicedependency">Service-Abhängigkeiten</link> nutzen. Mehr Informationen zu "cached checks" finden Sie
+    <link linkend="cachedchecks">hier</link>.</para>
+  </section>
 
-  <para><emphasis role="bold">Abhängigkeiten und Prüfungen</emphasis></para>
+  <section>
+    <title>Abhängigkeiten und Prüfungen</title>
 
-  <para>Sie können <link linkend="objectdefinitions-servicedependency">Service-Ausführungs-Abhängigkeiten</link> definieren, die
-  &name-icinga; von der Statusprüfung eines Service abhalten in Abhängigkeit vom Status ein oder mehrerer anderer Services. Mehr
-  Informationen zu Abhängigkeiten finden Sie <link linkend="dependencies">hier</link>.</para>
+    <para>Sie können <link linkend="objectdefinitions-servicedependency">Service-Ausführungs-Abhängigkeiten</link> definieren, die
+    &name-icinga; von der Statusprüfung eines Service abhalten in Abhängigkeit vom Status ein oder mehrerer anderer Services. Mehr
+    Informationen zu Abhängigkeiten finden Sie <link linkend="dependencies">hier</link>.</para>
+  </section>
 
-  <para><emphasis role="bold">Parallelisierung von Service-Prüfungen</emphasis></para>
+  <section>
+    <title>Parallelisierung von Service-Prüfungen</title>
 
-  <para>Geplante Service-Prüfungen laufen parallel. Wenn &name-icinga; eine geplante Service-Prüfung ausführt, wird es die
-  Service-Prüfung veranlassen und dann zu anderen Arbeiten zurückkehren (Host-Prüfungen ausführen, etc.). Die Service-Prüfung
-  läuft in einem Kind-Prozess, der vom Haupt-&name-icinga;-Prozess aufgerufen wird ("fork()ed"). Wenn die Service-Prüfung beendet
-  ist, wird der Kind-Prozess den Haupt-&name-icinga;-Prozess (seinen Eltern-Prozess) über das Ergebnis informieren. Der
-  Haupt-&name-icinga;-Prozess wird dann das Prüfungsergebnis behandeln und geeignete Aktionen durchführen (Eventhandler starten,
-  Benachrichtigungen senden, usw.).</para>
+    <para>Geplante Service-Prüfungen laufen parallel. Wenn &name-icinga; eine geplante Service-Prüfung ausführt, wird es die Service-Prüfung
+    veranlassen und dann zu anderen Arbeiten zurückkehren (Host-Prüfungen ausführen, etc.). Die Service-Prüfung läuft in einem Kind-Prozess,
+    der vom Haupt-&name-icinga;-Prozess aufgerufen wird ("fork()ed"). Wenn die Service-Prüfung beendet ist, wird der Kind-Prozess den
+    Haupt-&name-icinga;-Prozess (seinen Eltern-Prozess) über das Ergebnis informieren. Der Haupt-&name-icinga;-Prozess wird dann das
+    Prüfungsergebnis behandeln und geeignete Aktionen durchführen (Eventhandler starten, Benachrichtigungen senden, usw.).</para>
 
-  <para>Service-Prüfungen nach Bedarf laufen ebenfalls parallel, falls notwendig. Wie bereits vorher erwähnt kann &name-icinga;
-  auf die eigentliche Ausführung einer Service-Prüfung nach Bedarf verzichten, wenn es das gespeicherte Ergebnis einer relativ
-  frischen Service-Prüfung benutzen kann.</para>
+    <para>Service-Prüfungen nach Bedarf laufen ebenfalls parallel, falls notwendig. Wie bereits vorher erwähnt kann &name-icinga; auf die
+    eigentliche Ausführung einer Service-Prüfung nach Bedarf verzichten, wenn es das gespeicherte Ergebnis einer relativ frischen
+    Service-Prüfung benutzen kann.</para>
+  </section>
 
-  <para><emphasis role="bold">Service-Zustände</emphasis></para>
+  <section>
+    <title>Service-Zustände</title>
 
-  <para>Services, die geprüft werden, können in einem von vier unterschiedlichen Zuständen sein</para>
+    <para>Services, die geprüft werden, können in einem von vier unterschiedlichen Zuständen sein</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>OK</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>OK</para>
+      </listitem>
 
-    <listitem>
-      <para>WARNING</para>
-    </listitem>
+      <listitem>
+        <para>WARNING</para>
+      </listitem>
 
-    <listitem>
-      <para>UNKNOWN</para>
-    </listitem>
+      <listitem>
+        <para>UNKNOWN</para>
+      </listitem>
 
-    <listitem>
-      <para>CRITICAL</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>CRITICAL</para>
+      </listitem>
+    </itemizedlist>
+  </section>
 
-  <para><emphasis role="bold">Service-Statusermittlung</emphasis></para>
+  <section>
+    <title>Service-Statusermittlung</title>
 
-  <para>Service-Prüfungen werden mit Hilfe von <link linkend="plugins">Plugins</link> durchgeführt, die den Status OK, WARNING,
-  UNKNOWN oder CRITICAL zurückliefern können. Diese Return-Codes der Plugins werden direkt in die Service-Zustände übersetzt.
-  Beispielsweise wird das WARNING-Ergebnis eines Plugins zu einem WARNING-Status eines Service führen.</para>
+    <para>Service-Prüfungen werden mit Hilfe von <link linkend="plugins">Plugins</link> durchgeführt, die den Status OK, WARNING, UNKNOWN
+    oder CRITICAL zurückliefern können. Diese Return-Codes der Plugins werden direkt in die Service-Zustände übersetzt. Beispielsweise wird
+    das WARNING-Ergebnis eines Plugins zu einem WARNING-Status eines Service führen.</para>
+  </section>
 
-  <para><emphasis role="bold">Service-Statusänderungen</emphasis></para>
+  <section>
+    <title>Service-Statusänderungen</title>
 
-  <para>Wenn &name-icinga; den Status von Services prüft, ist es in der Lage festzustellen, wenn ein Service zwischen OK-,
-  WARNING-, UNKNOWN- und CRITICAL-Zuständen wechselt und geeignete Maßnahmen ergreifen. Diese Zustandsänderungen resultieren in
-  verschiedenen <link linkend="statetypes">Statustypen</link> (HARD oder SOFT), was zum Auslösen von <link
-  linkend="eventhandlers">Eventhandlern</link> und dem Versenden von <link linkend="notifications">Benachrichtigungen</link>
-  führen kann. Service-Statusänderungen können auch zum Auslösen von <link linkend="hostchecks">Host-Prüfungen</link> nach Bedarf
-  führen. Das Erkennen und Behandeln von Statusänderungen ist das, worum es sich bei &name-icinga; handelt.</para>
+    <para>Wenn &name-icinga; den Status von Services prüft, ist es in der Lage festzustellen, wenn ein Service zwischen OK-, WARNING-,
+    UNKNOWN- und CRITICAL-Zuständen wechselt und geeignete Maßnahmen ergreifen. Diese Zustandsänderungen resultieren in verschiedenen <link
+    linkend="statetypes">Statustypen</link> (HARD oder SOFT), was zum Auslösen von <link linkend="eventhandlers">Eventhandlern</link> und
+    dem Versenden von <link linkend="notifications">Benachrichtigungen</link> führen kann. Service-Statusänderungen können auch zum Auslösen
+    von <link linkend="hostchecks">Host-Prüfungen</link> nach Bedarf führen. Das Erkennen und Behandeln von Statusänderungen ist das, worum
+    es sich bei &name-icinga; handelt.</para>
 
-  <para>Wenn Service-Statusänderungen zu oft erfolgen, werden sie als "flatternd" (flapping) angesehen. &name-icinga; kann
-  erkennen, wenn Services anfangen zu flattern, und kann Benachrichtigungen unterdrücken, bis das Flattern stoppt und sich der
-  Service-Status stabilisiert. Mehr Informationen über die Erkennungslogik des Flatterns finden Sie <link
-  linkend="flapping">hier</link>.</para>
-  <indexterm zone="servicechecks"><primary>Service-Prüfungen</primary></indexterm>
+    <para>Wenn Service-Statusänderungen zu oft erfolgen, werden sie als "flatternd" (flapping) angesehen. &name-icinga; kann erkennen, wenn
+    Services anfangen zu flattern, und kann Benachrichtigungen unterdrücken, bis das Flattern stoppt und sich der Service-Status
+    stabilisiert. Mehr Informationen über die Erkennungslogik des Flatterns finden Sie <link linkend="flapping">hier</link>.</para>
+
+    <indexterm zone="servicechecks">
+      <primary>Service-Prüfungen</primary>
+    </indexterm>
+  </section>
 </section>

@@ -1,99 +1,169 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE section [
-  <!ENTITY % all.entities SYSTEM "all-entities.ent">
-  %all.entities;
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
 ]>
 <section version="5.0" xml:id="timeperiods" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
-    <title>Zeitfenster</title>
-    <para> oder...</para>
-    <para>
-      <emphasis role="bold">Einführung</emphasis>
-    </para>
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="../images/objects-timeperiods.png" format="PNG"/>
-        </imageobject>
-      </mediaobject>
-    <para><link linkend="objectdefinitions-timeperiod">Zeitfenster</link>-Definitionen erlauben Ihnen zu kontrollieren, wann verschiedene Aspekte der Überwachungs- und Alarmierungslogik arbeiten. Zum Beispiel können Sie einschränken</para>
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title>Zeitfenster</title>
+
+  <para>oder...</para>
+
+  <section>
+    <title>Einführung</title>
+
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="../images/objects-timeperiods.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+
+    <para><link linkend="objectdefinitions-timeperiod">Zeitfenster</link>-Definitionen erlauben Ihnen zu kontrollieren, wann verschiedene
+    Aspekte der Überwachungs- und Alarmierungslogik arbeiten. Zum Beispiel können Sie einschränken</para>
+
     <itemizedlist>
       <listitem>
-        <para> wann regelmäßig geplante Host- und Service-Prüfungen ausgeführt werden</para>
+        <para>wann regelmäßig geplante Host- und Service-Prüfungen ausgeführt werden</para>
       </listitem>
+
       <listitem>
-        <para> wann Benachrichtigungen versandt werden</para>
+        <para>wann Benachrichtigungen versandt werden</para>
       </listitem>
+
       <listitem>
-        <para> wann Benachrichtigungs-Eskalationen benutzt werden können</para>
+        <para>wann Benachrichtigungs-Eskalationen benutzt werden können</para>
       </listitem>
+
       <listitem>
-        <para> wann Abhängigkeiten gültig sind</para>
+        <para>wann Abhängigkeiten gültig sind</para>
       </listitem>
     </itemizedlist>
-    <para>
-      <emphasis role="bold">Vorrang bei Zeitfenstern</emphasis>
-    </para>
-    <para>Zeitfenster-<link linkend="objectdefinitions-timeperiod">Definitionen</link> können mehrere Typen von Direktiven enthalten, einschließlich Wochentagen, Monatstagen und Kalenderdaten. Verschiedene Typen von Direktiven haben unterschiedliche Vorrang-Ebenen und können andere Direktiven in Ihren Zeitfenster-Definitionen außer Kraft setzen. Die Rangfolge für verschiedene Typen von Direktiven (in absteigender Reihenfolge) ist wie folgt:</para>
+  </section>
+
+  <section>
+    <title>Vorrang bei Zeitfenstern</title>
+
+    <para>Zeitfenster-<link linkend="objectdefinitions-timeperiod">Definitionen</link> können mehrere Typen von Direktiven enthalten,
+    einschließlich Wochentagen, Monatstagen und Kalenderdaten. Verschiedene Typen von Direktiven haben unterschiedliche Vorrang-Ebenen und
+    können andere Direktiven in Ihren Zeitfenster-Definitionen außer Kraft setzen. Die Rangfolge für verschiedene Typen von Direktiven (in
+    absteigender Reihenfolge) ist wie folgt:</para>
+
     <itemizedlist>
       <listitem>
-        <para> Kalenderdaten (2008-01-01)</para>
+        <para>Kalenderdaten (2008-01-01)</para>
       </listitem>
+
       <listitem>
-        <para> angegebener Tag des Monats (January 1st)</para>
+        <para>angegebener Tag des Monats (January 1st)</para>
       </listitem>
+
       <listitem>
-        <para> generischer Tag des Monats (Day 15)</para>
+        <para>generischer Tag des Monats (Day 15)</para>
       </listitem>
+
       <listitem>
-        <para> Offset Wochentag eines bestimmten Monats (2nd Tuesday in December)</para>
+        <para>Offset Wochentag eines bestimmten Monats (2nd Tuesday in December)</para>
       </listitem>
+
       <listitem>
-        <para> Offset Wochentag (3rd Monday)</para>
+        <para>Offset Wochentag (3rd Monday)</para>
       </listitem>
+
       <listitem>
-        <para> normaler Wochentag (Tuesday)</para>
+        <para>normaler Wochentag (Tuesday)</para>
       </listitem>
     </itemizedlist>
+
     <para>Beispiele für verschiedene Zeitfenster-Direktiven finden Sie <link linkend="objectdefinitions-timeperiod">hier</link>.</para>
-    <para>
-      <emphasis role="bold">Wie Zeitfenster mit Host- und Service-Prüfungen arbeiten</emphasis>
-    </para>
-    <para>Host- und Service-Definitionen haben eine optionale <emphasis>check_period</emphasis>-Direktive, die es Ihnen erlaubt, ein Zeitfenster anzugeben, das zur Einschränkung benutzt werden sollte, wann regelmäßig geplante aktive Prüfungen des Hosts oder Service stattfinden.</para>
-    <para>Wenn Sie die <emphasis>check_period</emphasis>-Direktive nicht nutzen, um ein Zeitfenster anzugeben, wird &name-icinga; in der Lage sein, aktive Prüfungen für den Host oder Service zu jeder Zeit zu planen, wenn es nötig ist. Dies ist in Wirklichkeit ein 24x7-Überwachungsszenario.</para>
-    <para>Ein Zeitfenster in der <emphasis>check_period</emphasis>-Direktive anzugeben erlaubt Ihnen die Einschränkung der Zeit, wann &name-icinga; regelmäßige aktive Host- oder Service-Prüfungen plant. Wenn &name-icinga; versucht, einen Host oder Service neu zu planen, wird es sicherstellen, dass die nächste Prüfung in einen gültigen Zeitbereich im definierten Zeitfenster fällt. Falls das nicht zutreffen sollte, wird &name-icinga; die Zeit der nächsten Prüfung so anpassen, dass sie in die nächste &quot;gültige&quot; Zeit im angegebenen Zeitfenster fällt. Das bedeutet, dass der Host oder Service vielleicht während der nächsten Stunde, des nächsten Tages oder der nächsten Woche, etc. nicht geprüft wird.</para>
+  </section>
+
+  <section>
+    <title>Wie Zeitfenster mit Host- und Service-Prüfungen arbeiten</title>
+
+    <para>Host- und Service-Definitionen haben eine optionale <emphasis>check_period</emphasis>-Direktive, die es Ihnen erlaubt, ein
+    Zeitfenster anzugeben, das zur Einschränkung benutzt werden sollte, wann regelmäßig geplante aktive Prüfungen des Hosts oder Service
+    stattfinden.</para>
+
+    <para>Wenn Sie die <emphasis>check_period</emphasis>-Direktive nicht nutzen, um ein Zeitfenster anzugeben, wird &name-icinga; in der
+    Lage sein, aktive Prüfungen für den Host oder Service zu jeder Zeit zu planen, wenn es nötig ist. Dies ist in Wirklichkeit ein
+    24x7-Überwachungsszenario.</para>
+
+    <para>Ein Zeitfenster in der <emphasis>check_period</emphasis>-Direktive anzugeben erlaubt Ihnen die Einschränkung der Zeit, wann
+    &name-icinga; regelmäßige aktive Host- oder Service-Prüfungen plant. Wenn &name-icinga; versucht, einen Host oder Service neu zu planen,
+    wird es sicherstellen, dass die nächste Prüfung in einen gültigen Zeitbereich im definierten Zeitfenster fällt. Falls das nicht
+    zutreffen sollte, wird &name-icinga; die Zeit der nächsten Prüfung so anpassen, dass sie in die nächste "gültige" Zeit im angegebenen
+    Zeitfenster fällt. Das bedeutet, dass der Host oder Service vielleicht während der nächsten Stunde, des nächsten Tages oder der nächsten
+    Woche, etc. nicht geprüft wird.</para>
+
     <para><inlinemediaobject>
         <imageobject>
           <imagedata fileref="../images/note.gif" format="GIF"/>
         </imageobject>
-      </inlinemediaobject>
- Anmerkung: Prüfungen nach Bedarf und passive Prüfungen sind nicht durch das Zeitfenster beschränkt, das Sie in der <emphasis>check_period</emphasis>-Direktive angeben. Nur regelmäßig geplante aktive Prüfungen werden beschränkt.</para>
-    <para>Außer Sie haben einen guten Grund das zu tun, würden wir raten, dass Sie all Ihre Hosts und Services mit einem Zeitfenster überwachen, das einen 24x7-Zeitbereich abdeckt. Falls Sie das nicht tun, können Sie während der &quot;blackout&quot;-Zeiten in einige Probleme laufen (Zeiten, die nicht gültig sind in der Zeitfenster-Definition):</para>
+      </inlinemediaobject> Anmerkung: Prüfungen nach Bedarf und passive Prüfungen sind nicht durch das Zeitfenster beschränkt, das Sie in
+    der <emphasis>check_period</emphasis>-Direktive angeben. Nur regelmäßig geplante aktive Prüfungen werden beschränkt.</para>
+
+    <para>Außer Sie haben einen guten Grund das zu tun, würden wir raten, dass Sie all Ihre Hosts und Services mit einem Zeitfenster
+    überwachen, das einen 24x7-Zeitbereich abdeckt. Falls Sie das nicht tun, können Sie während der "blackout"-Zeiten in einige Probleme
+    laufen (Zeiten, die nicht gültig sind in der Zeitfenster-Definition):</para>
+
     <orderedlist>
       <listitem>
-        <para> der Status des Hosts oder Service wird in der blackout-Zeit unverändert erscheinen.</para>
+        <para>der Status des Hosts oder Service wird in der blackout-Zeit unverändert erscheinen.</para>
       </listitem>
+
       <listitem>
-        <para> Kontakte werden während der blackout-Zeit wahrscheinlich nicht erneut über Host- oder Service-Probleme informiert werden.</para>
+        <para>Kontakte werden während der blackout-Zeit wahrscheinlich nicht erneut über Host- oder Service-Probleme informiert
+        werden.</para>
       </listitem>
+
       <listitem>
-        <para> falls sich ein Host oder Service während einer blackout-Zeit erholt, werden Kontakte nicht umgehend über die Erholung informiert.</para>
+        <para>falls sich ein Host oder Service während einer blackout-Zeit erholt, werden Kontakte nicht umgehend über die Erholung
+        informiert.</para>
       </listitem>
     </orderedlist>
-    <para>
-      <emphasis role="bold">Wie Zeitfenster mit Kontakt-Benachrichtigungen arbeiten</emphasis>
-    </para>
-    <para>Durch das Angeben eines Zeitfensters in der <emphasis>notification_period</emphasis>-Direktive einer Host- oder Service-Definition kontrollieren Sie, wann &name-icinga; Benachrichtigungen versenden darf, um über Probleme oder Erholungen für den Host oder Service zu informieren. Wenn eine Host-Benachrichtigung versandt werden soll, prüft &name-icinga;, ob die aktuelle Zeit in einem gültigen Bereich der <emphasis>notification_period</emphasis> liegt. Wenn eine gültige Zeit vorliegt, wird &name-icinga; versuchen, jeden Kontakt über das Problem oder die Erholung zu informieren.</para>
-    <para>Sie können Zeitfenster auch nutzen, um zu kontrollieren, wann Benachrichtigungen an einzelne Kontakte versandt werden. Durch die Nutzung der <emphasis>service_notification_period</emphasis>- und der <emphasis>host_notification_period</emphasis>-Direktiven in den <link linkend="objectdefinitions-contact">Kontakt-Definitionen</link> sind Sie in der Lage, eine tatsächliche Rufbereitschaft für jeden Kontakt zu definieren. Kontakte werden Host- und Service-Benachrichtigungen nur während der Zeiten erhalten, die Sie in den Benachrichtigungs-Direktiven angegeben haben.</para>
-    <para>Beispiele, wie Zeitfenster-Definitionen für Rufbereitschafts-Wechsel angelegt werden, finden Sie <link linkend="oncallrotation">hier</link>.</para>
-    <para>
-      <emphasis role="bold">Wie Zeitfenster mit Benachrichtigungs-Eskalationen arbeiten</emphasis>
-    </para>
-    <para>Service- und Host-<link linkend="escalations">Benachrichtigungs-Eskalationen</link> haben eine optionale <emphasis>escalation_period</emphasis>-Direktive, die es Ihnen erlaubt ein Zeitfenster anzugeben, wann die Eskalation gültig ist und benutzt werden kann. Wenn Sie die <emphasis>escalation_period</emphasis>-Direktive nicht in einer Eskalations-Definition benutzen, ist diese Eskalation zu allen Zeiten gültig. Wenn Sie ein Zeitfenster in der <emphasis>escalation_period</emphasis>-Direktive angeben, wird &name-icinga; die Eskalations-Definition nur zu Zeiten nutzen, die aufgrund der Zeitfenster-Definition gültig sind.</para>
-    <para>
-      <emphasis role="bold">Wie Zeitfenster mit Abhängigkeiten arbeiten</emphasis>
-    </para>
-    <para>Service- und Host-<link linkend="dependencies">Abhängigkeiten</link> haben eine optionale <emphasis>dependency_period</emphasis>-Direktive, die es Ihnen erlaubt ein Zeitfenster anzugeben, wann die Abhängigkeit gültig ist und benutzt werden kann. Wenn Sie die <emphasis>dependency_period</emphasis>-Direktive nicht in einer Abhängigkeits-Definition benutzen, ist diese Abhängigkeit zu allen Zeiten gültig. Wenn Sie ein Zeitfenster in der <emphasis>dependency_period</emphasis>-Direktive angeben, wird &name-icinga; die Abhängigkeits-Definition nur zu Zeiten nutzen, die aufgrund der Zeitfenster-Definition gültig sind.</para>
-  <indexterm zone="timeperiods"><primary>Zeitfenster (time periods)</primary></indexterm>
+  </section>
+
+  <section>
+    <title>Wie Zeitfenster mit Kontakt-Benachrichtigungen arbeiten</title>
+
+    <para>Durch das Angeben eines Zeitfensters in der <emphasis>notification_period</emphasis>-Direktive einer Host- oder Service-Definition
+    kontrollieren Sie, wann &name-icinga; Benachrichtigungen versenden darf, um über Probleme oder Erholungen für den Host oder Service zu
+    informieren. Wenn eine Host-Benachrichtigung versandt werden soll, prüft &name-icinga;, ob die aktuelle Zeit in einem gültigen Bereich
+    der <emphasis>notification_period</emphasis> liegt. Wenn eine gültige Zeit vorliegt, wird &name-icinga; versuchen, jeden Kontakt über
+    das Problem oder die Erholung zu informieren.</para>
+
+    <para>Sie können Zeitfenster auch nutzen, um zu kontrollieren, wann Benachrichtigungen an einzelne Kontakte versandt werden. Durch die
+    Nutzung der <emphasis>service_notification_period</emphasis>- und der <emphasis>host_notification_period</emphasis>-Direktiven in den
+    <link linkend="objectdefinitions-contact">Kontakt-Definitionen</link> sind Sie in der Lage, eine tatsächliche Rufbereitschaft für jeden
+    Kontakt zu definieren. Kontakte werden Host- und Service-Benachrichtigungen nur während der Zeiten erhalten, die Sie in den
+    Benachrichtigungs-Direktiven angegeben haben.</para>
+
+    <para>Beispiele, wie Zeitfenster-Definitionen für Rufbereitschafts-Wechsel angelegt werden, finden Sie <link
+    linkend="oncallrotation">hier</link>.</para>
+  </section>
+
+  <section>
+    <title>Wie Zeitfenster mit Benachrichtigungs-Eskalationen arbeiten</title>
+
+    <para>Service- und Host-<link linkend="escalations">Benachrichtigungs-Eskalationen</link> haben eine optionale
+    <emphasis>escalation_period</emphasis>-Direktive, die es Ihnen erlaubt ein Zeitfenster anzugeben, wann die Eskalation gültig ist und
+    benutzt werden kann. Wenn Sie die <emphasis>escalation_period</emphasis>-Direktive nicht in einer Eskalations-Definition benutzen, ist
+    diese Eskalation zu allen Zeiten gültig. Wenn Sie ein Zeitfenster in der <emphasis>escalation_period</emphasis>-Direktive angeben, wird
+    &name-icinga; die Eskalations-Definition nur zu Zeiten nutzen, die aufgrund der Zeitfenster-Definition gültig sind.</para>
+  </section>
+
+  <section>
+    <title>Wie Zeitfenster mit Abhängigkeiten arbeiten</title>
+
+    <para>Service- und Host-<link linkend="dependencies">Abhängigkeiten</link> haben eine optionale
+    <emphasis>dependency_period</emphasis>-Direktive, die es Ihnen erlaubt ein Zeitfenster anzugeben, wann die Abhängigkeit gültig ist und
+    benutzt werden kann. Wenn Sie die <emphasis>dependency_period</emphasis>-Direktive nicht in einer Abhängigkeits-Definition benutzen, ist
+    diese Abhängigkeit zu allen Zeiten gültig. Wenn Sie ein Zeitfenster in der <emphasis>dependency_period</emphasis>-Direktive angeben,
+    wird &name-icinga; die Abhängigkeits-Definition nur zu Zeiten nutzen, die aufgrund der Zeitfenster-Definition gültig sind.</para>
+
+    <indexterm zone="timeperiods">
+      <primary>Zeitfenster (time periods)</primary>
+    </indexterm>
+  </section>
 </section>

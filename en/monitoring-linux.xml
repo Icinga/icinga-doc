@@ -4,73 +4,80 @@
 %all.entities;
 ]>
 <section version="5.0" xml:id="monitoring-linux" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
-  <title><anchor xml:id="monitoring_linux" />Monitoring Linux/Unix Machines</title>
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="monitoring_linux"/>Monitoring Linux/Unix Machines</title>
 
-  <para><emphasis role="bold">Introduction</emphasis></para>
+  <indexterm zone="monitoring_linux">
+    <primary>Monitoring</primary>
 
-  <para>This document describes how you can monitor "private" services and attributes of Linux/UNIX servers, such as:</para>
+    <secondary>Monitoring Linux/Unix Machines</secondary>
+  </indexterm>
 
-  <itemizedlist>
-    <listitem>
-      <para>CPU load</para>
-    </listitem>
+  <section>
+    <title>Introduction</title>
 
-    <listitem>
-      <para>Memory usage</para>
-    </listitem>
+    <para>This document describes how you can monitor "private" services and attributes of Linux/UNIX servers, such as:</para>
 
-    <listitem>
-      <para>Disk usage</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>CPU load</para>
+      </listitem>
 
-    <listitem>
-      <para>Logged in users</para>
-    </listitem>
+      <listitem>
+        <para>Memory usage</para>
+      </listitem>
 
-    <listitem>
-      <para>Running processes</para>
-    </listitem>
+      <listitem>
+        <para>Disk usage</para>
+      </listitem>
 
-    <listitem>
-      <para>etc.</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>Logged in users</para>
+      </listitem>
 
-  <para>Publicly available services that are provided by Linux servers (HTTP, FTP, SSH, SMTP, etc.) can be monitored easily by
-  following the documentation on <link linkend="monitoring-publicservices">monitoring publicly available services</link>.</para>
+      <listitem>
+        <para>Running processes</para>
+      </listitem>
 
-  <note>
-    <para>These instructions assume that you've installed &name-icinga; according to the <link linkend="quickstart">quickstart
-    guide</link>. The sample configuration entries below reference objects that are defined in the sample config files
-    (<emphasis>commands.cfg</emphasis>, <emphasis>templates.cfg</emphasis>, etc.) that are installed if you follow the
-    quickstart.</para>
-  </note>
+      <listitem>
+        <para>etc.</para>
+      </listitem>
+    </itemizedlist>
 
-  <para><emphasis role="bold">Overview</emphasis></para>
+    <para>Publicly available services that are provided by Linux servers (HTTP, FTP, SSH, SMTP, etc.) can be monitored easily by following
+    the documentation on <link linkend="monitoring-publicservices">monitoring publicly available services</link>.</para>
 
-  <note>
-    <para>This document has not been completed. We would recommend you read the documentation on the <link
-    linkend="addons-nrpe">NRPE addon</link> for instructions on how to monitor a remote Linux/Unix server.</para>
-  </note>
+    <note>
+      <para>These instructions assume that you've installed &name-icinga; according to the <link linkend="quickstart">quickstart
+      guide</link>. The sample configuration entries below reference objects that are defined in the sample config files
+      (<emphasis>commands.cfg</emphasis>, <emphasis>templates.cfg</emphasis>, etc.) that are installed if you follow the quickstart.</para>
+    </note>
+  </section>
 
-  <para>There are several different ways to monitor attributes or remote Linux/Unix servers. One is by using shared SSH keys and
-  the <emphasis>check_by_ssh</emphasis> plugin to execute plugins on remote servers. This method will not be covered here, but can
-  result in high load on your monitoring server if you are monitoring hundreds or thousands of services. The overhead of setting
-  up/destroying SSH connections is the cause of this.</para>
+  <section>
+    <title>Overview</title>
 
-  <informalfigure>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="../images/nrpe.png" format="PNG"></imagedata>
-      </imageobject>
-    </mediaobject>
-  </informalfigure>
+    <note>
+      <para>This document has not been completed. We would recommend you read the documentation on the <link linkend="addons-nrpe">NRPE
+      addon</link> for instructions on how to monitor a remote Linux/Unix server.</para>
+    </note>
 
-  <para>Another common method of monitoring remote Linux/Unix hosts is to use the <link linkend="addons-nrpe">NRPE addon</link>.
-  NRPE allows you to execute plugins on remote Linux/Unix hosts. This is useful if you need to monitor local resources/attributes
-  like disk usage, CPU load, memory usage, etc. on a remote host.</para>
-  <indexterm zone="monitoring_linux"><primary>Monitoring</primary><secondary>Monitoring Linux/Unix Machines</secondary></indexterm>
+    <para>There are several different ways to monitor attributes or remote Linux/Unix servers. One is by using shared SSH keys and the
+    <emphasis>check_by_ssh</emphasis> plugin to execute plugins on remote servers. This method will not be covered here, but can result in
+    high load on your monitoring server if you are monitoring hundreds or thousands of services. The overhead of setting up/destroying SSH
+    connections is the cause of this.</para>
+
+    <informalfigure>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="../images/nrpe.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </informalfigure>
+
+    <para>Another common method of monitoring remote Linux/Unix hosts is to use the <link linkend="addons-nrpe">NRPE addon</link>. NRPE
+    allows you to execute plugins on remote Linux/Unix hosts. This is useful if you need to monitor local resources/attributes like disk
+    usage, CPU load, memory usage, etc. on a remote host.</para>
+  </section>
 </section>
