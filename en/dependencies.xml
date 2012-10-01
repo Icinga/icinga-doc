@@ -9,13 +9,13 @@
          xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="host_srv_dependencies" />Host and Service Dependencies</title>
 
-  <para><emphasis role="bold">Introduction</emphasis></para>
+  <section><title>Introduction</title>
 
   <para>Service and host dependencies are an advanced feature of &name-icinga; that allow you to control the behavior of hosts and
   services based on the status of one or more other hosts or services. We'll explain how dependencies work, along with the
   differences between host and service dependencies.</para>
 
-  <para><emphasis role="bold">Service Dependencies Overview</emphasis></para>
+  </section><section><title>Service Dependencies Overview</title>
 
   <para>There are a few things you should know about service dependencies:</para>
 
@@ -42,7 +42,7 @@
     </listitem>
   </orderedlist>
 
-  <para><emphasis role="bold">Defining Service Dependencies</emphasis></para>
+  </section><section><title>Defining Service Dependencies</title>
 
   <para>First, the basics. You create service dependencies by adding <link linkend="objectdefinitions-servicedependency">service
   dependency definitions</link> in your <link linkend="configobject">object config file(s)</link>. In each definition you specify
@@ -52,7 +52,7 @@
   <para>You can create several dependencies for a given service, but you must add a separate service dependency definition for
   each dependency you create.</para>
 
-  <para><emphasis role="bold">Example Service Dependencies</emphasis></para>
+  </section><section><title>Example Service Dependencies</title>
 
   <para>The image below shows an example logical layout of service notification and execution dependencies. Different services are
   dependent on other services for notifications and check execution.</para>
@@ -66,7 +66,7 @@
   <para>In this example, the dependency definitions for <emphasis>Service F</emphasis> on <emphasis>Host C</emphasis> would be
   defined as follows:</para>
 
-  <screen> define servicedependency{
+  <programlisting> define servicedependency{
         host_name                       Host B
         service_description             Service D
         dependent_host_name             Host C
@@ -91,11 +91,11 @@
         dependent_service_description   Service F
         execution_failure_criteria      w
         notification_failure_criteria   c
-        }</screen>
+        }</programlisting>
 
   <para>The other dependency definitions shown in the image above would be defined as follows:</para>
 
-  <screen> define servicedependency{
+  <programlisting> define servicedependency{
         host_name                       Host A
         service_description             Service A
         dependent_host_name             Host B
@@ -120,9 +120,9 @@
         dependent_service_description   Service E
         execution_failure_criteria      n
         notification_failure_criteria   w,u,c
-        }</screen>
+        }</programlisting>
 
-  <para><emphasis role="bold">How Service Dependencies Are Tested</emphasis></para>
+  </section><section><title>How Service Dependencies Are Tested</title>
 
   <para>Before &name-icinga; executes a service check or sends notifications out for a service, it will check to see if the
   service has any dependencies. If it doesn't have any dependencies, the check is executed or the notification is sent out as it
@@ -165,7 +165,7 @@
     state), enable the <link linkend="configmain-soft_state_dependencies">soft_state_dependencies</link> option.</para>
   </note>
 
-  <para><emphasis role="bold">Execution Dependencies</emphasis></para>
+  </section><section><title>Execution Dependencies</title>
 
   <para>Execution dependencies are used to restrict when <link linkend="activechecks">active checks</link> of a service can be
   performed. <link linkend="passivechecks">Passive checks</link> are not restricted by execution dependencies.</para>
@@ -181,7 +181,7 @@
   role="bold">Service B</emphasis> is in a WARNING or UNKNOWN state. If this was the case, the service check would not be
   performed and the check would be scheduled for (potential) execution at a later time.</para>
 
-  <para><emphasis role="bold">Notification Dependencies</emphasis></para>
+  </section><section><title>Notification Dependencies</title>
 
   <para>If <emphasis>all</emphasis> of the notification dependency tests for the service <emphasis>passed</emphasis>,
   &name-icinga; will send notifications out for the service as it normally would. If even just one of the notification
@@ -195,7 +195,7 @@
   is in a WARNING or UNKNOWN state, <emphasis>and/or</emphasis> if <emphasis role="bold">Service E</emphasis> is in a WARNING,
   UNKNOWN, or CRITICAL state. If this were the case, notifications for the service would not be sent out.</para>
 
-  <para><emphasis role="bold">Dependency Inheritance</emphasis></para>
+  </section><section><title>Dependency Inheritance</title>
 
   <para>As mentioned before, service dependencies are <emphasis>not</emphasis> inherited by default. In the example above you can
   see that Service F is dependent on Service E. However, it does not automatically inherit Service E's dependencies on Service B
@@ -213,7 +213,7 @@
   being the <emphasis>master</emphasis> service (i.e. the service <emphasis>that is being dependend on</emphasis>). You could
   alternatively modify the dependency definition for services D and F to look like this:</para>
 
-  <screen> define servicedependency{
+  <programlisting> define servicedependency{
         host_name                       Host B
         service_description             Service D
         dependent_host_name             Host C
@@ -221,7 +221,7 @@
         execution_failure_criteria      o
         notification_failure_criteria   n
         inherits_parent         1
-        }</screen>
+        }</programlisting>
 
   <para>Since the <emphasis>inherits_parent</emphasis> directive is enabled, the dependency between services A and D will be
   tested when the dependency between services F and D are being tested.</para>
@@ -230,7 +230,7 @@
   <emphasis>inherits_parent</emphasis> directive enable and service A was dependent on some other service (let's call it service
   G), the service F would be dependent on services D, A, and G (each with potentially different criteria).</para>
 
-  <para><emphasis role="bold">Host Dependencies</emphasis></para>
+  </section><section><title>Host Dependencies</title>
 
   <para>As you'd probably expect, host dependencies work in a similiar fashion to service dependencies. The difference is that
   they're for hosts, not services.</para>
@@ -263,7 +263,7 @@
     </listitem>
   </orderedlist>
 
-  <para><emphasis role="bold">Example Host Dependencies</emphasis></para>
+  </section><section><title>Example Host Dependencies</title>
 
   <para>The image below shows an example of the logical layout of host notification dependencies. Different hosts are dependent on
   other hosts for notifications.</para>
@@ -276,7 +276,7 @@
 
   <para>In the example above, the dependency definitions for <emphasis>Host C</emphasis> would be defined as follows:</para>
 
-  <screen> define hostdependency{
+  <programlisting> define hostdependency{
         host_name                       Host A
         dependent_host_name             Host C
         notification_failure_criteria   d
@@ -286,7 +286,7 @@
         host_name                       Host B
         dependent_host_name             Host C
         notification_failure_criteria   d,u
-        }</screen>
+        }</programlisting>
 
   <para>As with service dependencies, host dependencies are not inherited. In the example image you can see that Host C does not
   inherit the host dependencies of Host B. In order for Host C to be dependent on Host A, a new host dependency definition must be
@@ -300,4 +300,5 @@
   information on the notification logic can be found <link linkend="notifications">here</link>.</para>
   <indexterm zone="host_srv_dependencies"><primary>Dependencies</primary><secondary>Host and Service Dependencies</secondary></indexterm>
   <indexterm zone="dependencies-hard_dependencies"><primary>Dependencies</primary><secondary>hard dependencies</secondary></indexterm>
+</section>
 </section>

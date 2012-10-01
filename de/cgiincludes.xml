@@ -4,57 +4,63 @@
 %all.entities;
 ]>
 <section version="5.0" xml:id="cgiincludes" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>Angepasste CGI-Kopf- und Fußzeilen</title>
 
-  <para><emphasis role="bold">Einführung</emphasis></para>
+  <section>
+    <title>Einführung</title>
 
-  <para>Wenn Sie &name-icinga;-Installationen für Kunden machen, dann möchten Sie vielleicht, dass in den <link
-  linkend="cgis">CGIs</link> angepasste Kopf- und Fußzeilen angezeigt werden. Dies ist besonders dann nützlich, wenn Sie
-  Support-Kontaktinformationen u.ä. für den Endbenutzer anzeigen möchten.</para>
+    <para>Wenn Sie &name-icinga;-Installationen für Kunden machen, dann möchten Sie vielleicht, dass in den <link linkend="cgis">CGIs</link>
+    angepasste Kopf- und Fußzeilen angezeigt werden. Dies ist besonders dann nützlich, wenn Sie Support-Kontaktinformationen u.ä. für den
+    Endbenutzer anzeigen möchten.</para>
 
-  <para>Es ist wichtig anzumerken, dass angepasste Dateien mit Kopf- und Fußzeilen nicht in irgendeiner Form vorverarbeitet werden
-  (solange es sich nicht um ausführbare Dateien handelt), bevor sie angezeigt werden. Der Inhalt der Kopf- und Fußzeilen wird ganz
-  einfach gelesen und in der CGI-Ausgabe angezeigt. Das bedeutet, dass diese Dateien lediglich Informationen enthalten können, die
-  ein Web-Browser versteht (HTML, JavaScript, usw.).</para>
+    <para>Es ist wichtig anzumerken, dass angepasste Dateien mit Kopf- und Fußzeilen nicht in irgendeiner Form vorverarbeitet werden
+    (solange es sich nicht um ausführbare Dateien handelt), bevor sie angezeigt werden. Der Inhalt der Kopf- und Fußzeilen wird ganz einfach
+    gelesen und in der CGI-Ausgabe angezeigt. Das bedeutet, dass diese Dateien lediglich Informationen enthalten können, die ein Web-Browser
+    versteht (HTML, JavaScript, usw.).</para>
 
-  <para>Wenn die angepassten Kopf- und Fußzeilendateien ausführbar sind, dann werden sie ausgeführt und die Ausgaben an den
-  Benutzer zurückgeliefert, so dass die Dateien gültigen HTML-Code enthalten sollten. Auf diese Weise können Sie Ihre eigenen CGIs
-  nutzen, um Daten in der &name-icinga;-Anzeige auszugeben. Dies kann genutzt werden, um mit ddraw Grafiken aus rrdtool einzufügen
-  und Befehlsmenüs im &name-icinga;-Fenster anzuzeigen. Die ausführbaren angepassten Kopf- und Fußzeilendateien werden mit der
-  gleichen CGI-Umgebung ausgeführt wie das &name-icinga;-Haupt-CGI, so dass Ihre Dateien die Abfrageinformationen,
-  Benutzerauthentifizierungsinformationen usw. analysieren können, um entsprechende Ausgaben zu erzeugen.</para>
+    <para>Wenn die angepassten Kopf- und Fußzeilendateien ausführbar sind, dann werden sie ausgeführt und die Ausgaben an den Benutzer
+    zurückgeliefert, so dass die Dateien gültigen HTML-Code enthalten sollten. Auf diese Weise können Sie Ihre eigenen CGIs nutzen, um Daten
+    in der &name-icinga;-Anzeige auszugeben. Dies kann genutzt werden, um mit ddraw Grafiken aus rrdtool einzufügen und Befehlsmenüs im
+    &name-icinga;-Fenster anzuzeigen. Die ausführbaren angepassten Kopf- und Fußzeilendateien werden mit der gleichen CGI-Umgebung
+    ausgeführt wie das &name-icinga;-Haupt-CGI, so dass Ihre Dateien die Abfrageinformationen, Benutzerauthentifizierungsinformationen usw.
+    analysieren können, um entsprechende Ausgaben zu erzeugen.</para>
+  </section>
 
-  <para><emphasis role="bold">Wie funktioniert es?</emphasis></para>
+  <section>
+    <title>Wie funktioniert es?</title>
 
-  <para>Sie können angepasste Kopf- und Fußzeilen in die Ausgaben der CGIs einschließen, indem Sie entsprechend benannte
-  HTML-Dateien im <emphasis>ssi</emphasis>-Unterverzeichnis des &name-icinga;-HTML-Verzeichnisses (z.B.
-  <emphasis>&url-icinga-base;/share/ssi</emphasis>) ablegen.</para>
+    <para>Sie können angepasste Kopf- und Fußzeilen in die Ausgaben der CGIs einschließen, indem Sie entsprechend benannte HTML-Dateien im
+    <emphasis>ssi</emphasis>-Unterverzeichnis des &name-icinga;-HTML-Verzeichnisses (z.B. <emphasis>&url-icinga-base;/share/ssi</emphasis>)
+    ablegen.</para>
 
-  <para>Angepasste Kopfzeilen werden direkt hinter dem &lt;BODY&gt;-Tag in der CGI-Ausgabe eingefügt, während angepasste Fußzeilen
-  direkt vor dem schließenden &lt;/BODY&gt;-Tag eingefügt werden.</para>
+    <para>Angepasste Kopfzeilen werden direkt hinter dem &lt;BODY&gt;-Tag in der CGI-Ausgabe eingefügt, während angepasste Fußzeilen direkt
+    vor dem schließenden &lt;/BODY&gt;-Tag eingefügt werden.</para>
 
-  <para>Es gibt zwei Arten von angepassten Kopf- und Fußzeilen:</para>
+    <para>Es gibt zwei Arten von angepassten Kopf- und Fußzeilen:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>Globale Kopf-/Fußzeilen: diese Dateien sollten <emphasis>common-header.ssi</emphasis> und
-      <emphasis>common-footer.ssi</emphasis> benannt werden. Wenn diese Dateien existieren, werden sie in die Ausgaben aller CGIs
-      eingefügt.</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>Globale Kopf-/Fußzeilen: diese Dateien sollten <emphasis>common-header.ssi</emphasis> und
+        <emphasis>common-footer.ssi</emphasis> benannt werden. Wenn diese Dateien existieren, werden sie in die Ausgaben aller CGIs
+        eingefügt.</para>
+      </listitem>
 
-    <listitem>
-      <para>CGI-spezifische Kopf-/Fußzeilen: diese Dateinamen sollten im Format <emphasis>CGINAME-header.ssi</emphasis> und
-      <emphasis>CGINAME-footer.ssi</emphasis> benannt werden, wobei <emphasis>CGINAME</emphasis> der (Datei-) Name des CGIs ohne
-      die .cgi-Erweiterung ist. Die Kopf- und Fußzeilendateien des <link linkend="cgis-summary_cgi">alert summary CGI</link>
-      (summary.cgi) würden beispielsweise <emphasis>summary-header.ssi</emphasis> und <emphasis>summary-footer.ssi</emphasis>
-      heißen.</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>CGI-spezifische Kopf-/Fußzeilen: diese Dateinamen sollten im Format <emphasis>CGINAME-header.ssi</emphasis> und
+        <emphasis>CGINAME-footer.ssi</emphasis> benannt werden, wobei <emphasis>CGINAME</emphasis> der (Datei-) Name des CGIs ohne die
+        .cgi-Erweiterung ist. Die Kopf- und Fußzeilendateien des <link linkend="cgis-summary_cgi">alert summary CGI</link> (summary.cgi)
+        würden beispielsweise <emphasis>summary-header.ssi</emphasis> und <emphasis>summary-footer.ssi</emphasis> heißen.</para>
+      </listitem>
+    </itemizedlist>
 
-  <para>Sie sind nicht gezwungen, irgendwelche angepassten Kopf- und Fußzeilen zu benutzen. Sie können nur eine globale Kopfzeile
-  benutzen, wenn Sie möchten. Sie können nur CGI-spezifische Kopfzeilen und eine globale Fußzeile benutzen, wenn Sie möchten. Ganz
-  wie Sie wollen. Wirklich.</para>
-  <indexterm zone="cgiincludes"><primary>Angepasste CGI-Kopf- und Fußzeilen</primary></indexterm></section>
+    <para>Sie sind nicht gezwungen, irgendwelche angepassten Kopf- und Fußzeilen zu benutzen. Sie können nur eine globale Kopfzeile
+    benutzen, wenn Sie möchten. Sie können nur CGI-spezifische Kopfzeilen und eine globale Fußzeile benutzen, wenn Sie möchten. Ganz wie Sie
+    wollen. Wirklich.</para>
+
+    <indexterm zone="cgiincludes">
+      <primary>Angepasste CGI-Kopf- und Fußzeilen</primary>
+    </indexterm>
+  </section>
+</section>

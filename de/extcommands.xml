@@ -4,85 +4,94 @@
 %all.entities;
 ]>
 <section version="5.0" xml:id="extcommands" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>Externe Befehle</title>
 
-  <para><emphasis role="bold">Einführung</emphasis></para>
+  <section>
+    <title>Einführung</title>
 
-  <para>&name-icinga; kann Befehle aus externen Applikationen verarbeiten (einschließlich der CGIs) und verschiedene Aspekte
-  seiner Überwachungsfunktionen aufgrund der Befehle verändern, die es erhält. Externe Applikationen können Befehle "einreichen",
-  indem sie in das <link linkend="configmain-command_file">command file</link> schreiben, das regelmäßig vom &name-icinga;-Daemon
-  verarbeitet wird.</para>
+    <para>&name-icinga; kann Befehle aus externen Applikationen verarbeiten (einschließlich der CGIs) und verschiedene Aspekte seiner
+    Überwachungsfunktionen aufgrund der Befehle verändern, die es erhält. Externe Applikationen können Befehle "einreichen", indem sie in
+    das <link linkend="configmain-command_file">command file</link> schreiben, das regelmäßig vom &name-icinga;-Daemon verarbeitet
+    wird.</para>
 
-  <mediaobject>
-    <imageobject>
-      <imagedata align="right" fileref="../images/externalcommands.png" format="PNG"></imagedata>
-    </imageobject>
-  </mediaobject>
+    <mediaobject>
+      <imageobject>
+        <imagedata align="right" fileref="../images/externalcommands.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </section>
 
-  <para><emphasis role="bold">Externe Befehle aktivieren</emphasis></para>
+  <section>
+    <title>Externe Befehle aktivieren</title>
 
-  <para>Damit &name-icinga; externe Befehle verarbeitet, müssen Sie folgendes tun:</para>
+    <para>Damit &name-icinga; externe Befehle verarbeitet, müssen Sie folgendes tun:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>aktivieren Sie die Prüfung auf externe Befehle mit der <link
-      linkend="configmain-check_external_commands">check_external_commands</link>-Option.</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>aktivieren Sie die Prüfung auf externe Befehle mit der <link
+        linkend="configmain-check_external_commands">check_external_commands</link>-Option.</para>
+      </listitem>
 
-    <listitem>
-      <para>setzen Sie die Wiederholrate von Befehlsprüfungen mit der <link
-      linkend="configmain-command_check_interval">command_check_interval</link>-Option.</para>
-    </listitem>
+      <listitem>
+        <para>setzen Sie die Wiederholrate von Befehlsprüfungen mit der <link
+        linkend="configmain-command_check_interval">command_check_interval</link>-Option.</para>
+      </listitem>
 
-    <listitem>
-      <para>definieren Sie den Ort des Command-File mit der <link
-      linkend="configmain-command_file">command_file</link>-Option.</para>
-    </listitem>
+      <listitem>
+        <para>definieren Sie den Ort des Command-File mit der <link linkend="configmain-command_file">command_file</link>-Option.</para>
+      </listitem>
 
-    <listitem>
-      <para>setzen Sie korrekte Berechtigungen für das Verzeichnis, welches das External-Command-File enthält, wie in der <link
-      linkend="quickstart">Schnellstartanleitung</link> beschrieben.</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>setzen Sie korrekte Berechtigungen für das Verzeichnis, welches das External-Command-File enthält, wie in der <link
+        linkend="quickstart">Schnellstartanleitung</link> beschrieben.</para>
+      </listitem>
+    </itemizedlist>
+  </section>
 
-  <para><emphasis role="bold">Wann prüft &name-icinga; auf externe Befehle?</emphasis></para>
+  <section>
+    <title>Wann prüft &name-icinga; auf externe Befehle?</title>
 
-  <itemizedlist>
-    <listitem>
-      <para>in regelmäßigen Intervallen, wie sie durch die Option <link
-      linkend="configmain-command_check_interval">command_check_interval</link> in der Hauptkonfigurationsdatei angegeben
-      sind</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>in regelmäßigen Intervallen, wie sie durch die Option <link
+        linkend="configmain-command_check_interval">command_check_interval</link> in der Hauptkonfigurationsdatei angegeben sind</para>
+      </listitem>
 
-    <listitem>
-      <para>direkt nachdem <link linkend="eventhandlers">Eventhandler</link> ausgeführt werden. Das passiert zusätzlich zum
-      regelmäßigen Zyklus von externen Befehlsprüfungen und wird getan, um unverzügliche Aktivitäten zu ermöglichen, falls ein
-      Eventhandler Befehle an &name-icinga; schickt.</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>direkt nachdem <link linkend="eventhandlers">Eventhandler</link> ausgeführt werden. Das passiert zusätzlich zum regelmäßigen
+        Zyklus von externen Befehlsprüfungen und wird getan, um unverzügliche Aktivitäten zu ermöglichen, falls ein Eventhandler Befehle an
+        &name-icinga; schickt.</para>
+      </listitem>
+    </itemizedlist>
+  </section>
 
-  <para><emphasis role="bold">Externe Befehle benutzen</emphasis></para>
+  <section>
+    <title>Externe Befehle benutzen</title>
 
-  <para>Externe Befehle können benutzt werden, um eine Reihe von Dingen zu erreichen, während &name-icinga; läuft. Beispiele
-  dafür, was getan werden kann, umfassen u.a. vorübergehend Benachrichtigungen für Services und Hosts zu deaktivieren,
-  vorübergehend Service-Prüfungen zu deaktivieren, sofortige Service-Prüfungen zu erzwingen, Kommentare für Hosts und Services
-  hinzuzufügen usw.</para>
+    <para>Externe Befehle können benutzt werden, um eine Reihe von Dingen zu erreichen, während &name-icinga; läuft. Beispiele dafür, was
+    getan werden kann, umfassen u.a. vorübergehend Benachrichtigungen für Services und Hosts zu deaktivieren, vorübergehend
+    Service-Prüfungen zu deaktivieren, sofortige Service-Prüfungen zu erzwingen, Kommentare für Hosts und Services hinzuzufügen usw.</para>
+  </section>
 
-  <para><emphasis role="bold">Befehlsformat</emphasis></para>
+  <section>
+    <title>Befehlsformat</title>
 
-  <para>Externe Befehle, die in das <link linkend="configmain-command_file">command file</link> geschrieben werden, haben das
-  folgende Format...</para>
+    <para>Externe Befehle, die in das <link linkend="configmain-command_file">command file</link> geschrieben werden, haben das folgende
+    Format...</para>
 
-  <screen> [<emphasis> Zeit</emphasis>] <emphasis> Befehls-ID</emphasis>;<emphasis> Befehlsargumente</emphasis> </screen>
+    <screen> [<emphasis> Zeit</emphasis>] <emphasis> Befehls-ID</emphasis>;<emphasis> Befehlsargumente</emphasis> </screen>
 
-  <para>...wobei <emphasis>Zeit</emphasis> die Zeit (im <emphasis>time_t</emphasis>-Format) ist, zu der die externe Applikation
-  den externen Befehl an das Command-File geschickt hat. Die Werte für die <emphasis>Befehls-ID</emphasis> und die
-  <emphasis>Befehlsargumente</emphasis> hängen davon ab, welcher Befehl an &name-icinga; geschickt wird.</para>
+    <para>...wobei <emphasis>Zeit</emphasis> die Zeit (im <emphasis>time_t</emphasis>-Format) ist, zu der die externe Applikation den
+    externen Befehl an das Command-File geschickt hat. Die Werte für die <emphasis>Befehls-ID</emphasis> und die
+    <emphasis>Befehlsargumente</emphasis> hängen davon ab, welcher Befehl an &name-icinga; geschickt wird.</para>
 
-  <para>Eine komplette Liste der Befehle, die benutzt werden können, finden Sie in der <link linkend="extcommands2">Liste der
-  externen Befehle</link>.</para>
-  <indexterm zone="extcommands"><primary>Externe Befehle (external commands)</primary></indexterm>
+    <para>Eine komplette Liste der Befehle, die benutzt werden können, finden Sie in der <link linkend="extcommands2">Liste der externen
+    Befehle</link>.</para>
+
+    <indexterm zone="extcommands">
+      <primary>Externe Befehle (external commands)</primary>
+    </indexterm>
+  </section>
 </section>

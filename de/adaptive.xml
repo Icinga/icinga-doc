@@ -4,105 +4,116 @@
 %all.entities;
 ]>
 <section version="5.0" xml:id="adaptive" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>Adaptive Überwachung</title>
 
-  <para><emphasis role="bold">Einführung</emphasis></para>
+  <section>
+    <title>Einführung</title>
 
-  <para>&name-icinga; erlaubt Ihnen, verschiedene Befehle und Host- und Service-Prüfattribute während der Laufzeit zu verändern.
-  Wir bezeichnen diese Möglichkeit als "adaptive Überwachung". Bitte beachten Sie, dass diese adaptiven Überwachungs-Features in
-  &name-icinga; wahrscheinlich von 99% aller Benutzer nicht genutzt werden, aber sie erlauben Ihnen einige nette Dinge.</para>
+    <para>&name-icinga; erlaubt Ihnen, verschiedene Befehle und Host- und Service-Prüfattribute während der Laufzeit zu verändern. Wir
+    bezeichnen diese Möglichkeit als "adaptive Überwachung". Bitte beachten Sie, dass diese adaptiven Überwachungs-Features in &name-icinga;
+    wahrscheinlich von 99% aller Benutzer nicht genutzt werden, aber sie erlauben Ihnen einige nette Dinge.</para>
+  </section>
 
-  <para><emphasis role="bold">Was kann verändert werden?</emphasis></para>
+  <section>
+    <title>Was kann verändert werden?</title>
 
-  <para>Die folgenden Service-Prüfattribute können während der Laufzeit verändert werden:</para>
+    <para>Die folgenden Service-Prüfattribute können während der Laufzeit verändert werden:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>Prüfbefehl (und Befehlsparameter)</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>Prüfbefehl (und Befehlsparameter)</para>
+      </listitem>
 
-    <listitem>
-      <para>Prüfintervall</para>
-    </listitem>
+      <listitem>
+        <para>Prüfintervall</para>
+      </listitem>
 
-    <listitem>
-      <para>max. Prüfversuche</para>
-    </listitem>
+      <listitem>
+        <para>max. Prüfversuche</para>
+      </listitem>
 
-    <listitem>
-      <para>Prüfzeitfenster</para>
-    </listitem>
+      <listitem>
+        <para>Prüfzeitfenster</para>
+      </listitem>
 
-    <listitem>
-      <para>Eventhandler-Befehl (und Befehlsparameter)</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>Eventhandler-Befehl (und Befehlsparameter)</para>
+      </listitem>
+    </itemizedlist>
 
-  <para>Die folgenden Host-Prüfattribute können während der Laufzeit verändert werden:</para>
+    <para>Die folgenden Host-Prüfattribute können während der Laufzeit verändert werden:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>Prüfbefehl (und Befehlsparameter)</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>Prüfbefehl (und Befehlsparameter)</para>
+      </listitem>
 
-    <listitem>
-      <para>Prüfintervall</para>
-    </listitem>
+      <listitem>
+        <para>Prüfintervall</para>
+      </listitem>
 
-    <listitem>
-      <para>max. Prüfversuche</para>
-    </listitem>
+      <listitem>
+        <para>max. Prüfversuche</para>
+      </listitem>
 
-    <listitem>
-      <para>Prüfzeitfenster</para>
-    </listitem>
+      <listitem>
+        <para>Prüfzeitfenster</para>
+      </listitem>
 
-    <listitem>
-      <para>Eventhandler-Befehl (und Befehlsparameter)</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>Eventhandler-Befehl (und Befehlsparameter)</para>
+      </listitem>
+    </itemizedlist>
 
-  <para>Die folgenden globalen Attribute können während der Laufzeit verändert werden:</para>
+    <para>Die folgenden globalen Attribute können während der Laufzeit verändert werden:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>Globaler Host-Eventhandler-Befehl (und Befehlsparameter)</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>Globaler Host-Eventhandler-Befehl (und Befehlsparameter)</para>
+      </listitem>
 
-    <listitem>
-      <para>Globaler Service-Eventhandler-Befehl (und Befehlsparameter)</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>Globaler Service-Eventhandler-Befehl (und Befehlsparameter)</para>
+      </listitem>
+    </itemizedlist>
+  </section>
 
-  <para><emphasis role="bold">Externe Befehle für adaptive Überwachung</emphasis></para>
+  <section>
+    <title>Externe Befehle für adaptive Überwachung</title>
 
-  <para>Um globale oder Host- bzw. Service-spezifische Attribute während der Laufzeit zu ändern, müssen Sie über das <link
-  linkend="configmain-command_file">external command file</link> den entsprechenden <link linkend="extcommands">externen
-  Befehl</link> an &name-icinga; senden. Eine vollständige Liste von externen Befehlen, die zur adaptiven Überwachung benutzt
-  werden können, finden Sie in der <link linkend="extcommands2">Liste der externen Befehle"</link>.</para>
+    <para>Um globale oder Host- bzw. Service-spezifische Attribute während der Laufzeit zu ändern, müssen Sie über das <link
+    linkend="configmain-command_file">external command file</link> den entsprechenden <link linkend="extcommands">externen Befehl</link> an
+    &name-icinga; senden. Eine vollständige Liste von externen Befehlen, die zur adaptiven Überwachung benutzt werden können, finden Sie in
+    der <link linkend="extcommands2">Liste der externen Befehle"</link>.</para>
 
-  <para><inlinemediaobject>
-      <imageobject>
-        <imagedata fileref="../images/note.gif" format="GIF"></imagedata>
-      </imageobject>
-    </inlinemediaobject> Anmerkungen:</para>
+    <para><inlinemediaobject>
+        <imageobject>
+          <imagedata fileref="../images/note.gif" format="GIF"/>
+        </imageobject>
+      </inlinemediaobject> Anmerkungen:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>Bei der Änderung von Prüfbefehlen, Prüfzeitfenstern oder Eventhandler-Befehlen ist es wichtig anzumerken, dass die
-      neuen Werte für diese Optionen vor dem Neustart von &name-icinga; definiert werden müssen. Jede Anfrage, die einen Befehl
-      oder ein Zeitfenster auf einen Wert ändert, der beim Start nicht definiert war, wird ignoriert.</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>Bei der Änderung von Prüfbefehlen, Prüfzeitfenstern oder Eventhandler-Befehlen ist es wichtig anzumerken, dass die neuen Werte
+        für diese Optionen vor dem Neustart von &name-icinga; definiert werden müssen. Jede Anfrage, die einen Befehl oder ein Zeitfenster
+        auf einen Wert ändert, der beim Start nicht definiert war, wird ignoriert.</para>
+      </listitem>
 
-    <listitem>
-      <para>Sie können Befehlsparameter zusammen mit dem tatsächlichen Befehlsnamen angeben - trennen Sie einfach die einzelnen
-      Parameter vom Befehlsnamen (und voneinander) durch Ausrufezeichen (!). Mehr Informationen, wie Parameter in
-      Befehlsdefinitionen während der Laufzeit verarbeitet werden, finden Sie in der Dokumentation zu <link
-      linkend="macros">Makros</link>.</para>
-    </listitem>
-  </itemizedlist>
-  <indexterm zone="adaptive"><primary>Adaptive Überwachung</primary></indexterm>
-  <indexterm zone="adaptive"><primary>Externe Befehle (external commands)</primary></indexterm></section>
+      <listitem>
+        <para>Sie können Befehlsparameter zusammen mit dem tatsächlichen Befehlsnamen angeben - trennen Sie einfach die einzelnen Parameter
+        vom Befehlsnamen (und voneinander) durch Ausrufezeichen (!). Mehr Informationen, wie Parameter in Befehlsdefinitionen während der
+        Laufzeit verarbeitet werden, finden Sie in der Dokumentation zu <link linkend="macros">Makros</link>.</para>
+      </listitem>
+    </itemizedlist>
+
+    <indexterm zone="adaptive">
+      <primary>Adaptive Überwachung</primary>
+    </indexterm>
+
+    <indexterm zone="adaptive">
+      <primary>Externe Befehle (external commands)</primary>
+    </indexterm>
+  </section>
+</section>

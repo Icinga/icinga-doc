@@ -9,7 +9,7 @@
          xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="schedule_downtime" />Scheduled Downtime</title>
 
-  <para><emphasis role="bold">Introduction</emphasis></para>
+  <section><title>Introduction</title>
 
   <para>&name-icinga; allows you to schedule periods of planned downtime for hosts and service that you're monitoring. This is
   useful in the event that you actually know you're going to be taking a server down for an upgrade, etc.</para>
@@ -20,7 +20,7 @@
       </imageobject>
     </inlinemediaobject></para>
 
-  <para><emphasis role="bold">Scheduling Downtime</emphasis></para>
+  </section><section><title>Scheduling Downtime</title>
 
   <para>You can schedule downtime for hosts and service through the <link linkend="cgis-extinfo_cgi">extinfo CGI</link> (either
   when viewing host or service information). Click in the "Schedule downtime for this host/service" link to actually schedule the
@@ -30,7 +30,7 @@
   is scheduled for downtime during the period of time you indicated. When that period of downtime passes, &name-icinga; will
   automatically delete the comment that it added. Nice, huh?</para>
 
-  <para><emphasis role="bold">Fixed vs. Flexible Downtime</emphasis></para>
+  </section><section><title>Fixed vs. Flexible Downtime</title>
 
   <para>When you schedule downtime for a host or service through the web interface you'll be asked if the downtime is fixed or
   flexible. Here's an explanation of how "fixed" and "flexible" downtime differs:</para>
@@ -48,7 +48,7 @@
   downtime expires. This is done for a very good reason. As we all know, you might think you've got a problem fixed, but then have
   to restart a server ten times before it actually works right. Smart, eh?</para>
 
-  <para><emphasis role="bold">Triggered Downtime</emphasis></para>
+  </section><section><title>Triggered Downtime</title>
 
   <para>When scheduling host or service downtime you have the option of making it "triggered" downtime. What is triggered
   downtime, you ask? With triggered downtime the start of the downtime is triggered by the start of some other scheduled host or
@@ -57,7 +57,7 @@
   for a particular host (because its going down for maintenance), you might want to schedule triggered downtime for all of that
   hosts's "children".</para>
 
-  <para><emphasis role="bold">How Scheduled Downtime Affects Notifications</emphasis></para>
+  </section><section><title>How Scheduled Downtime Affects Notifications</title>
 
   <para>When a host or service is in a period of scheduled downtime, &name-icinga; will not allow normal notifications to be sent
   out for the host or service. However, a "DOWNTIMESTART" notification will get sent out for the host or service, which will serve
@@ -70,7 +70,7 @@
   <para>If the scheduled downtime is cancelled prematurely (before it expires), a "DOWNTIMECANCELLED" notification will get sent
   out to the appropriate admins.</para>
 
-  <para><emphasis role="bold">Overlapping Scheduled Downtime</emphasis></para>
+  </section><section><title>Overlapping Scheduled Downtime</title>
 
   <para>I like to refer to this as the "Oh crap, its not working" syndrome. You know what I'm talking about. You take a server
   down to perform a "routine" hardware upgrade, only to later realize that the OS drivers aren't working, the RAID array blew up,
@@ -108,4 +108,5 @@
   sent out for that host or service. In this example notifications would be suppressed for host A until 1:30am Tuesday
   morning.</para>
   <indexterm zone="schedule_downtime"><primary>Downtime</primary><secondary>scheduled</secondary></indexterm>
+</section>
 </section>
