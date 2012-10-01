@@ -20,124 +20,126 @@
 
     <para>Diese Installationsanleitung beschreibt die Installation von &name-web; mit &name-mysql; bzw. &name-postgres; als verwendeter
     Datenbank, außerdem wird &name-oracle; unterstützt.</para>
+  </section>
 
-    <orderedlist>
+  <section>
+    <title>Voraussetzungen</title>
+
+    <itemizedlist>
       <listitem>
-        <para><emphasis role="bold">Voraussetzungen</emphasis></para>
+        <para><emphasis role="bold">&name-mysql;</emphasis></para>
+
+        <para>Die Pakete mysql und php5 sind installiert (mit PEAR und CLI), &name-icinga; samt IDOUtils läuft, dann ab zu 2., ansonsten
+        bitte:</para>
 
         <itemizedlist>
           <listitem>
-            <para><emphasis role="bold">&name-mysql;</emphasis></para>
+            <para><emphasis role="bold">Ubuntu / Debian</emphasis></para>
 
-            <para>Die Pakete mysql und php5 sind installiert (mit PEAR und CLI), &name-icinga; samt IDOUtils läuft, dann ab zu 2., ansonsten
-            bitte:</para>
+            <screen> #&gt; apt-get install php5 php5-cli php-pear php5-xmlrpc php5-xsl php5-pdo php5-ldap php5-soap php5-gd php5-mysql</screen>
 
-            <itemizedlist>
-              <listitem>
-                <para><emphasis role="bold">Ubuntu / Debian</emphasis></para>
-
-                <screen> #&gt; apt-get install php5 php5-cli php-pear php5-xmlrpc php5-xsl php5-pdo php5-ldap php5-soap php5-gd php5-mysql</screen>
-
-                <note>
-                  <para>Für &name-ubuntu; gibt es kein php5-pdo-Paket, die benötigten PDO-Extensions sind in den Paketen php5 und php5-mysql
-                  enthalten!</para>
-                </note>
-              </listitem>
-
-              <listitem>
-                <para><emphasis role="bold">Fedora / RHEL / CentOS</emphasis></para>
-
-                <para>Stellen Sie sicher, dass Sie ein Repository bzw. Pakete für PHP 5.2.3 und PCRE 7.6 haben - RHEL/CentOS &lt;= 5.x
-                enthalten bisher lediglich PHP 5.1.6 und PCRE 6.6.</para>
-
-                <para><screen> #&gt; yum install php php-cli php-pear php-xmlrpc php-xsl php-pdo php-ldap php-soap php-gd php-mysql</screen></para>
-
-                <note>
-                  <para>Aktuelle Pakete für PHP und PRCE finden Sie beispielsweise unter: <link
-                  xlink:href="http://blog.famillecollet.com/pages/Config-en">Les RPM de Remi</link> oder <link
-                  xlink:href="http://www.jasonlitka.com/category/yum-repo-news">http://www.jasonlitka.com/category/yum-repo-news/</link></para>
-                </note>
-              </listitem>
-
-              <listitem>
-                <para><emphasis role="bold">OpenSuSE</emphasis></para>
-
-                <para>Benutzen Sie yast, um die Pakete "php5", "php5-pear", "php5-xmlrpc", "php5-xsl", "php5-mysql", "php5-soap",
-                "php5-gettext", "php5-pdo", "php5-ldap", "php5-gd" und "apache2-mod_php5" zu installieren. Die CLI ist im php5-Paket
-                enthalten.</para>
-
-                <note>
-                  <para>Zumindest bei SLES10 SP2 fehlt die Funktion hash_hmac.</para>
-                </note>
-
-                <para>Alternativ können Sie auch zypper verwenden</para>
-
-                <screen> #&gt; zypper install php5 php5-pear php5-xmlrpc php5-xsl php5-mysql php5-soap \
-    php5-gettext php5-pdo php5-ldap php5-gd apache2-mod_php5</screen>
-              </listitem>
-            </itemizedlist>
+            <note>
+              <para>Für &name-ubuntu; gibt es kein php5-pdo-Paket, die benötigten PDO-Extensions sind in den Paketen php5 und php5-mysql
+              enthalten!</para>
+            </note>
           </listitem>
 
           <listitem>
-            <para><emphasis role="bold">&name-postgres;</emphasis></para>
+            <para><emphasis role="bold">Fedora / RHEL / CentOS</emphasis></para>
 
-            <para>Die Pakete pgsql und php5 sind installiert (mit PEAR und CLI), &name-icinga; samt IDOUtils läuft, dann ab zu 2., ansonsten
-            bitte:</para>
+            <para>Stellen Sie sicher, dass Sie ein Repository bzw. Pakete für PHP 5.2.3 und PCRE 7.6 haben - RHEL/CentOS &lt;= 5.x enthalten
+            bisher lediglich PHP 5.1.6 und PCRE 6.6.</para>
 
-            <itemizedlist>
-              <listitem>
-                <para><emphasis role="bold">Ubuntu / Debian</emphasis></para>
+            <para><screen> #&gt; yum install php php-cli php-pear php-xmlrpc php-xsl php-pdo php-ldap php-soap php-gd php-mysql</screen></para>
 
-                <screen> #&gt; apt-get install php5 php5-cli php-pear php5-xmlrpc php5-xsl php5-pdo php5-ldap php5-gd php5-pqsql</screen>
+            <note>
+              <para>Aktuelle Pakete für PHP und PRCE finden Sie beispielsweise unter: <link
+              xlink:href="http://blog.famillecollet.com/pages/Config-en">Les RPM de Remi</link> oder <link
+              xlink:href="http://www.jasonlitka.com/category/yum-repo-news">http://www.jasonlitka.com/category/yum-repo-news/</link></para>
+            </note>
+          </listitem>
 
-                <note>
-                  <para>Für &name-ubuntu; gibt es kein php5-pdo-Paket, die benötigten PDO-Extensions sind in den Paketen php5 und php5-pqsql
-                  enthalten!</para>
-                </note>
-              </listitem>
+          <listitem>
+            <para><emphasis role="bold">OpenSuSE</emphasis></para>
 
-              <listitem>
-                <para><emphasis role="bold">Fedora / RHEL / CentOS</emphasis></para>
+            <para>Benutzen Sie yast, um die Pakete "php5", "php5-pear", "php5-xmlrpc", "php5-xsl", "php5-mysql", "php5-soap",
+            "php5-gettext", "php5-pdo", "php5-ldap", "php5-gd" und "apache2-mod_php5" zu installieren. Die CLI ist im php5-Paket
+            enthalten.</para>
 
-                <para>Stellen Sie sicher, dass Sie ein Repository bzw. Pakete für PHP 5.2.3 und PCRE 7.6 haben - RHEL/CentOS &lt;= 5.x
-                enthalten bisher lediglich PHP 5.1.6 und PCRE 6.6.</para>
+            <note>
+              <para>Zumindest bei SLES10 SP2 fehlt die Funktion hash_hmac.</para>
+            </note>
 
-                <para><screen> #&gt; yum install php php-cli php-pear php-xmlrpc php-xsl php-pdo php-ldap php-gd php-pqsql</screen></para>
+            <para>Alternativ können Sie auch zypper verwenden</para>
 
-                <note>
-                  <para>Aktuelle Pakete für PHP und PRCE finden Sie beispielsweise unter: <link
-                  xlink:href="http://blog.famillecollet.com/pages/Config-en">Les RPM de Remi</link> oder <link
-                  xlink:href="http://www.jasonlitka.com/category/yum-repo-news">http://www.jasonlitka.com/category/yum-repo-news/</link></para>
-                </note>
-              </listitem>
-
-              <listitem>
-                <para><emphasis role="bold">OpenSuSE</emphasis></para>
-
-                <para>Benutzen Sie yast, um die Pakete "php5", "php5-pear", "php5-xmlrpc", "php5-xsl", "php5-pgsql", "php5-soap",
-                "php5-gettext", "php5-pdo", "php5-ldap", "php5-gd" und "apache2-mod_php5" zu installieren. Die CLI ist im php5-Paket
-                enthalten.</para>
-
-                <note>
-                  <para>Zumindest bei SLES10 SP2 fehlt die Funktion hash_hmac.</para>
-                </note>
-
-                <para>Alternativ können Sie auch zypper verwenden</para>
-
-                <screen> #&gt; zypper install php5 php5-pear php5-xmlrpc php5-xsl php5-mysql php5-soap \
+            <screen> #&gt; zypper install php5 php5-pear php5-xmlrpc php5-xsl php5-mysql php5-soap \
     php5-gettext php5-pdo php5-ldap php5-gd apache2-mod_php5</screen>
-              </listitem>
-            </itemizedlist>
           </listitem>
         </itemizedlist>
-
-        <para>Die Installation von &name-icinga; mit den IDOUtils ist in der <link
-        linkend="quickstart-idoutils">Icinga-Schnellstartanleitung</link> beschrieben</para>
       </listitem>
 
       <listitem>
-        <para><emphasis role="bold">Die Installation</emphasis></para>
+        <para><emphasis role="bold">&name-postgres;</emphasis></para>
 
+        <para>Die Pakete pgsql und php5 sind installiert (mit PEAR und CLI), &name-icinga; samt IDOUtils läuft, dann ab zu 2., ansonsten
+        bitte:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para><emphasis role="bold">Ubuntu / Debian</emphasis></para>
+
+            <screen> #&gt; apt-get install php5 php5-cli php-pear php5-xmlrpc php5-xsl php5-pdo php5-ldap php5-gd php5-pqsql</screen>
+
+            <note>
+              <para>Für &name-ubuntu; gibt es kein php5-pdo-Paket, die benötigten PDO-Extensions sind in den Paketen php5 und php5-pqsql
+              enthalten!</para>
+            </note>
+          </listitem>
+
+          <listitem>
+            <para><emphasis role="bold">Fedora / RHEL / CentOS</emphasis></para>
+
+            <para>Stellen Sie sicher, dass Sie ein Repository bzw. Pakete für PHP 5.2.3 und PCRE 7.6 haben - RHEL/CentOS &lt;= 5.x enthalten
+            bisher lediglich PHP 5.1.6 und PCRE 6.6.</para>
+
+            <para><screen> #&gt; yum install php php-cli php-pear php-xmlrpc php-xsl php-pdo php-ldap php-gd php-pqsql</screen></para>
+
+            <note>
+              <para>Aktuelle Pakete für PHP und PRCE finden Sie beispielsweise unter: <link
+              xlink:href="http://blog.famillecollet.com/pages/Config-en">Les RPM de Remi</link> oder <link
+              xlink:href="http://www.jasonlitka.com/category/yum-repo-news">http://www.jasonlitka.com/category/yum-repo-news/</link></para>
+            </note>
+          </listitem>
+
+          <listitem>
+            <para><emphasis role="bold">OpenSuSE</emphasis></para>
+
+            <para>Benutzen Sie yast, um die Pakete "php5", "php5-pear", "php5-xmlrpc", "php5-xsl", "php5-pgsql", "php5-soap",
+            "php5-gettext", "php5-pdo", "php5-ldap", "php5-gd" und "apache2-mod_php5" zu installieren. Die CLI ist im php5-Paket
+            enthalten.</para>
+
+            <note>
+              <para>Zumindest bei SLES10 SP2 fehlt die Funktion hash_hmac.</para>
+            </note>
+
+            <para>Alternativ können Sie auch zypper verwenden</para>
+
+            <screen> #&gt; zypper install php5 php5-pear php5-xmlrpc php5-xsl php5-mysql php5-soap \
+    php5-gettext php5-pdo php5-ldap php5-gd apache2-mod_php5</screen>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+    </itemizedlist>
+
+    <para>Die Installation von &name-icinga; mit den IDOUtils ist in der <link
+    linkend="quickstart-idoutils">Icinga-Schnellstartanleitung</link> beschrieben</para>
+  </section>
+
+  <section>
+    <title>Die Installation</title>
+
+    <itemizedlist>
+      <listitem>
         <para>Laden Sie das Archiv herunter von <link
         xlink:href="http://sourceforge.net/projects/icinga/files/">http://sourceforge.net/projects/icinga/files/</link>. Falls Sie eine
         Funktion benötigen, die nur in der aktuellen Entwicklerversion vorhanden ist, dann klonen Sie von icinga-web.git:</para>
@@ -365,7 +367,13 @@
           </listitem>
         </itemizedlist>
       </listitem>
+    </itemizedlist>
+  </section>
 
+  <section>
+    <title>Einstellungen</title>
+
+    <itemizedlist>
       <listitem>
         <para><emphasis role="bold">Icinga-Web-Konfiguration</emphasis></para>
 
@@ -631,213 +639,208 @@ Alias /icinga-web /usr/local/icinga-web/pub
 
         <screen> #&gt; /etc/init.d/httpd restart</screen>
       </listitem>
+    </itemizedlist>
+  </section>
 
+  <section>
+    <title>Testen</title>
+
+    <note>
+      <para>Bitte achten Sie darauf, dass Ihre Datenbank, Apache, &name-idoutils; und &name-icinga; gestartet sind!</para>
+    </note>
+
+    <para>Öffnen Sie im Webbrowser http://localhost/icinga-web. Überprüfen Sie, ob das Webinterface ohne Fehler ("exceptions") startet, und
+    loggen Sie sich mit dem User 'root' und dem Passwort 'password' ein.</para>
+
+    <para>Viel Spaß :-)</para>
+  </section>
+
+  <section>
+    <title><anchor xml:id="icinga-web-scratch-errors"/>Test &amp; Fehler?</title>
+
+    <para><note>
+        <para>Der folgende Abschnitt versucht, einige Hinweise zu üblichen Problemen zu geben, aber aufgrund der Natur von "geschriebenem"
+        Material wird die <link xlink:href="https://wiki.icinga.org/display/testing/Icinga+Web+Testing">Wiki-Seite</link>
+        höchstwahrscheinlich aktueller sein, so dass es dort ggf. eine Lösung gibt, die Sie hier nicht finden.</para>
+      </note>Diese Sammlung enthält einige nützliche Informationen, wie Sie Fehler finden und lösen können. Ebenso wird darauf hingewiesen,
+    welche Informationen Sie im Fehlerfall angeben sollten, wenn Sie eine Frage auf den Mailinglisten oder auf <link
+    xlink:href="http://www.icinga-portal.org">http://www.icinga-portal.org</link> stellen.</para>
+
+    <itemizedlist>
       <listitem>
-        <para><emphasis role="bold">Testen</emphasis></para>
-
-        <note>
-          <para>Bitte achten Sie darauf, dass Ihre Datenbank, Apache, &name-idoutils; und &name-icinga; gestartet sind!</para>
-        </note>
-
-        <para>Öffnen Sie im Webbrowser http://localhost/icinga-web. Überprüfen Sie, ob das Webinterface ohne Fehler ("exceptions") startet,
-        und loggen Sie sich mit dem User 'root' und dem Passwort 'password' ein.</para>
-
-        <para>Viel Spaß :-)</para>
+        <para>Geben Sie immer die verwendete Version an - Paket, tar.gz oder GIT?</para>
       </listitem>
 
       <listitem>
-        <para><anchor xml:id="icinga-web-scratch-errors"/> <emphasis role="bold">Test &amp; Fehler?</emphasis></para>
-
-        <para><note>
-            <para>Der folgende Abschnitt versucht, einige Hinweise zu üblichen Problemen zu geben, aber aufgrund der Natur von
-            "geschriebenem" Material wird die <link
-            xlink:href="https://wiki.icinga.org/display/testing/Icinga+Web+Testing">Wiki-Seite</link> höchstwahrscheinlich aktueller sein,
-            so dass es dort ggf. eine Lösung gibt, die Sie hier nicht finden.</para>
-          </note>Diese Sammlung enthält einige nützliche Informationen, wie Sie Fehler finden und lösen können. Ebenso wird darauf
-        hingewiesen, welche Informationen Sie im Fehlerfall angeben sollten, wenn Sie eine Frage auf den Mailinglisten oder auf <link
-        xlink:href="http://www.icinga-portal.org">http://www.icinga-portal.org</link> stellen.</para>
-
-        <itemizedlist>
-          <listitem>
-            <para>Geben Sie immer die verwendete Version an - Paket, tar.gz oder GIT?</para>
-          </listitem>
-
-          <listitem>
-            <para>Browser, Version</para>
-          </listitem>
-
-          <listitem>
-            <para>Falls das Problem mit der Datenquelle besteht: Ausführliche Informationen zu API, IDOUtils, Core (Version, Debug
-            Logs).</para>
-          </listitem>
-        </itemizedlist>
-
-        <para>Wo können Sie nachsehen?</para>
-
-        <itemizedlist>
-          <listitem>
-            <para>Apache Error Logs, PHP Errors, PHP Dateien können nicht gefunden werden</para>
-          </listitem>
-
-          <listitem>
-            <para><filename>/var/log/messages</filename>, /path/to/icinga/var/icinga.log</para>
-          </listitem>
-        </itemizedlist>
-
-        <para>Änderungen an der &name-web;-Konfiguration (z.B. API/IDOUtils-Einstellungen geändert) werden nicht aktualisiert?</para>
-
-        <itemizedlist>
-          <listitem>
-            <para>Löschen Sie den Konfigurationscache in app/cache/config/*.php</para>
-          </listitem>
-        </itemizedlist>
-
-        <screen> /usr/local/icinga-web/bin/clearcache.sh</screen>
-
-        <para>Icinga-Web zeigt eine leere Seite?</para>
-
-        <itemizedlist>
-          <listitem>
-            <para>Apache Errors Logs =&gt; mod_rewrite enabled, PHP-Abhängigkeiten ok? 'make testdeps'. Bei Debian gibt es u.a. die folgende
-            Fehlermeldung: ".htaccess: Invalid command 'RewriteEngine', perhaps misspelled or defined by a module not included in the server
-            configuration"</para>
-          </listitem>
-        </itemizedlist>
-
-        <para>Icinga Web - Login erfolgt- aber die Seite lädt und lädt...</para>
-
-        <itemizedlist>
-          <listitem>
-            <para>Request failed, Ressource /icinga-web/appkit/ext/application State could not be loaded - is the url correct? =&gt;
-            mod_rewrite enabled ?</para>
-          </listitem>
-
-          <listitem>
-            <para>.htaccess/VHost-Konfiguration =&gt; Pfade nicht korrekt? Icinga-Web zeigt keine Daten?</para>
-          </listitem>
-
-          <listitem>
-            <para>Datenbankzugriff verweigert =&gt; Überprüfen Sie, ob die Datenbankeinstellungen für &name-web; korrekt sind.</para>
-          </listitem>
-        </itemizedlist>
-
-        <para>IDOUtils-Datenbank wird nicht gefüllt?</para>
-
-        <itemizedlist>
-          <listitem>
-            <para>"Error writing to data sink" =&gt; Überprüfen Sie die IDOUtils (ido2db läuft 2x - ok?), ido2db.cfg debug_level=-1,
-            debug_verbosity=2, restarten Sie IDOUtils und suchen Sie Fehler in <filename>ido2db.debug</filename></para>
-          </listitem>
-
-          <listitem>
-            <para>Keine Daten vorhanden =&gt; Überprüfen Sie <filename>icinga.log</filename>, ob IDOMOD zu Beginn geladen wird. Falls nicht,
-            aktivieren Sie das Event Broker Modul in <filename>icinga.cfg</filename> so wie im Icinga Core im <link
-            linkend="quickstart-idoutils">IDOUtils Quickstart Guide</link> beschrieben.</para>
-          </listitem>
-
-          <listitem>
-            <para>IDOUtils DB-Schema ist die aktuellste Version? =&gt; Falls nicht, überprüfen Sie mögliche Upgrades anhand der Docs
-            dafür.</para>
-          </listitem>
-
-          <listitem>
-            <para>Sockets sind korrekt definiert? =&gt; Unix oder TCP Socket, TCP wahlweise mit oder ohne SSL</para>
-          </listitem>
-        </itemizedlist>
-
-        <para><emphasis role="bold">Testing the Web (stellen Sie sicher, dass PHPUnit installiert ist): </emphasis></para>
-
-        <para><screen> $&gt; make test</screen></para>
-
-        <note>
-          <para>Falls Sie Ihren root-Benutzer zum Testen benutzen, dann stellen Sie vorher sicher, dass für den angegebenen Web-Benutzer in
-          der <filename>/etc/passwd</filename> eine gültige Shell eingetragen ist. Anderenfalls werden verschiedene Tests fehlschlagen.
-          Abhängig von der verwendeten Icinga-Web-Version kann es sein, dass die Berechtigungen für die Dateien in
-          <filename>/usr/local/icinga-web/log</filename> falsch gesetzt sind, so dass Icinga-Web mit der Meldung "Loading"
-          stehenbleibt.</para>
-        </note>
-
-        <note>
-          <para>Nicht vergessen - Ändern von PHP-Einstellungen in der <filename>php.ini</filename> erfordert einen Apache
-          reload/restart!</para>
-        </note>
-
-        <itemizedlist>
-          <listitem>
-            <para>PHP Fatal error: Allowed memory size of ... bytes exhausted (tried to allocate ... bytes) =&gt; Überprüfen Sie Ihre
-            <filename>php.ini</filename> (apache2 und cli) und setzen Sie den Wert memory_limit auf 128M oder höher</para>
-          </listitem>
-
-          <listitem>
-            <para>PHP Fatal error: Uncaught exception 'AgaviCacheException' with message 'Failed to write cache file
-            /usr/local/icinga-web/app/cache/config/config_handlers.xml_development__xxxx.php" generated from configuration file
-            /usr/local/icinga-web/app/config/config_handlers.xml". Please make sure you have set correct write permissions for directory
-            /usr/local/icinga-web/app/cache.... =&gt; Setzen von safe_mode = off in /etc/php5/apache/php.ini.</para>
-
-            <note>
-              <para>Das kann auch ein Hinweis auf ein aktiviertes SELinux sein.</para>
-            </note>
-          </listitem>
-
-          <listitem>
-            <para>[PHP Error] strtotime(): It is not safe to rely on the system's timezone settings. You are *required* to use the
-            date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still
-            getting this warning, you most likely misspelled the timezone identifier. We selected 'Europe/Berlin' for 'CEST/2.0/DST' instead
-            [line 1548 of /home/xxx/icinga/icinga-web/lib/doctrine/lib/Doctrine/Record.php] =&gt; Sie müssen date.timezone in der
-            <filename>php.ini</filename> definieren.</para>
-          </listitem>
-
-          <listitem>
-            <para>-&gt; 500 internal server error! Uncaught exception AgaviException thrown! Your default timezone is 'System/Localtime',
-            ... = &gt; Sie müssen date.timezone in der <filename>php.ini</filename> definieren.</para>
-          </listitem>
-
-          <listitem>
-            <para>Keine Verbindung zur API. The API Connector returned the following message: getConnection failed: Database connection
-            failed: SQLSTATE[28000] [1045] Access denied for user 'icinga'@'localhost' (using password: YES)) =&gt; Überprüfen Sie Ihre
-            IDOUtils DB-Referenzen in der <filename>ido2db.cfg</filename> und fügen Sie diese in Ihre &name-web;-Konfiguration als
-            bevorzugte DB-Referenzen für Ihre IDO hinzu (siehe Konfiguration der &name-api;). Ab &name-web;1.0.3 können die Werte direkt
-            während des configure gesetzt werden.</para>
-          </listitem>
-
-          <listitem>
-            <para>touch: cannot touch `/usr/local/icinga-web/.../cache/testfile.txt': Permission denied =&gt; Die Konfiguration in den
-            xml-Dateien wird vom Framework ge-'pre-cached'. Daher müssen spezielle Berechtigungen für die Caching-Verzeichnisse gesetzt
-            werden. Durch die Ausführung von icingaWebTesting.php in etc/tests können die richtigen Berechtigungen automatisch gesetzt
-            werden.</para>
-          </listitem>
-
-          <listitem>
-            <para>PHP Fatal error: Uncaught exception '...' with message 'Couldn't locate driver named mysql' =&gt; Stellen Sie sicher, dass
-            php pdo installiert und geladen ist, auch wenn testdeps sagt, dass alles in Ordnung ist.</para>
-          </listitem>
-
-          <listitem>
-            <para>Das Login wird nicht angezeigt =&gt; Aktivieren Sie short_open_tag in Ihrer <filename>php.ini</filename>. =&gt; Editieren
-            Sie open_basedir in Ihrer <filename>php.ini</filename> und fügen Sie die Installationsverzeichnisse von &name-web; und von
-            &name-api; (z.B. <filename>/usr/local/icinga/share/</filename>) hinzu.</para>
-          </listitem>
-
-          <listitem>
-            <para>Leeres &name-web;? =&gt; Wenn mod_rewrite aktiviert ist und 'index.php' erscheint in der angefragten URL, dann
-            funktioniert das Portal nicht. Entfernen Sie index.php aus Ihrer URL und alles sollte funktionieren</para>
-          </listitem>
-
-          <listitem>
-            <para>Die Ergebnisse in den Status Cronks passen nicht zu Ihrer Konfiguration? =&gt; Überprüfen Sie in Ihrem Backend, d.h.
-            IDOUtils DB, welche Werte für die Status-Tabellen selektiert werden.</para>
-          </listitem>
-
-          <listitem>
-            <para>Keine Daten in den Cronks ? =&gt; Überprüfen Sie ob alle Berechtigungen korrekt gesetzt sind, insbesondere von log/.
-            Weiterhin können Sie die angezeigten Daten in Ihrem Browser debuggen. Ausführliche Informationen dazu finden Sie im Icinga-Wiki
-            <uri>https://wiki.icinga.org/display/Dev/Icinga+Web+Testing</uri></para>
-          </listitem>
-        </itemizedlist>
-
-        <para>Sofern Sie Fragen oder Updates haben, zögern Sie bitte nicht, uns diese mitzuteilen! :-)</para>
+        <para>Browser, Version</para>
       </listitem>
-    </orderedlist>
+
+      <listitem>
+        <para>Falls das Problem mit der Datenquelle besteht: Ausführliche Informationen zu API, IDOUtils, Core (Version, Debug Logs).</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Wo können Sie nachsehen?</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Apache Error Logs, PHP Errors, PHP Dateien können nicht gefunden werden</para>
+      </listitem>
+
+      <listitem>
+        <para><filename>/var/log/messages</filename>, /path/to/icinga/var/icinga.log</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Änderungen an der &name-web;-Konfiguration (z.B. API/IDOUtils-Einstellungen geändert) werden nicht aktualisiert?</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Löschen Sie den Konfigurationscache in app/cache/config/*.php</para>
+      </listitem>
+    </itemizedlist>
+
+    <screen> /usr/local/icinga-web/bin/clearcache.sh</screen>
+
+    <para>Icinga-Web zeigt eine leere Seite?</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Apache Errors Logs =&gt; mod_rewrite enabled, PHP-Abhängigkeiten ok? 'make testdeps'. Bei Debian gibt es u.a. die folgende
+        Fehlermeldung: ".htaccess: Invalid command 'RewriteEngine', perhaps misspelled or defined by a module not included in the server
+        configuration"</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Icinga Web - Login erfolgt- aber die Seite lädt und lädt...</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Request failed, Ressource /icinga-web/appkit/ext/application State could not be loaded - is the url correct? =&gt; mod_rewrite
+        enabled ?</para>
+      </listitem>
+
+      <listitem>
+        <para>.htaccess/VHost-Konfiguration =&gt; Pfade nicht korrekt? Icinga-Web zeigt keine Daten?</para>
+      </listitem>
+
+      <listitem>
+        <para>Datenbankzugriff verweigert =&gt; Überprüfen Sie, ob die Datenbankeinstellungen für &name-web; korrekt sind.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>IDOUtils-Datenbank wird nicht gefüllt?</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>"Error writing to data sink" =&gt; Überprüfen Sie die IDOUtils (ido2db läuft 2x - ok?), ido2db.cfg debug_level=-1,
+        debug_verbosity=2, restarten Sie IDOUtils und suchen Sie Fehler in <filename>ido2db.debug</filename></para>
+      </listitem>
+
+      <listitem>
+        <para>Keine Daten vorhanden =&gt; Überprüfen Sie <filename>icinga.log</filename>, ob IDOMOD zu Beginn geladen wird. Falls nicht,
+        aktivieren Sie das Event Broker Modul in <filename>icinga.cfg</filename> so wie im Icinga Core im <link
+        linkend="quickstart-idoutils">IDOUtils Quickstart Guide</link> beschrieben.</para>
+      </listitem>
+
+      <listitem>
+        <para>IDOUtils DB-Schema ist die aktuellste Version? =&gt; Falls nicht, überprüfen Sie mögliche Upgrades anhand der Docs
+        dafür.</para>
+      </listitem>
+
+      <listitem>
+        <para>Sockets sind korrekt definiert? =&gt; Unix oder TCP Socket, TCP wahlweise mit oder ohne SSL</para>
+      </listitem>
+    </itemizedlist>
+
+    <para><emphasis role="bold">Testing the Web (stellen Sie sicher, dass PHPUnit installiert ist): </emphasis></para>
+
+    <para><screen> $&gt; make test</screen></para>
+
+    <note>
+      <para>Falls Sie Ihren root-Benutzer zum Testen benutzen, dann stellen Sie vorher sicher, dass für den angegebenen Web-Benutzer in der
+      <filename>/etc/passwd</filename> eine gültige Shell eingetragen ist. Anderenfalls werden verschiedene Tests fehlschlagen. Abhängig von
+      der verwendeten Icinga-Web-Version kann es sein, dass die Berechtigungen für die Dateien in
+      <filename>/usr/local/icinga-web/log</filename> falsch gesetzt sind, so dass Icinga-Web mit der Meldung "Loading" stehenbleibt.</para>
+    </note>
+
+    <note>
+      <para>Nicht vergessen - Ändern von PHP-Einstellungen in der <filename>php.ini</filename> erfordert einen Apache reload/restart!</para>
+    </note>
+
+    <itemizedlist>
+      <listitem>
+        <para>PHP Fatal error: Allowed memory size of ... bytes exhausted (tried to allocate ... bytes) =&gt; Überprüfen Sie Ihre
+        <filename>php.ini</filename> (apache2 und cli) und setzen Sie den Wert memory_limit auf 128M oder höher</para>
+      </listitem>
+
+      <listitem>
+        <para>PHP Fatal error: Uncaught exception 'AgaviCacheException' with message 'Failed to write cache file
+        /usr/local/icinga-web/app/cache/config/config_handlers.xml_development__xxxx.php" generated from configuration file
+        /usr/local/icinga-web/app/config/config_handlers.xml". Please make sure you have set correct write permissions for directory
+        /usr/local/icinga-web/app/cache.... =&gt; Setzen von safe_mode = off in /etc/php5/apache/php.ini.</para>
+
+        <note>
+          <para>Das kann auch ein Hinweis auf ein aktiviertes SELinux sein.</para>
+        </note>
+      </listitem>
+
+      <listitem>
+        <para>[PHP Error] strtotime(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone
+        setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning,
+        you most likely misspelled the timezone identifier. We selected 'Europe/Berlin' for 'CEST/2.0/DST' instead [line 1548 of
+        /home/xxx/icinga/icinga-web/lib/doctrine/lib/Doctrine/Record.php] =&gt; Sie müssen date.timezone in der <filename>php.ini</filename>
+        definieren.</para>
+      </listitem>
+
+      <listitem>
+        <para>-&gt; 500 internal server error! Uncaught exception AgaviException thrown! Your default timezone is 'System/Localtime', ... =
+        &gt; Sie müssen date.timezone in der <filename>php.ini</filename> definieren.</para>
+      </listitem>
+
+      <listitem>
+        <para>Keine Verbindung zur API. The API Connector returned the following message: getConnection failed: Database connection failed:
+        SQLSTATE[28000] [1045] Access denied for user 'icinga'@'localhost' (using password: YES)) =&gt; Überprüfen Sie Ihre IDOUtils
+        DB-Referenzen in der <filename>ido2db.cfg</filename> und fügen Sie diese in Ihre &name-web;-Konfiguration als bevorzugte
+        DB-Referenzen für Ihre IDO hinzu (siehe Konfiguration der &name-api;). Ab &name-web;1.0.3 können die Werte direkt während des
+        configure gesetzt werden.</para>
+      </listitem>
+
+      <listitem>
+        <para>touch: cannot touch `/usr/local/icinga-web/.../cache/testfile.txt': Permission denied =&gt; Die Konfiguration in den
+        xml-Dateien wird vom Framework ge-'pre-cached'. Daher müssen spezielle Berechtigungen für die Caching-Verzeichnisse gesetzt werden.
+        Durch die Ausführung von icingaWebTesting.php in etc/tests können die richtigen Berechtigungen automatisch gesetzt werden.</para>
+      </listitem>
+
+      <listitem>
+        <para>PHP Fatal error: Uncaught exception '...' with message 'Couldn't locate driver named mysql' =&gt; Stellen Sie sicher, dass php
+        pdo installiert und geladen ist, auch wenn testdeps sagt, dass alles in Ordnung ist.</para>
+      </listitem>
+
+      <listitem>
+        <para>Das Login wird nicht angezeigt =&gt; Aktivieren Sie short_open_tag in Ihrer <filename>php.ini</filename>. =&gt; Editieren Sie
+        open_basedir in Ihrer <filename>php.ini</filename> und fügen Sie die Installationsverzeichnisse von &name-web; und von &name-api;
+        (z.B. <filename>/usr/local/icinga/share/</filename>) hinzu.</para>
+      </listitem>
+
+      <listitem>
+        <para>Leeres &name-web;? =&gt; Wenn mod_rewrite aktiviert ist und 'index.php' erscheint in der angefragten URL, dann funktioniert
+        das Portal nicht. Entfernen Sie index.php aus Ihrer URL und alles sollte funktionieren</para>
+      </listitem>
+
+      <listitem>
+        <para>Die Ergebnisse in den Status Cronks passen nicht zu Ihrer Konfiguration? =&gt; Überprüfen Sie in Ihrem Backend, d.h. IDOUtils
+        DB, welche Werte für die Status-Tabellen selektiert werden.</para>
+      </listitem>
+
+      <listitem>
+        <para>Keine Daten in den Cronks ? =&gt; Überprüfen Sie ob alle Berechtigungen korrekt gesetzt sind, insbesondere von log/. Weiterhin
+        können Sie die angezeigten Daten in Ihrem Browser debuggen. Ausführliche Informationen dazu finden Sie im Icinga-Wiki
+        <uri>https://wiki.icinga.org/display/Dev/Icinga+Web+Testing</uri></para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Sofern Sie Fragen oder Updates haben, zögern Sie bitte nicht, uns diese mitzuteilen! :-)</para>
 
     <indexterm zone="icinga-web-scratch">
       <primary>Webinterface</primary>
