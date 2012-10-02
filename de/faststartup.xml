@@ -8,86 +8,91 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="fast_startup"/>Schnellstart-Optionen</title>
 
-  <para><emphasis role="bold">Einführung</emphasis></para>
+  <section>
+    <title>Einführung</title>
 
-  <para>Es gibt einige Dinge, die Sie tun können, um die Zeit zu verringern, die &name-icinga; zum (Neu-)Start benötigt. Diese
-  Beschleunigung umfasst u.a. Änderungen bei der Verarbeitung Ihrer Konfigurationsdateien.</para>
+    <para>Es gibt einige Dinge, die Sie tun können, um die Zeit zu verringern, die &name-icinga; zum (Neu-)Start benötigt. Diese
+    Beschleunigung umfasst u.a. Änderungen bei der Verarbeitung Ihrer Konfigurationsdateien.</para>
 
-  <para>Diese Techniken zu benutzen ist besonders dann sinnvoll, wenn bei Ihnen einer oder mehrere der folgenden Punkte zutreffen:</para>
+    <para>Diese Techniken zu benutzen ist besonders dann sinnvoll, wenn bei Ihnen einer oder mehrere der folgenden Punkte zutreffen:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>große Konfigurationen</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>große Konfigurationen</para>
+      </listitem>
 
-    <listitem>
-      <para>komplexe Konfigurationen (massiver Einsatz von Template-Features)</para>
-    </listitem>
+      <listitem>
+        <para>komplexe Konfigurationen (massiver Einsatz von Template-Features)</para>
+      </listitem>
 
-    <listitem>
-      <para>Installationen, bei denen häufige Neustarts notwendig sind</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>Installationen, bei denen häufige Neustarts notwendig sind</para>
+      </listitem>
+    </itemizedlist>
+  </section>
 
-  <para><emphasis role="bold">Hintergrund</emphasis></para>
+  <section>
+    <title>Hintergrund</title>
 
-  <para>Bei jedem (erneuten) Start von &name-icinga; müssen die Konfigurationsdateien verarbeitet werden, bevor die Überwachung beginnen
-  kann. Dieser Konfigurationsanlaufprozess umfasst eine Reihe von Schritten:</para>
+    <para>Bei jedem (erneuten) Start von &name-icinga; müssen die Konfigurationsdateien verarbeitet werden, bevor die Überwachung beginnen
+    kann. Dieser Konfigurationsanlaufprozess umfasst eine Reihe von Schritten:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>Lesen der Konfigurationsdateien</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>Lesen der Konfigurationsdateien</para>
+      </listitem>
 
-    <listitem>
-      <para>Auflösen von Template-Definitionen</para>
-    </listitem>
+      <listitem>
+        <para>Auflösen von Template-Definitionen</para>
+      </listitem>
 
-    <listitem>
-      <para>"Recombobulating" Ihrer Objekte (ein [ausgedachter] Begriff für die verschiedenen Arten von Arbeiten, die auftreten)</para>
-    </listitem>
+      <listitem>
+        <para>"Recombobulating" Ihrer Objekte (ein [ausgedachter] Begriff für die verschiedenen Arten von Arbeiten, die auftreten)</para>
+      </listitem>
 
-    <listitem>
-      <para>duplizieren von Objektdefinitionen</para>
-    </listitem>
+      <listitem>
+        <para>duplizieren von Objektdefinitionen</para>
+      </listitem>
 
-    <listitem>
-      <para>vererben von Objekteigenschaften</para>
-    </listitem>
+      <listitem>
+        <para>vererben von Objekteigenschaften</para>
+      </listitem>
 
-    <listitem>
-      <para>sortieren Ihrer Objektdefinitionen</para>
-    </listitem>
+      <listitem>
+        <para>sortieren Ihrer Objektdefinitionen</para>
+      </listitem>
 
-    <listitem>
-      <para>überprüfen der Objektbeziehungsintegrität</para>
-    </listitem>
+      <listitem>
+        <para>überprüfen der Objektbeziehungsintegrität</para>
+      </listitem>
 
-    <listitem>
-      <para>prüfen von zirkulären Pfaden</para>
-    </listitem>
+      <listitem>
+        <para>prüfen von zirkulären Pfaden</para>
+      </listitem>
 
-    <listitem>
-      <para>und mehr...</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>und mehr...</para>
+      </listitem>
+    </itemizedlist>
 
-  <para>Einige dieser Schritte können ziemlich zeitintensiv sein, wenn Sie große oder komplexe Konfigurationen haben. Gibt es einen Weg,
-  einen dieser Schritte zu beschleunigen? Ja!</para>
+    <para>Einige dieser Schritte können ziemlich zeitintensiv sein, wenn Sie große oder komplexe Konfigurationen haben. Gibt es einen Weg,
+    einen dieser Schritte zu beschleunigen? Ja!</para>
+  </section>
 
-  <para><emphasis role="bold">Bewertung von Anlaufzeiten</emphasis></para>
+  <section>
+    <title>Bewertung von Anlaufzeiten</title>
 
-  <para>Bevor wir weitermachen, die Dinge zu beschleunigen, müssen wir sehen was möglich ist und ob wir uns mit der ganzen Sache
-  beschäftigen sollten oder nicht. Das ist einfach - starten Sie &name-icinga; mit der <emphasis role="bold">-s</emphasis> oder
-  <emphasis role="bold">--test-scheduling</emphasis>-Option, um Zeiten und Planungsinformationen zu bekommen.</para>
+    <para>Bevor wir weitermachen, die Dinge zu beschleunigen, müssen wir sehen was möglich ist und ob wir uns mit der ganzen Sache
+    beschäftigen sollten oder nicht. Das ist einfach - starten Sie &name-icinga; mit der <emphasis role="bold">-s</emphasis> oder <emphasis
+    role="bold">--test-scheduling</emphasis>-Option, um Zeiten und Planungsinformationen zu bekommen.</para>
 
-  <para>Beginnend mit &name-icinga; 1.0.2 gibt es eine zusätzliche Option <emphasis role="bold">-S</emphasis> oder <emphasis role="bold">
-  --show-scheduling</emphasis>. Damit erhalten Sie weitere Informationen zur Scheduling Queue.</para>
+    <para>Beginnend mit &name-icinga; 1.0.2 gibt es eine zusätzliche Option <emphasis role="bold">-S</emphasis> oder <emphasis role="bold">
+    --show-scheduling</emphasis>. Damit erhalten Sie weitere Informationen zur Scheduling Queue.</para>
 
-  <para>Ein Beispiel für die Ausgabe (gekürzt, um nur relevante Teile zu zeigen) sehen Sie nachfolgend. In diesem Beispiel nutzen wir eine
-  &name-icinga;-Konfigurations mit 25 Host und etwas mehr als 10.000 Services.</para>
+    <para>Ein Beispiel für die Ausgabe (gekürzt, um nur relevante Teile zu zeigen) sehen Sie nachfolgend. In diesem Beispiel nutzen wir eine
+    &name-icinga;-Konfigurations mit 25 Host und etwas mehr als 10.000 Services.</para>
 
-  <screen> #&gt; &url-icinga-bin; -s &url-icinga-cfg;
+    <screen> #&gt; &url-icinga-bin; -s &url-icinga-cfg;
 &name-icinga; &ver-icinga;
 Copyright (c) 1999-2007 Ethan Galstad (&url-nagios;)
 Last Modified: 01-27-2007
@@ -121,159 +126,167 @@ Misc:                 0.006924 sec
                       ============
 TOTAL:                56.084353 sec  * = 54.676622 sec (97.5%) estimated savings</screen>
 
-  <para>Okay, lassen Sie uns ansehen was passiert ist. Wenn wir die Summen ansehen, dauerte es ungefähr <emphasis
-  role="bold">11,6</emphasis> Sekunden, die Konfigurationsdateien zu verarbeiten und weitere <emphasis role="bold">56</emphasis> Sekunden,
-  die Konfigurations zu verifizieren. Das bedeutet, dass es fast <emphasis role="bold">68 Sekunden</emphasis> dauert, bis die erste
-  Überwachung beginnen kann! Das ist nicht akzeptierbar, wenn wir &name-icinga; ziemlich regelmäßig neu starten müsseb.</para>
+    <para>Okay, lassen Sie uns ansehen was passiert ist. Wenn wir die Summen ansehen, dauerte es ungefähr <emphasis
+    role="bold">11,6</emphasis> Sekunden, die Konfigurationsdateien zu verarbeiten und weitere <emphasis role="bold">56</emphasis> Sekunden,
+    die Konfigurations zu verifizieren. Das bedeutet, dass es fast <emphasis role="bold">68 Sekunden</emphasis> dauert, bis die erste
+    Überwachung beginnen kann! Das ist nicht akzeptierbar, wenn wir &name-icinga; ziemlich regelmäßig neu starten müsseb.</para>
 
-  <para>Was kann man daran ändern? Werfen Sie einen erneuten Blick auf die Ausgabe und Sie sehen, dass &name-icinga; schätzt, dass wir etwa
-  <emphasis role="bold">8,4</emphasis> Sekunden bei der Verarbeitung der Konfiguration und weitere <emphasis role="bold">54,7</emphasis> bei
-  der Verifizierung einsparen können. &name-icinga; denkt, dass wir <emphasis role="bold">63 Sekunden</emphasis> der normalen Anlaufzeit
-  sparen können, wenn einige Optimierungen vorgenommen werden.</para>
+    <para>Was kann man daran ändern? Werfen Sie einen erneuten Blick auf die Ausgabe und Sie sehen, dass &name-icinga; schätzt, dass wir
+    etwa <emphasis role="bold">8,4</emphasis> Sekunden bei der Verarbeitung der Konfiguration und weitere <emphasis
+    role="bold">54,7</emphasis> bei der Verifizierung einsparen können. &name-icinga; denkt, dass wir <emphasis role="bold">63
+    Sekunden</emphasis> der normalen Anlaufzeit sparen können, wenn einige Optimierungen vorgenommen werden.</para>
 
-  <para>Wow! Von <emphasis role="bold">68 Sekunden</emphasis> auf gerade mal <emphasis role="bold">5 Sekunden</emphasis>? Yep, lesen Sie
-  weiter, um zu sehen, wie das geht.</para>
+    <para>Wow! Von <emphasis role="bold">68 Sekunden</emphasis> auf gerade mal <emphasis role="bold">5 Sekunden</emphasis>? Yep, lesen Sie
+    weiter, um zu sehen, wie das geht.</para>
+  </section>
 
-  <para><emphasis role="bold">Pre-Caching der Objektkonfiguration</emphasis></para>
+  <section>
+    <title>Pre-Caching der Objektkonfiguration</title>
 
-  <para>&name-icinga; kann einige Zeit beim analysieren Ihrer Konfigurationsdateien verbringen, besonders dann, wenn Sie Template-Features
-  wie z.B. Vererbung usw. nutzen. Um die Zeit der Analyse Ihrer Konfiguration zu verringern, können Sie &name-icinga; veranlassen, Ihre
-  Konfigurationsdateien für die Zukunft vorzuverarbeiten (pre-process) und vor-zwischenzuspeichern (pre-cache).</para>
+    <para>&name-icinga; kann einige Zeit beim analysieren Ihrer Konfigurationsdateien verbringen, besonders dann, wenn Sie Template-Features
+    wie z.B. Vererbung usw. nutzen. Um die Zeit der Analyse Ihrer Konfiguration zu verringern, können Sie &name-icinga; veranlassen, Ihre
+    Konfigurationsdateien für die Zukunft vorzuverarbeiten (pre-process) und vor-zwischenzuspeichern (pre-cache).</para>
 
-  <informaltable frame="none">
-    <tgroup cols="2">
-      <colspec colname="c1" colwidth="50*" />
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="50*"/>
 
-      <colspec colname="c2" colwidth="50*" />
+        <colspec colname="c2" colwidth="50*"/>
 
-      <tbody>
-        <row>
-          <entry align="left" valign="top"><para> Wenn Sie &name-icinga; mit der <emphasis role="bold">-p</emphasis>-Kommandozeilenoption
-          starten, wird &name-icinga; Ihre Konfigurationsdateien einlesen, verarbeiten und sie in einer vor-zwischengespeicherten
-          (pre-cached) (durch die <link linkend="configmain-precached_object_file">precached_object_file</link>-Direktive angegebene)
-          Konfigurationsdatei sichern. Diese Konfigurationsdatei enthält vorverarbeitete Konfigurationseinträge, die &name-icinga; in
-          Zukunft einfacher/schneller verarbeiten kann.</para> <para>Sie müssen die <emphasis role="bold">-p</emphasis>-Kommandozeilenoption
-          zusammen mit der <emphasis role="bold">-v</emphasis> oder <emphasis role="bold">-s</emphasis>-Kommandozeilenoption benutzen, wie
-          nachfolgend gezeigt. Dies stellt sicher, dass Ihre Konfiguration überprüft wird, bevor die precached-Datei erstellt wird.</para>
-          <screen> #&gt; &url-icinga-bin; -pv &url-icinga-cfg; </screen> <para>Die precached-Konfigurationsdatei wird wahrscheinlich um
-          einiges größer sein als die Summe Ihrer Objektkonfigurationsdateien. Das ist normal und beabsichtigt.</para></entry>
+        <tbody>
+          <row>
+            <entry align="left" valign="top"><para> Wenn Sie &name-icinga; mit der <emphasis role="bold">-p</emphasis>-Kommandozeilenoption
+            starten, wird &name-icinga; Ihre Konfigurationsdateien einlesen, verarbeiten und sie in einer vor-zwischengespeicherten
+            (pre-cached) (durch die <link linkend="configmain-precached_object_file">precached_object_file</link>-Direktive angegebene)
+            Konfigurationsdatei sichern. Diese Konfigurationsdatei enthält vorverarbeitete Konfigurationseinträge, die &name-icinga; in
+            Zukunft einfacher/schneller verarbeiten kann.</para> <para>Sie müssen die <emphasis
+            role="bold">-p</emphasis>-Kommandozeilenoption zusammen mit der <emphasis role="bold">-v</emphasis> oder <emphasis
+            role="bold">-s</emphasis>-Kommandozeilenoption benutzen, wie nachfolgend gezeigt. Dies stellt sicher, dass Ihre Konfiguration
+            überprüft wird, bevor die precached-Datei erstellt wird.</para> <screen> #&gt; &url-icinga-bin; -pv &url-icinga-cfg; </screen>
+            <para>Die precached-Konfigurationsdatei wird wahrscheinlich um einiges größer sein als die Summe Ihrer
+            Objektkonfigurationsdateien. Das ist normal und beabsichtigt.</para></entry>
 
-          <entry align="left" valign="top"><para> <mediaobject>
-              <imageobject>
-                <imagedata fileref="../images/fast-startup1.png" format="PNG"></imagedata>
-              </imageobject>
-            </mediaobject> </para></entry>
-        </row>
+            <entry align="left" valign="top"><para> <mediaobject>
+                <imageobject>
+                  <imagedata fileref="../images/fast-startup1.png" format="PNG"/>
+                </imageobject>
+              </mediaobject> </para></entry>
+          </row>
 
-        <row>
-          <entry align="left" valign="top"><para> Sobald die precached-Objektkonfigurationdatei erstellt wurde, können Sie &name-icinga;
-          starten und mit der <emphasis role="bold">-u</emphasis>-Kommandozeilenoption angeben, dass diese Datei statt Ihrer
-          Konfigurationsdatei(en) benutzt werden soll.</para> <screen> #&gt; &url-icinga-bin; -ud &url-icinga-cfg; </screen>
-          <para><inlinemediaobject>
-              <imageobject>
-                <imagedata fileref="../images/important.gif" format="GIF" />
-              </imageobject>
-            </inlinemediaobject> Wenn Sie Ihre Konfigurationsdateien ändern, müssen Sie diese erneut überprüfen und die
-          precached-Konfigurationsdatei neu erstellen, bevor Sie &name-icinga; erneut starten. Wenn Sie die precached-Konfigurationsdatei
-          nicht neu generieren, wird &name-icinga; Ihre alte Konfiguration benutzen, weil die precached-Konfigurationsdatei gelesen wird und
-          nicht Ihre geänderten Konfigurationsdateien.</para></entry>
+          <row>
+            <entry align="left" valign="top"><para> Sobald die precached-Objektkonfigurationdatei erstellt wurde, können Sie &name-icinga;
+            starten und mit der <emphasis role="bold">-u</emphasis>-Kommandozeilenoption angeben, dass diese Datei statt Ihrer
+            Konfigurationsdatei(en) benutzt werden soll.</para> <screen> #&gt; &url-icinga-bin; -ud &url-icinga-cfg; </screen>
+            <para><inlinemediaobject>
+                <imageobject>
+                  <imagedata fileref="../images/important.gif" format="GIF"/>
+                </imageobject>
+              </inlinemediaobject> Wenn Sie Ihre Konfigurationsdateien ändern, müssen Sie diese erneut überprüfen und die
+            precached-Konfigurationsdatei neu erstellen, bevor Sie &name-icinga; erneut starten. Wenn Sie die precached-Konfigurationsdatei
+            nicht neu generieren, wird &name-icinga; Ihre alte Konfiguration benutzen, weil die precached-Konfigurationsdatei gelesen wird
+            und nicht Ihre geänderten Konfigurationsdateien.</para></entry>
 
-          <entry align="left" valign="top"><para> <inlinemediaobject>
-              <imageobject>
-                <imagedata fileref="../images/fast-startup2.png" format="PNG"></imagedata>
-              </imageobject>
-            </inlinemediaobject> </para></entry>
-        </row>
-      </tbody>
-    </tgroup>
-  </informaltable>
+            <entry align="left" valign="top"><para> <inlinemediaobject>
+                <imageobject>
+                  <imagedata fileref="../images/fast-startup2.png" format="PNG"/>
+                </imageobject>
+              </inlinemediaobject> </para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+  </section>
 
-  <para><emphasis role="bold">Überspringen der Test von zirkulären Pfaden</emphasis></para>
+  <section>
+    <title>Überspringen der Tests von zirkulären Pfaden</title>
 
-  <para>Der zweite (und zeitintensivste) Teil der Konfigurationsanlaufphase ist die Prüfung auf zirkuläre Pfade. Im obigen Beispiel dauerte
-  es fast eine Minute, um diesen Schritt der Konfigurationsprüfung auszuführen.</para>
+    <para>Der zweite (und zeitintensivste) Teil der Konfigurationsanlaufphase ist die Prüfung auf zirkuläre Pfade. Im obigen Beispiel
+    dauerte es fast eine Minute, um diesen Schritt der Konfigurationsprüfung auszuführen.</para>
 
-  <para>Was ist diese zirkuläre-Pfad-Prüfung und warum dauert sie so lange? Die zirkuläre-Pfad-Prüfung soll verhindern, dass Sie zirkuläre
-  Pfade in Ihren Host-, Host-Abhängigkeits- oder Service-Abhängigkeitsdefinitionen haben. Wenn ein zirkulärer Pfad in Ihren
-  Konfigurationsdateien existiert, könnte &name-icinga; in einer Deadlock-Situation enden. Der wahrscheinlichste Grund dafür, dass die
-  Prüfung so lange dauert, dürfte darin liegen, dass wir keinen effizienten Algorithmus benutzen. Ein effizienterer Algorithmus wäre daher
-  willkommen. Wink: das bedeutet, dass alle Absolventen der Computerwissenschaften, die ihre Thesen zu &name-icinga; gemailt haben, ein
-  wenig Code liefern könnten. :-)</para>
+    <para>Was ist diese zirkuläre-Pfad-Prüfung und warum dauert sie so lange? Die zirkuläre-Pfad-Prüfung soll verhindern, dass Sie zirkuläre
+    Pfade in Ihren Host-, Host-Abhängigkeits- oder Service-Abhängigkeitsdefinitionen haben. Wenn ein zirkulärer Pfad in Ihren
+    Konfigurationsdateien existiert, könnte &name-icinga; in einer Deadlock-Situation enden. Der wahrscheinlichste Grund dafür, dass die
+    Prüfung so lange dauert, dürfte darin liegen, dass wir keinen effizienten Algorithmus benutzen. Ein effizienterer Algorithmus wäre daher
+    willkommen. Wink: das bedeutet, dass alle Absolventen der Computerwissenschaften, die ihre Thesen zu &name-icinga; gemailt haben, ein
+    wenig Code liefern könnten. :-)</para>
 
-  <para>Wenn Sie die Prüfung auf zirkuläre Pfade überspringen möchten, wenn Sie &name-icinga; starten, dann fügen Sie die <emphasis
-  role="bold">-x</emphasis>-Option wie folgt hinzu:</para>
+    <para>Wenn Sie die Prüfung auf zirkuläre Pfade überspringen möchten, wenn Sie &name-icinga; starten, dann fügen Sie die <emphasis
+    role="bold">-x</emphasis>-Option wie folgt hinzu:</para>
 
-  <screen> #&gt; &url-icinga-bin; -xd &url-icinga-cfg; </screen>
+    <screen> #&gt; &url-icinga-bin; -xd &url-icinga-cfg; </screen>
 
-  <para><inlinemediaobject>
-      <imageobject>
-        <imagedata fileref="../images/important.gif" format="GIF"></imagedata>
-      </imageobject>
-    </inlinemediaobject> Es ist von äußerster Wichtigkeit, dass Sie Ihre Konfiguration überprüfen, bevor Sie &name-icinga; (erneut) starten,
-  wenn Sie auf die Prüfung auf zirkuläre Pfade verzichten. Wenn Sie es nicht tun, kann dies zu Deadlocks führen. Sie sind gewarnt
-  worden.</para>
+    <para><inlinemediaobject>
+        <imageobject>
+          <imagedata fileref="../images/important.gif" format="GIF"/>
+        </imageobject>
+      </inlinemediaobject> Es ist von äußerster Wichtigkeit, dass Sie Ihre Konfiguration überprüfen, bevor Sie &name-icinga; (erneut)
+    starten, wenn Sie auf die Prüfung auf zirkuläre Pfade verzichten. Wenn Sie es nicht tun, kann dies zu Deadlocks führen. Sie sind gewarnt
+    worden.</para>
+  </section>
 
-  <para><emphasis role="bold">Alles zusammenfassen</emphasis></para>
+  <section>
+    <title>Alles zusammenfassen</title>
 
-  <para>Folgen Sie diesen Schritten, wenn Sie mögliche Beschleunigungen durch pre-Caching Ihrer Konfiguration und überspringen der Prüfungen
-  auf zirkuläre Pfade nutzen wollen.</para>
+    <para>Folgen Sie diesen Schritten, wenn Sie mögliche Beschleunigungen durch pre-Caching Ihrer Konfiguration und überspringen der
+    Prüfungen auf zirkuläre Pfade nutzen wollen.</para>
 
-  <para>1. Überprüfen Sie Ihre Konfiguration und legen Sie die precache-Datei mit den folgenden Befehlen an:</para>
+    <para>1. Überprüfen Sie Ihre Konfiguration und legen Sie die precache-Datei mit den folgenden Befehlen an:</para>
 
-  <screen> #&gt; &url-icinga-bin; -vp &url-icinga-cfg;
+    <screen> #&gt; &url-icinga-bin; -vp &url-icinga-cfg;
 </screen>
 
-  <para>2. Stoppen Sie &name-icinga;, wenn es momentan läuft.</para>
+    <para>2. Stoppen Sie &name-icinga;, wenn es momentan läuft.</para>
 
-  <para>3. Starten Sie &name-icinga; wie folgt, um die precached-Konfigurationsdatei zu nutzen und auf Prüfung auf zirkuläre Pfade zu
-  überspringen:</para>
+    <para>3. Starten Sie &name-icinga; wie folgt, um die precached-Konfigurationsdatei zu nutzen und auf Prüfung auf zirkuläre Pfade zu
+    überspringen:</para>
 
-  <screen> #&gt; &url-icinga-bin; -uxd &url-icinga-cfg;
+    <screen> #&gt; &url-icinga-bin; -uxd &url-icinga-cfg;
 </screen>
 
-  <para>4. Wenn Sie in Zukunft Ihre Konfigurationsdateien verändern und &name-icinga; erneut starten müssen, damit diese Änderungen aktiv
-  werden, dann wiederholen Sie Schritt 1, um Ihre Konfiguration erneut zu überprüfen und die precached-Konfigurationsdatei zu erstellen.
-  Sobald das getan ist, können Sie &name-icinga; über das Web-Interface oder durch das Senden eines SIGHUP-Signals neustarten. Wenn Sie die
-  precached-Objektdatei nicht neu erstellen, wird &name-icinga; wieder Ihre alte Konfiguration benutzen, weil es die precached-Datei liest
-  statt Ihrer Konfigurationsdateien.</para>
+    <para>4. Wenn Sie in Zukunft Ihre Konfigurationsdateien verändern und &name-icinga; erneut starten müssen, damit diese Änderungen aktiv
+    werden, dann wiederholen Sie Schritt 1, um Ihre Konfiguration erneut zu überprüfen und die precached-Konfigurationsdatei zu erstellen.
+    Sobald das getan ist, können Sie &name-icinga; über das Web-Interface oder durch das Senden eines SIGHUP-Signals neustarten. Wenn Sie
+    die precached-Objektdatei nicht neu erstellen, wird &name-icinga; wieder Ihre alte Konfiguration benutzen, weil es die precached-Datei
+    liest statt Ihrer Konfigurationsdateien.</para>
 
-  <para>5. Das war's! Erfreuen Sie sich am Geschwindigkeitsgewinn beim Start.</para>
+    <para>5. Das war's! Erfreuen Sie sich am Geschwindigkeitsgewinn beim Start.</para>
 
-  <indexterm zone="faststartup">
-    <primary>Schnellstartoptionen (Fast Startup Options)</primary>
-  </indexterm>
+    <indexterm zone="faststartup">
+      <primary>Schnellstartoptionen (Fast Startup Options)</primary>
+    </indexterm>
 
-  <indexterm zone="faststartup">
-    <primary>Fast Startup Options</primary>
-  </indexterm>
+    <indexterm zone="faststartup">
+      <primary>Fast Startup Options</primary>
+    </indexterm>
 
-  <indexterm zone="fast_startup">
-    <primary>&name-icinga;-Kommandozeilenoptionen</primary>
+    <indexterm zone="fast_startup">
+      <primary>&name-icinga;-Kommandozeilenoptionen</primary>
 
-    <secondary>Option -s (Timing- und Scheduling-Informationen)</secondary>
-  </indexterm>
+      <secondary>Option -s (Timing- und Scheduling-Informationen)</secondary>
+    </indexterm>
 
-  <indexterm zone="fast_startup">
-    <primary>&name-icinga;-Kommandozeilenoptionen</primary>
+    <indexterm zone="fast_startup">
+      <primary>&name-icinga;-Kommandozeilenoptionen</primary>
 
-    <secondary>Option -S (Timing- und Scheduling-Informationen sowie Scheduling-Queue)</secondary>
-  </indexterm>
+      <secondary>Option -S (Timing- und Scheduling-Informationen sowie Scheduling-Queue)</secondary>
+    </indexterm>
 
-  <indexterm zone="fast_startup">
-    <primary>&name-icinga;-Kommandozeilenoptionen</primary>
+    <indexterm zone="fast_startup">
+      <primary>&name-icinga;-Kommandozeilenoptionen</primary>
 
-    <secondary>Option -p (Precache von Objekten)</secondary>
-  </indexterm>
+      <secondary>Option -p (Precache von Objekten)</secondary>
+    </indexterm>
 
-  <indexterm zone="fast_startup">
-    <primary>&name-icinga;-Kommandozeilenoptionen</primary>
+    <indexterm zone="fast_startup">
+      <primary>&name-icinga;-Kommandozeilenoptionen</primary>
 
-    <secondary>Option -u (Precached-Objekte benutzen)</secondary>
-  </indexterm>
+      <secondary>Option -u (Precached-Objekte benutzen)</secondary>
+    </indexterm>
 
-  <indexterm zone="fast_startup">
-    <primary>&name-icinga;-Kommandozeilenoptionen</primary>
+    <indexterm zone="fast_startup">
+      <primary>&name-icinga;-Kommandozeilenoptionen</primary>
 
-    <secondary>Option -x (nicht auf zirkuläre Pfade prüfen)</secondary>
-  </indexterm>
+      <secondary>Option -x (nicht auf zirkuläre Pfade prüfen)</secondary>
+    </indexterm>
+  </section>
 </section>

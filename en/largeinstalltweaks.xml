@@ -3,49 +3,51 @@
 <!ENTITY % all.entities SYSTEM "all-entities.ent">
 %all.entities;
 ]>
-<section version="5.0" xml:id="largeinstalltweaks" xmlns="http://docbook.org/ns/docbook"
-         xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-         xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+<section version="5.0" xml:id="largeinstalltweaks" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-  <title><anchor xml:id="large_install_tweaks" />Large Installation Tweaks</title>
+  <title><anchor xml:id="large_install_tweaks"/>Large Installation Tweaks</title>
 
-  <para><emphasis role="bold">Introduction</emphasis></para>
+  <section>
+    <title>Introduction</title>
 
-  <para>Users with large &name-icinga; installations may benefit from the <link
-  linkend="configmain-use_large_installation_tweaks">use_large_installation_tweaks</link> configuration option. Enabling this
-  option allows the &name-icinga; daemon to take certain shortcuts which result in lower system load and better
-  performance.</para>
+    <para>Users with large &name-icinga; installations may benefit from the <link
+    linkend="configmain-use_large_installation_tweaks">use_large_installation_tweaks</link> configuration option. Enabling this option
+    allows the &name-icinga; daemon to take certain shortcuts which result in lower system load and better performance.</para>
+  </section>
 
-  <para><emphasis role="bold">Effects</emphasis></para>
+  <section>
+    <title>Effects</title>
 
-  <para>When you enable the <link linkend="configmain-use_large_installation_tweaks">use_large_installation_tweaks</link> option
-  in your main &name-icinga; config file, several changes are made to the way the &name-icinga; daemon operates:</para>
+    <para>When you enable the <link linkend="configmain-use_large_installation_tweaks">use_large_installation_tweaks</link> option in your
+    main &name-icinga; config file, several changes are made to the way the &name-icinga; daemon operates:</para>
 
-  <orderedlist>
-    <listitem>
-      <para><emphasis role="bold">No Summary Macros In Environment Variables</emphasis> - The <link
-      linkend="macrolist-summary_macros">summary macros</link> will not be available to you as environment variables. Calculating
-      the values of these macros can be quite time-intensive in large configurations, so they are not available as environment
-      variables when use this option. Summary macros will still be available as regular macros if you pass them to to your scripts
-      as arguments.</para>
-    </listitem>
+    <orderedlist>
+      <listitem>
+        <para><emphasis role="bold">No Summary Macros In Environment Variables</emphasis> - The <link
+        linkend="macrolist-summary_macros">summary macros</link> will not be available to you as environment variables. Calculating the
+        values of these macros can be quite time-intensive in large configurations, so they are not available as environment variables when
+        use this option. Summary macros will still be available as regular macros if you pass them to to your scripts as arguments.</para>
+      </listitem>
 
-    <listitem>
-      <para><emphasis role="bold">Different Memory Cleanup</emphasis> - Normally &name-icinga; will free all allocated memory in
-      child processes before they exit. This is probably best practice, but is likely unnecessary in most installations, as most
-      OSes will take care of freeing allocated memory when processes exit. The OS tends to free allocated memory faster than can
-      be done within &name-icinga; itself, so &name-icinga; won't attempt to free memory in child processes if you enable this
-      option.</para>
-    </listitem>
+      <listitem>
+        <para><emphasis role="bold">Different Memory Cleanup</emphasis> - Normally &name-icinga; will free all allocated memory in child
+        processes before they exit. This is probably best practice, but is likely unnecessary in most installations, as most OSes will take
+        care of freeing allocated memory when processes exit. The OS tends to free allocated memory faster than can be done within
+        &name-icinga; itself, so &name-icinga; won't attempt to free memory in child processes if you enable this option.</para>
+      </listitem>
 
-    <listitem>
-      <para><emphasis role="bold">Checks fork() Less</emphasis> - Normally &name-icinga; will fork() twice when it executes host
-      and service checks. This is done to (1) ensure a high level of resistance against plugins that go awry and segfault and (2)
-      make the OS deal with cleaning up the grandchild process once it exits. The extra fork() is not really necessary, so it is
-      skipped when you enable this option. As a result, &name-icinga; will itself clean up child processes that exit (instead of
-      leaving that job to the OS). This feature should result in significant load savings on your &name-icinga;
-      installation.</para>
-    </listitem>
-  </orderedlist>
-  <indexterm zone="large_install_tweaks"><primary>Large Installation Tweaks</primary></indexterm>
+      <listitem>
+        <para><emphasis role="bold">Checks fork() Less</emphasis> - Normally &name-icinga; will fork() twice when it executes host and
+        service checks. This is done to (1) ensure a high level of resistance against plugins that go awry and segfault and (2) make the OS
+        deal with cleaning up the grandchild process once it exits. The extra fork() is not really necessary, so it is skipped when you
+        enable this option. As a result, &name-icinga; will itself clean up child processes that exit (instead of leaving that job to the
+        OS). This feature should result in significant load savings on your &name-icinga; installation.</para>
+      </listitem>
+    </orderedlist>
+
+    <indexterm zone="large_install_tweaks">
+      <primary>Large Installation Tweaks</primary>
+    </indexterm>
+  </section>
 </section>
