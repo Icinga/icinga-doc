@@ -8,465 +8,550 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="checkscheduling-check_scheduling"/>Service- und Host-Prüfungsplanung</title>
 
-  <para><anchor xml:id="checkscheduling-introduction"/><emphasis role="bold">Einführung</emphasis></para>
-
-  <para>Es gab eine Menge Fragen dazu, wie Service-Prüfungen in bestimmten Situationen geplant werden, außerdem wie sich Planung und
-  eigentliche Ausführung unterscheiden und wie die Ergebnisse verarbeitet werden. Wir werden versuchen, ein bisschen mehr ins Detail zu
-  gehen, wie dies alles funktioniert...</para>
-
-  <para><anchor xml:id="checkscheduling-configuration_options"/><emphasis role="bold">Konfigurationsoptionen</emphasis></para>
-
-  <para>Es gibt es verschiedene Konfigurationsoptionen, die beeinflussen, wie Service-Prüfungen geplant, ausgeführt und verarbeitet werden.
-  Als Anfang enthält jede <link linkend="objectdefinitions-service">Service-Definition</link> drei Optionen, die festlegen, wann und wie
-  jede einzelne Service-Prüfung geplant und ausgeführt wird Diese drei Optionen sind:</para>
-
-  <itemizedlist>
-    <listitem>
-      <para><emphasis>check_interval</emphasis></para>
-    </listitem>
-
-    <listitem>
-      <para><emphasis>retry_interval</emphasis></para>
-    </listitem>
-
-    <listitem>
-      <para><emphasis>check_period</emphasis></para>
-    </listitem>
-  </itemizedlist>
-
-  <para>Es gibt außerdem vier Konfigurationsoptionen in der <link linkend="configmain">Hauptkonfigurationsdatei</link>, die
-  Service-Prüfungen beeinflussen. Dies sind:</para>
-
-  <itemizedlist>
-    <listitem>
-      <para><link linkend="configmain-service_inter_check_delay_method"><emphasis>service_inter_check_delay_method</emphasis></link></para>
-    </listitem>
-
-    <listitem>
-      <para><link linkend="configmain-service_interleave_factor"><emphasis>service_interleave_factor</emphasis></link></para>
-    </listitem>
-
-    <listitem>
-      <para><link linkend="configmain-max_concurrent_checks"><emphasis>max_concurrent_checks</emphasis></link></para>
-    </listitem>
-
-    <listitem>
-      <para><link linkend="configmain-check_result_reaper_frequency"><emphasis>check_result_reaper_frequency</emphasis></link></para>
-    </listitem>
-  </itemizedlist>
-
-  <note>
-    <para>Die letzte Direktive betrifft auch Host-Prüfungen.</para>
-  </note>
-
-  <para>Wir werden nun mehr ins Detail gehen, wie all diese Optionen die Service-Prüfungsplaung beeinflussen. Lassen Sie uns zuerst
-  betrachten, wie Services beim ersten (Neu-)Start von &name-icinga; eingeplant werden...</para>
-
-  <para><anchor xml:id="checkscheduling-initial_scheduling"/><emphasis role="bold">Initiale Planung</emphasis></para>
-
-  <para>Wenn &name-icinga; (neu) startet, wird es versuchen, die initialen Prüfungen aller Services in einer Art und Weise so zu planen,
-  dass die Load auf dem lokalen und den entfernten Hosts mimimiert wird. Dies wird durch die Verteilung und das Verschachteln der Services
-  erreicht. Die Verteilung von Service-Prüfungen (auch als inter-check-delay bekannt) wird benutzt, um die Last des lokalen
-  &name-icinga;-Servers zu minimieren/auszugleichen und die Verschachtelung wird benutzt, um die Last auf entfernten Hosts zu
-  minimieren/auszugleichen. Sowohl inter-check-relay als auch Verschachtelungsfunktion werden nachfolgend erläutert.</para>
-
-  <para>Selbst wenn die Service-Prüfungen initial geplant werden, um die Last auf lokalen und entfernten Hosts auszubalancieren, werden die
-  Dinge dem eintretenden Chaos nachgeben und ein wenig zufällig werden. Gründe dafür sind u.a., dass Services nicht alle mit dem gleichen
-  Intervall geprüft werden, dass die Ausführung einiger Services länger dauert als andere, dass Host- und/oder Service-Probleme das Timing
-  von ein oder mehreren Services verändern können, etc. Wenigstens versuchen wir, die Dinge gut zu beginnen. Hoffentlich hält die initiale
-  Planung die Last auf dem lokalen und den entfernten Hosts im Laufe der Zeit relativ ausgeglichen...</para>
-
-  <note>
-    <para>Wenn Sie die initiale Service-Prüfungs-Planungsinformationen ansehen möchten, dann starten Sie &name-icinga; mit der <emphasis
-    role="bold">-s</emphasis> Kommandozeilenoption. Dabei werden Ihnen grundlegende Planungsinformationen (inter-check-Verzögerung,
-    Verschachtelungsfaktor, erste und letzte Service-Prüfzeit, etc., angezeigt) und es wird ein neues Status-Log angezeigt, das die genauen
-    Zeiten darstellt, zu denen alle Services initial eingeplant werden. Weil diese Option das Status-Log überschreibt, sollte Sie sie nicht
-    nutzen, solange eine weitere &name-icinga;-Instanz läuft. &name-icinga; wird <emphasis>nicht</emphasis> die Überwachung starten, wenn
-    diese Option benutzt wird.</para>
-  </note>
-
-  <para><anchor xml:id="checkscheduling-service_inter_check_delay"/><emphasis role="bold">Inter-Check-Verzögerung (inter-check
-  delay)</emphasis></para>
-
-  <para>Wie bereits erwähnt, versucht &name-icinga; die Last auf dem Rechner, auf dem &name-icinga; läuft, auszugleichen, indem die
-  Service-Prüfungen verteilt werden. Der Abstand zwischen aufeinander folgenden Service-Prüfungen wird "inter-check delay" genannt. Durch
-  die Angabe eines Werts für die Variable <link
-  linkend="configmain-service_inter_check_delay_method">service_inter_check_delay_method</link> in der Hauptkonfigurationsdatei können Sie
-  festlegen, wie diese Verzögerung berechnet wird. Wir werden erläutern, wie die "schlaue" Berechnung arbeitet, weil dies die Einstellung
-  ist, die Sie für die normale Verarbeitung benutzen sollten.</para>
-
-  <para>Wenn Sie die Einstellung "smart" bei der Variable <emphasis>service_inter_check_delay_method</emphasis> angeben, wird &name-icinga;
-  den Wert für die inter-check-Verzögerung wie folgt berechnen:</para>
-
-  <para><emphasis>inter-check-Verzögerung = (durchschnittl. Check-Intervall für alle Services) / (Gesamtzahl der Services)</emphasis></para>
-
-  <para>Nehmen wir ein Beispiel. Sagen wir, Sie haben 1.000 Services mit einem normalen Prüfintervall von fünf Minuten (natürlich werden
-  einige Services mit anderen Intervallen geprüft, aber wir vereinfachen an dieser Stelle...). Die gesamte Check-Intervall-Zeit ist 5.000
-  (1.000 * 5). Das bedeutet, dass das durchschnittliche Check-Intervall für jeden Service fünf Minuten ist (5.000 / 1.000). Aufgrund dieser
-  Information wissen wir, dass wir (im Durchschnitt) 1.000 Prüfungen pro fünf Minuten benötigen. Das heißt, dass wir eine
-  inter-check-Verzögerung von 0,005 Minuten (5 / 1000, also etwa 0,3 Sekunden) benutzen sollten, wenn die Services das erste Mal verteilt
-  werden. Durch die Verteilung alle 0,3 Sekunden können wir erreichen, dass &name-icinga; jede Sekunde drei Service-Prüfungen einplant
-  und/oder ausführt. Durch die gleichmäßige Aufteilung über die Zeit können wir hoffen, dass die Last auf dem lokalen Rechner, auf dem
-  &name-icinga; läuft, in etwa gleich bleibt.</para>
-
-  <para><anchor xml:id="checkscheduling-service_interleaving"/><emphasis role="bold">Service-Verschachtelung (service
-  interleaving)</emphasis></para>
-
-  <para>Wie oben erläutert hilft die inter-check-Verzögerung dabei, die Last auf dem lokalen Host auszugleichen. Was ist aber mit entfernten
-  Hosts? Ist es notwendig, die Last auf entfernten Hosts auszugleichen? Warum? Ja, es ist wichtig, und ja, &name-icinga; kann dabei helfen.
-  Wenn Sie eine große Zahl von Services auf einem entfernten Host überwachen und die Prüfungen nicht verteilt wären, dann könnte der
-  entfernte Host denken, dass er das Opfer einer SYN-Attacke wurde, wenn es viele offene Verbindungen auf dem gleichen Port gibt. Außerdem
-  ist es nett, wenn man versucht, die Last auf den Hosts auszugleichen/zu minimieren...</para>
-
-  <para>Durch die Angabe eines Werts für die Variable <link linkend="configmain-service_interleave_factor">service_interleave_factor</link>
-  in der Hauptkonfigurationsdatei können beeinflussen, wie dieser Faktor berechnet wird. Wir werden erläutern, wie die "schlaue" Berechnung
-  arbeitet, weil dies die Einstellung ist, die Sie for die normale Verarbeitung nutzen sollten. Sie können, natürlich, einen Wert vorgeben,
-  anstatt ihn von &name-icinga; berechnen zu lassen. Außerdem ist zu beachten, dass die Verschachtelung bei einem Wert von 1 praktisch
-  deaktiviert ist.</para>
-
-  <para>Wenn Sie die Einstellung "smart" bei der Variable <emphasis>service_interleave_factor</emphasis> angeben, wird &name-icinga; den
-  Wert für den Verschachtelungsfaktor wie folgt berechnen:</para>
-
-  <para><emphasis>interleave factor = ceil ( Gesamtzahl der Services / Gesamtzahl der Hosts )</emphasis></para>
-
-  <para>Nehmen wir ein Beispiel. Sagen wir, Sie haben insgesamt 1.000 Services und 150 Hosts, die Sie überwachen. &name-icinga; würde einen
-  Verschachtelungsfaktor von 7 berechnen (1000 / 150 = 6,6; aufgerundet 7). Das bedeutet, dass &name-icinga; bei der initialen Planung die
-  erste Service-Prüfung einplant, die es findet, dann die nächsten sechs überspringt, den nächsten einplant, usw... Dieser Prozess wird
-  wiederholt, bis alles Service-Prüfungen eingeplant sind. Weil die Services nach dem Namen des Hosts sortiert sind (und damit eingeplant
-  werden), mit dem sie verbunden sind, wird dies helfen, die Last auf entfernten Hosts zu minimieren/auszugleichen.</para>
-
-  <para>Die folgenden Bilder zeigen, wie Service-Prüfungen eingeplant werden, wenn sie nicht verschachtelt werden
-  (<emphasis>service_interleave_factor</emphasis>=1) und wenn sie mit einem Wert von 4 für <emphasis>service_interleave_factor</emphasis>
-  verschachtelt werden.</para>
-
-  <informaltable frame="none">
-    <tgroup cols="2">
-      <colspec colname="c1" colwidth="50*"/>
-
-      <colspec colname="c2" colwidth="50*"/>
-
-      <tbody>
-        <row>
-          <entry><para>nicht verschachtelte Prüfungen</para></entry>
-
-          <entry><para>verschachtelte Prüfungen</para></entry>
-        </row>
-
-        <row>
-          <entry align="left" valign="middle"><para> <inlinemediaobject>
-              <imageobject>
-                <imagedata fileref="../images/noninterleaved1.png" format="PNG" width="500"/>
-              </imageobject>
-            </inlinemediaobject> </para></entry>
-
-          <entry align="left" valign="middle"><para> <inlinemediaobject>
-              <imageobject>
-                <imagedata fileref="../images/interleaved1.png" format="PNG" width="500"/>
-              </imageobject>
-            </inlinemediaobject> </para></entry>
-        </row>
-
-        <row>
-          <entry align="left" valign="middle"><para> <inlinemediaobject>
-              <imageobject>
-                <imagedata fileref="../images/noninterleaved2.png" format="PNG" width="500"/>
-              </imageobject>
-            </inlinemediaobject> </para></entry>
-
-          <entry align="left" valign="middle"><para> <inlinemediaobject>
-              <imageobject>
-                <imagedata fileref="../images/interleaved2.png" format="PNG" width="500"/>
-              </imageobject>
-            </inlinemediaobject> </para></entry>
-        </row>
-
-        <row>
-          <entry/>
-
-          <entry align="left" valign="middle"><para> <inlinemediaobject>
-              <imageobject>
-                <imagedata fileref="../images/interleaved3.png" format="PNG" width="500"/>
-              </imageobject>
-            </inlinemediaobject> </para></entry>
-        </row>
-      </tbody>
-    </tgroup>
-  </informaltable>
-
-  <para><anchor xml:id="checkscheduling-max_concurrent_checks"/><emphasis role="bold">Maximale Zahl gleichzeitiger
-  Service-Prüfungen</emphasis></para>
-
-  <para>Um &name-icinga; davon abzuhalten, all Ihre CPU-Ressourcen zu verbrauchen, können Sie die maximale Zahl von gleichzeitigen
-  Service-Prüfungen beschränken, die zu einer beliebigen Zeit laufen können. Dies wird durch die Option <link
-  linkend="configmain-max_concurrent_checks">max_concurrent_checks</link> in der Hauptkonfigurationsdatei festgelegt.</para>
-
-  <para>Gut daran ist, dass Sie mit dieser Einstellung &name-icinga;s CPU-Nutzung beeinflussen können. Schlecht ist, dass Service-Prüfungen
-  ins Hintertreffen geraten können, wenn dieser Wert zu niedrig eingestellt ist. Wenn es Zeit wird, eine Service-Prüfung auszuführen, wird
-  &name-icinga; sicherstellen, dass nicht mehr als x Service-Prüfungen ausgeführt werden bzw. darauf warten, dass die Prüfergebnisse
-  verarbeitet werden (wobei x die Anzahl der Prüfungen ist, die Sie über die Option <emphasis>max_concurrent_checks</emphasis> angegeben
-  haben). Falls diese Grenze erreicht ist, wird &name-icinga; die Ausführung von anstehenden Prüfungen aufschieben, bis einige der
-  vorherigen Prüfungen beendet sind. Also wie kann man einen geeigneten Wert für die Option <emphasis>max_concurrent_checks</emphasis>
-  festlegen?</para>
-
-  <para>Zuerst müssen Sie einige Dinge wissen...</para>
-
-  <itemizedlist>
-    <listitem>
-      <para>die inter-check-Verzögerung, die &name-icinga; benutzt, um die initialen Service-Prüfungen einzuplanen (nutzen Sie die Option
-      <emphasis role="bold">-s</emphasis>, um den Wert zu kontrollieren)</para>
-    </listitem>
-
-    <listitem>
-      <para>die Häufigkeit (in Sekunden) von "reaper events", wie sie in der <link
-      linkend="configmain-check_result_reaper_frequency">check_result_reaper_frequency</link>-Variable in der Hauptkonfigurationsdatei
-      angegeben ist</para>
-    </listitem>
-
-    <listitem>
-      <para>eine Vorstellung der durchschnittlichen Zeit, die Service-Prüfungen wirklich zur Ausführung benötigen (die meisten Plugins haben
-      einen Timeout von 10 Sekunden, so dass der Durchschnitt wahrscheinlich niedriger liegt)</para>
-    </listitem>
-  </itemizedlist>
-
-  <para>Dann benutzen Sie die folgende Berechnung, um einen geeigneten Wert für die maximale Zahl von gleichzeitig erlaubten Prüfungen zu
-  errechnen...</para>
-
-  <para><emphasis>max. Anzahl gleichzeitiger Prüfungen = ceil( max( check result reaper frequency , average check execution time ) /
-  inter-check delay )</emphasis></para>
-
-  <para>Die errechnete Zahl sollte einen guten Ausgangspunkt für die <emphasis>max_concurrent_checks</emphasis>-Variable bieten. Es kann
-  sein, dass Sie diesen Wert noch ein wenig erhöhen müssen, falls Service-Prüfungen nach wie vor nicht zur geplanten Zeit ausgeführt werden
-  oder verringern Sie, falls &name-icinga; zu viel CPU-Zeit beansprucht.</para>
-
-  <para>Nehmen wir an, dass Sie 875 Services, jeder mit einem durchschnittlichen Intervall von zwei Minuten. Das bedeutet, dass die
-  inter-check-Verzögerung etwa 0,137 Sekunden ist. Wenn Sie die "check result reaper frequency" auf zehn Sekunden einstellen, können Sie
-  einen ungefähren Wert für die maximale Zahl von gleichzeitigen Prüfungen wie folgt berechnen (wir nehmen an, dass die durchschnittliche
-  Ausführungszeit für Service-Prüfungen kleiner als zehn Sekunden ist) ...</para>
-
-  <para><emphasis>max. Zahl gleichzeitiger Prüfungen = ceil( 10 / 0.137 )</emphasis></para>
-
-  <para>In diesem Fall ist der berechnete Wert 73. Das ergibt Sinn, denn &name-icinga; wird etwas mehr als sieben neue Service-Prüfungen pro
-  Sekunde ausführen und es wird Service-Prüfergebnisse nur alle zehn Sekunden verarbeiten. Das bedeutet, dass es zu einer beliebigen Zeit
-  nur etwas mehr als 70 Service-Prüfungen gibt, die ausgeführt werden bzw. deren Ergebnisse verarbeitet werden. In diesem Fall würden wir
-  wahrscheinlich empfehlen, den Wert für die Zahl der gleichzeitigen Prüfungen auf 80 zu erhöhen, weil es Verzögerungen gibt, wenn
-  &name-icinga; Service-Prüfergebnisse verarbeitet bzw. andere Dinge tut. Sie werden offensichtlich ein wenig testen und verändern müssen,
-  damit alles reibungslos funktioniert, aber mit diesen Informationen sollten Sie ein paar generelle Richtlinien an der Hand haben...</para>
-
-  <para><anchor xml:id="checkscheduling-time_restraints"/><emphasis role="bold">Zeitbeschränkungen</emphasis></para>
-
-  <para>Die Option <emphasis>check_period</emphasis> legt den <link linkend="timeperiods">Zeitraum</link> fest, in dem &name-icinga;
-  Service-Prüfungen ausführen kann. Falls die Zeit, zu der eine Prüfung für einen bestimmten Service ausgeführt werden werden soll, nicht
-  innerhalb des angegebenen Zeitraum liegt, wird die Prüfung <emphasis>nicht</emphasis> ausgeführt, und zwar unabhängig vom Status des
-  Service. Statt dessen wird &name-icinga; die Service-Prüfung für die nächste gültige Zeit des Zeitraums einplanen. Wenn die Prüfung
-  gestartet werden kann (d.h. die Zeit ist gültig innerhalb des Zeitraums), wird die Service-Prüfung ausgeführt.</para>
-
-  <note>
-    <para>Auch wenn eine Service-Prüfung nicht zu einer bestimmten Zeit ausgeführt werden kann, könnte &name-icinga; sie trotzdem
-    <emphasis>einplanen</emphasis>. Das wird höchstwahrscheinlich während der initialen Planung von Services passieren, aber es kann auch in
-    anderen Fällen passieren. Das bedeutet nicht, dass &name-icinga; die Prüfung ausführen wird. Wenn es Zeit wird, die Prüfung tatsächlich
-    <emphasis>auszuführen</emphasis>, wird &name-icinga; kontrollieren, ob die Prüfung zur angegeben Zeit gestartet werden kann. Falls
-    nicht, wird &name-icinga; die Service-Prüfung nicht ausführen, sondern sie zu einer späteren Zeit einplanen. Lassen Sie sich nicht
-    verwirren! Die Planung und Ausführunge von Service-Prüfungen sind zwei unterschiedliche (wenn auch, zusammenhängende) Dinge.</para>
-  </note>
-
-  <para><anchor xml:id="checkscheduling-normal_scheduling"/><emphasis role="bold">Normale Planung</emphasis></para>
-
-  <para>In einer idealen Welt hätten Sie keine Netzwerkprobleme. Aber wenn das so wäre, dann hätten Sie auch kein
-  Netzwerküberwachungsprogramm. Wie auch immer, wenn die Dinge reibungslos laufen und ein Service in einem OK-Zustand ist, nennen wir das
-  "normal". Service-Prüfungen werden normalerweise in der Häufigkeit geplant, die in der Option <emphasis>check_interval</emphasis>
-  angegeben ist. Das war's. Einfach, oder?</para>
-
-  <para><anchor xml:id="checkscheduling-problem_scheduling"/><emphasis role="bold">Planung bei Problemen</emphasis></para>
-
-  <para>Also, was passiert, wenn es Probleme mit einem Service gibt? Nun, eins der Dinge ist, dass sich die Service-Prüfungsplanung ändert.
-  Wenn Sie die Option <emphasis>max_attempts</emphasis> auf einen Wert größer als eins gesetzt haben, wird &name-icinga; die Prüfung erneut
-  einplanen, bevor es entscheidet, dass ein wirkliches Problem existiert. Während der Service erneut geprüft wird (bis zu
-  <emphasis>max_attempts</emphasis> Mal), wird er als in einem "soft"-Status befindlich angesehen (wie <link
-  linkend="statetypes">hier</link> beschrieben) und die Service-Prüfungen werden mit einer Häufigkeit eingeplant, die in der Option
-  <emphasis>retry_interval</emphasis> angegeben ist.</para>
-
-  <para>Wenn &name-icinga; den Service <emphasis>max_attempts</emphasis> Mal erneut eingeplant hat und er immer noch in einem nicht-OK
-  Status ist, wird &name-icinga; den Service in einen "Hard"-Status versetzen, Benachrichtigungen an Kontakte versenden (falls zutreffend)
-  und weitere Prüfungen des Service wieder mit der Häufigkeit planen, die in der Option <emphasis>check_interval</emphasis> festgelegt
-  ist.</para>
-
-  <para>Wie immer gibt es Ausnahmen der Regel. Wenn eine Service-Prüfung zu einem nicht-OK-Status führt, wird &name-icinga; den mit diesem
-  Service verbundenen Host prüfen, um festzustellen, ob er "up" ist oder nicht (siehe die Anmerkung <link
-  linkend="checkscheduling-host_checks">unten</link> zu Informationen, wie dies passiert). Wenn der Host nicht "up" ist (also "down" oder
-  "unreachable"), wird &name-icinga; den Service sofort in einen harten nicht-OK-Status versetzen und die Zahl der aktuellen Versuche auf 1
-  zurücksetzen. Da der Service in einem harten nicht-OK-Status ist, wird die Service-Prüfung mit der normalen Häufigkeit geplant, die in der
-  Option <emphasis>check_interval</emphasis> angegeben ist, statt des Wertes aus der Option <emphasis>retry_interval</emphasis>.</para>
-
-  <para><anchor xml:id="checkscheduling-host_checks"/><emphasis role="bold">Host-Prüfungen</emphasis></para>
-
-  <para>Ein Fall, wo &name-icinga; den Status eines Hosts prüft, ist, wenn ein Service-Prüfung einen nicht-OK-Zustand ergibt. &name-icinga;
-  prüft den Host, um zu entscheiden, ob der Host "up" ist oder nicht, bzw. ob der Host "up", "down" oder "unreachable" ist. Wenn die erste
-  Host-Prüfung einen nicht-OK-Zustand ergibt, wird &name-icinga; Host-Prüfungen wie bei den Services durchführen.</para>
-
-  <para><anchor xml:id="checkscheduling-scheduling_delays"/><emphasis role="bold">Planungsverzögerungen</emphasis></para>
-
-  <para>Es sollte erwähnt werden, dass Service-Prüfungsplanung und -ausführung geschieht, so gut es geht. Individuelle Service-Prüfungen
-  werden in&name-icinga; als Ereignisse mit niedriger Priorität angesehen, so dass sie verzögert werden können, wenn Ereignisse mit höherer
-  Priorität ausgeführt werden müssen. Beispiel von Ereignissen mit hoher Priorität umfassen Log-Datei-Rotationen, externe Befehlsprüfungen
-  und Prüfergebnis-Ernteereignisse.</para>
-
-  <para><anchor xml:id="checkscheduling-scheduling_example"/><emphasis role="bold">Planungsbeispiel</emphasis></para>
-
-  <para>Die Planung von Service-Prüfungen, ihre Ausführung und die Verarbeitung ihrer Ergebnisse können ein bisschen schwierig zu verstehen
-  sein, deshalb schauen wir uns ein einfaches Beispiel an. Betrachten wir das folgende Diagramm - wir werden uns darauf beziehen, während
-  wir die Dinge erklären.</para>
-
-  <para><inlinemediaobject>
-      <imageobject>
-        <imagedata fileref="../images/checktiming.png" format="PNG"/>
-      </imageobject>
-    </inlinemediaobject></para>
-
-  <para>Zuallererst sind <emphasis role="bold">X</emphasis><subscript>n</subscript> Prüfergebnis-Ernteereignisse, die in der Häufigkeit
-  geplant werden, die durch die Option <link linkend="configmain-check_result_reaper_frequency">check_result_reaper_frequency</link> in der
-  Hauptkonfigurationsdatei angegeben ist. Prüfergebnis-Ernteereignisse übernehmen die Arbeit, Service-Prüfergebnisse zu sammeln und zu
-  verarbeiten. SIe dienen als die Kernlogik für &name-icinga;, starten Host-Prüfungen, Ereignisbehandlung-Routinen und Benachrichtigungen,
-  wenn das notwendig ist.</para>
-
-  <para>Für das Beispiel hier ist die Ausführung eines Service für den Zeitpunkt <emphasis role="bold">A </emphasis>geplant. Allerdings kam
-  &name-icinga; in der Ereigniswarteschlange ins Hintertreffen, so dass die Prüfung erst zum Zeitpunkt <emphasis role="bold">B</emphasis>
-  ausgeführt wird. Die Service-Prüfung endet zum Zeitpunkt <emphasis role="bold">C</emphasis>, so dass die Differenz zwischen den Punkten
-  <emphasis role="bold">C</emphasis> and <emphasis role="bold">B</emphasis> die Laufzeit der Prüfung ist.</para>
-
-  <para>Die Ergebnisse der Service-Prüfungen werden nicht sofort nach der Prüfung verarbeitet. Statt dessen werden die Ergebnisse für eine
-  spätere Verarbeitung durch einen Prüfergebnis-Ernteereignis gespeichert. Das nächste Prüfergebnis-Ernteereignis findet zum Zeitpunkt
-  <emphasis role="bold">D</emphasis> statt, so dass dies ungefähr die Zeit ist, zu der die Ergebnisse verarbeitet werden (die tatsächliche
-  Zeit kann später als <emphasis role="bold">D</emphasis> sein, weil ggf. andere Service-Prüfergebnisse vor diesem Service verarbeitet
-  werden).</para>
-
-  <para>Zu der Zeit, zu der das Prüfergebnis-Ernteereignis die Service-Prüfergebnisse verarbeitet, wird es die nächste Service-Prüfung
-  einplanen und in &name-icinga;s Ereigniswarteschlange stellen. Wir nehmen an, dass die Service-Prüfung einen OK-Zustand ergibt, so dass
-  die nächste Prüfung zum Zeitpunkt <emphasis role="bold">E</emphasis> nach der ursprünglich geplanten Prüfzeit geplant wird, mit einem
-  zeitlichen Abstand, der in der <emphasis>check_interval</emphasis>-Option angegeben ist. Beachten Sie, dass der Service
-  <emphasis>nicht</emphasis> erneut eingeplant wird basierend auf der Zeit, zu der er tatsächlich ausgeführt wird! Es gibt eine Ausnahme (es
-  gibt immer eine, oder?) - falls die Zeit, zu der die Service-Prüfung tatsächlich ausgeführt wird (Punkt <emphasis
-  role="bold">B</emphasis>) nach der nächsten Service-Prüfzeit liegt (Punkt <emphasis role="bold">E</emphasis>), wird &name-icinga; das
-  durch das Anpassen der nächsten Prüfzeit ausgleichen. Das wird gemacht, damit &name-icinga; nicht verrückt wird beim Versuch, mit den
-  Service-Prüfungen Schritt zu halten, wenn eine hohe Last auftritt. Außerdem, wie sinnvoll ist es, etwas in der Vergangenheit zu
-  planen...?</para>
-
-  <para><anchor xml:id="checkscheduling-service_options"/><emphasis role="bold">Service-Definitionsoptionen, die die Planung
-  beeinflussen</emphasis></para>
-
-  <para>Jede Service-Definition enthält eine <emphasis>check_interval</emphasis>- und eine <emphasis>retry_interval</emphasis>-Option.
-  Hoffentlich klärt das Folgende, was diese zwei Optionen tun, wie sie mit der <emphasis>max_check_attempts</emphasis>-Option in der
-  Service-Definition zusammenwirken, und wie sie die Planung des Service beeinflussen.</para>
-
-  <para>Zuallererst gibt die <emphasis>check_interval</emphasis>-Option das Intervall an, in dem der Service unter "normalen" Umständen
-  geprüft wird. "Normale" Umstände bedeutet, wenn sich der Service in einem "OK"- oder einem <link linkend="statetypes">harten</link>
-  nicht-OK-Zustand befindet.</para>
-
-  <para>Wenn ein Service das erste Mal von einem OK- in einen nicht-OK-Zustand wechselt, gibt Ihnen &name-icinga; die Möglichkeit, das
-  Intervall temporär zu verkleinern oder zu vergrößern, in dem nachfolgende Prüfungen für diesen Service ausgeführt werden. Wenn der
-  Service-Zustand das erste Mal wechselt, wird &name-icinga; bis zu <emphasis>max_check_attempts</emphasis>-1 Versuche durchführen, bevor es
-  entscheidet, dass es sich um ein richtiges Problem handelt. Während die Prüfungen wiederholt werden, werden sie gemäß der
-  <emphasis>retry_interval</emphasis>-Option neu eingeplant, was schneller oder langsam als die <emphasis>check_interval</emphasis>-Option
-  ist. Während der Service erneut geprüft wird (bis zu <emphasis>max_check_attempts</emphasis>-1 mal), ist der Service in einem <link
-  linkend="statetypes">soft-Zustand</link>. Wenn der Service <emphasis>max_check_attempts</emphasis>-1 mal geprüft wurde und sich immer noch
-  in einem nicht-OK-Zustand befindet, wird der Service in einen <link linkend="statetypes">hard-Zustand</link> wechseln und wird nachfolgend
-  wieder mit der normalen Rate eingeplant, die in der <emphasis>check_interval</emphasis>-Option festgelegt ist.</para>
-
-  <para>Als Randbemerkung, wenn Sie einen Wert von 1 für die <emphasis>max_check_attempts</emphasis>-Option definieren, wird der Service
-  niemals mit dem Intervall geprüft, das in der <emphasis>retry_interval</emphasis>-Option angegeben ist. Statt dessen wird er sofort in
-  einen <link linkend="statetypes">hard-Zustand</link> wechseln und anschließend mit dem in der Option <emphasis>check_interval</emphasis>
-  festgelegten Intervall geprüft.</para>
+  <section>
+    <title><anchor xml:id="checkscheduling-introduction"/>Einführung</title>
+
+    <para>Es gab eine Menge Fragen dazu, wie Service-Prüfungen in bestimmten Situationen geplant werden, außerdem wie sich Planung und
+    eigentliche Ausführung unterscheiden und wie die Ergebnisse verarbeitet werden. Wir werden versuchen, ein bisschen mehr ins Detail zu
+    gehen, wie dies alles funktioniert...</para>
+  </section>
+
+  <section>
+    <title><anchor xml:id="checkscheduling-configuration_options"/>Konfigurationsoptionen</title>
+
+    <para>Es gibt es verschiedene Konfigurationsoptionen, die beeinflussen, wie Service-Prüfungen geplant, ausgeführt und verarbeitet
+    werden. Als Anfang enthält jede <link linkend="objectdefinitions-service">Service-Definition</link> drei Optionen, die festlegen, wann
+    und wie jede einzelne Service-Prüfung geplant und ausgeführt wird Diese drei Optionen sind:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>
+          <emphasis>check_interval</emphasis>
+        </para>
+      </listitem>
+
+      <listitem>
+        <para>
+          <emphasis>retry_interval</emphasis>
+        </para>
+      </listitem>
+
+      <listitem>
+        <para>
+          <emphasis>check_period</emphasis>
+        </para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Es gibt außerdem vier Konfigurationsoptionen in der <link linkend="configmain">Hauptkonfigurationsdatei</link>, die
+    Service-Prüfungen beeinflussen. Dies sind:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>
+          <link linkend="configmain-service_inter_check_delay_method">
+            <emphasis>service_inter_check_delay_method</emphasis>
+          </link>
+        </para>
+      </listitem>
+
+      <listitem>
+        <para>
+          <link linkend="configmain-service_interleave_factor">
+            <emphasis>service_interleave_factor</emphasis>
+          </link>
+        </para>
+      </listitem>
+
+      <listitem>
+        <para>
+          <link linkend="configmain-max_concurrent_checks">
+            <emphasis>max_concurrent_checks</emphasis>
+          </link>
+        </para>
+      </listitem>
+
+      <listitem>
+        <para>
+          <link linkend="configmain-check_result_reaper_frequency">
+            <emphasis>check_result_reaper_frequency</emphasis>
+          </link>
+        </para>
+      </listitem>
+    </itemizedlist>
+
+    <note>
+      <para>Die letzte Direktive betrifft auch Host-Prüfungen.</para>
+    </note>
+
+    <para>Wir werden nun mehr ins Detail gehen, wie all diese Optionen die Service-Prüfungsplaung beeinflussen. Lassen Sie uns zuerst
+    betrachten, wie Services beim ersten (Neu-)Start von &name-icinga; eingeplant werden...</para>
+  </section>
+
+  <section>
+    <title><anchor xml:id="checkscheduling-initial_scheduling"/>Initiale Planung</title>
+
+    <para>Wenn &name-icinga; (neu) startet, wird es versuchen, die initialen Prüfungen aller Services in einer Art und Weise so zu planen,
+    dass die Load auf dem lokalen und den entfernten Hosts mimimiert wird. Dies wird durch die Verteilung und das Verschachteln der Services
+    erreicht. Die Verteilung von Service-Prüfungen (auch als inter-check-delay bekannt) wird benutzt, um die Last des lokalen
+    &name-icinga;-Servers zu minimieren/auszugleichen und die Verschachtelung wird benutzt, um die Last auf entfernten Hosts zu
+    minimieren/auszugleichen. Sowohl inter-check-relay als auch Verschachtelungsfunktion werden nachfolgend erläutert.</para>
+
+    <para>Selbst wenn die Service-Prüfungen initial geplant werden, um die Last auf lokalen und entfernten Hosts auszubalancieren, werden
+    die Dinge dem eintretenden Chaos nachgeben und ein wenig zufällig werden. Gründe dafür sind u.a., dass Services nicht alle mit dem
+    gleichen Intervall geprüft werden, dass die Ausführung einiger Services länger dauert als andere, dass Host- und/oder Service-Probleme
+    das Timing von ein oder mehreren Services verändern können, etc. Wenigstens versuchen wir, die Dinge gut zu beginnen. Hoffentlich hält
+    die initiale Planung die Last auf dem lokalen und den entfernten Hosts im Laufe der Zeit relativ ausgeglichen...</para>
+
+    <note>
+      <para>Wenn Sie die initiale Service-Prüfungs-Planungsinformationen ansehen möchten, dann starten Sie &name-icinga; mit der <emphasis
+      role="bold">-s</emphasis> Kommandozeilenoption. Dabei werden Ihnen grundlegende Planungsinformationen (inter-check-Verzögerung,
+      Verschachtelungsfaktor, erste und letzte Service-Prüfzeit, etc., angezeigt) und es wird ein neues Status-Log angezeigt, das die
+      genauen Zeiten darstellt, zu denen alle Services initial eingeplant werden. Weil diese Option das Status-Log überschreibt, sollte Sie
+      sie nicht nutzen, solange eine weitere &name-icinga;-Instanz läuft. &name-icinga; wird <emphasis>nicht</emphasis> die Überwachung
+      starten, wenn diese Option benutzt wird.</para>
+    </note>
+  </section>
+
+  <section>
+    <title><anchor xml:id="checkscheduling-service_inter_check_delay"/>Inter-Check-Verzögerung (inter-check delay)</title>
+
+    <para>Wie bereits erwähnt, versucht &name-icinga; die Last auf dem Rechner, auf dem &name-icinga; läuft, auszugleichen, indem die
+    Service-Prüfungen verteilt werden. Der Abstand zwischen aufeinander folgenden Service-Prüfungen wird "inter-check delay" genannt. Durch
+    die Angabe eines Werts für die Variable <link
+    linkend="configmain-service_inter_check_delay_method">service_inter_check_delay_method</link> in der Hauptkonfigurationsdatei können Sie
+    festlegen, wie diese Verzögerung berechnet wird. Wir werden erläutern, wie die "schlaue" Berechnung arbeitet, weil dies die Einstellung
+    ist, die Sie für die normale Verarbeitung benutzen sollten.</para>
+
+    <para>Wenn Sie die Einstellung "smart" bei der Variable <emphasis>service_inter_check_delay_method</emphasis> angeben, wird
+    &name-icinga; den Wert für die inter-check-Verzögerung wie folgt berechnen:</para>
+
+    <para>
+      <emphasis>inter-check-Verzögerung = (durchschnittl. Check-Intervall für alle Services) / (Gesamtzahl der Services)</emphasis>
+    </para>
+
+    <para>Nehmen wir ein Beispiel. Sagen wir, Sie haben 1.000 Services mit einem normalen Prüfintervall von fünf Minuten (natürlich werden
+    einige Services mit anderen Intervallen geprüft, aber wir vereinfachen an dieser Stelle...). Die gesamte Check-Intervall-Zeit ist 5.000
+    (1.000 * 5). Das bedeutet, dass das durchschnittliche Check-Intervall für jeden Service fünf Minuten ist (5.000 / 1.000). Aufgrund
+    dieser Information wissen wir, dass wir (im Durchschnitt) 1.000 Prüfungen pro fünf Minuten benötigen. Das heißt, dass wir eine
+    inter-check-Verzögerung von 0,005 Minuten (5 / 1000, also etwa 0,3 Sekunden) benutzen sollten, wenn die Services das erste Mal verteilt
+    werden. Durch die Verteilung alle 0,3 Sekunden können wir erreichen, dass &name-icinga; jede Sekunde drei Service-Prüfungen einplant
+    und/oder ausführt. Durch die gleichmäßige Aufteilung über die Zeit können wir hoffen, dass die Last auf dem lokalen Rechner, auf dem
+    &name-icinga; läuft, in etwa gleich bleibt.</para>
+  </section>
+
+  <section>
+    <title><anchor xml:id="checkscheduling-service_interleaving"/>Service-Verschachtelung (service interleaving)</title>
+
+    <para>Wie oben erläutert hilft die inter-check-Verzögerung dabei, die Last auf dem lokalen Host auszugleichen. Was ist aber mit
+    entfernten Hosts? Ist es notwendig, die Last auf entfernten Hosts auszugleichen? Warum? Ja, es ist wichtig, und ja, &name-icinga; kann
+    dabei helfen. Wenn Sie eine große Zahl von Services auf einem entfernten Host überwachen und die Prüfungen nicht verteilt wären, dann
+    könnte der entfernte Host denken, dass er das Opfer einer SYN-Attacke wurde, wenn es viele offene Verbindungen auf dem gleichen Port
+    gibt. Außerdem ist es nett, wenn man versucht, die Last auf den Hosts auszugleichen/zu minimieren...</para>
+
+    <para>Durch die Angabe eines Werts für die Variable <link
+    linkend="configmain-service_interleave_factor">service_interleave_factor</link> in der Hauptkonfigurationsdatei können beeinflussen, wie
+    dieser Faktor berechnet wird. Wir werden erläutern, wie die "schlaue" Berechnung arbeitet, weil dies die Einstellung ist, die Sie for
+    die normale Verarbeitung nutzen sollten. Sie können, natürlich, einen Wert vorgeben, anstatt ihn von &name-icinga; berechnen zu lassen.
+    Außerdem ist zu beachten, dass die Verschachtelung bei einem Wert von 1 praktisch deaktiviert ist.</para>
+
+    <para>Wenn Sie die Einstellung "smart" bei der Variable <emphasis>service_interleave_factor</emphasis> angeben, wird &name-icinga; den
+    Wert für den Verschachtelungsfaktor wie folgt berechnen:</para>
+
+    <para>
+      <emphasis>interleave factor = ceil ( Gesamtzahl der Services / Gesamtzahl der Hosts )</emphasis>
+    </para>
+
+    <para>Nehmen wir ein Beispiel. Sagen wir, Sie haben insgesamt 1.000 Services und 150 Hosts, die Sie überwachen. &name-icinga; würde
+    einen Verschachtelungsfaktor von 7 berechnen (1000 / 150 = 6,6; aufgerundet 7). Das bedeutet, dass &name-icinga; bei der initialen
+    Planung die erste Service-Prüfung einplant, die es findet, dann die nächsten sechs überspringt, den nächsten einplant, usw... Dieser
+    Prozess wird wiederholt, bis alles Service-Prüfungen eingeplant sind. Weil die Services nach dem Namen des Hosts sortiert sind (und
+    damit eingeplant werden), mit dem sie verbunden sind, wird dies helfen, die Last auf entfernten Hosts zu
+    minimieren/auszugleichen.</para>
+
+    <para>Die folgenden Bilder zeigen, wie Service-Prüfungen eingeplant werden, wenn sie nicht verschachtelt werden
+    (<emphasis>service_interleave_factor</emphasis>=1) und wenn sie mit einem Wert von 4 für <emphasis>service_interleave_factor</emphasis>
+    verschachtelt werden.</para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="50*"/>
+
+        <colspec colname="c2" colwidth="50*"/>
+
+        <tbody>
+          <row>
+            <entry>
+              <para>nicht verschachtelte Prüfungen</para>
+            </entry>
+
+            <entry>
+              <para>verschachtelte Prüfungen</para>
+            </entry>
+          </row>
+
+          <row>
+            <entry align="left" valign="middle">
+              <para>
+                <inlinemediaobject>
+                  <imageobject>
+                    <imagedata fileref="../images/noninterleaved1.png" format="PNG" width="500"/>
+                  </imageobject>
+                </inlinemediaobject>
+              </para>
+            </entry>
+
+            <entry align="left" valign="middle">
+              <para>
+                <inlinemediaobject>
+                  <imageobject>
+                    <imagedata fileref="../images/interleaved1.png" format="PNG" width="500"/>
+                  </imageobject>
+                </inlinemediaobject>
+              </para>
+            </entry>
+          </row>
+
+          <row>
+            <entry align="left" valign="middle">
+              <para>
+                <inlinemediaobject>
+                  <imageobject>
+                    <imagedata fileref="../images/noninterleaved2.png" format="PNG" width="500"/>
+                  </imageobject>
+                </inlinemediaobject>
+              </para>
+            </entry>
+
+            <entry align="left" valign="middle">
+              <para>
+                <inlinemediaobject>
+                  <imageobject>
+                    <imagedata fileref="../images/interleaved2.png" format="PNG" width="500"/>
+                  </imageobject>
+                </inlinemediaobject>
+              </para>
+            </entry>
+          </row>
+
+          <row>
+            <entry/>
+
+            <entry align="left" valign="middle">
+              <para>
+                <inlinemediaobject>
+                  <imageobject>
+                    <imagedata fileref="../images/interleaved3.png" format="PNG" width="500"/>
+                  </imageobject>
+                </inlinemediaobject>
+              </para>
+            </entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+  </section>
+
+  <section>
+    <title><anchor xml:id="checkscheduling-max_concurrent_checks"/>Maximale Zahl gleichzeitiger Service-Prüfungen</title>
+
+    <para>Um &name-icinga; davon abzuhalten, all Ihre CPU-Ressourcen zu verbrauchen, können Sie die maximale Zahl von gleichzeitigen
+    Service-Prüfungen beschränken, die zu einer beliebigen Zeit laufen können. Dies wird durch die Option <link
+    linkend="configmain-max_concurrent_checks">max_concurrent_checks</link> in der Hauptkonfigurationsdatei festgelegt.</para>
+
+    <para>Gut daran ist, dass Sie mit dieser Einstellung &name-icinga;s CPU-Nutzung beeinflussen können. Schlecht ist, dass
+    Service-Prüfungen ins Hintertreffen geraten können, wenn dieser Wert zu niedrig eingestellt ist. Wenn es Zeit wird, eine Service-Prüfung
+    auszuführen, wird &name-icinga; sicherstellen, dass nicht mehr als x Service-Prüfungen ausgeführt werden bzw. darauf warten, dass die
+    Prüfergebnisse verarbeitet werden (wobei x die Anzahl der Prüfungen ist, die Sie über die Option
+    <emphasis>max_concurrent_checks</emphasis> angegeben haben). Falls diese Grenze erreicht ist, wird &name-icinga; die Ausführung von
+    anstehenden Prüfungen aufschieben, bis einige der vorherigen Prüfungen beendet sind. Also wie kann man einen geeigneten Wert für die
+    Option <emphasis>max_concurrent_checks</emphasis> festlegen?</para>
+
+    <para>Zuerst müssen Sie einige Dinge wissen...</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>die inter-check-Verzögerung, die &name-icinga; benutzt, um die initialen Service-Prüfungen einzuplanen (nutzen Sie die Option
+        <emphasis role="bold">-s</emphasis>, um den Wert zu kontrollieren)</para>
+      </listitem>
+
+      <listitem>
+        <para>die Häufigkeit (in Sekunden) von "reaper events", wie sie in der <link
+        linkend="configmain-check_result_reaper_frequency">check_result_reaper_frequency</link>-Variable in der Hauptkonfigurationsdatei
+        angegeben ist</para>
+      </listitem>
+
+      <listitem>
+        <para>eine Vorstellung der durchschnittlichen Zeit, die Service-Prüfungen wirklich zur Ausführung benötigen (die meisten Plugins
+        haben einen Timeout von 10 Sekunden, so dass der Durchschnitt wahrscheinlich niedriger liegt)</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Dann benutzen Sie die folgende Berechnung, um einen geeigneten Wert für die maximale Zahl von gleichzeitig erlaubten Prüfungen zu
+    errechnen...</para>
+
+    <para>
+      <emphasis>max. Anzahl gleichzeitiger Prüfungen = ceil( max( check result reaper frequency , average check execution time ) /
+      inter-check delay )</emphasis>
+    </para>
+
+    <para>Die errechnete Zahl sollte einen guten Ausgangspunkt für die <emphasis>max_concurrent_checks</emphasis>-Variable bieten. Es kann
+    sein, dass Sie diesen Wert noch ein wenig erhöhen müssen, falls Service-Prüfungen nach wie vor nicht zur geplanten Zeit ausgeführt
+    werden oder verringern Sie, falls &name-icinga; zu viel CPU-Zeit beansprucht.</para>
+
+    <para>Nehmen wir an, dass Sie 875 Services, jeder mit einem durchschnittlichen Intervall von zwei Minuten. Das bedeutet, dass die
+    inter-check-Verzögerung etwa 0,137 Sekunden ist. Wenn Sie die "check result reaper frequency" auf zehn Sekunden einstellen, können Sie
+    einen ungefähren Wert für die maximale Zahl von gleichzeitigen Prüfungen wie folgt berechnen (wir nehmen an, dass die durchschnittliche
+    Ausführungszeit für Service-Prüfungen kleiner als zehn Sekunden ist) ...</para>
+
+    <para>
+      <emphasis>max. Zahl gleichzeitiger Prüfungen = ceil( 10 / 0.137 )</emphasis>
+    </para>
+
+    <para>In diesem Fall ist der berechnete Wert 73. Das ergibt Sinn, denn &name-icinga; wird etwas mehr als sieben neue Service-Prüfungen
+    pro Sekunde ausführen und es wird Service-Prüfergebnisse nur alle zehn Sekunden verarbeiten. Das bedeutet, dass es zu einer beliebigen
+    Zeit nur etwas mehr als 70 Service-Prüfungen gibt, die ausgeführt werden bzw. deren Ergebnisse verarbeitet werden. In diesem Fall würden
+    wir wahrscheinlich empfehlen, den Wert für die Zahl der gleichzeitigen Prüfungen auf 80 zu erhöhen, weil es Verzögerungen gibt, wenn
+    &name-icinga; Service-Prüfergebnisse verarbeitet bzw. andere Dinge tut. Sie werden offensichtlich ein wenig testen und verändern müssen,
+    damit alles reibungslos funktioniert, aber mit diesen Informationen sollten Sie ein paar generelle Richtlinien an der Hand
+    haben...</para>
+  </section>
+
+  <section>
+    <title><anchor xml:id="checkscheduling-time_restraints"/>Zeitbeschränkungen</title>
+
+    <para>Die Option <emphasis>check_period</emphasis> legt den <link linkend="timeperiods">Zeitraum</link> fest, in dem &name-icinga;
+    Service-Prüfungen ausführen kann. Falls die Zeit, zu der eine Prüfung für einen bestimmten Service ausgeführt werden werden soll, nicht
+    innerhalb des angegebenen Zeitraum liegt, wird die Prüfung <emphasis>nicht</emphasis> ausgeführt, und zwar unabhängig vom Status des
+    Service. Statt dessen wird &name-icinga; die Service-Prüfung für die nächste gültige Zeit des Zeitraums einplanen. Wenn die Prüfung
+    gestartet werden kann (d.h. die Zeit ist gültig innerhalb des Zeitraums), wird die Service-Prüfung ausgeführt.</para>
+
+    <note>
+      <para>Auch wenn eine Service-Prüfung nicht zu einer bestimmten Zeit ausgeführt werden kann, könnte &name-icinga; sie trotzdem
+      <emphasis>einplanen</emphasis>. Das wird höchstwahrscheinlich während der initialen Planung von Services passieren, aber es kann auch
+      in anderen Fällen passieren. Das bedeutet nicht, dass &name-icinga; die Prüfung ausführen wird. Wenn es Zeit wird, die Prüfung
+      tatsächlich <emphasis>auszuführen</emphasis>, wird &name-icinga; kontrollieren, ob die Prüfung zur angegeben Zeit gestartet werden
+      kann. Falls nicht, wird &name-icinga; die Service-Prüfung nicht ausführen, sondern sie zu einer späteren Zeit einplanen. Lassen Sie
+      sich nicht verwirren! Die Planung und Ausführunge von Service-Prüfungen sind zwei unterschiedliche (wenn auch, zusammenhängende)
+      Dinge.</para>
+    </note>
+  </section>
+
+  <section>
+    <title><anchor xml:id="checkscheduling-normal_scheduling"/>Normale Planung</title>
+
+    <para>In einer idealen Welt hätten Sie keine Netzwerkprobleme. Aber wenn das so wäre, dann hätten Sie auch kein
+    Netzwerküberwachungsprogramm. Wie auch immer, wenn die Dinge reibungslos laufen und ein Service in einem OK-Zustand ist, nennen wir das
+    "normal". Service-Prüfungen werden normalerweise in der Häufigkeit geplant, die in der Option <emphasis>check_interval</emphasis>
+    angegeben ist. Das war's. Einfach, oder?</para>
+  </section>
+
+  <section>
+    <title><anchor xml:id="checkscheduling-problem_scheduling"/>Planung bei Problemen</title>
+
+    <para>Also, was passiert, wenn es Probleme mit einem Service gibt? Nun, eins der Dinge ist, dass sich die Service-Prüfungsplanung
+    ändert. Wenn Sie die Option <emphasis>max_attempts</emphasis> auf einen Wert größer als eins gesetzt haben, wird &name-icinga; die
+    Prüfung erneut einplanen, bevor es entscheidet, dass ein wirkliches Problem existiert. Während der Service erneut geprüft wird (bis zu
+    <emphasis>max_attempts</emphasis> Mal), wird er als in einem "soft"-Status befindlich angesehen (wie <link
+    linkend="statetypes">hier</link> beschrieben) und die Service-Prüfungen werden mit einer Häufigkeit eingeplant, die in der Option
+    <emphasis>retry_interval</emphasis> angegeben ist.</para>
+
+    <para>Wenn &name-icinga; den Service <emphasis>max_attempts</emphasis> Mal erneut eingeplant hat und er immer noch in einem nicht-OK
+    Status ist, wird &name-icinga; den Service in einen "Hard"-Status versetzen, Benachrichtigungen an Kontakte versenden (falls zutreffend)
+    und weitere Prüfungen des Service wieder mit der Häufigkeit planen, die in der Option <emphasis>check_interval</emphasis> festgelegt
+    ist.</para>
+
+    <para>Wie immer gibt es Ausnahmen der Regel. Wenn eine Service-Prüfung zu einem nicht-OK-Status führt, wird &name-icinga; den mit diesem
+    Service verbundenen Host prüfen, um festzustellen, ob er "up" ist oder nicht (siehe die Anmerkung <link
+    linkend="checkscheduling-host_checks">unten</link> zu Informationen, wie dies passiert). Wenn der Host nicht "up" ist (also "down" oder
+    "unreachable"), wird &name-icinga; den Service sofort in einen harten nicht-OK-Status versetzen und die Zahl der aktuellen Versuche auf
+    1 zurücksetzen. Da der Service in einem harten nicht-OK-Status ist, wird die Service-Prüfung mit der normalen Häufigkeit geplant, die in
+    der Option <emphasis>check_interval</emphasis> angegeben ist, statt des Wertes aus der Option
+    <emphasis>retry_interval</emphasis>.</para>
+  </section>
+
+  <section>
+    <title><anchor xml:id="checkscheduling-host_checks"/>Host-Prüfungen</title>
+
+    <para>Ein Fall, wo &name-icinga; den Status eines Hosts prüft, ist, wenn ein Service-Prüfung einen nicht-OK-Zustand ergibt.
+    &name-icinga; prüft den Host, um zu entscheiden, ob der Host "up" ist oder nicht, bzw. ob der Host "up", "down" oder "unreachable" ist.
+    Wenn die erste Host-Prüfung einen nicht-OK-Zustand ergibt, wird &name-icinga; Host-Prüfungen wie bei den Services durchführen.</para>
+  </section>
+
+  <section>
+    <title><anchor xml:id="checkscheduling-scheduling_delays"/>Planungsverzögerungen</title>
+
+    <para>Es sollte erwähnt werden, dass Service-Prüfungsplanung und -ausführung geschieht, so gut es geht. Individuelle Service-Prüfungen
+    werden in&name-icinga; als Ereignisse mit niedriger Priorität angesehen, so dass sie verzögert werden können, wenn Ereignisse mit
+    höherer Priorität ausgeführt werden müssen. Beispiel von Ereignissen mit hoher Priorität umfassen Log-Datei-Rotationen, externe
+    Befehlsprüfungen und Prüfergebnis-Ernteereignisse.</para>
+  </section>
+
+  <section>
+    <title><anchor xml:id="checkscheduling-scheduling_example"/>Planungsbeispiel</title>
+
+    <para>Die Planung von Service-Prüfungen, ihre Ausführung und die Verarbeitung ihrer Ergebnisse können ein bisschen schwierig zu
+    verstehen sein, deshalb schauen wir uns ein einfaches Beispiel an. Betrachten wir das folgende Diagramm - wir werden uns darauf
+    beziehen, während wir die Dinge erklären.</para>
+
+    <para>
+      <inlinemediaobject>
+        <imageobject>
+          <imagedata fileref="../images/checktiming.png" format="PNG"/>
+        </imageobject>
+      </inlinemediaobject>
+    </para>
+
+    <para>Zuallererst sind <emphasis role="bold">X</emphasis><subscript>n</subscript> Prüfergebnis-Ernteereignisse, die in der Häufigkeit
+    geplant werden, die durch die Option <link linkend="configmain-check_result_reaper_frequency">check_result_reaper_frequency</link> in
+    der Hauptkonfigurationsdatei angegeben ist. Prüfergebnis-Ernteereignisse übernehmen die Arbeit, Service-Prüfergebnisse zu sammeln und zu
+    verarbeiten. SIe dienen als die Kernlogik für &name-icinga;, starten Host-Prüfungen, Ereignisbehandlung-Routinen und Benachrichtigungen,
+    wenn das notwendig ist.</para>
+
+    <para>Für das Beispiel hier ist die Ausführung eines Service für den Zeitpunkt <emphasis role="bold">A </emphasis>geplant. Allerdings
+    kam &name-icinga; in der Ereigniswarteschlange ins Hintertreffen, so dass die Prüfung erst zum Zeitpunkt <emphasis
+    role="bold">B</emphasis> ausgeführt wird. Die Service-Prüfung endet zum Zeitpunkt <emphasis role="bold">C</emphasis>, so dass die
+    Differenz zwischen den Punkten <emphasis role="bold">C</emphasis> and <emphasis role="bold">B</emphasis> die Laufzeit der Prüfung
+    ist.</para>
+
+    <para>Die Ergebnisse der Service-Prüfungen werden nicht sofort nach der Prüfung verarbeitet. Statt dessen werden die Ergebnisse für eine
+    spätere Verarbeitung durch einen Prüfergebnis-Ernteereignis gespeichert. Das nächste Prüfergebnis-Ernteereignis findet zum Zeitpunkt
+    <emphasis role="bold">D</emphasis> statt, so dass dies ungefähr die Zeit ist, zu der die Ergebnisse verarbeitet werden (die tatsächliche
+    Zeit kann später als <emphasis role="bold">D</emphasis> sein, weil ggf. andere Service-Prüfergebnisse vor diesem Service verarbeitet
+    werden).</para>
+
+    <para>Zu der Zeit, zu der das Prüfergebnis-Ernteereignis die Service-Prüfergebnisse verarbeitet, wird es die nächste Service-Prüfung
+    einplanen und in &name-icinga;s Ereigniswarteschlange stellen. Wir nehmen an, dass die Service-Prüfung einen OK-Zustand ergibt, so dass
+    die nächste Prüfung zum Zeitpunkt <emphasis role="bold">E</emphasis> nach der ursprünglich geplanten Prüfzeit geplant wird, mit einem
+    zeitlichen Abstand, der in der <emphasis>check_interval</emphasis>-Option angegeben ist. Beachten Sie, dass der Service
+    <emphasis>nicht</emphasis> erneut eingeplant wird basierend auf der Zeit, zu der er tatsächlich ausgeführt wird! Es gibt eine Ausnahme
+    (es gibt immer eine, oder?) - falls die Zeit, zu der die Service-Prüfung tatsächlich ausgeführt wird (Punkt <emphasis
+    role="bold">B</emphasis>) nach der nächsten Service-Prüfzeit liegt (Punkt <emphasis role="bold">E</emphasis>), wird &name-icinga; das
+    durch das Anpassen der nächsten Prüfzeit ausgleichen. Das wird gemacht, damit &name-icinga; nicht verrückt wird beim Versuch, mit den
+    Service-Prüfungen Schritt zu halten, wenn eine hohe Last auftritt. Außerdem, wie sinnvoll ist es, etwas in der Vergangenheit zu
+    planen...?</para>
+  </section>
+
+  <section>
+    <title><anchor xml:id="checkscheduling-service_options"/>Service-Definitionsoptionen, die die Planung beeinflussen</title>
+
+    <para>Jede Service-Definition enthält eine <emphasis>check_interval</emphasis>- und eine <emphasis>retry_interval</emphasis>-Option.
+    Hoffentlich klärt das Folgende, was diese zwei Optionen tun, wie sie mit der <emphasis>max_check_attempts</emphasis>-Option in der
+    Service-Definition zusammenwirken, und wie sie die Planung des Service beeinflussen.</para>
+
+    <para>Zuallererst gibt die <emphasis>check_interval</emphasis>-Option das Intervall an, in dem der Service unter "normalen" Umständen
+    geprüft wird. "Normale" Umstände bedeutet, wenn sich der Service in einem "OK"- oder einem <link linkend="statetypes">harten</link>
+    nicht-OK-Zustand befindet.</para>
+
+    <para>Wenn ein Service das erste Mal von einem OK- in einen nicht-OK-Zustand wechselt, gibt Ihnen &name-icinga; die Möglichkeit, das
+    Intervall temporär zu verkleinern oder zu vergrößern, in dem nachfolgende Prüfungen für diesen Service ausgeführt werden. Wenn der
+    Service-Zustand das erste Mal wechselt, wird &name-icinga; bis zu <emphasis>max_check_attempts</emphasis>-1 Versuche durchführen, bevor
+    es entscheidet, dass es sich um ein richtiges Problem handelt. Während die Prüfungen wiederholt werden, werden sie gemäß der
+    <emphasis>retry_interval</emphasis>-Option neu eingeplant, was schneller oder langsam als die <emphasis>check_interval</emphasis>-Option
+    ist. Während der Service erneut geprüft wird (bis zu <emphasis>max_check_attempts</emphasis>-1 mal), ist der Service in einem <link
+    linkend="statetypes">soft-Zustand</link>. Wenn der Service <emphasis>max_check_attempts</emphasis>-1 mal geprüft wurde und sich immer
+    noch in einem nicht-OK-Zustand befindet, wird der Service in einen <link linkend="statetypes">hard-Zustand</link> wechseln und wird
+    nachfolgend wieder mit der normalen Rate eingeplant, die in der <emphasis>check_interval</emphasis>-Option festgelegt ist.</para>
+
+    <para>Als Randbemerkung, wenn Sie einen Wert von 1 für die <emphasis>max_check_attempts</emphasis>-Option definieren, wird der Service
+    niemals mit dem Intervall geprüft, das in der <emphasis>retry_interval</emphasis>-Option angegeben ist. Statt dessen wird er sofort in
+    einen <link linkend="statetypes">hard-Zustand</link> wechseln und anschließend mit dem in der Option <emphasis>check_interval</emphasis>
+    festgelegten Intervall geprüft.</para>
+  </section>
 
   <section>
     <title>TODO</title>
 
-    <para><anchor xml:id="checkscheduling-host_inter_check_delay"/><emphasis role="bold">Host-Prüfungs-Direktiven</emphasis></para>
+    <para>
+      <emphasis role="bold"><anchor xml:id="checkscheduling-host_inter_check_delay"/>Host-Prüfungs-Direktiven</emphasis>
+    </para>
 
     <para>Die meisten der o.g. Informationen treffen auch auf Host-Prüfungen zu.</para>
 
     <para>Dieser Abschnitt wird aktualisiert. Voraussichtlich gibt es mehr Informationen in einer der nächsten Ausgaben...</para>
-
-    <indexterm zone="checkscheduling-check_scheduling">
-      <primary>Scheduling</primary>
-
-      <secondary>Service- und Host-Prüfungsplanung</secondary>
-    </indexterm>
-
-    <indexterm zone="checkscheduling-configuration_options">
-      <primary>Scheduling</primary>
-
-      <secondary>Konfigurationsoptionen</secondary>
-    </indexterm>
-
-    <indexterm zone="checkscheduling-initial_scheduling">
-      <primary>Scheduling</primary>
-
-      <secondary>Initiale Planung</secondary>
-    </indexterm>
-
-    <indexterm zone="checkscheduling-service_inter_check_delay">
-      <primary>Scheduling</primary>
-
-      <secondary>Inter-Check-Verzögerung (inter-check delay)</secondary>
-    </indexterm>
-
-    <indexterm zone="checkscheduling-service_interleaving">
-      <primary>Scheduling</primary>
-
-      <secondary>Service-Verschachtelung (service interleaving)</secondary>
-    </indexterm>
-
-    <indexterm zone="checkscheduling-max_concurrent_checks">
-      <primary>Scheduling</primary>
-
-      <secondary>Maximale Zahl gleichzeitiger Service-Prüfungen (maximum concurrent service checks)</secondary>
-    </indexterm>
-
-    <indexterm zone="checkscheduling-time_restraints">
-      <primary>Scheduling</primary>
-
-      <secondary>Zeitbeschränkungen</secondary>
-    </indexterm>
-
-    <indexterm zone="checkscheduling-normal_scheduling">
-      <primary>Scheduling</primary>
-
-      <secondary>Normale Planung</secondary>
-    </indexterm>
-
-    <indexterm zone="checkscheduling-problem_scheduling">
-      <primary>Scheduling</primary>
-
-      <secondary>Planung bei Problemen</secondary>
-    </indexterm>
-
-    <indexterm zone="checkscheduling-host_checks">
-      <primary>Scheduling</primary>
-
-      <secondary>Host-Prüfungen</secondary>
-    </indexterm>
-
-    <indexterm zone="checkscheduling-scheduling_delays">
-      <primary>Scheduling</primary>
-
-      <secondary>Planungsverzögerungen</secondary>
-    </indexterm>
-
-    <indexterm zone="checkscheduling-scheduling_example">
-      <primary>Scheduling</primary>
-
-      <secondary>Planungsbeispiel</secondary>
-    </indexterm>
-
-    <indexterm zone="checkscheduling-service_options">
-      <primary>Scheduling</primary>
-
-      <secondary>Service-Definitionssoptionen, die die Planung beeinflussen</secondary>
-    </indexterm>
-
-    <indexterm zone="checkscheduling-host_inter_check_delay">
-      <primary>Scheduling</primary>
-
-      <secondary>Host-Prüfungsdirektiven</secondary>
-    </indexterm>
   </section>
+
+  <indexterm zone="checkscheduling-check_scheduling">
+    <primary>Scheduling</primary>
+
+    <secondary>Service- und Host-Prüfungsplanung</secondary>
+  </indexterm>
+
+  <indexterm zone="checkscheduling-configuration_options">
+    <primary>Scheduling</primary>
+
+    <secondary>Konfigurationsoptionen</secondary>
+  </indexterm>
+
+  <indexterm zone="checkscheduling-initial_scheduling">
+    <primary>Scheduling</primary>
+
+    <secondary>Initiale Planung</secondary>
+  </indexterm>
+
+  <indexterm zone="checkscheduling-service_inter_check_delay">
+    <primary>Scheduling</primary>
+
+    <secondary>Inter-Check-Verzögerung (inter-check delay)</secondary>
+  </indexterm>
+
+  <indexterm zone="checkscheduling-service_interleaving">
+    <primary>Scheduling</primary>
+
+    <secondary>Service-Verschachtelung (service interleaving)</secondary>
+  </indexterm>
+
+  <indexterm zone="checkscheduling-max_concurrent_checks">
+    <primary>Scheduling</primary>
+
+    <secondary>Maximale Zahl gleichzeitiger Service-Prüfungen (maximum concurrent service checks)</secondary>
+  </indexterm>
+
+  <indexterm zone="checkscheduling-time_restraints">
+    <primary>Scheduling</primary>
+
+    <secondary>Zeitbeschränkungen</secondary>
+  </indexterm>
+
+  <indexterm zone="checkscheduling-normal_scheduling">
+    <primary>Scheduling</primary>
+
+    <secondary>Normale Planung</secondary>
+  </indexterm>
+
+  <indexterm zone="checkscheduling-problem_scheduling">
+    <primary>Scheduling</primary>
+
+    <secondary>Planung bei Problemen</secondary>
+  </indexterm>
+
+  <indexterm zone="checkscheduling-host_checks">
+    <primary>Scheduling</primary>
+
+    <secondary>Host-Prüfungen</secondary>
+  </indexterm>
+
+  <indexterm zone="checkscheduling-scheduling_delays">
+    <primary>Scheduling</primary>
+
+    <secondary>Planungsverzögerungen</secondary>
+  </indexterm>
+
+  <indexterm zone="checkscheduling-scheduling_example">
+    <primary>Scheduling</primary>
+
+    <secondary>Planungsbeispiel</secondary>
+  </indexterm>
+
+  <indexterm zone="checkscheduling-service_options">
+    <primary>Scheduling</primary>
+
+    <secondary>Service-Definitionssoptionen, die die Planung beeinflussen</secondary>
+  </indexterm>
+
+  <indexterm zone="checkscheduling-host_inter_check_delay">
+    <primary>Scheduling</primary>
+
+    <secondary>Host-Prüfungsdirektiven</secondary>
+  </indexterm>
 </section>
