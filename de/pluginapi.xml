@@ -4,261 +4,289 @@
 %all.entities;
 ]>
 <section version="5.0" xml:id="pluginapi" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>&name-nagios; Plugin API</title>
 
-  <para><emphasis role="bold">Andere Ressourcen</emphasis></para>
+  <section>
+    <title>Andere Ressourcen</title>
 
-  <para>Wenn Sie planen, Ihren eigenen Plugins für &name-icinga; zu schreiben, dann besuchen Sie folgende Ressourcen:</para>
+    <para>Wenn Sie planen, Ihren eigenen Plugins für &name-icinga; zu schreiben, dann besuchen Sie folgende Ressourcen:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>Die offizielle <link
-      xlink:href="http://sourceforge.net/projects/nagiosplug/">&name-nagios;-Plugin-Projekt-Website</link></para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>Die offizielle <link
+        xlink:href="http://sourceforge.net/projects/nagiosplug/">&name-nagios;-Plugin-Projekt-Website</link></para>
+      </listitem>
 
-    <listitem>
-      <para>Die offiziellen <link
-      xlink:href="http://nagiosplug.sourceforge.net/developer-guidelines.html">&name-nagios;-Plugin-Entwicklungsrichtlinien</link></para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>Die offiziellen <link
+        xlink:href="http://nagiosplug.sourceforge.net/developer-guidelines.html">&name-nagios;-Plugin-Entwicklungsrichtlinien</link></para>
+      </listitem>
+    </itemizedlist>
+  </section>
 
-  <para><emphasis role="bold">Plugin-Überblick</emphasis></para>
+  <section>
+    <title>Plugin-Überblick</title>
 
-  <para>Scripts und ausführbare Programme müssen (mindestens) zwei Dinge tun, um als &name-icinga;-Plugins zu
-  funktionieren:</para>
+    <para>Scripts und ausführbare Programme müssen (mindestens) zwei Dinge tun, um als &name-icinga;-Plugins zu funktionieren:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>mit einem von verschiedenen möglichen Return-Codes enden</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>mit einem von verschiedenen möglichen Return-Codes enden</para>
+      </listitem>
 
-    <listitem>
-      <para>mindestens eine Zeile Textausgabe an STDOUT zurückliefern</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>mindestens eine Zeile Textausgabe an STDOUT zurückliefern</para>
+      </listitem>
+    </itemizedlist>
 
-  <para>Die inneren Abläufe Ihres Plugins sind für &name-icinga; unwichtig. Ihr Plugin könnte den Zustand eines TCP-Ports prüfen,
-  eine Datenbankabfrage durchführen, den freien Plattenplatz ermitteln oder was immer benötigt wird, um etwas zu prüfen. Die
-  Einzelheiten hängen davon ab, was zu prüfen ist - das liegt an Ihnen.</para>
+    <para>Die inneren Abläufe Ihres Plugins sind für &name-icinga; unwichtig. Ihr Plugin könnte den Zustand eines TCP-Ports prüfen, eine
+    Datenbankabfrage durchführen, den freien Plattenplatz ermitteln oder was immer benötigt wird, um etwas zu prüfen. Die Einzelheiten
+    hängen davon ab, was zu prüfen ist - das liegt an Ihnen.</para>
+  </section>
 
-  <para><emphasis role="bold">Return-Code</emphasis></para>
+  <section>
+    <title>Return-Code</title>
 
-  <para>&name-icinga; ermittelt den Zustand eines Hosts oder Service über die Auswertung des Return-Codes des Plugins. Die
-  folgenden Tabellen zeigen eine Liste von gültigen Return-Codes zusammen mit ihren entsprechenden Service- oder
-  Host-Zuständen.</para>
+    <para>&name-icinga; ermittelt den Zustand eines Hosts oder Service über die Auswertung des Return-Codes des Plugins. Die folgenden
+    Tabellen zeigen eine Liste von gültigen Return-Codes zusammen mit ihren entsprechenden Service- oder Host-Zuständen.</para>
 
-  <informaltable frame="all">
-    <tgroup cols="3">
-      <colspec colname="c1" colwidth="10*" />
+    <informaltable frame="all">
+      <tgroup cols="3">
+        <colspec colname="c1" colwidth="10*"/>
 
-      <colspec colname="c2" colwidth="20*" />
+        <colspec colname="c2" colwidth="20*"/>
 
-      <colspec colname="c3" colwidth="20*" />
+        <colspec colname="c3" colwidth="20*"/>
 
-      <tbody>
-        <row>
-          <entry><para> <emphasis role="bold">Plugin Return-Code</emphasis> </para></entry>
+        <tbody>
+          <row>
+            <entry><para> <emphasis role="bold">Plugin Return-Code</emphasis> </para></entry>
 
-          <entry><para> <emphasis role="bold">Service-Zustand</emphasis> </para></entry>
+            <entry><para> <emphasis role="bold">Service-Zustand</emphasis> </para></entry>
 
-          <entry><para> <emphasis role="bold">Host-Zustand</emphasis> </para></entry>
-        </row>
+            <entry><para> <emphasis role="bold">Host-Zustand</emphasis> </para></entry>
+          </row>
 
-        <row>
-          <entry><para>0</para></entry>
+          <row>
+            <entry><para>0</para></entry>
 
-          <entry><para>OK</para></entry>
+            <entry><para>OK</para></entry>
 
-          <entry><para>UP</para></entry>
-        </row>
+            <entry><para>UP</para></entry>
+          </row>
 
-        <row>
-          <entry><para>1</para></entry>
+          <row>
+            <entry><para>1</para></entry>
 
-          <entry><para>WARNING</para></entry>
+            <entry><para>WARNING</para></entry>
 
-          <entry><para>UP oder DOWN/UNREACHABLE*</para></entry>
-        </row>
+            <entry><para>UP oder DOWN/UNREACHABLE*</para></entry>
+          </row>
 
-        <row>
-          <entry><para>2</para></entry>
+          <row>
+            <entry><para>2</para></entry>
 
-          <entry><para>CRITICAL</para></entry>
+            <entry><para>CRITICAL</para></entry>
 
-          <entry><para>DOWN/UNREACHABLE</para></entry>
-        </row>
+            <entry><para>DOWN/UNREACHABLE</para></entry>
+          </row>
 
-        <row>
-          <entry><para>3</para></entry>
+          <row>
+            <entry><para>3</para></entry>
 
-          <entry><para>UNKNOWN</para></entry>
+            <entry><para>UNKNOWN</para></entry>
 
-          <entry><para>DOWN/UNREACHABLE</para></entry>
-        </row>
-      </tbody>
-    </tgroup>
-  </informaltable>
+            <entry><para>DOWN/UNREACHABLE</para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
 
-  <para><inlinemediaobject>
-      <imageobject>
-        <imagedata fileref="../images/note.gif" format="GIF"></imagedata>
-      </imageobject>
-    </inlinemediaobject> Anmerkung: Wenn die <link
-  linkend="configmain-use_aggressive_host_checking">use_aggressive_host_checking</link>-Option aktiviert ist, dann ergibt ein
-  Return-Code von 1 einen Host-Zustand "DOWN" oder "UNREACHABLE". Andernfalls ergibt ein Return-Code von 1 einen Host-Zustand
-  "UP". Der Prozess, durch den &name-icinga; ermittelt, ob ein Host DOWN oder UNREACHABLE ist, wird <link
-  linkend="networkreachability">hier</link> erklärt.</para>
+    <para><inlinemediaobject>
+        <imageobject>
+          <imagedata fileref="../images/note.gif" format="GIF"/>
+        </imageobject>
+      </inlinemediaobject> Anmerkung: Wenn die <link
+    linkend="configmain-use_aggressive_host_checking">use_aggressive_host_checking</link>-Option aktiviert ist, dann ergibt ein Return-Code
+    von 1 einen Host-Zustand "DOWN" oder "UNREACHABLE". Andernfalls ergibt ein Return-Code von 1 einen Host-Zustand "UP". Der Prozess, durch
+    den &name-icinga; ermittelt, ob ein Host DOWN oder UNREACHABLE ist, wird <link linkend="networkreachability">hier</link> erklärt.</para>
+  </section>
 
-  <para><emphasis role="bold">Spezifikation der Plugin-Ausgabe(n)</emphasis></para>
+  <section>
+    <title>Spezifikation der Plugin-Ausgabe(n)</title>
 
-  <para>Als Minimum sollten Plugins mindestens eine Zeile Textausgabe zurückliefern, es können aber auch mehrere Zeilen Ausgaben
-  sein. Plugins können zusätzlich Performance-Daten zurückliefern, die von externen Applikationen verarbeitet werden können. Das
-  grundlegende Format für Plugin-Ausgaben ist wie folgt:</para>
+    <para>Als Minimum sollten Plugins mindestens eine Zeile Textausgabe zurückliefern, es können aber auch mehrere Zeilen Ausgaben sein.
+    Plugins können zusätzlich Performance-Daten zurückliefern, die von externen Applikationen verarbeitet werden können. Das grundlegende
+    Format für Plugin-Ausgaben ist wie folgt:</para>
 
-  <para><emphasis condition="red" role="color">TEXT OUTPUT</emphasis> | <emphasis condition="#FFA500" role="color">OPTIONAL
-  PERFDATA</emphasis></para>
+    <para><emphasis condition="red" role="color">TEXT OUTPUT</emphasis> | <emphasis condition="#FFA500" role="color">OPTIONAL
+    PERFDATA</emphasis></para>
 
-  <para><emphasis condition="blue" role="color">LONG TEXT LINE 1 LONG TEXT LINE 2 ... LONG TEXT LINE N</emphasis> | <emphasis
-  condition="#FFA500" role="color">PERFDATA LINE 2</emphasis></para>
+    <para><emphasis condition="blue" role="color">LONG TEXT LINE 1 LONG TEXT LINE 2 ... LONG TEXT LINE N</emphasis> | <emphasis
+    condition="#FFA500" role="color">PERFDATA LINE 2</emphasis></para>
 
-  <para><emphasis condition="#FFA500" role="color">PERFDATA LINE 3 ... PERFDATA LINE N</emphasis></para>
+    <para><emphasis condition="#FFA500" role="color">PERFDATA LINE 3 ... PERFDATA LINE N</emphasis></para>
 
-  <para>Die Performance-Daten (in <emphasis condition="#FFA500" role="color">orange</emphasis> dargestellt) sind optional. Wenn
-  ein Plugin Performance-Daten in der Ausgabe zurückliefert, dann müssen die Performance-Daten von den anderen Textausgaben mit
-  einem Pipe-Symbol (|) getrennt werden. Zusätzliche Zeilen von langen Textausgaben (in <emphasis condition="blue"
-  role="color">blau</emphasis> dargestellt) sind ebenso optional.</para>
+    <para>Die Performance-Daten (in <emphasis condition="#FFA500" role="color">orange</emphasis> dargestellt) sind optional. Wenn ein Plugin
+    Performance-Daten in der Ausgabe zurückliefert, dann müssen die Performance-Daten von den anderen Textausgaben mit einem Pipe-Symbol (|)
+    getrennt werden. Zusätzliche Zeilen von langen Textausgaben (in <emphasis condition="blue" role="color">blau</emphasis> dargestellt)
+    sind ebenso optional.</para>
+  </section>
 
-  <para><emphasis role="bold">Plugin-Beispielausgaben</emphasis></para>
+  <section>
+    <title>Plugin-Beispielausgaben</title>
 
-  <para>Nun ein paar Beispiele von möglichen Plugin-Ausgaben...</para>
+    <para>Nun ein paar Beispiele von möglichen Plugin-Ausgaben...</para>
 
-  <para><emphasis role="bold">Fall 1: Eine Zeile Ausgabe (nur Text)</emphasis></para>
+    <itemizedlist>
+      <listitem>
+        <para><emphasis role="bold">Fall 1: Eine Zeile Ausgabe (nur Text)</emphasis></para>
 
-  <para>Angenommen, wir haben ein Plugin, das eine Zeile ausgibt, dann sieht das wie folgt aus:</para>
+        <para>Angenommen, wir haben ein Plugin, das eine Zeile ausgibt, dann sieht das wie folgt aus:</para>
 
-  <para>DISK OK - free space: / 3326 MB (56%); Wenn dieses Plugin benutzt wurde, um eine Service-Prüfung durchzuführen, wird die
-  gesamte Zeile der Ausgabe im <link linkend="macrolist-serviceoutput">$SERVICEOUTPUT$</link>-Makro gespeichert.</para>
+        <para>DISK OK - free space: / 3326 MB (56%); Wenn dieses Plugin benutzt wurde, um eine Service-Prüfung durchzuführen, wird die
+        gesamte Zeile der Ausgabe im <link linkend="macrolist-serviceoutput">$SERVICEOUTPUT$</link>-Makro gespeichert.</para>
+      </listitem>
 
-  <para><emphasis role="bold">Fall 2: Eine Zeile Ausgabe (Text und Performance-Daten)</emphasis></para>
+      <listitem>
+        <para><emphasis role="bold">Fall 2: Eine Zeile Ausgabe (Text und Performance-Daten)</emphasis></para>
 
-  <para>Ein Plugin kann optionale Performance-Daten zurückliefern, die von externen Applikationen benutzt werden. Um dies zu tun,
-  müssen die Performance-Daten von der Textausgabe durch ein Pipe-Symbol (|) wie folgt getrennt werden:</para>
+        <para>Ein Plugin kann optionale Performance-Daten zurückliefern, die von externen Applikationen benutzt werden. Um dies zu tun,
+        müssen die Performance-Daten von der Textausgabe durch ein Pipe-Symbol (|) wie folgt getrennt werden:</para>
 
-  <para><emphasis condition="red" role="color">DISK OK - free space: / 3326 MB (56%);</emphasis> | <emphasis condition="#FFA500" role="color">/=2643MB;5948;5958;0;5968</emphasis>. Wenn dieses Plugin benutzt wurde, um eine
-  Service-Prüfung durchzuführen, wird der <emphasis condition="red" role="color">rote</emphasis> Teil der Ausgabe (links vom Pipe-Symbol) im <link
-  linkend="macrolist-serviceoutput">$SERVICEOUTPUT$</link>-Makro und der <emphasis condition="#FFA500" role="color">orange</emphasis> Teil der Ausgabe (rechts vom Pipe-Symbol) im
-  <link linkend="macrolist-serviceperfdata">$SERVICEPERFDATA$</link>-Makro gespeichert.</para>
-  <para><emphasis role="bold">Fall 3: Mehrere Zeilen Ausgaben (Text und Performance-Daten)</emphasis></para>
+        <para><emphasis condition="red" role="color">DISK OK - free space: / 3326 MB (56%);</emphasis> | <emphasis condition="#FFA500"
+        role="color">/=2643MB;5948;5958;0;5968</emphasis>. Wenn dieses Plugin benutzt wurde, um eine Service-Prüfung durchzuführen, wird
+        der <emphasis condition="red" role="color">rote</emphasis> Teil der Ausgabe (links vom Pipe-Symbol) im <link
+        linkend="macrolist-serviceoutput">$SERVICEOUTPUT$</link>-Makro und der <emphasis condition="#FFA500" role="color">orange</emphasis>
+        Teil der Ausgabe (rechts vom Pipe-Symbol) im <link linkend="macrolist-serviceperfdata">$SERVICEPERFDATA$</link>-Makro
+        gespeichert.</para>
+      </listitem>
 
-  <para>Ein Plugin kann optional mehrere Zeilen von Text und Performance-Daten wie folgt zurückliefern:</para>
+      <listitem>
+        <para><emphasis role="bold">Fall 3: Mehrere Zeilen Ausgaben (Text und Performance-Daten)</emphasis></para>
 
-  <simpara><emphasis condition="red" role="color">DISK OK - free space: / 3326 MB (56%);</emphasis></simpara>
+        <para>Ein Plugin kann optional mehrere Zeilen von Text und Performance-Daten wie folgt zurückliefern:</para>
 
-  <para> | <emphasis condition="#FFA500" role="color">/=2643MB;5948;5958;0;5968</emphasis></para>
+        <simpara><emphasis condition="red" role="color">DISK OK - free space: / 3326 MB (56%);</emphasis></simpara>
 
-  <para><emphasis condition="blue" role="color">/ 15272 MB (77%);</emphasis></para>
+        <para> | <emphasis condition="#FFA500" role="color">/=2643MB;5948;5958;0;5968</emphasis></para>
 
-  <para><emphasis condition="blue" role="color">/boot 68 MB (69%);</emphasis></para>
+        <para><emphasis condition="blue" role="color">/ 15272 MB (77%);</emphasis></para>
 
-  <para><emphasis condition="blue" role="color">/home 69357 MB (27%);</emphasis></para>
+        <para><emphasis condition="blue" role="color">/boot 68 MB (69%);</emphasis></para>
 
-  <para><emphasis condition="blue" role="color">/var/log 819 MB (84%);</emphasis> | <emphasis condition="#FFA500"
-  role="color">/boot=68MB;88;93;0;98</emphasis></para>
+        <para><emphasis condition="blue" role="color">/home 69357 MB (27%);</emphasis></para>
 
-  <para><emphasis condition="#FFA500" role="color">/home=69357MB;253404;253409;0;253414</emphasis></para>
+        <para><emphasis condition="blue" role="color">/var/log 819 MB (84%);</emphasis> | <emphasis condition="#FFA500"
+        role="color">/boot=68MB;88;93;0;98</emphasis></para>
 
-  <para><emphasis condition="#FFA500" role="color">/var/log=818MB;970;975;0;980</emphasis></para>
+        <para><emphasis condition="#FFA500" role="color">/home=69357MB;253404;253409;0;253414</emphasis></para>
 
-  <para>Wenn dieses Plugin benutzt wurde, um eine Service-Prüfung durchzuführen, wird der <emphasis condition="red"
-  role="color">rote</emphasis> Teil der ersten Zeile der Ausgabe (links vom Pipe-Symbol) im <link
-  linkend="macrolist-serviceoutput">$SERVICEOUTPUT$</link>-Makro gespeichert. Der <emphasis condition="#FFA500"
-  role="color">orange</emphasis> Teil der ersten und folgender Zeilen wird (durch Leerzeichen verbunden) im <link
-  linkend="macrolist-serviceperfdata">$SERVICEPERFDATA$</link>-Makro gespeichert. Der <emphasis condition="blue"
-  role="color">blaue</emphasis> Teil der zweiten bis fünften Zeile der Ausgabe wird (mit maskierten Newlines) verkettet und im
-  <link linkend="macrolist-longserviceoutput">$LONGSERVICEOUTPUT$</link>-Makro gespeichert.</para>
+        <para><emphasis condition="#FFA500" role="color">/var/log=818MB;970;975;0;980</emphasis></para>
 
-  <para>Der endgültige Inhalt jedes Makros ist wie folgt:</para>
+        <para>Wenn dieses Plugin benutzt wurde, um eine Service-Prüfung durchzuführen, wird der <emphasis condition="red"
+        role="color">rote</emphasis> Teil der ersten Zeile der Ausgabe (links vom Pipe-Symbol) im <link
+        linkend="macrolist-serviceoutput">$SERVICEOUTPUT$</link>-Makro gespeichert. Der <emphasis condition="#FFA500"
+        role="color">orange</emphasis> Teil der ersten und folgender Zeilen wird (durch Leerzeichen verbunden) im <link
+        linkend="macrolist-serviceperfdata">$SERVICEPERFDATA$</link>-Makro gespeichert. Der <emphasis condition="blue"
+        role="color">blaue</emphasis> Teil der zweiten bis fünften Zeile der Ausgabe wird (mit maskierten Newlines) verkettet und im <link
+        linkend="macrolist-longserviceoutput">$LONGSERVICEOUTPUT$</link>-Makro gespeichert.</para>
 
-  <informaltable frame="all">
-    <tgroup cols="2">
-      <colspec colname="c1" colwidth="50*" />
+        <para>Der endgültige Inhalt jedes Makros ist wie folgt:</para>
 
-      <colspec colname="c2" colwidth="50*" />
+        <informaltable frame="all">
+          <tgroup cols="2">
+            <colspec colname="c1" colwidth="50*"/>
 
-      <tbody>
-        <row>
-          <entry><para> <emphasis role="bold">Makro</emphasis> </para></entry>
+            <colspec colname="c2" colwidth="50*"/>
 
-          <entry><para> <emphasis role="bold">Wert</emphasis> </para></entry>
-        </row>
+            <tbody>
+              <row>
+                <entry><para> <emphasis role="bold">Makro</emphasis> </para></entry>
 
-        <row>
-          <entry><para>$SERVICEOUTPUT$</para></entry>
+                <entry><para> <emphasis role="bold">Wert</emphasis> </para></entry>
+              </row>
 
-          <entry><para> <emphasis condition="red" role="color">DISK OK - free space: / 3326 MB (56%);</emphasis> </para></entry>
-        </row>
+              <row>
+                <entry><para>$SERVICEOUTPUT$</para></entry>
 
-        <row>
-          <entry><para>$SERVICEPERFDATA$</para></entry>
+                <entry><para> <emphasis condition="red" role="color">DISK OK - free space: / 3326 MB (56%);</emphasis> </para></entry>
+              </row>
 
-          <entry><para> <emphasis condition="#FFA500"
-          role="color">/=2643MB;5948;5958;0;5968 /boot=68MB;88;93;0;98 /home=69357MB;253404;253409;0;253414 /var/log=818MB;970;975;0;980</emphasis>
-          </para></entry>
-        </row>
+              <row>
+                <entry><para>$SERVICEPERFDATA$</para></entry>
 
-        <row>
-          <entry><para>$LONGSERVICEOUTPUT$</para></entry>
+                <entry><para> <emphasis condition="#FFA500"
+                role="color">/=2643MB;5948;5958;0;5968 /boot=68MB;88;93;0;98 /home=69357MB;253404;253409;0;253414 /var/log=818MB;970;975;0;980</emphasis>
+                </para></entry>
+              </row>
 
-          <entry><para> <emphasis condition="blue" role="color">/ 15272 MB (77%);\n/boot 68 MB (69%);\n/var/log 819 MB
-          (84%);</emphasis> </para></entry>
-        </row>
-      </tbody>
-    </tgroup>
-  </informaltable>
+              <row>
+                <entry><para>$LONGSERVICEOUTPUT$</para></entry>
 
-  <para>Mit Blick auf mehrere Zeilen Ausgaben haben Sie die folgenden Möglichkeiten, Performance-Daten zurückzuliefern:</para>
+                <entry><para> <emphasis condition="blue" role="color">/ 15272 MB (77%);\n/boot 68 MB (69%);\n/var/log 819 MB
+                (84%);</emphasis> </para></entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>
+      </listitem>
+    </itemizedlist>
 
-  <itemizedlist>
-    <listitem>
-      <para>Sie können keinerlei Performance-Daten zurückliefern</para>
-    </listitem>
+    <para>Mit Blick auf mehrere Zeilen Ausgaben haben Sie die folgenden Möglichkeiten, Performance-Daten zurückzuliefern:</para>
 
-    <listitem>
-      <para>Sie können nur in der ersten Zeile Performance-Daten zurückliefern</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>Sie können keinerlei Performance-Daten zurückliefern</para>
+      </listitem>
 
-    <listitem>
-      <para>Sie können Performance-Daten in nachfolgenden Zeilen zurückliefern (nach der ersten)</para>
-    </listitem>
+      <listitem>
+        <para>Sie können nur in der ersten Zeile Performance-Daten zurückliefern</para>
+      </listitem>
 
-    <listitem>
-      <para>Sie können Performance-Daten in der ersten und folgenden Zeilen zurückliefern (wie oben gezeigt)</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>Sie können Performance-Daten in nachfolgenden Zeilen zurückliefern (nach der ersten)</para>
+      </listitem>
 
-  <para><emphasis role="bold">Längenbeschränkungen von Plugin-Ausgaben</emphasis></para>
+      <listitem>
+        <para>Sie können Performance-Daten in der ersten und folgenden Zeilen zurückliefern (wie oben gezeigt)</para>
+      </listitem>
+    </itemizedlist>
+  </section>
 
-  <para>&name-icinga; wird nur die ersten acht KB an Daten lesen, die ein Plugin zurückliefert. Dies wird getan, um durchgedrehte
-  Plugins davon abzuhalten, Megabyte oder Gigabyte an Daten an &name-icinga; zurückzuliefern. Diese Beschränkung von acht KB kann
-  einfach geändert werden, wenn Sie das brauchen. Ändern Sie einfach den Wert der MAX_PLUGIN_OUTPUT_LENGTH-Definition in der
-  <emphasis>include/nagios.h.in</emphasis>-Datei der Source-Code-Distribution und rekompilieren Sie &name-icinga;.
-  Wenn Sie die Kapazität von acht KB durch Anpassung dieses Wertes ändern, dann stellen Sie sicht, dass Sie vor dem Kompilieren
-  auch den Wert von MAX_EXTERNAL_COMMAND_LENGTH in include/common.h erhöhen, damit Resultate von passiven Prüfungen in dieser Länge
-  durch das External Command File empfangen werden können.</para>
+  <section>
+    <title>Längenbeschränkungen von Plugin-Ausgaben</title>
 
-  <para><emphasis role="bold">Beispiele</emphasis></para>
+    <para>&name-icinga; wird nur die ersten acht KB an Daten lesen, die ein Plugin zurückliefert. Dies wird getan, um durchgedrehte Plugins
+    davon abzuhalten, Megabyte oder Gigabyte an Daten an &name-icinga; zurückzuliefern. Diese Beschränkung von acht KB kann einfach geändert
+    werden, wenn Sie das brauchen. Ändern Sie einfach den Wert der MAX_PLUGIN_OUTPUT_LENGTH-Definition in der
+    <emphasis>include/nagios.h.in</emphasis>-Datei der Source-Code-Distribution und rekompilieren Sie &name-icinga;. Wenn Sie die Kapazität
+    von acht KB durch Anpassung dieses Wertes ändern, dann stellen Sie sicht, dass Sie vor dem Kompilieren auch den Wert von
+    MAX_EXTERNAL_COMMAND_LENGTH in include/common.h erhöhen, damit Resultate von passiven Prüfungen in dieser Länge durch das External
+    Command File empfangen werden können.</para>
+  </section>
 
-  <para>Wenn Sie nach Beispiel-Plugins suchen, um sie zu studieren, würden wir empfehlen, dass Sie die offiziellen
-  &name-icinga;-Plugins herunterladen und den Code von verschiedenen C-, Perl- und Shell-Script-Plugins ansehen. Informationen,
-  wie Sie die offiziellen Plugins besorgen können, finden Sie <link linkend="plugins">hier</link>.</para>
+  <section>
+    <title>Beispiele</title>
 
-  <para><emphasis role="bold">Perl-Plugins</emphasis></para>
+    <para>Wenn Sie nach Beispiel-Plugins suchen, um sie zu studieren, würden wir empfehlen, dass Sie die offiziellen &name-icinga;-Plugins
+    herunterladen und den Code von verschiedenen C-, Perl- und Shell-Script-Plugins ansehen. Informationen, wie Sie die offiziellen Plugins
+    besorgen können, finden Sie <link linkend="plugins">hier</link>.</para>
+  </section>
 
-  <para>&name-icinga; bietet einen optionalen <link linkend="embeddedperl">eingebauten Perl-Interpreter</link> (embedded Perl
-  interpreter), der die Ausführung von Perl-Plugins beschleunigen kann. Mehr Informationen zur Entwicklung von Perl-Plugins zur
-  Nutzung mit dem eingebauten Perl-Interpreter finden Sie <link linkend="embeddedperl">hier</link>.</para>
-  <indexterm zone="pluginapi"><primary>Plugins</primary><secondary>&name-icinga; Plugin-API</secondary></indexterm>
+  <section>
+    <title>Perl-Plugins</title>
+
+    <para>&name-icinga; bietet einen optionalen <link linkend="embeddedperl">eingebauten Perl-Interpreter</link> (embedded Perl
+    interpreter), der die Ausführung von Perl-Plugins beschleunigen kann. Mehr Informationen zur Entwicklung von Perl-Plugins zur Nutzung
+    mit dem eingebauten Perl-Interpreter finden Sie <link linkend="embeddedperl">hier</link>.</para>
+
+    <indexterm zone="pluginapi">
+      <primary>Plugins</primary>
+
+      <secondary>&name-icinga; Plugin-API</secondary>
+    </indexterm>
+  </section>
 </section>

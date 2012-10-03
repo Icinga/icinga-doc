@@ -6,113 +6,118 @@
 <section version="5.0" xml:id="icinga-api" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-    <title>No &name-api; to install anymore</title>
+  <title>No &name-api; to install anymore</title>
 
-    <important>
-      <para>In the days leading up to the v1.5 release, we bid our &name-api; goodbye and usher in a new API and Web concept.</para>
+  <important>
+    <para>In the days leading up to the v1.5 release, we bid our &name-api; goodbye and ushered in a new API and Web concept.</para>
 
-      <para>You may ask yourself, what was this API anyway? Indeed, if you weren’t developing or adapting extensions for the new web
-        interface, you wouldn’t have had much contact with this important project component. When &name-icinga; was conceived, one of the
-        main missions was to facilitate the development of addons and plugins. The API provided a set of commonly used request operations,
-        removing the need to write sql-queries and generally a lot of excess code.</para>
+    <para>You may ask yourself, what was this API anyway? Indeed, if you weren’t developing or adapting extensions for the new web
+    interface, you wouldn’t have had much contact with this important project component. When &name-icinga; was conceived, one of the main
+    missions was to facilitate the development of addons and plugins. The API provided a set of commonly used request operations, removing
+    the need to write sql-queries and generally a lot of excess code.</para>
 
-      <para>All was well until we decided to offer some extra database flexibility. When we added support for &name-oracle; and 
-        &name-postgres; on top of &name-mysql;, we also gave our &name-api; team some extra work. With each change, bug fix or new feature,
-        Marius, Michael L and Jannis had to edit the queries for each database back-end separately. This process was not only complicated
-        and error-prone, but also a sign that we needed a more flexible architecture.</para>
+    <para>All was well until we decided to offer some extra database flexibility. When we added support for &name-oracle; and
+    &name-postgres; on top of &name-mysql;, we also gave our &name-api; team some extra work. With each change, bug fix or new feature,
+    Marius, Michael L and Jannis had to edit the queries for each database back-end separately. This process was not only complicated and
+    error-prone, but also a sign that we needed a more flexible architecture.</para>
 
-      <para>As of &name-icinga; 1.5, the external &name-api; was replaced by an internal database layer Doctrine, and merged into 
-        &name-web;. Much like before, queries will run through this layer between the database (&name-idoutils;) and the web interface.
-        However, with Doctrine we can use several database back-ends and querying the database is now much easier. In contrast to SQL, its
-        object relational mapper (ORM) uses Doctrine Query Language, so we now have the flexibility minus the code duplication.</para>
+    <para>As of &name-icinga; 1.5, the external &name-api; was replaced by an internal database layer Doctrine, and merged into &name-web;.
+    Much like before, queries will run through this layer between the database (&name-idoutils;) and the web interface. However, with
+    Doctrine we can use several database back-ends and querying the database is now much easier. In contrast to SQL, its object relational
+    mapper (ORM) uses Doctrine Query Language, so we now have the flexibility minus the code duplication.</para>
 
-      <para><inlinemediaobject>
-          <imageobject>
-            <imagedata fileref="../images/Architecture_1.5_800px.png" format="PNG"></imagedata>
-          </imageobject>
-        </inlinemediaobject></para>
+    <para><inlinemediaobject>
+        <imageobject>
+          <imagedata fileref="../images/Architecture_1.5_800px.png" format="PNG"/>
+        </imageobject>
+      </inlinemediaobject></para>
 
-      <para>That being said, queries from the old API still exist, thanks to the ‘legacy layer’ which will transform old API queries into
-        this new ORM type. In this way, we maintain compatibility with addons designed for older &name-icinga; versions. The Rest API is
-        also still there as part of &name-web;, extending on our Doctrine layer with HTTP for addons that require only certain bits of
-        monitoring info.</para>
+    <para>That being said, queries from the old API still exist, thanks to the ‘legacy layer’ which will transform old API queries into this
+    new ORM type. In this way, we maintain compatibility with addons designed for older &name-icinga; versions. The Rest API is also still
+    there as part of &name-web;, extending on our Doctrine layer with HTTP for addons that require only certain bits of monitoring
+    info.</para>
 
-      <para>With the departure of a standalone API, the average &name-icinga; user will barely notice a change, apart from the fact that
-        the configuration has now been moved to the <filename>databases.xml</filename>. Best of all, every module developer can now easily
-        access the &name-icinga; database without much code overhead– so addon developers get hacking and let us know how you go!</para>
+    <para>With the departure of a standalone API, the average &name-icinga; user will barely notice a change, apart from the fact that the
+    configuration has now been moved to the <filename>databases.xml</filename>. Best of all, every module developer can now easily access
+    the &name-icinga; database without much code overhead– so addon developers get hacking and let us know how you go!</para>
 
-      <para>For more information see our Wiki:
-        <itemizedlist>
-          <listitem>
-            <para>
-              <link xlink:href="https://wiki.icinga.org/display/Dev/Development+guide+for+Icinga-Web">Development Guide for &name-web;</link>
-            </para>
-          </listitem>
-          <listitem>
-            <para>
-              <link xlink:href="https://wiki.icinga.org/display/Dev/Icinga+Database+essentials">Icinga Database Essentials</link>
-            </para>
-          </listitem>
-          <listitem>
-            <para>
-              <link xlink:href="https://wiki.icinga.org/display/Dev/Icinga-Web+REST+API">&name-web; REST API</link>
-            </para>
-          </listitem>
-        </itemizedlist>
-      </para>
-    </important>
+    <para>For more information see our Wiki: <itemizedlist>
+        <listitem>
+          <para><link xlink:href="https://wiki.icinga.org/display/Dev/Development+guide+for+Icinga-Web">Development Guide for
+          &name-web;</link></para>
+        </listitem>
 
-    <important><para>The following is deprecated and only kept for reference</para></important>
-    <para><emphasis role="bold">Installation and use of the &name-icinga; API</emphasis></para>
-    <para><emphasis role="bold">Prerequisites</emphasis></para>
+        <listitem>
+          <para><link xlink:href="https://wiki.icinga.org/display/Dev/Icinga+Database+essentials">Icinga Database Essentials</link></para>
+        </listitem>
 
-    <para>You need &name-icinga; Core and &name-idoutils; or <link xlink:href="http://mathias-kettner.de/checkmk_livestatus.html">&name-mklive;</link>
-    installed and running in order to use the API.</para>
+        <listitem>
+          <para><link xlink:href="https://wiki.icinga.org/display/Dev/Icinga-Web+REST+API">&name-web; REST API</link></para>
+        </listitem>
+      </itemizedlist></para>
+  </important>
 
-    <note>
-        <para>If you don't have &name-icinga; yet please follow the instructions given in the "<link
-        linkend="quickstart-idoutils">quickstart-idoutils</link>" documentation.</para>
-    </note>
+  <important>
+    <para>The following is deprecated and only kept for reference</para>
+  </important>
 
-    <para>If you are using &name-idoutils; database as data source, install PHP-PDO.</para>
+  <section>
+    <title>Installation and use of the &name-icinga; API</title>
 
     <itemizedlist>
-        <listitem>
+      <listitem>
+        <para><emphasis role="bold">Prerequisites</emphasis></para>
+
+        <para>You need &name-icinga; Core and &name-idoutils; or <link
+        xlink:href="http://mathias-kettner.de/checkmk_livestatus.html">&name-mklive;</link> installed and running in order to use the
+        API.</para>
+
+        <note>
+          <para>If you don't have &name-icinga; yet please follow the instructions given in the "<link
+          linkend="quickstart-idoutils">quickstart-idoutils</link>" documentation.</para>
+        </note>
+
+        <para>If you are using &name-idoutils; database as data source, install PHP-PDO.</para>
+
+        <itemizedlist>
+          <listitem>
             <para><emphasis role="bold">&name-rhel;/&name-fedora;/&name-centos;</emphasis></para>
 
             <para>Make sure you have a repository/packages for PHP 5.2.x - RHEL/CentOS only support 5.1.6 out of the box.</para>
 
             <programlisting> # yum install php-pdo php-mysql|pgsql</programlisting>
-        </listitem>
+          </listitem>
 
-        <listitem>
+          <listitem>
             <para><emphasis role="bold">&name-debian;/&name-ubuntu;</emphasis></para>
 
             <programlisting> # apt-get install php5 php5-mysql|pgsql</programlisting>
-        </listitem>
+          </listitem>
 
-        <listitem>
+          <listitem>
             <para><emphasis role="bold">&name-opensuse;</emphasis></para>
 
             <para>Please use yast to install the packages php5, php5-pdo, and php5-mysql|php5-pgsql.</para>
-        </listitem>
-    </itemizedlist>
+          </listitem>
+        </itemizedlist>
+      </listitem>
 
-    <para><emphasis role="bold">Installation and Configuration</emphasis></para>
+      <listitem>
+        <para><emphasis role="bold">Installation and Configuration</emphasis></para>
 
-    <note>
-        <para>&name-api; is already included in the package with Core, &name-idoutils; and docs and also installed during 'make install'. If you
-        already installed this package, there's no need to install &name-api;. It is located by default in /usr/local/icinga/share/icinga-api/ and you
-        can skip this section!</para>
-    </note>
+        <note>
+          <para>&name-api; is already included in the package with Core, &name-idoutils; and docs and also installed during 'make install'.
+          If you already installed this package, there's no need to install &name-api;. It is located by default in
+          /usr/local/icinga/share/icinga-api/ and you can skip this section!</para>
+        </note>
 
-    <note>
-        <para>If you just require &name-api; for Icinga-Web, and already installed the Core with &name-idoutils;, skip this Howto and refer directly
-        to <link linkend="icinga-web-scratch">installing Icinga Web</link>.</para>
-    </note>
+        <note>
+          <para>If you just require &name-api; for Icinga-Web, and already installed the Core with &name-idoutils;, skip this Howto and
+          refer directly to <link linkend="icinga-web-scratch">installing Icinga Web</link>.</para>
+        </note>
 
-    <orderedlist>
-        <listitem>
+        <orderedlist>
+          <listitem>
             <para><emphasis role="bold">Download</emphasis></para>
 
             <para>Take your clone from the icinga-api.git to get a fresh branch</para>
@@ -125,9 +130,9 @@
 
             <para>or download the software using <link
             xlink:href="https://git.icinga.org/index?p=icinga-api.git;a=snapshot;h=refs/heads/master;sf=tgz">https://git.icinga.org/index?p=icinga-api.git;a=snapshot;h=refs/heads/master;sf=tgz</link>.</para>
-        </listitem>
+          </listitem>
 
-        <listitem>
+          <listitem>
             <para><emphasis role="bold">Installation</emphasis></para>
 
             <para>Unpack &name-api; run configure and install it.</para>
@@ -135,8 +140,9 @@
             <programlisting> # tar xzvf icinga-api-(version).tar.gz
  # ./configure</programlisting>
 
-            <para>You can set the prefix where it will be installed, and point &name-api; where your Icinga and IDOUtils config is located and which
-            users are required to run (those settings are directly applied when installing the API through Icinga Core Installation).</para>
+            <para>You can set the prefix where it will be installed, and point &name-api; where your Icinga and IDOUtils config is located
+            and which users are required to run (those settings are directly applied when installing the API through Icinga Core
+            Installation).</para>
 
             <programlisting> # ./configure --datarootdir=/usr/local/icinga/share \
    --sysconfdir=/usr/local/icinga/etc \
@@ -146,16 +152,21 @@
    --with-icinga-group=icinga \
    --with-web-user=www-data \
    --with-web-group=www-data</programlisting>
-            <note><para>The --with-web... directives have to be set. Otherwise the web logs will not be written correctly. This may also lead to
-            an empty main cronk. Please note that the values of user and group differ across distributions.</para></note>
+
+            <note>
+              <para>The --with-web... directives have to be set. Otherwise the web logs will not be written correctly. This may also lead to
+              an empty main cronk. Please note that the values of user and group differ across distributions.</para>
+            </note>
 
             <programlisting> # make install</programlisting>
-        </listitem>
-    </orderedlist>
+          </listitem>
+        </orderedlist>
+      </listitem>
 
-    <para><emphasis role="bold">Configuration</emphasis></para>
+      <listitem>
+        <para><emphasis role="bold">Configuration</emphasis></para>
 
-    <para>If you are developing you own Addon based on the &name-api;, you need the following associative array. <programlisting> $idoConfig = array (
+        <para>If you are developing you own Addon based on the &name-api;, you need the following associative array. <programlisting> $idoConfig = array (
     'type'         =&gt; '&lt;Type of database&gt;',
     'host'         =&gt; '&lt;Database hostname&gt;', 
     'database'     =&gt; '&lt;Databasename&gt;',
@@ -165,7 +176,7 @@
     'table_prefix' =&gt; '&lt;table prefix&gt;', 
  );</programlisting> Example:</para>
 
-    <programlisting> $idoConfig = array (
+        <programlisting> $idoConfig = array (
     'type'         =&gt; 'mysql',
     'host'         =&gt; 'localhost',
     'database'     =&gt; 'ido',
@@ -174,36 +185,42 @@
     'persistent'   =&gt; true,
     'table_prefix' =&gt; 'icinga_',
  );</programlisting>
+      </listitem>
 
-    <para><emphasis role="bold">Supported Backends</emphasis></para>
+      <listitem>
+        <para><emphasis role="bold">Supported Backends</emphasis></para>
 
-    <para>Currently the following backend types are available. More information about that can be found in doc/icinga-api-types.txt. <itemizedlist>
+        <para>Currently the following backend types are available. More information about that can be found in doc/icinga-api-types.txt.
+        <itemizedlist>
             <listitem>
-                <para>&name-idoutils; DB - OK</para>
+              <para>&name-idoutils; DB - OK</para>
             </listitem>
 
             <listitem>
-                <para>Livestatus Module - experimental, not for productive usage</para>
+              <para>Livestatus Module - experimental, not for productive usage</para>
             </listitem>
 
             <listitem>
-                <para>Filebased, status.dat - experimental, not for productive usage</para>
+              <para>Filebased, status.dat - experimental, not for productive usage</para>
             </listitem>
-        </itemizedlist></para>
+          </itemizedlist></para>
+      </listitem>
 
-    <para><emphasis role="bold">Use of the API</emphasis></para>
+      <listitem>
+        <para><emphasis role="bold">Use of the API</emphasis></para>
 
-    <para>Examples can be found in doc/examples</para>
+        <para>Examples can be found in doc/examples</para>
 
-    <orderedlist>
-        <listitem>
+        <orderedlist>
+          <listitem>
             <para><emphasis role="bold">Fetching data</emphasis></para>
 
             <para>hostnames and corresponding states</para>
 
             <para>Create an instance of class IcingaApi:</para>
 
-            <para><programlisting> $api = IcingaApi::getConnection(IcingaApi::CONNECTION_IDO, $idoConfig);</programlisting>Create your search:</para>
+            <para><programlisting> $api = IcingaApi::getConnection(IcingaApi::CONNECTION_IDO, $idoConfig);</programlisting>Create your
+            search:</para>
 
             <para><programlisting> $apiRes = $api-&gt;createSearch()
  -&gt;setSearchTarget(IcingaApi::TARGET_HOST)
@@ -217,9 +234,9 @@
  -&gt;setResultColumns(array(’HOST_NAME’, ‘HOST_CURRENT_STATE’))
  -&gt;setSearchFilter(HOST_NAME, ‘Switch%’, IcingaApi::MATCH_LIKE)
  -&gt;fetch();</programlisting></para>
-        </listitem>
+          </listitem>
 
-        <listitem>
+          <listitem>
             <para><emphasis role="bold">Processing results</emphasis></para>
 
             <para><programlisting> foreach($apiRes as $apiHandle){
@@ -240,9 +257,9 @@
  Host switch75 has the current state 0
  Host switch76 has the current state 0
  Host switch77 has the current state 0</programlisting></para>
-        </listitem>
+          </listitem>
 
-        <listitem>
+          <listitem>
             <para><emphasis role="bold">Complete code without use of filters</emphasis></para>
 
             <programlisting> &lt;?
@@ -278,16 +295,19 @@
  }
  ?&gt;</programlisting>
 
-            <para>Please have a look at the <link xlink:href="http://git.icinga.org/">git repository</link> for further information or consult the
-            exmaples in the doc/examples folder.</para>
-        </listitem>
-    </orderedlist>
+            <para>Please have a look at the <link xlink:href="http://git.icinga.org/">git repository</link> for further information or
+            consult the examples in the doc/examples folder.</para>
+          </listitem>
+        </orderedlist>
+      </listitem>
+    </itemizedlist>
 
     <indexterm zone="icinga-api">
-        <primary>Icinga-API</primary>
+      <primary>Icinga-API</primary>
     </indexterm>
 
     <indexterm zone="icinga-api">
-        <primary>API/Icinga</primary>
+      <primary>API/Icinga</primary>
     </indexterm>
+  </section>
 </section>
