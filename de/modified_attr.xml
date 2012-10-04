@@ -8,52 +8,55 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="modified-attr"/>Modifizierte Attribute</title>
 
-  <para><emphasis role="bold">Einführung</emphasis></para>
+  <section>
+    <title>Einführung</title>
 
-  <para>Verschiedene Attribute von Host, Services und Kontakte können während der Laufzeit verändert werden, z.B. beim Deaktivieren von
-  Benachrichtigungen über das Web-Interface, wodurch der lokale Standardwert überschrieben wird. Der Core wird <emphasis
-  role="bold">immer</emphasis> zuerst das modifizierte Attribut benutzen.</para>
+    <para>Verschiedene Attribute von Host, Services und Kontakte können während der Laufzeit verändert werden, z.B. beim Deaktivieren von
+    Benachrichtigungen über das Web-Interface, wodurch der lokale Standardwert überschrieben wird. Der Core wird <emphasis
+    role="bold">immer</emphasis> zuerst das modifizierte Attribut benutzen.</para>
 
-  <para>Wenn "<link linkend="configmain-retain_state_information">retain_state_information</link>" aktiviert ist (das ist der Standard),
-  dann werden diese Änderungen über Neustarts hinweg beibehalten. Falls Sie diese Einstellung deaktivieren, dann gelten die geänderten Werte
-  nur bis zum nächsten Neustart.</para>
+    <para>Wenn "<link linkend="configmain-retain_state_information">retain_state_information</link>" aktiviert ist (das ist der Standard),
+    dann werden diese Änderungen über Neustarts hinweg beibehalten. Falls Sie diese Einstellung deaktivieren, dann gelten die geänderten
+    Werte nur bis zum nächsten Neustart.</para>
 
-  <para>Neben der automatischen Änderung durch verschiedene Befehle der klassischen Oberfläche können Sie diese Werte auch mit Hilfe von
-  <link linkend="extcommands">externen Befehlen</link> anpassen.</para>
+    <para>Neben der automatischen Änderung durch verschiedene Befehle der klassischen Oberfläche können Sie diese Werte auch mit Hilfe von
+    <link linkend="extcommands">externen Befehlen</link> anpassen.</para>
 
-  <para><emphasis role="bold">Liste der externen Befehle zum ändern von Attributen</emphasis> (zu Details siehe <link
-  linkend="extcommands2">Liste der externen Befehle</link>)</para>
+    <para><emphasis role="bold">Liste der externen Befehle zum ändern von Attributen</emphasis> (zu Details siehe <link
+    linkend="extcommands2">Liste der externen Befehle</link>)</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>Host-Attribute ändern: <code>CHANGE_HOST_MODATTR;</code>&lt;host_name&gt;;&lt;value&gt;</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>Host-Attribute ändern: <code>CHANGE_HOST_MODATTR;</code>&lt;host_name&gt;;&lt;value&gt;</para>
+      </listitem>
 
-    <listitem>
-      <para>Service-Attribute ändern: <code>CHANGE_SVC_MODATTR;</code>&lt;host_name&gt;;&lt;service_description&gt;;&lt;value&gt;</para>
-    </listitem>
+      <listitem>
+        <para>Service-Attribute ändern: <code>CHANGE_SVC_MODATTR;</code>&lt;host_name&gt;;&lt;service_description&gt;;&lt;value&gt;</para>
+      </listitem>
 
-    <listitem>
-      <para>Kontakt-Attribute ändern: <code>CHANGE_CONTACT_MODATTR;</code>&lt;contact_name&gt;;&lt;value&gt;</para>
-    </listitem>
+      <listitem>
+        <para>Kontakt-Attribute ändern: <code>CHANGE_CONTACT_MODATTR;</code>&lt;contact_name&gt;;&lt;value&gt;</para>
+      </listitem>
 
-    <listitem>
-      <para>Kontakt-Attribute ändern: <code>CHANGE_CONTACT_MODHATTR;</code>&lt;contact_name&gt;;&lt;value&gt;</para>
-    </listitem>
+      <listitem>
+        <para>Kontakt-Attribute ändern: <code>CHANGE_CONTACT_MODHATTR;</code>&lt;contact_name&gt;;&lt;value&gt;</para>
+      </listitem>
 
-    <listitem>
-      <para>Kontakt-Attribute ändern: <code>CHANGE_CONTACT_MODSATTR;</code>&lt;contact_name&gt;;&lt;value&gt;</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>Kontakt-Attribute ändern: <code>CHANGE_CONTACT_MODSATTR;</code>&lt;contact_name&gt;;&lt;value&gt;</para>
+      </listitem>
+    </itemizedlist>
 
-  <para>Der Werte ist ein logisches ODER der verschiedenen Werte aus der Tabelle am Ende dieses Abschnitts. "Logisches ODER" bedeutet, dass
-  Sie die Werte addieren und die Summe benutzen müssen.</para>
+    <para>Der Werte ist ein logisches ODER der verschiedenen Werte aus der Tabelle am Ende dieses Abschnitts. "Logisches ODER" bedeutet,
+    dass Sie die Werte addieren und die Summe benutzen müssen.</para>
+  </section>
 
-  <para><emphasis role="bold">Beispiel</emphasis></para>
+  <section>
+    <title>Beispiel</title>
 
-  <para>Die folgenden Zeilen zeigen ein allgemeines Beispiel, wie externe Befehle an das Command-File übergeben werden.</para>
+    <para>Die folgenden Zeilen zeigen ein allgemeines Beispiel, wie externe Befehle an das Command-File übergeben werden.</para>
 
-  <programlisting> #!/bin/sh
+    <programlisting> #!/bin/sh
  # Adjust variables to fit your environment as necessary.
 
  now=`date +%s`
@@ -61,17 +64,17 @@
 
  /bin/printf "[%lu] CHANGE_HOST_MODATTR;Host1;11\n" $now &gt; $commandfile</programlisting>
 
-  <para>Das o.g. Kommando wird verschiedene Attribute von "Host1" ändern:</para>
+    <para>Das o.g. Kommando wird verschiedene Attribute von "Host1" ändern:</para>
 
-  <screen>enable notifications      1
+    <screen>enable notifications      1
 enable active checks      2
 enable the eventhandler   8
                          --
                          11</screen>
 
-  <para><anchor xml:id="modified_attr-table"/><emphasis role="bold">Auszug aus include/common.h</emphasis></para>
+    <para><anchor xml:id="modified_attr-table"/><emphasis role="bold">Auszug aus include/common.h</emphasis></para>
 
-  <screen>/************************MODIFIED ATTRIBUTES *************************/
+    <screen>/************************MODIFIED ATTRIBUTES *************************/
 #define MODATTR_NONE                            0
 #define MODATTR_NOTIFICATIONS_ENABLED           1
 #define MODATTR_ACTIVE_CHECKS_ENABLED           2
@@ -91,15 +94,16 @@ enable the eventhandler   8
 #define MODATTR_CUSTOM_VARIABLE                 32768
 #define MODATTR_NOTIFICATION_TIMEPERIOD         65536</screen>
 
-  <indexterm zone="modified_attr">
-    <primary>Modified attributes</primary>
+    <indexterm zone="modified_attr">
+      <primary>Modified attributes</primary>
 
-    <secondary>Possible values</secondary>
-  </indexterm>
+      <secondary>Possible values</secondary>
+    </indexterm>
 
-  <indexterm zone="modified_attr-table">
-    <primary>Modified attributes</primary>
+    <indexterm zone="modified_attr-table">
+      <primary>Modified attributes</primary>
 
-    <secondary>Possible values</secondary>
-  </indexterm>
+      <secondary>Possible values</secondary>
+    </indexterm>
+  </section>
 </section>

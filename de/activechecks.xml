@@ -4,68 +4,83 @@
 %all.entities;
 ]>
 <section version="5.0" xml:id="activechecks" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>Aktive Prüfungen (Active Checks)</title>
 
-  <para><emphasis role="bold">Einführung</emphasis></para>
+  <section>
+    <title>Einführung</title>
 
-  <para>&name-icinga; ist in der Lage, Hosts und Services auf zwei Arten zu überwachen: aktiv und passiv. Passive Prüfungen werden
-  <link linkend="passivechecks">anderswo</link> beschrieben, so dass wir uns hier auf aktive Prüfungen konzentrieren. Aktive
-  Prüfungen sind die gebräuchlichste Methode zur Überwachung von Hosts und Services. Die Hauptmerkmale von aktiven Prüfungen
-  sind</para>
+    <para>&name-icinga; ist in der Lage, Hosts und Services auf zwei Arten zu überwachen: aktiv und passiv. Passive Prüfungen werden <link
+    linkend="passivechecks">anderswo</link> beschrieben, so dass wir uns hier auf aktive Prüfungen konzentrieren. Aktive Prüfungen sind die
+    gebräuchlichste Methode zur Überwachung von Hosts und Services. Die Hauptmerkmale von aktiven Prüfungen sind</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>aktive Prüfungen werden vom &name-icinga;-Prozess veranlasst</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>aktive Prüfungen werden vom &name-icinga;-Prozess veranlasst</para>
+      </listitem>
 
-    <listitem>
-      <para>aktive Prüfungen laufen auf einer regelmäßig geplanten Basis</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>aktive Prüfungen laufen auf einer regelmäßig geplanten Basis</para>
+      </listitem>
+    </itemizedlist>
 
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="../images/activechecks.png" format="PNG"></imagedata>
-    </imageobject>
-  </mediaobject>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="../images/activechecks.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </section>
 
-  <para><emphasis role="bold">Wie werden aktive Prüfungen durchgeführt?</emphasis></para>
+  <section>
+    <title>Wie werden aktive Prüfungen durchgeführt?</title>
 
-  <para>Aktive Prüfungen werden durch die Prüfungslogik im &name-icinga;-Daemon veranlasst. Wenn &name-icinga; den Status eines
-  Hosts oder Services prüfen muss, wird es ein Plugin ausführen und die Informationen übergeben, was geprüft werden soll. Das
-  Plugin wird dann den Betriebszustand des Hosts oder Service prüfen und die Ergebnisse an den &name-icinga;-Daemon zurückmelden.
-  &name-icinga; wird die Ergebnisse der Host- oder Service-Prüfung verarbeiten und entsprechend notwendige Aktionen ausführen
-  (z.B. Benachrichtigungen versenden, Eventhandler ausfüren, usw.).</para>
+    <para>Aktive Prüfungen werden durch die Prüfungslogik im &name-icinga;-Daemon veranlasst. Wenn &name-icinga; den Status eines Hosts oder
+    Services prüfen muss, wird es ein Plugin ausführen und die Informationen übergeben, was geprüft werden soll. Das Plugin wird dann den
+    Betriebszustand des Hosts oder Service prüfen und die Ergebnisse an den &name-icinga;-Daemon zurückmelden. &name-icinga; wird die
+    Ergebnisse der Host- oder Service-Prüfung verarbeiten und entsprechend notwendige Aktionen ausführen (z.B. Benachrichtigungen versenden,
+    Eventhandler ausfüren, usw.).</para>
 
-  <para>Mehr Informationen, wie Plugins arbeiten, finden Sie <link linkend="plugins">hier</link>.</para>
+    <para>Mehr Informationen, wie Plugins arbeiten, finden Sie <link linkend="plugins">hier</link>.</para>
+  </section>
 
-  <para><emphasis role="bold">Wann werden aktive Prüfungen ausgeführt?</emphasis></para>
+  <section>
+    <title>Wann werden aktive Prüfungen ausgeführt?</title>
 
-  <para>Aktive Prüfungen werden ausgeführt</para>
+    <para>Aktive Prüfungen werden ausgeführt</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>in regelmäßigen Intervallen, wie sie in den <emphasis>check_interval</emphasis> und
-      <emphasis>retry_interval</emphasis>-Optionen in Ihren Host- und Service-Definitionen festgelegt sind</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>in regelmäßigen Intervallen, wie sie in den <emphasis>check_interval</emphasis> und
+        <emphasis>retry_interval</emphasis>-Optionen in Ihren Host- und Service-Definitionen festgelegt sind</para>
+      </listitem>
 
-    <listitem>
-      <para>nach Bedarf</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>nach Bedarf</para>
+      </listitem>
+    </itemizedlist>
 
-  <para>Regelmäßig geplante Prüfungen erfolgen in Intervallen, die den Einstellungen in <emphasis>check_interval</emphasis> oder
-  <emphasis>retry_interval</emphasis> in Ihren Host- oder Service-Definitionen entsprechen, abhängig davon, in welchem <link
-  linkend="statetypes">Statustyp</link> sich der Host oder Service befindet.</para>
+    <para>Regelmäßig geplante Prüfungen erfolgen in Intervallen, die den Einstellungen in <emphasis>check_interval</emphasis> oder
+    <emphasis>retry_interval</emphasis> in Ihren Host- oder Service-Definitionen entsprechen, abhängig davon, in welchem <link
+    linkend="statetypes">Statustyp</link> sich der Host oder Service befindet.</para>
 
-  <para>Prüfungen nach Bedarf werden ausgeführt, wann immer &name-icinga; die Notwendigkeit sieht, die neuesten
-  Statusinformationen über einen bestimmten Host oder Service zu ermitteln. Wenn &name-icinga; beispielsweise die <link
-  linkend="networkreachability">Erreichbarkeit</link> eines Hosts feststellt, wird es oft Prüfungen von Eltern- und Kind-Hosts
-  durchführen, um den genauen Status eines bestimmten Netzwerk-Segments zu ermitteln. Prüfungen nach Bedarf finden sich auch in
-  der <link linkend="dependencychecks">vorausschauenden Abhängigkeitsprüfung</link>s-Logik, um sicherzustellen, dass &name-icinga;
-  möglichst genaue Statusinformationen hat.</para>
-  <indexterm zone="activechecks"><primary>Aktive Prüfungen</primary><secondary>in regelmäßigen Abständen</secondary></indexterm>
-  <indexterm zone="activechecks"><primary>Aktive Prüfungen</primary><secondary>nach Bedarf</secondary></indexterm></section>
+    <para>Prüfungen nach Bedarf werden ausgeführt, wann immer &name-icinga; die Notwendigkeit sieht, die neuesten Statusinformationen über
+    einen bestimmten Host oder Service zu ermitteln. Wenn &name-icinga; beispielsweise die <link
+    linkend="networkreachability">Erreichbarkeit</link> eines Hosts feststellt, wird es oft Prüfungen von Eltern- und Kind-Hosts
+    durchführen, um den genauen Status eines bestimmten Netzwerk-Segments zu ermitteln. Prüfungen nach Bedarf finden sich auch in der <link
+    linkend="dependencychecks">vorausschauenden Abhängigkeitsprüfung</link>s-Logik, um sicherzustellen, dass &name-icinga; möglichst genaue
+    Statusinformationen hat.</para>
+
+    <indexterm zone="activechecks">
+      <primary>Aktive Prüfungen</primary>
+
+      <secondary>in regelmäßigen Abständen</secondary>
+    </indexterm>
+
+    <indexterm zone="activechecks">
+      <primary>Aktive Prüfungen</primary>
+
+      <secondary>nach Bedarf</secondary>
+    </indexterm>
+  </section>
+</section>

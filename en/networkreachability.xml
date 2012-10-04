@@ -3,59 +3,61 @@
 <!ENTITY % all.entities SYSTEM "all-entities.ent">
 %all.entities;
 ]>
-<section version="5.0" xml:id="networkreachability" xmlns="http://docbook.org/ns/docbook"
-         xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-         xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+<section version="5.0" xml:id="networkreachability" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-  <title><anchor xml:id="network_reachability" />Determining Status and Reachability of Network Hosts</title>
+  <title><anchor xml:id="network_reachability"/>Determining Status and Reachability of Network Hosts</title>
 
-  <para><emphasis role="bold">Introduction</emphasis></para>
+  <section>
+    <title>Introduction</title>
 
-  <para>If you've ever work in tech support, you've undoubtably had users tell you "the Internet is down". As a techie, you're
-  pretty sure that no one pulled the power cord from the Internet. Something must be going wrong somewhere between the user's
-  chair and the Internet.</para>
+    <para>If you've ever work in tech support, you've undoubtably had users tell you "the Internet is down". As a techie, you're pretty sure
+    that no one pulled the power cord from the Internet. Something must be going wrong somewhere between the user's chair and the
+    Internet.</para>
 
-  <para>Assuming its a technical problem, you begin to search for the problem. Perhaps the user's computer is turned off, maybe
-  their network cable is unplugged, or perhaps your organization's core router just took a dive. Whatever the problem might be,
-  one thing is most certain - the Internet isn't down. It just happens to be unreachable for that user.</para>
+    <para>Assuming its a technical problem, you begin to search for the problem. Perhaps the user's computer is turned off, maybe their
+    network cable is unplugged, or perhaps your organization's core router just took a dive. Whatever the problem might be, one thing is
+    most certain - the Internet isn't down. It just happens to be unreachable for that user.</para>
 
-  <para>&name-icinga; is able to determine whether the hosts you're monitoring are in a DOWN or UNREACHABLE state. These are very
-  different (although related) states and can help you quickly determine the root cause of network problems. Here's how the
-  reachability logic works to distinguish between these two states...</para>
+    <para>&name-icinga; is able to determine whether the hosts you're monitoring are in a DOWN or UNREACHABLE state. These are very
+    different (although related) states and can help you quickly determine the root cause of network problems. Here's how the reachability
+    logic works to distinguish between these two states...</para>
+  </section>
 
-  <para><emphasis role="bold">Example Network</emphasis></para>
+  <section>
+    <title>Example Network</title>
 
-  <para>Take a look at the simple network diagram below. For this example, lets assume you're monitoring all the hosts (server,
-  routers, switches, etc) that are pictured. &name-icinga; is installed and running on the <emphasis>&name-icinga;</emphasis>
-  host.</para>
+    <para>Take a look at the simple network diagram below. For this example, lets assume you're monitoring all the hosts (server, routers,
+    switches, etc) that are pictured. &name-icinga; is installed and running on the <emphasis>&name-icinga;</emphasis> host.</para>
 
-  <para><inlinemediaobject>
-      <imageobject>
-        <imagedata fileref="../images/reachability1.png" format="PNG"></imagedata>
-      </imageobject>
-    </inlinemediaobject></para>
+    <para><inlinemediaobject>
+        <imageobject>
+          <imagedata fileref="../images/reachability1.png" format="PNG"/>
+        </imageobject>
+      </inlinemediaobject></para>
+  </section>
 
-  <para><emphasis role="bold">Defining Parent/Child Relationships</emphasis></para>
+  <section>
+    <title>Defining Parent/Child Relationships</title>
 
-  <para>In order for &name-icinga; to be able to distinguish between DOWN and UNREACHABLE states for the hosts that are being
-  monitored, you'll need to tell &name-icinga; how those hosts are connected to each other - from the standpoint of the
-  &name-icinga; daemon. To do this, trace the path that a data packet would take from the &name-icinga; daemon to each individual
-  host. Each switch, router, and server the packet encounters or passes through is considered a "hop" and will require that you
-  define a parent/child host relationship in &name-icinga;. Here's what the host parent/child relationships look like from the
-  viewpoint of &name-icinga;:</para>
+    <para>In order for &name-icinga; to be able to distinguish between DOWN and UNREACHABLE states for the hosts that are being monitored,
+    you'll need to tell &name-icinga; how those hosts are connected to each other - from the standpoint of the &name-icinga; daemon. To do
+    this, trace the path that a data packet would take from the &name-icinga; daemon to each individual host. Each switch, router, and
+    server the packet encounters or passes through is considered a "hop" and will require that you define a parent/child host relationship
+    in &name-icinga;. Here's what the host parent/child relationships look like from the viewpoint of &name-icinga;:</para>
 
-  <para><inlinemediaobject>
-      <imageobject>
-        <imagedata fileref="../images/reachability2.png" format="PNG"></imagedata>
-      </imageobject>
-    </inlinemediaobject></para>
+    <para><inlinemediaobject>
+        <imageobject>
+          <imagedata fileref="../images/reachability2.png" format="PNG"/>
+        </imageobject>
+      </inlinemediaobject></para>
 
-  <para>Now that you know what the parent/child relationships look like for hosts that are being monitored, how do you configure
-  &name-icinga; to reflect them? The <emphasis>parents</emphasis> directive in your <link linkend="objectdefinitions-host">host
-  definitions</link> allows you to do this. Here's what the (abbreviated) host definitions with parent/child relationships would
-  look like for this example:</para>
+    <para>Now that you know what the parent/child relationships look like for hosts that are being monitored, how do you configure
+    &name-icinga; to reflect them? The <emphasis>parents</emphasis> directive in your <link linkend="objectdefinitions-host">host
+    definitions</link> allows you to do this. Here's what the (abbreviated) host definitions with parent/child relationships would look like
+    for this example:</para>
 
-  <screen> define host{
+    <programlisting> define host{
         host_name       &name-icinga;   ; &lt;-- The local host has no parent - it is the topmost host
         }
 
@@ -102,47 +104,62 @@
  define host{
         host_name       somewebsite.com
         parents         Router2
-        }</screen>
+        }</programlisting>
+  </section>
 
-  <para><emphasis role="bold">Reachability Logic in Action</emphasis></para>
+  <section>
+    <title>Reachability Logic in Action</title>
 
-  <para>Now that you're configured &name-icinga; with the proper parent/child relationships for your hosts, let's see what happen
-  when problems arise. Assume that two hosts - <emphasis>Web</emphasis> and <emphasis>Router1</emphasis> - go offline...</para>
+    <para>Now that you're configured &name-icinga; with the proper parent/child relationships for your hosts, let's see what happen when
+    problems arise. Assume that two hosts - <emphasis>Web</emphasis> and <emphasis>Router1</emphasis> - go offline...</para>
 
-  <para><inlinemediaobject>
-      <imageobject>
-        <imagedata fileref="../images/reachability3.png" format="PNG"></imagedata>
-      </imageobject>
-    </inlinemediaobject></para>
+    <para><inlinemediaobject>
+        <imageobject>
+          <imagedata fileref="../images/reachability3.png" format="PNG"/>
+        </imageobject>
+      </inlinemediaobject></para>
 
-  <para>When hosts change state (i.e. from UP to DOWN), the host reachability logic in &name-icinga; kicks in. The reachability
-  logic will initiate parallel checks of the parents and children of whatever hosts change state. This allows &name-icinga; to
-  quickly determine the current status of your network infrastructure when changes occur.</para>
+    <para>When hosts change state (i.e. from UP to DOWN), the host reachability logic in &name-icinga; kicks in. The reachability logic will
+    initiate parallel checks of the parents and children of whatever hosts change state. This allows &name-icinga; to quickly determine the
+    current status of your network infrastructure when changes occur.</para>
 
-  <para><inlinemediaobject>
-      <imageobject>
-        <imagedata fileref="../images/reachability4.png" format="PNG"></imagedata>
-      </imageobject>
-    </inlinemediaobject></para>
+    <para><inlinemediaobject>
+        <imageobject>
+          <imagedata fileref="../images/reachability4.png" format="PNG"/>
+        </imageobject>
+      </inlinemediaobject></para>
 
-  <para>In this example, &name-icinga; will determine that <emphasis>Web</emphasis> and <emphasis>Router1</emphasis> are both in
-  DOWN states because the "path" to those hosts is not being blocked.</para>
+    <para>In this example, &name-icinga; will determine that <emphasis>Web</emphasis> and <emphasis>Router1</emphasis> are both in DOWN
+    states because the "path" to those hosts is not being blocked.</para>
 
-  <para>&name-icinga; will determine that all the hosts "beneath" <emphasis>Router1</emphasis> are all in an UNREACHABLE state
-  because &name-icinga; can't reach them. <emphasis>Router1</emphasis> is DOWN and is blocking the path to those other hosts.
-  Those hosts might be running fine, or they might be offline - &name-icinga; doesn't know because it can't reach them. Hence
-  &name-icinga; considers them to be UNREACHABLE instead of DOWN.</para>
+    <para>&name-icinga; will determine that all the hosts "beneath" <emphasis>Router1</emphasis> are all in an UNREACHABLE state because
+    &name-icinga; can't reach them. <emphasis>Router1</emphasis> is DOWN and is blocking the path to those other hosts. Those hosts might be
+    running fine, or they might be offline - &name-icinga; doesn't know because it can't reach them. Hence &name-icinga; considers them to
+    be UNREACHABLE instead of DOWN.</para>
+  </section>
 
-  <para><emphasis role="bold">UNREACHABLE States and Notifications</emphasis></para>
+  <section>
+    <title>UNREACHABLE States and Notifications</title>
 
-  <para>By default, &name-icinga; will notify contacts about both DOWN and UNREACHABLE host states. As an admin/tech, you might
-  not want to get notifications about hosts that are UNREACHABLE. You know your network structure, and if &name-icinga; notifies
-  you that your router/firewall is down, you know that everything behind it is unreachable.</para>
+    <para>By default, &name-icinga; will notify contacts about both DOWN and UNREACHABLE host states. As an admin/tech, you might not want
+    to get notifications about hosts that are UNREACHABLE. You know your network structure, and if &name-icinga; notifies you that your
+    router/firewall is down, you know that everything behind it is unreachable.</para>
 
-  <para>If you want to spare yourself from a flood of UNREACHABLE notifications during network outages, you can exclude the
-  unreachable (u) option from the <emphasis>notification_options</emphasis> directive in your <link
-  linkend="objectdefinitions-host">host</link> definitions and/or the <emphasis>host_notification_options</emphasis> directive in
-  your <link linkend="objectdefinitions-contact">contact</link> definitions.</para>
-  <indexterm zone="network_reachability"><primary>Network Hosts</primary><secondary>Determining Status and Reachability of Network Hosts</secondary></indexterm>
-  <indexterm zone="network_reachability"><primary>Reachability</primary><secondary>Determining Status and Reachability of Network Hosts</secondary></indexterm>
+    <para>If you want to spare yourself from a flood of UNREACHABLE notifications during network outages, you can exclude the unreachable
+    (u) option from the <emphasis>notification_options</emphasis> directive in your <link linkend="objectdefinitions-host">host</link>
+    definitions and/or the <emphasis>host_notification_options</emphasis> directive in your <link
+    linkend="objectdefinitions-contact">contact</link> definitions.</para>
+
+    <indexterm zone="network_reachability">
+      <primary>Network Hosts</primary>
+
+      <secondary>Determining Status and Reachability of Network Hosts</secondary>
+    </indexterm>
+
+    <indexterm zone="network_reachability">
+      <primary>Reachability</primary>
+
+      <secondary>Determining Status and Reachability of Network Hosts</secondary>
+    </indexterm>
+  </section>
 </section>

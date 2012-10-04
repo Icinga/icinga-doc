@@ -12,208 +12,226 @@
   request your monitoring information via GET or POST requests (in the future (&gt;1.2), you will also be able to send commands via
   PUT).</para>
 
-  <para><emphasis role="bold">Why should I use the API?</emphasis></para>
+  <section>
+    <title>Why should I use the API?</title>
 
-  <para>For most people, the combination &name-icinga;/&name-web; will fit most needs. You can watch your monitoring status, act on problems
-  and extend it to suit your needs (Modules/Cronks).</para>
+    <para>For most people, the combination &name-icinga;/&name-web; will fit most needs. You can watch your monitoring status, act on
+    problems and extend it to suit your needs (Modules/Cronks).</para>
 
-  <para>But sometimes, you have another piece of software that is interested in some monitoring data (for example: <link
-  xlink:href="http://www.icinga.org/2010/07/16/icinga-chromed-status-for-google-chrome/chromium/">Icinga-Chromed-Status</link>). You could
-  parse the cgi output of &name-icinga; (many programs do that at this time), but that's not really a high performance solution - and
-  certainly no fun for the developer. The goal of the REST API is to return the data you want (and only the data you want) in a
-  standardized, machine-readable format like JSON or XML</para>
+    <para>But sometimes, you have another piece of software that is interested in some monitoring data (for example: <link
+    xlink:href="http://www.icinga.org/2010/07/16/icinga-chromed-status-for-google-chrome/chromium/">Icinga-Chromed-Status</link>). You could
+    parse the cgi output of &name-icinga; (many programs do that at this time), but that's not really a high performance solution - and
+    certainly no fun for the developer. The goal of the REST API is to return the data you want (and only the data you want) in a
+    standardized, machine-readable format like JSON or XML</para>
+  </section>
 
-  <para><emphasis role="bold">Features of the &name-web; REST API </emphasis></para>
+  <section>
+    <title>Features of the &name-web; REST API</title>
 
-  <para>Currently supported (v1.2): <itemizedlist>
-      <listitem>
-        <para>Availability of almost all monitoring fields via GET or POST.</para>
-      </listitem>
+    <para>Currently supported (v1.2): <itemizedlist>
+        <listitem>
+          <para>Availability of almost all monitoring fields via GET or POST.</para>
+        </listitem>
 
-      <listitem>
-        <para>Return data as xml or json.</para>
-      </listitem>
+        <listitem>
+          <para>Return data as xml or json.</para>
+        </listitem>
 
-      <listitem>
-        <para>AND &amp; OR search filtergroups with unlimited nesting levels (AND)).</para>
-      </listitem>
+        <listitem>
+          <para>AND &amp; OR search filtergroups with unlimited nesting levels (AND)).</para>
+        </listitem>
 
-      <listitem>
-        <para>You choose which columns you want returned, not the API (less overhead).</para>
-      </listitem>
+        <listitem>
+          <para>You choose which columns you want returned, not the API (less overhead).</para>
+        </listitem>
 
-      <listitem>
-        <para>Support of limit, offset, order, group by.</para>
-      </listitem>
+        <listitem>
+          <para>Support of limit, offset, order, group by.</para>
+        </listitem>
 
-      <listitem>
-        <para>Return an additional total count field.</para>
-      </listitem>
+        <listitem>
+          <para>Return an additional total count field.</para>
+        </listitem>
 
-      <listitem>
-        <para>Authorization via auth_key in request or cookies.</para>
-      </listitem>
+        <listitem>
+          <para>Authorization via auth_key in request or cookies.</para>
+        </listitem>
 
-      <listitem>
-        <para>Respects Icinga-web principals (for example, limit to specific hostgroups).</para>
-      </listitem>
-    </itemizedlist></para>
+        <listitem>
+          <para>Respects Icinga-web principals (for example, limit to specific hostgroups).</para>
+        </listitem>
+      </itemizedlist></para>
 
-  <para>Planned in future(&gt; 1.2): <itemizedlist>
-      <listitem>
-        <para>Send commands via PUT</para>
-      </listitem>
-    </itemizedlist></para>
+    <para>Planned in future(&gt; 1.2): <itemizedlist>
+        <listitem>
+          <para>Send commands via PUT</para>
+        </listitem>
+      </itemizedlist></para>
+  </section>
 
-  <para><emphasis role="bold">What's the difference between the &name-api; and the &name-web; REST API? </emphasis></para>
+  <section>
+    <title>What's the difference between the &name-api; and the &name-web; REST API?</title>
 
-  <para>The &name-api; can at this point considered as an internal toolkit to access the database informations. In fact, the REST API acts
-  on top of this API and extends it via the HTTP protocol. In the future, the &name-api; will be merged into &name-web;.</para>
+    <para>The &name-api; can at this point considered as an internal toolkit to access the database informations. In fact, the REST API acts
+    on top of this API and extends it via the HTTP protocol. In the future, the &name-api; will be merged into &name-web;.</para>
+  </section>
 
-  <para><emphasis role="bold">Prerequisites</emphasis></para>
+  <section>
+    <title>Prerequisites</title>
 
-  <para>In order to use the API, you first have to enable the Auth provider for it. This can be done under
-  icinga-web/app/modules/AppKit/config/auth.xml.</para>
+    <para>In order to use the API, you first have to enable the Auth provider for it. This can be done under
+    icinga-web/app/modules/AppKit/config/auth.xml.</para>
 
-  <para>Change "auth_enabled" to 'true' in this section: <programlisting>&lt;ae:parameter name="auth_key"&gt;
+    <para>Change "auth_enabled" to 'true' in this section: <programlisting>&lt;ae:parameter name="auth_key"&gt;
     &lt;ae:parameter name="auth_module"&gt;AppKit&lt;/ae:parameter&gt;
     &lt;ae:parameter name="auth_provider"&gt;Auth.Provider.AuthKey&lt;/ae:parameter&gt;
     &lt;ae:parameter name="auth_enable"&gt;true&lt;/ae:parameter&gt;
     &lt;ae:parameter name="auth_authoritative"&gt;true&lt;/ae:parameter&gt;
 &lt;/ae:parameter&gt;</programlisting></para>
 
-  <note>
-    <para>If you edit any *.xml file you have to clear the cache afterwards!</para>
-  </note>
+    <note>
+      <para>If you edit any *.xml file you have to clear the cache afterwards!</para>
+    </note>
 
-  <programlisting>rm -f app/cache/config/*.php</programlisting>
+    <programlisting>rm -f app/cache/config/*.php</programlisting>
 
-  <para>or</para>
+    <para>or</para>
 
-  <programlisting>icinga-web/bin/clearcache.sh</programlisting>
+    <programlisting>icinga-web/bin/clearcache.sh</programlisting>
 
-  <para>Now, in &name-web;, you have to add a user with API access: <itemizedlist>
+    <para>Now, in &name-web;, you have to add a user with API access: <itemizedlist>
+        <listitem>
+          <para>Create a new user</para>
+        </listitem>
+
+        <listitem>
+          <para>Choose auth_key in the Auth_via field</para>
+        </listitem>
+
+        <listitem>
+          <para>Insert an API key to use</para>
+        </listitem>
+
+        <listitem>
+          <para>Under principals, add the appkit.api.access principal</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para>That's it, now you can start.</para>
+  </section>
+
+  <section>
+    <title>Reference</title>
+
+    <para>So, here are the goodies. In the next few points we'll explain how the API can be accessed:</para>
+  </section>
+
+  <section>
+    <title>GET</title>
+
+    <para>Advantages:</para>
+
+    <itemizedlist>
       <listitem>
-        <para>Create a new user</para>
+        <para>Easy to use, it's just an URL!</para>
       </listitem>
 
       <listitem>
-        <para>Choose auth_key in the Auth_via field</para>
+        <para>You always see what parameters have been requested.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Disadvantages:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>If you request it in a browser your API key could be in the browser history.</para>
       </listitem>
 
       <listitem>
-        <para>Insert an API key to use</para>
+        <para>In a browser, you cannot add URLs with unlimited size (2,083 characters for Internet explorer, for example).</para>
       </listitem>
 
       <listitem>
-        <para>Under principals, add the appkit.api.access principal</para>
+        <para>Especially when parameters are escaped, the parameter list lacks a bit of clarity.</para>
       </listitem>
-    </itemizedlist></para>
+    </itemizedlist>
+  </section>
 
-  <para>That's it, now you can start.</para>
+  <section>
+    <title>The structure of the URL:</title>
 
-  <para><emphasis role="bold">Reference</emphasis></para>
+    <para>To access the api, the URL should look as in the following (italics are optional, bold ones are required)
+    host.com/icinga-web/web/api/ <emphasis role="bold">TARGET</emphasis> / <emphasis role="bold">COLUMNS</emphasis> / FILTER / ORDER /
+    GROUPING / LIMIT / COUNTFIELD / <emphasis role="bold">OUTPUT_TYPE</emphasis></para>
+  </section>
 
-  <para>So, here are the goodies. In the next few points we'll explain how the API can be accessed:</para>
+  <section>
+    <title>The Parameters en detail:</title>
 
-  <para><emphasis role="bold">GET</emphasis></para>
+    <itemizedlist>
+      <listitem>
+        <para>TARGET: Which field to request, is a simple string like host.</para>
+      </listitem>
 
-  <para>Advantages:</para>
+      <listitem>
+        <para>COLUMNS: A listing of columns to return, must look like this: columns[COL1|COL2|COL3|...]</para>
+      </listitem>
 
-  <itemizedlist>
-    <listitem>
-      <para>Easy to use, it's just an URL!</para>
-    </listitem>
+      <listitem>
+        <para>FILTER: Defines which filters to use in the request. Must always be nested in AND or OR groups.</para>
 
-    <listitem>
-      <para>You always see what parameters have been requested.</para>
-    </listitem>
-  </itemizedlist>
+        <para>The filter itself looks like this:</para>
 
-  <para>Disadvantages:</para>
+        <programlisting>filters[AND/OR(COLUMN|OPERATOR|VALUE;COLUMN2|OPERATOR2|VALUE2;OR(...),AND]</programlisting>
 
-  <itemizedlist>
-    <listitem>
-      <para>If you request it in a browser your API key could be in the browser history.</para>
-    </listitem>
+        <para>Example: Select all services with smtp in the name, but only if they're ok or unknown</para>
 
-    <listitem>
-      <para>In a browser, you cannot add URLs with unlimited size (2,083 characters for Internet explorer, for example).</para>
-    </listitem>
+        <para role="bold">Wrong: <programlisting>filters[SERVICE_NAME|like|*smtp*;OR(SERVICE_CURRENT_STATE|=|0;SERVICE_CURRENT_STATE|=|3)]</programlisting></para>
 
-    <listitem>
-      <para>Especially when parameters are escaped, the parameter list lacks a bit of clarity.</para>
-    </listitem>
-  </itemizedlist>
+        <para>You always need a nesting level at the beginning, see:</para>
 
-  <para><emphasis role="bold">The structure of the URL:</emphasis></para>
-
-  <para>To access the api, the URL should look as in the following (italics are optional, bold ones are required)
-  host.com/icinga-web/web/api/ <emphasis role="bold">TARGET</emphasis> / <emphasis role="bold">COLUMNS</emphasis> / FILTER / ORDER /
-  GROUPING / LIMIT / COUNTFIELD / <emphasis role="bold">OUTPUT_TYPE</emphasis></para>
-
-  <para><emphasis role="bold">The Parameters en detail:</emphasis></para>
-
-  <itemizedlist>
-    <listitem>
-      <para>TARGET: Which field to request, is a simple string like host.</para>
-    </listitem>
-
-    <listitem>
-      <para>COLUMNS: A listing of columns to return, must look like this: columns[COL1|COL2|COL3|...]</para>
-    </listitem>
-
-    <listitem>
-      <para>FILTER: Defines which filters to use in the request. Must always be nested in AND or OR groups.</para>
-
-      <para>The filter itself looks like this:</para>
-
-      <programlisting>filters[AND/OR(COLUMN|OPERATOR|VALUE;COLUMN2|OPERATOR2|VALUE2;OR(...),AND]</programlisting>
-
-      <para>Example: Select all services with smtp in the name, but only if they're ok or unknown</para>
-
-      <para role="bold">Wrong: <programlisting>filters[SERVICE_NAME|like|*smtp*;OR(SERVICE_CURRENT_STATE|=|0;SERVICE_CURRENT_STATE|=|3)]</programlisting></para>
-
-      <para>You always need a nesting level at the beginning, see:</para>
-
-      <para role="bold">Correct: <programlisting>filters[AND ( SERVICE_NAME|like|*smtp*;OR ( SERVICE_CURRENT_STATE|=|0;SERVICE_CURRENT_STATE|=|3 ) )]
+        <para role="bold">Correct: <programlisting>filters[AND ( SERVICE_NAME|like|*smtp*;OR ( SERVICE_CURRENT_STATE|=|0;SERVICE_CURRENT_STATE|=|3 ) )]
 </programlisting></para>
-    </listitem>
+      </listitem>
 
-    <listitem>
-      <para>ORDER: Defines which field to use for ordering and if ascending or descending ordering should be used. Example: order[COLUMN|
-      ASC or DESC]</para>
-    </listitem>
+      <listitem>
+        <para>ORDER: Defines which field to use for ordering and if ascending or descending ordering should be used. Example: order[COLUMN|
+        ASC or DESC]</para>
+      </listitem>
 
-    <listitem>
-      <para>GROUPING: Defines a field to group by: group[COL]</para>
-    </listitem>
+      <listitem>
+        <para>GROUPING: Defines a field to group by: group[COL]</para>
+      </listitem>
 
-    <listitem>
-      <para>LIMIT: Defines a starting offset and/or a limit: limit[START;END ( if needed ) ]</para>
-    </listitem>
+      <listitem>
+        <para>LIMIT: Defines a starting offset and/or a limit: limit[START;END ( if needed ) ]</para>
+      </listitem>
 
-    <listitem>
-      <para>COUNTFIELD: Adds a total field to the result which counts by this field (in most cases, the id): countColumn=COL</para>
-    </listitem>
+      <listitem>
+        <para>COUNTFIELD: Adds a total field to the result which counts by this field (in most cases, the id): countColumn=COL</para>
+      </listitem>
 
-    <listitem>
-      <para>OUTPUT: At this time either json or xml</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>OUTPUT: At this time either json or xml</para>
+      </listitem>
+    </itemizedlist>
+  </section>
 
-  <para><emphasis role="bold">Example for GET</emphasis></para>
+  <section>
+    <title>Example for GET</title>
 
-  <para>Get all services that are critical or warning, but have a host that is ok. Sort descending by the service state and count the
-  services. Authentification is done via authkey (here APITEST123456). The request is broken into pieces for better readability, XML:</para>
+    <para>Get all services that are critical or warning, but have a host that is ok. Sort descending by the service state and count the
+    services. Authentification is done via authkey (here APITEST123456). The request is broken into pieces for better readability,
+    XML:</para>
 
-  <programlisting>http://localhost/icinga-web/web/api/service/filter[AND(HOST_CURRENT_STATE|=|0;OR(SERVICE_CURRENT_STATE|=|1;SERVICE_CURRENT_STATE|=|2))]/
+    <programlisting>http://localhost/icinga-web/web/api/service/filter[AND(HOST_CURRENT_STATE|=|0;OR(SERVICE_CURRENT_STATE|=|1;SERVICE_CURRENT_STATE|=|2))]/
 columns(SERVICE_NAME|HOST_NAME|SERVICE_CURRENT_STATE|HOST_NAME|HOST_CURRENT_STATE|HOSTGROUP_NAME)/
 order(SERVICE_CURRENT_STATE;DESC)/countColumn=SERVICE_ID/authkey=APITEST123456/xml</programlisting>
 
-  <para>This would return something like:</para>
+    <para>This would return something like:</para>
 
-  <programlisting>&lt;results&gt;
+    <programlisting>&lt;results&gt;
    &lt;result&gt;
        &lt;column name="SERVICE_ID"&gt;295&lt;/column&gt;
        &lt;column name="SERVICE_OBJECT_ID"&gt;139&lt;/column&gt;
@@ -237,10 +255,10 @@ order(SERVICE_CURRENT_STATE;DESC)/countColumn=SERVICE_ID/authkey=APITEST123456/x
    &lt;total&gt;2&lt;/total&gt;
 &lt;/results&gt; </programlisting>
 
-  <para>If you change the xml to json you get the same information (plus additional infos for ExtJS, which you can ignore if you're not
-  using it) in json format:</para>
+    <para>If you change the xml to json you get the same information (plus additional infos for ExtJS, which you can ignore if you're not
+    using it) in json format:</para>
 
-  <programlisting>{"metaData":
+    <programlisting>{"metaData":
    {"paramNames":{"start":"limit_start","limit":"limit"},
     "totalProperty":"total",
     "root":"result",
@@ -268,63 +286,67 @@ order(SERVICE_CURRENT_STATE;DESC)/countColumn=SERVICE_ID/authkey=APITEST123456/x
    "total":"2" 
 }
 *CAUTION*: If you're not using the countField parameter, you'll get a flat json with the result.</programlisting>
+  </section>
 
-  <para><emphasis role="bold">POST</emphasis></para>
+  <section>
+    <title>POST</title>
 
-  <para>Advantages:</para>
+    <para>Advantages:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>Unlimited parameter size, as it's made for big requests.</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>Unlimited parameter size, as it's made for big requests.</para>
+      </listitem>
 
-    <listitem>
-      <para>Your parameters don't appear in the browser history, only the base url.</para>
-    </listitem>
+      <listitem>
+        <para>Your parameters don't appear in the browser history, only the base url.</para>
+      </listitem>
 
-    <listitem>
-      <para>It's easier to implement in applications (ok, that's my opinion :) )</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>It's easier to implement in applications (ok, that's my opinion :) )</para>
+      </listitem>
+    </itemizedlist>
 
-  <para>Disadvantages:</para>
+    <para>Disadvantages:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>POST will be send via the header, so you can't request it easily from the browser's address field.</para>
-    </listitem>
-  </itemizedlist>
+    <itemizedlist>
+      <listitem>
+        <para>POST will be send via the header, so you can't request it easily from the browser's address field.</para>
+      </listitem>
+    </itemizedlist>
+  </section>
 
-  <para><emphasis role="bold">Parameters en detail</emphasis></para>
+  <section>
+    <title>Parameters en detail</title>
 
-  <para>The link is almost the same like the GET baselink, but with the output type in it: For example, host.com/icinga-web/web/api/json.
-  The following parameters are supported:</para>
+    <para>The link is almost the same like the GET baselink, but with the output type in it: For example, host.com/icinga-web/web/api/json.
+    The following parameters are supported:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>'target': The search target, like host</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>'target': The search target, like host</para>
+      </listitem>
 
-    <listitem>
-      <para>'columns[]': An array of columns</para>
+      <listitem>
+        <para>'columns[]': An array of columns</para>
 
-      <para>Example:</para>
+        <para>Example:</para>
 
-      <para>columns [0] = SERVICE_NAME</para>
+        <para>columns [0] = SERVICE_NAME</para>
 
-      <para>columns [1] = SERVICE_ID</para>
-    </listitem>
+        <para>columns [1] = SERVICE_ID</para>
+      </listitem>
 
-    <listitem>
-      <para>'groups[]' : Group by this field</para>
-    </listitem>
+      <listitem>
+        <para>'groups[]' : Group by this field</para>
+      </listitem>
 
-    <listitem>
-      <para>'filters_json' : A json describing how to filter</para>
+      <listitem>
+        <para>'filters_json' : A json describing how to filter</para>
 
-      <para>Example:</para>
+        <para>Example:</para>
 
-      <programlisting>[{
+        <programlisting>[{
    "type": "AND",
    "field": [{
       "type": 'atom',
@@ -348,35 +370,37 @@ order(SERVICE_CURRENT_STATE;DESC)/countColumn=SERVICE_ID/authkey=APITEST123456/x
 }]
 
 </programlisting>
-    </listitem>
+      </listitem>
 
-    <listitem>
-      <para>'order_col' : Column to order by</para>
-    </listitem>
+      <listitem>
+        <para>'order_col' : Column to order by</para>
+      </listitem>
 
-    <listitem>
-      <para>'order_dir' : Order direction (asc oder desc)</para>
-    </listitem>
+      <listitem>
+        <para>'order_dir' : Order direction (asc oder desc)</para>
+      </listitem>
 
-    <listitem>
-      <para>'limit_start' : The offset of the records to start</para>
-    </listitem>
+      <listitem>
+        <para>'limit_start' : The offset of the records to start</para>
+      </listitem>
 
-    <listitem>
-      <para>'limit' : Limits the result to x responses</para>
-    </listitem>
+      <listitem>
+        <para>'limit' : Limits the result to x responses</para>
+      </listitem>
 
-    <listitem>
-      <para>'countColumn' : Add a total field with this column</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>'countColumn' : Add a total field with this column</para>
+      </listitem>
+    </itemizedlist>
+  </section>
 
-  <para><emphasis role="bold">Example for POST</emphasis></para>
+  <section>
+    <title>Example for POST</title>
 
-  <para>Lets take the example from Example for GET and use a post request this time. We're going to use curl, so the example can be repeated
-  from the console:</para>
+    <para>Let's take the example from Example for GET and use a post request this time. We're going to use curl, so the example can be
+    repeated from the console:</para>
 
-  <programlisting>curl 
+    <programlisting>curl 
 -d target=service 
 -d 'filters_json={"type":"AND","field":[{"type":"atom","field":["HOST_CURRENT_STATE"],"method":["="],"value":[0]},{"type":"OR","field":[{"type":"atom","field":["SERVICE_CURRENT_STATE"],"method":["="],"value":[1]},{"type":"atom","field":["SERVICE_CURRENT_STATE"],"method":["="],"value" : [2] }]}]}' 
 -d columns[0]=SERVICE_NAME 
@@ -390,11 +414,12 @@ order(SERVICE_CURRENT_STATE;DESC)/countColumn=SERVICE_ID/authkey=APITEST123456/x
 -d 'authkey=API123456' 
 http://localhost/icinga-web/web/api/xml </programlisting>
 
-  <para>This would return the same result as the GET request shown before.</para>
+    <para>This would return the same result as the GET request shown before.</para>
 
-  <indexterm zone="icinga-web-api">
-    <primary>&name-api;</primary>
+    <indexterm zone="icinga-web-api">
+      <primary>&name-api;</primary>
 
-    <secondary>&name-web; REST API;</secondary>
-  </indexterm>
+      <secondary>&name-web; REST API;</secondary>
+    </indexterm>
+  </section>
 </section>

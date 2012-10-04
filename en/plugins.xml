@@ -8,12 +8,12 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="Icinga_plugins"/>&name-icinga; Plugins</title>
 
-  <para><emphasis role="bold">Introduction</emphasis></para>
+  <section><title>Introduction</title>
 
   <para>Unlike many other monitoring tools, &name-icinga; does not include any internal mechanisms for checking the status of hosts and
   services on your network. Instead, &name-icinga; relies on external programs (called plugins) to do all the dirty work.</para>
 
-  <para><emphasis role="bold">What Are Plugins?</emphasis></para>
+  </section><section><title>What Are Plugins?</title>
 
   <para>Plugins are compiled executables or scripts (Perl scripts, shell scripts, etc.) that can be run from a command line to check the
   status or a host or service. &name-icinga; uses the results from plugins to determine the current status of hosts and services on your
@@ -24,7 +24,7 @@
   &name-icinga; will process the results that it receives from the plugin and take any necessary actions (running <link
   linkend="eventhandlers">event handlers</link>, sending out <link linkend="notifications">notifications</link>, etc).</para>
 
-  <para><emphasis role="bold">Plugins As An Abstraction Layer</emphasis></para>
+  </section><section><title>Plugins As An Abstraction Layer</title>
 
   <para><inlinemediaobject>
       <imageobject>
@@ -46,7 +46,7 @@
   understand the specifics of what's being monitored - it just tracks changes in the <emphasis>state</emphasis> of those resources. Only the
   plugins themselves know exactly what they're monitoring and how to perform the actual checks.</para>
 
-  <para><emphasis role="bold">What Plugins Are Available?</emphasis></para>
+  </section><section><title>What Plugins Are Available?</title>
 
   <para>There are plugins currently available to monitor many different kinds of devices and services, including:</para>
 
@@ -72,7 +72,7 @@
     </listitem>
   </itemizedlist>
 
-  <para><emphasis role="bold">Obtaining Plugins</emphasis></para>
+  </section><section><title>Obtaining Plugins</title>
 
   <para>Plugins are not distributed with &name-icinga;, but you can download the official &name-nagios; plugins and many additional plugins
   created and maintained by &name-nagios; and &name-icinga; users from the following locations:</para>
@@ -119,7 +119,7 @@
     no meta characters are present).</para>
   </important>
 
-  <para><emphasis role="bold">Switch to the &name-icinga; user</emphasis></para>
+  </section><section><title>Switch to the &name-icinga; user</title>
 
   <para>Switch to the &name-icinga; user as defined in <filename>icinga.cfg</filename> unless already done and clear the environment</para>
 
@@ -147,7 +147,7 @@
     </listitem>
   </itemizedlist>
 
-  <para><emphasis role="bold">Extending the environment</emphasis></para>
+  </section><section><title>Extending the environment</title>
 
   <para>Several checks (like check_oracle_health) depend on various environment variables to be set. Don't put these in
   <filename>.bashrc</filename> or similar user dependent files but choose a central location. The default init script sources the file
@@ -241,7 +241,7 @@
     </listitem>
   </itemizedlist>
 
-  <para><emphasis role="bold">Raw command line</emphasis></para>
+  </section><section><title>Raw command line</title>
 
   <para>Starting with &name-icinga; 1.6 the classic UI allows to inspect the raw command line including values from
   <filename>resource.cfg</filename>. Clicking on "ACTIVE" next to "Check type" within host/service check details will give access to this
@@ -254,13 +254,13 @@
   <para>If you intend to log the raw command line then change some directives in <filename>icinga.cfg</filename> to the following
   values</para>
 
-  <screen> #  16 = Host/service checks
+  <programlisting> #  16 = Host/service checks
  # 256 = Commands
  debug_level=272
  debug_verbosity=2
- max_debug_file_size=1000000000</screen>
+ max_debug_file_size=1000000000</programlisting>
 
-  <para><emphasis role="bold">Threshold and ranges</emphasis></para>
+  </section><section><title>Threshold and ranges</title>
 
   <para>Some plugins support specifying ranges for the warning and critical values. Please check the documentation if this is the case for
   the plugin you want to use. The following is an excerpt from the <link
@@ -420,7 +420,7 @@
     tested using check_snmp.</para>
   </note>
 
-  <para><emphasis role="bold">Activating the definition</emphasis></para>
+  </section><section><title>Activating the definition</title>
 
   <para>Check the configuration using "/etc/init.d/icinga show-errors" and resolve any errors before issuing "/etc/init.d/icinga restart".
   Wait until the object is checked and look at the status details. There might be errors.</para>
@@ -457,7 +457,7 @@
     </listitem>
   </itemizedlist>
 
-  <para><emphasis role="bold">Plugin API</emphasis></para>
+  </section><section><title>Plugin API</title>
 
   <para>You can find information on the technical aspects of plugins, as well as how to go about creating your own custom plugins <link
   linkend="pluginapi">here</link>.</para>
@@ -483,4 +483,5 @@
 
     <secondary>Integrating a new plugin</secondary>
   </indexterm>
+</section>
 </section>

@@ -9,7 +9,7 @@
          xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="freshness_checks" />Service and Host Freshness Checks</title>
 
-  <para><emphasis role="bold">Introduction</emphasis></para>
+  <section><title>Introduction</title>
 
   <para>&name-icinga; supports a feature that does "freshness" checking on the results of host and service checks. The purpose of
   freshness checking is to ensure that host and service checks are being provided passively by external applications on a regular
@@ -25,7 +25,7 @@
       </imageobject>
     </inlinemediaobject></para>
 
-  <para><emphasis role="bold">How Does Freshness Checking Work?</emphasis></para>
+  </section><section><title>How Does Freshness Checking Work?</title>
 
   <para>&name-icinga; periodically checks the freshness of the results for all hosts services that have freshness checking
   enabled.</para>
@@ -58,7 +58,7 @@
   <para>For example, if you have a freshness threshold of 60 for one of your services, &name-icinga; will consider that service to
   be stale if its last check result is older than 60 seconds.</para>
 
-  <para><emphasis role="bold">Enabling Freshness Checking</emphasis></para>
+  </section><section><title>Enabling Freshness Checking</title>
 
   <para>Here's what you need to do to enable freshness checking...</para>
 
@@ -103,7 +103,7 @@
     for you.</para>
   </tip>
 
-  <para><emphasis role="bold">Example</emphasis></para>
+  </section><section><title>Example</title>
 
   <para>An example of a service that might require freshness checking might be one that reports the status of your nightly backup
   jobs. Perhaps you have a external script that submit the results of the backup job to &name-icinga; once the backup is
@@ -114,7 +114,7 @@
 
   <para>Here's what the definition for the service might look like (some required options are omitted)...</para>
 
-  <screen> define service{
+  <programlisting> define service{
         host_name               backup-server
         service_description     ArcServe Backup Job
         active_checks_enabled   0               ; active checks are NOT enabled
@@ -123,7 +123,7 @@
         freshness_threshold     93600           ; 26 hour threshold, since backups may not always finish at the same time
         check_command           no-backup-report        ; this command is run only if the service results are "stale"
         ...other options...
-        }</screen>
+        }</programlisting>
 
   <para>Notice that active checks are disabled for the service. This is because the results for the service are only made by an
   external application using passive checks. Freshness checking is enabled and the freshness threshold has been set to 26 hours.
@@ -132,14 +132,15 @@
   results of the service are determined to be stale. The definition of the <emphasis>no-backup-report</emphasis> command might
   look like this...</para>
 
-  <screen> define command{
+  <programlisting> define command{
         command_name    no-backup-report
         command_line    &url-icinga-base;/libexec/check_dummy 2 "CRITICAL: Results of backup job were not reported!"
-        }</screen>
+        }</programlisting>
 
   <para>If &name-icinga; detects that the service results are stale, it will run the <emphasis>no-backup-report</emphasis> command
   as an active service check. This causes the <emphasis>check_dummy</emphasis> plugin to be executed, which returns a critical
   state to &name-icinga;. The service will then go into to a critical state (if it isn't already there) and someone will probably
   get notified of the problem.</para>
   <indexterm zone="freshness_checks"><primary>Freshness</primary><secondary>Service and Host Freshness Checks</secondary></indexterm>
+</section>
 </section>

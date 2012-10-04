@@ -9,14 +9,14 @@
          xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="state_stalking" />State Stalking</title>
 
-  <para><emphasis role="bold">Introduction</emphasis></para>
+  <section><title>Introduction</title>
 
   <para>State "stalking" is a feature which is probably not going to used by most users. When enabled, it allows you to log
   changes in the output service and host checks even if the state of the host or service does not change. When stalking is enabled
   for a particular host or service, &name-icinga; will watch that host or service very carefully and log any changes it sees in
   the output of check results. As you'll see, it can be very helpful to you in later analysis of the log files.</para>
 
-  <para><emphasis role="bold">How Does It Work?</emphasis></para>
+  </section><section><title>How Does It Work?</title>
 
   <para>Under normal circumstances, the result of a host or service check is only logged if the host or service has changed state
   since it was last checked. There are a few exceptions to this, but for the most part, that's the rule.</para>
@@ -193,7 +193,7 @@
   future WARNING states were not due to a 404, but rather some text pattern that could not be found in the returned web
   page.</para>
 
-  <para><emphasis role="bold">Should I Enable Stalking?</emphasis></para>
+  </section><section><title>Should I Enable Stalking?</title>
 
   <para>First, you must decide if you have a real need to analyze archived log data to find the exact cause of a problem. You may
   decide you need this feature for some hosts or services, but not for all. You may also find that you only have a need to enable
@@ -204,17 +204,17 @@
   check that host or service. If the plugin always returns the same text output for a particular state, there is no reason to
   enable stalking for that state.</para>
 
-  <para><emphasis role="bold">How Do I Enable Stalking?</emphasis></para>
+  </section><section><title>How Do I Enable Stalking?</title>
 
   <para>You can enable state stalking for hosts and services by using the <emphasis>stalking_options</emphasis> directive in <link
   linkend="configobject">host and service definitions</link>.</para>
 
-  <para><emphasis role="bold">How Does Stalking Differ From Volatile Services?</emphasis></para>
+  </section><section><title>How Does Stalking Differ From Volatile Services?</title>
 
   <para><link linkend="volatileservices">Volatile services</link> are similar, but will cause notifications and event handlers to
   run. Stalking is purely for logging purposes.</para>
 
-  <para><emphasis role="bold">Caveats</emphasis></para>
+  </section><section><title>Caveats</title>
 
   <para>You should be aware that there are some potential pitfalls with enabling stalking. These all relate to the reporting
   functions found in various <link linkend="cgis">CGIs</link> (histogram, alert summary, etc.). Because state stalking will cause
@@ -223,4 +223,5 @@
   <para>As a general rule, I would suggest that you <emphasis>not</emphasis> enable stalking for hosts and services without
   thinking things through. Still, it's there if you need and want it.</para>
   <indexterm zone="state_stalking"><primary>State Stalking</primary></indexterm>
+</section>
 </section>

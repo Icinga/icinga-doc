@@ -8,186 +8,193 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>&name-icinga; für maximale Leistung optimieren</title>
 
-  <para><emphasis role="bold">Einführung</emphasis></para>
+  <section>
+    <title>Einführung</title>
 
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="../images/tuning.png" format="PNG"></imagedata>
-    </imageobject>
-  </mediaobject>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="../images/tuning.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
 
-  <para>Jetzt haben Sie &name-icinga; endlich eingerichtet und lauffähig und nun wollen Sie wissen, wie man ein wenig daran drehen kann. Die
-  Leistung von &name-icinga; zu optimieren kann notwendig sein, wenn Sie eine große Zahl (&gt; 1.000) von Hosts und Services haben. Hier ein
-  paar Dinge, nach denen Sie schauen können, um &name-icinga; zu optimieren...</para>
+    <para>Jetzt haben Sie &name-icinga; endlich eingerichtet und lauffähig und nun wollen Sie wissen, wie man ein wenig daran drehen kann.
+    Die Leistung von &name-icinga; zu optimieren kann notwendig sein, wenn Sie eine große Zahl (&gt; 1.000) von Hosts und Services haben.
+    Hier ein paar Dinge, nach denen Sie schauen können, um &name-icinga; zu optimieren...</para>
+  </section>
 
-  <para><emphasis role="bold">Optimierungshinweise:</emphasis></para>
+  <section>
+    <title>Optimierungshinweise:</title>
 
-  <orderedlist>
-    <listitem>
-      <para><emphasis role="bold">Stellen Sie Performance-Statistiken mit &name-pnp; dar</emphasis>. Um zu verfolgen, wie die Last Ihrer
-      &name-icinga;-Installation aussieht und welche Auswirkungen Ihre Konfigurationsänderungen darauf haben, sollten Sie verschiedene
-      wichtige Statistiken mit &name-pnp; darstellen. Das ist wirklich sehr, sehr sinnvoll, wenn es um die Leistungsoptimierung einer
-      &name-icinga;-Installation geht. Informationen, wie das zu tun ist, finden Sie <link linkend="perfgraphs">hier</link>.</para>
-    </listitem>
+    <orderedlist>
+      <listitem>
+        <para><emphasis role="bold">Stellen Sie Performance-Statistiken mit &name-pnp; dar</emphasis>. Um zu verfolgen, wie die Last Ihrer
+        &name-icinga;-Installation aussieht und welche Auswirkungen Ihre Konfigurationsänderungen darauf haben, sollten Sie verschiedene
+        wichtige Statistiken mit &name-pnp; darstellen. Das ist wirklich sehr, sehr sinnvoll, wenn es um die Leistungsoptimierung einer
+        &name-icinga;-Installation geht. Informationen, wie das zu tun ist, finden Sie <link linkend="perfgraphs">hier</link>.</para>
+      </listitem>
 
-    <listitem>
-      <para><emphasis role="bold">Benutzen Sie "Verbesserungen für große Installationen"</emphasis> (large installation tweaks). Das
-      Aktivieren der <link linkend="configmain-use_large_installation_tweaks">use_large_installation_tweaks</link>-Option kann Ihnen bessere
-      Leistung bringen. Lesen Sie <link linkend="largeinstalltweaks">hier</link> mehr darüber, was diese Option tut.</para>
-    </listitem>
+      <listitem>
+        <para><emphasis role="bold">Benutzen Sie "Verbesserungen für große Installationen"</emphasis> (large installation tweaks). Das
+        Aktivieren der <link linkend="configmain-use_large_installation_tweaks">use_large_installation_tweaks</link>-Option kann Ihnen
+        bessere Leistung bringen. Lesen Sie <link linkend="largeinstalltweaks">hier</link> mehr darüber, was diese Option tut.</para>
+      </listitem>
 
-    <listitem>
-      <para><emphasis role="bold">Deaktivieren Sie Umgebungs-Makros</emphasis>. Makros werden Prüfungen, Benachrichtigungen, Eventhandlern
-      usw. normalerweise über Umgebungsvariablen zur Verfügung gestellt. Das kann in einer großen &name-icinga;-Installation zu einem
-      Problem werden, weil es zusätzlichen Speicher (und wichtiger) mehr CPU verbraucht. Wenn Ihre Scripte nicht über Umgebungsvariablen auf
-      Makros zugreifen (d.h., wenn Sie alle benötigen Makros in der Kommandozeile übergeben), dann brauchen Sie dieses Feature nicht. Sie
-      können über die <link linkend="configmain-enable_environment_macros">enable_environment_macros</link>-Option einstellen, ob Makros als
-      Umgebungsvariablen verfügbar sind.</para>
-    </listitem>
+      <listitem>
+        <para><emphasis role="bold">Deaktivieren Sie Umgebungs-Makros</emphasis>. Makros werden Prüfungen, Benachrichtigungen, Eventhandlern
+        usw. normalerweise über Umgebungsvariablen zur Verfügung gestellt. Das kann in einer großen &name-icinga;-Installation zu einem
+        Problem werden, weil es zusätzlichen Speicher (und wichtiger) mehr CPU verbraucht. Wenn Ihre Scripte nicht über Umgebungsvariablen
+        auf Makros zugreifen (d.h., wenn Sie alle benötigen Makros in der Kommandozeile übergeben), dann brauchen Sie dieses Feature nicht.
+        Sie können über die <link linkend="configmain-enable_environment_macros">enable_environment_macros</link>-Option einstellen, ob
+        Makros als Umgebungsvariablen verfügbar sind.</para>
+      </listitem>
 
-    <listitem>
-      <para><emphasis role="bold">Prüfergebnis-Ernterhythmus</emphasis> (Check Result Reaper Frequency). Die <link
-      linkend="configmain-check_result_reaper_frequency">check_result_reaper_frequency</link>-Variable legt fest, wie oft &name-icinga;
-      prüfen soll, ob Host- und Service-Ergebnisse verarbeitet werden müssen. Die maximale Zeit, die es zur Verarbeitung solcher Ergebnisse
-      benötigen darf, ist durch die maximale Erntezeit (max reaper time) festgelegt (siehe unten). Wenn Ihr Ernterhythmus zu hoch (zu
-      selten) ist, könnten Sie hohe Latenzzeiten für Host- und Service-Prüfungen sehen.</para>
-    </listitem>
+      <listitem>
+        <para><emphasis role="bold">Prüfergebnis-Ernterhythmus</emphasis> (Check Result Reaper Frequency). Die <link
+        linkend="configmain-check_result_reaper_frequency">check_result_reaper_frequency</link>-Variable legt fest, wie oft &name-icinga;
+        prüfen soll, ob Host- und Service-Ergebnisse verarbeitet werden müssen. Die maximale Zeit, die es zur Verarbeitung solcher
+        Ergebnisse benötigen darf, ist durch die maximale Erntezeit (max reaper time) festgelegt (siehe unten). Wenn Ihr Ernterhythmus zu
+        hoch (zu selten) ist, könnten Sie hohe Latenzzeiten für Host- und Service-Prüfungen sehen.</para>
+      </listitem>
 
-    <listitem>
-      <para><emphasis role="bold">maximale Erntezeit</emphasis> (Max Reaper Time). Die <link
-      linkend="configmain-max_check_result_reaper_time">max_check_result_reaper_time</link>-Variable legt die maximale Zeit fest, die der
-      &name-icinga;-Daemon für die Verarbeitung der Ergebnisse von Host- und Service-Prüfungen verbringen darf, bevor er sich anderen Dingen
-      zuwendet - wie z.B. dem Ausführen von neuen Host- und Service-Prüfungen. Ein zu hoher Wert kann zu hohen Latenzzeiten bei Ihren Host-
-      und Service-Prüfungen führen. Ein zu niedriger Wert kann den gleichen Effekt haben. Wenn Sie zu hohe Latenzzeiten haben, dann passen
-      Sie diesen Wert an und sehen Sie, welchen Effekt das hat. <link linkend="perfgraphs">Graphisch dargestellte Statistiken</link> helfen
-      Ihnen bei der Auswertung der Auswirkungen.</para>
-    </listitem>
+      <listitem>
+        <para><emphasis role="bold">maximale Erntezeit</emphasis> (Max Reaper Time). Die <link
+        linkend="configmain-max_check_result_reaper_time">max_check_result_reaper_time</link>-Variable legt die maximale Zeit fest, die der
+        &name-icinga;-Daemon für die Verarbeitung der Ergebnisse von Host- und Service-Prüfungen verbringen darf, bevor er sich anderen
+        Dingen zuwendet - wie z.B. dem Ausführen von neuen Host- und Service-Prüfungen. Ein zu hoher Wert kann zu hohen Latenzzeiten bei
+        Ihren Host- und Service-Prüfungen führen. Ein zu niedriger Wert kann den gleichen Effekt haben. Wenn Sie zu hohe Latenzzeiten haben,
+        dann passen Sie diesen Wert an und sehen Sie, welchen Effekt das hat. <link linkend="perfgraphs">Graphisch dargestellte
+        Statistiken</link> helfen Ihnen bei der Auswertung der Auswirkungen.</para>
+      </listitem>
 
-    <listitem>
-      <para><emphasis role="bold">Anpassen der Pufferwerte</emphasis>. Gegebenenfalls müssen Sie den Wert der <link
-      linkend="configmain-external_command_buffer_slots">external_command_buffer_slots</link>-Option anpassen. Die graphische Analyse mit
-      <link linkend="perfgraphs">&name-pnp;</link> (siehe oben) zeigt Ihnen, welche Werte Sie für diese Option nutzen sollten.</para>
-    </listitem>
+      <listitem>
+        <para><emphasis role="bold">Anpassen der Pufferwerte</emphasis>. Gegebenenfalls müssen Sie den Wert der <link
+        linkend="configmain-external_command_buffer_slots">external_command_buffer_slots</link>-Option anpassen. Die graphische Analyse mit
+        <link linkend="perfgraphs">&name-pnp;</link> (siehe oben) zeigt Ihnen, welche Werte Sie für diese Option nutzen sollten.</para>
+      </listitem>
 
-    <listitem>
-      <para><emphasis role="bold">Prüfen Sie Service-Latenzzeiten, um den besten Wert für die maximale Anzahl von gleichzeitigen Prüfungen
-      zu ermitteln</emphasis>. &name-icinga; kann die Anzahl von gleichzeitig ausgeführten Prüfungen durch die <link
-      linkend="configmain-max_concurrent_checks">max_concurrent_checks</link>-Option begrenzen. Das ist gut, weil es Ihnen etwas Kontrolle
-      darüber gibt, wieviel Last &name-icinga; auf Ihrem Überwachungsrechner erzeugt, aber es kann auch die Dinge verlangsamen. Wenn Sie für
-      die Mehrzahl Ihrer Service-Prüfungen hohe Latenzzeiten sehen (&gt; 10 oder 15 Sekunden), dann enthalten Sie &name-icinga; Prüfungen
-      vor, die es braucht. Das ist nicht der Fehler von &name-icinga; - es ist Ihrer. Unter idealen Bedingungen hätten alle
-      Service-Prüfungen eine Latenzzeit von 0, was bedeutet, dass alle Prüfungen zu der Zeit stattfinden, für die sie geplant sind.
-      Allerdings ist es normal, dass einige Prüfungen kleine Latenzzeiten haben. Wir würden empfehlen, die niedrigste Zahl der meisten
-      gleichzeitigen Prüfungen zu nehmen, wenn Sie &name-icinga; mit der <emphasis role="bold">-s</emphasis>-Option starten und diesen Wert
-      zu verdoppeln. Erhöhen Sie diesen Wert dann soweit, bis die durchschnittlichen Latenzzeiten für Service-Prüfungen ziemlich niedrig
-      ist. Mehr Informationen zur Planung von Service-Prüfungen finden Sie <link linkend="checkscheduling">hier</link>.</para>
-    </listitem>
+      <listitem>
+        <para><emphasis role="bold">Prüfen Sie Service-Latenzzeiten, um den besten Wert für die maximale Anzahl von gleichzeitigen Prüfungen
+        zu ermitteln</emphasis>. &name-icinga; kann die Anzahl von gleichzeitig ausgeführten Prüfungen durch die <link
+        linkend="configmain-max_concurrent_checks">max_concurrent_checks</link>-Option begrenzen. Das ist gut, weil es Ihnen etwas Kontrolle
+        darüber gibt, wieviel Last &name-icinga; auf Ihrem Überwachungsrechner erzeugt, aber es kann auch die Dinge verlangsamen. Wenn Sie
+        für die Mehrzahl Ihrer Service-Prüfungen hohe Latenzzeiten sehen (&gt; 10 oder 15 Sekunden), dann enthalten Sie &name-icinga;
+        Prüfungen vor, die es braucht. Das ist nicht der Fehler von &name-icinga; - es ist Ihrer. Unter idealen Bedingungen hätten alle
+        Service-Prüfungen eine Latenzzeit von 0, was bedeutet, dass alle Prüfungen zu der Zeit stattfinden, für die sie geplant sind.
+        Allerdings ist es normal, dass einige Prüfungen kleine Latenzzeiten haben. Wir würden empfehlen, die niedrigste Zahl der meisten
+        gleichzeitigen Prüfungen zu nehmen, wenn Sie &name-icinga; mit der <emphasis role="bold">-s</emphasis>-Option starten und diesen
+        Wert zu verdoppeln. Erhöhen Sie diesen Wert dann soweit, bis die durchschnittlichen Latenzzeiten für Service-Prüfungen ziemlich
+        niedrig ist. Mehr Informationen zur Planung von Service-Prüfungen finden Sie <link linkend="checkscheduling">hier</link>.</para>
+      </listitem>
 
-    <listitem>
-      <para><emphasis role="bold">Nutzen Sie passive Prüfungen, wenn möglich</emphasis>. Der nötige Overhead, um die Ergebnisse von <link
-      linkend="passivechecks">passiven Service-Prüfungen</link> zu verarbeiten, ist viel niedriger als bei "normalen" aktiven Prüfungen,
-      also machen Sie Gebrauch von dieser Information, wenn Sie eine Menge von Services überwachen. Es sollte angemerkt werden, dass passive
-      Prüfungen nur dann wirklich sinnvoll sind, wenn Sie irgendeine externe Applikation haben, die überwachen oder berichten kann; wenn
-      also &name-icinga; all die Arbeit machen muss, ist das nicht hilfreich.</para>
-    </listitem>
+      <listitem>
+        <para><emphasis role="bold">Nutzen Sie passive Prüfungen, wenn möglich</emphasis>. Der nötige Overhead, um die Ergebnisse von <link
+        linkend="passivechecks">passiven Service-Prüfungen</link> zu verarbeiten, ist viel niedriger als bei "normalen" aktiven Prüfungen,
+        also machen Sie Gebrauch von dieser Information, wenn Sie eine Menge von Services überwachen. Es sollte angemerkt werden, dass
+        passive Prüfungen nur dann wirklich sinnvoll sind, wenn Sie irgendeine externe Applikation haben, die überwachen oder berichten
+        kann; wenn also &name-icinga; all die Arbeit machen muss, ist das nicht hilfreich.</para>
+      </listitem>
 
-    <listitem>
-      <para><emphasis role="bold">Vermeiden Sie interpretierte Plugins</emphasis>. Etwas, was spürbar die Last Ihres Überwachungs-Hosts
-      senkt, ist die Nutzung von kompilierten (C/C++, usw.) Plugins statt interpretierter Scripts (Perl, usw.). Während Perl und ähnliches
-      einfach zu schreiben ist und gut läuft, kann die Tatsache, dass es bei jeder Ausführung kompiliert/interpretiert werden muss, zu einer
-      spürbaren Steigerung der Last Ihres Überwachungs-Hosts führen, wenn Sie eine Menge von Service-Prüfungen haben. Wenn Sie Perl-Plugins
-      nutzen wollen, dann überlegen Sie, ob Sie diese nicht mit perlcc(1) (einem Utility, das Teil der Standard-Perl-Distribution ist) zu
-      einem richtigen Programm umwandeln oder &name-icinga; mit eingebettetem Perl-Interpreter kompilieren (siehe unten).</para>
-    </listitem>
+      <listitem>
+        <para><emphasis role="bold">Vermeiden Sie interpretierte Plugins</emphasis>. Etwas, was spürbar die Last Ihres Überwachungs-Hosts
+        senkt, ist die Nutzung von kompilierten (C/C++, usw.) Plugins statt interpretierter Scripts (Perl, usw.). Während Perl und ähnliches
+        einfach zu schreiben ist und gut läuft, kann die Tatsache, dass es bei jeder Ausführung kompiliert/interpretiert werden muss, zu
+        einer spürbaren Steigerung der Last Ihres Überwachungs-Hosts führen, wenn Sie eine Menge von Service-Prüfungen haben. Wenn Sie
+        Perl-Plugins nutzen wollen, dann überlegen Sie, ob Sie diese nicht mit perlcc(1) (einem Utility, das Teil der
+        Standard-Perl-Distribution ist) zu einem richtigen Programm umwandeln oder &name-icinga; mit eingebettetem Perl-Interpreter
+        kompilieren (siehe unten).</para>
+      </listitem>
 
-    <listitem>
-      <para><emphasis role="bold">Nutzen Sie den eingebetteten Perl-Interpreter</emphasis>. Wenn Sie eine Menge von Perl-Scripten für
-      Prüfungen benutzen, dann werden Sie vielleicht feststellen, dass das Kompilieren des <link linkend="embeddedperl">eingebetteten
-      Perl-Interpreters</link> (embedded Perl interpreter) in das &name-icinga;-Binary die Dinge beschleunigt.</para>
-    </listitem>
+      <listitem>
+        <para><emphasis role="bold">Nutzen Sie den eingebetteten Perl-Interpreter</emphasis>. Wenn Sie eine Menge von Perl-Scripten für
+        Prüfungen benutzen, dann werden Sie vielleicht feststellen, dass das Kompilieren des <link linkend="embeddedperl">eingebetteten
+        Perl-Interpreters</link> (embedded Perl interpreter) in das &name-icinga;-Binary die Dinge beschleunigt.</para>
+      </listitem>
 
-    <listitem>
-      <para><emphasis role="bold">Optimieren Sie Host-Prüfbefehle</emphasis>. Wenn Sie Host-Zustände mit dem check_ping-Plugin prüfen, dann
-      werden Sie feststellen, dass die Host-Prüfungen viel schneller durchgeführt werden, wenn Sie diese abbrechen. Statt einen
-      <emphasis>max_attempts</emphasis>-Wert von 1 anzugeben und mit dem check_ping-Plugins 10 ICMP-Pakete an den Host zu schicken, wäre es
-      viel schneller, den <emphasis>max_attempts</emphasis>-Wert auf 10 zu setzen und jedes Mal nur ein ICMP-Paket zu senden. Das liegt
-      daran, dass &name-icinga; den Zustand eines Hosts oft nach der Ausführung eines Plugins feststellen kann, so dass Sie die erste
-      Prüfung so schnell wie möglich machen sollten. Diese Methode hat in einigen Situationen ihre Fallstricke (z.B. Hosts, die langsam
-      reagieren, könnten als "down" angesehen werden), aber wir denken, dass Sie schnellere Host-Prüfungen sehen werden, wenn Sie sie
-      benutzen. Eine weitere Möglichkeit wäre, statt check_ping ein schnelleres Plugin (z.B. check_fping) als
-      <emphasis>host_check_command</emphasis> zu benutzen.</para>
-    </listitem>
+      <listitem>
+        <para><emphasis role="bold">Optimieren Sie Host-Prüfbefehle</emphasis>. Wenn Sie Host-Zustände mit dem check_ping-Plugin prüfen,
+        dann werden Sie feststellen, dass die Host-Prüfungen viel schneller durchgeführt werden, wenn Sie diese abbrechen. Statt einen
+        <emphasis>max_attempts</emphasis>-Wert von 1 anzugeben und mit dem check_ping-Plugins 10 ICMP-Pakete an den Host zu schicken, wäre
+        es viel schneller, den <emphasis>max_attempts</emphasis>-Wert auf 10 zu setzen und jedes Mal nur ein ICMP-Paket zu senden. Das liegt
+        daran, dass &name-icinga; den Zustand eines Hosts oft nach der Ausführung eines Plugins feststellen kann, so dass Sie die erste
+        Prüfung so schnell wie möglich machen sollten. Diese Methode hat in einigen Situationen ihre Fallstricke (z.B. Hosts, die langsam
+        reagieren, könnten als "down" angesehen werden), aber wir denken, dass Sie schnellere Host-Prüfungen sehen werden, wenn Sie sie
+        benutzen. Eine weitere Möglichkeit wäre, statt check_ping ein schnelleres Plugin (z.B. check_fping) als
+        <emphasis>host_check_command</emphasis> zu benutzen.</para>
+      </listitem>
 
-    <listitem>
-      <para><emphasis role="bold">Planen Sie regelmäßige Host-Prüfungen</emphasis>. Regelmäßige Host-Prüfungen zu planen kann tatsächlich
-      die Leistung von &name-icinga; steigern. Das liegt an der Art, wie die <link linkend="cachedchecks">Zwischenspeicher-Prüflogik</link>
-      (cached check logic) arbeitet (siehe unten). Um regelmäßige Prüfungen eines Hosts zu planen, setzen Sie die
-      <emphasis>check_interval</emphasis>-Direktive in der <link linkend="objectdefinitions-host">Host-Definition</link> auf einen Wert
-      größer als Null.</para>
-    </listitem>
+      <listitem>
+        <para><emphasis role="bold">Planen Sie regelmäßige Host-Prüfungen</emphasis>. Regelmäßige Host-Prüfungen zu planen kann tatsächlich
+        die Leistung von &name-icinga; steigern. Das liegt an der Art, wie die <link
+        linkend="cachedchecks">Zwischenspeicher-Prüflogik</link> (cached check logic) arbeitet (siehe unten). Um regelmäßige Prüfungen eines
+        Hosts zu planen, setzen Sie die <emphasis>check_interval</emphasis>-Direktive in der <link
+        linkend="objectdefinitions-host">Host-Definition</link> auf einen Wert größer als Null.</para>
+      </listitem>
 
-    <listitem>
-      <para><emphasis role="bold">Aktivieren Sie zwischengespeicherte Host-Prüfungsergebnisse</emphasis> (cached host checks).
-      Host-Prüfungen nach Bedarf können von der Zwischenspeicherung (caching) profitieren. Host-Prüfungen nach Bedarf werden ausgeführt,
-      wenn &name-icinga; einen Service-Zustandswechsel feststellt. Diese Prüfungen nach Bedarf werden ausgeführt, wenn &name-icinga; wissen
-      will, ob der mit dem Service verbundene Host den Zustand gewechselt hat. Durch die Aktivierung von zwischengespeicherten
-      Host-Prüfungsergebnissen können Sie die Leistung optimieren. In einigen Fällen könnte &name-icinga; in der Lage sein, den
-      alten/zwischengespeicherten Zustand des Hosts zu benutzen, statt eine Host-Prüfung auszuführen. Das kann die Dinge beschleunigen und
-      die Last des Überwachungsservers reduzieren. Damit zwischengespeicherte Prüfungen effektiv sind, müssen Sie regelmäßige Prüfungen für
-      Ihre Hosts planen (siehe oben). Mehr Informationen zu zwischengespeicherten Prüfungen finden Sie <link
-      linkend="cachedchecks">hier</link>.</para>
-    </listitem>
+      <listitem>
+        <para><emphasis role="bold">Aktivieren Sie zwischengespeicherte Host-Prüfungsergebnisse</emphasis> (cached host checks).
+        Host-Prüfungen nach Bedarf können von der Zwischenspeicherung (caching) profitieren. Host-Prüfungen nach Bedarf werden ausgeführt,
+        wenn &name-icinga; einen Service-Zustandswechsel feststellt. Diese Prüfungen nach Bedarf werden ausgeführt, wenn &name-icinga;
+        wissen will, ob der mit dem Service verbundene Host den Zustand gewechselt hat. Durch die Aktivierung von zwischengespeicherten
+        Host-Prüfungsergebnissen können Sie die Leistung optimieren. In einigen Fällen könnte &name-icinga; in der Lage sein, den
+        alten/zwischengespeicherten Zustand des Hosts zu benutzen, statt eine Host-Prüfung auszuführen. Das kann die Dinge beschleunigen und
+        die Last des Überwachungsservers reduzieren. Damit zwischengespeicherte Prüfungen effektiv sind, müssen Sie regelmäßige Prüfungen
+        für Ihre Hosts planen (siehe oben). Mehr Informationen zu zwischengespeicherten Prüfungen finden Sie <link
+        linkend="cachedchecks">hier</link>.</para>
+      </listitem>
 
-    <listitem>
-      <para><emphasis role="bold">Nutzen Sie keine agressiven Host-Prüfungen</emphasis>. Solange Sie keine Probleme damit haben, dass
-      &name-icinga; Host-Erholungen nicht korrekt erkennt, würden wir empfehlen, die <link
-      linkend="configmain-use_agressive_host_checking">use_aggressive_host_checking</link>-Option nicht zu aktivieren. Wenn diese Option
-      abgeschaltet ist, werden Host-Prüfungen viel schneller ausgeführt, was zu schnellerer Ausführung von Service-Prüfungen führt.
-      Allerdings können Host-Erholungen unter bestimmten Umständen übersehen werden, wenn sie ausgeschaltet ist. Wenn sich z.B. der Host
-      erholt, aber alle mit ihm verbundenen Services in einem nicht-OK-Zustand bleiben (und nicht zwischen verschiedenen nicht-OK-Zuständen
-      "kippeln"), dann könnte &name-icinga; übersehen, dass sich der Host erholt hat. Einige wenige Leute könnten diese Option aktivieren,
-      aber die Mehrheit nicht und wir würden empfehlen, sie nicht zu aktivieren, solange Sie nicht glauben, dass Sie sie benötigen...</para>
-    </listitem>
+      <listitem>
+        <para><emphasis role="bold">Nutzen Sie keine agressiven Host-Prüfungen</emphasis>. Solange Sie keine Probleme damit haben, dass
+        &name-icinga; Host-Erholungen nicht korrekt erkennt, würden wir empfehlen, die <link
+        linkend="configmain-use_agressive_host_checking">use_aggressive_host_checking</link>-Option nicht zu aktivieren. Wenn diese Option
+        abgeschaltet ist, werden Host-Prüfungen viel schneller ausgeführt, was zu schnellerer Ausführung von Service-Prüfungen führt.
+        Allerdings können Host-Erholungen unter bestimmten Umständen übersehen werden, wenn sie ausgeschaltet ist. Wenn sich z.B. der Host
+        erholt, aber alle mit ihm verbundenen Services in einem nicht-OK-Zustand bleiben (und nicht zwischen verschiedenen
+        nicht-OK-Zuständen "kippeln"), dann könnte &name-icinga; übersehen, dass sich der Host erholt hat. Einige wenige Leute könnten diese
+        Option aktivieren, aber die Mehrheit nicht und wir würden empfehlen, sie nicht zu aktivieren, solange Sie nicht glauben, dass Sie
+        sie benötigen...</para>
+      </listitem>
 
-    <listitem>
-      <para><emphasis role="bold">Optimierung externer Befehle</emphasis>. Wenn Sie eine Menge externer Befehle verarbeiten (d.h. passive
-      Prüfungen in einer <link linkend="distributed">verteilten Umgebung</link>, dann wollen Sie vielleicht die <link
-      linkend="configmain-command_check_interval">command_check_interval</link>-Variable auf <emphasis role="bold">-1</emphasis> setzen. Das
-      bewirkt, dass &name-icinga; so oft wie möglich auf externe Befehle prüft. Sie sollten außerdem überlegen, die Anzahl verfügbarer <link
-      linkend="configmain-external_command_buffer_slots">externer Befehlspuffer</link> zu erhöhen. Puffer werden benutzt, um externe Befehle
-      zu speichern, die (durch einen separaten Thread) aus dem <link linkend="configmain-command_file">external command file</link> gelesen
-      werden, bevor sie vom &name-icinga;-Daemon verarbeitet werden. Wenn Ihr &name-icinga;-Daemon eine Menge von passiven Prüfungen oder
-      externen Befehlen empfängt, dann könnten Sie in eine Situation kommen, in der immer alle Puffer voll sind. Das führt zu blockierenden
-      Kind-Prozessen (externe Scripte, &name-nsca;-Daemon usw.), wenn sie versuchen, in das "external command file" zu schreiben. Wir würden
-      sehr empfehlen, dass Sie die Nutzung von externen Befehlspuffern graphisch mit Hilfe von &name-pnp; und dem &name-stats;-Utility
-      darstellen, wie es <link linkend="perfgraphs">hier</link> beschrieben ist, so dass Sie die typische externe Befehlspuffernutzung Ihrer
-      &name-icinga;-Installation sehen.</para>
-    </listitem>
+      <listitem>
+        <para><emphasis role="bold">Optimierung externer Befehle</emphasis>. Wenn Sie eine Menge externer Befehle verarbeiten (d.h. passive
+        Prüfungen in einer <link linkend="distributed">verteilten Umgebung</link>, dann wollen Sie vielleicht die <link
+        linkend="configmain-command_check_interval">command_check_interval</link>-Variable auf <emphasis role="bold">-1</emphasis> setzen.
+        Das bewirkt, dass &name-icinga; so oft wie möglich auf externe Befehle prüft. Sie sollten außerdem überlegen, die Anzahl verfügbarer
+        <link linkend="configmain-external_command_buffer_slots">externer Befehlspuffer</link> zu erhöhen. Puffer werden benutzt, um externe
+        Befehle zu speichern, die (durch einen separaten Thread) aus dem <link linkend="configmain-command_file">external command
+        file</link> gelesen werden, bevor sie vom &name-icinga;-Daemon verarbeitet werden. Wenn Ihr &name-icinga;-Daemon eine Menge von
+        passiven Prüfungen oder externen Befehlen empfängt, dann könnten Sie in eine Situation kommen, in der immer alle Puffer voll sind.
+        Das führt zu blockierenden Kind-Prozessen (externe Scripte, &name-nsca;-Daemon usw.), wenn sie versuchen, in das "external command
+        file" zu schreiben. Wir würden sehr empfehlen, dass Sie die Nutzung von externen Befehlspuffern graphisch mit Hilfe von &name-pnp;
+        und dem &name-stats;-Utility darstellen, wie es <link linkend="perfgraphs">hier</link> beschrieben ist, so dass Sie die typische
+        externe Befehlspuffernutzung Ihrer &name-icinga;-Installation sehen.</para>
+      </listitem>
 
-    <listitem>
-      <para><emphasis role="bold">Optimieren Sie die Hardware für maximale Leistung</emphasis>. Hinweis: Hardware-Leistung sollte kein Thema
-      sein, solange Sie nicht 1) Tausende von Services überwachen, 2) eine Menge von Nachverarbeitung von Performance-Daten usw. machen.
-      Ihre Systemkonfiguration und Ihre Hardware-Ausstattung werden direkt beeinflussen, was Ihr Betriebssystem leistet, so dass sie
-      beeinflussen, was &name-icinga; leistet. Die häufigste Hardware-Optimierung betrifft die Festplatte(n). CPU und
-      Speichergeschwindigkeit sind offensichtliche Faktoren, die die Leistung beeinflussen, aber der Plattenzugriff wird Ihr größter
-      Flaschenhals sein. Speichern Sie Plugins, das Status-Log usw. nicht auf langsamen Platten (d.h. alte IDE-Platten oder NFS-Mounts).
-      Wenn Sie sie haben, dann nutzen Sie UltraSCSI- oder schnelle IDE-Platten. Ein wichtiger Hinweis für IDE/&name-linux;-Benutzer ist,
-      dass viele &name-linux;-Installationen nicht versuchen, den Plattenzugriff zu optimieren. Wenn Sie die Plattenzugriffsparameter nicht
-      ändern (z.B. mit einem Utility wie <emphasis role="bold">hdparam</emphasis>), werden Sie eine <emphasis role="bold">Menge</emphasis>
-      der schnellen Features der neuen IDE-Platten verlieren.</para>
-    </listitem>
+      <listitem>
+        <para><emphasis role="bold">Optimieren Sie die Hardware für maximale Leistung</emphasis>. Hinweis: Hardware-Leistung sollte kein
+        Thema sein, solange Sie nicht 1) Tausende von Services überwachen, 2) eine Menge von Nachverarbeitung von Performance-Daten usw.
+        machen. Ihre Systemkonfiguration und Ihre Hardware-Ausstattung werden direkt beeinflussen, was Ihr Betriebssystem leistet, so dass
+        sie beeinflussen, was &name-icinga; leistet. Die häufigste Hardware-Optimierung betrifft die Festplatte(n). CPU und
+        Speichergeschwindigkeit sind offensichtliche Faktoren, die die Leistung beeinflussen, aber der Plattenzugriff wird Ihr größter
+        Flaschenhals sein. Speichern Sie Plugins, das Status-Log usw. nicht auf langsamen Platten (d.h. alte IDE-Platten oder NFS-Mounts).
+        Wenn Sie sie haben, dann nutzen Sie UltraSCSI- oder schnelle IDE-Platten. Ein wichtiger Hinweis für IDE/&name-linux;-Benutzer ist,
+        dass viele &name-linux;-Installationen nicht versuchen, den Plattenzugriff zu optimieren. Wenn Sie die Plattenzugriffsparameter
+        nicht ändern (z.B. mit einem Utility wie <emphasis role="bold">hdparam</emphasis>), werden Sie eine <emphasis
+        role="bold">Menge</emphasis> der schnellen Features der neuen IDE-Platten verlieren.</para>
+      </listitem>
 
-    <listitem>
-      <para><emphasis role="bold">Benutzen Sie eine RAM-Disk für temporäre Daten</emphasis> . Verschiedene Dateien werden sehr oft angelegt
-      und verarbeitet. Das betrifft u.a. den aktuellen Zustand, der im <link linkend="configmain-status_file">status file</link> gespeichert
-      wird und die laufende Konfiguration, die im <link linkend="configmain-object_cache_file">object cache file</link> abgelegt ist. Um
-      physikalischen I/O zu reduzieren, ist es ratsam, diese Daten auf einer RAM-Disk abzulegen. Datenverlust durch einen Stromausfall oder
-      etwas ähnliches ist nicht kritisch, weil diese beiden Dateien bei jedem (Re-)Start von &name-icinga; neu erzeugt werden. Das Anlegen
-      einer RAM-Disk und die Änderungen an der Hauptkonfigurationsdatei werden <link linkend="temp_data">hier</link> beschrieben.</para>
-    </listitem>
-  </orderedlist>
+      <listitem>
+        <para><emphasis role="bold">Benutzen Sie eine RAM-Disk für temporäre Daten</emphasis> . Verschiedene Dateien werden sehr oft
+        angelegt und verarbeitet. Das betrifft u.a. den aktuellen Zustand, der im <link linkend="configmain-status_file">status file</link>
+        gespeichert wird und die laufende Konfiguration, die im <link linkend="configmain-object_cache_file">object cache file</link>
+        abgelegt ist. Um physikalischen I/O zu reduzieren, ist es ratsam, diese Daten auf einer RAM-Disk abzulegen. Datenverlust durch einen
+        Stromausfall oder etwas ähnliches ist nicht kritisch, weil diese beiden Dateien bei jedem (Re-)Start von &name-icinga; neu erzeugt
+        werden. Das Anlegen einer RAM-Disk und die Änderungen an der Hauptkonfigurationsdatei werden <link linkend="temp_data">hier</link>
+        beschrieben.</para>
+      </listitem>
+    </orderedlist>
 
-  <indexterm zone="tuning">
-    <primary>&name-icinga; für maximale Leistung optimieren</primary>
-  </indexterm>
+    <indexterm zone="tuning">
+      <primary>&name-icinga; für maximale Leistung optimieren</primary>
+    </indexterm>
+  </section>
 </section>

@@ -8,25 +8,30 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>Nutzung des &name-icinga;stats-Utilitys</title>
 
-  <para><emphasis role="bold">Einführung</emphasis></para>
+  <section>
+    <title>Einführung</title>
 
-  <para>Ein Utility namens <emphasis role="bold">&name-stats;</emphasis> ist in der &name-icinga;-Distribution enthalten. Es wird zusammen
-  mit dem &name-icinga;-Daemon kompiliert und installiert. Das &name-stats;-Utility liefert Ihnen verschiedene Informationen zu einem
-  laufenden &name-icinga;-Prozess, die sehr hilfreich bei der <link linkend="tuning">Leistungsoptimierung</link> sein können. Sie können
-  Informationen in einem menschlich-lesbaren oder im Performance-Daten-kompatiblen Format erhalten.</para>
+    <para>Ein Utility namens <emphasis role="bold">&name-stats;</emphasis> ist in der &name-icinga;-Distribution enthalten. Es wird zusammen
+    mit dem &name-icinga;-Daemon kompiliert und installiert. Das &name-stats;-Utility liefert Ihnen verschiedene Informationen zu einem
+    laufenden &name-icinga;-Prozess, die sehr hilfreich bei der <link linkend="tuning">Leistungsoptimierung</link> sein können. Sie können
+    Informationen in einem menschlich-lesbaren oder im Performance-Daten-kompatiblen Format erhalten.</para>
+  </section>
 
-  <para><emphasis role="bold">Gebrauchshinweise</emphasis></para>
+  <section>
+    <title>Gebrauchshinweise</title>
 
-  <para>Sie können das <emphasis>&name-stats;</emphasis>-Utility mit der <emphasis role="bold">--help</emphasis>-Option starten, um
-  Gebrauchshinweise zu bekommen.</para>
+    <para>Sie können das <emphasis>&name-stats;</emphasis>-Utility mit der <emphasis role="bold">--help</emphasis>-Option starten, um
+    Gebrauchshinweise zu bekommen.</para>
+  </section>
 
-  <para><emphasis role="bold">menschlich-lesbare Ausgabe</emphasis></para>
+  <section>
+    <title>menschlich-lesbare Ausgabe</title>
 
-  <para>Um menschlich-lesbare Informationen zur Leistung eines laufenden &name-icinga;-Prozesses zu erhalten, starten Sie das
-  <emphasis>&name-stats;</emphasis>-Utility mit dem <emphasis role="bold">-c</emphasis>-Kommandozeilenargument, um die Position Ihrer
-  Hauptkonfigurationsdatei wie folgt anzugeben:</para>
+    <para>Um menschlich-lesbare Informationen zur Leistung eines laufenden &name-icinga;-Prozesses zu erhalten, starten Sie das
+    <emphasis>&name-stats;</emphasis>-Utility mit dem <emphasis role="bold">-c</emphasis>-Kommandozeilenargument, um die Position Ihrer
+    Hauptkonfigurationsdatei wie folgt anzugeben:</para>
 
-  <screen>[icinga@monitoring ~]# &url-icinga-base;/bin/&name-stats; -c &url-icinga-base;/etc/nagios.cfg
+    <screen>[icinga@monitoring ~]# &url-icinga-base;/bin/&name-stats; -c &url-icinga-base;/etc/nagios.cfg
 &name-icinga; Stats &ver-icinga;
 Copyright (c) 2009 Nagios Core Development Team and Community Contributors
 Copyright (c) 1999-2009 Ethan Galstad
@@ -93,28 +98,31 @@ External Commands Last 1/5/15 min:      6 / 6 / 15
 
 [icinga@monitoring ~]# </screen>
 
-  <para>Wie Sie sehen können, zeigt das Utility ein Reihe von verschiedenen Metriken zum &name-icinga;-Prozess an. Metriken mit mehreren
-  Werten sind (wenn nicht anders angegeben) Minimum-, Maximum- und Durchschnittswerte für die betreffende Metrik.</para>
+    <para>Wie Sie sehen können, zeigt das Utility ein Reihe von verschiedenen Metriken zum &name-icinga;-Prozess an. Metriken mit mehreren
+    Werten sind (wenn nicht anders angegeben) Minimum-, Maximum- und Durchschnittswerte für die betreffende Metrik.</para>
+  </section>
 
-  <para><emphasis role="bold">&name-pnp;-Integration</emphasis></para>
+  <section>
+    <title>&name-pnp;-Integration</title>
 
-  <para>Sie können das <emphasis>&name-stats;</emphasis>-Utility benutzen, um verschiedene &name-icinga;-Metriken mit &name-pnp; (oder
-  anderen kompatiblen Programmen) anzuzeigen. Um das zu tun, starten Sie das <emphasis>&name-stats;</emphasis>-Utility mit den <emphasis
-  role="bold">--mrtg</emphasis>- und <emphasis role="bold">--data</emphasis>-Optionen. Die <emphasis role="bold">--data</emphasis>-Option
-  wird benutzt, um anzugeben, welche Statistiken dargestellt werden sollen. Mögliche Werte für die <emphasis
-  role="bold">--data</emphasis>-Option finden Sie durch Start des <emphasis>&name-stats;</emphasis>-Utilitys mit der <emphasis
-  role="bold">--help</emphasis>-Option.</para>
+    <para>Sie können das <emphasis>&name-stats;</emphasis>-Utility benutzen, um verschiedene &name-icinga;-Metriken mit &name-pnp; (oder
+    anderen kompatiblen Programmen) anzuzeigen. Um das zu tun, starten Sie das <emphasis>&name-stats;</emphasis>-Utility mit den <emphasis
+    role="bold">--mrtg</emphasis>- und <emphasis role="bold">--data</emphasis>-Optionen. Die <emphasis role="bold">--data</emphasis>-Option
+    wird benutzt, um anzugeben, welche Statistiken dargestellt werden sollen. Mögliche Werte für die <emphasis
+    role="bold">--data</emphasis>-Option finden Sie durch Start des <emphasis>&name-stats;</emphasis>-Utilitys mit der <emphasis
+    role="bold">--help</emphasis>-Option.</para>
 
-  <para><inlinemediaobject>
-      <imageobject>
-        <imagedata fileref="../images/note.gif" format="GIF"></imagedata>
-      </imageobject>
-    </inlinemediaobject> Anmerkung: Informationen zum Gebrauch des <emphasis>&name-stats;</emphasis>-Utilitys zu Generierung von
-  &name-pnp;-Grafiken zu Darstellung von &name-icinga;-Leistungsstatistiken finden Sie <link linkend="perfgraphs">hier</link>.</para>
+    <para><inlinemediaobject>
+        <imageobject>
+          <imagedata fileref="../images/note.gif" format="GIF"/>
+        </imageobject>
+      </inlinemediaobject> Anmerkung: Informationen zum Gebrauch des <emphasis>&name-stats;</emphasis>-Utilitys zu Generierung von
+    &name-pnp;-Grafiken zu Darstellung von &name-icinga;-Leistungsstatistiken finden Sie <link linkend="perfgraphs">hier</link>.</para>
 
-  <indexterm zone="icingastats">
-    <primary>Icingastats</primary>
+    <indexterm zone="icingastats">
+      <primary>Icingastats</primary>
 
-    <secondary>benutzen des &name-icinga;stats-Utilitys</secondary>
-  </indexterm>
+      <secondary>benutzen des &name-icinga;stats-Utilitys</secondary>
+    </indexterm>
+  </section>
 </section>

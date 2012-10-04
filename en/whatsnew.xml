@@ -10,174 +10,191 @@
 
   <para>As usual this is only a brief overview. Please take a look at the Changelog as well if you are missing something.</para>
 
-  <para><emphasis role="bold">CHANGES</emphasis></para>
-
-  <itemizedlist>
-    <listitem>
-      <para><emphasis condition="red" role="color">move bindir/idomod.o to libdir/idomod.so - make sure to update your configs after
-      upgrade!</emphasis></para>
-    </listitem>
-
-    <listitem>
-      <para>move from /var/icinga to /var/spool/icinga in icinga.spec (upgrade safe)</para>
-    </listitem>
-
-    <listitem>
-      <para>rename icinga-idoutils rpm to icinga-idoutils-libdbi-mysql|pgsql in icinga.spec</para>
-    </listitem>
-
-    <listitem>
-      <para>--enable-libtap is deprecated, make test now works out-of-the-box with rewritten tests core</para>
-    </listitem>
-  </itemizedlist>
-
-  <para><emphasis role="bold">Core</emphasis></para>
-
-  <itemizedlist>
-    <listitem>
-      <para>avoid insane looping through event list when rescheduling checks (Mathias Kettner, Andreas Ericsson) #2182</para>
-    </listitem>
-
-    <listitem>
-      <para>add a lot of configure params to allow easier packaging (see CHANGES)</para>
-    </listitem>
-
-    <listitem>
-      <para>introduce lib/ for modules with new .so extension</para>
-    </listitem>
-
-    <listitem>
-      <para>add nebmodule version/name check for idomod (this allows future version dependencies) #2569</para>
-    </listitem>
-
-    <listitem>
-      <para>add trigger_time to downtimes to allow calculating of flexible downtimes endtime #2537</para>
-    </listitem>
-
-    <listitem>
-      <para>* fix scheduled_downtime_depth falsely incremented if in flexible downtime with duration &lt; end-starttime window #2536</para>
-    </listitem>
-  </itemizedlist>
-
-  <para><emphasis role="bold">Classic UI </emphasis></para>
-
-  <itemizedlist>
-    <listitem>
-      <para>add option for max log entries displayed in showlog.cgi #2145</para>
-    </listitem>
-  </itemizedlist>
-
-  <itemizedlist>
-    <listitem>
-      <para>add statusmap resizing with exclude/include button (thanks to Mat) #2186</para>
-    </listitem>
-
-    <listitem>
-      <para>add javascript to refresh page/pause easier #2119</para>
-    </listitem>
-
-    <listitem>
-      <para>add display_status_totals as cgi.cfg option in order to allow the status totals to be shown again #2443</para>
-    </listitem>
-
-    <listitem>
-      <para>add readonly cgi.cfg view into the config section #1776</para>
-    </listitem>
-
-    <listitem>
-      <para>add is_in_effect and trigger_time to downtime view for html, csv, json #2538</para>
-    </listitem>
-
-    <listitem>
-      <para>add modified attributes view and reset cmd #2473 #2474</para>
-    </listitem>
-
-    <listitem>
-      <para>fix status totals are wrong when searching #1524</para>
-    </listitem>
-
-    <listitem>
-      <para>fix reset forms on return after submitting command #2117</para>
-    </listitem>
-  </itemizedlist>
-
-  <para><emphasis role="bold">IDOutils</emphasis></para>
-
-  <itemizedlist>
-    <listitem>
-      <para>change varchar(255) to TEXT in mysql (not cs and address rfc columns) #2181</para>
-    </listitem>
-
-    <listitem>
-      <para>set module info in idomod, to be checked on neb module load in future versions #2569</para>
-    </listitem>
-
-    <listitem>
-      <para>change standard string escaping for postgresql queries to use the E'foo' notation #1974</para>
-    </listitem>
-
-    <listitem>
-      <para>fix lob handling in Oracle #2303,#2342</para>
-    </listitem>
-
-    <listitem>
-      <para>fix OCI-21500 when freeing lobs #2509</para>
-    </listitem>
-
-    <listitem>
-      <para>fix pgsql unix_timestamp cannot handle timstamp with timezone #2203</para>
-    </listitem>
-  </itemizedlist>
-
-  <para><emphasis role="bold">Icinga-Web</emphasis></para>
-
-  <itemizedlist>
-    <listitem>
-      <para>add DQL-views as backend for templates. This means that you can create your XML views based on doctrine query language. It's
-      more flexible to adopt database changes or to connect other systems to your grids like trouble ticket or issue based systems</para>
-    </listitem>
-
-    <listitem>
-      <para>enable "save" and "save as" for custom cronks. This allows you to modify your views without hacking data</para>
-    </listitem>
-
-    <listitem>
-      <para>adjust GUI calculations to be more like in the classic UI. Many calculations had different algorithms compared to the classic
-      user interface which was confusing for the users</para>
-    </listitem>
-
-    <listitem>
-      <para>many fixes for views (grids and tactical overviews) to work more smoothly</para>
-    </listitem>
-
-    <listitem>
-      <para>RDBMS fixes for getting data, fixed problems for Oracle and Postgres</para>
-    </listitem>
-  </itemizedlist>
-
-  <para><emphasis role="bold">Docs</emphasis></para>
-
-  <itemizedlist>
-    <listitem>
-      <para>Hints how to use recurring downtimes #1867</para>
-    </listitem>
-  </itemizedlist>
-
-  <para><link xlink:href="https://wiki.icinga.org/display/Dev/Releases">More at Icinga Wiki</link></para>
-
-  <para>Should you find any issues, please report them to one of the following links:</para>
-
-  <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-core">Report Issue &name-core;</link></para>
-
-  <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-web">Report Issue &name-web;</link></para>
-
-  <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-api">Report Issue &name-api;</link></para>
-
-  <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-reporting">Report Issue &name-rep;</link></para>
-
-  <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-docs">Report Issue &name-docs;</link></para>
-
   <indexterm zone="whatsnew">
     <primary>What's new in &name-icinga;</primary>
   </indexterm>
+
+  <section>
+    <title>CHANGES</title>
+
+    <itemizedlist>
+      <listitem>
+        <para><emphasis condition="red" role="color">move bindir/idomod.o to libdir/idomod.so - make sure to update your configs after
+        upgrade!</emphasis></para>
+      </listitem>
+
+      <listitem>
+        <para>move from /var/icinga to /var/spool/icinga in icinga.spec (upgrade safe)</para>
+      </listitem>
+
+      <listitem>
+        <para>rename icinga-idoutils rpm to icinga-idoutils-libdbi-mysql|pgsql in icinga.spec</para>
+      </listitem>
+
+      <listitem>
+        <para>--enable-libtap is deprecated, make test now works out-of-the-box with rewritten tests core</para>
+      </listitem>
+    </itemizedlist>
+  </section>
+
+  <section>
+    <title>Core</title>
+
+    <itemizedlist>
+      <listitem>
+        <para>avoid insane looping through event list when rescheduling checks (Mathias Kettner, Andreas Ericsson) #2182</para>
+      </listitem>
+
+      <listitem>
+        <para>add a lot of configure params to allow easier packaging (see CHANGES)</para>
+      </listitem>
+
+      <listitem>
+        <para>introduce lib/ for modules with new .so extension</para>
+      </listitem>
+
+      <listitem>
+        <para>add nebmodule version/name check for idomod (this allows future version dependencies) #2569</para>
+      </listitem>
+
+      <listitem>
+        <para>add trigger_time to downtimes to allow calculating of flexible downtimes endtime #2537</para>
+      </listitem>
+
+      <listitem>
+        <para>* fix scheduled_downtime_depth falsely incremented if in flexible downtime with duration &lt; end-starttime window
+        #2536</para>
+      </listitem>
+    </itemizedlist>
+  </section>
+
+  <section>
+    <title>Classic UI</title>
+
+    <itemizedlist>
+      <listitem>
+        <para>add option for max log entries displayed in showlog.cgi #2145</para>
+      </listitem>
+    </itemizedlist>
+
+    <itemizedlist>
+      <listitem>
+        <para>add statusmap resizing with exclude/include button (thanks to Mat) #2186</para>
+      </listitem>
+
+      <listitem>
+        <para>add javascript to refresh page/pause easier #2119</para>
+      </listitem>
+
+      <listitem>
+        <para>add display_status_totals as cgi.cfg option in order to allow the status totals to be shown again #2443</para>
+      </listitem>
+
+      <listitem>
+        <para>add readonly cgi.cfg view into the config section #1776</para>
+      </listitem>
+
+      <listitem>
+        <para>add is_in_effect and trigger_time to downtime view for html, csv, json #2538</para>
+      </listitem>
+
+      <listitem>
+        <para>add modified attributes view and reset cmd #2473 #2474</para>
+      </listitem>
+
+      <listitem>
+        <para>fix status totals are wrong when searching #1524</para>
+      </listitem>
+
+      <listitem>
+        <para>fix reset forms on return after submitting command #2117</para>
+      </listitem>
+    </itemizedlist>
+  </section>
+
+  <section>
+    <title>IDOutils</title>
+
+    <itemizedlist>
+      <listitem>
+        <para>change varchar(255) to TEXT in mysql (not cs and address rfc columns) #2181</para>
+      </listitem>
+
+      <listitem>
+        <para>set module info in idomod, to be checked on neb module load in future versions #2569</para>
+      </listitem>
+
+      <listitem>
+        <para>change standard string escaping for postgresql queries to use the E'foo' notation #1974</para>
+      </listitem>
+
+      <listitem>
+        <para>fix lob handling in Oracle #2303,#2342</para>
+      </listitem>
+
+      <listitem>
+        <para>fix OCI-21500 when freeing lobs #2509</para>
+      </listitem>
+
+      <listitem>
+        <para>fix pgsql unix_timestamp cannot handle timstamp with timezone #2203</para>
+      </listitem>
+    </itemizedlist>
+  </section>
+
+  <section>
+    <title>Icinga-Web</title>
+
+    <itemizedlist>
+      <listitem>
+        <para>add DQL-views as backend for templates. This means that you can create your XML views based on doctrine query language. It's
+        more flexible to adopt database changes or to connect other systems to your grids like trouble ticket or issue based systems</para>
+      </listitem>
+
+      <listitem>
+        <para>enable "save" and "save as" for custom cronks. This allows you to modify your views without hacking data</para>
+      </listitem>
+
+      <listitem>
+        <para>adjust GUI calculations to be more like in the classic UI. Many calculations had different algorithms compared to the classic
+        user interface which was confusing for the users</para>
+      </listitem>
+
+      <listitem>
+        <para>many fixes for views (grids and tactical overviews) to work more smoothly</para>
+      </listitem>
+
+      <listitem>
+        <para>RDBMS fixes for getting data, fixed problems for Oracle and Postgres</para>
+      </listitem>
+    </itemizedlist>
+  </section>
+
+  <section>
+    <title>Docs</title>
+
+    <itemizedlist>
+      <listitem>
+        <para>Hints how to use recurring downtimes #1867</para>
+      </listitem>
+    </itemizedlist>
+  </section>
+
+  <section>
+    <title>More information</title>
+
+    <para><link xlink:href="https://wiki.icinga.org/display/Dev/Releases">More at Icinga Wiki</link></para>
+
+    <para>Should you find any issues, please report them to one of the following links:</para>
+
+    <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-core">Report Issue &name-core;</link></para>
+
+    <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-web">Report Issue &name-web;</link></para>
+
+    <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-api">Report Issue &name-api;</link></para>
+
+    <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-reporting">Report Issue &name-rep;</link></para>
+
+    <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-docs">Report Issue &name-docs;</link></para>
+  </section>
 </section>

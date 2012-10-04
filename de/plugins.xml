@@ -8,500 +8,522 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>&name-icinga; Plugins</title>
 
-  <para><emphasis role="bold">Einführung</emphasis></para>
+  <section>
+    <title>Einführung</title>
 
-  <para>&name-icinga; enthält nicht, wie viele andere Überwachungs-Tools, interne Mechanismen zur Prüfung des Zustands von Hosts und
-  Services in Ihrem Netzwerk. &name-icinga; verlässt sich statt dessen auf externe Programme (Plugins genannt), die all die schmutzige
-  Arbeit tun.</para>
+    <para>&name-icinga; enthält nicht, wie viele andere Überwachungs-Tools, interne Mechanismen zur Prüfung des Zustands von Hosts und
+    Services in Ihrem Netzwerk. &name-icinga; verlässt sich statt dessen auf externe Programme (Plugins genannt), die all die schmutzige
+    Arbeit tun.</para>
+  </section>
 
-  <para><emphasis role="bold">Was sind Plugins?</emphasis></para>
+  <section>
+    <title>Was sind Plugins?</title>
 
-  <para>Plugins sind kompilierte Programme oder Scripts (Perl-Scripts, Shell-Scripts, usw.), die von einer Kommandozeile aus laufen können,
-  um den Status eines Hosts oder Service zu prüfen. &name-icinga; benutzt die Ergebnisse von Plugins, um den aktuellen Status von Hosts oder
-  Services in Ihrem Netzwerk zu ermitteln.</para>
+    <para>Plugins sind kompilierte Programme oder Scripts (Perl-Scripts, Shell-Scripts, usw.), die von einer Kommandozeile aus laufen
+    können, um den Status eines Hosts oder Service zu prüfen. &name-icinga; benutzt die Ergebnisse von Plugins, um den aktuellen Status von
+    Hosts oder Services in Ihrem Netzwerk zu ermitteln.</para>
 
-  <para>&name-icinga; wird ein Plugin immer dann ausführen, wenn die Notwendigkeit besteht, den Status eines Hosts oder Service zu prüfen.
-  Das Plugin tut <emphasis>etwas</emphasis> (beachten Sie den sehr allgemeinen Ausdruck), um die Prüfung auszuführen und dann einfach die
-  Ergebnisse an &name-icinga; zurückzuliefern. &name-icinga; wird die Ergebnisse verarbeiten, die es vom Plugin erhält, und dann notwendige
-  Aktionen ausführen (starten von <link linkend="eventhandlers">Eventhandlern</link>, senden von <link
-  linkend="notifications">Benachrichtigungen</link>, etc).</para>
+    <para>&name-icinga; wird ein Plugin immer dann ausführen, wenn die Notwendigkeit besteht, den Status eines Hosts oder Service zu prüfen.
+    Das Plugin tut <emphasis>etwas</emphasis> (beachten Sie den sehr allgemeinen Ausdruck), um die Prüfung auszuführen und dann einfach die
+    Ergebnisse an &name-icinga; zurückzuliefern. &name-icinga; wird die Ergebnisse verarbeiten, die es vom Plugin erhält, und dann
+    notwendige Aktionen ausführen (starten von <link linkend="eventhandlers">Eventhandlern</link>, senden von <link
+    linkend="notifications">Benachrichtigungen</link>, etc).</para>
+  </section>
 
-  <para><emphasis role="bold">Plugins als eine Abstraktionsschicht</emphasis></para>
+  <section>
+    <title>Plugins als eine Abstraktionsschicht</title>
 
-  <para><inlinemediaobject>
-      <imageobject>
-        <imagedata fileref="../images/plugins.png" format="PNG"/>
-      </imageobject>
-    </inlinemediaobject></para>
+    <para><inlinemediaobject>
+        <imageobject>
+          <imagedata fileref="../images/plugins.png" format="PNG"/>
+        </imageobject>
+      </inlinemediaobject></para>
 
-  <para>Plugins arbeiten wie eine Abstraktionsschicht zwischen der Überwachungslogik im &name-icinga;-Dämon und den eigentlichen Services
-  und Hosts, die überwacht werden.</para>
+    <para>Plugins arbeiten wie eine Abstraktionsschicht zwischen der Überwachungslogik im &name-icinga;-Dämon und den eigentlichen Services
+    und Hosts, die überwacht werden.</para>
 
-  <para>Der Vorteil dieses Typs von Plugin-Architektur ist, dass Sie fast alles überwachen können, was Ihnen einfällt. Wenn Sie den Prozess
-  der Überwachung automatisieren können, können Sie es mit &name-icinga; überwachen. Es gibt bereits eine Menge von Plugins, die erzeugt
-  wurden, um grundlegende Ressourcen wie z.B. Prozessorauslastung, Plattenbelegung, Ping-Raten usw. zu überwachen. Wenn Sie etwas anderes
-  überwachen möchten, werfen Sie einen Blick in die Dokumentation zu <link linkend="pluginapi">Plugins schreiben</link> und erstellen Sie
-  ein eigenes. Es ist einfach!</para>
+    <para>Der Vorteil dieses Typs von Plugin-Architektur ist, dass Sie fast alles überwachen können, was Ihnen einfällt. Wenn Sie den
+    Prozess der Überwachung automatisieren können, können Sie es mit &name-icinga; überwachen. Es gibt bereits eine Menge von Plugins, die
+    erzeugt wurden, um grundlegende Ressourcen wie z.B. Prozessorauslastung, Plattenbelegung, Ping-Raten usw. zu überwachen. Wenn Sie etwas
+    anderes überwachen möchten, werfen Sie einen Blick in die Dokumentation zu <link linkend="pluginapi">Plugins schreiben</link> und
+    erstellen Sie ein eigenes. Es ist einfach!</para>
 
-  <para>Der Nachteil dieses Typs von Plugin-Architektur ist die Tatsache, dass &name-icinga; absolut keine Ahnung davon hat, was Sie
-  überwachen. Sie könnten Netzwerkverkehr-Statistiken, Datenfehler-Raten, Raumtemperatur, CPU-Spannung, Lüftergeschwindigkeit,
-  Prozessorauslastung, Plattenbelegung überwachen oder die Fähigkeit Ihres superphantastischen Toasters, am Morgen Ihr Brot ordnungsgemäß zu
-  bräunen... &name-icinga; versteht nicht die Besonderheiten dessen, was überwacht wird - es verfolgt lediglich Veränderungen des
-  <emphasis>Zustands</emphasis> dieser Ressourcen. Nur die Plugins selbst wissen genau, was sie überwachen und wie die eigentlichen
-  Prüfungen auszuführen sind.</para>
+    <para>Der Nachteil dieses Typs von Plugin-Architektur ist die Tatsache, dass &name-icinga; absolut keine Ahnung davon hat, was Sie
+    überwachen. Sie könnten Netzwerkverkehr-Statistiken, Datenfehler-Raten, Raumtemperatur, CPU-Spannung, Lüftergeschwindigkeit,
+    Prozessorauslastung, Plattenbelegung überwachen oder die Fähigkeit Ihres superphantastischen Toasters, am Morgen Ihr Brot ordnungsgemäß
+    zu bräunen... &name-icinga; versteht nicht die Besonderheiten dessen, was überwacht wird - es verfolgt lediglich Veränderungen des
+    <emphasis>Zustands</emphasis> dieser Ressourcen. Nur die Plugins selbst wissen genau, was sie überwachen und wie die eigentlichen
+    Prüfungen auszuführen sind.</para>
+  </section>
 
-  <para><emphasis role="bold">Welche Plugins sind verfügbar?</emphasis></para>
+  <section>
+    <title>Welche Plugins sind verfügbar?</title>
 
-  <para>Es gibt bereits zahlreiche Plugins, um viele verschiedene Arten von Geräten und Services zu überwachen, u.a.:</para>
+    <para>Es gibt bereits zahlreiche Plugins, um viele verschiedene Arten von Geräten und Services zu überwachen, u.a.:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>&protocol-http;, &protocol-pop3;, &protocol-imap;, &protocol-ftp;, &protocol-ssh;, &protocol-dhcp;</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>&protocol-http;, &protocol-pop3;, &protocol-imap;, &protocol-ftp;, &protocol-ssh;, &protocol-dhcp;</para>
+      </listitem>
 
-    <listitem>
-      <para>CPU-Auslastung, Plattenbelegung, Speicherauslastung, Anzahl Benutzer</para>
-    </listitem>
+      <listitem>
+        <para>CPU-Auslastung, Plattenbelegung, Speicherauslastung, Anzahl Benutzer</para>
+      </listitem>
 
-    <listitem>
-      <para>Unix/&name-linux;, Windows- und Netware-Server</para>
-    </listitem>
+      <listitem>
+        <para>Unix/&name-linux;, Windows- und Netware-Server</para>
+      </listitem>
 
-    <listitem>
-      <para>Router und Switches</para>
-    </listitem>
+      <listitem>
+        <para>Router und Switches</para>
+      </listitem>
 
-    <listitem>
-      <para>etc.</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>etc.</para>
+      </listitem>
+    </itemizedlist>
+  </section>
 
-  <para><emphasis role="bold">Plugins beschaffen</emphasis></para>
+  <section>
+    <title>Plugins beschaffen</title>
 
-  <para>Plugins werden nicht mit &name-icinga; verteilt, aber Sie finden die offiziellen &name-nagios;-Plugins zum Download und viele
-  weitere Plugins, die von &name-nagios;-Benutzern erstellt und gewartet werden, an folgenden Stellen:</para>
+    <para>Plugins werden nicht mit &name-icinga; verteilt, aber Sie finden die offiziellen &name-nagios;-Plugins zum Download und viele
+    weitere Plugins, die von &name-nagios;-Benutzern erstellt und gewartet werden, an folgenden Stellen:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>&name-nagios; Plugins Project: <link xlink:href="http://sourceforge.net/projects/nagiosplug">&url-nagiosplug-sf;</link></para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>&name-nagios; Plugins Project: <link xlink:href="http://sourceforge.net/projects/nagiosplug">&url-nagiosplug-sf;</link></para>
+      </listitem>
 
-    <listitem>
-      <para>&name-nagios; Downloads Page: <link xlink:href="http://www.nagios.org//download/">&url-nagios;/download/</link></para>
-    </listitem>
+      <listitem>
+        <para>&name-nagios; Downloads Page: <link xlink:href="http://www.nagios.org//download/">&url-nagios;/download/</link></para>
+      </listitem>
 
-    <listitem>
-      <para>MonitoringExchange: <link xlink:href="http://www.monitoringexchange.org">&url-monitoringexchange;</link></para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>MonitoringExchange: <link xlink:href="http://www.monitoringexchange.org">&url-monitoringexchange;</link></para>
+      </listitem>
+    </itemizedlist>
 
-  <para><anchor xml:id="plugins-howto"/><emphasis role="bold">Wie benutze ich Plugin X?</emphasis></para>
+    <para><anchor xml:id="plugins-howto"/><emphasis role="bold">Wie benutze ich Plugin X?</emphasis></para>
 
-  <para>Fast alle Plugins zeigen grundlegende Bedienungshinweise an, wenn sie von der Kommandozeile mit der Option '-h' oder '--help'
-  aufgerufen werden. Wenn Sie z.B. wissen möchten, wie das Plugins check_http arbeitet bzw. welche Optionen es akzeptiert, sollten Sie
-  folgenden Befehl ausprobieren:</para>
+    <para>Fast alle Plugins zeigen grundlegende Bedienungshinweise an, wenn sie von der Kommandozeile mit der Option '-h' oder '--help'
+    aufgerufen werden. Wenn Sie z.B. wissen möchten, wie das Plugins check_http arbeitet bzw. welche Optionen es akzeptiert, sollten Sie
+    folgenden Befehl ausprobieren:</para>
 
-  <screen> $&gt; ./check_http --help</screen>
+    <screen> $&gt; ./check_http --help</screen>
 
-  <anchor xml:id="plugins-hints"/>
+    <anchor xml:id="plugins-hints"/>
 
-  <important>
-    <para>Führen Sie Plugins immer mit dem &name-icinga;-Benutzer aus, denn einige Plugins erstellen temporäre Dateien. Wenn Sie Plugins mit
-    einem anderen Benutzer ausführen, dann kann der &name-icinga;-Benutzer diese Dateien ggf. nicht überschreiben. Wenn Sie einen anderen
-    Benutzer verwenden, werden Sie nicht feststellen, ob ist der &name-icinga;-Benutzer überhaupt berechtigt ist, auf bestimmte Dateien
-    (z.B. Shared Libraries) zuzugreifen.</para>
+    <important>
+      <para>Führen Sie Plugins immer mit dem &name-icinga;-Benutzer aus, denn einige Plugins erstellen temporäre Dateien. Wenn Sie Plugins
+      mit einem anderen Benutzer ausführen, dann kann der &name-icinga;-Benutzer diese Dateien ggf. nicht überschreiben. Wenn Sie einen
+      anderen Benutzer verwenden, werden Sie nicht feststellen, ob ist der &name-icinga;-Benutzer überhaupt berechtigt ist, auf bestimmte
+      Dateien (z.B. Shared Libraries) zuzugreifen.</para>
 
-    <para>Rufen Sie das Plugin nicht mit einem relativen Pfad auf (z.B. <emphasis>./check_test_plugin</emphasis>). Benutzen Sie immer
-    absolute Pfade, denn so macht es auch &name-icinga; (z.B. <emphasis>&url-icinga-libexec;/check_test_plugin</emphasis>).</para>
+      <para>Rufen Sie das Plugin nicht mit einem relativen Pfad auf (z.B. <emphasis>./check_test_plugin</emphasis>). Benutzen Sie immer
+      absolute Pfade, denn so macht es auch &name-icinga; (z.B. <emphasis>&url-icinga-libexec;/check_test_plugin</emphasis>).</para>
 
-    <para>Bitte beachten Sie, dass der &name-icinga;-<emphasis>Benutzer</emphasis> eine andere Umgebung als der
-    &name-icinga;-<emphasis>Prozess</emphasis> hat. Beim Benutzer wurden Login-Skripte durchlaufen und es ist ein Terminal mit der
-    Benutzer-Sitzung verbunden, so dass die erfolgreiche Ausführung eines Plugins von der Kommandozeile aus nicht (notwendigerweise)
-    bedeutet, dass es funktioniert, wenn es vom Prozess ausgeführt wird. Außerdem wird der Prozess per Default keine Shell benutzen, sondern
-    Aufrufe von popen/execvp ausführen, abhängig vom Befehl (popen falls die Kommandozeile Metazeichen enthält, die Bedeutung für die Shell
-    haben wie z.B. <literal>!$^&amp;*()~[]\|{};&lt;&gt;?'"</literal>, execvp falls keine Metazeichen vorhanden sind).</para>
-  </important>
+      <para>Bitte beachten Sie, dass der &name-icinga;-<emphasis>Benutzer</emphasis> eine andere Umgebung als der
+      &name-icinga;-<emphasis>Prozess</emphasis> hat. Beim Benutzer wurden Login-Skripte durchlaufen und es ist ein Terminal mit der
+      Benutzer-Sitzung verbunden, so dass die erfolgreiche Ausführung eines Plugins von der Kommandozeile aus nicht (notwendigerweise)
+      bedeutet, dass es funktioniert, wenn es vom Prozess ausgeführt wird. Außerdem wird der Prozess per Default keine Shell benutzen,
+      sondern Aufrufe von popen/execvp ausführen, abhängig vom Befehl (popen falls die Kommandozeile Metazeichen enthält, die Bedeutung für
+      die Shell haben wie z.B. <literal>!$^&amp;*()~[]\|{};&lt;&gt;?'"</literal>, execvp falls keine Metazeichen vorhanden sind).</para>
+    </important>
+  </section>
 
-  <para><emphasis role="bold">Zum &name-icinga;-Benutzer wechseln</emphasis></para>
+  <section>
+    <title>Zum &name-icinga;-Benutzer wechseln</title>
 
-  <para>Wechseln Sie zum &name-icinga;-Benutzer, der in <filename>icinga.cfg</filename> definiert ist, falls noch nicht geschehen, und
-  bereinigen Sie die Umgebung</para>
+    <para>Wechseln Sie zum &name-icinga;-Benutzer, der in <filename>icinga.cfg</filename> definiert ist, falls noch nicht geschehen, und
+    bereinigen Sie die Umgebung</para>
 
-  <screen> #&gt; su - icinga
+    <screen> #&gt; su - icinga
  #&gt; env -i</screen>
 
-  <para>Wenn Sie jetzt angemeldet sind, dann springen Sie zum Punkt "Anpassen der Umgebung".</para>
+    <para>Wenn Sie jetzt angemeldet sind, dann springen Sie zum Punkt "Anpassen der Umgebung".</para>
 
-  <para>Bedingt durch das Sicherheitsbewusstsein des Packagers / Systemadministrators könnte dies fehlschlagen, weil der Account für
-  Anmeldungen gesperrt ist. Bitten Sie Ihren Systemadministrator, das vorübergehend zu ändern oder führen Sie einen der folgenden Punkte
-  aus</para>
+    <para>Bedingt durch das Sicherheitsbewusstsein des Packagers / Systemadministrators könnte dies fehlschlagen, weil der Account für
+    Anmeldungen gesperrt ist. Bitten Sie Ihren Systemadministrator, das vorübergehend zu ändern oder führen Sie einen der folgenden Punkte
+    aus</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>ermitteln Sie die aktuelle Shell aus <filename>/etc/passwd</filename> und ändern Sie diese durch Ausführen von <screen> #&gt; OLD_SHELL=`grep icinga /etc/passwd | sed 's/.*://'`
+    <itemizedlist>
+      <listitem>
+        <para>ermitteln Sie die aktuelle Shell aus <filename>/etc/passwd</filename> und ändern Sie diese durch Ausführen von <screen> #&gt; OLD_SHELL=`grep icinga /etc/passwd | sed 's/.*://'`
  #&gt; usermod -s /bin/sh icinga</screen>führen Sie die Befehle aus, nachdem Sie zum &name-icinga;-Benutzer gewechselt sind und die Umgebung
-      wie oben beschrieben bereinigt haben</para>
+        wie oben beschrieben bereinigt haben</para>
 
-      <para>vergessen Sie nicht, die Shell-Einstellung nach dem Testen und verlassen der Sitzung wiederherzustellen<screen> #&gt; usermod -s $OLD_SHELL icinga</screen></para>
-    </listitem>
+        <para>vergessen Sie nicht, die Shell-Einstellung nach dem Testen und verlassen der Sitzung wiederherzustellen<screen> #&gt; usermod -s $OLD_SHELL icinga</screen></para>
+      </listitem>
 
-    <listitem>
-      <para>führen Sie den Befehl über "sudo -u icinga" aus</para>
+      <listitem>
+        <para>führen Sie den Befehl über "sudo -u icinga" aus</para>
 
-      <screen> #&gt; sudo -u icinga /usr/local/icinga/libexec/sample-plugin.pl ...</screen>
-    </listitem>
-  </itemizedlist>
+        <screen> #&gt; sudo -u icinga /usr/local/icinga/libexec/sample-plugin.pl ...</screen>
+      </listitem>
+    </itemizedlist>
+  </section>
 
-  <para><emphasis role="bold">Anpassen der Umgebung</emphasis></para>
+  <section>
+    <title>Anpassen der Umgebung</title>
 
-  <para>Einige Prüfungen (wie check_oracle_health) hängen davon ab, dass verschiedene Umgebungsvariablen gesetzt sind. Setzen Sie diese
-  nicht in <filename>.bashrc</filename> oder anderen benutzerabhängigen Dateien, sondern wählen Sie dafür eine zentrale Stelle. Das
-  Default-Init-Skript durchläuft die Datei <filename>/etc/sysconfig/icinga</filename> (wenn sie vorhanden ist), so dass es ein idealer Platz
-  wäre. Benutzen Sie dafür nicht das Init-Skript selbst, weil Ihre Änderungen sonst bei Updates ggf. verloren gehen.</para>
+    <para>Einige Prüfungen (wie check_oracle_health) hängen davon ab, dass verschiedene Umgebungsvariablen gesetzt sind. Setzen Sie diese
+    nicht in <filename>.bashrc</filename> oder anderen benutzerabhängigen Dateien, sondern wählen Sie dafür eine zentrale Stelle. Das
+    Default-Init-Skript durchläuft die Datei <filename>/etc/sysconfig/icinga</filename> (wenn sie vorhanden ist), so dass es ein idealer
+    Platz wäre. Benutzen Sie dafür nicht das Init-Skript selbst, weil Ihre Änderungen sonst bei Updates ggf. verloren gehen.</para>
 
-  <para>Beispiel für <filename>/etc/sysconfig/icinga</filename></para>
+    <para>Beispiel für <filename>/etc/sysconfig/icinga</filename></para>
 
-  <para><screen> export ORACLE_HOME=/usr/lib/oracle/11.2/client64
+    <para><screen> export ORACLE_HOME=/usr/lib/oracle/11.2/client64
  export LD_LIBRARY_PATH=$ORACLE_HOME/lib
  export PATH=$PATH:$ORACLE_HOME</screen>Nachdem Sie sich angemeldet haben, sind diese Variablen noch nicht verfügbar, aber das ist ziemlich
-  einfach</para>
+    einfach</para>
 
-  <para><screen> $&gt; . /etc/sysconfig/icinga</screen>Bitte überprüfen Sie die Einstellungen<screen> $&gt; echo $ORACLE_HOME
+    <para><screen> $&gt; . /etc/sysconfig/icinga</screen>Bitte überprüfen Sie die Einstellungen<screen> $&gt; echo $ORACLE_HOME
  $&gt; echo $LD_LIBRARY_PATH
  $&gt; echo $PATH</screen></para>
 
-  <para><anchor xml:id="plugins-new_plugin"/><emphasis role="bold">Integration eines neuen Plugins</emphasis></para>
+    <para><anchor xml:id="plugins-new_plugin"/><emphasis role="bold">Integration eines neuen Plugins</emphasis></para>
 
-  <para>Wenn Sie ein neues Plugin integrieren möchten, dann lesen Sie die Dokumentation (falls vorhanden). Sie könnte wichtige Informationen
-  über die Voraussetzungen wie z.B. zusätzliche Pakete oder (Perl-) Module enthalten, wie das Plugin zu installieren ist bzw.
-  distributionsabhängige Hinweise.</para>
+    <para>Wenn Sie ein neues Plugin integrieren möchten, dann lesen Sie die Dokumentation (falls vorhanden). Sie könnte wichtige
+    Informationen über die Voraussetzungen wie z.B. zusätzliche Pakete oder (Perl-) Module enthalten, wie das Plugin zu installieren ist
+    bzw. distributionsabhängige Hinweise.</para>
 
-  <para>Manchmal müssen Sie das Plugin kompilieren, wobei Sie den Vorgang durch den Aufruf von "./configure" mit oder ohne Optionen
-  vorbereiten. Bitte prüfen Sie die Datei config.log auf mögliche Fehler zu fehlenden (devel-)Paketen vor dem Aufuf des eigentlichen
-  Compile-Vorgangs (meistens "make" oder "make all"). In den meisten Fällen wird das Plugin durch den Aufruf von "make install" in das
-  Plugins-Verzeichnis (z.B. <emphasis>&url-icinga-libexec;</emphasis>) kopiert.</para>
+    <para>Manchmal müssen Sie das Plugin kompilieren, wobei Sie den Vorgang durch den Aufruf von "./configure" mit oder ohne Optionen
+    vorbereiten. Bitte prüfen Sie die Datei config.log auf mögliche Fehler zu fehlenden (devel-)Paketen vor dem Aufuf des eigentlichen
+    Compile-Vorgangs (meistens "make" oder "make all"). In den meisten Fällen wird das Plugin durch den Aufruf von "make install" in das
+    Plugins-Verzeichnis (z.B. <emphasis>&url-icinga-libexec;</emphasis>) kopiert.</para>
 
-  <para>Manchmal müssen Sie das Plugin auf Ihre Umgebung anpassen (z.B. den Pfad zu "utils.pm"). Sie können stattdessen einen logischen Link
-  erzeugen, der auf das Plugin-Verzeichnis weist, so dass Sie nicht das Plugin ändern müssen, um diese Änderung zu umgehen und spätere
-  Updates zu vereinfachen.</para>
+    <para>Manchmal müssen Sie das Plugin auf Ihre Umgebung anpassen (z.B. den Pfad zu "utils.pm"). Sie können stattdessen einen logischen
+    Link erzeugen, der auf das Plugin-Verzeichnis weist, so dass Sie nicht das Plugin ändern müssen, um diese Änderung zu umgehen und
+    spätere Updates zu vereinfachen.</para>
 
-  <para>Nach der Installation des Plugins rufen Sie es mit den nötigen Optionen von der Kommandozeile aus auf. Wenn dies funktioniert,
-  können Sie es in &name-icinga; integrieren.</para>
+    <para>Nach der Installation des Plugins rufen Sie es mit den nötigen Optionen von der Kommandozeile aus auf. Wenn dies funktioniert,
+    können Sie es in &name-icinga; integrieren.</para>
 
-  <para>Stellen Sie sich vor, dass Sie den folgenden Aufruf benutzt haben:</para>
+    <para>Stellen Sie sich vor, dass Sie den folgenden Aufruf benutzt haben:</para>
 
-  <programlisting> &url-icinga-libexec;/sample-plugin.pl -H 192.168.1.2 -a argument1 -p parameter -n 5</programlisting>
+    <programlisting> &url-icinga-libexec;/sample-plugin.pl -H 192.168.1.2 -a argument1 -p parameter -n 5</programlisting>
 
-  <para>Die command-Definition enthält zwei Direktiven</para>
+    <para>Die command-Definition enthält zwei Direktiven</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>command_name: dies ist ein Kurzname, der den Befehl identifiziert. Lassen Sie uns <emphasis>check_sample</emphasis>
-      benutzen</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>command_name: dies ist ein Kurzname, der den Befehl identifiziert. Lassen Sie uns <emphasis>check_sample</emphasis>
+        benutzen</para>
+      </listitem>
 
-    <listitem>
-      <para>command_line: hier definieren Sie den auszuführenden Befehl. Sie könnten den Befehl angeben, den Sie auf der Kommandozeile
-      benutzen, aber das wäre zu unflexibel. Normalerweise ändert sich das Plugin-Verzeichnis (&url-icinga-libexec;) nicht, so dass wir eine
-      <link linkend="macrolist-user">$USERn$</link>-Variable benutzen können, die in der resource.cfg definiert werden. Die IP-Adresse
-      ändert sich von Host zu Host. Es gibt das Makro <link linkend="macrolist-hostaddress">$HOSTADDRESS$</link>, das wir dafür nutzen
-      können. Die Werte der Optionen können sich ändern, so dass auch sie flexibel sein sollten. Das könnte zu folgender Definition
-      führen:</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>command_line: hier definieren Sie den auszuführenden Befehl. Sie könnten den Befehl angeben, den Sie auf der Kommandozeile
+        benutzen, aber das wäre zu unflexibel. Normalerweise ändert sich das Plugin-Verzeichnis (&url-icinga-libexec;) nicht, so dass wir
+        eine <link linkend="macrolist-user">$USERn$</link>-Variable benutzen können, die in der resource.cfg definiert werden. Die
+        IP-Adresse ändert sich von Host zu Host. Es gibt das Makro <link linkend="macrolist-hostaddress">$HOSTADDRESS$</link>, das wir dafür
+        nutzen können. Die Werte der Optionen können sich ändern, so dass auch sie flexibel sein sollten. Das könnte zu folgender Definition
+        führen:</para>
+      </listitem>
+    </itemizedlist>
 
-  <programlisting> define command{ 
+    <programlisting> define command{ 
     command_name check_sample
     command_line $USER1$/sample-plugin.pl -H $HOSTADDRESS$ -a $ARG1$ -p $ARG2$ -n $ARG3$
     }</programlisting>
 
-  <para>Dann müssen wir die check_command-Direktive definieren, die Teil der Host-/Service-Definition ist. Es beginnt mit dem Kurznamen
-  gefolgt von den Argumenten, die jeweils durch Ausrufezeichen voneinander getrennt sind:</para>
+    <para>Dann müssen wir die check_command-Direktive definieren, die Teil der Host-/Service-Definition ist. Es beginnt mit dem Kurznamen
+    gefolgt von den Argumenten, die jeweils durch Ausrufezeichen voneinander getrennt sind:</para>
 
-  <programlisting> check_command check_sample!argument1!parameter!5</programlisting>
+    <programlisting> check_command check_sample!argument1!parameter!5</programlisting>
 
-  <para>Wie Sie sehen, wird die IP-Adresse nicht angegeben, denn sie wird aus der Host-Definition genommen.</para>
+    <para>Wie Sie sehen, wird die IP-Adresse nicht angegeben, denn sie wird aus der Host-Definition genommen.</para>
 
-  <anchor xml:id="plugins-hints2"/>
+    <anchor xml:id="plugins-hints2"/>
 
-  <para>Neben den bereits genannten gibt es eine Vielzahl von <link linkend="macros">Makros</link>, die die Arbeit erleichtern. Dabei gibt
-  es einige Dinge anzumerken:</para>
+    <para>Neben den bereits genannten gibt es eine Vielzahl von <link linkend="macros">Makros</link>, die die Arbeit erleichtern. Dabei gibt
+    es einige Dinge anzumerken:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>Alle &name-icinga;-Makros benutzen Großbuchstaben und werden in Dollarzeichen ($) eingeschlossen</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>Alle &name-icinga;-Makros benutzen Großbuchstaben und werden in Dollarzeichen ($) eingeschlossen</para>
+      </listitem>
 
-    <listitem>
-      <para>Die meisten Makros haben einen bestimmten Gültigkeitsbereich. Wenn Sie versuchen, ein Makro außerhalb dieses Bereichs zu nutzen,
-      dann werden Sie statt des erwarteten Wertes lediglich ein Dollarzeichen ($) sehen</para>
-    </listitem>
+      <listitem>
+        <para>Die meisten Makros haben einen bestimmten Gültigkeitsbereich. Wenn Sie versuchen, ein Makro außerhalb dieses Bereichs zu
+        nutzen, dann werden Sie statt des erwarteten Wertes lediglich ein Dollarzeichen ($) sehen</para>
+      </listitem>
 
-    <listitem>
-      <para>Die <link linkend="macrolist-user">$USERn$</link>-Makros können genutzt werden, um sensible Informationen wie z.B. Passwörter zu
-      "verstecken", denn die Werte werden im Gegensatz zu den anderen Makros nicht im Web-Interface angezeigt. Außerdem können sie verwendet
-      werden, um bestimmte Sonderzeichen nutzen zu können, die anderenfalls zu Schwierigkeiten führen. Ein Beispiel wäre
-      <literal>USER99=;</literal>. Auf diese Weise können Sie ein Semikolon benutzen, das sonst als Start eines Kommentars in Ihrer
-      Definition behandelt würde</para>
-    </listitem>
+      <listitem>
+        <para>Die <link linkend="macrolist-user">$USERn$</link>-Makros können genutzt werden, um sensible Informationen wie z.B. Passwörter
+        zu "verstecken", denn die Werte werden im Gegensatz zu den anderen Makros nicht im Web-Interface angezeigt. Außerdem können sie
+        verwendet werden, um bestimmte Sonderzeichen nutzen zu können, die anderenfalls zu Schwierigkeiten führen. Ein Beispiel wäre
+        <literal>USER99=;</literal>. Auf diese Weise können Sie ein Semikolon benutzen, das sonst als Start eines Kommentars in Ihrer
+        Definition behandelt würde</para>
+      </listitem>
 
-    <listitem>
-      <para>Nachdem es bei deutschsprachigen Personen oftmals zu Problemen kommt: <link linkend="macrolist-hostaddress">$HOSTADDRESS$</link>
-      wird mit zwei "D" geschrieben</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>Nachdem es bei deutschsprachigen Personen oftmals zu Problemen kommt: <link
+        linkend="macrolist-hostaddress">$HOSTADDRESS$</link> wird mit zwei "D" geschrieben</para>
+      </listitem>
+    </itemizedlist>
+  </section>
 
-  <para><emphasis role="bold">Raw command line</emphasis></para>
+  <section>
+    <title>Raw command line</title>
 
-  <para>Beginnend mit &name-icinga; 1.6 ermöglicht das klassische UI die Anzeige der Kommandozeile mit aufgelösten Variablen einschließlich
-  der Werte aus <filename>resource.cfg</filename>. Der Klick auf "ACTIVE" neben "Check type" in den Host-/Service Check Details gibt Ihnen
-  Zugriff auf diese Informationen. Wenn Sie noch keine Prüfung definiert haben, dann wählen Sie "View Config" aus den Hauptmenü auf der
-  linken Seite und dann "Command expansion". Bitte beachten Sie, dass der Benutzer über die Direktive <link
-  linkend="configcgi-authorized_for_full_command_resolution">authorized_for_full_command_resolution</link> in <filename>cgi.cfg</filename>
-  explizit dazu berechtigt sein muss, die Werte der Variable aus <filename>resource.cfg</filename> sehen zu dürfen. Außerdem muss der
-  Benutzer, unter dem der Web-Server läuft, Leseberechtigung auf diese Datei besitzen.</para>
+    <para>Beginnend mit &name-icinga; 1.6 ermöglicht das klassische UI die Anzeige der Kommandozeile mit aufgelösten Variablen
+    einschließlich der Werte aus <filename>resource.cfg</filename>. Der Klick auf "ACTIVE" neben "Check type" in den Host-/Service Check
+    Details gibt Ihnen Zugriff auf diese Informationen. Wenn Sie noch keine Prüfung definiert haben, dann wählen Sie "View Config" aus den
+    Hauptmenü auf der linken Seite und dann "Command expansion". Bitte beachten Sie, dass der Benutzer über die Direktive <link
+    linkend="configcgi-authorized_for_full_command_resolution">authorized_for_full_command_resolution</link> in <filename>cgi.cfg</filename>
+    explizit dazu berechtigt sein muss, die Werte der Variable aus <filename>resource.cfg</filename> sehen zu dürfen. Außerdem muss der
+    Benutzer, unter dem der Web-Server läuft, Leseberechtigung auf diese Datei besitzen.</para>
 
-  <para>Wenn Sie die Kommandozeile protokollieren möchten, dann müssen Sie einige Direktiven in <filename>icinga.cfg</filename> auf die
-  folgenden Werte ändern</para>
+    <para>Wenn Sie die Kommandozeile protokollieren möchten, dann müssen Sie einige Direktiven in <filename>icinga.cfg</filename> auf die
+    folgenden Werte ändern</para>
 
-  <screen> #  16 = Host/service checks
+    <screen> #  16 = Host/service checks
  # 256 = Commands
  debug_level=272
  debug_verbosity=2
  max_debug_file_size=1000000000</screen>
+  </section>
 
-  <para><emphasis role="bold">Schwellwert und Bereiche</emphasis></para>
+  <section>
+    <title>Schwellwert und Bereiche</title>
 
-  <para>Einige Plugins unterstützen Bereichsangaben für die Warn- und Kritisch-Werte. Bitte überprüfen Sie die Dokumentation, ob das der
-  Fall für das Plugin ist, das Sie benutzen möchten. Das Folgende ist ein Auszug der (englischsprachigen) <link
-  xlink:href="http://nagiosplug.sourceforge.net/developer-guidelines.html#THRESHOLDFORMAT">Entwickler-Richtlinien</link>:</para>
+    <para>Einige Plugins unterstützen Bereichsangaben für die Warn- und Kritisch-Werte. Bitte überprüfen Sie die Dokumentation, ob das der
+    Fall für das Plugin ist, das Sie benutzen möchten. Das Folgende ist ein Auszug der (englischsprachigen) <link
+    xlink:href="http://nagiosplug.sourceforge.net/developer-guidelines.html#THRESHOLDFORMAT">Entwickler-Richtlinien</link>:</para>
 
-  <para>Ein Bereich ist definiert als ein Start- und Endpunkt (inklusive) auf einer numerischen Skala (ggf. bis zu +/--Unendlich).</para>
+    <para>Ein Bereich ist definiert als ein Start- und Endpunkt (inklusive) auf einer numerischen Skala (ggf. bis zu +/--Unendlich).</para>
 
-  <para>Ein Schwellwert ist ein Bereich mit einem Alarmpegel (entweder Warning oder Critical).</para>
+    <para>Ein Schwellwert ist ein Bereich mit einem Alarmpegel (entweder Warning oder Critical).</para>
 
-  <para>In der Theorie wird das Plugin eine Prüfung durchführen, die einen numerischen Wert oder eine Metrik zurückliefert, die dann mit den
-  Warning- und Critical-Schwellwerten verglichen wird</para>
+    <para>In der Theorie wird das Plugin eine Prüfung durchführen, die einen numerischen Wert oder eine Metrik zurückliefert, die dann mit
+    den Warning- und Critical-Schwellwerten verglichen wird</para>
 
-  <para>Dies ist das generelle Format für Bereiche:</para>
+    <para>Dies ist das generelle Format für Bereiche:</para>
 
-  <para><code>[@]start:end</code></para>
+    <para><code>[@]start:end</code></para>
 
-  <para>Anmerkungen:</para>
+    <para>Anmerkungen:</para>
 
-  <orderedlist>
-    <listitem>
-      <para>start = end, falls :end nicht angegeben ist</para>
-    </listitem>
+    <orderedlist>
+      <listitem>
+        <para>start = end, falls :end nicht angegeben ist</para>
+      </listitem>
 
-    <listitem>
-      <para>start und ":" ist nicht erforderlich, wenn start=0</para>
-    </listitem>
+      <listitem>
+        <para>start und ":" ist nicht erforderlich, wenn start=0</para>
+      </listitem>
 
-    <listitem>
-      <para>falls der Bereich vom Format "start:" ist und end nicht angegeben wurde, dann ist das Ende als +Unendlich anzunehmen</para>
-    </listitem>
+      <listitem>
+        <para>falls der Bereich vom Format "start:" ist und end nicht angegeben wurde, dann ist das Ende als +Unendlich anzunehmen</para>
+      </listitem>
 
-    <listitem>
-      <para>um -Unendlich anzugeben, benutzen Sie "~"</para>
-    </listitem>
+      <listitem>
+        <para>um -Unendlich anzugeben, benutzen Sie "~"</para>
+      </listitem>
 
-    <listitem>
-      <para>Alarm erfolgt, wenn die Metrik außerhalb des durch Start- und Ende angegebenen Bereichs liegt (Endpunkte gehören
-      <emphasis>nicht</emphasis> zum Bereich)</para>
-    </listitem>
+      <listitem>
+        <para>Alarm erfolgt, wenn die Metrik außerhalb des durch Start- und Ende angegebenen Bereichs liegt (Endpunkte gehören
+        <emphasis>nicht</emphasis> zum Bereich)</para>
+      </listitem>
 
-    <listitem>
-      <para>wenn der Bereich mit "@" beginnt, dann ist zu alamieren, wenn die Metrik innerhalb des Bereichs liegt (einschließlich der
-      Endpunkte)</para>
-    </listitem>
-  </orderedlist>
+      <listitem>
+        <para>wenn der Bereich mit "@" beginnt, dann ist zu alamieren, wenn die Metrik innerhalb des Bereichs liegt (einschließlich der
+        Endpunkte)</para>
+      </listitem>
+    </orderedlist>
 
-  <note>
-    <para>Nicht alle Plugin unterstützen (bisher) die Bereichsnotation.</para>
-  </note>
+    <note>
+      <para>Nicht alle Plugin unterstützen (bisher) die Bereichsnotation.</para>
+    </note>
 
-  <para>Beispiele<informaltable>
-      <tgroup cols="2">
-        <tbody>
-          <row>
-            <entry><emphasis role="bold">Bereichsdefinition</emphasis></entry>
+    <para>Beispiele<informaltable>
+        <tgroup cols="2">
+          <tbody>
+            <row>
+              <entry><emphasis role="bold">Bereichsdefinition</emphasis></entry>
 
-            <entry><emphasis role="bold">Alarm, wenn x...</emphasis></entry>
-          </row>
+              <entry><emphasis role="bold">Alarm, wenn x...</emphasis></entry>
+            </row>
 
-          <row>
-            <entry>10</entry>
+            <row>
+              <entry>10</entry>
 
-            <entry>&lt; 0 oder &gt; 10, (außerhalb des Bereichs von {0 .. 10})</entry>
-          </row>
+              <entry>&lt; 0 oder &gt; 10, (außerhalb des Bereichs von {0 .. 10})</entry>
+            </row>
 
-          <row>
-            <entry>10:</entry>
+            <row>
+              <entry>10:</entry>
 
-            <entry>&lt; 10, (außerhalb {10 .. Unendlich})</entry>
-          </row>
+              <entry>&lt; 10, (außerhalb {10 .. Unendlich})</entry>
+            </row>
 
-          <row>
-            <entry>~:10</entry>
+            <row>
+              <entry>~:10</entry>
 
-            <entry>&gt; 10, (außerhalb des Bereichs von {-Unendlich .. 10})</entry>
-          </row>
+              <entry>&gt; 10, (außerhalb des Bereichs von {-Unendlich .. 10})</entry>
+            </row>
 
-          <row>
-            <entry>10:20</entry>
+            <row>
+              <entry>10:20</entry>
 
-            <entry>&lt; 10 oder &gt; 20, (außerhalb des Bereichs von {10 .. 20})</entry>
-          </row>
+              <entry>&lt; 10 oder &gt; 20, (außerhalb des Bereichs von {10 .. 20})</entry>
+            </row>
 
-          <row>
-            <entry>@10:20</entry>
+            <row>
+              <entry>@10:20</entry>
 
-            <entry>&lt;= 10 and &gt;= 20, (im Bereich von {10 .. 20})</entry>
-          </row>
-        </tbody>
-      </tgroup>
-    </informaltable></para>
+              <entry>&lt;= 10 and &gt;= 20, (im Bereich von {10 .. 20})</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable></para>
 
-  <para>Kommandozeilenbeispiele<informaltable>
-      <tgroup cols="2">
-        <tbody>
-          <row>
-            <entry><emphasis role="bold">Kommandozeile</emphasis></entry>
+    <para>Kommandozeilenbeispiele<informaltable>
+        <tgroup cols="2">
+          <tbody>
+            <row>
+              <entry><emphasis role="bold">Kommandozeile</emphasis></entry>
 
-            <entry><emphasis role="bold">Erklärung</emphasis></entry>
-          </row>
+              <entry><emphasis role="bold">Erklärung</emphasis></entry>
+            </row>
 
-          <row>
-            <entry>check_stuff -w10 -c20</entry>
+            <row>
+              <entry>check_stuff -w10 -c20</entry>
 
-            <entry>kritisch, wenn "stuff" größer als 20, andernfalls warnen, wenn größer als 10 (außerdem kritisch, wenn "stuff" kleiner als
-            0)</entry>
-          </row>
+              <entry>kritisch, wenn "stuff" größer als 20, andernfalls warnen, wenn größer als 10 (außerdem kritisch, wenn "stuff" kleiner
+              als 0)</entry>
+            </row>
 
-          <row>
-            <entry>check_stuff -w~:10 -c~:20</entry>
+            <row>
+              <entry>check_stuff -w~:10 -c~:20</entry>
 
-            <entry>das Gleiche wie oben, allerdings ist "stuff" kleiner als Null OK!</entry>
-          </row>
+              <entry>das Gleiche wie oben, allerdings ist "stuff" kleiner als Null OK!</entry>
+            </row>
 
-          <row>
-            <entry>check_stuff -w10: -c20</entry>
+            <row>
+              <entry>check_stuff -w10: -c20</entry>
 
-            <entry>kritisch, wenn "stuff" größer als 20, andernfalls warnen, wenn"stuff" kleiner als 10 (außerdem kritisch, wenn "stuff"
-            kleiner als 0)</entry>
-          </row>
+              <entry>kritisch, wenn "stuff" größer als 20, andernfalls warnen, wenn"stuff" kleiner als 10 (außerdem kritisch, wenn "stuff"
+              kleiner als 0)</entry>
+            </row>
 
-          <row>
-            <entry>check_stuff -c1:</entry>
+            <row>
+              <entry>check_stuff -c1:</entry>
 
-            <entry>kritisch, wenn "stuff" kleiner als 1</entry>
-          </row>
+              <entry>kritisch, wenn "stuff" kleiner als 1</entry>
+            </row>
 
-          <row>
-            <entry>check_stuff -w~:0 -c10</entry>
+            <row>
+              <entry>check_stuff -w~:0 -c10</entry>
 
-            <entry>kritisch, wenn "stuff" größer als 10; warnen, wenn "stuff" größer als 0</entry>
-          </row>
+              <entry>kritisch, wenn "stuff" größer als 10; warnen, wenn "stuff" größer als 0</entry>
+            </row>
 
-          <row>
-            <entry>check_stuff -c5:6</entry>
+            <row>
+              <entry>check_stuff -c5:6</entry>
 
-            <entry>der einzig nicht-kritische Bereich ist 5:6</entry>
-          </row>
+              <entry>der einzig nicht-kritische Bereich ist 5:6</entry>
+            </row>
 
-          <row>
-            <entry>check_stuff -c@10:20</entry>
+            <row>
+              <entry>check_stuff -c@10:20</entry>
 
-            <entry>kritisch, wenn "stuff" zwischen 10 und 20 <emphasis role="bold">[1]</emphasis></entry>
-          </row>
+              <entry>kritisch, wenn "stuff" zwischen 10 und 20 <emphasis role="bold">[1]</emphasis></entry>
+            </row>
 
-          <row>
-            <entry>check_stuff -w20:30 -c10:40</entry>
+            <row>
+              <entry>check_stuff -w20:30 -c10:40</entry>
 
-            <entry>warnen, wenn "stuff" kleiner als 20 oder größer als 30, kritisch, wenn "stuff" kleiner als 10 oder größer als 40
-            <emphasis role="bold">[2]</emphasis></entry>
-          </row>
-        </tbody>
-      </tgroup>
-    </informaltable></para>
+              <entry>warnen, wenn "stuff" kleiner als 20 oder größer als 30, kritisch, wenn "stuff" kleiner als 10 oder größer als 40
+              <emphasis role="bold">[2]</emphasis></entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable></para>
 
-  <note>
-    <para>[1]: Bei der Kommandozeile in den Entwickler-Richtlinien fehlt "@", anderenfalls wäre die Erklärung falsch (und es gäbe kein
-    Beispiel für die @-Notation)</para>
+    <note>
+      <para>[1]: Bei der Kommandozeile in den Entwickler-Richtlinien fehlt "@", anderenfalls wäre die Erklärung falsch (und es gäbe kein
+      Beispiel für die @-Notation)</para>
 
-    <para>[2]: Bitte beachten Sie, dass das letzte Beispiel geschachtelte Bereiche benutzt. Das mag nicht bei allen Plugins funktionieren,
-    die Bereichsangaben unterstützen. Es wurde mit check_snmp getestet</para>
-  </note>
+      <para>[2]: Bitte beachten Sie, dass das letzte Beispiel geschachtelte Bereiche benutzt. Das mag nicht bei allen Plugins funktionieren,
+      die Bereichsangaben unterstützen. Es wurde mit check_snmp getestet</para>
+    </note>
+  </section>
 
-  <para><emphasis role="bold">Aktivieren der Definition</emphasis></para>
+  <section>
+    <title>Aktivieren der Definition</title>
 
-  <para>Prüfen Sie die Konfiguration mit "/etc/init.d/icinga show-errors" und bereinigen Sie eventuelle Fehler, bevor Sie &name-icinga; mit
-  "/etc/init.d/icinga restart" neu starten. Warten Sie, bis das Objekt geprüft wurde und betrachten Sie die Status-Details. Vielleicht gibt
-  es Fehler.</para>
+    <para>Prüfen Sie die Konfiguration mit "/etc/init.d/icinga show-errors" und bereinigen Sie eventuelle Fehler, bevor Sie &name-icinga;
+    mit "/etc/init.d/icinga restart" neu starten. Warten Sie, bis das Objekt geprüft wurde und betrachten Sie die Status-Details. Vielleicht
+    gibt es Fehler.</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>"...resulted in a return code of 127" / "out of bounds"</para>
+    <itemizedlist>
+      <listitem>
+        <para>"...resulted in a return code of 127" / "out of bounds"</para>
 
-      <para>Das bedeutet, dass das Plugin nicht an der angegebenen Position gefunden wurde oder innerhalb des Plugins eine Datei aufgerufen
-      wurde, die nicht gefunden wurde. Wenn Sie $USERn$-Makros beim Aufruf des Plugins benutzen, dann stellen Sie sicher, dass das Makros
-      wirklich auf die Position verweist, wo das Plugin zu finden ist (ist das Makro in resource.cfg definiert?). Benachrichtigungsbefehle
-      rufen oft ein Mail-Programm auf. Stellen Sie sicher, dass der Pfad zum Mail-Programm korrekt ist.</para>
-    </listitem>
+        <para>Das bedeutet, dass das Plugin nicht an der angegebenen Position gefunden wurde oder innerhalb des Plugins eine Datei
+        aufgerufen wurde, die nicht gefunden wurde. Wenn Sie $USERn$-Makros beim Aufruf des Plugins benutzen, dann stellen Sie sicher, dass
+        das Makros wirklich auf die Position verweist, wo das Plugin zu finden ist (ist das Makro in resource.cfg definiert?).
+        Benachrichtigungsbefehle rufen oft ein Mail-Programm auf. Stellen Sie sicher, dass der Pfad zum Mail-Programm korrekt ist.</para>
+      </listitem>
 
-    <listitem>
-      <para>"...resulted in a return code of 126"</para>
+      <listitem>
+        <para>"...resulted in a return code of 126"</para>
 
-      <para>Meistens handelt es sich um ein Berechtigungsproblem. Der Benutzer kann ggf. das Plugin nicht ausführen bzw. darauf und/oder auf
-      zugehörige Dateien zugreifen.</para>
-    </listitem>
+        <para>Meistens handelt es sich um ein Berechtigungsproblem. Der Benutzer kann ggf. das Plugin nicht ausführen bzw. darauf und/oder
+        auf zugehörige Dateien zugreifen.</para>
+      </listitem>
 
-    <listitem>
-      <para>"...resulted in a return code of 13"</para>
+      <listitem>
+        <para>"...resulted in a return code of 13"</para>
 
-      <para>Meistens handelt es sich um ein Berechtigungsproblem. Der Benutzer kann ggf. das Plugin nicht ausführen bzw. darauf und/oder auf
-      zugehörige Dateien zugreifen. Das kann passieren, wenn Sie als root ein Plugin ausgeführt haben, das temporäre Dateien anlegt. Der
-      &name-icinga;-Benutzer ist nicht berechtigt, diese Dateien zu überschreiben.</para>
-    </listitem>
+        <para>Meistens handelt es sich um ein Berechtigungsproblem. Der Benutzer kann ggf. das Plugin nicht ausführen bzw. darauf und/oder
+        auf zugehörige Dateien zugreifen. Das kann passieren, wenn Sie als root ein Plugin ausgeführt haben, das temporäre Dateien anlegt.
+        Der &name-icinga;-Benutzer ist nicht berechtigt, diese Dateien zu überschreiben.</para>
+      </listitem>
 
-    <listitem>
-      <para>(null)</para>
+      <listitem>
+        <para>(null)</para>
 
-      <para>Der interne Aufruf von execvp lieferte nichts zurück.</para>
-    </listitem>
-  </itemizedlist>
+        <para>Der interne Aufruf von execvp lieferte nichts zurück.</para>
+      </listitem>
+    </itemizedlist>
+  </section>
 
-  <para><emphasis role="bold">Plugin API</emphasis></para>
+  <section>
+    <title>Plugin API</title>
 
-  <para>Informationen zu technischen Aspekten von Plugins sowie zur Erstellung Ihrer eigenen Plugins finden Sie <link
-  linkend="pluginapi">hier</link>.</para>
+    <para>Informationen zu technischen Aspekten von Plugins sowie zur Erstellung Ihrer eigenen Plugins finden Sie <link
+    linkend="pluginapi">hier</link>.</para>
 
-  <indexterm zone="plugins">
-    <primary>Plugins</primary>
+    <indexterm zone="plugins">
+      <primary>Plugins</primary>
 
-    <secondary>&name-icinga;-Plugins</secondary>
-  </indexterm>
+      <secondary>&name-icinga;-Plugins</secondary>
+    </indexterm>
 
-  <indexterm zone="plugins-howto">
-    <primary>Wie benutze ich Plugin X?</primary>
-  </indexterm>
+    <indexterm zone="plugins-howto">
+      <primary>Wie benutze ich Plugin X?</primary>
+    </indexterm>
 
-  <indexterm zone="plugins-howto">
-    <primary>Plugins</primary>
+    <indexterm zone="plugins-howto">
+      <primary>Plugins</primary>
 
-    <secondary>Wie benutze ich Plugin X?</secondary>
-  </indexterm>
+      <secondary>Wie benutze ich Plugin X?</secondary>
+    </indexterm>
 
-  <indexterm zone="plugins-hints">
-    <primary>Plugins</primary>
+    <indexterm zone="plugins-hints">
+      <primary>Plugins</primary>
 
-    <secondary>Hinweise zum Aufruf von Plugins</secondary>
-  </indexterm>
+      <secondary>Hinweise zum Aufruf von Plugins</secondary>
+    </indexterm>
 
-  <indexterm zone="plugins-new_plugin">
-    <primary>Plugins</primary>
+    <indexterm zone="plugins-new_plugin">
+      <primary>Plugins</primary>
 
-    <secondary>Integration eines neuen Plugins</secondary>
-  </indexterm>
+      <secondary>Integration eines neuen Plugins</secondary>
+    </indexterm>
+  </section>
 </section>

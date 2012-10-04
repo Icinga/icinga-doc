@@ -4,132 +4,140 @@
 %all.entities;
 ]>
 <section version="5.0" xml:id="distributed" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>Verteilte Überwachung</title>
 
-  <para><emphasis role="bold">Einführung</emphasis></para>
+  <section>
+    <title>Einführung</title>
 
-  <para>&name-icinga; kann konfiguriert werden, so dass es verteilte Überwachung von Netzwerk-Services und Ressourcen unterstützt.
-  Wir werden versuchen, kurz zu beschreiben, wie das erreicht werden kann...</para>
+    <para>&name-icinga; kann konfiguriert werden, so dass es verteilte Überwachung von Netzwerk-Services und Ressourcen unterstützt. Wir
+    werden versuchen, kurz zu beschreiben, wie das erreicht werden kann...</para>
+  </section>
 
-  <para><emphasis role="bold">Ziele</emphasis></para>
+  <section>
+    <title>Ziele</title>
 
-  <para>Das Ziel der verteilten Überwachungsumgebung, das wir beschreiben wollen, ist die Reduzierung des Overheads
-  (CPU-Belastung, etc.) bei der Service-Prüfung von einem "zentralen" Server auf ein oder mehrere "verteilte" Server. Die meisten
-  kleinen bis mittleren Unternehmen werden keinen wirklichen Bedarf für das Aufsetzen solch einer Umgebung haben. Wenn Sie
-  allerdings hunderte oder sogar tausende von <emphasis>Hosts</emphasis> (und ein Mehrfaches an Services) mit &name-icinga;
-  überwachen wollen, dann kann das ziemlich wichtig werden.</para>
+    <para>Das Ziel der verteilten Überwachungsumgebung, das wir beschreiben wollen, ist die Reduzierung des Overheads (CPU-Belastung, etc.)
+    bei der Service-Prüfung von einem "zentralen" Server auf ein oder mehrere "verteilte" Server. Die meisten kleinen bis mittleren
+    Unternehmen werden keinen wirklichen Bedarf für das Aufsetzen solch einer Umgebung haben. Wenn Sie allerdings hunderte oder sogar
+    tausende von <emphasis>Hosts</emphasis> (und ein Mehrfaches an Services) mit &name-icinga; überwachen wollen, dann kann das ziemlich
+    wichtig werden.</para>
+  </section>
 
-  <para><emphasis role="bold">Referenzdiagramm</emphasis></para>
+  <section>
+    <title>Referenzdiagramm</title>
 
-  <para>Das folgende Diagramm soll Ihnen eine generelle Idee davon geben, wie verteilte Überwachung mit &name-icinga; arbeitet.
-  Wir werden uns auf die Elemente im Diagramm beziehen, während wir die Dinge erklären...</para>
+    <para>Das folgende Diagramm soll Ihnen eine generelle Idee davon geben, wie verteilte Überwachung mit &name-icinga; arbeitet. Wir werden
+    uns auf die Elemente im Diagramm beziehen, während wir die Dinge erklären...</para>
 
-  <para><inlinemediaobject>
-      <imageobject>
-        <imagedata fileref="../images/distributed.png" format="PNG"></imagedata>
-      </imageobject>
-    </inlinemediaobject></para>
+    <para><inlinemediaobject>
+        <imageobject>
+          <imagedata fileref="../images/distributed.png" format="PNG"/>
+        </imageobject>
+      </inlinemediaobject></para>
+  </section>
 
-  <para><emphasis role="bold">Zentraler Server vs. Verteilte Server</emphasis></para>
+  <section>
+    <title>Zentraler Server vs. Verteilte Server</title>
 
-  <para>Beim Einrichten einer verteilten Überwachungsumgebung mit &name-icinga; gibt es Unterschiede in der Art, wie zentrale und
-  verteilte Server konfiguriert sind. Wir werden Ihnen zeigen, wie beide Arten von Servern konfiguriert werden und erklären,
-  welche Auswirkungen die gemachten Änderungen auf die gesamte Überwachung haben. Für den Anfang beschreiben wir den Zweck der
-  verschiedenen Server-Typen...</para>
+    <para>Beim Einrichten einer verteilten Überwachungsumgebung mit &name-icinga; gibt es Unterschiede in der Art, wie zentrale und
+    verteilte Server konfiguriert sind. Wir werden Ihnen zeigen, wie beide Arten von Servern konfiguriert werden und erklären, welche
+    Auswirkungen die gemachten Änderungen auf die gesamte Überwachung haben. Für den Anfang beschreiben wir den Zweck der verschiedenen
+    Server-Typen...</para>
 
-  <para>Die Funktion eines <emphasis>verteilten Servers</emphasis> ist es, aktiv Prüfungen für alle Services durchzuführen, die
-  Sie für eine "Gruppe" (Cluster) von Hosts definieren. Wir benutzen den Begriff "Gruppe" locker - er meint lediglich eine
-  willkürliche Gruppe von Hosts in Ihrem Netzwerk. Abhängig von Ihrem Netzwerk-Layout können Sie mehrere Gruppen in einem
-  physischen Standort haben oder jede Gruppe kann durch ein WAN voneinander getrennt sein, mit einer eigenen Firewall, usw.
-  Wichtig anzumerken ist, dass es für jede Gruppe von Hosts (wie immer Sie diese definieren mögen) einen verteilten Server gibt,
-  auf dem &name-icinga; läuft, und der die Services der Hosts dieser Gruppe überwacht. Ein verteilter Server enthält meistens eine
-  simple Installation von &name-icinga;. Es muss kein Web-Interface installiert sein, keine Benachrichtigungen versenden, keine
-  Eventhandler-Scripts ausführen, noch etwas anderes tun außer Service-Prüfungen ausführen, wenn Sie das nicht wollen.
-  Detaillierte Informationen zur Konfiguration eines verteilten Services gibt es später...</para>
+    <para>Die Funktion eines <emphasis>verteilten Servers</emphasis> ist es, aktiv Prüfungen für alle Services durchzuführen, die Sie für
+    eine "Gruppe" (Cluster) von Hosts definieren. Wir benutzen den Begriff "Gruppe" locker - er meint lediglich eine willkürliche Gruppe von
+    Hosts in Ihrem Netzwerk. Abhängig von Ihrem Netzwerk-Layout können Sie mehrere Gruppen in einem physischen Standort haben oder jede
+    Gruppe kann durch ein WAN voneinander getrennt sein, mit einer eigenen Firewall, usw. Wichtig anzumerken ist, dass es für jede Gruppe
+    von Hosts (wie immer Sie diese definieren mögen) einen verteilten Server gibt, auf dem &name-icinga; läuft, und der die Services der
+    Hosts dieser Gruppe überwacht. Ein verteilter Server enthält meistens eine simple Installation von &name-icinga;. Es muss kein
+    Web-Interface installiert sein, keine Benachrichtigungen versenden, keine Eventhandler-Scripts ausführen, noch etwas anderes tun außer
+    Service-Prüfungen ausführen, wenn Sie das nicht wollen. Detaillierte Informationen zur Konfiguration eines verteilten Services gibt es
+    später...</para>
 
-  <para>Der Zweck des <emphasis>zentralen</emphasis> Servers ist es lediglich, auf Service-Prüfungsergebnisse von einem oder
-  mehreren verteilten Servern zu horchen. Obwohl Services ab und zu aktiv durch den zentralen Server geprüft werden, werden diese
-  aktiven Prüfungen nur unter schlimmen Umständen ausgeführt, also lassen Sie uns im Moment sagen, dass der zentrale Server
-  lediglich passive Prüfungen annimmt. Da der zentrale Server Ergebnisse von <link linkend="passivechecks">passiven
-  Service-Prüfungen</link> von einem oder mehreren verteilten Servern erhält, dient er als Mittelpunkt der gesamten
-  Überwachungslogik (d.h., er versendet Benachrichtigungen, startet Eventhandler-Scripts, legt den Zustand von Hosts fest, enthält
-  das Web-Interface, usw.).</para>
+    <para>Der Zweck des <emphasis>zentralen</emphasis> Servers ist es lediglich, auf Service-Prüfungsergebnisse von einem oder mehreren
+    verteilten Servern zu horchen. Obwohl Services ab und zu aktiv durch den zentralen Server geprüft werden, werden diese aktiven Prüfungen
+    nur unter schlimmen Umständen ausgeführt, also lassen Sie uns im Moment sagen, dass der zentrale Server lediglich passive Prüfungen
+    annimmt. Da der zentrale Server Ergebnisse von <link linkend="passivechecks">passiven Service-Prüfungen</link> von einem oder mehreren
+    verteilten Servern erhält, dient er als Mittelpunkt der gesamten Überwachungslogik (d.h., er versendet Benachrichtigungen, startet
+    Eventhandler-Scripts, legt den Zustand von Hosts fest, enthält das Web-Interface, usw.).</para>
+  </section>
 
-  <para><emphasis role="bold">Service-Prüfungsinformationen von verteilten Servern erhalten</emphasis></para>
+  <section>
+    <title>Service-Prüfungsinformationen von verteilten Servern erhalten</title>
 
-  <para>Bevor wir näher auf Konfigurationsdetails eingehen, müssen wir wissen, wie die Service-Prüfungsergebnisse von den
-  verteilten Servern zum zentralen Server geschickt werden. Wir haben bereits erwähnt, wie man passive Prüfungsergebnisse an den
-  gleichen Host schickt, auf dem &name-icinga; läuft (wie in der Dokumentation zu <link linkend="passivechecks">passive
-  Prüfungen</link> beschrieben), aber wir haben keinerlei Informationen darüber gegeben, wie man passive Prüfergebnisse von
-  anderen Hosts verschickt.</para>
+    <para>Bevor wir näher auf Konfigurationsdetails eingehen, müssen wir wissen, wie die Service-Prüfungsergebnisse von den verteilten
+    Servern zum zentralen Server geschickt werden. Wir haben bereits erwähnt, wie man passive Prüfungsergebnisse an den gleichen Host
+    schickt, auf dem &name-icinga; läuft (wie in der Dokumentation zu <link linkend="passivechecks">passive Prüfungen</link> beschrieben),
+    aber wir haben keinerlei Informationen darüber gegeben, wie man passive Prüfergebnisse von anderen Hosts verschickt.</para>
 
-  <para>Um den Versand von passiven Prüfergebnissen an einen anderen Host zu erleichtern, haben wir das <link
-  linkend="addons-nsca">nsca-Addon</link> geschrieben. Das Addon besteht aus zwei Teilen. Das erste ist ein Client-Programm
-  (send_nsca), das auf einem entfernten Host läuft und benutzt wird, um die Service-Prüfergebnisse an einen anderen Server zu
-  senden. Das zweite Teil ist der nsca-Daemon (nsca), der entweder als eigenständiger Daemon oder unter inetd läuft und auf
-  Verbindungen von Client-Programmen horcht. Nach dem Empfang von Service-Prüfinformationen von einem Client wird der Daemon die
-  Prüfinformationen an &name-icinga; (auf dem zentralen Server) weiterleiten, indem ein
-  <emphasis>PROCESS_SVC_CHECK_RESULT</emphasis> zusammen mit den Prüfergebnissen in das <link
-  linkend="configmain-command_file">external command file</link> eingefügt wird. Das nächste Mal, wenn &name-icinga; auf <link
-  linkend="extcommands">externe Befehle</link> prüft, wird es die passiven Prüfergebnisse finden, die von den verteilten Servern
-  geschickt wurden und sie verarbeiten. Einfach, oder?</para>
+    <para>Um den Versand von passiven Prüfergebnissen an einen anderen Host zu erleichtern, haben wir das <link
+    linkend="addons-nsca">nsca-Addon</link> geschrieben. Das Addon besteht aus zwei Teilen. Das erste ist ein Client-Programm (send_nsca),
+    das auf einem entfernten Host läuft und benutzt wird, um die Service-Prüfergebnisse an einen anderen Server zu senden. Das zweite Teil
+    ist der nsca-Daemon (nsca), der entweder als eigenständiger Daemon oder unter inetd läuft und auf Verbindungen von Client-Programmen
+    horcht. Nach dem Empfang von Service-Prüfinformationen von einem Client wird der Daemon die Prüfinformationen an &name-icinga; (auf dem
+    zentralen Server) weiterleiten, indem ein <emphasis>PROCESS_SVC_CHECK_RESULT</emphasis> zusammen mit den Prüfergebnissen in das <link
+    linkend="configmain-command_file">external command file</link> eingefügt wird. Das nächste Mal, wenn &name-icinga; auf <link
+    linkend="extcommands">externe Befehle</link> prüft, wird es die passiven Prüfergebnisse finden, die von den verteilten Servern geschickt
+    wurden und sie verarbeiten. Einfach, oder?</para>
+  </section>
 
-  <para><emphasis role="bold">Verteilte Server-Konfiguration</emphasis></para>
+  <section>
+    <title>Verteilte Server-Konfiguration</title>
 
-  <para>Also wie genau wird &name-icinga; auf einem verteilten Server konfiguriert? Grundsätzlich ist es eine einfache
-  Installation. Sie müssen weder ein Web-Interface installieren noch Benachrichtigungen versenden, weil dies alles vom zentralen
-  Server aus erledigt wird.</para>
+    <para>Also wie genau wird &name-icinga; auf einem verteilten Server konfiguriert? Grundsätzlich ist es eine einfache Installation. Sie
+    müssen weder ein Web-Interface installieren noch Benachrichtigungen versenden, weil dies alles vom zentralen Server aus erledigt
+    wird.</para>
 
-  <para>Haupt-Konfigurationsanpassungen:</para>
+    <para>Haupt-Konfigurationsanpassungen:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>Nur die direkt durch den verteilten Server zu überwachenden Services werden in der <link
-      linkend="configobject">Objekt-Konfigurationsdatei</link> definiert.</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>Nur die direkt durch den verteilten Server zu überwachenden Services werden in der <link
+        linkend="configobject">Objekt-Konfigurationsdatei</link> definiert.</para>
+      </listitem>
 
-    <listitem>
-      <para>Die <link linkend="configmain-enable_notifications">enable_notifications</link>-Direktive auf dem verteilten Server
-      wird auf 0 gesetzt. Das verhindert das Versenden von Benachrichtigungen.</para>
-    </listitem>
+      <listitem>
+        <para>Die <link linkend="configmain-enable_notifications">enable_notifications</link>-Direktive auf dem verteilten Server wird auf 0
+        gesetzt. Das verhindert das Versenden von Benachrichtigungen.</para>
+      </listitem>
 
-    <listitem>
-      <para>Die <link linkend="configmain-obsess_over_services">obsess over services</link>-Direktive auf dem verteilten Server
-      wird aktiviert.</para>
-    </listitem>
+      <listitem>
+        <para>Die <link linkend="configmain-obsess_over_services">obsess over services</link>-Direktive auf dem verteilten Server wird
+        aktiviert.</para>
+      </listitem>
 
-    <listitem>
-      <para>Auf dem verteilten Server ist ein <link linkend="configmain-ocsp_command">ocsp command</link> definiert (wie unten
-      beschrieben).</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>Auf dem verteilten Server ist ein <link linkend="configmain-ocsp_command">ocsp command</link> definiert (wie unten
+        beschrieben).</para>
+      </listitem>
+    </itemizedlist>
 
-  <para>Damit alles zusammenkommt und ordentlich arbeitet, wollen wir, dass der verteilte Server die Ergebnisse
-  <emphasis>aller</emphasis> Service-Prüfungen an &name-icinga; meldet. Wir können <link
-  linkend="eventhandlers">Eventhandler</link> benutzen, um <emphasis>Änderungen</emphasis> am Zustand eines Service mitzuteilen,
-  aber das bringt's nicht. Um den verteilten Server zu zwingen, alle Prüfergebnisse zu melden, müssen Sie die <link
-  linkend="configmain-obsess_over_services">obsess_over_services</link>-Option in der Hauptkonfigurationsdatei aktivieren und ein
-  <link linkend="configmain-ocsp_command">ocsp_command</link> bereitstellen, was nach jeder Service-Prüfung ausgeführt wird. Wir
-  werden das ocsp-Kommando benutzen, um die Ergebnisse aller Service-Prüfungen an den zentralen Server zu senden und den
-  send_nsca-Client sowie den nsca-Daemon benutzen (wie oben beschrieben), um die Übertragung zu erledigen.</para>
+    <para>Damit alles zusammenkommt und ordentlich arbeitet, wollen wir, dass der verteilte Server die Ergebnisse <emphasis>aller</emphasis>
+    Service-Prüfungen an &name-icinga; meldet. Wir können <link linkend="eventhandlers">Eventhandler</link> benutzen, um
+    <emphasis>Änderungen</emphasis> am Zustand eines Service mitzuteilen, aber das bringt's nicht. Um den verteilten Server zu zwingen, alle
+    Prüfergebnisse zu melden, müssen Sie die <link linkend="configmain-obsess_over_services">obsess_over_services</link>-Option in der
+    Hauptkonfigurationsdatei aktivieren und ein <link linkend="configmain-ocsp_command">ocsp_command</link> bereitstellen, was nach jeder
+    Service-Prüfung ausgeführt wird. Wir werden das ocsp-Kommando benutzen, um die Ergebnisse aller Service-Prüfungen an den zentralen
+    Server zu senden und den send_nsca-Client sowie den nsca-Daemon benutzen (wie oben beschrieben), um die Übertragung zu erledigen.</para>
 
-  <para>Um dies zu erreichen, müssen Sie ein ocsp-Kommando wie folgt definieren:</para>
+    <para>Um dies zu erreichen, müssen Sie ein ocsp-Kommando wie folgt definieren:</para>
+  </section>
 
-  <para><emphasis role="bold">ocsp_command=submit_check_result</emphasis></para>
+  <section>
+    <title>ocsp_command=submit_check_result</title>
 
-  <para>Die Definition für den <emphasis>submit_check_result</emphasis>-Befehl sieht ungefähr so aus:</para>
+    <para>Die Definition für den <emphasis>submit_check_result</emphasis>-Befehl sieht ungefähr so aus:</para>
 
-  <screen>
+    <screen>
  <emphasis role="bold">define command{ command_name submit_check_result command_line &url-icinga-libexec;/eventhandlers/submit_check_result $HOSTNAME$ '$SERVICEDESC$' $SERVICESTATE$ '$SERVICEOUTPUT$' }</emphasis>
     </screen>
 
-  <para>Die <emphasis>submit_check_result</emphasis> Shell-Scripte sehen ungefähr so aus (ersetzen Sie
-  <emphasis>central_server</emphasis> durch die IP-Adresse des zentralen Servers):</para>
+    <para>Die <emphasis>submit_check_result</emphasis> Shell-Scripte sehen ungefähr so aus (ersetzen Sie <emphasis>central_server</emphasis>
+    durch die IP-Adresse des zentralen Servers):</para>
 
-  <screen> #!/bin/sh
+    <screen> #!/bin/sh
  # Arguments:
  #  $1 = host_name (Short name of host that the service is
  #       associated with)
@@ -161,218 +169,221 @@
  # monitoring server
  /bin/printf "%s\t%s\t%s\t%s\n" "$1" "$2" "$return_code" "$4" | &url-icinga-base;/bin/send_nsca -H <emphasis> central_server</emphasis> -c &url-icinga-base;/etc/send_nsca.cfg</screen>
 
-  <para>Das Script oben geht davon aus, dass das send_nsca-Programm und die Konfigurationsdatei (send_nsca.cfg) in den
-  Verzeichnissen <emphasis>&url-icinga-base;/bin/</emphasis> und <emphasis>&url-icinga-base;/etc/</emphasis> zu finden
-  sind.</para>
+    <para>Das Script oben geht davon aus, dass das send_nsca-Programm und die Konfigurationsdatei (send_nsca.cfg) in den Verzeichnissen
+    <emphasis>&url-icinga-base;/bin/</emphasis> und <emphasis>&url-icinga-base;/etc/</emphasis> zu finden sind.</para>
 
-  <para>Das ist alles! Wir haben erfolgreich einen entfernten Host konfiguriert, auf dem &name-icinga; als ein verteilter
-  Überwachungs-Server läuft. Lassen Sie uns genau betrachten, was mit dem verteilten Server passiert und wie er
-  Service-Prüfungsergebnisse an &name-icinga; schickt (die unten skizzierten Schritte entsprechen den Zahlen im obigen
-  Referenzdiagramm):</para>
+    <para>Das ist alles! Wir haben erfolgreich einen entfernten Host konfiguriert, auf dem &name-icinga; als ein verteilter
+    Überwachungs-Server läuft. Lassen Sie uns genau betrachten, was mit dem verteilten Server passiert und wie er Service-Prüfungsergebnisse
+    an &name-icinga; schickt (die unten skizzierten Schritte entsprechen den Zahlen im obigen Referenzdiagramm):</para>
 
-  <orderedlist>
-    <listitem>
-      <para>Nachdem der verteilte Server eine Service-Prüfung beendet hat, führt er den Befehl aus, den Sie mit der Variable <link
-      linkend="configmain-ocsp_command">ocsp_command</link> definiert haben. In unserem Beispiel ist dies das
-      <emphasis>&url-icinga-libexec;/eventhandlers/submit_check_result</emphasis>-Script. Beachten Sie, dass die Definition für
-      den <emphasis>submit_check_result</emphasis>-Befehl vier Parameter für das Script übergibt: den Namen des Hosts, der mit dem
-      Service verbunden ist, die Service-Beschreibung, den Rückgabewert der Service-Prüfung und die Plugin-Ausgabe der
-      Service-Prüfung.</para>
-    </listitem>
+    <orderedlist>
+      <listitem>
+        <para>Nachdem der verteilte Server eine Service-Prüfung beendet hat, führt er den Befehl aus, den Sie mit der Variable <link
+        linkend="configmain-ocsp_command">ocsp_command</link> definiert haben. In unserem Beispiel ist dies das
+        <emphasis>&url-icinga-libexec;/eventhandlers/submit_check_result</emphasis>-Script. Beachten Sie, dass die Definition für den
+        <emphasis>submit_check_result</emphasis>-Befehl vier Parameter für das Script übergibt: den Namen des Hosts, der mit dem Service
+        verbunden ist, die Service-Beschreibung, den Rückgabewert der Service-Prüfung und die Plugin-Ausgabe der Service-Prüfung.</para>
+      </listitem>
 
-    <listitem>
-      <para>das <emphasis>submit_check_result</emphasis>-Script übergibt die Informationen der Service-Prüfung (Host-Name,
-      Beschreibung, Rückgabewert und Ausgabe) an das <emphasis>send_nsca</emphasis>-Client-Programm.</para>
-    </listitem>
+      <listitem>
+        <para>das <emphasis>submit_check_result</emphasis>-Script übergibt die Informationen der Service-Prüfung (Host-Name, Beschreibung,
+        Rückgabewert und Ausgabe) an das <emphasis>send_nsca</emphasis>-Client-Programm.</para>
+      </listitem>
 
-    <listitem>
-      <para>das <emphasis>send_nsca</emphasis>-Programm überträgt die Informationen der Service-Prüfung an den
-      <emphasis>nsca</emphasis>-Daemon auf dem zentralen Überwachungs-Server.</para>
-    </listitem>
+      <listitem>
+        <para>das <emphasis>send_nsca</emphasis>-Programm überträgt die Informationen der Service-Prüfung an den
+        <emphasis>nsca</emphasis>-Daemon auf dem zentralen Überwachungs-Server.</para>
+      </listitem>
 
-    <listitem>
-      <para>der <emphasis>nsca</emphasis>-Daemon auf dem zentralen Server nimmt die Informationen der Service-Prüfung und schreibt
-      sie in das external command file, damit &name-icinga; sie später dort aufsammeln kann.</para>
-    </listitem>
+      <listitem>
+        <para>der <emphasis>nsca</emphasis>-Daemon auf dem zentralen Server nimmt die Informationen der Service-Prüfung und schreibt sie in
+        das external command file, damit &name-icinga; sie später dort aufsammeln kann.</para>
+      </listitem>
 
-    <listitem>
-      <para>der &name-icinga;-Prozess auf dem zentralen Server liest das external command file und verarbeitet die passiven
-      Service-Prüfungsergebnisse, die vom verteilten Überwachungs-Server stammen.</para>
-    </listitem>
-  </orderedlist>
+      <listitem>
+        <para>der &name-icinga;-Prozess auf dem zentralen Server liest das external command file und verarbeitet die passiven
+        Service-Prüfungsergebnisse, die vom verteilten Überwachungs-Server stammen.</para>
+      </listitem>
+    </orderedlist>
+  </section>
 
-  <para><emphasis role="bold">zentrale Server-Konfiguration</emphasis></para>
+  <section>
+    <title>zentrale Server-Konfiguration</title>
 
-  <para>Wir haben betrachtet, wie verteilte Überwachungs-Server konfiguriert werden sollten, daher wenden wir uns nun dem
-  zentralen Server zu. Für alle wichtigen Dinge wird der zentrale so konfiguriert wie ein einzelner Server. Dessen Setup ist wie
-  folgt:</para>
+    <para>Wir haben betrachtet, wie verteilte Überwachungs-Server konfiguriert werden sollten, daher wenden wir uns nun dem zentralen Server
+    zu. Für alle wichtigen Dinge wird der zentrale so konfiguriert wie ein einzelner Server. Dessen Setup ist wie folgt:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>auf dem zentralen Server ist das Web-Interface installiert (optional, aber empfohlen)</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>auf dem zentralen Server ist das Web-Interface installiert (optional, aber empfohlen)</para>
+      </listitem>
 
-    <listitem>
-      <para>auf dem zentralen Server ist die <link linkend="configmain-enable_notifications">enable_notifications</link>-Direktive
-      auf 1 gesetzt. Das aktiviert Benachrichtungen (optional, aber empfohlen)</para>
-    </listitem>
+      <listitem>
+        <para>auf dem zentralen Server ist die <link linkend="configmain-enable_notifications">enable_notifications</link>-Direktive auf 1
+        gesetzt. Das aktiviert Benachrichtungen (optional, aber empfohlen)</para>
+      </listitem>
 
-    <listitem>
-      <para>auf dem zentralen Server sind <link linkend="configmain-execute_service_checks">aktive Service-Prüfungen</link>
-      deaktiviert (optional, aber empfohlen - beachten Sie die folgenden Anmerkungen)</para>
-    </listitem>
+      <listitem>
+        <para>auf dem zentralen Server sind <link linkend="configmain-execute_service_checks">aktive Service-Prüfungen</link> deaktiviert
+        (optional, aber empfohlen - beachten Sie die folgenden Anmerkungen)</para>
+      </listitem>
 
-    <listitem>
-      <para>auf dem zentralen Server sind <link linkend="configmain-check_external_commands">external command checks</link>
-      aktiviert (erforderlich)</para>
-    </listitem>
+      <listitem>
+        <para>auf dem zentralen Server sind <link linkend="configmain-check_external_commands">external command checks</link> aktiviert
+        (erforderlich)</para>
+      </listitem>
 
-    <listitem>
-      <para>auf dem zentralen Server sind <link linkend="configmain-accept_passive_service_checks">passive
-      Service-Prüfungen</link> aktiviert (erforderlich)</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>auf dem zentralen Server sind <link linkend="configmain-accept_passive_service_checks">passive Service-Prüfungen</link>
+        aktiviert (erforderlich)</para>
+      </listitem>
+    </itemizedlist>
 
-  <para>Es gibt drei andere sehr wichtige Dinge, die Sie beachten sollten, wenn Sie den zentralen Server konfigurieren:</para>
+    <para>Es gibt drei andere sehr wichtige Dinge, die Sie beachten sollten, wenn Sie den zentralen Server konfigurieren:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>Der zentrale Server muss Service-Definitionen für <emphasis>alle Services</emphasis> haben, die auf allen verteilten
-      Servern überwacht werden. &name-icinga; wird passive Prüfungsergebnisse ignorieren, wenn sie nicht zu einem Service passen,
-      den Sie definiert haben.</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>Der zentrale Server muss Service-Definitionen für <emphasis>alle Services</emphasis> haben, die auf allen verteilten Servern
+        überwacht werden. &name-icinga; wird passive Prüfungsergebnisse ignorieren, wenn sie nicht zu einem Service passen, den Sie
+        definiert haben.</para>
+      </listitem>
 
-    <listitem>
-      <para>Wenn Sie den zentralen Server nur benutzen, um Services zu verarbeiten, deren Ergebnisse von verteilten Hosts stammen,
-      können Sie alle aktiven Service-Prüfungen auf programmweiter Basis durch das Setzen der <link
-      linkend="configmain-execute_service_checks">execute_service_checks</link>-Direktive auf 0 deaktivieren. Wenn Sie den
-      zentralen Server nutzen, um selbst einige Services aktiv zu überwachen (ohne die Hilfe von verteilten Servern), dann sollten
-      Sie die <emphasis>active_checks_enabled</emphasis>-Option der Service-Definitionen auf 0 setzen, die von den verteilten
-      Servern überwacht werden. Das hindert &name-icinga; daran, diese Services aktiv zu prüfen.</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>Wenn Sie den zentralen Server nur benutzen, um Services zu verarbeiten, deren Ergebnisse von verteilten Hosts stammen, können
+        Sie alle aktiven Service-Prüfungen auf programmweiter Basis durch das Setzen der <link
+        linkend="configmain-execute_service_checks">execute_service_checks</link>-Direktive auf 0 deaktivieren. Wenn Sie den zentralen
+        Server nutzen, um selbst einige Services aktiv zu überwachen (ohne die Hilfe von verteilten Servern), dann sollten Sie die
+        <emphasis>active_checks_enabled</emphasis>-Option der Service-Definitionen auf 0 setzen, die von den verteilten Servern überwacht
+        werden. Das hindert &name-icinga; daran, diese Services aktiv zu prüfen.</para>
+      </listitem>
+    </itemizedlist>
 
-  <para>Es ist wichtig, dass Sie entweder alle Service-Prüfungen auf einer programmweiten Basis deaktivieren oder die
-  <emphasis>enable_active_checks</emphasis>-Option in jeder Service-Definition deaktivieren, die von einem verteilten Server
-  überwacht werden. Das stellt sicher, dass aktive Service-Prüfungen unter normalen Umständen niemals ausgeführt werden. Die
-  Services werden weiterhin im normalen Prüfintervall geplant (3 Min., 5 Min., usw.), aber nicht ausgeführt. Wir werden bald
-  erklären, warum das so ist...</para>
+    <para>Es ist wichtig, dass Sie entweder alle Service-Prüfungen auf einer programmweiten Basis deaktivieren oder die
+    <emphasis>enable_active_checks</emphasis>-Option in jeder Service-Definition deaktivieren, die von einem verteilten Server überwacht
+    werden. Das stellt sicher, dass aktive Service-Prüfungen unter normalen Umständen niemals ausgeführt werden. Die Services werden
+    weiterhin im normalen Prüfintervall geplant (3 Min., 5 Min., usw.), aber nicht ausgeführt. Wir werden bald erklären, warum das so
+    ist...</para>
 
-  <para>Das war's! Einfach, oder?</para>
+    <para>Das war's! Einfach, oder?</para>
+  </section>
 
-  <para><emphasis role="bold">Probleme bei passiven Prüfungen</emphasis></para>
+  <section>
+    <title>Probleme bei passiven Prüfungen</title>
 
-  <para>Für alle wichtigen Dinge können wir sagen, dass sich der zentrale Server bei Überwachungen allein auf passive Prüfungen
-  verlässt. Das Hauptproblem daran, sich komplett auf passive Prüfungen zu verlassen besteht darin, dass &name-icinga; darauf
-  vertrauen muss, dass jemand anders die Daten liefert. Was passiert, wenn der entfernte Host, der passive Prüfergebnisse sendet,
-  herunterfährt oder unerreichbar wird? Wenn &name-icinga; nicht aktiv die Services auf dem Host prüft, wie soll es wissen, wann
-  es ein Problem gibt?</para>
+    <para>Für alle wichtigen Dinge können wir sagen, dass sich der zentrale Server bei Überwachungen allein auf passive Prüfungen verlässt.
+    Das Hauptproblem daran, sich komplett auf passive Prüfungen zu verlassen besteht darin, dass &name-icinga; darauf vertrauen muss, dass
+    jemand anders die Daten liefert. Was passiert, wenn der entfernte Host, der passive Prüfergebnisse sendet, herunterfährt oder
+    unerreichbar wird? Wenn &name-icinga; nicht aktiv die Services auf dem Host prüft, wie soll es wissen, wann es ein Problem gibt?</para>
 
-  <para>Glücklicherweise gibt es einen Weg, diese Art von Problemen zu behandeln...</para>
+    <para>Glücklicherweise gibt es einen Weg, diese Art von Problemen zu behandeln...</para>
+  </section>
 
-  <para><emphasis role="bold">Frische-Prüfung (Freshness Checking)</emphasis></para>
+  <section>
+    <title>Frische-Prüfung (Freshness Checking)</title>
 
-  <para>&name-icinga; unterstützt ein Feature, das eine "Frische"-Prüfung für die Ergebnisse von Service-Prüfungen durchführt.
-  Mehr Informationen über Frische-Prüfung finden Sie <link linkend="freshness">hier</link>. Dieses Feature sorgt für etwas Schutz
-  gegen Situationen, in denen entfernte Hosts keine passiven Service-Prüfungen mehr an den zentralen Überwachungs-Server schicken.
-  Der Zweck der "Frische"-Prüfung besteht darin, sicherzustellen, dass Service-Prüfungen entweder regelmäßig passiv durch
-  verteilte Server oder aktiv durch den zentralen Server durchgeführt werden, falls dies notwendig sein sollte. Wenn die
-  Service-Prüfergebnisse von verteilten Servern als "abgestanden" angesehen werden, kann &name-icinga; so konfiguriert werden, um
-  aktive Prüfungen des Service vom zentralen Überwachungs-Server aus zu erzwingen.</para>
+    <para>&name-icinga; unterstützt ein Feature, das eine "Frische"-Prüfung für die Ergebnisse von Service-Prüfungen durchführt. Mehr
+    Informationen über Frische-Prüfung finden Sie <link linkend="freshness">hier</link>. Dieses Feature sorgt für etwas Schutz gegen
+    Situationen, in denen entfernte Hosts keine passiven Service-Prüfungen mehr an den zentralen Überwachungs-Server schicken. Der Zweck der
+    "Frische"-Prüfung besteht darin, sicherzustellen, dass Service-Prüfungen entweder regelmäßig passiv durch verteilte Server oder aktiv
+    durch den zentralen Server durchgeführt werden, falls dies notwendig sein sollte. Wenn die Service-Prüfergebnisse von verteilten Servern
+    als "abgestanden" angesehen werden, kann &name-icinga; so konfiguriert werden, um aktive Prüfungen des Service vom zentralen
+    Überwachungs-Server aus zu erzwingen.</para>
 
-  <para>Wie machen Sie das? Auf dem zentralen Überwachungs-Server müssen Sie Services konfigurieren, die von verteilten Server wie
-  folgt überwacht werden:</para>
+    <para>Wie machen Sie das? Auf dem zentralen Überwachungs-Server müssen Sie Services konfigurieren, die von verteilten Server wie folgt
+    überwacht werden:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>Die <emphasis>check_freshness</emphasis>-Option in der Service-Definition ist auf 1 zu setzen. Das aktiviert
-      "Frische"-Prüfungen für den Service.</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>Die <emphasis>check_freshness</emphasis>-Option in der Service-Definition ist auf 1 zu setzen. Das aktiviert
+        "Frische"-Prüfungen für den Service.</para>
+      </listitem>
 
-    <listitem>
-      <para>Die <emphasis>freshness_threshold</emphasis>-Option in den Service-Definitionen sollte auf einen Wert (in Sekunden)
-      gesetzt werden, der widerspiegelt, wie "frisch" die (von den entfernten Servern gelieferten) Ergebnisse der
-      Service-Prüfungen sein sollten.</para>
-    </listitem>
+      <listitem>
+        <para>Die <emphasis>freshness_threshold</emphasis>-Option in den Service-Definitionen sollte auf einen Wert (in Sekunden) gesetzt
+        werden, der widerspiegelt, wie "frisch" die (von den entfernten Servern gelieferten) Ergebnisse der Service-Prüfungen sein
+        sollten.</para>
+      </listitem>
 
-    <listitem>
-      <para>Die <emphasis>check_command</emphasis>-Option in den Service-Definitionen sollte gültige Befehle enthalten, die
-      genutzt werden können, um den Service aktiv vom zentralen Server aus zu prüfen.</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>Die <emphasis>check_command</emphasis>-Option in den Service-Definitionen sollte gültige Befehle enthalten, die genutzt werden
+        können, um den Service aktiv vom zentralen Server aus zu prüfen.</para>
+      </listitem>
+    </itemizedlist>
 
-  <para>&name-icinga; prüft periodisch die "Frische" der Ergebnisse aller Services, für die Frische-Prüfungen aktiviert sind. Die
-  <emphasis>freshness_threshold</emphasis>-Option in jeder Service-Definition wird benutzt, um festzulegen, wie "frisch" die
-  Ergebnisse für jeden Service sein sollen. Wenn Sie z.B. diesen Wert für einen Ihrer Services auf 300 setzen, wird &name-icinga;
-  das Service-Ergebnis als "abgestanden" betrachten, wenn es älter als 5 Minuten (300 Sekunden) ist. Falls Sie keinen Wert für die
-  <emphasis>freshness_threshold</emphasis>-Option angeben, wird &name-icinga; automatisch einen "Frische"-Schwellwert berechnen,
-  indem es die Werte der <emphasis>check_interval</emphasis>- oder der <emphasis>retry_interval</emphasis>-Option
-  betrachtet (abhängig vom <link linkend="statetypes">Statustyp</link>, in dem sich der Service befindet). Wenn die
-  Service-Ergebnisse als "abgestanden" angesehen werden, wird &name-icinga; den Service-Prüf-Befehl ausführen, der in der
-  <emphasis>check_command</emphasis>-Option der Service-Definition angegeben ist, und dadurch den Service aktiv prüfen.</para>
+    <para>&name-icinga; prüft periodisch die "Frische" der Ergebnisse aller Services, für die Frische-Prüfungen aktiviert sind. Die
+    <emphasis>freshness_threshold</emphasis>-Option in jeder Service-Definition wird benutzt, um festzulegen, wie "frisch" die Ergebnisse
+    für jeden Service sein sollen. Wenn Sie z.B. diesen Wert für einen Ihrer Services auf 300 setzen, wird &name-icinga; das
+    Service-Ergebnis als "abgestanden" betrachten, wenn es älter als 5 Minuten (300 Sekunden) ist. Falls Sie keinen Wert für die
+    <emphasis>freshness_threshold</emphasis>-Option angeben, wird &name-icinga; automatisch einen "Frische"-Schwellwert berechnen, indem es
+    die Werte der <emphasis>check_interval</emphasis>- oder der <emphasis>retry_interval</emphasis>-Option betrachtet (abhängig vom <link
+    linkend="statetypes">Statustyp</link>, in dem sich der Service befindet). Wenn die Service-Ergebnisse als "abgestanden" angesehen
+    werden, wird &name-icinga; den Service-Prüf-Befehl ausführen, der in der <emphasis>check_command</emphasis>-Option der
+    Service-Definition angegeben ist, und dadurch den Service aktiv prüfen.</para>
 
-  <para>Denken Sie daran, dass Sie eine <emphasis>check_command</emphasis>-Option in den Service-Definitionen angeben müssen, die
-  genutzt werden kann, um den Status des Service aktiv vom zentralen Server aus zu prüfen. Unter normalen Umständen wird dieser
-  Prüfbefehl niemals ausgeführt (weil aktive Prüfungen auf programmweiter Ebene bzw. für den einzelnen Service deaktiviert
-  wurden). Wenn Frische-Prüfungen aktiviert sind, wird &name-icinga; diesen Befehl ausführen, um den Zustand des Service aktiv zu
-  prüfen, <emphasis>auch wenn aktive Prüfungen auf einer programmweiten Ebene oder Service-spezifischen Basis deaktiviert
-  sind</emphasis>.</para>
+    <para>Denken Sie daran, dass Sie eine <emphasis>check_command</emphasis>-Option in den Service-Definitionen angeben müssen, die genutzt
+    werden kann, um den Status des Service aktiv vom zentralen Server aus zu prüfen. Unter normalen Umständen wird dieser Prüfbefehl niemals
+    ausgeführt (weil aktive Prüfungen auf programmweiter Ebene bzw. für den einzelnen Service deaktiviert wurden). Wenn Frische-Prüfungen
+    aktiviert sind, wird &name-icinga; diesen Befehl ausführen, um den Zustand des Service aktiv zu prüfen, <emphasis>auch wenn aktive
+    Prüfungen auf einer programmweiten Ebene oder Service-spezifischen Basis deaktiviert sind</emphasis>.</para>
 
-  <para>Falls Sie es nicht schaffen, Befehle zu definieren, um aktiv einen Service vom zentralen Überwachungs-Host aus zu prüfen
-  (oder wenn es zu einer großen Qual wird), können Sie ganz einfach bei all Ihren Services in der
-  <emphasis>check_command</emphasis>-Option ein Dummy-Script angeben, das einen kritischen Status zurückliefert. Hier ein
-  Beispiel... Lassen Sie uns annehmen, Sie definieren einen Befehl namens 'service-is-stale' und benutzen den Befehlsnamen in der
-  <emphasis>check_command</emphasis>-Option Ihrer Services. Hier nun, wie die Definition aussehen könnte...</para>
+    <para>Falls Sie es nicht schaffen, Befehle zu definieren, um aktiv einen Service vom zentralen Überwachungs-Host aus zu prüfen (oder
+    wenn es zu einer großen Qual wird), können Sie ganz einfach bei all Ihren Services in der <emphasis>check_command</emphasis>-Option ein
+    Dummy-Script angeben, das einen kritischen Status zurückliefert. Hier ein Beispiel... Lassen Sie uns annehmen, Sie definieren einen
+    Befehl namens 'service-is-stale' und benutzen den Befehlsnamen in der <emphasis>check_command</emphasis>-Option Ihrer Services. Hier
+    nun, wie die Definition aussehen könnte...</para>
 
-  <screen>
+    <screen>
  <emphasis role="bold"> define command{ command_name service-is-stale command_line &url-icinga-libexec;/check_dummy 2 "CRITICAL: Service results are stale" }</emphasis>
     </screen>
 
-  <para>Wenn &name-icinga; feststellt, dass das Service-Ergebnis abgestanden ist und das <emphasis
-  role="bold">service-is-stale</emphasis>-Kommando aufruft, wird das <emphasis>&url-icinga-libexec;/check_dummy</emphasis>-Plugin
-  ausgeführt und der Service geht in einen kritischen Zustand. Das wird wahrscheinlich dazu führen, dass Benachrichtigungen
-  versandt werden, so dass Sie wissen, dass es ein Problem gibt.</para>
+    <para>Wenn &name-icinga; feststellt, dass das Service-Ergebnis abgestanden ist und das <emphasis
+    role="bold">service-is-stale</emphasis>-Kommando aufruft, wird das <emphasis>&url-icinga-libexec;/check_dummy</emphasis>-Plugin
+    ausgeführt und der Service geht in einen kritischen Zustand. Das wird wahrscheinlich dazu führen, dass Benachrichtigungen versandt
+    werden, so dass Sie wissen, dass es ein Problem gibt.</para>
+  </section>
 
-  <para><emphasis role="bold">Host-Prüfungen durchführen</emphasis></para>
+  <section>
+    <title>Host-Prüfungen durchführen</title>
 
-  <para>An diesem Punkt wissen Sie, wie man Service-Ergebnisse von verteilten Servern auf passive Weise erhält. Das bedeutet, der
-  zentrale Server nicht aktiv Service-Prüfungen ausführt. Aber was ist mit Host-Prüfungen? Sie müssen sie trotzdem erledigen, aber
-  wie?</para>
+    <para>An diesem Punkt wissen Sie, wie man Service-Ergebnisse von verteilten Servern auf passive Weise erhält. Das bedeutet, der zentrale
+    Server nicht aktiv Service-Prüfungen ausführt. Aber was ist mit Host-Prüfungen? Sie müssen sie trotzdem erledigen, aber wie?</para>
 
-  <para>Nachdem Host-Prüfungen normalerweise einen kleinen Teil der Überwachungsaktivität verbrauchen (sie werden nur ausgeführt,
-  wenn es dringend notwendig ist), raten wir dazu, dass Sie die Host-Prüfungen aktiv vom zentralen Server aus durchführen. Das
-  bedeutet, dass Sie Host-Prüfungen auf dem zentralen Server genau wie auf den verteilten Servern definieren (und auf die gleiche
-  Weise, wie Sie das in einer normalen, nicht-verteilten Umgebung tun würden).</para>
+    <para>Nachdem Host-Prüfungen normalerweise einen kleinen Teil der Überwachungsaktivität verbrauchen (sie werden nur ausgeführt, wenn es
+    dringend notwendig ist), raten wir dazu, dass Sie die Host-Prüfungen aktiv vom zentralen Server aus durchführen. Das bedeutet, dass Sie
+    Host-Prüfungen auf dem zentralen Server genau wie auf den verteilten Servern definieren (und auf die gleiche Weise, wie Sie das in einer
+    normalen, nicht-verteilten Umgebung tun würden).</para>
 
-  <para>Passive Host-Prüfungen sind verfügbar (lesen Sie <link linkend="passivechecks">hier</link>), so dass Sie diese in Ihrer
-  verteilten Umgebung nutzen können, allerdings gibt es dabei ein paar Probleme. Das größte Problem besteht darin, dass
-  &name-icinga; Ergebnisse von passiven Host-Prüfungen (die Problemzustände DOWN und UNREACHABLE) nicht übersetzt, wenn sie
-  verarbeitet werden. Das bedeutet, falls Ihre Überwachungs-Server eine unterschiedliche Eltern-/Kind-Host-Struktur haben (und das
-  werden sie, wenn Ihre Überwachungs-Server an unterschiedlichen Standorten stehen), wird der zentrale Überwachungs-Server eine
-  ungenaue Sicht Ihrer Host-Zustände haben.</para>
+    <para>Passive Host-Prüfungen sind verfügbar (lesen Sie <link linkend="passivechecks">hier</link>), so dass Sie diese in Ihrer verteilten
+    Umgebung nutzen können, allerdings gibt es dabei ein paar Probleme. Das größte Problem besteht darin, dass &name-icinga; Ergebnisse von
+    passiven Host-Prüfungen (die Problemzustände DOWN und UNREACHABLE) nicht übersetzt, wenn sie verarbeitet werden. Das bedeutet, falls
+    Ihre Überwachungs-Server eine unterschiedliche Eltern-/Kind-Host-Struktur haben (und das werden sie, wenn Ihre Überwachungs-Server an
+    unterschiedlichen Standorten stehen), wird der zentrale Überwachungs-Server eine ungenaue Sicht Ihrer Host-Zustände haben.</para>
 
-  <para>Falls Sie in Ihrer verteilten Überwachungs-Umgebung passive Host-Prüfungen an einen zentralen Server senden möchten, dann
-  stellen Sie sicher:</para>
+    <para>Falls Sie in Ihrer verteilten Überwachungs-Umgebung passive Host-Prüfungen an einen zentralen Server senden möchten, dann stellen
+    Sie sicher:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>dass auf dem zentralen Server <link linkend="configmain-accept_passive_host_checks">passive Host-Prüfungen</link>
-      aktiviert sind (notwendig)</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>dass auf dem zentralen Server <link linkend="configmain-accept_passive_host_checks">passive Host-Prüfungen</link> aktiviert
+        sind (notwendig)</para>
+      </listitem>
 
-    <listitem>
-      <para>dass auf dem verteilten Server <link linkend="configmain-obsess_over_hosts">obsess over hosts</link> aktiviert
-      ist.</para>
-    </listitem>
+      <listitem>
+        <para>dass auf dem verteilten Server <link linkend="configmain-obsess_over_hosts">obsess over hosts</link> aktiviert ist.</para>
+      </listitem>
 
-    <listitem>
-      <para>dass auf dem verteilten Server ein <link linkend="configmain-ochp_command">ochp command</link> definiert ist.</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>dass auf dem verteilten Server ein <link linkend="configmain-ochp_command">ochp command</link> definiert ist.</para>
+      </listitem>
+    </itemizedlist>
 
-  <para>Der ochp-Befehl, der zur Verarbeitung von Host-Prüfergebnissen genutzt wird, arbeitet ähnlich wie der ocsp-Befehl, der für
-  die Verarbeitung von Service-Prüfergebnissen benutzt wird (siehe oben). Um sicherzustellen, dass passive Host-Prüfergebnisse
-  aktuell sind, sollten Sie <link linkend="freshness">Frische-Prüfungen</link> für Hosts aktivieren (ähnlich zu dem, was weiter
-  oben für Services beschrieben wird).</para>
-  <indexterm zone="distributed"><primary>Verteilte Überwachung</primary></indexterm>
+    <para>Der ochp-Befehl, der zur Verarbeitung von Host-Prüfergebnissen genutzt wird, arbeitet ähnlich wie der ocsp-Befehl, der für die
+    Verarbeitung von Service-Prüfergebnissen benutzt wird (siehe oben). Um sicherzustellen, dass passive Host-Prüfergebnisse aktuell sind,
+    sollten Sie <link linkend="freshness">Frische-Prüfungen</link> für Hosts aktivieren (ähnlich zu dem, was weiter oben für Services
+    beschrieben wird).</para>
+
+    <indexterm zone="distributed">
+      <primary>Verteilte Überwachung</primary>
+    </indexterm>
+  </section>
 </section>

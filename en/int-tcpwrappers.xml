@@ -4,56 +4,58 @@
 %all.entities;
 ]>
 <section version="5.0" xml:id="int-tcpwrappers" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
-  <title><anchor xml:id="int_tcpwrappers" />TCP Wrapper Integration</title>
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="int_tcpwrappers"/>TCP Wrapper Integration</title>
 
-  <para><emphasis role="bold">Introduction</emphasis></para>
+  <section>
+    <title>Introduction</title>
 
-  <para><inlinemediaobject>
-      <imageobject>
-        <imagedata fileref="../images/tcpwrappers.png" format="PNG"></imagedata>
-      </imageobject>
-    </inlinemediaobject></para>
+    <para><inlinemediaobject>
+        <imageobject>
+          <imagedata fileref="../images/tcpwrappers.png" format="PNG"/>
+        </imageobject>
+      </inlinemediaobject></para>
 
-  <para>This document explains how to easily generate alerts in &name-icinga; for connection attempts that are rejected by TCP
-  wrappers. For example, if an unauthorized host attempts to connect to your SSH server, you can receive an alert in &name-icinga;
-  that contains the name of the host that was rejected. If you implement this on your Linux/Unix boxes, you'll be surprised how
-  many port scans you can detect across your network.</para>
+    <para>This document explains how to easily generate alerts in &name-icinga; for connection attempts that are rejected by TCP wrappers.
+    For example, if an unauthorized host attempts to connect to your SSH server, you can receive an alert in &name-icinga; that contains the
+    name of the host that was rejected. If you implement this on your Linux/Unix boxes, you'll be surprised how many port scans you can
+    detect across your network.</para>
 
-  <para>These directions assume:</para>
+    <para>These directions assume:</para>
 
-  <orderedlist>
-    <listitem>
-      <para>You are already familiar with <link linkend="passivechecks">passive checks</link> and how they work.</para>
-    </listitem>
+    <orderedlist>
+      <listitem>
+        <para>You are already familiar with <link linkend="passivechecks">passive checks</link> and how they work.</para>
+      </listitem>
 
-    <listitem>
-      <para>You are already familiar with <link linkend="volatileservices">volatile services</link> and how they work.</para>
-    </listitem>
+      <listitem>
+        <para>You are already familiar with <link linkend="volatileservices">volatile services</link> and how they work.</para>
+      </listitem>
 
-    <listitem>
-      <para>The host which you are generating alerts for (i.e. the host you are using TCP wrappers on) is a remote host (called
-      <emphasis>firestorm</emphasis> in this example). If you want to generate alerts on the same host that &name-icinga; is
-      running you will need to make a few modifications to the examples we provide.</para>
-    </listitem>
+      <listitem>
+        <para>The host which you are generating alerts for (i.e. the host you are using TCP wrappers on) is a remote host (called
+        <emphasis>firestorm</emphasis> in this example). If you want to generate alerts on the same host that &name-icinga; is running you
+        will need to make a few modifications to the examples we provide.</para>
+      </listitem>
 
-    <listitem>
-      <para>You have installed the <link linkend="addons-nsca">NSCA daemon</link> on your monitoring server and the NSCA client
-      (<emphasis>send_nsca</emphasis>) on the remote machine that you are generating TCP wrapper alerts from.</para>
-    </listitem>
-  </orderedlist>
+      <listitem>
+        <para>You have installed the <link linkend="addons-nsca">NSCA daemon</link> on your monitoring server and the NSCA client
+        (<emphasis>send_nsca</emphasis>) on the remote machine that you are generating TCP wrapper alerts from.</para>
+      </listitem>
+    </orderedlist>
+  </section>
 
-  <para><emphasis role="bold">Defining A Service</emphasis></para>
+  <section>
+    <title>Defining A Service</title>
 
-  <para>If you haven't done so already, create a <link linkend="objectdefinitions-host">host definition</link> for the remote host
-  (<emphasis>firestorm</emphasis>).</para>
+    <para>If you haven't done so already, create a <link linkend="objectdefinitions-host">host definition</link> for the remote host
+    (<emphasis>firestorm</emphasis>).</para>
 
-  <para>Next, define a service in one of your <link linkend="configobject">object configuration files</link> for the TCP wrapper
-  alerts on host <emphasis>firestorm</emphasis>. The service definition might look something like this:</para>
+    <para>Next, define a service in one of your <link linkend="configobject">object configuration files</link> for the TCP wrapper alerts on
+    host <emphasis>firestorm</emphasis>. The service definition might look something like this:</para>
 
-  <screen> define service{
+    <programlisting> define service{
         host_name                       firestorm
         service_description             TCP Wrappers
         is_volatile                     1
@@ -62,69 +64,78 @@
         max_check_attempts              1
         check_command                   check_none
         ...
-        }</screen>
+        }</programlisting>
 
-  <para>There are some important things to note about the above service definition:</para>
+    <para>There are some important things to note about the above service definition:</para>
 
-  <orderedlist>
-    <listitem>
-      <para>The <emphasis>volatile</emphasis> option is enabled. We want this option enabled because we want a notification to be
-      generated for every alert that comes in.</para>
-    </listitem>
+    <orderedlist>
+      <listitem>
+        <para>The <emphasis>volatile</emphasis> option is enabled. We want this option enabled because we want a notification to be
+        generated for every alert that comes in.</para>
+      </listitem>
 
-    <listitem>
-      <para>Active checks of the service as disabled, while passive checks are enabled. This means that the service will never be
-      actively checked by &name-icinga; - all alert information will have to be received passively from an external source.</para>
-    </listitem>
+      <listitem>
+        <para>Active checks of the service as disabled, while passive checks are enabled. This means that the service will never be actively
+        checked by &name-icinga; - all alert information will have to be received passively from an external source.</para>
+      </listitem>
 
-    <listitem>
-      <para>The <emphasis>max_check_attempts</emphasis> value is set to 1. This guarantees you will get a notification when the
-      first alert is generated.</para>
-    </listitem>
-  </orderedlist>
+      <listitem>
+        <para>The <emphasis>max_check_attempts</emphasis> value is set to 1. This guarantees you will get a notification when the first
+        alert is generated.</para>
+      </listitem>
+    </orderedlist>
+  </section>
 
-  <para><emphasis role="bold">Configuring TCP Wrappers</emphasis></para>
+  <section>
+    <title>Configuring TCP Wrappers</title>
 
-  <para>Now you're going to have to modify the <emphasis>/etc/hosts.deny</emphasis> file on <emphasis>firestorm</emphasis>. In
-  order to have the TCP wrappers send an alert to the monitoring host whenever a connection attempt is denied, you'll have to add
-  a line similiar to the following:</para>
+    <para>Now you're going to have to modify the <emphasis>/etc/hosts.deny</emphasis> file on <emphasis>firestorm</emphasis>. In order to
+    have the TCP wrappers send an alert to the monitoring host whenever a connection attempt is denied, you'll have to add a line similiar
+    to the following:</para>
 
-  <screen> ALL: ALL: RFC931: twist (&url-icinga-base;/libexec/eventhandlers/handle_tcp_wrapper %h %d) &amp;</screen>
+    <programlisting> ALL: ALL: RFC931: twist (&url-icinga-base;/libexec/eventhandlers/handle_tcp_wrapper %h %d) &amp;</programlisting>
 
-  <para>This line assumes that there is a script called <emphasis>handle_tcp_wrapper</emphasis> in the
-  <emphasis>&url-icinga-base;/libexec/eventhandlers/</emphasis> directory on <emphasis>firestorm</emphasis>. We'll write that
-  script next.</para>
+    <para>This line assumes that there is a script called <emphasis>handle_tcp_wrapper</emphasis> in the
+    <emphasis>&url-icinga-base;/libexec/eventhandlers/</emphasis> directory on <emphasis>firestorm</emphasis>. We'll write that script
+    next.</para>
+  </section>
 
-  <para><emphasis role="bold">Writing The Script</emphasis></para>
+  <section>
+    <title>Writing The Script</title>
 
-  <para>The last thing you need to do is write the <emphasis>handle_tcp_wrapper</emphasis> script on
-  <emphasis>firestorm</emphasis> that will send the alert back to the &name-icinga; server. It might look something like
-  this:</para>
+    <para>The last thing you need to do is write the <emphasis>handle_tcp_wrapper</emphasis> script on <emphasis>firestorm</emphasis> that
+    will send the alert back to the &name-icinga; server. It might look something like this:</para>
 
-  <screen>#!/bin/sh
+    <programlisting>#!/bin/sh
+ 
+&url-icinga-base;/libexec/eventhandlers/submit_check_result firestorm "TCP Wrappers" 2 "Denied $2-$1" &gt; /dev/null 2&gt; /dev/null</programlisting>
 
-&url-icinga-base;/libexec/eventhandlers/submit_check_result firestorm "TCP Wrappers" 2 "Denied $2-$1" &gt; /dev/null 2&gt; /dev/null</screen>
+    <para>Notice that the <emphasis>handle_tcp_wrapper</emphasis> script calls the <emphasis>submit_check_result</emphasis> script to
+    actually send the alert back to the monitoring host. Assuming your &name-icinga; server is called <emphasis>monitor</emphasis>, the
+    <emphasis>submit check_result</emphasis> script might look like this:</para>
 
-  <para>Notice that the <emphasis>handle_tcp_wrapper</emphasis> script calls the <emphasis>submit_check_result</emphasis> script
-  to actually send the alert back to the monitoring host. Assuming your &name-icinga; server is called
-  <emphasis>monitor</emphasis>, the <emphasis>submit check_result</emphasis> script might look like this:</para>
-
-  <screen>#!/bin/sh
+    <programlisting>#!/bin/sh
 # Arguments
 #       $1 = name of host in service definition
 #       $2 = name/description of service in service definition
 #       $3 = return code
 #       $4 = output
 
-/bin/echo -e "$1\t$2\t$3\t$4\n" | &url-icinga-base;/bin/send_nsca monitor -c /usr/local/nagios/etc/send_nsca.cfg</screen>
+/bin/echo -e "$1\t$2\t$3\t$4\n" | &url-icinga-base;/bin/send_nsca monitor -c /usr/local/nagios/etc/send_nsca.cfg</programlisting>
+  </section>
 
-  <para><emphasis role="bold">Finishing Up</emphasis></para>
+  <section>
+    <title>Finishing Up</title>
 
-  <para>You've now configured everything you need to, so all you have to do is restart the <emphasis>inetd</emphasis> process on
-  <emphasis>firestorm</emphasis> and restart &name-icinga; on your monitoring server. That's it! When the TCP wrappers on
-  <emphasis>firestorm</emphasis> deny a connection attempt, you should be getting alerts in &name-icinga;. The plugin output for
-  the alert will look something like the following:</para>
+    <para>You've now configured everything you need to, so all you have to do is restart the <emphasis>inetd</emphasis> process on
+    <emphasis>firestorm</emphasis> and restart &name-icinga; on your monitoring server. That's it! When the TCP wrappers on
+    <emphasis>firestorm</emphasis> deny a connection attempt, you should be getting alerts in &name-icinga;. The plugin output for the alert
+    will look something like the following:</para>
 
-  <screen>Denied sshd2-sdn-ar-002mnminnP321.dialsprint.net </screen>
-  <indexterm zone="int_tcpwrappers"><primary>TCP Wrapper Integration</primary></indexterm>
+    <screen>Denied sshd2-sdn-ar-002mnminnP321.dialsprint.net </screen>
+
+    <indexterm zone="int_tcpwrappers">
+      <primary>TCP Wrapper Integration</primary>
+    </indexterm>
+  </section>
 </section>

@@ -3,274 +3,300 @@
 <!ENTITY % all.entities SYSTEM "all-entities.ent">
 %all.entities;
 ]>
-<section version="5.0" xml:id="monitoring-routers" xmlns="http://docbook.org/ns/docbook"
-         xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-         xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+<section version="5.0" xml:id="monitoring-routers" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-  <title><anchor xml:id="monitoring_routers" />Monitoring Routers and Switches</title>
+  <title><anchor xml:id="monitoring_routers"/>Monitoring Routers and Switches</title>
 
-  <para><emphasis role="bold">Introduction</emphasis></para>
+  <indexterm zone="monitoring_routers">
+    <primary>Monitoring</primary>
 
-  <para><informalfigure>
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="../images/switch.png" format="PNG"></imagedata>
-        </imageobject>
-      </mediaobject>
-    </informalfigure></para>
+    <secondary>Monitoring Routers and Switches</secondary>
+  </indexterm>
 
-  <para>This document describes how you can monitor the status of network switches and routers. Some cheaper "unmanaged" switches
-  and hubs don't have IP addresses and are essentially invisible on your network, so there's not any way to monitor them. More
-  expensive switches and routers have addresses assigned to them and can be monitored by pinging them or using SNMP to query
-  status information.</para>
+  <section>
+    <title>Introduction</title>
 
-  <para>We'll describe how you can monitor the following things on managed switches, hubs, and routers:</para>
+    <para><informalfigure>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="../images/switch.png" format="PNG"/>
+          </imageobject>
+        </mediaobject>
+      </informalfigure></para>
 
-  <itemizedlist>
-    <listitem>
-      <para>Packet loss, round trip average</para>
-    </listitem>
+    <para>This document describes how you can monitor the status of network switches and routers. Some cheaper "unmanaged" switches and hubs
+    don't have IP addresses and are essentially invisible on your network, so there's not any way to monitor them. More expensive switches
+    and routers have addresses assigned to them and can be monitored by pinging them or using SNMP to query status information.</para>
 
-    <listitem>
-      <para>SNMP status information</para>
-    </listitem>
+    <para>We'll describe how you can monitor the following things on managed switches, hubs, and routers:</para>
 
-    <listitem>
-      <para>Bandwidth / traffic rate</para>
-    </listitem>
-  </itemizedlist>
+    <itemizedlist>
+      <listitem>
+        <para>Packet loss, round trip average</para>
+      </listitem>
 
-  <note>
-    <para>These instructions assume that you've installed &name-icinga; according to the <link linkend="quickstart">quickstart
-    guide</link>. The sample configuration entries below reference objects that are defined in the sample config files
-    (<emphasis>commands.cfg</emphasis>, <emphasis>templates.cfg</emphasis>, etc.) that are installed when you follow the
-    quickstart.</para>
-  </note>
+      <listitem>
+        <para>SNMP status information</para>
+      </listitem>
 
-  <para><emphasis role="bold">Overview</emphasis></para>
+      <listitem>
+        <para>Bandwidth / traffic rate</para>
+      </listitem>
+    </itemizedlist>
 
-  <para><informalfigure>
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="../images/monitoring-routers.png" format="PNG"></imagedata>
-        </imageobject>
-      </mediaobject>
-    </informalfigure></para>
+    <note>
+      <para>These instructions assume that you've installed &name-icinga; according to the <link linkend="quickstart">quickstart
+      guide</link>. The sample configuration entries below reference objects that are defined in the sample config files
+      (<emphasis>commands.cfg</emphasis>, <emphasis>templates.cfg</emphasis>, etc.) that are installed when you follow the
+      quickstart.</para>
+    </note>
+  </section>
 
-  <para>Monitoring switches and routers can either be easy or more involved - depending on what equipment you have and what you
-  want to monitor. As they are critical infrastructure components, you'll no doubt want to monitor them in at least some basic
-  manner.</para>
+  <section>
+    <title>Overview</title>
 
-  <para>Switches and routers can be monitored easily by "pinging" them to determine packet loss, RTA, etc. If your switch supports
-  SNMP, you can monitor port status, etc. with the <emphasis>check_snmp</emphasis> plugin and bandwidth (if you're using MRTG)
-  with the <emphasis>check_mrtgtraf</emphasis> plugin.</para>
+    <para><informalfigure>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="../images/monitoring-routers.png" format="PNG"/>
+          </imageobject>
+        </mediaobject>
+      </informalfigure></para>
 
-  <para>The <emphasis>check_snmp</emphasis> plugin will only get compiled and installed if you have the net-snmp and
-  net-snmp-utils packages installed on your system. Make sure the plugin exists in <emphasis>&url-icinga-base;/libexec</emphasis>
-  before you continue. If it doesn't, install net-snmp and net-snmp-utils and recompile/reinstall the &name-icinga;
-  plugins.</para>
+    <para>Monitoring switches and routers can either be easy or more involved - depending on what equipment you have and what you want to
+    monitor. As they are critical infrastructure components, you'll no doubt want to monitor them in at least some basic manner.</para>
 
-  <para><emphasis role="bold">Steps</emphasis></para>
+    <para>Switches and routers can be monitored easily by "pinging" them to determine packet loss, RTA, etc. If your switch supports SNMP,
+    you can monitor port status, etc. with the <emphasis>check_snmp</emphasis> plugin and bandwidth (if you're using MRTG) with the
+    <emphasis>check_mrtgtraf</emphasis> plugin.</para>
 
-  <para>There are several steps you'll need to follow in order to monitor a new router or switch. They are:</para>
+    <para>The <emphasis>check_snmp</emphasis> plugin will only get compiled and installed if you have the net-snmp and net-snmp-utils
+    packages installed on your system. Make sure the plugin exists in <emphasis>&url-icinga-base;/libexec</emphasis> before you continue. If
+    it doesn't, install net-snmp and net-snmp-utils and recompile/reinstall the &name-icinga; plugins.</para>
+  </section>
 
-  <orderedlist>
-    <listitem>
-      <para>Perform first-time prerequisites</para>
-    </listitem>
+  <section>
+    <title>Steps</title>
 
-    <listitem>
-      <para>Create new host and service definitions for monitoring the device</para>
-    </listitem>
+    <para>There are several steps you'll need to follow in order to monitor a new router or switch. They are:</para>
 
-    <listitem>
-      <para>Restart the &name-icinga; daemon</para>
-    </listitem>
-  </orderedlist>
+    <orderedlist>
+      <listitem>
+        <para>Perform first-time prerequisites</para>
+      </listitem>
 
-  <para><emphasis role="bold">What's Already Done For You</emphasis></para>
+      <listitem>
+        <para>Create new host and service definitions for monitoring the device</para>
+      </listitem>
 
-  <para>To make your life a bit easier, a few configuration tasks have already been done for you:</para>
+      <listitem>
+        <para>Restart the &name-icinga; daemon</para>
+      </listitem>
+    </orderedlist>
+  </section>
 
-  <itemizedlist>
-    <listitem>
-      <para>Two command definitions (<emphasis>check_snmp</emphasis> and <emphasis>check_local_mrtgtraf</emphasis>) have been
-      added to the <emphasis>commands.cfg</emphasis> file. These allows you to use the <emphasis>check_snmp</emphasis> and
-      <emphasis>check_mrtgtraf</emphasis> plugins to monitor network routers.</para>
-    </listitem>
+  <section>
+    <title>What's Already Done For You</title>
 
-    <listitem>
-      <para>A switch host template (called <emphasis>generic-switch</emphasis>) has already been created in the
-      <emphasis>templates.cfg</emphasis> file. This allows you to add new router/switch host definitions in a simple
-      manner.</para>
-    </listitem>
-  </itemizedlist>
+    <para>To make your life a bit easier, a few configuration tasks have already been done for you:</para>
 
-  <para>The above-mentioned config files can be found in the <emphasis>&url-icinga-base;/etc/objects/</emphasis> directory. You
-  can modify the definitions in these and other definitions to suit your needs better if you'd like. However, we'd recommend
-  waiting until you're more familiar with configuring &name-icinga; before doing so. For the time being, just follow the
-  directions outlined below and you'll be monitoring your network routers/switches in no time.</para>
+    <itemizedlist>
+      <listitem>
+        <para>Two command definitions (<emphasis>check_snmp</emphasis> and <emphasis>check_local_mrtgtraf</emphasis>) have been added to the
+        <emphasis>commands.cfg</emphasis> file. These allows you to use the <emphasis>check_snmp</emphasis> and
+        <emphasis>check_mrtgtraf</emphasis> plugins to monitor network routers.</para>
+      </listitem>
 
-  <para><emphasis role="bold">Prerequisites</emphasis></para>
+      <listitem>
+        <para>A switch host template (called <emphasis>generic-switch</emphasis>) has already been created in the
+        <emphasis>templates.cfg</emphasis> file. This allows you to add new router/switch host definitions in a simple manner.</para>
+      </listitem>
+    </itemizedlist>
 
-  <para>The first time you configure &name-icinga; to monitor a network switch, you'll need to do a bit of extra work. Remember,
-  you only need to do this for the *first* switch you monitor.</para>
+    <para>The above-mentioned config files can be found in the <emphasis>&url-icinga-base;/etc/objects/</emphasis> directory. You can modify
+    the definitions in these and other definitions to suit your needs better if you'd like. However, we'd recommend waiting until you're
+    more familiar with configuring &name-icinga; before doing so. For the time being, just follow the directions outlined below and you'll
+    be monitoring your network routers/switches in no time.</para>
+  </section>
 
-  <para>Edit the main &name-icinga; config file.</para>
+  <section>
+    <title>Prerequisites</title>
 
-  <screen>#&gt; vi &url-icinga-cfg;</screen>
+    <para>The first time you configure &name-icinga; to monitor a network switch, you'll need to do a bit of extra work. Remember, you only
+    need to do this for the *first* switch you monitor.</para>
 
-  <para>Remove the leading hash (#) sign from the following line in the main configuration file:</para>
+    <para>Edit the main &name-icinga; config file.</para>
 
-  <screen> #cfg_file=&url-icinga-base;/etc/objects/switch.cfg</screen>
+    <screen>#&gt; vi &url-icinga-cfg;</screen>
 
-  <para>Save the file and exit.</para>
+    <para>Remove the leading hash (#) sign from the following line in the main configuration file:</para>
 
-  <para>What did you just do? You told &name-icinga; to look to the <emphasis>&url-icinga-base;/etc/objects/switch.cfg</emphasis>
-  to find additional object definitions. That's where you'll be adding host and service definitions for routers and switches. That
-  configuration file already contains some sample host, hostgroup, and service definitions. For the *first* router/switch you
-  monitor, you can simply modify the sample host and service definitions in that file, rather than creating new ones.</para>
+    <programlisting> #cfg_file=&url-icinga-base;/etc/objects/switch.cfg</programlisting>
 
-  <para><emphasis role="bold">Configuring &name-icinga;</emphasis></para>
+    <para>Save the file and exit.</para>
 
-  <para>You'll need to create some <link linkend="objectdefinitions">object definitions</link> in order to monitor a new
-  router/switch.</para>
+    <para>What did you just do? You told &name-icinga; to look to the <emphasis>&url-icinga-base;/etc/objects/switch.cfg</emphasis> to find
+    additional object definitions. That's where you'll be adding host and service definitions for routers and switches. That configuration
+    file already contains some sample host, hostgroup, and service definitions. For the *first* router/switch you monitor, you can simply
+    modify the sample host and service definitions in that file, rather than creating new ones.</para>
+  </section>
 
-  <para>Open the <emphasis>switch.cfg</emphasis> file for editing.</para>
+  <section>
+    <title>Configuring &name-icinga;</title>
 
-  <screen>#&gt; vi &url-icinga-base;/etc/objects/switch.cfg</screen>
+    <para>You'll need to create some <link linkend="objectdefinitions">object definitions</link> in order to monitor a new
+    router/switch.</para>
 
-  <para>Add a new <link linkend="objectdefinitions-host">host</link> definition for the switch that you're going to monitor. If
-  this is the *first* switch you're monitoring, you can simply modify the sample host definition in
-  <emphasis>switch.cfg</emphasis>. Change the <emphasis>host_name</emphasis>, <emphasis>alias</emphasis>, and
-  <emphasis>address</emphasis> fields to appropriate values for the switch.</para>
+    <para>Open the <emphasis>switch.cfg</emphasis> file for editing.</para>
 
-  <screen> define host{
+    <screen>#&gt; vi &url-icinga-base;/etc/objects/switch.cfg</screen>
+
+    <para>Add a new <link linkend="objectdefinitions-host">host</link> definition for the switch that you're going to monitor. If this is
+    the *first* switch you're monitoring, you can simply modify the sample host definition in <emphasis>switch.cfg</emphasis>. Change the
+    <emphasis>host_name</emphasis>, <emphasis>alias</emphasis>, and <emphasis>address</emphasis> fields to appropriate values for the
+    switch.</para>
+
+    <programlisting> define host{
         use             generic-switch          ; Inherit default values from a template
         host_name       linksys-srw224p         ; The name we're giving to this switch
         alias           Linksys SRW224P Switch  ; A longer name associated with the switch
         address         192.168.1.253           ; IP address of the switch
         hostgroups      allhosts,switches       ; Host groups this switch is associated with
-        }</screen>
+        }</programlisting>
 
-  <para><emphasis role="bold">Monitoring Services</emphasis></para>
+    <para><emphasis role="bold">Monitoring Services</emphasis></para>
 
-  <para>Now you can add some service definitions (to the same configuration file) to monitor different aspects of the switch. If
-  this is the *first* switch you're monitoring, you can simply modify the sample service definition in
-  <emphasis>switch.cfg</emphasis>.</para>
+    <para>Now you can add some service definitions (to the same configuration file) to monitor different aspects of the switch. If this is
+    the *first* switch you're monitoring, you can simply modify the sample service definition in <emphasis>switch.cfg</emphasis>.</para>
 
-  <note>
-    <para>Replace "<emphasis>linksys-srw224p</emphasis>" in the example definitions below with the name you specified in the
-    <emphasis>host_name</emphasis> directive of the host definition you just added.</para>
-  </note>
+    <note>
+      <para>Replace "<emphasis>linksys-srw224p</emphasis>" in the example definitions below with the name you specified in the
+      <emphasis>host_name</emphasis> directive of the host definition you just added.</para>
+    </note>
 
-  <para><emphasis role="bold">Monitoring Packet Loss and RTA</emphasis></para>
+    <itemizedlist>
+      <listitem>
+        <para><emphasis role="bold">Monitoring Packet Loss and RTA</emphasis></para>
 
-  <para>Add the following service definition in order to monitor packet loss and round trip average between the &name-icinga; host
-  and the switch every 5 minutes under normal conditions.</para>
+        <para>Add the following service definition in order to monitor packet loss and round trip average between the &name-icinga; host and
+        the switch every 5 minutes under normal conditions.</para>
 
-  <screen> define service{
+        <programlisting> define service{
         use                     generic-service ; Inherit values from a template
         host_name               linksys-srw224p ; The name of the host the service is associated with
         service_description     PING            ; The service description
         check_command           check_ping!200.0,20%!600.0,60%  ; The command used to monitor the service
         check_interval          5       ; Check the service every 5 minutes under normal conditions
         retry_interval          1       ; Re-check every minute until its final/hard state is determined
-        }</screen>
+        }</programlisting>
 
-  <para>This service will be:</para>
+        <para>This service will be:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>CRITICAL if the round trip average (RTA) is greater than 600 milliseconds or the packet loss is 60% or more</para>
-    </listitem>
+        <itemizedlist>
+          <listitem>
+            <para>CRITICAL if the round trip average (RTA) is greater than 600 milliseconds or the packet loss is 60% or more</para>
+          </listitem>
 
-    <listitem>
-      <para>WARNING if the RTA is greater than 200 ms or the packet loss is 20% or more</para>
-    </listitem>
+          <listitem>
+            <para>WARNING if the RTA is greater than 200 ms or the packet loss is 20% or more</para>
+          </listitem>
 
-    <listitem>
-      <para>OK if the RTA is less than 200 ms and the packet loss is less than 20%</para>
-    </listitem>
-  </itemizedlist>
+          <listitem>
+            <para>OK if the RTA is less than 200 ms and the packet loss is less than 20%</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
 
-  <para><emphasis role="bold">Monitoring SNMP Status Information</emphasis></para>
+      <listitem>
+        <para><emphasis role="bold">Monitoring SNMP Status Information</emphasis></para>
 
-  <para>If your switch or router supports SNMP, you can monitor a lot of information by using the <emphasis>check_snmp</emphasis>
-  plugin. If it doesn't, skip this section.</para>
+        <para>If your switch or router supports SNMP, you can monitor a lot of information by using the <emphasis>check_snmp</emphasis>
+        plugin. If it doesn't, skip this section.</para>
 
-  <para>Add the following service definition to monitor the uptime of the switch.</para>
+        <para>Add the following service definition to monitor the uptime of the switch.</para>
 
-  <screen> define service{
+        <programlisting> define service{
         use                     generic-service ; Inherit values from a template
         host_name               linksys-srw224p
         service_description     Uptime  
         check_command           check_snmp!-C public -o sysUpTime.0
-        }</screen>
+        }</programlisting>
 
-  <para>In the <emphasis>check_command</emphasis> directive of the service definition above, the "-C public" tells the plugin that
-  the SNMP community name to be used is "public" and the "-o sysUpTime.0" indicates which OID should be checked.</para>
+        <para>In the <emphasis>check_command</emphasis> directive of the service definition above, the "-C public" tells the plugin that the
+        SNMP community name to be used is "public" and the "-o sysUpTime.0" indicates which OID should be checked.</para>
 
-  <para>If you want to ensure that a specific port/interface on the switch is in an up state, you could add a service definition
-  like this:</para>
+        <para>If you want to ensure that a specific port/interface on the switch is in an up state, you could add a service definition like
+        this:</para>
 
-  <screen> define service{
+        <programlisting> define service{
         use                     generic-service ; Inherit values from a template
         host_name               linksys-srw224p
         service_description     Port 1 Link Status
         check_command           check_snmp!-C public -o ifOperStatus.1 -r 1 -m RFC1213-MIB
-        }</screen>
+        }</programlisting>
 
-  <para>In the example above, the "-o ifOperStatus.1" refers to the OID for the operational status of port 1 on the switch. The
-  "-r 1" option tells the <emphasis>check_snmp</emphasis> plugin to return an OK state if "1" is found in the SNMP result (1
-  indicates an "up" state on the port) and CRITICAL if it isn't found. The "-m RFC1213-MIB" is optional and tells the
-  <emphasis>check_snmp</emphasis> plugin to only load the "RFC1213-MIB" instead of every single MIB that's installed on your
-  system, which can help speed things up.</para>
+        <para>In the example above, the "-o ifOperStatus.1" refers to the OID for the operational status of port 1 on the switch. The "-r 1"
+        option tells the <emphasis>check_snmp</emphasis> plugin to return an OK state if "1" is found in the SNMP result (1 indicates an
+        "up" state on the port) and CRITICAL if it isn't found. The "-m RFC1213-MIB" is optional and tells the
+        <emphasis>check_snmp</emphasis> plugin to only load the "RFC1213-MIB" instead of every single MIB that's installed on your system,
+        which can help speed things up.</para>
 
-  <para>That's it for the SNMP monitoring example. There are a million things that can be monitored via SNMP, so it's up to you to
-  decide what you need and want to monitor. Good luck!</para>
+        <para>That's it for the SNMP monitoring example. There are a million things that can be monitored via SNMP, so it's up to you to
+        decide what you need and want to monitor. Good luck!</para>
 
-  <tip>
-    <para>You can usually find the OIDs that can be monitored on a switch by running the following command (replace
-    <emphasis>192.168.1.253</emphasis> with the IP address of the switch): <emphasis>snmpwalk -v1 -c public 192.168.1.253 -m ALL
-    .1</emphasis></para>
-  </tip>
+        <tip>
+          <para>You can usually find the OIDs that can be monitored on a switch by running the following command (replace
+          <emphasis>192.168.1.253</emphasis> with the IP address of the switch): <emphasis>snmpwalk -v1 -c public 192.168.1.253 -m ALL
+          .1</emphasis></para>
+        </tip>
+      </listitem>
 
-  <para><emphasis role="bold">Monitoring Bandwidth / Traffic Rate</emphasis></para>
+      <listitem>
+        <para><emphasis role="bold">Monitoring Bandwidth / Traffic Rate</emphasis></para>
 
-  <para>If you're monitoring bandwidth usage on your switches or routers using <link
-  xlink:href="http://oss.oetiker.ch/mrtg/">MRTG</link>, you can have &name-icinga; alert you when traffic rates exceed thresholds
-  you specify. The <emphasis>check_mrtgtraf</emphasis> plugin (which is included in the &name-icinga; plugins distribution) allows
-  you to do this.</para>
+        <para>If you're monitoring bandwidth usage on your switches or routers using <link
+        xlink:href="http://oss.oetiker.ch/mrtg/">MRTG</link>, you can have &name-icinga; alert you when traffic rates exceed thresholds you
+        specify. The <emphasis>check_mrtgtraf</emphasis> plugin (which is included in the &name-icinga; plugins distribution) allows you to
+        do this.</para>
 
-  <para>You'll need to let the <emphasis>check_mrtgtraf</emphasis> plugin know what log file the MRTG data is being stored in,
-  along with thresholds, etc. In this example, we're monitoring one of the ports on a Linksys switch. The MRTG log file is stored
-  in <emphasis>/var/lib/mrtg/192.168.1.253_1.log</emphasis>. Here's the service definition we use to monitor the bandwidth data
-  that's stored in the log file...</para>
+        <para>You'll need to let the <emphasis>check_mrtgtraf</emphasis> plugin know what log file the MRTG data is being stored in, along
+        with thresholds, etc. In this example, we're monitoring one of the ports on a Linksys switch. The MRTG log file is stored in
+        <emphasis>/var/lib/mrtg/192.168.1.253_1.log</emphasis>. Here's the service definition we use to monitor the bandwidth data that's
+        stored in the log file...</para>
 
-  <screen> define service{
+        <programlisting> define service{
         use                     generic-service ; Inherit values from a template
         host_name               linksys-srw224p
         service_description     Port 1 Bandwidth Usage
         check_command           check_local_mrtgtraf!/var/lib/mrtg/192.168.1.253_1.log!AVG!1000000,2000000!5000000,5000000!10
-        }</screen>
+        }</programlisting>
 
-  <para>In the example above, the "/var/lib/mrtg/192.168.1.253_1.log" option that gets passed to the
-  <emphasis>check_local_mrtgtraf</emphasis> command tells the plugin which MRTG log file to read from. The "AVG" option tells it
-  that it should use average bandwidth statistics. The "1000000,2000000" options are the warning thresholds (in bytes) for
-  incoming traffic rates. The "5000000,5000000" are critical thresholds (in bytes) for outgoing traffic rates. The "10" option
-  causes the plugin to return a CRITICAL state if the MRTG log file is older than 10 minutes (it should be updated every 5
-  minutes).</para>
+        <para>In the example above, the "/var/lib/mrtg/192.168.1.253_1.log" option that gets passed to the
+        <emphasis>check_local_mrtgtraf</emphasis> command tells the plugin which MRTG log file to read from. The "AVG" option tells it that
+        it should use average bandwidth statistics. The "1000000,2000000" options are the warning thresholds (in bytes) for incoming traffic
+        rates. The "5000000,5000000" are critical thresholds (in bytes) for outgoing traffic rates. The "10" option causes the plugin to
+        return a CRITICAL state if the MRTG log file is older than 10 minutes (it should be updated every 5 minutes).</para>
+      </listitem>
+    </itemizedlist>
 
-  <para>Save the file.</para>
+    <para>Save the file.</para>
+  </section>
 
-  <para><emphasis role="bold">Restarting &name-icinga;</emphasis></para>
+  <section>
+    <title>Restarting &name-icinga;</title>
 
-  <para>Once you've added the new host and service definitions to the <emphasis>switch.cfg</emphasis> file, you're ready to start
-  monitoring the router/switch. To do this, you'll need to <link linkend="verifyconfig">verify your configuration</link> and <link
-  linkend="startstop">restart &name-icinga;</link>.</para>
+    <para>Once you've added the new host and service definitions to the <emphasis>switch.cfg</emphasis> file, you're ready to start
+    monitoring the router/switch. To do this, you'll need to <link linkend="verifyconfig">verify your configuration</link> and <link
+    linkend="startstop">restart &name-icinga;</link>.</para>
 
-  <para>If the verification process produces any errors messages, fix your configuration file before continuing. Make sure that
-  you don't (re)start &name-icinga; until the verification process completes without any errors!</para>
-  <indexterm zone="monitoring_routers"><primary>Monitoring</primary><secondary>Monitoring Routers and Switches</secondary></indexterm>
+    <para>If the verification process produces any errors messages, fix your configuration file before continuing. Make sure that you don't
+    (re)start &name-icinga; until the verification process completes without any errors!</para>
+
+    <indexterm zone="monitoring_routers">
+      <primary>Monitoring</primary>
+
+      <secondary>Monitoring Routers and Switches</secondary>
+    </indexterm>
+  </section>
 </section>

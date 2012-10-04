@@ -8,16 +8,6 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="upgrading_nagios"/>Upgrading (to) &name-icinga;</title>
 
-  <para><emphasis role="bold">Contents</emphasis></para>
-
-  <para><link linkend="upgrading-icinga">Upgrading from previous &name-icinga; releases</link></para>
-
-  <para><link linkend="upgrading-nagios3x">Upgrading from &name-nagios; 3.x releases</link></para>
-
-  <para><link linkend="upgrading-nagios2x">Upgrading from &name-nagios; 2.x releases</link></para>
-
-  <para><link linkend="upgrading-rpm">Upgrading from an RPM installation</link></para>
-
   <note>
     <para>If you are using &name-idoutils; then you have to update it, too. Please take a look at <link linkend="upgrading_idoutils">
     upgrading_idoutils</link> as well.</para>
@@ -36,320 +26,6 @@
     upgrading_icingaweb</link> as well.</para>
   </note>
 
-  <para><emphasis role="bold"><anchor xml:id="upgrading-icinga"/> Upgrading from previous &name-icinga; Releases</emphasis></para>
-
-  <para>During development there may be cases where the handling of bugfixes might touch the userspace. We try to avoid this as far as
-  possible but sometimes it is inevitable.</para>
-
-  <para><emphasis role="bold">Normal &name-icinga; update Path</emphasis></para>
-
-  <para>If there's a new &name-icinga; version available on <link xlink:href="http://www.icinga.org/">&url-icinga;</link> you should
-  consider updating. Newer versions contain bugfixes, minor or major, which makes it even more important to get the latest and the greatest.
-  If you already installed &name-icinga; using the quickstart guides it's rather easy to install newer versions. It's also possible to
-  perform that without root privileges by doing an install from source. It highly depends on your likings.</para>
-
-  <para>Make sure you'll have a safe backup of your &name-icinga; installation and configs. If anything goes wrong you can restore your old
-  setup rather easy.</para>
-
-  <para>Regular updates of &name-icinga; are possible just by re-installing &name-icinga;. Please keep in mind that <code>configure</code>
-  requires the same parameters as before - look it up in <filename>config.log</filename> and store that in a safe location.</para>
-
-  <para>Become the icinga user. Debian/Ubuntu users might use <code>sudo -s icinga</code>. <programlisting> $&gt; su -l icinga</programlisting>
-  Get the latest Icinga version from <link xlink:href="http://www.icinga.org/">&url-icinga;</link> and extract it. Then run configure like
-  you did with the old version. <programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils</programlisting>
-  Compile the source. <programlisting> #&gt; make all</programlisting> Please make sure that you don't overwrite your configs - always make
-  a backup! Don't use <code>make install-config</code> and/or <code>make install-webconf</code> if you want to manually diff the config
-  files. <programlisting> #&gt; make install install-base install-cgis install-html install-init \
-    install-commandmode install-idoutils</programlisting> or decide what you want to upgrade by just typing 'make' which shows all available
-  options. Check your config and restart Icinga. <programlisting> #&gt; /etc/init.d/icinga checkconfig
- #&gt; /etc/init.d/icinga restart</programlisting>That's it!</para>
-
-  <para><emphasis role="bold">&name-icinga; 0.8.0 to &name-icinga; &ver-icinga;</emphasis></para>
-
-  <para><emphasis>Archived Logfilename</emphasis></para>
-
-  <para>There was a small misspelling bug in &name-icinga; 0.8.0 resulting in archived logfile names beginning with a capital <emphasis
-  role="bold">"I"</emphasis> like in <emphasis role="bold">'Icinga-$date'</emphasis>". This was fixed in version 0.8.1. and newer.</para>
-
-  <para>If you experience this problem then please use the following script to fix the file names</para>
-
-  <programlisting> #&gt; cd /usr/local/icinga/var/archives
-
- for oldfilename in `find ./ -name "Icinga-*"`
- do
-   newfilename=`echo $oldfilename | sed -e 's/Icinga/icinga/g'`
-   mv $oldfilename $newfilename
- done</programlisting>
-
-  <para><emphasis role="bold"><anchor xml:id="upgrading-nagios3x"/> Upgrading from &name-nagios; 3.x Releases</emphasis></para>
-
-  <para>We try to be compatible with the configuration files of the current &name-nagios; 3.x versions so there should be very little you
-  have to do to "upgrade" from &name-nagios; 3.x to &name-icinga; &ver-icinga;. Assuming you've already installed &name-nagios; from source
-  code as described in the &name-nagios; quickstart guide, you can install &name-icinga; quite easily.</para>
-
-  <para>If you are upgrading from &name-nagios; 3.0.x you might need to install PHP:</para>
-
-  <para><emphasis>Debian / Ubuntu</emphasis> <screen> #&gt; apt-get install php5 libapache2-mod-php5</screen></para>
-
-  <para><emphasis>Fedora / RedHat</emphasis></para>
-
-  <screen> #&gt; yum install php mod_php</screen>
-
-  <para><emphasis>openSuSE / SLES</emphasis></para>
-
-  <para>Use Yast to install the packages <emphasis>php5</emphasis> and <emphasis>apache2-mod_php5</emphasis> or use zypper</para>
-
-  <para><programlisting> #&gt; zypper install php5 apache2-mod_php5</programlisting></para>
-
-  <para>Make sure you have a good backup of your existing &name-nagios; installation and configuration files. If anything goes wrong or
-  doesn't work, this will allow you to rollback to your old version.</para>
-
-  <para>Please install &name-icinga; according to the <link linkend="quickstart">quickstart guide</link>. Please note that</para>
-
-  <itemizedlist>
-    <listitem>
-      <para>the default prefix has changed to "/usr/local/icinga"</para>
-    </listitem>
-
-    <listitem>
-      <para>the environment macros start with ICINGA_</para>
-
-      <para>PNP4Nagios is aware of that since 0.6rc1 (2009.09.20) but the macros are needed in "sync" mode only.</para>
-
-      <para>check_multi includes support since v0.21 (2010.06.03), but you have to rerun the installation using '<code>configure
-      --with-nagios_name=icinga</code>' so that check_multi contains the correct values. You can use the option "-s" instead to set certain
-      values.</para>
-    </listitem>
-
-    <listitem>
-      <para>the configuration file names of the (enhanced) IDOUtils are named <filename>idomod.cfg/ido2db.cfg</filename> instead of
-      <filename>ndomod.cfg/ndo2db.cfg</filename></para>
-    </listitem>
-  </itemizedlist>
-
-  <para>Become the icinga user. Debian/Ubuntu users might use <code>sudo -s icinga</code>.</para>
-
-  <screen> $ su -l nagios</screen>
-
-  <para>Get the latest &name-icinga; version from <link xlink:href="http://www.icinga.org//">&url-icinga;</link></para>
-
-  <screen> #&gt; wget http://osdn.dl.sourceforge.net/sourceforge/icinga/icinga-<emphasis>&ver-icinga;</emphasis>.tar.gz</screen>
-
-  <para>Extract the tarball and change to the directory just created</para>
-
-  <screen> #&gt; tar xzf icinga-<emphasis>&ver-icinga;</emphasis>.tar.gz
- #&gt; cd icinga-<emphasis>&ver-icinga;</emphasis> </screen>
-
-  <para>Start the &name-icinga;-configure-script with the options you used the last time with &name-nagios;. You'll find the call in the
-  file config.log. Example:</para>
-
-  <screen> #&gt; ./configure --with-command-group=nagcmd</screen>
-
-  <para>Compile the &name-icinga; source code.</para>
-
-  <screen> #&gt; make all</screen>
-
-  <para>Install the programs, documentation, classic web interface and the init script. Your existing config files will not be
-  overwritten.</para>
-
-  <screen> #&gt; make cgis 
- #&gt; make install
- #&gt; make install-cgis
- #&gt; make install-init</screen>
-
-  <para>or simply</para>
-
-  <screen> #&gt; make fullinstall</screen>
-
-  <important>
-    <para>Not till &name-icinga; 1.5.0 <literal>make install-config</literal> is NOT included in <literal>make fullinstall</literal> anymore
-    to avoid accidental overwriting of your config files.</para>
-  </important>
-
-  <para>Instead of using "<code>make install-config</code>" copy your configuration files from <filename>&lt;Nagios-path&gt;/etc/</filename>
-  to <filename>&lt;Icinga-path&gt;/etc/</filename>. Before starting &name-icinga; you have to alter some things:</para>
-
-  <itemizedlist>
-    <listitem>
-      <para>The filename of the main config file has changed from <filename>nagios.cfg</filename> to <filename>icinga.cfg</filename>.
-      <literal> #&gt; mv nagios.cfg icinga.cfg</literal> should be sufficient to change that</para>
-    </listitem>
-
-    <listitem>
-      <para>You have to edit the main config file (<filename>icinga.cfg</filename>) to change the directives named "nagios_user" and
-      "nagios_group" to "icinga_user" and "icinga_group" respectively. Depending on the paths you're using you may have to change them as
-      well.</para>
-
-      <programlisting> #&gt; sed -i 's/nagios/icinga/g' ./icinga.cfg/</programlisting>
-    </listitem>
-
-    <listitem>
-      <para>You have to edit the CGI config file (<filename>cgi.cfg</filename>) to change the paths you're using.</para>
-
-      <programlisting> #&gt; sed -i 's/nagios/icinga/g' ./cgi.cfg/</programlisting>
-    </listitem>
-  </itemizedlist>
-
-  <para>Copy other relevant files from your &name-nagios; installation to the new location. If you are unsure about the path then please
-  have a look at <filename>nagios.cfg</filename> and/or <filename>icinga.cfg</filename>.</para>
-
-  <itemizedlist>
-    <listitem>
-      <para><filename>retention.dat</filename> (it contains certain status information, comments and other "sticky" stuff)</para>
-    </listitem>
-
-    <listitem>
-      <para><filename>nagios.log</filename> (rename it to <filename>icinga.log</filename>)</para>
-    </listitem>
-
-    <listitem>
-      <para><filename>archives/nagios-&lt;date&gt;.log</filename> files (&name-icinga; is able to process both nagios-&lt;date&gt;.log and
-      icinga-&lt;date&gt;.log files so you don't have to rename the files)</para>
-    </listitem>
-
-    <listitem>
-      <para>You don't have to copy <filename>status.dat</filename> and/or <filename>objects.cache</filename> because these files are
-      recreated during startup. Please recreate <filename>objects.precache</filename> before startup <link
-      linkend="configmain-precached_object_file">if applicable</link> instead of copying it</para>
-    </listitem>
-  </itemizedlist>
-
-  <para>Verify your configuration files, correct errors (if any) and start &name-icinga;.</para>
-
-  <screen> #&gt; &url-icinga-bin; -v &url-icinga-cfg;
- #&gt; /etc/init.d/icinga start</screen>
-
-  <para>That's it - you're done!</para>
-
-  <para>Please keep in mind that</para>
-
-  <itemizedlist>
-    <listitem>
-      <para>the URL has changed to http://localhost/icinga/ (for the classic UI)</para>
-    </listitem>
-
-    <listitem>
-      <para>the name of the admin user has changed to icingaadmin</para>
-    </listitem>
-  </itemizedlist>
-
-  <para><emphasis role="bold"><anchor xml:id="upgrading-nagios2x"/> Upgrading from &name-nagios; 2.x Releases</emphasis></para>
-
-  <para>It shouldn't be too difficult to upgrade from &name-nagios; 2.x to &name-icinga; &ver-icinga;. The upgrade is essentially the same
-  as what is described above for upgrading from &name-nagios; 3.x releases. You will, however, have to change your configuration files a bit
-  so they work with &name-icinga; &ver-icinga;:</para>
-
-  <itemizedlist>
-    <listitem>
-      <para>The old <emphasis>service_reaper_frequency</emphasis> variable in the main config file has been renamed to <link
-      linkend="configmain-check_result_reaper_frequency">check_result_reaper_frequency</link>.</para>
-    </listitem>
-
-    <listitem>
-      <para>The old <emphasis>$NOTIFICATIONNUMBER$</emphasis> macro has been deprecated in favour of new <link
-      linkend="macrolist-hostnotificationnumber">$HOSTNOTIFICATIONNUMBER$</link> and <link
-      linkend="macrolist-servicenotificationnumber">$SERVICENOTIFICATIONNUMBER$</link> macros.</para>
-    </listitem>
-
-    <listitem>
-      <para>The old <emphasis>parallelize</emphasis> directive in service definitions is now deprecated and no longer used, as all service
-      checks are run in parallel.</para>
-    </listitem>
-
-    <listitem>
-      <para>The old <emphasis>aggregate_status_updates</emphasis> option has been removed. All status file updates are now aggregated at a
-      minimum interval of 1 second.</para>
-    </listitem>
-
-    <listitem>
-      <para>Extended host and extended service definitions have been deprecated. They are still read and processed by &name-icinga;, but it
-      is recommended that you move the directives found in these definitions to your host and service definitions, respectively.</para>
-    </listitem>
-
-    <listitem>
-      <para>The old <emphasis>downtime_file</emphasis> file variable in the main config file is no longer supported, as scheduled downtime
-      entries are now saved in the <link linkend="configmain-state_retention_file">retention file</link>. To preserve existing downtime
-      entries, stop &name-nagios; 2.x and append the contents of your old downtime file to the retention file.</para>
-    </listitem>
-
-    <listitem>
-      <para>The old <emphasis>comment_file</emphasis> file variable in the main config file is no longer supported, as comments are now
-      saved in the <link linkend="configmain-state_retention_file">retention file</link>. To preserve existing comments, stop &name-nagios;
-      2.x and append the contents of your old comment file to the retention file.</para>
-    </listitem>
-  </itemizedlist>
-
-  <para>Also make sure to read the "<link linkend="whatsnew">What's New</link>" section of the documentation. It describes all the changes
-  that were made to the &name-icinga; code since the latest stable release of &name-nagios; 3.0.6. Quite a bit has changed, so make sure you
-  read it over.</para>
-
-  <para><emphasis role="bold"><anchor xml:id="upgrading-rpm"/> Upgrading From an RPM Installation</emphasis></para>
-
-  <para>If you currently have an RPM- or Debian/Ubuntu APT package-based installation of &name-nagios; and you would like to transition to
-  installing &name-icinga; from the official source code distribution, here's the basic process you should follow:</para>
-
-  <orderedlist>
-    <listitem>
-      <para>Backup your existing &name-nagios; installation</para>
-
-      <itemizedlist>
-        <listitem>
-          <para>Configuration files</para>
-
-          <para><itemizedlist>
-              <listitem>
-                <para>Main config file (usually <filename>nagios.cfg</filename>)</para>
-              </listitem>
-
-              <listitem>
-                <para>Resource config file (usually <filename>resource.cfg</filename>)</para>
-              </listitem>
-
-              <listitem>
-                <para>CGI config file (usually <filename>cgi.cfg</filename>)</para>
-              </listitem>
-
-              <listitem>
-                <para>All your object definition files</para>
-              </listitem>
-            </itemizedlist></para>
-        </listitem>
-
-        <listitem>
-          <para>Retention file (usually <filename>retention.dat</filename>)</para>
-        </listitem>
-
-        <listitem>
-          <para>Current &name-nagios; log file (usually <filename>nagios.log</filename>)</para>
-        </listitem>
-
-        <listitem>
-          <para>Archived &name-nagios; log files (usually <filename>nagios-&lt;date&gt;.log</filename>)</para>
-        </listitem>
-      </itemizedlist>
-    </listitem>
-
-    <listitem>
-      <para>Uninstall the original RPM or APT package</para>
-    </listitem>
-
-    <listitem>
-      <para>Install &name-icinga; from source by following the <link linkend="quickstart">quickstart guide</link></para>
-    </listitem>
-
-    <listitem>
-      <para>Restore your original &name-nagios; configuration files, retention file, and log files</para>
-    </listitem>
-
-    <listitem>
-      <para><link linkend="verifyconfig">Verify</link> your configuration and <link linkend="startstop">start</link> &name-icinga;</para>
-    </listitem>
-  </orderedlist>
-
-  <para>Note that different RPMs or APT packages may install &name-icinga; in different ways and in different locations. Make sure you've
-  backed up all your critical &name-nagios; files before removing the original RPM or APT package, so you can revert back if you encounter
-  problems.</para>
-
   <indexterm zone="upgrading_nagios">
     <primary>Upgrading</primary>
   </indexterm>
@@ -360,27 +36,350 @@
     <secondary>from a previous &name-icinga; version</secondary>
   </indexterm>
 
-  <indexterm zone="upgrading-nagios3x">
-    <primary>Upgrading</primary>
+  <section>
+    <title><anchor xml:id="upgrading-icinga"/>Upgrading from previous &name-icinga; Releases</title>
 
-    <secondary>from &name-nagios; version 3.x</secondary>
-  </indexterm>
+    <para>During development there may be cases where the handling of bugfixes might touch the userspace. We try to avoid this as far as
+    possible but sometimes it is inevitable.</para>
 
-  <indexterm zone="upgrading-nagios2x">
-    <primary>Upgrading</primary>
+    <para><emphasis role="bold">Normal &name-icinga; update Path</emphasis></para>
 
-    <secondary>from &name-nagios; version 2.x</secondary>
-  </indexterm>
+    <para>If there's a new &name-icinga; version available on <link xlink:href="http://www.icinga.org/">&url-icinga;</link> you should
+    consider updating. Newer versions contain bugfixes, minor or major, which makes it even more important to get the latest and the
+    greatest. If you already installed &name-icinga; using the quickstart guides it's rather easy to install newer versions. It's also
+    possible to perform that without root privileges by doing an install from source. It highly depends on your likings.</para>
 
-  <indexterm zone="upgrading-nagios3x">
-    <primary>Nagios</primary>
+    <para>Make sure you'll have a safe backup of your &name-icinga; installation and configs. If anything goes wrong you can restore your
+    old setup rather easy.</para>
 
-    <secondary>migrating from &name-nagios; to &name-icinga;</secondary>
-  </indexterm>
+    <para>Regular updates of &name-icinga; are possible just by re-installing &name-icinga;. Please keep in mind that <code>configure</code>
+    requires the same parameters as before - look it up in <filename>config.log</filename> and store that in a safe location.</para>
 
-  <indexterm zone="upgrading-nagios3x">
-    <primary>Migration</primary>
+    <para>Become the icinga user. Debian/Ubuntu users might use <code>sudo -s icinga</code>. <programlisting> $&gt; su -l icinga</programlisting>
+    Get the latest Icinga version from <link xlink:href="http://www.icinga.org/">&url-icinga;</link> and extract it. Then run configure like
+    you did with the old version. <programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils</programlisting>
+    Compile the source. <programlisting> #&gt; make all</programlisting> Please make sure that you don't overwrite your configs - always
+    make a backup! Don't use <code>make install-config</code> and/or <code>make install-webconf</code> if you want to manually diff the
+    config files. <programlisting> #&gt; make install install-base install-cgis install-html install-init \
+    install-commandmode install-idoutils</programlisting> or decide what you want to upgrade by just typing 'make' which shows all available
+    options. Check your config and restart Icinga. <programlisting> #&gt; /etc/init.d/icinga checkconfig
+ #&gt; /etc/init.d/icinga restart</programlisting>That's it!</para>
 
-    <secondary>from &name-nagios; to &name-icinga;</secondary>
-  </indexterm>
+    <para><emphasis role="bold">&name-icinga; 0.8.0 to &name-icinga; &ver-icinga;</emphasis></para>
+
+    <para><emphasis>Archived Logfilename</emphasis></para>
+
+    <para>There was a small misspelling bug in &name-icinga; 0.8.0 resulting in archived logfile names beginning with a capital <emphasis
+    role="bold">"I"</emphasis> like in <emphasis role="bold">'Icinga-$date'</emphasis>". This was fixed in version 0.8.1. and newer.</para>
+
+    <para>If you experience this problem then please use the following script to fix the file names</para>
+
+    <programlisting> #&gt; cd /usr/local/icinga/var/archives
+
+ for oldfilename in `find ./ -name "Icinga-*"`
+ do
+   newfilename=`echo $oldfilename | sed -e 's/Icinga/icinga/g'`
+   mv $oldfilename $newfilename
+ done</programlisting>
+  </section>
+
+  <section>
+    <title><anchor xml:id="upgrading-nagios3x"/>Upgrading from &name-nagios; 3.x Releases</title>
+
+    <para>We try to be compatible with the configuration files of the current &name-nagios; 3.x versions so there should be very little you
+    have to do to "upgrade" from &name-nagios; 3.x to &name-icinga; &ver-icinga;. Assuming you've already installed &name-nagios; from
+    source code as described in the &name-nagios; quickstart guide, you can install &name-icinga; quite easily.</para>
+
+    <para>If you are upgrading from &name-nagios; 3.0.x you might need to install PHP:</para>
+
+    <para><emphasis>Debian / Ubuntu</emphasis> <screen> #&gt; apt-get install php5 libapache2-mod-php5</screen></para>
+
+    <para><emphasis>Fedora / RedHat</emphasis></para>
+
+    <screen> #&gt; yum install php mod_php</screen>
+
+    <para><emphasis>openSuSE / SLES</emphasis></para>
+
+    <para>Use Yast to install the packages <emphasis>php5</emphasis> and <emphasis>apache2-mod_php5</emphasis> or use zypper</para>
+
+    <para><programlisting> #&gt; zypper install php5 apache2-mod_php5</programlisting></para>
+
+    <para>Make sure you have a good backup of your existing &name-nagios; installation and configuration files. If anything goes wrong or
+    doesn't work, this will allow you to rollback to your old version.</para>
+
+    <para>Please install &name-icinga; according to the <link linkend="quickstart">quickstart guide</link>. Please note that</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>the default prefix has changed to "/usr/local/icinga"</para>
+      </listitem>
+
+      <listitem>
+        <para>the environment macros start with ICINGA_</para>
+
+        <para>PNP4Nagios is aware of that since 0.6rc1 (2009.09.20) but the macros are needed in "sync" mode only.</para>
+
+        <para>check_multi includes support since v0.21 (2010.06.03), but you have to rerun the installation using '<code>configure
+        --with-nagios_name=icinga</code>' so that check_multi contains the correct values. You can use the option "-s" instead to set
+        certain values.</para>
+      </listitem>
+
+      <listitem>
+        <para>the configuration file names of the (enhanced) IDOUtils are named <filename>idomod.cfg/ido2db.cfg</filename> instead of
+        <filename>ndomod.cfg/ndo2db.cfg</filename></para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Become the icinga user. Debian/Ubuntu users might use <code>sudo -s icinga</code>.</para>
+
+    <screen> $ su -l nagios</screen>
+
+    <para>Get the latest &name-icinga; version from <link xlink:href="http://www.icinga.org//">&url-icinga;</link></para>
+
+    <screen> #&gt; wget http://osdn.dl.sourceforge.net/sourceforge/icinga/icinga-<emphasis>&ver-icinga;</emphasis>.tar.gz</screen>
+
+    <para>Extract the tarball and change to the directory just created</para>
+
+    <screen> #&gt; tar xzf icinga-<emphasis>&ver-icinga;</emphasis>.tar.gz
+ #&gt; cd icinga-<emphasis>&ver-icinga;</emphasis> </screen>
+
+    <para>Start the &name-icinga;-configure-script with the options you used the last time with &name-nagios;. You'll find the call in the
+    file config.log. Example:</para>
+
+    <screen> #&gt; ./configure --with-command-group=nagcmd</screen>
+
+    <para>Compile the &name-icinga; source code.</para>
+
+    <screen> #&gt; make all</screen>
+
+    <para>Install the programs, documentation, classic web interface and the init script. Your existing config files will not be
+    overwritten.</para>
+
+    <screen> #&gt; make cgis 
+ #&gt; make install
+ #&gt; make install-cgis
+ #&gt; make install-init</screen>
+
+    <para>or simply</para>
+
+    <screen> #&gt; make fullinstall</screen>
+
+    <important>
+      <para>Not till &name-icinga; 1.5.0 <literal>make install-config</literal> is NOT included in <literal>make fullinstall</literal>
+      anymore to avoid accidental overwriting of your config files.</para>
+    </important>
+
+    <para>Instead of using "<code>make install-config</code>" copy your configuration files from
+    <filename>&lt;Nagios-path&gt;/etc/</filename> to <filename>&lt;Icinga-path&gt;/etc/</filename>. Before starting &name-icinga; you have
+    to alter some things:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>The filename of the main config file has changed from <filename>nagios.cfg</filename> to <filename>icinga.cfg</filename>.
+        <literal> #&gt; mv nagios.cfg icinga.cfg</literal> should be sufficient to change that</para>
+      </listitem>
+
+      <listitem>
+        <para>You have to edit the main config file (<filename>icinga.cfg</filename>) to change the directives named "nagios_user" and
+        "nagios_group" to "icinga_user" and "icinga_group" respectively. Depending on the paths you're using you may have to change them as
+        well.</para>
+
+        <programlisting> #&gt; sed -i 's/nagios/icinga/g' ./icinga.cfg/</programlisting>
+      </listitem>
+
+      <listitem>
+        <para>You have to edit the CGI config file (<filename>cgi.cfg</filename>) to change the paths you're using.</para>
+
+        <programlisting> #&gt; sed -i 's/nagios/icinga/g' ./cgi.cfg/</programlisting>
+      </listitem>
+    </itemizedlist>
+
+    <para>Copy other relevant files from your &name-nagios; installation to the new location. If you are unsure about the path then please
+    have a look at <filename>nagios.cfg</filename> and/or <filename>icinga.cfg</filename>.</para>
+
+    <itemizedlist>
+      <listitem>
+        <para><filename>retention.dat</filename> (it contains certain status information, comments and other "sticky" stuff)</para>
+      </listitem>
+
+      <listitem>
+        <para><filename>nagios.log</filename> (rename it to <filename>icinga.log</filename>)</para>
+      </listitem>
+
+      <listitem>
+        <para><filename>archives/nagios-&lt;date&gt;.log</filename> files (&name-icinga; is able to process both nagios-&lt;date&gt;.log and
+        icinga-&lt;date&gt;.log files so you don't have to rename the files)</para>
+      </listitem>
+
+      <listitem>
+        <para>You don't have to copy <filename>status.dat</filename> and/or <filename>objects.cache</filename> because these files are
+        recreated during startup. Please recreate <filename>objects.precache</filename> before startup <link
+        linkend="configmain-precached_object_file">if applicable</link> instead of copying it</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Verify your configuration files, correct errors (if any) and start &name-icinga;.</para>
+
+    <screen> #&gt; &url-icinga-bin; -v &url-icinga-cfg;
+ #&gt; /etc/init.d/icinga start</screen>
+
+    <para>That's it - you're done!</para>
+
+    <para>Please keep in mind that</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>the URL has changed to http://localhost/icinga/ (for the classic UI)</para>
+      </listitem>
+
+      <listitem>
+        <para>the name of the admin user has changed to icingaadmin</para>
+      </listitem>
+    </itemizedlist>
+
+    <indexterm zone="upgrading-nagios3x">
+      <primary>Upgrading</primary>
+
+      <secondary>from &name-nagios; version 3.x</secondary>
+    </indexterm>
+
+    <indexterm zone="upgrading-nagios3x">
+      <primary>Nagios</primary>
+
+      <secondary>migrating from &name-nagios; to &name-icinga;</secondary>
+    </indexterm>
+
+    <indexterm zone="upgrading-nagios3x">
+      <primary>Migration</primary>
+
+      <secondary>from &name-nagios; to &name-icinga;</secondary>
+    </indexterm>
+  </section>
+
+  <section>
+    <title><anchor xml:id="upgrading-nagios2x"/>Upgrading from &name-nagios; 2.x Releases</title>
+
+    <para>It shouldn't be too difficult to upgrade from &name-nagios; 2.x to &name-icinga; &ver-icinga;. The upgrade is essentially the same
+    as what is described above for upgrading from &name-nagios; 3.x releases. You will, however, have to change your configuration files a
+    bit so they work with &name-icinga; &ver-icinga;:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>The old <emphasis>service_reaper_frequency</emphasis> variable in the main config file has been renamed to <link
+        linkend="configmain-check_result_reaper_frequency">check_result_reaper_frequency</link>.</para>
+      </listitem>
+
+      <listitem>
+        <para>The old <emphasis>$NOTIFICATIONNUMBER$</emphasis> macro has been deprecated in favour of new <link
+        linkend="macrolist-hostnotificationnumber">$HOSTNOTIFICATIONNUMBER$</link> and <link
+        linkend="macrolist-servicenotificationnumber">$SERVICENOTIFICATIONNUMBER$</link> macros.</para>
+      </listitem>
+
+      <listitem>
+        <para>The old <emphasis>parallelize</emphasis> directive in service definitions is now deprecated and no longer used, as all service
+        checks are run in parallel.</para>
+      </listitem>
+
+      <listitem>
+        <para>The old <emphasis>aggregate_status_updates</emphasis> option has been removed. All status file updates are now aggregated at a
+        minimum interval of 1 second.</para>
+      </listitem>
+
+      <listitem>
+        <para>Extended host and extended service definitions have been deprecated. They are still read and processed by &name-icinga;, but
+        it is recommended that you move the directives found in these definitions to your host and service definitions, respectively.</para>
+      </listitem>
+
+      <listitem>
+        <para>The old <emphasis>downtime_file</emphasis> file variable in the main config file is no longer supported, as scheduled downtime
+        entries are now saved in the <link linkend="configmain-state_retention_file">retention file</link>. To preserve existing downtime
+        entries, stop &name-nagios; 2.x and append the contents of your old downtime file to the retention file.</para>
+      </listitem>
+
+      <listitem>
+        <para>The old <emphasis>comment_file</emphasis> file variable in the main config file is no longer supported, as comments are now
+        saved in the <link linkend="configmain-state_retention_file">retention file</link>. To preserve existing comments, stop
+        &name-nagios; 2.x and append the contents of your old comment file to the retention file.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Also make sure to read the "<link linkend="whatsnew">What's New</link>" section of the documentation. It describes all the changes
+    that were made to the &name-icinga; code since the latest stable release of &name-nagios; 3.0.6. Quite a bit has changed, so make sure
+    you read it over.</para>
+  </section>
+
+  <section>
+    <title><anchor xml:id="upgrading-rpm"/>Upgrading from an RPM Installation</title>
+
+    <para>If you currently have an RPM- or Debian/Ubuntu APT package-based installation of &name-nagios; and you would like to transition to
+    installing &name-icinga; from the official source code distribution, here's the basic process you should follow:</para>
+
+    <orderedlist>
+      <listitem>
+        <para>Backup your existing &name-nagios; installation</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Configuration files</para>
+
+            <para><itemizedlist>
+                <listitem>
+                  <para>Main config file (usually <filename>nagios.cfg</filename>)</para>
+                </listitem>
+
+                <listitem>
+                  <para>Resource config file (usually <filename>resource.cfg</filename>)</para>
+                </listitem>
+
+                <listitem>
+                  <para>CGI config file (usually <filename>cgi.cfg</filename>)</para>
+                </listitem>
+
+                <listitem>
+                  <para>All your object definition files</para>
+                </listitem>
+              </itemizedlist></para>
+          </listitem>
+
+          <listitem>
+            <para>Retention file (usually <filename>retention.dat</filename>)</para>
+          </listitem>
+
+          <listitem>
+            <para>Current &name-nagios; log file (usually <filename>nagios.log</filename>)</para>
+          </listitem>
+
+          <listitem>
+            <para>Archived &name-nagios; log files (usually <filename>nagios-&lt;date&gt;.log</filename>)</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>Uninstall the original RPM or APT package</para>
+      </listitem>
+
+      <listitem>
+        <para>Install &name-icinga; from source by following the <link linkend="quickstart">quickstart guide</link></para>
+      </listitem>
+
+      <listitem>
+        <para>Restore your original &name-nagios; configuration files, retention file, and log files</para>
+      </listitem>
+
+      <listitem>
+        <para><link linkend="verifyconfig">Verify</link> your configuration and <link linkend="startstop">start</link> &name-icinga;</para>
+      </listitem>
+    </orderedlist>
+
+    <para>Note that different RPMs or APT packages may install &name-icinga; in different ways and in different locations. Make sure you've
+    backed up all your critical &name-nagios; files before removing the original RPM or APT package, so you can revert back if you encounter
+    problems.</para>
+
+    <indexterm zone="upgrading-nagios2x">
+      <primary>Upgrading</primary>
+
+      <secondary>from &name-nagios; version 2.x</secondary>
+    </indexterm>
+  </section>
 </section>
