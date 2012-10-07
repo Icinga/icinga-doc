@@ -85,7 +85,7 @@
   </section>
 
   <section>
-    <title>Plugins beschaffen</title>
+    <title><anchor xml:id="plugins-obtaining"/>Plugins beschaffen</title>
 
     <para>Plugins werden nicht mit &name-icinga; verteilt, aber Sie finden die offiziellen &name-nagios;-Plugins zum Download und viele
     weitere Plugins, die von &name-nagios;-Benutzern erstellt und gewartet werden, an folgenden Stellen:</para>
@@ -104,15 +104,28 @@
       </listitem>
     </itemizedlist>
 
-    <para><anchor xml:id="plugins-howto"/><emphasis role="bold">Wie benutze ich Plugin X?</emphasis></para>
+    <para>Nach dem Herunterladen müssen Sie die Plugins installieren. Bitte lesen Sie die Dokumentation (falls vorhanden), wie das zu tun
+    ist. Sie könnte wichtige Informationen über die Voraussetzungen wie z.B. zusätzliche Pakete oder (Perl-) Module enthalten, wie das
+    Plugin zu installieren ist bzw. distributionsabhängige Hinweise.</para>
 
-    <para>Fast alle Plugins zeigen grundlegende Bedienungshinweise an, wenn sie von der Kommandozeile mit der Option '-h' oder '--help'
-    aufgerufen werden. Wenn Sie z.B. wissen möchten, wie das Plugins check_http arbeitet bzw. welche Optionen es akzeptiert, sollten Sie
-    folgenden Befehl ausprobieren:</para>
+    <para>Manchmal müssen Sie das Plugin kompilieren, wobei Sie den Vorgang durch den Aufruf von "./configure" mit oder ohne Optionen
+    vorbereiten. Bitte prüfen Sie die Datei <filename>config.log</filename> auf mögliche Fehler zu fehlenden (devel-)Paketen vor dem Aufuf
+    des eigentlichen Compile-Vorgangs (meistens "make" oder "make all"). In den meisten Fällen wird das Plugin durch den Aufruf von "make
+    install" in das Plugins-Verzeichnis (z.B. <filename>&url-icinga-libexec;</filename>) kopiert.</para>
 
-    <screen> $&gt; ./check_http --help</screen>
+    <para>Manchmal müssen Sie das Plugin auf Ihre Umgebung anpassen (z.B. den Pfad zu "utils.pm"). Sie können stattdessen einen logischen
+    Link erzeugen, der auf das Plugin-Verzeichnis weist, so dass Sie nicht das Plugin ändern müssen, um diese Änderung zu umgehen und
+    spätere Updates zu vereinfachen. Das könnte wie folgt geschehen:</para>
 
-    <anchor xml:id="plugins-hints"/>
+    <para><programlisting> $&gt; mkdir /usr/local/nagios
+ $&gt; ln -s /usr/local/icinga/libexec /usr/local/nagios/libexec</programlisting><note>
+        <para>Bei Verwendung von Paketen kann der Pfad zum Plugin-Verzeichnis anders lauten (z.B. <filename>/usr/lib/plugins</filename>), so
+        dass Sie den Befehl entsprechend anpassen müssen.</para>
+      </note></para>
+  </section>
+
+  <section>
+    <title><anchor xml:id="plugins-hints"/>Zum &name-icinga;-Benutzer wechseln</title>
 
     <important>
       <para>Führen Sie Plugins immer mit dem &name-icinga;-Benutzer aus, denn einige Plugins erstellen temporäre Dateien. Wenn Sie Plugins
@@ -120,8 +133,8 @@
       anderen Benutzer verwenden, werden Sie nicht feststellen, ob ist der &name-icinga;-Benutzer überhaupt berechtigt ist, auf bestimmte
       Dateien (z.B. Shared Libraries) zuzugreifen.</para>
 
-      <para>Rufen Sie das Plugin nicht mit einem relativen Pfad auf (z.B. <emphasis>./check_test_plugin</emphasis>). Benutzen Sie immer
-      absolute Pfade, denn so macht es auch &name-icinga; (z.B. <emphasis>&url-icinga-libexec;/check_test_plugin</emphasis>).</para>
+      <para>Rufen Sie das Plugin nicht mit einem relativen Pfad auf (z.B. <filename>./check_test_plugin</filename>). Benutzen Sie immer
+      absolute Pfade, denn so macht es auch &name-icinga; (z.B. <filename>&url-icinga-libexec;/check_test_plugin</filename>).</para>
 
       <para>Bitte beachten Sie, dass der &name-icinga;-<emphasis>Benutzer</emphasis> eine andere Umgebung als der
       &name-icinga;-<emphasis>Prozess</emphasis> hat. Beim Benutzer wurden Login-Skripte durchlaufen und es ist ein Terminal mit der
@@ -130,10 +143,6 @@
       sondern Aufrufe von popen/execvp ausführen, abhängig vom Befehl (popen falls die Kommandozeile Metazeichen enthält, die Bedeutung für
       die Shell haben wie z.B. <literal>!$^&amp;*()~[]\|{};&lt;&gt;?'"</literal>, execvp falls keine Metazeichen vorhanden sind).</para>
     </important>
-  </section>
-
-  <section>
-    <title>Zum &name-icinga;-Benutzer wechseln</title>
 
     <para>Wechseln Sie zum &name-icinga;-Benutzer, der in <filename>icinga.cfg</filename> definiert ist, falls noch nicht geschehen, und
     bereinigen Sie die Umgebung</para>
@@ -174,29 +183,28 @@
 
     <para>Beispiel für <filename>/etc/sysconfig/icinga</filename></para>
 
-    <para><screen> export ORACLE_HOME=/usr/lib/oracle/11.2/client64
+    <para><programlisting> export ORACLE_HOME=/usr/lib/oracle/11.2/client64
  export LD_LIBRARY_PATH=$ORACLE_HOME/lib
- export PATH=$PATH:$ORACLE_HOME</screen>Nachdem Sie sich angemeldet haben, sind diese Variablen noch nicht verfügbar, aber das ist ziemlich
+ export PATH=$PATH:$ORACLE_HOME</programlisting>Nachdem Sie sich angemeldet haben, sind diese Variablen noch nicht verfügbar, aber das ist ziemlich
     einfach</para>
 
     <para><screen> $&gt; . /etc/sysconfig/icinga</screen>Bitte überprüfen Sie die Einstellungen<screen> $&gt; echo $ORACLE_HOME
  $&gt; echo $LD_LIBRARY_PATH
  $&gt; echo $PATH</screen></para>
+  </section>
 
-    <para><anchor xml:id="plugins-new_plugin"/><emphasis role="bold">Integration eines neuen Plugins</emphasis></para>
+  <section>
+    <title><anchor xml:id="plugins-howto"/>Wie benutze ich Plugin X?</title>
 
-    <para>Wenn Sie ein neues Plugin integrieren möchten, dann lesen Sie die Dokumentation (falls vorhanden). Sie könnte wichtige
-    Informationen über die Voraussetzungen wie z.B. zusätzliche Pakete oder (Perl-) Module enthalten, wie das Plugin zu installieren ist
-    bzw. distributionsabhängige Hinweise.</para>
+    <para>Fast alle Plugins zeigen grundlegende Bedienungshinweise an, wenn sie von der Kommandozeile mit der Option '-h' oder '--help'
+    aufgerufen werden. Wenn Sie z.B. wissen möchten, wie das Plugins check_http arbeitet bzw. welche Optionen es akzeptiert, sollten Sie
+    folgenden Befehl ausprobieren:</para>
 
-    <para>Manchmal müssen Sie das Plugin kompilieren, wobei Sie den Vorgang durch den Aufruf von "./configure" mit oder ohne Optionen
-    vorbereiten. Bitte prüfen Sie die Datei config.log auf mögliche Fehler zu fehlenden (devel-)Paketen vor dem Aufuf des eigentlichen
-    Compile-Vorgangs (meistens "make" oder "make all"). In den meisten Fällen wird das Plugin durch den Aufruf von "make install" in das
-    Plugins-Verzeichnis (z.B. <emphasis>&url-icinga-libexec;</emphasis>) kopiert.</para>
+    <screen> $&gt; ./check_http --help</screen>
+  </section>
 
-    <para>Manchmal müssen Sie das Plugin auf Ihre Umgebung anpassen (z.B. den Pfad zu "utils.pm"). Sie können stattdessen einen logischen
-    Link erzeugen, der auf das Plugin-Verzeichnis weist, so dass Sie nicht das Plugin ändern müssen, um diese Änderung zu umgehen und
-    spätere Updates zu vereinfachen.</para>
+  <section>
+    <title><anchor xml:id="plugins-new_plugin"/>Integration eines neuen Plugins</title>
 
     <para>Nach der Installation des Plugins rufen Sie es mit den nötigen Optionen von der Kommandozeile aus auf. Wenn dies funktioniert,
     können Sie es in &name-icinga; integrieren.</para>
@@ -235,6 +243,23 @@
 
     <para>Wie Sie sehen, wird die IP-Adresse nicht angegeben, denn sie wird aus der Host-Definition genommen.</para>
 
+    <para>Das zusammensetzen in umgekehrter Reihenfolge zeigt, wie &name-icinga; die Informationen verarbeitet:</para>
+
+    <programlisting> check_command check_sample!argument1!parameter!5
+                                |         |     +-------------------------------------+
+                                |         +---------------------------------+         |
+                                +---------------------------------+         |         |
+                                                                  |         |         |
+ Host macro ----------------------------------------+             |         |         |
+                                                    |             |         |         |
+ User macro --------+                               |             |         |         |
+                    |                               |             |         |         |
+ command_line      $USER1$/sample-plugin.pl -H $HOSTADDRESS$ -a $ARG1$ -p $ARG2$ -n $ARG3$
+
+resultiert in:
+
+ &url-icinga-libexec;/sample-plugin.pl -H 192.168.1.2 -a argument1 -p parameter -n 5</programlisting>
+
     <anchor xml:id="plugins-hints2"/>
 
     <para>Neben den bereits genannten gibt es eine Vielzahl von <link linkend="macros">Makros</link>, die die Arbeit erleichtern. Dabei gibt
@@ -263,6 +288,50 @@
         linkend="macrolist-hostaddress">$HOSTADDRESS$</link> wird mit zwei "D" geschrieben</para>
       </listitem>
     </itemizedlist>
+
+    <para><anchor xml:id="plugins-nrpe"/> <emphasis role="bold">NRPE und "dont_blame_nrpe=1"</emphasis></para>
+
+    <para>Die Benutzung von NRPE mit Argumenten erfordert etwas Aufmerksamkeit. Wenn wir annehmen, dass Sie die Argumentverarbeitung auf dem
+    entfernten Rechner in der Datei <filename>nrpe.cfg</filename> mit Hilfe von "dont_blame_nrpe=1" (oder durch "allow_arguments=1" in
+    <filename>nsc.ini</filename>) aktiviert haben, dann können Sie Parameter vom &name-icinga;-Server an den entfernten Rechner übergeben.
+    Lassen Sie uns folgende Definitionen annehmen.</para>
+
+    <para>Auf dem &name-icinga;-Server<programlisting> define command{
+    command_name check_nrpe
+    command_line $USER1$/check_nrpe -H $HOSTADDRESS$ -c $ARG1$ -a $ARG2$
+    }
+
+ define service{
+    ...
+    check_command check_nrpe!check_process!cupsd</programlisting>Auf dem entfernten Rechner in der
+    &name-nrpe;-Konfigurationsdatei<programlisting>...
+command[check_process]=your_plugin "$ARG1$"</programlisting> Der &name-icinga;-Prozess wird die Definitionen wie folgt auflösen</para>
+
+    <para><programlisting> check_command check_nrpe!check_process!cupsd
+                                |         |
+                                |         +---------------------------+
+                                +---------------------------+         |
+                                                            |         |
+ Host macro ----------------------------------+             |         |
+                                              |             |         |
+ User macro --------+                         |             |         |
+                    |                         |             |         |
+ command_line      $USER1$/check_nrpe -H $HOSTADDRESS$ -c $ARG1$ -a $ARG2$
+
+resultiert in:
+
+ &url-icinga-libexec;/check_nrpe -H 192.168.1.2 -c check_process -a cupsd</programlisting></para>
+
+    <para>Auf dem entfernten Rechner erhält der NRPE-Prozess einen Aufruf mit zwei Parametern: "check_process" und "cupsd". Der erste wird
+    entfernt, um den Befehl festzulegen, der auszuführen ist, so dass nur <emphasis role="bold">ein</emphasis> Argument an den Befehl
+    übergeben wird!</para>
+
+    <para><note>
+        <para>$ARG1$ auf dem entfernten Rechner ist <emphasis role="bold">nicht</emphasis> das gleiche wie auf dem
+        &name-icinga;-Server!</para>
+      </note></para>
+
+    <para/>
   </section>
 
   <section>
@@ -279,11 +348,11 @@
     <para>Wenn Sie die Kommandozeile protokollieren möchten, dann müssen Sie einige Direktiven in <filename>icinga.cfg</filename> auf die
     folgenden Werte ändern</para>
 
-    <screen> #  16 = Host/service checks
+    <programlisting> #  16 = Host/service checks
  # 256 = Commands
  debug_level=272
  debug_verbosity=2
- max_debug_file_size=1000000000</screen>
+ max_debug_file_size=1000000000</programlisting>
   </section>
 
   <section>
@@ -508,10 +577,16 @@
       <primary>Wie benutze ich Plugin X?</primary>
     </indexterm>
 
-    <indexterm zone="plugins-howto">
+    <indexterm zone="plugins-obtaining">
       <primary>Plugins</primary>
 
-      <secondary>Wie benutze ich Plugin X?</secondary>
+      <secondary>Plugins beschaffen</secondary>
+    </indexterm>
+
+    <indexterm zone="plugins-nrpe">
+      <primary>Plugins</primary>
+
+      <secondary>NRPE und Argumente</secondary>
     </indexterm>
 
     <indexterm zone="plugins-hints">

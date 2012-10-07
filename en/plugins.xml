@@ -8,480 +8,602 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="Icinga_plugins"/>&name-icinga; Plugins</title>
 
-  <section><title>Introduction</title>
+  <section>
+    <title>Introduction</title>
 
-  <para>Unlike many other monitoring tools, &name-icinga; does not include any internal mechanisms for checking the status of hosts and
-  services on your network. Instead, &name-icinga; relies on external programs (called plugins) to do all the dirty work.</para>
+    <para>Unlike many other monitoring tools, &name-icinga; does not include any internal mechanisms for checking the status of hosts and
+    services on your network. Instead, &name-icinga; relies on external programs (called plugins) to do all the dirty work.</para>
+  </section>
 
-  </section><section><title>What Are Plugins?</title>
+  <section>
+    <title>What Are Plugins?</title>
 
-  <para>Plugins are compiled executables or scripts (Perl scripts, shell scripts, etc.) that can be run from a command line to check the
-  status or a host or service. &name-icinga; uses the results from plugins to determine the current status of hosts and services on your
-  network.</para>
+    <para>Plugins are compiled executables or scripts (Perl scripts, shell scripts, etc.) that can be run from a command line to check the
+    status or a host or service. &name-icinga; uses the results from plugins to determine the current status of hosts and services on your
+    network.</para>
 
-  <para>&name-icinga; will execute a plugin whenever there is a need to check the status of a service or host. The plugin does
-  <emphasis>something</emphasis> (notice the very general term) to perform the check and then simply returns the results to &name-icinga;.
-  &name-icinga; will process the results that it receives from the plugin and take any necessary actions (running <link
-  linkend="eventhandlers">event handlers</link>, sending out <link linkend="notifications">notifications</link>, etc).</para>
+    <para>&name-icinga; will execute a plugin whenever there is a need to check the status of a service or host. The plugin does
+    <emphasis>something</emphasis> (notice the very general term) to perform the check and then simply returns the results to &name-icinga;.
+    &name-icinga; will process the results that it receives from the plugin and take any necessary actions (running <link
+    linkend="eventhandlers">event handlers</link>, sending out <link linkend="notifications">notifications</link>, etc).</para>
+  </section>
 
-  </section><section><title>Plugins As An Abstraction Layer</title>
+  <section>
+    <title>Plugins As An Abstraction Layer</title>
 
-  <para><inlinemediaobject>
-      <imageobject>
-        <imagedata fileref="../images/plugins.png" format="PNG"/>
-      </imageobject>
-    </inlinemediaobject></para>
+    <para><inlinemediaobject>
+        <imageobject>
+          <imagedata fileref="../images/plugins.png" format="PNG"/>
+        </imageobject>
+      </inlinemediaobject></para>
 
-  <para>Plugins act as an abstraction layer between the monitoring logic present in the &name-icinga; daemon and the actual services and
-  hosts that are being monitored.</para>
+    <para>Plugins act as an abstraction layer between the monitoring logic present in the &name-icinga; daemon and the actual services and
+    hosts that are being monitored.</para>
 
-  <para>The upside of this type of plugin architecture is that you can monitor just about anything you can think of. If you can automate the
-  process of checking something, you can monitor it with &name-icinga;. There are already a lot of plugins that have been created in order
-  to monitor basic resources such as processor load, disk usage, ping rates, etc. If you want to monitor something else, take a look at the
-  documentation on <link linkend="pluginapi">writing plugins</link> and roll your own. It's simple!</para>
+    <para>The upside of this type of plugin architecture is that you can monitor just about anything you can think of. If you can automate
+    the process of checking something, you can monitor it with &name-icinga;. There are already a lot of plugins that have been created in
+    order to monitor basic resources such as processor load, disk usage, ping rates, etc. If you want to monitor something else, take a look
+    at the documentation on <link linkend="pluginapi">writing plugins</link> and roll your own. It's simple!</para>
 
-  <para>The downside to this type of plugin architecture is the fact that &name-icinga; has absolutely no idea what it is that you're
-  monitoring. You could be monitoring network traffic statistics, data error rates, room temperature, CPU voltage, fan speed, processor
-  load, disk space, or the ability of your super-fantastic toaster to properly brown your bread in the morning... &name-icinga; doesn't
-  understand the specifics of what's being monitored - it just tracks changes in the <emphasis>state</emphasis> of those resources. Only the
-  plugins themselves know exactly what they're monitoring and how to perform the actual checks.</para>
+    <para>The downside to this type of plugin architecture is the fact that &name-icinga; has absolutely no idea what it is that you're
+    monitoring. You could be monitoring network traffic statistics, data error rates, room temperature, CPU voltage, fan speed, processor
+    load, disk space, or the ability of your super-fantastic toaster to properly brown your bread in the morning... &name-icinga; doesn't
+    understand the specifics of what's being monitored - it just tracks changes in the <emphasis>state</emphasis> of those resources. Only
+    the plugins themselves know exactly what they're monitoring and how to perform the actual checks.</para>
+  </section>
 
-  </section><section><title>What Plugins Are Available?</title>
+  <section>
+    <title><anchor xml:id="plugins-avail"/>What Plugins Are Available?</title>
 
-  <para>There are plugins currently available to monitor many different kinds of devices and services, including:</para>
+    <para>There are plugins currently available to monitor many different kinds of devices and services, including:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>HTTP, POP3, IMAP, FTP, SSH, DHCP</para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>HTTP, POP3, IMAP, FTP, SSH, DHCP</para>
+      </listitem>
 
-    <listitem>
-      <para>CPU Load, Disk Usage, Memory Usage, Current Users</para>
-    </listitem>
+      <listitem>
+        <para>CPU Load, Disk Usage, Memory Usage, Current Users</para>
+      </listitem>
 
-    <listitem>
-      <para>Unix/Linux, Windows, and Netware Servers</para>
-    </listitem>
+      <listitem>
+        <para>Unix/Linux, Windows, and Netware Servers</para>
+      </listitem>
 
-    <listitem>
-      <para>Routers and Switches</para>
-    </listitem>
+      <listitem>
+        <para>Routers and Switches</para>
+      </listitem>
 
-    <listitem>
-      <para>etc.</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>etc.</para>
+      </listitem>
+    </itemizedlist>
+  </section>
 
-  </section><section><title>Obtaining Plugins</title>
+  <section>
+    <title><anchor xml:id="plugins-obtaining"/>Obtaining Plugins</title>
 
-  <para>Plugins are not distributed with &name-icinga;, but you can download the official &name-nagios; plugins and many additional plugins
-  created and maintained by &name-nagios; and &name-icinga; users from the following locations:</para>
+    <para>Plugins are not distributed with &name-icinga;, but you can download the official &name-nagios; plugins and many additional
+    plugins created and maintained by &name-nagios; and &name-icinga; users from the following locations:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>&name-nagios; Plugins Project: <link
-      xlink:href="http://nagiosplug.sourceforge.net/">http://nagiosplug.sourceforge.net/</link></para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>&name-nagios; Plugins Project: <link
+        xlink:href="http://nagiosplug.sourceforge.net/">http://nagiosplug.sourceforge.net/</link></para>
+      </listitem>
 
-    <listitem>
-      <para>&name-nagios; Downloads Page: <link xlink:href="http://www.nagios.org/download/">http://www.nagios.org/download/</link></para>
-    </listitem>
+      <listitem>
+        <para>&name-nagios; Downloads Page: <link xlink:href="http://www.nagios.org/download/">http://www.nagios.org/download/</link></para>
+      </listitem>
 
-    <listitem>
-      <para>MonitoringExchange.org: <link xlink:href="http://www.monitoringexchange.org">&url-monitoringexchange;</link></para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>MonitoringExchange.org: <link xlink:href="http://www.monitoringexchange.org">&url-monitoringexchange;</link></para>
+      </listitem>
+    </itemizedlist>
 
-  <para><anchor xml:id="plugins-howto"/><emphasis role="bold">How Do I Use Plugin X?</emphasis></para>
+    <para>After downloading you have to install the plugin(s). Please check the accompanied documentation on how to do that. It may contain
+    important information about the prerequisites like additional packages, (perl) modules and on how to install the plugin together with
+    hints for your distribution.</para>
 
-  <para>Nearly all plugins will display basic usage information when you execute them using '-h' or '--help' on the command line. For
-  example, if you want to know how the check_http plugin works or what options it accepts, you should try executing the following
-  command:</para>
+    <para>Sometimes you have to compile the plugin preparing the compile process using "<code>./configure</code>" with or without options.
+    Please check the file <filename>config.log</filename> for errors regarding missing (devel) packages before issuing the actual compile
+    command (mostly "make" or "make all"). In most cases the plugin is copied to the plugins directory (i.e.
+    <filename>&url-icinga-libexec;</filename>) during "make install".</para>
 
-  <screen> $&gt; ./check_http --help</screen>
+    <para>Sometimes you have to alter the plugin to reflect your environment (i.e. path to "utils.pm", ...). You may create a logical link
+    pointing to the plugin directory instead so you don't have to change the plugin to circumvent this issue easing plugin updates later on
+    doing something like</para>
 
-  <anchor xml:id="plugins-hints"/>
+    <programlisting> $&gt; mkdir /usr/local/nagios
+ $&gt; ln -s /usr/local/icinga/libexec /usr/local/nagios/libexec</programlisting>
 
-  <important>
-    <para>Always execute the plugin using the &name-icinga; user (specified using the directive icinga_user in
-    <filename>icinga.cfg</filename>) because some plugins will create temporary files. If you're testing plugins with another user then the
-    &name-icinga; user may not have the permissions to overwrite existing files later on. Using another user you will not be able to find
-    out if the &name-icinga; user is allowed to access several files (e.g. shared libraries) at all.</para>
+    <note>
+      <para>Using packages the path to the plugins directory might be different (e.g. <filename>/usr/lib/plugins</filename>) so please
+      change that accordingly.</para>
+    </note>
+  </section>
 
-    <para>When testing it don't call the plugin using relative paths (i.e <emphasis>./check_test_plugin</emphasis>). Always use absolute
-    paths because that's the way &name-icinga; does it (i.e. <emphasis>&url-icinga-libexec;/check_test_plugin</emphasis>).</para>
+  <section>
+    <title><anchor xml:id="plugins-hints"/>Switch to the &name-icinga; user</title>
 
-    <para>Please note that the &name-icinga; <emphasis>user</emphasis> has a different environment than the &name-icinga;
-    <emphasis>process</emphasis>. Using the first the logins script have been executed and there is a terminal connected to the user session
-    so successfully running the plugin from the command line doesn't (necessarly) mean that it will run when executed by the process.
-    Furthermore the process will not use a shell per default but execute calls to popen/execvp instead depending on the command (popen in
-    case the command line contains meta characters meaningful to the shell like <literal>!$^&amp;*()~[]\|{};&lt;&gt;?'"</literal>, execvp if
-    no meta characters are present).</para>
-  </important>
+    <important>
+      <para>Always execute the plugin using the &name-icinga; user (specified using the directive icinga_user in
+      <filename>icinga.cfg</filename>) because some plugins will create temporary files. If you're testing plugins with another user then
+      the &name-icinga; user may not have the permissions to overwrite existing files later on. Using another user you will not be able to
+      find out if the &name-icinga; user is allowed to access several files (e.g. shared libraries) at all.</para>
 
-  </section><section><title>Switch to the &name-icinga; user</title>
+      <para>When testing it don't call the plugin using relative paths (i.e <filename>./check_test_plugin</filename>). Always use absolute
+      paths because that's the way &name-icinga; does it (i.e. <filename>&url-icinga-libexec;/check_test_plugin</filename>).</para>
 
-  <para>Switch to the &name-icinga; user as defined in <filename>icinga.cfg</filename> unless already done and clear the environment</para>
+      <para>Please note that the &name-icinga; <emphasis>user</emphasis> has a different environment than the &name-icinga;
+      <emphasis>process</emphasis>. Using the first the logins script have been executed and there is a terminal connected to the user
+      session so successfully running the plugin from the command line doesn't (necessarly) mean that it will run when executed by the
+      process. Furthermore the process will not use a shell per default but execute calls to popen/execvp instead depending on the command
+      (popen in case the command line contains meta characters meaningful to the shell like
+      <literal>!$^&amp;*()~[]\|{};&lt;&gt;?'"</literal>, execvp if no meta characters are present).</para>
+    </important>
 
-  <screen> #&gt; su - icinga
+    <para>Switch to the &name-icinga; user as defined in <filename>icinga.cfg</filename> unless already done and clear the
+    environment</para>
+
+    <screen> #&gt; su - icinga
  #&gt; env -i</screen>
 
-  <para>If you are logged in now then skip to "Extending the environment"</para>
+    <para>If you are logged in now then skip to "Extending the environment"</para>
 
-  <para>Due to security awareness of the packager / sys admin this might fail because the account is not allowed to login. Please ask your
-  sys admin to change that temporarily or do one of the following</para>
+    <para>Due to security awareness of the packager / sys admin this might fail because the account is not allowed to login. Please ask your
+    sys admin to change that temporarily or do one of the following</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>get the current shell from <filename>/etc/passwd</filename> and change it by issuing something similar to <screen> #&gt; OLD_SHELL=`grep icinga /etc/passwd | sed 's/.*://'`
+    <itemizedlist>
+      <listitem>
+        <para>get the current shell from <filename>/etc/passwd</filename> and change it by issuing something similar to <screen> #&gt; OLD_SHELL=`grep icinga /etc/passwd | sed 's/.*://'`
  #&gt; usermod -s /bin/sh icinga</screen>execute the command(s) after switching to the &name-icinga; user and clearing the environment as
-      described above</para>
+        described above</para>
 
-      <para>don't forget to restore the shell setting after testing and leaving the session <screen> #&gt; usermod -s $OLD_SHELL icinga</screen></para>
-    </listitem>
+        <para>don't forget to restore the shell setting after testing and leaving the session <screen> #&gt; usermod -s $OLD_SHELL icinga</screen></para>
+      </listitem>
 
-    <listitem>
-      <para>execute the command using "sudo -u icinga"</para>
+      <listitem>
+        <para>execute the command using "sudo -u icinga"</para>
 
-      <screen> #&gt; sudo -u icinga /usr/local/icinga/libexec/sample-plugin.pl ...</screen>
-    </listitem>
-  </itemizedlist>
+        <screen> #&gt; sudo -u icinga /usr/local/icinga/libexec/sample-plugin.pl ...</screen>
+      </listitem>
+    </itemizedlist>
+  </section>
 
-  </section><section><title>Extending the environment</title>
+  <section>
+    <title><anchor xml:id="plugins-extending"/>Extending the environment</title>
 
-  <para>Several checks (like check_oracle_health) depend on various environment variables to be set. Don't put these in
-  <filename>.bashrc</filename> or similar user dependent files but choose a central location. The default init script sources the file
-  <filename>/etc/sysconfig/icinga</filename> so that would be an ideal place. Don't use the init script itself because your changes might be
-  lost during updates.</para>
+    <para>Several checks (like check_oracle_health) depend on various environment variables to be set. Don't put these in
+    <filename>.bashrc</filename> or similar user dependent files but choose a central location. The default init script sources the file
+    <filename>/etc/sysconfig/icinga</filename> so that would be an ideal place. Don't use the init script itself because your changes might
+    be lost during updates.</para>
 
-  <para>Example of <filename>/etc/sysconfig/icinga</filename></para>
+    <para>Example of <filename>/etc/sysconfig/icinga</filename></para>
 
-  <para><screen> export ORACLE_HOME=/usr/lib/oracle/11.2/client64
+    <para><programlisting> export ORACLE_HOME=/usr/lib/oracle/11.2/client64
  export LD_LIBRARY_PATH=$ORACLE_HOME/lib
- export PATH=$PATH:$ORACLE_HOME</screen>After you logged in these variables are not set but doing so is pretty easy</para>
+ export PATH=$PATH:$ORACLE_HOME</programlisting>After you logged in these variables are not set but doing so is pretty easy</para>
 
-  <para><screen> $&gt; . /etc/sysconfig/icinga</screen>Please verify the settings<screen> $&gt; echo $ORACLE_HOME
+    <para><screen> $&gt; . /etc/sysconfig/icinga</screen>Please verify the settings<screen> $&gt; echo $ORACLE_HOME
  $&gt; echo $LD_LIBRARY_PATH
  $&gt; echo $PATH</screen></para>
+  </section>
 
-  <para><anchor xml:id="plugins-new_plugin"/><emphasis role="bold">Integrating a new plugin</emphasis></para>
+  <section>
+    <title><anchor xml:id="plugins-howto"/>How Do I Use Plugin X?</title>
 
-  <para>If you want to integrate a new plugin then please read the documentation (if any) before installing it. It may contain important
-  information about the prerequisites like additional packages, (perl) modules and on how to install the plugin together with hints for your
-  distribution.</para>
+    <para>Nearly all plugins will display basic usage information when you execute them using '<code>-h</code>' or '<code>--help</code>' on
+    the command line. For example, if you want to know how the check_http plugin works or what options it accepts, you should try executing
+    the following command:</para>
 
-  <para>Sometimes you have to compile the plugin preparing the compile process using "./configure" with or without options. Please check the
-  file config.log for errors regarding missing (devel) packages before issuing the actual compile command (mostly "make" or "make all"). In
-  most cases the plugin is copied to the plugins directory (i.e. <emphasis>&url-icinga-libexec;</emphasis>) during "make install".</para>
+    <screen> $&gt; ./check_http --help</screen>
+  </section>
 
-  <para>Sometimes you have to alter the plugin to reflect your environment (i.e. path to "utils.pm", ...). You may create a logical link
-  pointing to the plugin directory instead so you don't have to change the plugin to circumvent this issue easing plugin updates later
-  on.</para>
+  <section>
+    <title><anchor xml:id="plugins-new_plugin"/>Integrating a new plugin</title>
 
-  <para>After the installation of the plugin call it from the command line using the appropriate options. If this works then you can
-  integrate it into &name-icinga;.</para>
+    <para>After the installation of the plugin (see "<link linkend="plugins-obtaining">Obtaining plugins</link>") call it from the command
+    line using the appropriate options. If this works then you can integrate it into &name-icinga;.</para>
 
-  <para>Let's imagine you used the following call on the command line</para>
+    <para>Let's imagine you used the following call on the command line</para>
 
-  <programlisting> $&gt; &url-icinga-libexec;/sample-plugin.pl -H 192.168.1.2 -a argument1 -p parameter -n 5</programlisting>
+    <programlisting> $&gt; &url-icinga-libexec;/sample-plugin.pl -H 192.168.1.2 -a argument1 -p parameter -n 5</programlisting>
 
-  <para>The command definition has to contain two directives</para>
+    <para>The command definition has to contain two directives</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>command_name: this is a short name identifying the command, let's use <emphasis>check_sample</emphasis></para>
-    </listitem>
+    <itemizedlist>
+      <listitem>
+        <para>command_name: this is a short name identifying the command, let's use <emphasis>check_sample</emphasis></para>
+      </listitem>
 
-    <listitem>
-      <para>command_line: here you define the command to execute. You can specify the command you executed on the command line but that
-      would be very inflexible. Normally the plugin directory (&url-icinga-libexec;) remains the same so we can use a <link
-      linkend="macrolist-user">$USERn$</link> variable which is defined in resource.cfg. The IP-address changes from host to host. There is
-      a macro called <link linkend="macrolist-hostaddress">$HOSTADDRESS$</link> which we can use for that purpose. The value of the
-      arguments may vary so these should be flexible, too. This may lead to the following definition:</para>
-    </listitem>
-  </itemizedlist>
+      <listitem>
+        <para>command_line: here you define the command to execute. You can specify the command you executed on the command line but that
+        would be very inflexible. Normally the plugin directory (&url-icinga-libexec;) remains the same so we can use a <link
+        linkend="macrolist-user">$USERn$</link> variable which is defined in <filename>resource.cfg</filename>. The IP-address changes from
+        host to host. There is a macro called <link linkend="macrolist-hostaddress">$HOSTADDRESS$</link> which we can use for that purpose.
+        The value of the arguments may vary so these should be flexible, too. This may lead to the following definition:</para>
+      </listitem>
+    </itemizedlist>
 
-  <programlisting> define command{ 
+    <programlisting> define command{
     command_name check_sample
     command_line $USER1$/sample-plugin.pl -H $HOSTADDRESS$ -a $ARG1$ -p $ARG2$ -n $ARG3$
     }</programlisting>
 
-  <para>Then we have to define the check_command directive which is part of the host/service definition starting with the short name
-  followed by the arguments separated by exclamation marks (!):</para>
+    <para>Then we have to define the check_command directive which is part of the host/service definition starting with the short name
+    followed by the arguments separated by exclamation marks (!):</para>
 
-  <programlisting> check_command check_sample!argument1!parameter!5</programlisting>
+    <programlisting> check_command check_sample!argument1!parameter!5</programlisting>
 
-  <para>As you can see the IP-address is not specified because it is taken from the host definition.</para>
+    <para>As you can see the IP-address is not specified because it is taken from the host definition.</para>
 
-  <anchor xml:id="plugins-hints2"/>
+    <para>Putting it all together in reverse order shows how &name-icinga; will process the information:</para>
 
-  <para>In addition to the <link linkend="macros">macros</link> already mentioned there are a lot of others making life easier. Please
-  note:</para>
+    <programlisting> check_command check_sample!argument1!parameter!5
+                                |         |     +-------------------------------------+
+                                |         +---------------------------------+         |
+                                +---------------------------------+         |         |
+                                                                  |         |         |
+ Host macro ----------------------------------------+             |         |         |
+                                                    |             |         |         |
+ User macro --------+                               |             |         |         |
+                    |                               |             |         |         |
+ command_line      $USER1$/sample-plugin.pl -H $HOSTADDRESS$ -a $ARG1$ -p $ARG2$ -n $ARG3$
 
-  <itemizedlist>
-    <listitem>
-      <para>All &name-icinga; macros use all upper case and are enclosed in dollar signs ($)</para>
-    </listitem>
+results in:
 
-    <listitem>
-      <para>Most macros are only valid for some types of commands. If you try to use a macro for a type of command for which it is not valid
-      you'll get a dollar sign ($) instead of the expected value</para>
-    </listitem>
+ &url-icinga-libexec;/sample-plugin.pl -H 192.168.1.2 -a argument1 -p parameter -n 5</programlisting>
 
-    <listitem>
-      <para>The <link linkend="macrolist-user">$USERn$</link> macros can be used to "hide" sensitive information like passwords because
-      these values are not shown in the web interface. Additionally they can be used to specify special characters which otherwise may lead
-      to problems. One example would be <literal>USER99=;</literal>. This way you can use a semicolon which otherwise would be treated as
-      start of a comment within your definitions</para>
-    </listitem>
+    <para><anchor xml:id="plugins-hints2"/>In addition to the <link linkend="macros">macros</link> already mentioned there are a lot of
+    others making life easier. Please note:</para>
 
-    <listitem>
-      <para>Native non-english speaking persons should note that <link linkend="macrolist-hostaddress">$HOSTADDRESS$</link> is written with
-      a double "D"</para>
-    </listitem>
-  </itemizedlist>
+    <itemizedlist>
+      <listitem>
+        <para>All &name-icinga; macros use all upper case and are enclosed in dollar signs ($)</para>
+      </listitem>
 
-  </section><section><title>Raw command line</title>
+      <listitem>
+        <para>Most macros are only valid for some types of commands. If you try to use a macro for a type of command for which it is not
+        valid you'll get a dollar sign ($) instead of the expected value</para>
+      </listitem>
 
-  <para>Starting with &name-icinga; 1.6 the classic UI allows to inspect the raw command line including values from
-  <filename>resource.cfg</filename>. Clicking on "ACTIVE" next to "Check type" within host/service check details will give access to this
-  information. If you don't have defined a check yet choose "View Config" from the main menu on the left, then "Command expansion". Please
-  note that the user has to be permitted explicitly using the directive <link
-  linkend="configcgi-authorized_for_full_command_resolution">authorized_for_full_command_resolution</link> in <filename>cgi.cfg</filename>
-  to see the values of variables from <filename>resource.cfg</filename>. The user running the web server must have read access on this file,
-  too.</para>
+      <listitem>
+        <para>The <link linkend="macrolist-user">$USERn$</link> macros can be used to "hide" sensitive information like passwords because
+        these values are not shown in the web interface. Additionally they can be used to specify special characters which otherwise may
+        lead to problems. One example would be <literal>USER99=;</literal>. This way you can use a semicolon which otherwise would be
+        treated as start of a comment within your definitions</para>
+      </listitem>
 
-  <para>If you intend to log the raw command line then change some directives in <filename>icinga.cfg</filename> to the following
-  values</para>
+      <listitem>
+        <para>Native non-english speaking persons should note that <link linkend="macrolist-hostaddress">$HOSTADDRESS$</link> is written
+        with a double "D"</para>
+      </listitem>
+    </itemizedlist>
 
-  <programlisting> #  16 = Host/service checks
+    <para><anchor xml:id="plugins-nrpe"/><emphasis role="bold">NRPE and "dont_blame_nrpe=1"</emphasis></para>
+
+    <para>Using NRPE with arguments requires some attention. Given that you have enabled argument processing on the remote server in
+    <filename>nrpe.cfg</filename> using "dont_blame_nrpe=1" (or "allow_arguments=1" in <filename>nsc.ini</filename>) you can pass parameters
+    from the &name-icinga; server to the remote machine. Let us assume some definitions</para>
+
+    <para>On the &name-icinga; server<programlisting> define command{
+    command_name check_nrpe
+    command_line $USER1$/check_nrpe -H $HOSTADDRESS$ -c $ARG1$ -a $ARG2$
+    }
+
+ define service{
+    ...
+    check_command check_nrpe!check_process!cupsd</programlisting>on the remote server in the &name-nrpe; config file<programlisting>...
+command[check_process]=your_plugin "$ARG1$"</programlisting> The &name-icinga; process will resolve the definitions as follows</para>
+
+    <para><programlisting> check_command check_nrpe!check_process!cupsd
+                                |         |
+                                |         +---------------------------+
+                                +---------------------------+         |
+                                                            |         |
+ Host macro ----------------------------------+             |         |
+                                              |             |         |
+ User macro --------+                         |             |         |
+                    |                         |             |         |
+ command_line      $USER1$/check_nrpe -H $HOSTADDRESS$ -c $ARG1$ -a $ARG2$
+
+results in:
+
+ &url-icinga-libexec;/check_nrpe -H 192.168.1.2 -c check_process -a cupsd</programlisting></para>
+
+    <para>On the remote machine the NRPE process receives a call providing two parameters: "check_process" and "cupsd". The first is
+    stripped to determine the command to be executed so only <emphasis role="bold">one</emphasis> argument is passed to the command!</para>
+
+    <note>
+      <para>$ARG1$ on the remote machine is <emphasis role="bold">not</emphasis> the same as on the &name-icinga; server!</para>
+    </note>
+  </section>
+
+  <section>
+    <title><anchor xml:id="plugins-raw"/>Raw command line</title>
+
+    <para>Starting with &name-icinga; 1.6 the classic UI allows to inspect the raw command line including values from
+    <filename>resource.cfg</filename>. Clicking on "ACTIVE" next to "Check type" within host/service check details will give access to this
+    information. If you don't have defined a check yet choose "View Config" from the main menu on the left, then "Command expansion". Please
+    note that the user has to be permitted explicitly using the directive <link
+    linkend="configcgi-authorized_for_full_command_resolution">authorized_for_full_command_resolution</link> in <filename>cgi.cfg</filename>
+    to see the values of variables from <filename>resource.cfg</filename>. The user running the web server must have read access on this
+    file, too.</para>
+
+    <para>If you intend to log the raw command line then change some directives in <filename>icinga.cfg</filename> to the following
+    values</para>
+
+    <programlisting> #  16 = Host/service checks
  # 256 = Commands
  debug_level=272
  debug_verbosity=2
  max_debug_file_size=1000000000</programlisting>
+  </section>
 
-  </section><section><title>Threshold and ranges</title>
+  <section>
+    <title><anchor xml:id="plugins-threshold"/>Threshold and ranges</title>
 
-  <para>Some plugins support specifying ranges for the warning and critical values. Please check the documentation if this is the case for
-  the plugin you want to use. The following is an excerpt from the <link
-  xlink:href="http://nagiosplug.sourceforge.net/developer-guidelines.html#THRESHOLDFORMAT">developer guidelines</link>:</para>
+    <para>Some plugins support specifying ranges for the warning and critical values. Please check the documentation if this is the case for
+    the plugin you want to use. The following is an excerpt from the <link
+    xlink:href="http://nagiosplug.sourceforge.net/developer-guidelines.html#THRESHOLDFORMAT">developer guidelines</link>:</para>
 
-  <para>A range is defined as a start and end point (inclusive) on a numeric scale (possibly negative or positive infinity).</para>
+    <para>A range is defined as a start and end point (inclusive) on a numeric scale (possibly negative or positive infinity).</para>
 
-  <para>A threshold is a range with an alert level (either warning or critical).</para>
+    <para>A threshold is a range with an alert level (either warning or critical).</para>
 
-  <para>The theory is that the plugin will do some sort of check which returns back a numerical value, or metric, which is then compared to
-  the warning and critical thresholds.</para>
+    <para>The theory is that the plugin will do some sort of check which returns back a numerical value, or metric, which is then compared
+    to the warning and critical thresholds.</para>
 
-  <para>This is the generalised format for ranges:</para>
+    <para>This is the generalised format for ranges:</para>
 
-  <para><code>[@]start:end</code></para>
+    <para><code>[@]start:end</code></para>
 
-  <para>Notes:</para>
+    <para>Notes:</para>
 
-  <orderedlist>
-    <listitem>
-      <para>start = end if :end is not specified</para>
-    </listitem>
+    <orderedlist>
+      <listitem>
+        <para>start = end if :end is not specified</para>
+      </listitem>
 
-    <listitem>
-      <para>start and ":" is not required if start=0</para>
-    </listitem>
+      <listitem>
+        <para>start and ":" is not required if start=0</para>
+      </listitem>
 
-    <listitem>
-      <para>if range is of format "start:" and end is not specified, assume end is infinity</para>
-    </listitem>
+      <listitem>
+        <para>if range is of format "start:" and end is not specified, assume end is infinity</para>
+      </listitem>
 
-    <listitem>
-      <para>to specify negative infinity, use "~"</para>
-    </listitem>
+      <listitem>
+        <para>to specify negative infinity, use "~"</para>
+      </listitem>
 
-    <listitem>
-      <para>alert is raised if metric is outside start and end range (inclusive of endpoints)</para>
-    </listitem>
+      <listitem>
+        <para>alert is raised if metric is outside start and end range (inclusive of endpoints)</para>
+      </listitem>
 
-    <listitem>
-      <para>if range starts with "@", then alert if inside this range (inclusive of endpoints)</para>
-    </listitem>
-  </orderedlist>
+      <listitem>
+        <para>if range starts with "@", then alert if inside this range (inclusive of endpoints)</para>
+      </listitem>
+    </orderedlist>
 
-  <note>
-    <para>Not all plugins are coded to expect ranges in this format yet.</para>
-  </note>
+    <note>
+      <para>Not all plugins are coded to expect ranges in this format yet.</para>
+    </note>
 
-  <para>Example ranges<informaltable>
-      <tgroup cols="2">
-        <tbody>
-          <row>
-            <entry><emphasis role="bold">Range definition</emphasis></entry>
+    <para>Example ranges<informaltable>
+        <tgroup cols="2">
+          <tbody>
+            <row>
+              <entry><emphasis role="bold">Range definition</emphasis></entry>
 
-            <entry><emphasis role="bold">Generate an alert if x...</emphasis></entry>
-          </row>
+              <entry><emphasis role="bold">Generate an alert if x...</emphasis></entry>
+            </row>
 
-          <row>
-            <entry>10</entry>
+            <row>
+              <entry>10</entry>
 
-            <entry>&lt; 0 or &gt; 10, (outside the range of {0 .. 10})</entry>
-          </row>
+              <entry>&lt; 0 or &gt; 10, (outside the range of {0 .. 10})</entry>
+            </row>
 
-          <row>
-            <entry>10:</entry>
+            <row>
+              <entry>10:</entry>
 
-            <entry>&lt; 10, (outside {10 .. infinity})</entry>
-          </row>
+              <entry>&lt; 10, (outside {10 .. infinity})</entry>
+            </row>
 
-          <row>
-            <entry>~:10</entry>
+            <row>
+              <entry>~:10</entry>
 
-            <entry>&gt; 10, (outside the range of {-infinity .. 10})</entry>
-          </row>
+              <entry>&gt; 10, (outside the range of {-infinity .. 10})</entry>
+            </row>
 
-          <row>
-            <entry>10:20</entry>
+            <row>
+              <entry>10:20</entry>
 
-            <entry>&lt; 10 or &gt; 20, (outside the range of {10 .. 20})</entry>
-          </row>
+              <entry>&lt; 10 or &gt; 20, (outside the range of {10 .. 20})</entry>
+            </row>
 
-          <row>
-            <entry>@10:20</entry>
+            <row>
+              <entry>@10:20</entry>
 
-            <entry>&lt;= 10 and &gt;= 20, (inside the range of {10 .. 20})</entry>
-          </row>
-        </tbody>
-      </tgroup>
-    </informaltable></para>
+              <entry>&lt;= 10 and &gt;= 20, (inside the range of {10 .. 20})</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable></para>
 
-  <para>Command line examples<informaltable>
-      <tgroup cols="2">
-        <tbody>
-          <row>
-            <entry><emphasis role="bold">Command line</emphasis></entry>
+    <para>Command line examples<informaltable>
+        <tgroup cols="2">
+          <tbody>
+            <row>
+              <entry><emphasis role="bold">Command line</emphasis></entry>
 
-            <entry><emphasis role="bold">Meaning</emphasis></entry>
-          </row>
+              <entry><emphasis role="bold">Meaning</emphasis></entry>
+            </row>
 
-          <row>
-            <entry>check_stuff -w10 -c20</entry>
+            <row>
+              <entry>check_stuff -w10 -c20</entry>
 
-            <entry>Critical if "stuff" is over 20, else warn if over 10 (will be critical if "stuff" is less than 0)</entry>
-          </row>
+              <entry>Critical if "stuff" is over 20, else warn if over 10 (will be critical if "stuff" is less than 0)</entry>
+            </row>
 
-          <row>
-            <entry>check_stuff -w~:10 -c~:20</entry>
+            <row>
+              <entry>check_stuff -w~:10 -c~:20</entry>
 
-            <entry>Same as above. Negative "stuff" is OK</entry>
-          </row>
+              <entry>Same as above. Negative "stuff" is OK</entry>
+            </row>
 
-          <row>
-            <entry>check_stuff -w10: -c20</entry>
+            <row>
+              <entry>check_stuff -w10: -c20</entry>
 
-            <entry>Critical if "stuff" is over 20, else warn if "stuff" is below 10 (will be critical if "stuff" is less than 0)</entry>
-          </row>
+              <entry>Critical if "stuff" is over 20, else warn if "stuff" is below 10 (will be critical if "stuff" is less than 0)</entry>
+            </row>
 
-          <row>
-            <entry>check_stuff -c1:</entry>
+            <row>
+              <entry>check_stuff -c1:</entry>
 
-            <entry>Critical if "stuff" is less than 1</entry>
-          </row>
+              <entry>Critical if "stuff" is less than 1</entry>
+            </row>
 
-          <row>
-            <entry>check_stuff -w~:0 -c10</entry>
+            <row>
+              <entry>check_stuff -w~:0 -c10</entry>
 
-            <entry>Critical if "stuff" is above 10; Warn if "stuff" is above zero</entry>
-          </row>
+              <entry>Critical if "stuff" is above 10; Warn if "stuff" is above zero</entry>
+            </row>
 
-          <row>
-            <entry>check_stuff -c5:6</entry>
+            <row>
+              <entry>check_stuff -c5:6</entry>
 
-            <entry>The only noncritical range is 5:6</entry>
-          </row>
+              <entry>The only noncritical range is 5:6</entry>
+            </row>
 
-          <row>
-            <entry>check_stuff -c@10:20</entry>
+            <row>
+              <entry>check_stuff -c@10:20</entry>
 
-            <entry>Critical if "stuff" is 10 to 20 <emphasis role="bold">[1]</emphasis></entry>
-          </row>
+              <entry>Critical if "stuff" is 10 to 20 <emphasis role="bold">[1]</emphasis></entry>
+            </row>
 
-          <row>
-            <entry>check_stuff -w20:30 -c10:40</entry>
+            <row>
+              <entry>check_stuff -w20:30 -c10:40</entry>
 
-            <entry>Warning if "stuff" below 20 or above 30, critical if "stuff" is below 10 or above 40 <emphasis
-            role="bold">[2]</emphasis></entry>
-          </row>
-        </tbody>
-      </tgroup>
-    </informaltable></para>
+              <entry>Warning if "stuff" below 20 or above 30, critical if "stuff" is below 10 or above 40 <emphasis
+              role="bold">[2]</emphasis></entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable></para>
 
-  <note>
-    <para>[1]: The command line of the developer guidelines seems to be lacking "@" otherwise the meaning would be wrong (and there wouldn't
-    be an example for the @ notation)</para>
+    <note>
+      <para>[1]: The command line of the developer guidelines seems to be lacking "@" otherwise the meaning would be wrong (and there
+      wouldn't be an example for the @ notation)</para>
 
-    <para>[2]: Please note that the last example shows nested ranges. This might not even work with every plugin supporting ranges. It was
-    tested using check_snmp.</para>
-  </note>
+      <para>[2]: Please note that the last example shows nested ranges. This might not even work with every plugin supporting ranges. It was
+      tested using check_snmp.</para>
+    </note>
+  </section>
 
-  </section><section><title>Activating the definition</title>
+  <section>
+    <title><anchor xml:id="plugins-errors"/>Activating the definition</title>
 
-  <para>Check the configuration using "/etc/init.d/icinga show-errors" and resolve any errors before issuing "/etc/init.d/icinga restart".
-  Wait until the object is checked and look at the status details. There might be errors.</para>
+    <para>Check the configuration using "/etc/init.d/icinga show-errors" and resolve any errors before issuing "/etc/init.d/icinga restart".
+    Wait until the object is checked and look at the status details. There might be errors.</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>"...resulted in a return code of 127" / "out of bounds"</para>
+    <itemizedlist>
+      <listitem>
+        <para>"...resulted in a return code of 127" / "out of bounds"</para>
 
-      <para>This means the plugin was not found at the specified location or that a file called from within the plugin was not found. If you
-      use $USERn$ macros calling the plugin then make sure that the macro really points to the location where the plugin is (is the macro
-      defined in resource.cfg?). Notification commands often call a mail program. Make sure that the path to the mail program is
-      correct.</para>
-    </listitem>
+        <para>This means the plugin was not found at the specified location or that a file called from within the plugin was not found. If
+        you use $USERn$ macros calling the plugin then make sure that the macro really points to the location where the plugin is (is the
+        macro defined in resource.cfg?). Notification commands often call a mail program. Make sure that the path to the mail program is
+        correct.</para>
+      </listitem>
 
-    <listitem>
-      <para>"...resulted in a return code of 126"</para>
+      <listitem>
+        <para>"...resulted in a return code of 126"</para>
 
-      <para>Mostly this indicates a permissions problem. The process might not be able to access / execute the plugin and/or other related
-      files.</para>
-    </listitem>
+        <para>Mostly this indicates a permissions problem. The process might not be able to access / execute the plugin and/or other related
+        files.</para>
+      </listitem>
 
-    <listitem>
-      <para>"...resulted in a return code of 13".</para>
+      <listitem>
+        <para>"...resulted in a return code of 13".</para>
 
-      <para>Mostly this indicates a permissions problem. The user might not be able to access / execute the plugin and/or other related
-      files. This might happen if you tested a plugin as root which creates temporary files. The &name-icinga; user is not allowed to
-      overwrite these files.</para>
-    </listitem>
+        <para>Mostly this indicates a permissions problem. The user might not be able to access / execute the plugin and/or other related
+        files. This might happen if you tested a plugin as root which creates temporary files. The &name-icinga; user is not allowed to
+        overwrite these files.</para>
+      </listitem>
 
-    <listitem>
-      <para>"(null)"</para>
+      <listitem>
+        <para>"(null)"</para>
 
-      <para>The internal call to execvp didn't return anything.</para>
-    </listitem>
-  </itemizedlist>
+        <para>The internal call to execvp didn't return anything.</para>
+      </listitem>
+    </itemizedlist>
+  </section>
 
-  </section><section><title>Plugin API</title>
+  <section>
+    <title>Plugin API</title>
 
-  <para>You can find information on the technical aspects of plugins, as well as how to go about creating your own custom plugins <link
-  linkend="pluginapi">here</link>.</para>
+    <para>You can find information on the technical aspects of plugins, as well as how to go about creating your own custom plugins <link
+    linkend="pluginapi">here</link>.</para>
 
-  <indexterm zone="Icinga_plugins">
-    <primary>Plugins</primary>
+    <indexterm zone="Icinga_plugins">
+      <primary>Plugins</primary>
 
-    <secondary>&name-icinga; Plugins</secondary>
-  </indexterm>
+      <secondary>&name-icinga; Plugins</secondary>
+    </indexterm>
 
-  <indexterm zone="plugins-howto">
-    <primary>How Do I Use Plugin X?</primary>
-  </indexterm>
+    <indexterm zone="plugins-howto">
+      <primary>How Do I Use Plugin X?</primary>
+    </indexterm>
 
-  <indexterm zone="plugins-hints">
-    <primary>Plugins</primary>
+    <indexterm zone="plugins-hints">
+      <primary>Plugins</primary>
 
-    <secondary>Hints how to execute plugins</secondary>
-  </indexterm>
+      <secondary>Hints how to execute plugins</secondary>
+    </indexterm>
 
-  <indexterm zone="plugins-new_plugin">
-    <primary>Plugins</primary>
+    <indexterm zone="plugins-obtaining">
+      <primary>Plugins</primary>
 
-    <secondary>Integrating a new plugin</secondary>
-  </indexterm>
-</section>
+      <secondary>Obtaining plugins</secondary>
+    </indexterm>
+
+    <indexterm zone="plugins-extending">
+      <primary>Plugins</primary>
+
+      <secondary>Extending the environment</secondary>
+    </indexterm>
+
+    <indexterm zone="plugins-new_plugin">
+      <primary>Plugins</primary>
+
+      <secondary>Integrating a new plugin</secondary>
+    </indexterm>
+
+    <indexterm zone="plugins-nrpe">
+      <primary>Plugins</primary>
+
+      <secondary>NRPE using arguments</secondary>
+    </indexterm>
+
+    <indexterm zone="plugins-raw">
+      <primary>Plugins</primary>
+
+      <secondary>Raw command line</secondary>
+    </indexterm>
+
+    <indexterm zone="plugins-threshold">
+      <primary>Plugins</primary>
+
+      <secondary>Thresholds and ranges</secondary>
+    </indexterm>
+
+    <indexterm zone="plugins-errors">
+      <primary>Plugins</primary>
+
+      <secondary>Plugin errors</secondary>
+    </indexterm>
+  </section>
 </section>
