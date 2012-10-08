@@ -9,6 +9,20 @@
 
 <xsl:output method="xml" encoding="utf-8"/>
 
+<!-- include our javascript -->
+<xsl:template name="user.head.content">
+	<script src="../js/jquery-min.js" type="text/javascript"></script>
+	<script src="../js/icinga-docs.js" type="text/javascript"></script>
+</xsl:template>
+
+<!-- copyright information on each page -->
+<xsl:template name="user.header.navigation">
+<CENTER><IMG src="../images/logofullsize.png" border="0" alt="Icinga" title="Icinga"/></CENTER>
+</xsl:template>
+
+<!-- css stylesheet -->
+<xsl:param name="html.stylesheet" select="'../stylesheets/icinga-docs.css'" />
+
 <!-- encoding (utf8) -->
 <xsl:param name="chunker.output.encoding" select="'utf-8'"/>
 
@@ -29,17 +43,18 @@
 <!-- nicer html output... not all on one line -->
 <xsl:param name="chunker.output.indent" select="'yes'"/>
 
-<!-- CSS Stylesheet -->
-<xsl:param name="html.stylesheet" select="'../stylesheets/icinga-docs.css'" />
-
-<!-- Hendrik: Copyright Information on each page -->
-
-<xsl:template name="user.header.navigation">
-<CENTER><IMG src="../images/logofullsize.png" border="0" alt="Icinga" title="Icinga"/></CENTER>
-</xsl:template>
+<!-- do not wrap url into number labels -->
+<xsl:param name="autotoc.label.in.hyperlink" select="0"/>
 
 <!-- toc 2 deep -->
 <xsl:param name="toc.section.depth">2</xsl:param>
+
+<!-- toc list type for better css/javascript -->
+<!--<xsl:param name="simplesect.in.toc" select="0"></xsl:param>
+<xsl:param name="toc.list.type">ul</xsl:param> -->
+
+<!-- dynamic toc -->
+<xsl:param name="dynamic.toc" select="1"/>
 
 <!-- section toc 2 deep -->
 <xsl:param name="generate.section.toc.level">2</xsl:param>
@@ -47,6 +62,15 @@
 <!-- section numbering -->
 <xsl:param name="section.autolabel">1</xsl:param>
 <xsl:param name="section.label.includes.component.label">1</xsl:param>
+
+<!-- define some types -->
+<xsl:param name="html.script"/>
+<xsl:param name="html.script.type">text/javascript</xsl:param>
+<xsl:param name="html.stylesheet"/>
+<xsl:param name="html.stylesheet.type">text/css</xsl:param>
+
+<!-- don't use any extensions -->
+<xsl:param name="use.extensions" select="0"/>
 
 
 <!-- change display of some elements -->
