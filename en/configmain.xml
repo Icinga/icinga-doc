@@ -128,10 +128,12 @@
     <listitem>
       <para><link linkend="configmain-log_archive_path">Log archive path</link></para>
     </listitem>
-<listitem>
+
+    <listitem>
       <para><link linkend="configmain-use_daemon_log">Logging options for daemon</link></para>
-</listitem>
+    </listitem>
   </itemizedlist>
+
   <itemizedlist>
     <listitem>
       <para><link linkend="configmain-check_external_commands">External command check option</link></para>
@@ -547,10 +549,12 @@
       <para><link linkend="configmain-host_freshness_check_interval">Host freshness check interval</link></para>
     </listitem>
   </itemizedlist>
-<itemizedlist>
+
+  <itemizedlist>
     <listitem>
       <para><link linkend="configmain-p1_file_location">P1.PL File Location</link></para>
- </listitem>
+    </listitem>
+
     <listitem>
       <para><link linkend="configmain-enable_embedded_perl">Embedded Perl interpreter option</link></para>
     </listitem>
@@ -600,16 +604,19 @@
     <listitem>
       <para><link linkend="configmain-admin_pager">Administrator pager</link></para>
     </listitem>
-</itemizedlist>
-<itemizedlist>
-<listitem>
+  </itemizedlist>
+
+  <itemizedlist>
+    <listitem>
       <para><link linkend="configmain-daemon_dumps_core">Daemon Core Dumps</link></para>
     </listitem>
   </itemizedlist>
+
   <itemizedlist>
     <listitem>
       <para><link linkend="configmain-debug_file">Debug file</link></para>
     </listitem>
+
     <listitem>
       <para><link linkend="configmain-debug_level">Debug level</link></para>
     </listitem>
@@ -622,11 +629,13 @@
       <para><link linkend="configmain-max_debug_file_size">Maximum debug file size option</link></para>
     </listitem>
   </itemizedlist>
-<itemizedlist>
-<listitem>
+
+  <itemizedlist>
+    <listitem>
       <para><link linkend="configmain-event_profiling">Event profiling</link></para>
     </listitem>
   </itemizedlist>
+
   <itemizedlist>
     <listitem>
       <para><link linkend="configmain-allow_empty_hostgroup_assignment">Allow empty hostgroup assignment</link></para>
@@ -1389,7 +1398,7 @@
   <para>This is the directory where &name-icinga; should place log files that have been rotated. This option is ignored if you choose to not
   use the <link linkend="configmain-log_rotation_method">log rotation</link> functionality.</para>
 
-<para><anchor xml:id="configmain-use_daemon_log"/><emphasis role="bold">Logging Options for Daemon</emphasis></para>
+  <para><anchor xml:id="configmain-use_daemon_log"/><emphasis role="bold">Logging Options for Daemon</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
@@ -1407,15 +1416,15 @@
         <row>
           <entry><para>Example:</para></entry>
 
-          <entry><para><emphasis condition="red" role="color"><emphasis
-          role="bold">use_daemon_log=1</emphasis></emphasis></para></entry>
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">use_daemon_log=1</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
   </informaltable>
 
   <para>This option determines if the log daemon writes to the log file (usually icinga.log).</para>
- <itemizedlist>
+
+  <itemizedlist>
     <listitem>
       <para>0 = logging disabled</para>
     </listitem>
@@ -1424,6 +1433,7 @@
       <para>1 = logging enabled (default)</para>
     </listitem>
   </itemizedlist>
+
   <para><anchor xml:id="configmain-check_external_commands"/> <emphasis role="bold">External Command Check Option</emphasis></para>
 
   <informaltable frame="none">
@@ -5027,7 +5037,8 @@
   <para>This option determines the number of seconds &name-icinga; will add to any host or services freshness threshold it automatically
   calculates (e.g. those not specified explicity by the user). More information on freshness checking can be found <link
   linkend="freshness">here</link>.</para>
-<para><anchor xml:id="configmain-p1_file_location"/><emphasis role="bold">P1.PL File Location</emphasis></para>
+
+  <para><anchor xml:id="configmain-p1_file_location"/><emphasis role="bold">P1.PL File Location</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
@@ -5045,7 +5056,8 @@
     </tgroup>
   </informaltable>
 
-  <para>This value determines where the p1.pl perl script (used by the embedded Perl interpreter) is located. If you didn't compile &name-icinga; with embedded Perl support, this option has no effect.</para>
+  <para>This value determines where the p1.pl perl script (used by the embedded Perl interpreter) is located. If you didn't compile
+  &name-icinga; with embedded Perl support, this option has no effect.</para>
 
   <para><anchor xml:id="configmain-enable_embedded_perl"/> <emphasis role="bold">Embedded Perl Interpreter Option</emphasis></para>
 
@@ -5392,9 +5404,10 @@
   <para>If you've enabled regular expression matching of various object directives using the <link
   linkend="configmain-use_regexp_matching">use_regexp_matching</link> option, this option will determine when object directives are treated
   as regular expressions. If this option is disabled (the default), directives will only be treated as regular expressions if they contain
-  <emphasis role="bold">*</emphasis>, <emphasis role="bold">?</emphasis>, <emphasis role="bold">+</emphasis>, or <emphasis
-  role="bold">\.</emphasis>. If this option is enabled, all appropriate directives will be treated as regular expression - be careful when
-  enabling this! More information on how this works can be found <link linkend="objecttricks">here</link>.</para>
+  <emphasis role="bold">*</emphasis>, <emphasis role="bold">?</emphasis>, <emphasis role="bold">$</emphasis>, <emphasis
+  role="bold">+</emphasis>, or <emphasis role="bold">\. </emphasis>(POSIX ERE). If this option is enabled, all appropriate directives will
+  be treated as regular expression - be careful when enabling this! More information on how this works can be found <link
+  linkend="objecttricks">here</link>.</para>
 
   <itemizedlist>
     <listitem>
@@ -5462,7 +5475,8 @@
   <para>This is the pager number (or pager email gateway) for the administrator of the local machine (i.e. the one that &name-icinga; is
   running on). The pager number/address can be used in notification commands by using the <emphasis role="bold">$ADMINPAGER$</emphasis>
   <link linkend="macros">macro</link>.</para>
-<para><anchor xml:id="configmain-daemon_dumps_core"/> <emphasis role="bold">Daemon Core Dump Option</emphasis></para>
+
+  <para><anchor xml:id="configmain-daemon_dumps_core"/> <emphasis role="bold">Daemon Core Dump Option</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
@@ -5486,8 +5500,12 @@
       </tbody>
     </tgroup>
   </informaltable>
-<para>This option determines whether or not Icinga is allowed to create a core dump when it runs as a daemon.  Note that it is generally considered bad form to allow this, but it may be useful for debugging purposes.  Enabling this option doesn't guarantee that a core file will be produced, but that's just life.</para>
- <itemizedlist>
+
+  <para>This option determines whether or not Icinga is allowed to create a core dump when it runs as a daemon. Note that it is generally
+  considered bad form to allow this, but it may be useful for debugging purposes. Enabling this option doesn't guarantee that a core file
+  will be produced, but that's just life.</para>
+
+  <itemizedlist>
     <listitem>
       <para>0 = Don't allow core dumps (default)</para>
     </listitem>
@@ -5495,7 +5513,8 @@
     <listitem>
       <para>1 = Allow core dumps</para>
     </listitem>
-</itemizedlist>
+  </itemizedlist>
+
   <para><anchor xml:id="configmain-event_broker_options"/> <emphasis role="bold">Event Broker Options</emphasis></para>
 
   <informaltable frame="none">
@@ -5679,19 +5698,24 @@
     <listitem>
       <para>64 = Event broker information</para>
     </listitem>
-<listitem>
+
+    <listitem>
       <para>128 = External commands</para>
     </listitem>
-<listitem>
+
+    <listitem>
       <para>256 = Commands</para>
     </listitem>
-<listitem>
+
+    <listitem>
       <para>512 = Scheduled downtime</para>
     </listitem>
-<listitem>
+
+    <listitem>
       <para>1024 = Comments</para>
     </listitem>
-<listitem>
+
+    <listitem>
       <para>2048 = Macros</para>
     </listitem>
   </itemizedlist>
@@ -5766,7 +5790,7 @@
   larger than this size, it will be renamed with a .old extension. If a file already exists with a .old extension it will automatically be
   deleted. This helps ensure your disk space usage doesn't get out of control when debugging &name-icinga;.</para>
 
-<para><anchor xml:id="configmain-event_profiling"/> <emphasis role="bold">Event Profiling</emphasis></para>
+  <para><anchor xml:id="configmain-event_profiling"/> <emphasis role="bold">Event Profiling</emphasis></para>
 
   <informaltable frame="none">
     <tgroup cols="2">
@@ -5791,7 +5815,8 @@
     </tgroup>
   </informaltable>
 
-  <para>This option enables or disables event profiling for stats of event counts and time taken for events. This option can't be used on Solaris with gcc3.</para>
+  <para>This option enables or disables event profiling for stats of event counts and time taken for events. This option can't be used on
+  Solaris with gcc3.</para>
 
   <para><anchor xml:id="configmain-allow_empty_hostgroup_assignment"/> <emphasis role="bold">Allow Empty Hostgroup
   Assignment</emphasis></para>
@@ -6080,11 +6105,13 @@
 
     <secondary>Log Archive Path</secondary>
   </indexterm>
-<indexterm zone="configmain-use_daemon_log">
+
+  <indexterm zone="configmain-use_daemon_log">
     <primary>use_daemon_log=</primary>
 
     <secondary>Log Daemon</secondary>
   </indexterm>
+
   <indexterm zone="configmain-check_external_commands">
     <primary>check_external_commands=</primary>
 
@@ -6678,11 +6705,13 @@
 
     <secondary>Additional Freshness Threshold Latency</secondary>
   </indexterm>
-<indexterm zone="configmain-p1_file_location">
-<primary>p1_file=</primary>
+
+  <indexterm zone="configmain-p1_file_location">
+    <primary>p1_file=</primary>
 
     <secondary>P1.PL Perl Script Location</secondary>
   </indexterm>
+
   <indexterm zone="configmain-enable_embedded_perl">
     <primary>enabled_embedded_perl=</primary>
 
@@ -6784,10 +6813,13 @@
 
     <secondary>Maximum Debug File Size</secondary>
   </indexterm>
-<indexterm zone="configmain-event_profiling">
+
+  <indexterm zone="configmain-event_profiling">
     <primary>event_profiling_enabled=</primary>
+
     <secondary>Event Profiling Enabled</secondary>
   </indexterm>
+
   <indexterm zone="configmain-allow_empty_hostgroup_assignment">
     <primary>allow_empty_hostgroup_assignment=</primary>
 
