@@ -15,14 +15,13 @@
     platforms.</para>
 
     <para>Here we'll give you some instructions on how to install the &name-rep; with &name-jasper;.</para>
-
   </section>
 
   <section>
     <title>Official Docs</title>
 
     <para>For more information, please refer to <link
-    xlink:href="http://sourceforge.net/projects/jasperserver/files/JasperServer/JasperServer%204.5.0/JasperReports-Server-CP-Install-Guide.pdf">http://sourceforge.net/projects/jasperserver/files/JasperServer/JasperServer%204.5.0/JasperReports-Server-CP-Install-Guide.pdf</link>
+    xlink:href="http://sourceforge.net/projects/jasperserver/files/JasperServer/JasperServer%204.5.0/JasperReports-Server-CP-Install-Guide.pdf">http://sourceforge.net/projects/jasperserver/files/JasperServer/JasperServer%204.7.0/JasperReports-Server-CP-Install-Guide.pdf</link>
     or <link
     xlink:href="http://jasperforge.org/espdocs/espbrowse.php?id=86&amp;type=folder&amp;group_id=112&amp;parent=86">http://jasperforge.org/espdocs/espbrowse.php?id=86&amp;type=folder&amp;group_id=112&amp;parent=86</link></para>
   </section>
@@ -73,12 +72,17 @@ quit</screen></para>
       </listitem>
 
       <listitem>
-        <para>JasperServer</para>
+        <para>&name-jasper;</para>
 
-        <para>Depending on your architecture (<code>uname -a</code>), fetch the appropriate installer - below is x64<screen> $&gt; wget http://sourceforge.net/projects/jasperserver/files/JasperServer/JasperServer%204.5.0/jasperreports-server-cp-4.5.0-linux-x64-installer.run
+        <note>
+          <para>The new &name-jasper; 4.7.0 is only supported starting with &name-rep; 1.8. If you want to use an older version of the
+          &name-rep;- package, please use &name-jasper; 4.5.0 or older.</para>
+        </note>
 
- $&gt; chmod +x jasperreports-server-cp-4.5.0-linux-x64-installer.run
- $&gt; sudo ./jasperreports-server-cp-4.5.0-linux-x64-installer.run</screen></para>
+        <para>Depending on your architecture (<code>uname -a</code>), fetch the appropriate installer - below is x64<screen> $&gt; wget http://sourceforge.net/projects/jasperserver/files/JasperServer/JasperServer%204.7.0/jasperreports-server-cp-4.7.0-linux-x64-installer.run
+
+ $&gt; chmod +x jasperreports-server-cp-4.7.0-linux-x64-installer.run
+ $&gt; sudo ./jasperreports-server-cp-4.7.0-linux-x64-installer.run</screen></para>
 
         <itemizedlist>
           <listitem>
@@ -107,13 +111,13 @@ quit</screen></para>
         <para>The installer will automatically create the needed database, create the schema and install samples.</para>
 
         <note>
-          <para>The default installation location will be /opt/jasperreports-server-cp-4.5.0/, so make sure to work on the correct
+          <para>The default installation location will be /opt/jasperreports-server-cp-4.7.0/, so make sure to work on the correct
           &name-jasper; if you are doing an upgarde!</para>
         </note>
 
         <para><emphasis>Start</emphasis></para>
 
-        <para><screen> #&gt; cd /opt/jasperreports-server-cp-4.5.0/
+        <para><screen> #&gt; cd /opt/jasperreports-server-cp-4.7.0/
  #&gt; ./ctlscript.sh start</screen>For individual components<screen> #&gt; ./ctlscript.sh postgresql start|stop
  #&gt; ./ctlscript.sh tomcat start|stop</screen></para>
       </listitem>
@@ -145,7 +149,7 @@ quit</screen></para>
       <listitem>
         <para>Configure</para>
 
-        <para>If you did not install the &name-jasper; into the default prefix before, you need to tell configure the location. <screen> $&gt; ./configure --with-jasper-server=/opt/jasperreports-server-cp-4.5.0</screen></para>
+        <para>If you did not install the &name-jasper; into the default prefix before, you need to tell configure the location. <screen> $&gt; ./configure --with-jasper-server=/opt/jasperreports-server-cp-4.7.0</screen></para>
       </listitem>
 
       <listitem>
@@ -157,15 +161,16 @@ quit</screen></para>
           <listitem>
             <para>&name-mysql; Connector</para>
 
-            <para>&name-jasper; natively ships with the &name-postgres; Connector, but if you require &name-mysql;, the &name-rep;
-            package provides one for install.<screen> #&gt; make install-mysql-connector</screen>Restart the Tomcat server<screen> #&gt; cd /opt/jasperreports-server-cp-4.5.0
+            <para>&name-jasper; natively ships with the &name-postgres; Connector, but if you require &name-mysql;, the &name-rep; package
+            provides one for install.<screen> #&gt; make install-mysql-connector</screen>Restart the Tomcat server<screen> #&gt; cd /opt/jasperreports-server-cp-4.7.0
  #&gt; ./ctlscript.sh stop tomcat
  #&gt; ./ctlscript.sh start tomcat</screen></para>
           </listitem>
 
           <listitem>
             <para>Install</para>
-<para>&name-jasper; must be running!<screen> #&gt; make install</screen>Restart the Tomcat server<screen> #&gt; cd /opt/jasperreports-server-cp-4.5.0
+
+            <para>&name-jasper; must be running!<screen> #&gt; make install</screen>Restart the Tomcat server<screen> #&gt; cd /opt/jasperreports-server-cp-4.7.0
  #&gt; ./ctlscript.sh stop tomcat
  #&gt; ./ctlscript.sh start tomcat</screen></para>
           </listitem>
@@ -238,7 +243,7 @@ quit</screen></para>
 
         <para><screen> org.springframework.web.util.NestedServletException: Handler processing failed; nested exception is java.lang.NoClassDefFoundError: Could not initialize class net.sf.jasperreports.engine.util.JRStyledTextParser</screen>It
         could be Sun AWT trying to connect to X11 classes, but actually it's the PDF generation on a report.<screen> $&gt; sudo apt-get install msttcorefonts
- $&gt; cd /opt/jasperreports-server-cp-4.5.0
+ $&gt; cd /opt/jasperreports-server-cp-4.7.0
  $&gt; sudo sh ctlscript.sh stop
  $&gt; sudo sh ctlscript.sh start</screen></para>
       </listitem>
