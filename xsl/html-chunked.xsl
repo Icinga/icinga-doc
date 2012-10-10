@@ -2,10 +2,8 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version='1.0'>
 	   
-<!-- <xsl:import href="http://docbook.sourceforge.net/release/xsl/current/xhtml/chunk.xsl"/> -->
-
-<!-- <xsl:import href="dbk-html-common.xsl"/> -->
-<xsl:import href="html/chunk.xsl"/>
+<xsl:import href="http://docbook.sourceforge.net/release/xsl/current/xhtml/chunk.xsl"/>
+<!--<xsl:import href="html/chunk.xsl"/>-->
 
 <xsl:output method="xml" encoding="utf-8"/>
 
@@ -20,6 +18,9 @@
 <CENTER><IMG src="../images/logofullsize.png" border="0" alt="Icinga" title="Icinga"/></CENTER>
 </xsl:template>
 
+
+<xsl:param name="generate.consistent.ids" select="1"></xsl:param>
+
 <!-- css stylesheet -->
 <xsl:param name="html.stylesheet" select="'../stylesheets/icinga-docs.css'" />
 
@@ -28,17 +29,12 @@
 
 <xsl:param name="chunk.first.sections" select="'1'"/>
 
-<!-- <xsl:param name="email.nospam" select="'1'"/> -->
-
 <!-- chapter/section ids as filenames -->
 <xsl:param name="use.id.as.filename" select="'1'"/>
 
 <!-- images for note, tip, warning,caution and important -->
 <xsl:param name="admon.graphics.path">../images/</xsl:param>
 <xsl:param name="admon.graphics" select="'1'"/>
-
-<!-- nice navigation icons in header and footer -->
-<!-- <xsl:param name="navig.graphics" select="'1'"/> -->
 
 <!-- nicer html output... not all on one line -->
 <xsl:param name="chunker.output.indent" select="'yes'"/>
@@ -48,13 +44,6 @@
 
 <!-- toc 2 deep -->
 <xsl:param name="toc.section.depth">2</xsl:param>
-
-<!-- toc list type for better css/javascript -->
-<!--<xsl:param name="simplesect.in.toc" select="0"></xsl:param>
-<xsl:param name="toc.list.type">ul</xsl:param> -->
-
-<!-- dynamic toc -->
-<xsl:param name="dynamic.toc" select="1"/>
 
 <!-- section toc 2 deep -->
 <xsl:param name="generate.section.toc.level">2</xsl:param>
