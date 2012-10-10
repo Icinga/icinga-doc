@@ -9,7 +9,8 @@
          xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="redundancy_failover" />Redundant and Failover Network Monitoring</title>
 
-  <section><title>Introduction</title>
+  <section id="introduction">
+	  <title>Introduction</title>
 
   <para>This section describes a few scenarios for implementing redundant monitoring hosts an various types of network layouts.
   With redundant hosts, you can maintain the ability to monitor your network when the primary host that runs &name-icinga; fails
@@ -22,7 +23,10 @@
     issue to understand, and even more difficult to implement properly.</para>
   </note>
 
-  </section><section><title><anchor xml:id="redundancy-prerequisites" />Prerequisites</title>
+  </section>
+
+  <section id="prerequisites">
+	  <title><anchor xml:id="redundancy-prerequisites" />Prerequisites</title>
 
   <para>Before you can even think about implementing redundancy with &name-icinga;, you need to be familiar with the
   following...</para>
@@ -46,20 +50,29 @@
     </listitem>
   </itemizedlist>
 
-  </section><section><title><anchor xml:id="redundancy-samples" />Sample Scripts</title>
+  </section>
+
+  <section id="samplescripts">
+	  <title><anchor xml:id="redundancy-samples" />Sample Scripts</title>
 
   <para>All of the sample scripts that we use in this documentation can be found in the <emphasis>eventhandlers/</emphasis>
   subdirectory of the &name-icinga; distribution. You'll probably need to modify them to work on your system...</para>
 
-  </section><section><title><anchor xml:id="redundancy-scenario_1" />Scenario 1 - Redundant Monitoring</title>
+  </section>
 
-  </section><section><title>Introduction</title>
+  <section id="redundantmonitoring">
+	  <title><anchor xml:id="redundancy-scenario_1" />Scenario 1 - Redundant Monitoring</title>
+
+  <section id="redundantmonitoring-introduction">
+	  <title>Introduction</title>
 
   <para>This is an easy (and naive) method of implementing redundant monitoring hosts on your network and it will only protect
   against a limited number of failures. More complex setups are necessary in order to provide smarter redundancy, better
   redundancy across different network segments, etc.</para>
 
-  </section><section><title>Goals</title>
+  </section>
+  <section id="redundantmonitoring-goals">
+	  <title>Goals</title>
 
   <para>The goal of this type of redundancy implementation is simple. Both the "master" and "slave" hosts monitor the same hosts
   and service on the network. Under normal circumstances only the "master" host will be sending out notifications to contacts
@@ -76,7 +89,10 @@
     </listitem>
   </orderedlist>
 
-  </section><section><title>Network Layout Diagram</title>
+  </section>
+
+  <section id="redundantmonitoring-networklayoutdiagram">
+	  <title>Network Layout Diagram</title>
 
   <para>The diagram below shows a very simple network setup. For this scenario we will be assuming that hosts A and E are both
   running &name-icinga; and are monitoring all the hosts shown. Host A will be considered the "master" host and host E will be
@@ -98,14 +114,20 @@
     </tgroup>
   </informaltable>
 
-  </section><section><title>Initial Program Settings</title>
+  </section>
+
+  <section id="redundantmonitoring-initialprogramsettings">
+	  <title>Initial Program Settings</title>
 
   <para>The slave host (host E) has its initial <link linkend="configmain-enable_notifications">enable_notifications</link>
   directive disabled, thereby preventing it from sending out any host or service notifications. You also want to make sure that
   the slave host has its <link linkend="configmain-check_external_commands">check_external_commands</link> directive enabled. That
   was easy enough...</para>
 
-  </section><section><title>Initial Configuration</title>
+  </section>
+
+  <section id="redundantmonitoring-initialconfig">
+	  <title>Initial Configuration</title>
 
   <para>Next we need to consider the differences between the <link linkend="configobject">object configuration file(s)</link> on
   the master and slave hosts...</para>
@@ -138,7 +160,10 @@
   simply doesn't need to. Of course you may be monitoring services on host E from host A, but that has nothing to do with the
   implementation of redundancy...</para>
 
-  </section><section><title>Event Handler Command Definitions</title>
+  </section>
+
+  <section id="redundantmonitoring-eventhandlercmddefinition">
+	  <title>Event Handler Command Definitions</title>
 
   <para>We need to stop for a minute and describe what the command definitions for the event handlers on the slave host look like.
   Here is an example...</para>
@@ -157,7 +182,10 @@
   <emphasis>&url-icinga-base;/libexec/eventhandlers</emphasis> directory. You may place them anywhere you wish, but you'll need to
   modify the examples that are given here.</para>
 
-  </section><section><title>Event Handler Scripts</title>
+  </section>
+
+  <section id="redundantmonitoring-eventhandlerscript">
+	  <title>Event Handler Scripts</title>
 
   <para>Okay, now lets take a look at what the event handler scripts look like...</para>
 
@@ -222,7 +250,10 @@ HARD)
 esac
 exit 0</screen>
 
-  </section><section><title>What This Does For Us</title>
+  </section>
+
+  <section id="redundantmonitoring-usage">
+	  <title>What This Does For Us</title>
 
   <para>The slave host (host E) initially has notifications disabled, so it won't send out any host or service notifications while
   the &name-icinga; process on the master host (host A) is still running.</para>
@@ -263,7 +294,10 @@ exit 0</screen>
   or host problems or recoveries. At this point host E has handed over the responsibilities of notifying contacts of problems to
   the &name-icinga; process on host A. Everything is now as it was when we first started!</para>
 
-  </section><section><title>Time Lags</title>
+  </section>
+
+  <section id="redundantmonitoring-timelags">
+	  <title>Time Lags</title>
 
   <para>Redundancy in &name-icinga; is by no means perfect. One of the more obvious problems is the lag time between the master
   host failing and the slave host taking over. This is affected by the following...</para>
@@ -323,7 +357,10 @@ exit 0</screen>
   defined, the interval at which services are checked, and a lot of pure chance. At any rate, its definitely better than
   nothing.</para>
 
-  </section><section><title>Special Cases</title>
+  </section>
+
+  <section id="redundantmonitoring-specialcases">
+	  <title>Special Cases</title>
 
   <para>Here is one thing you should be aware of... If host A goes down, host E will have notifications enabled and take over the
   responsibilities of notifying contacts of problems. When host A recovers, host E will have notifications disabled. If - when
@@ -337,26 +374,23 @@ exit 0</screen>
   minimized by increasing the frequency of service checks (on host E) of the &name-icinga; process on host A. The rest is up to
   pure chance, but the total "blackout" time shouldn't be too bad.</para>
 
-  <para><anchor xml:id="redundancy-scenario_2" /></para>
+  </section>
 
-  <informaltable frame="none">
-    <tgroup cols="1">
-      <colspec colname="c1" colwidth="100*" />
+  </section>
+  <section id="failovermonitoring">
+	  <title><anchor xml:id="redundancy-scenario_2" />Scenario 2 - Failover Monitoring</title>
 
-      <tbody>
-        <row>
-          <entry><para> <emphasis role="bold">Scenario 2 - Failover Monitoring</emphasis> </para></entry>
-        </row>
-      </tbody>
-    </tgroup>
-  </informaltable>
 
-  </section><section><title>Introduction</title>
+  <section id="failovermonitoring-introduction">
+	  <title>Introduction</title>
 
   <para>Failover monitoring is similiar to, but slightly different than redundant monitoring (as discussed above in <link
   linkend="redundancy-scenario_1">scenario 1</link>).</para>
 
-  </section><section><title>Goals</title>
+  </section>
+
+  <section id="failovermonitoring-goals">
+	  <title>Goals</title>
 
   <para>The basic goal of failover monitoring is to have the &name-icinga; process on the slave host sit idle while the
   &name-icinga; process on the master host is running. If the process on the master host stops running (or if the host goes down),
@@ -368,7 +402,10 @@ exit 0</screen>
   cause problems with excessive traffic and load on the machines being monitored if you have a lot of services defined. Here's how
   you can get around that problem...</para>
 
-  </section><section><title>Initial Program Settings</title>
+  </section>
+
+  <section id="failovermonitoring-initialprogramsettings">
+	  <title>Initial Program Settings</title>
 
   <para>Disable active service checks and notifications on the slave host using the <link
   linkend="configmain-execute_service_checks">execute_service_checks</link> and <link
@@ -377,7 +414,10 @@ exit 0</screen>
   running. Make sure you also have the <link linkend="configmain-check_external_commands">check_external_commands</link> directive
   enabled on the slave host.</para>
 
-  </section><section><title>Master Process Check</title>
+  </section>
+
+  <section id="failovermonitoring-masterprocesscheck">
+	  <title>Master Process Check</title>
 
   <para>Set up a cron job on the slave host that periodically (say every minute) runs a script that checks the status of the
   &name-icinga; process on the master host (using the <emphasis>check_nrpe</emphasis> plugin on the slave host and the <link
@@ -393,7 +433,10 @@ exit 0</screen>
   <para>Also of note, you <emphasis>don't</emphasis> need to define host and service handlers as mentioned in <link
   linkend="redundancy-scenario_1">scenario 1</link> because things are handled differently.</para>
 
-  </section><section><title>Additional Issues</title>
+  </section>
+
+  <section id="failovermonitoring-additionalissues">
+	  <title>Additional Issues</title>
 
   <para>At this point, you have implemented a very basic failover monitoring setup. However, there is one more thing you should
   consider doing to make things work smoother.</para>
@@ -411,5 +454,8 @@ exit 0</screen>
   <indexterm zone="redundancy_failover"><primary>Failover</primary><secondary>Redundant and Failover Network Monitoring</secondary></indexterm>
   <indexterm zone="redundancy_failover"><primary>Monitoring</primary><secondary>Redundant and Failover Network Monitoring</secondary></indexterm>
   <indexterm zone="redundancy_failover"><primary>Redundancy</primary><secondary>Redundant and Failover Network Monitoring</secondary></indexterm>
-</section>
+
+  </section>
+
+  </section>
 </section>

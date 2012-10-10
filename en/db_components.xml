@@ -8,7 +8,7 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>Components</title>
 
-  <section>
+  <section id="overview">
     <title>Overview</title>
 
     <para>There are four main components that make up the IDO utilities:</para>
@@ -34,7 +34,7 @@
     <para>Each component is described in more detail on the following pages.</para>
   </section>
 
-  <section>
+  <section id="idomod">
     <title>IDOMOD</title>
 
     <para>The IDO utilities includes an &name-icinga; event broker module (IDOMOD.O) that exports data from the &name-icinga; daemon.</para>
@@ -78,11 +78,11 @@
     and listens on the socket needs to be restarted, etc.</para>
   </section>
 
-  <section>
+  <section id="log2ido">
     <title>LOG2IDO</title>
 
     <para>The LOG2IDO utility has been designed to allow you to import historical &name-icinga;, Nagios and NetSaint log files into a
-    database via the IDO2DB daemon (<link linkend="IDO2DB-description">described later</link>). The utility works by sending historical log
+    database via the IDO2DB daemon (<link linkend="ido2db">described later</link>). The utility works by sending historical log
     file data to a standard file, a Unix domain socket, or a TCP socket in a format the IDO2DB daemon understands. The IDO2DB daemon can
     then be used to process that output and store the historical logfile information in a database.</para>
 
@@ -97,7 +97,7 @@
     </figure>
   </section>
 
-  <section>
+  <section id="file2sock">
     <title>FILE2SOCK</title>
 
     <para>The FILE2SOCK utility is quite simple. It reads input from a standard file (or STDIN) and writes all of that data to either a Unix
@@ -118,7 +118,7 @@
     the IDO2DB daemon's TCP or Unix domain socket.</para>
   </section>
 
-  <section xml:id="IDO2DB-description">
+  <section id="ido2db">
     <title>IDO2DB</title>
 
     <para>The IDO2DB utility is designed to take the data output from the IDOMOD and LOG2IDO components and store it in a MySQL, Oracle, or PostgreSQL database.</para>

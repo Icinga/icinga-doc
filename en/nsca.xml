@@ -8,7 +8,7 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="nsca_"/>&name-nsca;</title>
 
-  <section>
+  <section id="introduction">
     <title>Introduction</title>
 
     <para>Nagios Service Check Acceptor (or &name-nsca; for short) is an addon to transmit check results from one system to another. It
@@ -34,7 +34,7 @@
     <para>The following instructions are mainly based on the README included in the &name-nsca; package.</para>
   </section>
 
-  <section>
+  <section id="prerequisites">
     <title>Prerequisites</title>
 
     <itemizedlist>
@@ -68,7 +68,7 @@
     </itemizedlist>
   </section>
 
-  <section>
+  <section id="downloadcompile">
     <title>Download and compile</title>
 
     <note>
@@ -114,7 +114,7 @@
     described in the README file.</para>
   </section>
 
-  <section>
+  <section id="customise">
     <title>Customise</title>
 
     <para>The sample-config directory contains <literal>nsca.cfg</literal> and <literal>send_nsca.cfg</literal>. At least the settings of
@@ -124,7 +124,7 @@
     inetd/xinetd.</para>
   </section>
 
-  <section>
+  <section id="firsttest">
     <title>First test</title>
 
     <para>Switch to the &name-icinga; user and run a first test</para>
@@ -147,7 +147,7 @@
     <literal>icinga.cfg</literal>.</para>
   </section>
 
-  <section>
+  <section id="install">
     <title>Install</title>
 
     <para>"make install" will do nothing (yet) so you have to copy some files to new locations. The following commands will copy the nsca
@@ -224,7 +224,7 @@
     </itemizedlist>
   </section>
 
-  <section>
+  <section id="remotesystem">
     <title>Remote system(s)</title>
 
     <para>You're done on the local system but apparently send_nsca has to be copied to the remote system(s).</para>
@@ -233,7 +233,7 @@
     packages and configure/make as described above on multiple servers.</para>
   </section>
 
-  <section>
+  <section id="copyfiles">
     <title>Copy files</title>
 
     <para>You're free where to place binary and config file. We assume that you have a directory structure similar to the &name-icinga;
@@ -243,7 +243,7 @@
  #&gt; scp -p &lt;&name-icinga; server&gt;:/usr/local/icinga-nsca/sample-config/send_nsca.cfg /usr/local/icinga/etc/</programlisting>
   </section>
 
-  <section>
+  <section id="secondtest">
     <title>Second test</title>
 
     <para>Now you can rerun the test on the remote system(s)</para>
@@ -256,7 +256,7 @@
     linkend="configmain-log_passive_checks">log_passive_checks</link> in <literal>icinga.cfg</literal>.</para>
   </section>
 
-  <section>
+  <section id="troubleshooting">
     <title>Troubleshooting</title>
 
     <para>If the daemon is not permitted to write to the command pipe then the data will be lost! You should run the daemon using the same
@@ -279,7 +279,7 @@
     <literal>nsca.log</literal>.</para>
   </section>
 
-  <section>
+  <section id="security">
     <title>Security</title>
 
     <para>There are some security implications with allowing remote clients to provide check results to &name-icinga;. Because of this, you
@@ -288,7 +288,7 @@
     you.</para>
   </section>
 
-  <section>
+  <section id="operation">
     <title>Operation</title>
 
     <para>send_nsca is used to send the check results from the remote host to the &name-icinga; server. The syntax differs depending on the
@@ -313,7 +313,7 @@
     <para>&lt;host_name&gt;[tab]&lt;return_code&gt;[tab]&lt;plugin_output&gt;[newline]</para>
   </section>
 
-  <section>
+  <section id="icingaintegration">
     <title>Integration into &name-icinga;</title>
 
     <para>So far you only created some prerequisites for running passive checks but didn't define any host or service actually using the

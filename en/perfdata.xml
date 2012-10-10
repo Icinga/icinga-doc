@@ -8,13 +8,17 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="perf_data" />Performance Data</title>
 
-  <section><title>Introduction</title>
+  <section id="introduction">
+	  <title>Introduction</title>
 
   <para>&name-icinga; is designed to allow <link linkend="plugins">plugins</link> to return optional performance data in addition to normal
   status data, as well as allow you to pass that performance data to external applications for processing. A description of the different
   types of performance data, as well as information on how to go about processing that data is described below...</para>
 
-  </section><section><title>Types of Performance Data</title>
+  </section>
+
+  <section id="types">
+	  <title>Types of Performance Data</title>
 
   <para>There are two basic categories of performance data that can be obtained from &name-icinga;:</para>
 
@@ -44,7 +48,10 @@
   and <link linkend="macrolist-serviceperfdata">$SERVICEPERFDATA$</link> <link linkend="macros">macros</link>. Read on for more information
   on how plugins can return performance data to &name-icinga; for inclusion in the $HOSTPERFDATA$ and $SERVICEPERFDATA$ macros.</para>
 
-  </section><section><title>Plugin Performance Data</title>
+  </section>
+
+  <section id="pluginperfdata">
+	  <title>Plugin Performance Data</title>
 
   <para>At a minimum, &name-icinga; plugins must return a single line of human-readable text that indicates the status of some type of
   measurable data. For example, the check_ping plugin might return a line of text like the following:</para>
@@ -89,7 +96,10 @@
     the plugin returns performance data in a specific format. Check the documentation that comes with the addon for more information.</para>
   </note>
 
-  </section><section><title>Processing Performance Data</title>
+  </section>
+
+  <section id="processing">
+	  <title>Processing Performance Data</title>
 
   <para>If you want to process the performance data that is available from &name-icinga; and the plugins, you'll need to do the
   following:</para>
@@ -106,7 +116,10 @@
 
   <para>Read on for information on how to process performance data by writing to files or executing commands.</para>
 
-  </section><section><title>Processing Performance Data Using Commands</title>
+  </section>
+
+  <section id="processingcommands">
+	  <title>Processing Performance Data Using Commands</title>
 
   <para>The most flexible way to process performance data is by having &name-icinga; execute commands (that you specify) to process or
   redirect the data for later processing by external applications. The commands that &name-icinga; executes to process host and service
@@ -127,7 +140,10 @@
     next section.</para>
   </tip>
 
-  </section><section><title>Writing Performance Data To Files</title>
+  </section>
+
+  <section id="writingtofiles">
+	  <title>Writing Performance Data To Files</title>
 
   <para>You can have &name-icinga; write all host and service performance data directly to text files using the <link
   linkend="configmain-host_perfdata_file">host_perfdata_file</link> and <link
@@ -156,7 +172,10 @@
   linkend="configmain-service_perfdata_file_processing_interval">service_perfdata_file_processing_interval</link> options,
   respectively.</para>
 
-  </section><section><title><anchor xml:id="perfdata-format" />Performance Data Format</title>
+  </section>
+
+  <section id="format">
+	  <title><anchor xml:id="perfdata-format" />Performance Data Format</title>
 
   <para>The Nagios Developer Guidelines (<link
   xlink:href="http://nagiosplug.sourceforge.net/developer-guidelines.html">http://nagiosplug.sourceforge.net/developer-guidelines.html</link>)

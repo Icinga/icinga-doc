@@ -9,7 +9,8 @@
          xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="monitoring_clusters" />Monitoring Service and Host Clusters</title>
 
-  <section><title>Introduction</title>
+  <section id="introduction">
+	  <title>Introduction</title>
 
   <para>Several people have asked how to go about monitoring clusters of hosts or services, so this little documentation should
   provide you with some information on how to do this. It's fairly straightforward, so hopefully you find things easy to
@@ -28,7 +29,10 @@
   failed server. As a side note, check out the <link xlink:href="http://www.linux-ha.org">High-Availability Linux Project</link>
   for information on providing host and service redundancy with Linux.</para>
 
-  </section><section><title>Plan of Attack</title>
+  </section>
+
+  <section id="planofattack">
+	  <title>Plan of Attack</title>
 
   <para>There are several ways you could potentially monitor service or host clusters. We'll describe one method to do that.
   Monitoring service or host clusters involves two things:</para>
@@ -61,7 +65,10 @@
   file. <emphasis role="bold">Important:</emphasis> Although you didn't enable notifications for individual elements of the
   cluster, you will want them enabled for the overall cluster status check.</para>
 
-  </section><section><title>Using the check_cluster Plugin</title>
+  </section>
+
+  <section id="checkclusterplugin">
+	  <title>Using the check_cluster Plugin</title>
 
   <para>The check_cluster plugin is designed to report the overall status of a host or service cluster by checking the status
   information of each individual host or service cluster elements.</para>
@@ -69,7 +76,10 @@
   <para>More to come... The <emphasis>check_cluster</emphasis> plugin can be found in the contrib directory of the &name-nagios;
   Plugins release at <link xlink:href="http://sourceforge.net/projects/nagiosplug">&url-nagiosplug-sf;</link>.</para>
 
-  </section><section><title>Monitoring Service Clusters</title>
+  </section>
+
+  <section id="serviceclusters">
+	  <title>Monitoring Service Clusters</title>
 
   <para>Let's say you have three DNS servers that provide redundant services on your network. First off, you need to be monitoring
   each of these DNS servers separately before you can monitor them as a cluster. We'll assume that you already have three separate
@@ -101,7 +111,10 @@
   on-demand macros in with the current service state IDs (numerical values, rather than text strings) of the individual members of
   the cluster.</para>
 
-  </section><section><title>Monitoring Host Clusters</title>
+  </section>
+
+  <section id="hostclusters">
+	  <title>Monitoring Host Clusters</title>
 
   <para>Monitoring host clusters is very similiar to monitoring service clusters. Obviously, the main difference is that the
   cluster members are hosts and not services. In order to monitor the status of a host cluster, you must define a service that

@@ -9,7 +9,8 @@
          xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="event_handlers" />Event Handlers</title>
 
-  <section><title>Introduction</title>
+  <section id="introduction">
+	  <title>Introduction</title>
 
   <para><inlinemediaobject>
       <imageobject>
@@ -48,7 +49,10 @@
   <para>* Cycling power on a host that is experiencing problems with an auomated script should not be implemented lightly.
   Consider the consequences of this carefully before implementing automatic reboots. :-)</para>
 
-  </section><section><title>When Are Event Handlers Executed?</title>
+  </section>
+
+  <section id="execution">
+	  <title>When Are Event Handlers Executed?</title>
 
   <para>Event handlers are executed when a service or host:</para>
 
@@ -68,7 +72,10 @@
 
   <para>SOFT and HARD states are described in detail <link linkend="statetypes">here</link> .</para>
 
-  </section><section><title>Event Handler Types</title>
+  </section>
+
+  <section id="types">
+	  <title>Event Handler Types</title>
 
   <para>There are different types of optional event handlers that you can define to handle host and state changes:</para>
 
@@ -102,7 +109,10 @@
   host- and service-specific event handlers are executed immediately after the (optional) global host or service event handler is
   executed.</para>
 
-  </section><section><title>Enabling Event Handlers</title>
+  </section>
+
+  <section id="enable">
+	  <title>Enabling Event Handlers</title>
 
   <para>Event handlers can be enabled or disabled on a program-wide basis by using the <link
   linkend="configmain-enable_event_handlers">enable_event_handlers</link> in your main configuration file.</para>
@@ -112,14 +122,20 @@
   linkend="objectdefinitions-service">service</link> definitions. Host- and service-specific event handlers will not be executed
   if the global <link linkend="configmain-enable_event_handlers">enable_event_handlers</link> option is disabled.</para>
 
-  </section><section><title>Event Handler Execution Order</title>
+  </section>
+
+  <section id="executionorder">
+	  <title>Event Handler Execution Order</title>
 
   <para>As already mentioned, global host and service event handlers are executed immediately before host- or service-specific
   event handlers.</para>
 
   <para>Event handlers are executed for HARD problem and recovery states immediately after notifications are sent out.</para>
 
-  </section><section><title>Writing Event Handler Commands</title>
+  </section>
+
+  <section id="writingcommands">
+	  <title>Writing Event Handler Commands</title>
 
   <para>Event handler commands will likely be shell or perl scripts, but they can be any type of executable that can run from a
   command prompt. At a minimum, the scripts should take the following <link linkend="macros">macros</link> as arguments:</para>
@@ -143,7 +159,10 @@
     monitoring environments.</para>
   </tip>
 
-  </section><section><title>Permissions For Event Handler Commands</title>
+  </section>
+
+  <section id="commandpermissions">
+	  <title>Permissions For Event Handler Commands</title>
 
   <para>Event handler commands will normally execute with the same permissions as the user under which &name-icinga; is running on
   your machine. This can present a problem if you want to write an event handler that restarts system services, as root privileges
@@ -155,7 +174,10 @@
 
   <para><anchor xml:id="eventhandlers-example" /></para>
 
-  </section><section><title>Service Event Handler Example</title>
+  </section>
+
+  <section id="serviceexample">
+	  <title>Service Event Handler Example</title>
 
   <para>The example below assumes that you are monitoring the HTTP server on the local machine and have specified
   <emphasis>restart-httpd</emphasis> as the event handler command for the HTTP service definition. Also, I will be assuming that

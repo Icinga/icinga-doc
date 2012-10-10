@@ -9,7 +9,8 @@
          xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="notification_escalations" />Notification Escalations</title>
 
-  <section><title>Introduction</title>
+  <section id="introduction">
+	  <title>Introduction</title>
 
   <para><inlinemediaobject>
       <imageobject>
@@ -27,7 +28,10 @@
     Except, of course, that they're for hosts instead of services. :-)</para>
   </note>
 
-  </section><section><title>When Are Notifications Escalated?</title>
+  </section>
+
+  <section id="notificationsescalated">
+	  <title>When Are Notifications Escalated?</title>
 
   <para>Notifications are escalated <emphasis>if and only if</emphasis> one or more escalation definitions matches the current
   notification that is being sent out. If a host or service notification <emphasis>does not</emphasis> have any valid escalation
@@ -58,7 +62,10 @@
   used. For all the examples we'll be using, we'll be assuming that the default contact groups for the service definition is
   called <emphasis>nt-admins</emphasis>.</para>
 
-  </section><section><title>Contact Groups</title>
+  </section>
+
+  <section id="contactgroups">
+	  <title>Contact Groups</title>
 
   <para>When defining notification escalations, it is important to keep in mind that any contact groups that were members of
   "lower" escalations (i.e. those with lower notification number ranges) should also be included in "higher" escalation
@@ -92,7 +99,10 @@
   gets sent out. We want the <emphasis>managers</emphasis> group to continue to be notified if the problem continues past five
   notifications, so they are also included in the "higher" escalation definition.</para>
 
-  </section><section><title>Overlapping Escalation Ranges</title>
+  </section>
+
+  <section id="overlappingranges">
+	  <title>Overlapping Escalation Ranges</title>
 
   <para>Notification escalation definitions can have notification ranges that overlap. Take the following example:</para>
 
@@ -131,7 +141,10 @@
     </listitem>
   </itemizedlist>
 
-  </section><section><title>Recovery Notifications</title>
+  </section>
+
+  <section id="recoverynotifications">
+	  <title>Recovery Notifications</title>
 
   <para>Recovery notifications are slightly different than problem notifications when it comes to escalations. Take the following
   example:</para>
@@ -160,7 +173,10 @@
   case, the <emphasis>nt-admins</emphasis> and <emphasis>managers</emphasis> contact groups would be notified of the
   recovery.</para>
 
-  </section><section><title>Notification Intervals</title>
+  </section>
+
+  <section id="notificationintervals">
+	  <title>Notification Intervals</title>
 
   <para>You can change the frequency at which escalated notifications are sent out for a particular host or service by using the
   <emphasis>notification_interval</emphasis> option of the hostgroup or service escalation definition. Example:</para>
@@ -252,7 +268,10 @@
   this, the third service escalation definition has no effect whatsoever, as there will never be more than four
   notifications.</para>
 
-  </section><section><title>Time Period Restrictions</title>
+  </section>
+
+  <section id="timeperiodrestrictions">
+	  <title>Time Period Restrictions</title>
 
   <para>Under normal circumstances, escalations can be used at any time that a notification could normally be sent out for the
   host or service. This "notification time window" is determined by the <emphasis>notification_period</emphasis> directive in the
@@ -272,7 +291,10 @@
     escalation definition should be a subset of that larger "notification time window".</para>
   </note>
 
-  </section><section><title>State Restrictions</title>
+  </section>
+
+  <section id="staterestrictions">
+	  <title>State Restrictions</title>
 
   <para>If you would like to restrict the escalation definition so that it is only used when the host or service is in a
   particular state, you can use the <emphasis>escalation_options</emphasis> directive in the host or service escalation

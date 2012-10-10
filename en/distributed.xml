@@ -9,19 +9,26 @@
          xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="distributed_monitoring" />Distributed Monitoring</title>
 
-  <section><title>Introduction</title>
+  <section id="introduction">
+	  <title>Introduction</title>
 
   <para>&name-icinga; can be configured to support distributed monitoring of network services and resources. We'll try to briefly
   explan how this can be accomplished...</para>
 
-  </section><section><title>Goals</title>
+  </section>
+
+  <section id="goals">
+	  <title>Goals</title>
 
   <para>The goal in the distributed monitoring environment that we will describe is to offload the overhead (CPU usage, etc.) of
   performing service checks from a "central" server onto one or more "distributed" servers. Most small to medium sized shops will
   not have a real need for setting up such an environment. However, when you want to start monitoring hundreds or even thousands
   of <emphasis>hosts</emphasis> (and several times that many services) using &name-icinga;, this becomes quite important.</para>
 
-  </section><section><title>Reference Diagram</title>
+  </section>
+
+  <section id="refrencediagram">
+	  <title>Reference Diagram</title>
 
   <para>The diagram below should help give you a general idea of how distributed monitoring works with &name-icinga;. We'll be
   referring to the items shown in the diagram as we explain things...</para>
@@ -32,7 +39,10 @@
       </imageobject>
     </inlinemediaobject></para>
 
-  </section><section><title>Central Server vs. Distributed Servers</title>
+  </section>
+
+  <section id="centralvsdistributed">
+	  <title>Central Server vs. Distributed Servers</title>
 
   <para>When setting up a distributed monitoring environment with &name-icinga;, there are differences in the way the central and
   distributed servers are configured. We'll show you how to configure both types of servers and explain what effects the changes
@@ -54,7 +64,10 @@
   serves as the focal point for all monitoring logic (i.e. it sends out notifications, runs event handler scripts, determines host
   states, has the web interface installed, etc).</para>
 
-  </section><section><title>Obtaining Service Check Information From Distributed Monitors</title>
+  </section>
+  
+  <section id="servicecheckinfo">
+	  <title>Obtaining Service Check Information From Distributed Monitors</title>
 
   <para>Okay, before we go jumping into configuration detail we need to know how to send the service check results from the
   distributed servers to the central server. We've already discussed how to submit passive check results to &name-icinga; from
@@ -71,7 +84,10 @@
   commands</link>, it will find the passive service check information that was sent from the distributed server and process it.
   Easy, huh?</para>
 
-  </section><section><title>Distributed Server Configuration</title>
+  </section>
+
+  <section id="distributedconfig">
+	  <title>Distributed Server Configuration</title>
 
   <para>So how exactly is &name-icinga; configured on a distributed server? Basically, its just a bare-bones installation. You
   don't need to install the web interface or have notifications sent out from the server, as this will all be handled by the
@@ -112,7 +128,10 @@
 
   <para>In order to accomplish this, you'll need to define an ocsp command like this:</para>
 
-  </section><section><title>ocsp_command=submit_check_result</title>
+  </section>
+
+  <section id="oscpsubmitcheckresult">
+	  <title>ocsp_command=submit_check_result</title>
 
   <para>The command definition for the <emphasis>submit_check_result</emphasis> command looks something like this:</para>
 
@@ -199,7 +218,10 @@ esac
     </listitem>
   </orderedlist>
 
-  </section><section><title>Central Server Configuration</title>
+  </section>
+
+  <section id="centralconfig">
+	  <title>Central Server Configuration</title>
 
   <para>We've looked at how distributed monitoring servers should be configured, so let's turn to the central server. For all
   intensive purposes, the central is configured as you would normally configure a standalone server. It is setup as
@@ -258,7 +280,10 @@ esac
 
   <para>That's it! Easy, huh?</para>
 
-  </section><section><title>Problems With Passive Checks</title>
+  </section>
+
+  <section id="problemspassive">
+	  <title>Problems With Passive Checks</title>
 
   <para>For all intensive purposes we can say that the central server is relying solely on passive checks for monitoring. The main
   problem with relying completely on passive checks for monitoring is the fact that &name-icinga; must rely on something else to
@@ -267,7 +292,10 @@ esac
 
   <para>Fortunately, there is a way we can handle these types of problems...</para>
 
-  </section><section><title>Freshness Checking</title>
+  </section>
+
+  <section id="freshnesschecks">
+	  <title>Freshness Checking</title>
 
   <para>&name-icinga; supports a feature that does "freshness" checking on the results of service checks. More information
   freshness checking can be found <link linkend="freshness">here</link>. This features gives some protection against situations
@@ -327,7 +355,10 @@ esac
   role="bold">service-is-stale</emphasis> command, the <emphasis>check_dummy</emphasis> plugin is executed and the service will go
   into a critical state. This would likely cause notifications to be sent out, so you'll know that there's a problem.</para>
 
-  </section><section><title>Performing Host Checks</title>
+  </section>
+
+  <section id="hostcheckperforming">
+	  <title>Performing Host Checks</title>
 
   <para>At this point you know how to obtain service check results passivly from distributed servers. This means that the central
   server is not actively checking services on its own. But what about host checks? You still need to do them, so how?</para>

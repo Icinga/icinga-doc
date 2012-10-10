@@ -9,13 +9,17 @@
          xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="host_srv_dependencies" />Host and Service Dependencies</title>
 
-  <section><title>Introduction</title>
+  <section id="introduction">
+	  <title>Introduction</title>
 
   <para>Service and host dependencies are an advanced feature of &name-icinga; that allow you to control the behavior of hosts and
   services based on the status of one or more other hosts or services. We'll explain how dependencies work, along with the
   differences between host and service dependencies.</para>
 
-  </section><section><title>Service Dependencies Overview</title>
+  </section>
+
+  <section id="overview">
+	  <title>Service Dependencies Overview</title>
 
   <para>There are a few things you should know about service dependencies:</para>
 
@@ -42,7 +46,10 @@
     </listitem>
   </orderedlist>
 
-  </section><section><title>Defining Service Dependencies</title>
+  </section>
+
+  <section id="definition">
+	  <title>Defining Service Dependencies</title>
 
   <para>First, the basics. You create service dependencies by adding <link linkend="objectdefinitions-servicedependency">service
   dependency definitions</link> in your <link linkend="configobject">object config file(s)</link>. In each definition you specify
@@ -52,7 +59,10 @@
   <para>You can create several dependencies for a given service, but you must add a separate service dependency definition for
   each dependency you create.</para>
 
-  </section><section><title>Example Service Dependencies</title>
+  </section>
+
+  <section id="example">
+	  <title>Example Service Dependencies</title>
 
   <para>The image below shows an example logical layout of service notification and execution dependencies. Different services are
   dependent on other services for notifications and check execution.</para>
@@ -122,7 +132,10 @@
         notification_failure_criteria   w,u,c
         }</programlisting>
 
-  </section><section><title>How Service Dependencies Are Tested</title>
+</section>
+
+<section id="test">
+	<title>How Service Dependencies Are Tested</title>
 
   <para>Before &name-icinga; executes a service check or sends notifications out for a service, it will check to see if the
   service has any dependencies. If it doesn't have any dependencies, the check is executed or the notification is sent out as it
@@ -165,7 +178,10 @@
     state), enable the <link linkend="configmain-soft_state_dependencies">soft_state_dependencies</link> option.</para>
   </note>
 
-  </section><section><title>Execution Dependencies</title>
+  </section>
+
+  <section id="execution">
+	  <title>Execution Dependencies</title>
 
   <para>Execution dependencies are used to restrict when <link linkend="activechecks">active checks</link> of a service can be
   performed. <link linkend="passivechecks">Passive checks</link> are not restricted by execution dependencies.</para>
@@ -195,7 +211,10 @@
   is in a WARNING or UNKNOWN state, <emphasis>and/or</emphasis> if <emphasis role="bold">Service E</emphasis> is in a WARNING,
   UNKNOWN, or CRITICAL state. If this were the case, notifications for the service would not be sent out.</para>
 
-  </section><section><title>Dependency Inheritance</title>
+  </section>
+
+  <section id="inheritance">
+	  <title>Dependency Inheritance</title>
 
   <para>As mentioned before, service dependencies are <emphasis>not</emphasis> inherited by default. In the example above you can
   see that Service F is dependent on Service E. However, it does not automatically inherit Service E's dependencies on Service B
@@ -230,7 +249,10 @@
   <emphasis>inherits_parent</emphasis> directive enable and service A was dependent on some other service (let's call it service
   G), the service F would be dependent on services D, A, and G (each with potentially different criteria).</para>
 
-  </section><section><title>Host Dependencies</title>
+  </section>
+
+  <section id="host">
+	  <title>Host Dependencies</title>
 
   <para>As you'd probably expect, host dependencies work in a similiar fashion to service dependencies. The difference is that
   they're for hosts, not services.</para>
@@ -263,7 +285,10 @@
     </listitem>
   </orderedlist>
 
-  </section><section><title>Example Host Dependencies</title>
+  </section>
+
+  <section id="examplehost">
+	  <title>Example Host Dependencies</title>
 
   <para>The image below shows an example of the logical layout of host notification dependencies. Different hosts are dependent on
   other hosts for notifications.</para>

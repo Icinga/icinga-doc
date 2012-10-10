@@ -8,7 +8,7 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="fast_startup"/>Fast Startup Options</title>
 
-  <section>
+  <section id="introduction">
     <title>Introduction</title>
 
     <para>There are a few things you can do that can decrease the amount of time it take &name-icinga; to startup (or restart). These
@@ -31,7 +31,7 @@
     </itemizedlist>
   </section>
 
-  <section>
+  <section id="background">
     <title>Background</title>
 
     <para>Whenever &name-icinga; starts/restarts it has to process your configuration files before it can get down to the business of
@@ -79,7 +79,7 @@
     these steps up? Yes!</para>
   </section>
 
-  <section>
+  <section id="evalstartuptime">
     <title>Evaluating Startup Times</title>
 
     <para>Before we get on to making things faster, we need to see what's possible and whether or not we should even bother with the whole
@@ -149,7 +149,7 @@ TOTAL:                56.084353 sec  * = 54.676622 sec (97.5%) estimated savings
     do it.</para>
   </section>
 
-  <section>
+  <section id="precacheobjectconfig">
     <title>Pre-Caching Object Configuration</title>
 
     <para>&name-icinga; can spend quite a bit of time parsing your config files, especially if you make use of the template features such as
@@ -204,7 +204,7 @@ TOTAL:                56.084353 sec  * = 54.676622 sec (97.5%) estimated savings
     </informaltable>
   </section>
 
-  <section>
+  <section id="skipcircularpathtests">
     <title>Skipping Circular Path Tests</title>
 
     <para>The second (and most time-intensive) portion of the configuration startup phase is the circular path check. In the example above,
@@ -228,7 +228,7 @@ TOTAL:                56.084353 sec  * = 54.676622 sec (97.5%) estimated savings
     skipping circular path checks. Failure to do so could lead to deadlocks in the &name-icinga; logic. You have been warned.</para>
   </section>
 
-  <section>
+  <section id="puttogether">
     <title>Putting It All Together</title>
 
     <para>Follow these steps if you want to make use of potential speedups from pre-caching your configuration and skipping circular path

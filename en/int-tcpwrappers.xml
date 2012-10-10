@@ -8,7 +8,7 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="int_tcpwrappers"/>TCP Wrapper Integration</title>
 
-  <section>
+  <section id="introduction">
     <title>Introduction</title>
 
     <para><inlinemediaobject>
@@ -46,7 +46,7 @@
     </orderedlist>
   </section>
 
-  <section>
+  <section id="servicedefinition">
     <title>Defining A Service</title>
 
     <para>If you haven't done so already, create a <link linkend="objectdefinitions-host">host definition</link> for the remote host
@@ -86,7 +86,7 @@
     </orderedlist>
   </section>
 
-  <section>
+  <section id="configtcpwrappers">
     <title>Configuring TCP Wrappers</title>
 
     <para>Now you're going to have to modify the <emphasis>/etc/hosts.deny</emphasis> file on <emphasis>firestorm</emphasis>. In order to
@@ -100,7 +100,7 @@
     next.</para>
   </section>
 
-  <section>
+  <section id="script">
     <title>Writing The Script</title>
 
     <para>The last thing you need to do is write the <emphasis>handle_tcp_wrapper</emphasis> script on <emphasis>firestorm</emphasis> that
@@ -124,7 +124,7 @@
 /bin/echo -e "$1\t$2\t$3\t$4\n" | &url-icinga-base;/bin/send_nsca monitor -c /usr/local/nagios/etc/send_nsca.cfg</programlisting>
   </section>
 
-  <section>
+  <section id="finish">
     <title>Finishing Up</title>
 
     <para>You've now configured everything you need to, so all you have to do is restart the <emphasis>inetd</emphasis> process on

@@ -9,14 +9,18 @@
          xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="volatile_services" />Volatile Services</title>
 
-  <section><title>Introduction</title>
+  <section id="introduction">
+	  <title>Introduction</title>
 
   <para>&name-icinga; has the ability to distinguish between "normal" services and "volatile" services. The
   <emphasis>is_volatile</emphasis> option in each service definition allows you to specify whether a specific service is volatile
   or not. For most people, the majority of all monitored services will be non-volatile (i.e. "normal"). However, volatile services
   can be very useful when used properly...</para>
 
-  </section><section><title>What Are They Useful For?</title>
+  </section>
+
+  <section id="usage">
+	  <title>What Are They Useful For?</title>
 
   <para>Volatile services are useful for monitoring...</para>
 
@@ -31,7 +35,10 @@
     </listitem>
   </itemizedlist>
 
-  </section><section><title>What's So Special About Volatile Services?</title>
+  </section>
+
+  <section id="speciality">
+	  <title>What's So Special About Volatile Services?</title>
 
   <para>Volatile services differ from "normal" services in three important ways. <emphasis>Each time</emphasis> they are checked
   when they are in a <link linkend="statetypes">hard</link> non-OK state, and the check returns a non-OK state (i.e. no state
@@ -63,7 +70,10 @@
     <para>If you are only interested in logging, consider using <link linkend="stalking">stalking</link> options instead.</para>
   </tip>
 
-  </section><section><title>The Power Of Two</title>
+  </section>
+
+  <section id="poweroftwo">
+	  <title>The Power Of Two</title>
 
   <para>If you combine the features of volatile services and <link linkend="passivechecks">passive service checks</link>, you can
   do some very useful things. Examples of this include handling SNMP traps, security alerts, etc.</para>
@@ -73,7 +83,10 @@
   automatically firewall potential intruders. If you want to let &name-icinga; know about port scans, you could do the
   following...</para>
 
-  </section><section><title>&name-icinga; Configuration:</title>
+  </section>
+
+  <section id="configvolatile">
+	  <title>&name-icinga; Configuration:</title>
 
   <itemizedlist>
     <listitem>
@@ -101,7 +114,10 @@
     </listitem>
   </itemizedlist>
 
-  </section><section><title>PortSentry Configuration:</title>
+  </section>
+
+  <section id="portsentryconfig">
+	  <title>PortSentry Configuration:</title>
 
   <para>Edit your PortSentry configuration file (portsentry.conf) and define a command for the <emphasis>KILL_RUN_CMD</emphasis>
   directive as follows:</para>
@@ -111,7 +127,10 @@
   <para>Make sure to replace <emphasis>host_name</emphasis> with the short name of the host that the service is associated
   with.</para>
 
-  </section><section><title>Port Scan Script:</title>
+  </section>
+
+  <section id="portscanscript">
+	  <title>Port Scan Script:</title>
 
   <para>Create a shell script in the <emphasis>&url-icinga-base;/libexec/eventhandlers</emphasis> directory named
   <emphasis>submit_check_result</emphasis>. The contents of the shell script should be something similiar to the
