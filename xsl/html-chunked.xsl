@@ -2,8 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version='1.0'>
 	   
-<xsl:import href="http://docbook.sourceforge.net/release/xsl/current/xhtml/chunk.xsl"/>
-<!--<xsl:import href="html/chunk.xsl"/>-->
+<xsl:import href="html/chunk.xsl"/>
 
 <xsl:output method="xml" encoding="utf-8"/>
 
@@ -17,9 +16,6 @@
 <xsl:template name="user.header.navigation">
 <CENTER><IMG src="../images/logofullsize.png" border="0" alt="Icinga" title="Icinga"/></CENTER>
 </xsl:template>
-
-
-<xsl:param name="generate.consistent.ids" select="1"></xsl:param>
 
 <!-- css stylesheet -->
 <xsl:param name="html.stylesheet" select="'../stylesheets/icinga-docs.css'" />
