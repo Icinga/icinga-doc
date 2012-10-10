@@ -8,543 +8,591 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>&name-icinga;-Schnellstart mit &name-idoutils;</title>
 
-  <para><emphasis role="bold"><anchor xml:id="introduction_idoutils"/>Einführung</emphasis></para>
+  <section>
+    <title><anchor xml:id="q_id-introduction"/>Einführung</title>
 
-  <note>
-    <para>Anstatt &name-icinga; von Grund auf zu installieren möchten Sie vielleicht ein Paket benutzen, das es möglicherweise für Ihr
-    Betriebssystem gibt. Bitte werfen Sie einen Blick auf die <link xlink:href="https://www.icinga.org/download/packages">Tabelle der
-    Pakete</link>.</para>
+    <note>
+      <para>Anstatt &name-icinga; von Grund auf zu installieren möchten Sie vielleicht ein Paket benutzen, das es möglicherweise für Ihr
+      Betriebssystem gibt. Bitte werfen Sie einen Blick auf die <link xlink:href="https://www.icinga.org/download/packages">Tabelle der
+      Pakete</link>.</para>
 
-    <para>Bitte bedenken Sie, dass die Upstream-Pakete evtl. relativ alt sind, so dass die Verwendung von Backports-Paketen ein Weg ist,
-    eine aktuelle Version zu bekommen. Bitte werfen Sie einen Blick auf die (englischsprachigen) Wiki-Artikel für detaillierte
-    Informationen:</para>
+      <para>Bitte bedenken Sie, dass die Upstream-Pakete evtl. relativ alt sind, so dass die Verwendung von Backports-Paketen ein Weg ist,
+      eine aktuelle Version zu bekommen. Bitte werfen Sie einen Blick auf die (englischsprachigen) Wiki-Artikel für detaillierte
+      Informationen:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para><link xlink:href="https://wiki.icinga.org/display/howtos/Setting+up+Icinga+with+IDOUtils+on+Debian">Debian</link></para>
+        </listitem>
+
+        <listitem>
+          <para><link xlink:href="https://wiki.icinga.org/display/howtos/Setting+up+Icinga+with+IDOUtils+on+Ubuntu">Ubuntu</link></para>
+        </listitem>
+
+        <listitem>
+          <para><link xlink:href="https://wiki.icinga.org/display/howtos/Setting+up+Icinga+with+IDOUtils+on+RHEL">RHEL/CentOS</link></para>
+        </listitem>
+      </itemizedlist>
+
+      <para>Falls Sie aus den Sourcen installieren möchten, dann benutzen Sie bitte die offiziellen Release-Tarballs.</para>
+    </note>
+
+    <important>
+      <para>Bitte benutzen Sie keine GIT-Snapshots, solange Sie kein Problem haben, das in der aktuellen Entwicklerversion ggf. gelöst
+      ist.</para>
+    </important>
+
+    <para>Diese Schnellstartanleitung ist dazu gedacht, Ihnen einfache Anweisungen zu liefern, wie Sie &name-icinga; innerhalb von 30
+    Minuten aus dem Quellcode installieren und Ihren lokalen Rechner damit überwachen.</para>
+
+    <para>Hier werden keine fortgeschrittenen Installationsoptionen vorgestellt - lediglich die Grundlagen, die für 95% aller Benutzer
+    funktionieren, die anfangen wollen.</para>
+
+    <para>Diese Anleitung enthält Anweisungen für drei verschiedene Linux-Distributionen: <link
+    xlink:href="http://fedoraproject.org/">&name-fedora;</link>, <link xlink:href="http://www.ubuntu.com/">&name-ubuntu;</link> und <link
+    xlink:href="http://www.opensuse.org/">&name-opensuse;</link>. Ähnliche Distributionen werden wahrscheinlich auch funktionieren, darunter
+    <link xlink:href="http://www.redhat.com/">&name-redhat;</link>, <link xlink:href="http://www.centos.org/">&name-centos;</link>, <link
+    xlink:href="http://www.debian.org/">&name-debian;</link> und <link
+    xlink:href="http://www.novell.com/products/server/">&name-sles;</link>.</para>
+
+    <important>
+      <para>Wenn Sie planen, &name-icinga; OHNE &name-idoutils; zu nutzen, dann lesen Sie statt dessen <xref
+      linkend="quickstart-icinga"/>!</para>
+    </important>
+
+    <para><emphasis role="bold">Was dabei herauskommt</emphasis></para>
+
+    <para>Wenn Sie diesen Anweisungen folgen, werden Sie am Ende folgendes haben:</para>
 
     <itemizedlist>
       <listitem>
-        <para><link xlink:href="https://wiki.icinga.org/display/howtos/Setting+up+Icinga+with+IDOUtils+on+Debian">Debian</link></para>
+        <para>&name-icinga; und die Plugins werden unterhalb von &url-icinga-base; installiert sein</para>
       </listitem>
 
       <listitem>
-        <para><link xlink:href="https://wiki.icinga.org/display/howtos/Setting+up+Icinga+with+IDOUtils+on+Ubuntu">Ubuntu</link></para>
+        <para>&name-icinga; wird so konfiguriert sein, dass es einige Dinge auf Ihrem lokalen System überwacht (CPU-Auslastung,
+        Plattenbelegung, usw.)</para>
       </listitem>
 
       <listitem>
-        <para><link xlink:href="https://wiki.icinga.org/display/howtos/Setting+up+Icinga+with+IDOUtils+on+RHEL">RHEL/CentOS</link></para>
+        <para>Das klassische &name-icinga;-Web-Interface ist erreichbar unter http://localhost/icinga/</para>
+      </listitem>
+
+      <listitem>
+        <para>Eine Datenbank, die von &name-icinga; mit Hilfe von &name-idoutils; gefüllt wird</para>
+      </listitem>
+    </itemizedlist>
+  </section>
+
+  <section>
+    <title><anchor xml:id="q_id-prerequisites"/>Voraussetzungen</title>
+
+    <para>Während einiger Teile der Installation benötigen Sie <emphasis role="bold">root</emphasis>-Zugang zu Ihrer Maschine.</para>
+
+    <para>&name-idoutils; benutzt die <link xlink:href="http://libdbi.sourceforge.net">libdbi</link> und die libdbi-Treiber für verschiedene
+    Datenbanken. Die Development-Libraries werden ebenfalls benötigt. Die folgenden Beispiele zeigen, wie die &name-idoutils; mit libdbi für
+    &name-mysql; oder &name-postgres; installiert werden.</para>
+
+    <para>Stellen Sie sicher, dass die folgenden Pakete installiert sind, bevor Sie fortfahren.</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>&name-apache;</para>
+      </listitem>
+
+      <listitem>
+        <para>GCC-Compiler</para>
+      </listitem>
+
+      <listitem>
+        <para>C/C++ development libraries</para>
+      </listitem>
+
+      <listitem>
+        <para><link xlink:href="http://www.boutell.com/gd/">&name-gd;</link>-Development-Libraries</para>
+      </listitem>
+
+      <listitem>
+        <para>libdbi/libdbi-Treiber, eine Datenbank wie z.B. &name-mysql; oder &name-postgres;</para>
+
+        <note>
+          <para>PostgreSQL: Aufgrund von Änderungen an Insert-Statements funktioniert PostgreSQL 8.1 nicht länger (und ist auch bereits
+          <link xlink:href="http://wiki.postgresql.org/wiki/PostgreSQL_Release_Support_Policy">"End-of-life"</link> seit November 2010),
+          also benutzen Sie bitte 8.2 oder besser noch 8.4. String escaping mit PostgreSQL 9.x befindet sich noch in einem experimentellen
+          Stadium.</para>
+        </note>
       </listitem>
     </itemizedlist>
 
-    <para>Falls Sie aus den Sourcen installieren möchten, dann benutzen Sie bitte die offiziellen Release-Tarballs.</para>
-  </note>
+    <para><emphasis role="bold">Optional</emphasis></para>
 
-  <important>
-    <para>Bitte benutzen Sie keine GIT-Snapshots, solange Sie kein Problem haben, das in der aktuellen Entwicklerversion ggf. gelöst
-    ist.</para>
-  </important>
+    <para>Zu irgendeiner Zeit möchten Sie wahrscheinlich SNMP-basierte Prüfungen verwenden, so dass es eine gute Idee ist, die benötigten
+    Pakete gleich zu installieren. Anderenfalls werden die Plugins nicht kompiliert und sind nicht verfügbar, wenn Sie diese
+    brauchen.</para>
+  </section>
 
-  <para>Diese Schnellstartanleitung ist dazu gedacht, Ihnen einfache Anweisungen zu liefern, wie Sie &name-icinga; innerhalb von 30 Minuten
-  aus dem Quellcode installieren und Ihren lokalen Rechner damit überwachen.</para>
+  <section>
+    <title><anchor xml:id="q_id-new_features"/>Neue Features für die &name-idoutils;:</title>
 
-  <para>Hier werden keine fortgeschrittenen Installationsoptionen vorgestellt - lediglich die Grundlagen, die für 95% aller Benutzer
-  funktionieren, die anfangen wollen.</para>
+    <itemizedlist>
+      <listitem>
+        <para><emphasis role="bold">SSL-Verschlüsselung zwischen idomod und ido2db</emphasis></para>
 
-  <para>Diese Anleitung enthält Anweisungen für drei verschiedene Linux-Distributionen: <link
-  xlink:href="http://fedoraproject.org/">&name-fedora;</link>, <link xlink:href="http://www.ubuntu.com/">&name-ubuntu;</link> und <link
-  xlink:href="http://www.opensuse.org/">&name-opensuse;</link>. Ähnliche Distributionen werden wahrscheinlich auch funktionieren, darunter
-  <link xlink:href="http://www.redhat.com/">&name-redhat;</link>, <link xlink:href="http://www.centos.org/">&name-centos;</link>, <link
-  xlink:href="http://www.debian.org/">&name-debian;</link> und <link
-  xlink:href="http://www.novell.com/products/server/">&name-sles;</link>.</para>
+        <para>Wenn Sie <emphasis role="bold">SSL-Verschlüsselung </emphasis>verwenden möchten, werden zusätzlich die Pakete openssl und
+        openssl-devel/libssl-dev benötigt!</para>
 
-  <para><emphasis role="bold">Wenn Sie planen, &name-icinga; OHNE &name-idoutils; zu nutzen, dann lesen Sie statt dessen <xref
-  linkend="quickstart-icinga"/>!</emphasis></para>
+        <note>
+          <para>SSL muss auch bei allen idomod-Clients aktiviert werden, sonst gehen Daten verloren!!!</para>
+        </note>
+      </listitem>
 
-  <para><emphasis role="bold">Was dabei herauskommt</emphasis></para>
+      <listitem>
+        <para><emphasis role="bold">Oracle-Datenbankunterstützung</emphasis></para>
 
-  <para>Wenn Sie diesen Anweisungen folgen, werden Sie am Ende folgendes haben:</para>
+        <para>Wenn Sie Oracle als RDBMS einsetzen möchten, müssen Sie installieren:</para>
 
-  <itemizedlist>
-    <listitem>
-      <para>&name-icinga; und die Plugins werden unterhalb von &url-icinga-base; installiert sein</para>
-    </listitem>
+        <itemizedlist>
+          <listitem>
+            <para>die Oracle Libraries und SDK (zum Beispiel den Oracle Instantclient)</para>
+          </listitem>
 
-    <listitem>
-      <para>&name-icinga; wird so konfiguriert sein, dass es einige Dinge auf Ihrem lokalen System überwacht (CPU-Auslastung,
-      Plattenbelegung, usw.)</para>
-    </listitem>
+          <listitem>
+            <para>installieren Sie statt des libdbi-Treibers den ocilib-Treiber</para>
 
-    <listitem>
-      <para>Das klassische &name-icinga;-Web-Interface ist erreichbar unter http://localhost/icinga/</para>
-    </listitem>
+            <note>
+              <para>Zum Einsatz von &name-idoutils; 1.5.0 mit &name-oracle; benötigen Sie OCILIB 3.9.2 - installieren Sie nicht 3.9.0 oder
+              3.9.1, denn diese Version sind fehlerbehaftet.</para>
+            </note>
 
-    <listitem>
-      <para>Eine Datenbank, die von &name-icinga; mit Hilfe von &name-idoutils; gefüllt wird</para>
-    </listitem>
-  </itemizedlist>
+            <note>
+              <para>Detailliertere Informationen zu &name-idoutils; mit &name-oracle; finden Sie in unserer Wiki-HowTo-Serie zu <link
+              xlink:href="https://wiki.icinga.org/display/howtos/Icinga+and+Oracle">&name-oracle;</link>.</para>
+            </note>
+          </listitem>
+        </itemizedlist>
 
-  <para><emphasis role="bold">Voraussetzungen</emphasis></para>
+        <para>Stellen Sie sicher, dass die Libraries in der Path-Variablen enthalten sind. Oder setzen Sie die den Oracle Library Path mit
+        --with-oracle-lib=/path/to/instantclient</para>
 
-  <para>Während einiger Teile der Installation benötigen Sie <emphasis role="bold">root</emphasis>-Zugang zu Ihrer Maschine.</para>
+        <para>Download des ocilib-Treiber von &url-orclib; und verweisen Sie beim configure auf Ihre Oracle-Libraries und die Header-Files,
+        z.B. die des Oracle Instant-Client:</para>
 
-  <para>&name-idoutils; benutzt die <link xlink:href="http://libdbi.sourceforge.net">libdbi</link> und die libdbi-Treiber für verschiedene
-  Datenbanken. Die Development-Libraries werden ebenfalls benötigt. Die folgenden Beispiele zeigen, wie die &name-idoutils; mit libdbi für
-  &name-mysql; oder &name-postgres; installiert werden.</para>
-
-  <para>Stellen Sie sicher, dass die folgenden Pakete installiert sind, bevor Sie fortfahren.</para>
-
-  <itemizedlist>
-    <listitem>
-      <para>&name-apache;</para>
-    </listitem>
-
-    <listitem>
-      <para>GCC-Compiler</para>
-    </listitem>
-
-    <listitem>
-      <para>C/C++ development libraries</para>
-    </listitem>
-
-    <listitem>
-      <para><link xlink:href="http://www.boutell.com/gd/">&name-gd;</link>-Development-Libraries</para>
-    </listitem>
-
-    <listitem>
-      <para>libdbi/libdbi-Treiber, eine Datenbank wie z.B. &name-mysql; oder &name-postgres;</para>
-
-      <note>
-        <para>PostgreSQL: Aufgrund von Änderungen an Insert-Statements funktioniert PostgreSQL 8.1 nicht länger (und ist auch bereits <link
-        xlink:href="http://wiki.postgresql.org/wiki/PostgreSQL_Release_Support_Policy">"End-of-life"</link> seit November 2010), also
-        benutzen Sie bitte 8.2 oder besser noch 8.4. String escaping mit PostgreSQL 9.x befindet sich noch in einem experimentellen
-        Stadium.</para>
-      </note>
-    </listitem>
-  </itemizedlist>
-
-  <para><emphasis role="bold">Optional</emphasis></para>
-
-  <para>Zu irgendeiner Zeit möchten Sie wahrscheinlich SNMP-basierte Prüfungen verwenden, so dass es eine gute Idee ist, die benötigten
-  Pakete gleich zu installieren. Anderenfalls werden die Plugins nicht kompiliert und sind nicht verfügbar, wenn Sie diese brauchen.</para>
-
-  <para><emphasis role="bold">Neue Features für die &name-idoutils;:</emphasis></para>
-
-  <para><emphasis role="bold">SSL-Verschlüsselung zwischen idomod und ido2db</emphasis></para>
-
-  <para>Wenn Sie <emphasis role="bold">SSL-Verschlüsselung </emphasis>verwenden möchten, werden zusätzlich die Pakete openssl und
-  openssl-devel/libssl-dev benötigt!</para>
-
-  <note>
-    <para>SSL muss auch bei allen idomod-Clients aktiviert werden, sonst gehen Daten verloren!!!</para>
-  </note>
-
-  <para><emphasis role="bold">Oracle-Datenbankunterstützung</emphasis></para>
-
-  <para>Wenn Sie Oracle als RDBMS einsetzen möchten, müssen Sie installieren:</para>
-
-  <itemizedlist>
-    <listitem>
-      <para>die Oracle Libraries und SDK (zum Beispiel den Oracle Instantclient)</para>
-    </listitem>
-
-    <listitem>
-      <para>installieren Sie statt des libdbi-Treibers den ocilib-Treiber</para>
-
-      <note>
-        <para>Zum Einsatz von &name-idoutils; 1.5.0 mit &name-oracle; benötigen Sie OCILIB 3.9.2 - installieren Sie nicht 3.9.0 oder 3.9.1,
-        denn diese Version sind fehlerbehaftet.</para>
-      </note>
-
-      <note>
-        <para>Detailliertere Informationen zu &name-idoutils; mit &name-oracle; finden Sie in unserer Wiki-HowTo-Serie zu <link
-        xlink:href="https://wiki.icinga.org/display/howtos/Icinga+and+Oracle">&name-oracle;</link>.</para>
-      </note>
-    </listitem>
-  </itemizedlist>
-
-  <para>Stellen Sie sicher, dass die Libraries in der Path-Variablen enthalten sind. Oder setzen Sie die den Oracle Library Path mit
-  --with-oracle-lib=/path/to/instantclient</para>
-
-  <para>Download des ocilib-Treiber von &url-orclib; und verweisen Sie beim configure auf Ihre Oracle-Libraries und die Header-Files, z.B.
-  die des Oracle Instant-Client:</para>
-
-  <para><programlisting> #&gt; ./configure --with-oracle-headers-path=/path/to/instantclient/sdk/include \
+        <para><programlisting> #&gt; ./configure --with-oracle-headers-path=/path/to/instantclient/sdk/include \
     --with-oracle-lib-path=/path/to/instantclient/
  #&gt; make
  #&gt; make install</programlisting></para>
 
-  <para><emphasis>&name-icinga; 1.4</emphasis></para>
+        <para><emphasis>&name-icinga; 1.4</emphasis></para>
 
-  <para>Seit &name-icinga; 1.4 wird mindestens &name-oracle; 10gR2 benötigt. Ältere Versionen funktionieren möglicherweise, werden aber
-  nicht unterstützt. Die &name-oracle;-Skripte wurden geändert, um für Daten, Indexe und LOBs nun unterschiedliche Tablespaces zu nutzen.
-  Aus diesem Grund gibt es die Notwendigkeit, den Tablespace-Namen anzugeben, den Sie benutzen möchten. Wenn Sie eine kleine Umgebung haben,
-  dann können Sie für alle "defines" den gleichen Tablespace angeben. Sie müssen das neue Skript <filename>icinga_defines.sql</filename> auf
-  Ihre Bedürfnisse anpassen, bevor Sie das Skript <filename>oracle.sql</filename> ausführen. Um Ihnen ein wenig Arbeit abzunehmen, gibt es
-  ein neues Skript <filename>create_oracle_sys.sql</filename>, das Ihnen helfen soll, die benötigten Tablespaces und einen
-  &name-icinga;-Applikations-Benutzer anzulegen, das als SYS ausgeführt werden muss. Es benutzt außerdem
-  <filename>icinga_defines.sql</filename>. Die Erzeugung von Objekten wurde von <filename>oracle.sql</filename> in das Skript
-  <filename>create_icinga_objects_oracle.sql</filename> verlagert. Das alte <filename>oracle.sql</filename> wurde in ein "Master"-Skript
-  umgewandelt und enthält per "include" Verweise auf alle anderen Skripte, die im aktuellen Verzeichnis erwartet werden. Aus diesem Grund
-  sollten Sie <filename>sqlplus</filename> in diesem Verzeichnis starten, um <filename>oracle.sql</filename> auszuführen. Auf diese Weise
-  erfolgt die Erzeugung von Benutzer und Tablespaces sowie die Erzeugung der &name-icinga;-Tabellen in einem Schritt. Als ein
-  All-in-one-Beispiel gibt es das neue Skript <filename>db/scripts/create_oracledb.sh</filename>. Passen Sie die Variablen auf Ihre
-  Bedürfnisse an und freuen Sie sich. Wenn Sie es vorziehen, die Schritte als SYS selbst zu erledigen, dann entfernen Sie den Kommentar vor
-  <filename>create_oracle_sys.sql</filename> und stellen Sie sicher, dass Ihr &name-icinga;-Datenbankbenutzer und die Tabellen existieren
-  und (mindestens) mit den gleichen Rechten definiert sind und dass die korrekten Einstellungen in <filename>icinga_defines.sql</filename>
-  vorhanden sind.</para>
+        <para>Seit &name-icinga; 1.4 wird mindestens &name-oracle; 10gR2 benötigt. Ältere Versionen funktionieren möglicherweise, werden
+        aber nicht unterstützt. Die &name-oracle;-Skripte wurden geändert, um für Daten, Indexe und LOBs nun unterschiedliche Tablespaces zu
+        nutzen. Aus diesem Grund gibt es die Notwendigkeit, den Tablespace-Namen anzugeben, den Sie benutzen möchten. Wenn Sie eine kleine
+        Umgebung haben, dann können Sie für alle "defines" den gleichen Tablespace angeben. Sie müssen das neue Skript
+        <filename>icinga_defines.sql</filename> auf Ihre Bedürfnisse anpassen, bevor Sie das Skript <filename>oracle.sql</filename>
+        ausführen. Um Ihnen ein wenig Arbeit abzunehmen, gibt es ein neues Skript <filename>create_oracle_sys.sql</filename>, das Ihnen
+        helfen soll, die benötigten Tablespaces und einen &name-icinga;-Applikations-Benutzer anzulegen, das als SYS ausgeführt werden muss.
+        Es benutzt außerdem <filename>icinga_defines.sql</filename>. Die Erzeugung von Objekten wurde von <filename>oracle.sql</filename> in
+        das Skript <filename>create_icinga_objects_oracle.sql</filename> verlagert. Das alte <filename>oracle.sql</filename> wurde in ein
+        "Master"-Skript umgewandelt und enthält per "include" Verweise auf alle anderen Skripte, die im aktuellen Verzeichnis erwartet
+        werden. Aus diesem Grund sollten Sie <filename>sqlplus</filename> in diesem Verzeichnis starten, um <filename>oracle.sql</filename>
+        auszuführen. Auf diese Weise erfolgt die Erzeugung von Benutzer und Tablespaces sowie die Erzeugung der &name-icinga;-Tabellen in
+        einem Schritt. Als ein All-in-one-Beispiel gibt es das neue Skript <filename>db/scripts/create_oracledb.sh</filename>. Passen Sie
+        die Variablen auf Ihre Bedürfnisse an und freuen Sie sich. Wenn Sie es vorziehen, die Schritte als SYS selbst zu erledigen, dann
+        entfernen Sie den Kommentar vor <filename>create_oracle_sys.sql</filename> und stellen Sie sicher, dass Ihr
+        &name-icinga;-Datenbankbenutzer und die Tabellen existieren und (mindestens) mit den gleichen Rechten definiert sind und dass die
+        korrekten Einstellungen in <filename>icinga_defines.sql</filename> vorhanden sind.</para>
 
-  <para><anchor xml:id="quickstart-idoutils_timezone-support"/><emphasis role="bold">Zeitzonenunterstützung</emphasis></para>
+        <para><anchor xml:id="quickstart-idoutils_timezone-support"/><emphasis role="bold">Zeitzonenunterstützung</emphasis></para>
 
-  <para>Ab &name-icinga; 1.6 werden alle Zeit-/Datumsinformationen als lokale Zeitstempel in der Datenbank gespeichert. Vorher gab es für
-  jedes Datenbanksystem unterschiedliche Vorgehensweisen beim Speichern und Abrufen der Daten, was schwierig für Frontend-Applikationen war.
-  Deshalb wurden die Datentypen geändert: für &name-mysql; von DATETIME in TIMESTAMP und für &name-oracle; von DATE in LOCAL TIMESTAMP (0).
-  &name-postgres; benutzt bereits TIMESTAMP, es wurde aber in TIMESTAMP WITH TIME ZONE geändert. IDO2DB wird die Sitzungszeitzone auf UTC
-  setzen und alle Unix-Timestamps (die per Definition UTC sind) als UTC-basierte Werte speichern. Bitte stellen Sie sicher, dass Ihr System
-  Unix-Timestamps als UTC-basierte Werte ausgibt (wie "date -u '+%s'").</para>
+        <para>Ab &name-icinga; 1.6 werden alle Zeit-/Datumsinformationen als lokale Zeitstempel in der Datenbank gespeichert. Vorher gab es
+        für jedes Datenbanksystem unterschiedliche Vorgehensweisen beim Speichern und Abrufen der Daten, was schwierig für
+        Frontend-Applikationen war. Deshalb wurden die Datentypen geändert: für &name-mysql; von DATETIME in TIMESTAMP und für &name-oracle;
+        von DATE in LOCAL TIMESTAMP (0). &name-postgres; benutzt bereits TIMESTAMP, es wurde aber in TIMESTAMP WITH TIME ZONE geändert.
+        IDO2DB wird die Sitzungszeitzone auf UTC setzen und alle Unix-Timestamps (die per Definition UTC sind) als UTC-basierte Werte
+        speichern. Bitte stellen Sie sicher, dass Ihr System Unix-Timestamps als UTC-basierte Werte ausgibt (wie "date -u '+%s'").</para>
 
-  <note>
-    <para>Stellen Sie sicher, dass Ihre Datenbanksitzung in der gleichen Zeitzone läuft, in der die existierenden Zeit-/Datumsinformationen
-    gespeichert wurden (überprüfen Sie Ihre lokale Zeitzone, z.B. &name-oracle;: "select sessiontimezone from dual;"), wenn Sie das
-    Upgrade-Script laufen lassen. Zusätzlich für Ihre Bequemlichkeit sollten Sie in &name-oracle; das Format der Sitzungszeitstempel auf den
-    Wert zu setzen, den Sie wünschen, z.B. "alter session set nls_timestamp_format='YYYY-MM-DD HH24:MI:SS'; oder etwas ähnliches. Nun können
-    Sie Einträge von verschiedenen &name-icinga;-Installationen in unterschiedlichen Zeitzonen ansehen, die in der gleichen Datenbank
-    gespeichert wurden, und unabhängig davon, von woher Sie darauf zugreifen, werden sie in Ihrer lokalen Zeitzone angezeigt.</para>
-  </note>
+        <note>
+          <para>Stellen Sie sicher, dass Ihre Datenbanksitzung in der gleichen Zeitzone läuft, in der die existierenden
+          Zeit-/Datumsinformationen gespeichert wurden (überprüfen Sie Ihre lokale Zeitzone, z.B. &name-oracle;: "select sessiontimezone
+          from dual;"), wenn Sie das Upgrade-Script laufen lassen. Zusätzlich für Ihre Bequemlichkeit sollten Sie in &name-oracle; das
+          Format der Sitzungszeitstempel auf den Wert zu setzen, den Sie wünschen, z.B. "alter session set nls_timestamp_format='YYYY-MM-DD
+          HH24:MI:SS'; oder etwas ähnliches. Nun können Sie Einträge von verschiedenen &name-icinga;-Installationen in unterschiedlichen
+          Zeitzonen ansehen, die in der gleichen Datenbank gespeichert wurden, und unabhängig davon, von woher Sie darauf zugreifen, werden
+          sie in Ihrer lokalen Zeitzone angezeigt.</para>
+        </note>
+      </listitem>
+    </itemizedlist>
+  </section>
 
-  <para><emphasis role="bold">Installation der Pakete</emphasis></para>
+  <section>
+    <title><anchor xml:id="q_id-install_packages"/>Installation der Pakete</title>
 
-  <para>Sie können diese Pakete mit Hilfe der folgenden Befehle installieren (als root oder mit sudo).</para>
+    <para>Sie können diese Pakete mit Hilfe der folgenden Befehle installieren (als root oder mit sudo).</para>
 
-  <note>
-    <para>Unglücklicherweise ändern sich manchmal die Paketnamen zwischen verschiedenen Ausgaben der gleichen Distribution, so dass Sie die
-    Suchoption Ihres Paket-Managers nutzen sollten, falls Sie die Fehlermeldung bekommen, dass eins der Pakete nicht gefunden wurde.
+    <note>
+      <para>Unglücklicherweise ändern sich manchmal die Paketnamen zwischen verschiedenen Ausgaben der gleichen Distribution, so dass Sie
+      die Suchoption Ihres Paket-Managers nutzen sollten, falls Sie die Fehlermeldung bekommen, dass eins der Pakete nicht gefunden wurde.
+      <itemizedlist>
+          <listitem>
+            <para><code>yum search &lt;package name&gt;</code> ( <emphasis>&name-fedora;/&name-rhel;/&name-centos;</emphasis> )</para>
+          </listitem>
+
+          <listitem>
+            <para><code>apt-cache search &lt;package name&gt;</code> ( <emphasis>&name-debian;/&name-ubuntu;</emphasis> )</para>
+          </listitem>
+
+          <listitem>
+            <para><code>zypper search &lt;package name&gt;</code> ( <emphasis>&name-opensuse;/&name-sles;</emphasis> )</para>
+          </listitem>
+        </itemizedlist></para>
+    </note>
+
     <itemizedlist>
-        <listitem>
-          <para><code>yum search &lt;package name&gt;</code> ( <emphasis>&name-fedora;/&name-rhel;/&name-centos;</emphasis> )</para>
-        </listitem>
+      <listitem>
+        <para><emphasis role="bold">&name-fedora; / &name-redhat; / &name-centos;:</emphasis></para>
 
-        <listitem>
-          <para><code>apt-cache search &lt;package name&gt;</code> ( <emphasis>&name-debian;/&name-ubuntu;</emphasis> )</para>
-        </listitem>
-
-        <listitem>
-          <para><code>zypper search &lt;package name&gt;</code> ( <emphasis>&name-opensuse;/&name-sles;</emphasis> )</para>
-        </listitem>
-      </itemizedlist></para>
-  </note>
-
-  <para><emphasis role="bold">&name-fedora; / &name-redhat; / &name-centos;:</emphasis></para>
-
-  <programlisting> #&gt; yum install httpd gcc glibc glibc-common gd gd-devel
+        <programlisting> #&gt; yum install httpd gcc glibc glibc-common gd gd-devel
  #&gt; yum install libjpeg libjpeg-devel libpng libpng-devel</programlisting>
 
-  <note>
-    <para>ggf. sind libjpeg-turbo bzw. libjpeg-turbo-devel zu installieren</para>
-  </note>
+        <note>
+          <para>ggf. sind libjpeg-turbo bzw. libjpeg-turbo-devel zu installieren</para>
+        </note>
 
-  <itemizedlist>
-    <listitem>
-      <para><emphasis role="bold">&name-mysql;:</emphasis></para>
+        <itemizedlist>
+          <listitem>
+            <para><emphasis role="bold">&name-mysql;:</emphasis></para>
 
-      <programlisting> #&gt; yum install mysql mysql-server libdbi libdbi-devel libdbi-drivers libdbi-dbd-mysql</programlisting>
-    </listitem>
+            <programlisting> #&gt; yum install mysql mysql-server libdbi libdbi-devel libdbi-drivers libdbi-dbd-mysql</programlisting>
+          </listitem>
 
-    <listitem>
-      <para><emphasis role="bold">&name-postgres;:</emphasis></para>
+          <listitem>
+            <para><emphasis role="bold">&name-postgres;:</emphasis></para>
 
-      <programlisting> #&gt; yum install postgresql postgresql-server libdbi libdbi-devel libdbi-drivers libdbi-dbd-pgsql</programlisting>
-    </listitem>
-  </itemizedlist>
+            <programlisting> #&gt; yum install postgresql postgresql-server libdbi libdbi-devel libdbi-drivers libdbi-dbd-pgsql</programlisting>
+          </listitem>
+        </itemizedlist>
+      </listitem>
 
-  <para><emphasis role="bold">&name-debian; / &name-ubuntu;:</emphasis></para>
+      <listitem>
+        <para><emphasis role="bold">&name-debian; / &name-ubuntu;:</emphasis></para>
 
-  <programlisting> #&gt; apt-get install apache2 build-essential libgd2-xpm-dev
+        <programlisting> #&gt; apt-get install apache2 build-essential libgd2-xpm-dev
  #&gt; apt-get install libjpeg62 libjpeg62-dev libpng12 libpng12-dev</programlisting>
 
-  <note>
-    <para>Die Zahlen &lt;62/12&gt; können je nach Distribution abweichen</para>
-  </note>
+        <note>
+          <para>Die Zahlen &lt;62/12&gt; können je nach Distribution abweichen</para>
+        </note>
 
-  <note>
-    <para>Ab &name-debian; 6.0/&name-ubuntu; 10.10 heißt das Paket libpng12-0, der Name des dev-Pakets ändert sich nicht.</para>
-  </note>
+        <note>
+          <para>Ab &name-debian; 6.0/&name-ubuntu; 10.10 heißt das Paket libpng12-0, der Name des dev-Pakets ändert sich nicht.</para>
+        </note>
 
-  <itemizedlist>
-    <listitem>
-      <para><emphasis role="bold">&name-mysql;:</emphasis></para>
+        <itemizedlist>
+          <listitem>
+            <para><emphasis role="bold">&name-mysql;:</emphasis></para>
 
-      <programlisting> #&gt; apt-get install mysql-server mysql-client libdbi0 libdbi0-dev libdbd-mysql</programlisting>
-    </listitem>
+            <programlisting> #&gt; apt-get install mysql-server mysql-client libdbi0 libdbi0-dev libdbd-mysql</programlisting>
+          </listitem>
 
-    <listitem>
-      <para><emphasis role="bold">&name-postgres;:</emphasis></para>
+          <listitem>
+            <para><emphasis role="bold">&name-postgres;:</emphasis></para>
 
-      <programlisting> #&gt; apt-get install postgresql libdbi1 libdbi-dev libdbd-pgsql libpg-dev</programlisting>
-    </listitem>
-  </itemizedlist>
+            <programlisting> #&gt; apt-get install postgresql libdbi1 libdbi-dev libdbd-pgsql libpg-dev</programlisting>
+          </listitem>
+        </itemizedlist>
+      </listitem>
 
-  <para><emphasis role="bold">&name-opensuse;:</emphasis></para>
+      <listitem>
+        <para><emphasis role="bold">&name-opensuse;:</emphasis></para>
 
-  <para>Bitte nutzen Sie YaST für die Installation der Pakete gd, gd-devel, libjpeg, libjpeg-devel, libpng, libpng-devel und -optional-
-  net-snmp, net-snmp-devel und perl-Net-SNMP.</para>
+        <para>Bitte nutzen Sie YaST für die Installation der Pakete gd, gd-devel, libjpeg, libjpeg-devel, libpng, libpng-devel und
+        -optional- net-snmp, net-snmp-devel und perl-Net-SNMP.</para>
 
-  <para>Die Nutzung von zypper sollte ebenfalls funktionieren:</para>
+        <para>Die Nutzung von zypper sollte ebenfalls funktionieren:</para>
 
-  <programlisting> #&gt; zypper install gd gd-devel libjpeg libjpeg-devel libpng libpng-devel
+        <programlisting> #&gt; zypper install gd gd-devel libjpeg libjpeg-devel libpng libpng-devel
  #&gt; zypper install net-snmp net-snmp-devel perl-Net-SNMP</programlisting>
 
-  <note>
-    <para>Die devel-Pakete sind ggf. auf den SDK-DVDs zu finden.</para>
-  </note>
+        <note>
+          <para>Die devel-Pakete sind ggf. auf den SDK-DVDs zu finden.</para>
+        </note>
 
-  <itemizedlist>
-    <listitem>
-      <para><emphasis role="bold">&name-mysql;:</emphasis></para>
+        <itemizedlist>
+          <listitem>
+            <para><emphasis role="bold">&name-mysql;:</emphasis></para>
 
-      <para>Benutzen Sie yast zur Installation der Pakete für das RDBMS, das Sie verwenden möchten, also "mysql", "mysql-devel" sowie die
-      libdbi-Pakete "libdbi", "libdbi-devel", "libdbi-drivers" und "libdbi-dbd-mysql" oder alternativ <filename>zypper</filename></para>
+            <para>Benutzen Sie yast zur Installation der Pakete für das RDBMS, das Sie verwenden möchten, also "mysql", "mysql-devel" sowie
+            die libdbi-Pakete "libdbi", "libdbi-devel", "libdbi-drivers" und "libdbi-dbd-mysql" oder alternativ
+            <filename>zypper</filename></para>
 
-      <programlisting> #&gt; zypper install mysql mysql-devel libdbi libdbi-devel libdbi-drivers libdbi-dbd-mysql</programlisting>
+            <programlisting> #&gt; zypper install mysql mysql-devel libdbi libdbi-devel libdbi-drivers libdbi-dbd-mysql</programlisting>
 
-      <para>Bei OpenSuSE 11 (SLES 11) lautet der Name des Packages statt "mysql-devel" nun "libmysqlclient-devel".</para>
-    </listitem>
+            <para>Bei OpenSuSE 11 (SLES 11) lautet der Name des Packages statt "mysql-devel" nun "libmysqlclient-devel".</para>
+          </listitem>
 
-    <listitem>
-      <para><emphasis role="bold">&name-postgres;:</emphasis></para>
+          <listitem>
+            <para><emphasis role="bold">&name-postgres;:</emphasis></para>
 
-      <para>Benutzen Sie yast zur Installation der Pakete für das RDBMS, das Sie verwenden möchten, also "postgresql", "postgresql-devel"
-      und "postgresql-server" sowie die libdbi-Pakete "libdbi", "libdbi-devel" und "libdbi-drivers" oder alternativ
-      <filename>zypper&gt;</filename>.</para>
+            <para>Benutzen Sie yast zur Installation der Pakete für das RDBMS, das Sie verwenden möchten, also "postgresql",
+            "postgresql-devel" und "postgresql-server" sowie die libdbi-Pakete "libdbi", "libdbi-devel" und "libdbi-drivers" oder alternativ
+            <filename>zypper&gt;</filename>.</para>
 
-      <programlisting> #&gt; zypper install postgresql postgresql-devel postgresql-server
+            <programlisting> #&gt; zypper install postgresql postgresql-devel postgresql-server
  #&gt; zypper install libdbi libdbi-devel libdbi-drivers libdbi-dbd-mysql</programlisting>
-    </listitem>
-  </itemizedlist>
+          </listitem>
+        </itemizedlist>
 
-  <para>Bei alten OpenSuSE- (SLES) Version einschließlich Version 10 ist es ziemlich wahrscheinlich, dass es keine libdbi-Packages gibt, so
-  dass Sie die Sourcen herunterladen und kompilieren müssen. Ersetzen Sie dabei &lt;rdbm&gt; durch Ihr RDBM wie mysql oder pgsql. Bitte
-  beachten Sie, dass der Oracle-Treiber noch nicht funktioniert. Lesen Sie daher den entsprechenden Abschnitt zu ocilib (anstatt
-  libdbi).</para>
+        <para>Bei alten OpenSuSE-/(SLES) Versionen einschließlich Version 10 ist es ziemlich wahrscheinlich, dass es keine libdbi-Packages
+        gibt, so dass Sie die Sourcen herunterladen und kompilieren müssen. Ersetzen Sie dabei &lt;rdbm&gt; durch Ihr RDBM wie mysql oder
+        pgsql. Bitte beachten Sie, dass der Oracle-Treiber noch nicht funktioniert. Lesen Sie daher den entsprechenden Abschnitt zu ocilib
+        (anstatt libdbi).</para>
 
-  <orderedlist>
-    <listitem>
-      <para>Laden Sie die tar.gz-Dateien herunter und entpacken Sie diese</para>
+        <orderedlist>
+          <listitem>
+            <para>Laden Sie die tar.gz-Dateien herunter und entpacken Sie diese</para>
 
-      <para><link xlink:href="http://libdbi.sourceforge.net/download.html">http://libdbi.sourceforge.net/download.html</link></para>
+            <para><link xlink:href="http://libdbi.sourceforge.net/download.html">http://libdbi.sourceforge.net/download.html</link></para>
 
-      <para><link
-      xlink:href="http://libdbi-drivers.sourceforge.net/download.html">http://libdbi-drivers.sourceforge.net/download.html</link></para>
+            <para><link
+            xlink:href="http://libdbi-drivers.sourceforge.net/download.html">http://libdbi-drivers.sourceforge.net/download.html</link></para>
 
-      <para><programlisting> #&gt; tar xvzf libdbi-0.8.3.tar.gz
+            <para><programlisting> #&gt; tar xvzf libdbi-0.8.3.tar.gz
  #&gt; tar xvzf libdbi-drivers-0.8.3-1.tar.gz</programlisting></para>
-    </listitem>
+          </listitem>
 
-    <listitem>
-      <para>Installieren Sie die libdbi. Möglicherweise brauchen Sie beim configure weitere Optionen (set --prefix=/usr ... )</para>
+          <listitem>
+            <para>Installieren Sie die libdbi. Möglicherweise brauchen Sie beim configure weitere Optionen (set --prefix=/usr ... )</para>
 
-      <para><programlisting> #&gt; cd libdbi-0.8.3
+            <para><programlisting> #&gt; cd libdbi-0.8.3
  #&gt; ./configure --disable-docs
  #&gt; make
  #&gt; make install</programlisting></para>
-    </listitem>
+          </listitem>
 
-    <listitem>
-      <para>Installieren Sie die libdbi-Treiber</para>
+          <listitem>
+            <para>Installieren Sie die libdbi-Treiber</para>
 
-      <para><programlisting> #&gt; cd libdbi-drivers-0.8.3-1
+            <para><programlisting> #&gt; cd libdbi-drivers-0.8.3-1
  #&gt; ./configure --with-&lt;rdbm&gt; --disable-docs
  #&gt; make
  #&gt; make install</programlisting></para>
 
-      <note>
-        <para>Bei den 64-bit-Versionen müssen Sie die Pfade zu den include- und lib-dir-Verzeichnissen explizit angeben:</para>
+            <note>
+              <para>Bei den 64-bit-Versionen müssen Sie die Pfade zu den include- und lib-dir-Verzeichnissen explizit angeben:</para>
 
-        <programlisting> #&gt; ./configure --with-&lt;rdbm&gt; \
+              <programlisting> #&gt; ./configure --with-&lt;rdbm&gt; \
     --with-&lt;rdbm&gt;-incdir=/usr/include/&lt;rdbm&gt;/ \
     --with-&lt;rdbm&gt;-libdir=/usr/lib64/ --disable-docs</programlisting>
-      </note>
-    </listitem>
-  </orderedlist>
+            </note>
+          </listitem>
+        </orderedlist>
+      </listitem>
+    </itemizedlist>
+  </section>
 
-  <para><emphasis role="bold">Benutzerinformationen erstellen</emphasis></para>
+  <section>
+    <title><anchor xml:id="q_id-account"/>Benutzerinformationen erstellen</title>
 
-  <para>Werden Sie zum root-Benutzer.</para>
+    <para>Werden Sie zum root-Benutzer.</para>
 
-  <programlisting> $&gt; su -l</programlisting>
+    <programlisting> $&gt; su -l</programlisting>
 
-  <para>Erstellen Sie ein neues Benutzerkonto <emphasis>icinga</emphasis> und vergeben Sie ein Passwort:</para>
+    <para>Erstellen Sie ein neues Benutzerkonto <emphasis>icinga</emphasis> und vergeben Sie ein Passwort:</para>
 
-  <programlisting> #&gt; /usr/sbin/useradd -m icinga 
+    <programlisting> #&gt; /usr/sbin/useradd -m icinga 
  #&gt; passwd icinga  </programlisting>
 
-  <para>Bei einigen Distributionen müssen Sie die Gruppe in einem gesonderten Schritt anlegen:</para>
+    <para>Bei einigen Distributionen müssen Sie die Gruppe in einem gesonderten Schritt anlegen:</para>
 
-  <programlisting> #&gt; /usr/sbin/groupadd icinga</programlisting>
+    <programlisting> #&gt; /usr/sbin/groupadd icinga</programlisting>
 
-  <para>Damit Sie über das klassische Web-Interface Befehle an &name-icinga; senden können, legen Sie noch eine neue Gruppe icinga-cmd an
-  und fügen Sie den Webbenutzer und den Icingabenutzer dieser Gruppe hinzu.</para>
+    <para>Damit Sie über das klassische Web-Interface Befehle an &name-icinga; senden können, legen Sie noch eine neue Gruppe icinga-cmd an
+    und fügen Sie den Webbenutzer und den Icingabenutzer dieser Gruppe hinzu.</para>
 
-  <programlisting> #&gt; /usr/sbin/groupadd icinga-cmd
+    <programlisting> #&gt; /usr/sbin/groupadd icinga-cmd
  #&gt; /usr/sbin/usermod -a -G icinga-cmd icinga
  #&gt; /usr/sbin/usermod -a -G icinga-cmd www-data</programlisting>
 
-  <para>(oder www, wwwrun, apache je nach Distribution)</para>
+    <para>(oder www, wwwrun, apache je nach Distribution)</para>
 
-  <note>
-    <para>Bei einigen usermod-Versionen (z.B. OpenSuSE 11 bzw. SLES 11) fehlt die Option -a. In diesen Fällen kann sie entfallen.</para>
-  </note>
+    <note>
+      <para>Bei einigen usermod-Versionen (z.B. OpenSuSE 11 bzw. SLES 11) fehlt die Option -a. In diesen Fällen kann sie entfallen.</para>
+    </note>
 
-  <important>
-    <para>Solaris unterstützt nur Gruppennamen bis max. 8 Zeichen, verwenden Sie icingcmd anstelle von icinga-cmd.</para>
-  </important>
+    <important>
+      <para>Solaris unterstützt nur Gruppennamen bis max. 8 Zeichen, verwenden Sie icingcmd anstelle von icinga-cmd.</para>
+    </important>
+  </section>
 
-  <para><emphasis role="bold">&name-icinga; und die Plugins herunterladen</emphasis></para>
+  <section>
+    <title><anchor xml:id="q_id-download"/>&name-icinga; und die Plugins herunterladen</title>
 
-  <para>Wechseln Sie in Ihr lokales Source-Verzeichnis, z.B. /usr/src</para>
+    <para>Wechseln Sie in Ihr lokales Source-Verzeichnis, z.B. /usr/src</para>
 
-  <programlisting> #&gt; cd /usr/src</programlisting>
+    <programlisting> #&gt; cd /usr/src</programlisting>
 
-  <para>Laden Sie die Sourcen von der <link xlink:href="http://www.icinga.org/">&name-icinga; Website</link>.</para>
+    <para>Laden Sie die Sourcen von der <link xlink:href="http://www.icinga.org/">&name-icinga; Website</link>.</para>
 
-  <para>Vergessen Sie nicht die <link xlink:href="http://www.nagiosplugins.org/">Nagios Plugins</link>.</para>
+    <para>Vergessen Sie nicht die <link xlink:href="http://www.nagiosplugins.org/">Nagios Plugins</link>.</para>
+  </section>
 
-  <para><emphasis role="bold">&name-icinga; und die &name-idoutils; kompilieren und installieren</emphasis></para>
+  <section>
+    <title><anchor xml:id="q_id-compile_idoutils"/>&name-icinga; und die &name-idoutils; kompilieren und installieren</title>
 
-  <para>Entpacken Sie das &name-icinga;-Archiv</para>
+    <para>Entpacken Sie das &name-icinga;-Archiv</para>
 
-  <programlisting> #&gt; cd /usr/src/ 
+    <programlisting> #&gt; cd /usr/src/ 
  #&gt; tar xvzf icinga-&ver-icinga;.tar.gz 
  #&gt; cd icinga-&ver-icinga;</programlisting>
 
-  <note>
-    <para>Dieser absolute Pfad ist gemeint, wenn im Nachfolgenden von '/path/to/icinga-src/' die Rede ist.</para>
-  </note>
+    <note>
+      <para>Dieser absolute Pfad ist gemeint, wenn im Nachfolgenden von '/path/to/icinga-src/' die Rede ist.</para>
+    </note>
 
-  <para>Führen Sie das &name-icinga;-configure-Script aus. Durch die Nutzung des --help-Flags erhalten Sie Hilfe zu den Optionen.</para>
+    <para>Führen Sie das &name-icinga;-configure-Script aus. Durch die Nutzung des --help-Flags erhalten Sie Hilfe zu den Optionen.</para>
 
-  <programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils</programlisting>
+    <programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils</programlisting>
 
-  <important>
-    <para>Das Kompilieren auf Solaris kann wegen unerfüllten Bibliotheksabhängigkeiten von gethostbyname fehlschlagen. Wenn dies der Fall
-    ist, führen Sie folgenden Befehl vor configure aus:</para>
+    <important>
+      <para>Das Kompilieren auf Solaris kann wegen unerfüllten Bibliotheksabhängigkeiten von gethostbyname fehlschlagen. Wenn dies der Fall
+      ist, führen Sie folgenden Befehl vor configure aus:</para>
 
-    <programlisting> #&gt; export LIBS=-lsocket -lnsl</programlisting>
-  </important>
+      <programlisting> #&gt; export LIBS=-lsocket -lnsl</programlisting>
+    </important>
 
-  <note>
-    <para>Auch mit <emphasis role="bold">&name-postgres;</emphasis> sollten Sie nicht den Parameter <literal>--enable-pgsq</literal>
-    verwenden, denn dieser wird noch nicht unterstützt.</para>
-  </note>
+    <note>
+      <para>Auch mit <emphasis role="bold">&name-postgres;</emphasis> sollten Sie nicht den Parameter <literal>--enable-pgsq</literal>
+      verwenden, denn dieser wird noch nicht unterstützt.</para>
+    </note>
 
-  <para><emphasis role="bold">Mit <emphasis role="bold">SSL</emphasis>-Verschlüsselung:</emphasis></para>
+    <itemizedlist>
+      <listitem>
+        <para><emphasis role="bold">Mit <emphasis role="bold">SSL</emphasis>-Verschlüsselung:</emphasis></para>
 
-  <para><programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils --enable-ssl</programlisting></para>
+        <para><programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils --enable-ssl</programlisting></para>
+      </listitem>
 
-  <para><emphasis role="bold">Mit Oracle-Datenbankunterstützung:</emphasis></para>
+      <listitem>
+        <para><emphasis role="bold">Mit Oracle-Datenbankunterstützung:</emphasis></para>
 
-  <para><programlisting> #&gt; ./configure --with-command-group=icinga-cmd \
+        <para><programlisting> #&gt; ./configure --with-command-group=icinga-cmd \
     --enable-idoutils --enable-oracle</programlisting> Wenn Ihre Oracle Libraries nicht in der Path-Variablen enthalten sind, können Sie sie
-  im configure angeben: <programlisting> #&gt; ./configure --with-command-group=icinga-cmd \
+        im configure angeben: <programlisting> #&gt; ./configure --with-command-group=icinga-cmd \
     --enable-idoutils --enable-oracle \
     --with-oracle-lib=/path/to/instantclient</programlisting> Wenn Sie die ocilib nicht im Standardpfad (/usr/local) installiert haben,
-  können Sie configure die lib/inc Verzeichnisse angeben:<programlisting> #&gt; ./configure --with-command-group=icinga-cmd \
+        können Sie configure die lib/inc Verzeichnisse angeben:<programlisting> #&gt; ./configure --with-command-group=icinga-cmd \
     --enable-idoutils --enable-oracle \
     --with-ocilib-lib=/path/to/ocilib/lib --with-ocilib-inc=/path/to/ocilib/include</programlisting> <note>
-      <para>Wenn Sie von einer Oracle-Datenbank auf ein anderes RDBMS wechseln möchten, dann müssen Sie die &name-idoutils; erneut
-      kompilieren und installieren!</para>
-    </note> <programlisting> #&gt; make distclean
- #&gt; ./configure --enable-idoutils</programlisting></para>
+            <para>Wenn Sie von einer Oracle-Datenbank auf ein anderes RDBMS wechseln möchten, dann müssen Sie die &name-idoutils; erneut
+            kompilieren und installieren!</para>
+          </note> <screen> #&gt; make distclean
+ #&gt; ./configure --enable-idoutils</screen></para>
+      </listitem>
+    </itemizedlist>
+  </section>
 
-  <para><emphasis role="bold">Kompilieren und Installieren</emphasis></para>
+  <section>
+    <title><anchor xml:id="q_id-install"/>Kompilieren und Installieren</title>
 
-  <para>Kompilieren Sie den &name-icinga;-Source-Code. Es gibt auch eine extra Option für &name-idoutils; (<emphasis>make
-  idoutils</emphasis>), wenn Sie nur dieses Module erneut kompilieren möchten. Um mögliche Optionen zu sehen, rufen Sie lediglich "make"
-  auf.<programlisting> #&gt; make all</programlisting> Installieren Sie die Binaries, das Init-Script, Beispiel-Konfigurationsdateien und
-  setzen Sie die Berechtigungen für das External-Command-Verzeichnis. <programlisting> #&gt; make install 
+    <para>Kompilieren Sie den &name-icinga;-Source-Code. Es gibt auch eine extra Option für &name-idoutils; (<emphasis>make
+    idoutils</emphasis>), wenn Sie nur dieses Module erneut kompilieren möchten. Um mögliche Optionen zu sehen, rufen Sie lediglich "make"
+    auf.<programlisting> #&gt; make all</programlisting> Installieren Sie die Binaries, das Init-Script, Beispiel-Konfigurationsdateien und
+    setzen Sie die Berechtigungen für das External-Command-Verzeichnis. <programlisting> #&gt; make install 
  #&gt; make install-init 
  #&gt; make install-config 
  #&gt; make install-eventhandlers
  #&gt; make install-commandmode </programlisting> oder kürzer <programlisting> #&gt; make fullinstall
  #&gt; make install-config</programlisting></para>
 
-  <note>
-    <para>Ab &name-icinga; 1.5.0 ist <literal>make install-config</literal> NICHT mehr in <literal>make fullinstall </literal>enthalten, um
-    ein versehentliches Überschreiben der Konfigurationsdateien zu verhindern.</para>
-  </note>
+    <note>
+      <para>Ab &name-icinga; 1.5.0 ist <literal>make install-config</literal> NICHT mehr in <literal>make fullinstall </literal>enthalten,
+      um ein versehentliches Überschreiben der Konfigurationsdateien zu verhindern.</para>
+    </note>
 
-  <note>
-    <para>Ab &name-icinga; 1.7.0 werden mit <literal>make install-eventhandlers</literal> einige Beispiel-Eventhandler installiert. Das ist
-    lediglich in <literal>make fullinstall</literal> enthalten, um ein versehentliches Überschreiben der Dateien zu verhindern.</para>
-  </note>
+    <note>
+      <para>Ab &name-icinga; 1.7.0 werden mit <literal>make install-eventhandlers</literal> einige Beispiel-Eventhandler installiert. Das
+      ist lediglich in <literal>make fullinstall</literal> enthalten, um ein versehentliches Überschreiben der Dateien zu verhindern.</para>
+    </note>
 
-  <note>
-    <para>Installieren Sie die IDOUtils und andere Ereignis-Broker-Module nur mit dem primären Ziel <emphasis role="bold">make
-    instal</emphasis><emphasis role="bold">l</emphasis>. Manuelles Kopieren und Überschreiben des vorhandenen Moduls erzeugt einen Segfault
-    des Icinga-Kerns mit Hilfe von idomod.so, da eine Verwendung einer temporären Kopie explizit verhindert werden soll. Dies ist nützlich
-    für <link xlink:href="http://omdistro.org/">OMD</link></para>
-  </note>
+    <note>
+      <para>Installieren Sie die IDOUtils und andere Ereignis-Broker-Module nur mit dem primären Ziel <emphasis role="bold">make
+      instal</emphasis><emphasis role="bold">l</emphasis>. Manuelles Kopieren und Überschreiben des vorhandenen Moduls erzeugt einen
+      Segfault des Icinga-Kerns mit Hilfe von idomod.so, da eine Verwendung einer temporären Kopie explizit verhindert werden soll. Dies ist
+      nützlich für <link xlink:href="http://omdistro.org/">OMD</link></para>
+    </note>
 
-  <note>
-    <para>Die &name-icinga;-API diente als eine in PHP geschriebene Datenbank-Abstraktionsschicht. Seit &name-icinga; ist sie durch eine
-    interne Datenbank-Abstraktionsschicht ersetzt worden, so dass &name-icinga;-API nicht mehr installiert werden muss.</para>
-  </note>
+    <note>
+      <para>Die &name-icinga;-API diente als eine in PHP geschriebene Datenbank-Abstraktionsschicht. Seit &name-icinga; ist sie durch eine
+      interne Datenbank-Abstraktionsschicht ersetzt worden, so dass &name-icinga;-API nicht mehr installiert werden muss.</para>
+    </note>
 
-  <para>Bitte starten Sie &name-icinga; noch nicht - es gibt noch ein paar Dinge zu tun...</para>
+    <para>Bitte starten Sie &name-icinga; noch nicht - es gibt noch ein paar Dinge zu tun...</para>
+  </section>
 
-  <para><emphasis role="bold">Anpassen der Konfiguration</emphasis></para>
+  <section>
+    <title><anchor xml:id="q_id-customise"/>Anpassen der Konfiguration</title>
 
-  <para>Beispiel-Konfigurationsdateien werden durch <programlisting> #&gt; make install-config</programlisting>in &url-icinga-base;/etc/
-  installiert.</para>
+    <para>Beispiel-Konfigurationsdateien werden durch <programlisting> #&gt; make install-config</programlisting>in &url-icinga-base;/etc/
+    installiert.</para>
 
-  <para>Ändern Sie die <emphasis>&url-icinga-base;/etc/objects/contacts.cfg</emphasis>-Konfigurationsdatei mit Ihrem bevorzugten Editor und
-  passen die e-Mail-Adresse in der <emphasis>icingaadmin</emphasis>-Kontaktdefinition an, so dass sie die Adresse enthält, die im Falle von
-  Alarmen benachrichtigt werden soll.</para>
+    <para>Ändern Sie die <emphasis>&url-icinga-base;/etc/objects/contacts.cfg</emphasis>-Konfigurationsdatei mit Ihrem bevorzugten Editor
+    und passen die e-Mail-Adresse in der <emphasis>icingaadmin</emphasis>-Kontaktdefinition an, so dass sie die Adresse enthält, die im
+    Falle von Alarmen benachrichtigt werden soll.</para>
 
-  <programlisting> #&gt; vi &url-icinga-base;/etc/objects/contacts.cfg</programlisting>
+    <programlisting> #&gt; vi &url-icinga-base;/etc/objects/contacts.cfg</programlisting>
 
-  <programlisting> #&gt; cd &url-icinga-base;/etc
+    <programlisting> #&gt; cd &url-icinga-base;/etc
  #&gt; mv idomod.cfg-sample idomod.cfg
  #&gt; mv ido2db.cfg-sample ido2db.cfg</programlisting>
 
-  <para>Wenn Sie die &name-idoutils; mit ssl kompiliert haben, aktivieren Sie ssl in der <filename>idomod.cfg</filename> mit</para>
+    <para>Wenn Sie die &name-idoutils; mit ssl kompiliert haben, aktivieren Sie ssl in der <filename>idomod.cfg</filename> mit</para>
 
-  <programlisting> use_ssl=1
+    <programlisting> use_ssl=1
  output_type=tcpsocket
  output=127.0.0.1</programlisting>
 
-  <para>(Passen Sie die IP-Adresse an, wenn sich Ihre Datenbank nicht auf localhost befindet!) und der <filename>ido2db.cfg</filename>
-  mit</para>
+    <para>(Passen Sie die IP-Adresse an, wenn sich Ihre Datenbank nicht auf localhost befindet!) und der <filename>ido2db.cfg</filename>
+    mit</para>
 
-  <programlisting> use_ssl=1
+    <programlisting> use_ssl=1
  socket_type=tcp </programlisting>
 
-  <note>
-    <para>Vergessen Sie nicht, alle anderen idomod-Clients auch neu zu kompilieren und auf ssl umzustellen, <emphasis
-    role="bold">anderenfalls werden Sie Daten verlieren</emphasis>!!!</para>
-  </note>
+    <note>
+      <para>Vergessen Sie nicht, alle anderen idomod-Clients auch neu zu kompilieren und auf ssl umzustellen, <emphasis
+      role="bold">anderenfalls werden Sie Daten verlieren</emphasis>!!!</para>
+    </note>
+  </section>
 
-  <para><emphasis role="bold">Aktivieren des idomod-Eventbroker-Moduls</emphasis></para>
+  <section>
+    <title><anchor xml:id="q_id-module"/>Aktivieren des idomod-Eventbroker-Moduls</title>
 
-  <important>
-    <para>Unter normalen Umständen gibt es im <filename>modules</filename>-Unterverzeichnis bereits die folgende module-Definition, so dass
-    Sie keine Änderungen an der Hauptkonfigurationsdatei vornehmen müssen. <screen> define module{
+    <important>
+      <para>Unter normalen Umständen gibt es im <filename>modules</filename>-Unterverzeichnis bereits die folgende module-Definition, so
+      dass Sie keine Änderungen an der Hauptkonfigurationsdatei vornehmen müssen. <screen> define module{
         module_name    ido_mod
         path           &url-icinga-base;/lib/idomod.so
         module_type    neb
         args           config_file=&url-icinga-base;/etc/idomod.cfg
         }</screen> Das bedeutet auch, dass ein entsprechender broker_module-Eintrag nicht aktiviert werden darf!</para>
-  </important>
+    </important>
+  </section>
 
-  <itemizedlist>
-    <listitem>
-      <para><emphasis role="bold">&name-mysql;:</emphasis></para>
+  <section>
+    <title><anchor xml:id="q_id-create_db"/>Anlegen und konfigurieren von Datenbank, Benutzer und Berechtigungen</title>
 
-      <para><emphasis>Anlegen und konfigurieren von Datenbank, Benutzer und Berechtigungen</emphasis></para>
+    <note>
+      <para>Wenn Sie wie weiter oben beschrieben das Datenbanksystem neu installiert haben, dann müssen Sie den Datenbank-Server starten,
+      bevor Sie eine Datenbank anlegen können. Im Falle von MySQL erfolgt der Start z.B. mit <code>/etc/init.d/mysqld start</code> (oder
+      <code>/etc/init.d/mysql</code>, abhängig von Ihrer Distribution).</para>
+    </note>
 
-      <note>
-        <para>Wenn Sie wie weiter oben beschrieben das Datenbanksystem neu installiert haben, dann müssen Sie den Datenbank-Server starten,
-        bevor Sie eine Datenbank anlegen können. Im Falle von MySQL erfolgt der Start z.B. mit <code>/etc/init.d/mysqld start</code> (oder
-        <code>/etc/init.d/mysql</code>, abhängig von Ihrer Distribution).</para>
-      </note>
+    <itemizedlist>
+      <listitem>
+        <para><emphasis role="bold">&name-mysql;:</emphasis></para>
 
-      <programlisting> #&gt; mysql -u root -p
+        <para>Anlegen von Datenbank, Benutzer und Berechtigungen:</para>
+
+        <programlisting> #&gt; mysql -u root -p
   
  mysql&gt; CREATE DATABASE icinga;
   
@@ -561,27 +609,31 @@
 
  quit</programlisting>
 
-      <note>
-        <para>Ab &name-icinga; 1.8 benötigt der icinga-User zusätzlich die Rechte EXECUTE.</para>
-      </note>
+        <note>
+          <para>Ab &name-icinga; 1.8 benötigt der icinga-User zusätzlich die Rechte EXECUTE.</para>
+        </note>
 
-      <programlisting> #&gt; cd /path/to/icinga-src/module/idoutils/db/mysql
+        <para>Importieren des Datenbankschemas für &name-mysql;:</para>
+
+        <programlisting> #&gt; cd /path/to/icinga-src/module/idoutils/db/mysql
  #&gt; mysql -u root -p icinga &lt; mysql.sql</programlisting>
 
-      <programlisting> #&gt; vi &url-icinga-base;/etc/ido2db.cfg
-  
- db_servertype=mysql
+        <para>Editieren der DB-Konfigurationsdatei, um die &name-idoutils; anzupassen</para>
+
+        <screen> #&gt; vi &url-icinga-base;/etc/ido2db.cfg</screen>
+
+        <programlisting> db_servertype=mysql
  db_port=3306
  db_user=icinga
  db_pass=icinga</programlisting>
-    </listitem>
+      </listitem>
 
-    <listitem>
-      <para><emphasis role="bold">&name-postgres;:</emphasis></para>
+      <listitem>
+        <para><emphasis role="bold">&name-postgres;:</emphasis></para>
 
-      <para><emphasis>Anlegen von Datenbank und Benutzer</emphasis></para>
+        <para>Anlegen von Datenbank und Benutzer</para>
 
-      <programlisting> #&gt; su - postgres
+        <programlisting> #&gt; su - postgres
  
  $ psql
  postgres=# CREATE USER icinga;
@@ -590,19 +642,25 @@
  postgres=# \q
  $ createlang plpgsql icinga;</programlisting>
 
-      <para>Beginnend mit &name-postgres; 9.1 ist "createlang ..." obsolet.</para>
+        <para>Beginnend mit &name-postgres; 9.1 ist "createlang ..." obsolet.</para>
 
-      <para><emphasis role="bold">&name-debian;:</emphasis></para>
+        <itemizedlist>
+          <listitem>
+            <para><emphasis role="bold">&name-debian;:</emphasis></para>
 
-      <programlisting> #&gt; vi /etc/postgresql/8.x/main/pg_hba.conf</programlisting>
+            <programlisting> #&gt; vi /etc/postgresql/8.x/main/pg_hba.conf</programlisting>
+          </listitem>
 
-      <para><emphasis role="bold">&name-fedora; / &name-redhat; / &name-centos;:</emphasis></para>
+          <listitem>
+            <para><emphasis role="bold">&name-fedora; / &name-redhat; / &name-centos;:</emphasis></para>
 
-      <programlisting> #&gt; vi /var/lib/pgsql/data/pg_hba.conf</programlisting>
+            <programlisting> #&gt; vi /var/lib/pgsql/data/pg_hba.conf</programlisting>
+          </listitem>
+        </itemizedlist>
 
-      <para>Editieren Sie die Konfiguration z.B. wie folgt (dem lokalen Benutzer muss vertraut werden)</para>
+        <para>Editieren Sie die Konfiguration z.B. wie folgt (dem lokalen Benutzer muss vertraut werden)</para>
 
-      <programlisting> # database administrative login by UNIX sockets
+        <programlisting> # database administrative login by UNIX sockets
  local    all        postgres                  ident
  # TYPE   DATABASE   USER       CIDR-ADDRESS   METHOD 
  #icinga
@@ -614,272 +672,283 @@
  # IPV6 local connections
  host     all        all        ::1/128        trust</programlisting>
 
-      <para>Neuladen und konfigurieren des Datenbankschemas</para>
+        <para>Neuladen und konfigurieren des Datenbankschemas</para>
 
-      <programlisting> #&gt; /etc/init.d/postgresql-8.x reload</programlisting>
+        <programlisting> #&gt; /etc/init.d/postgresql-8.x reload</programlisting>
 
-      <programlisting> #&gt; cd /path/to/icinga-src/module/idoutils/db/pgsql/
+        <programlisting> #&gt; cd /path/to/icinga-src/module/idoutils/db/pgsql/
  #&gt; psql -U icinga -d icinga &lt; pgsql.sql</programlisting>
 
-      <para>Editieren der DB-Konfigurationsdatei, um die &name-idoutils; anzupassen</para>
+        <para>Editieren der DB-Konfigurationsdatei, um die &name-idoutils; anzupassen</para>
 
-      <programlisting> #&gt; vi /usr/local/icinga/etc/ido2db.cfg
- db_servertype=pgsql
+        <screen> #&gt; vi /usr/local/icinga/etc/ido2db.cfg</screen>
+
+        <programlisting> db_servertype=pgsql
  db_port=5432
  db_user=icinga
  db_pass=icinga</programlisting>
-    </listitem>
+      </listitem>
 
-    <listitem>
-      <para><emphasis role="bold">Oracle:</emphasis></para>
+      <listitem>
+        <para><emphasis role="bold">Oracle:</emphasis></para>
 
-      <para>Erstellen Sie ein Datenbank-Schema und eine username/password-Kombination (lesen Sie dazu die Oracle-Dokumentation unter
-      &url-oracle; oder fragen Sie Ihren DBA). Importieren Sie das Datenbank-Schema mit sqlplus (oder Ihrer bevorzugten Methode). Kopieren
-      Sie <filename>module/idoutils/db/oracle/*</filename> nach $ORACLE_HOME und ändern Sie in <filename>icinga_defines.sql</filename> die
-      Werte zu Tablespace-Namen und Benutzerdaten.</para>
+        <para>Erstellen Sie ein Datenbank-Schema und eine username/password-Kombination (lesen Sie dazu die Oracle-Dokumentation unter
+        &url-oracle; oder fragen Sie Ihren DBA). Importieren Sie das Datenbank-Schema mit sqlplus (oder Ihrer bevorzugten Methode). Kopieren
+        Sie <filename>module/idoutils/db/oracle/*</filename> nach $ORACLE_HOME und ändern Sie in <filename>icinga_defines.sql</filename> die
+        Werte zu Tablespace-Namen und Benutzerdaten.</para>
 
-      <programlisting> #&gt; su - oracle
+        <programlisting> #&gt; su - oracle
  $ sqlplus dbuser/dbpass
  SQL&gt; @oracle.sql</programlisting>
 
-      <para>Editieren Sie das DB-Config-File, um die &name-idoutils; anzupassen. Denken Sie daran, dass Oracle den DB-Host ignoriert, nutzen
-      Sie statt dessen db_name, um auf //DBSERVER/DBNAME zu verweisen</para>
+        <para>Editieren Sie das DB-Config-File, um die &name-idoutils; anzupassen. Denken Sie daran, dass Oracle den DB-Host ignoriert,
+        nutzen Sie statt dessen db_name, um auf //DBSERVER/DBNAME zu verweisen</para>
 
-      <programlisting> #&gt; vi /usr/local/icinga/etc/ido2db.cfg
-  db_servertype=oracle
+        <screen> #&gt; vi /usr/local/icinga/etc/ido2db.cfg</screen>
+
+        <programlisting>  db_servertype=oracle
   db_port=1521
   db_user=icinga
   db_pass=icinga</programlisting>
-    </listitem>
-  </itemizedlist>
+      </listitem>
+    </itemizedlist>
+  </section>
 
-  <para><emphasis role="bold">Installieren und konfigurieren des klassischen Web-Interface</emphasis></para>
+  <section>
+    <title><anchor xml:id="q_id-configure_classic"/>Installieren und konfigurieren des klassischen Web-Interface</title>
 
-  <para>Icinga stellt das klassische Web-Interface zur Verfügung ("Classic Web", "die CGIs"). Sie können dieses wie folgt
-  installieren:</para>
+    <para>Icinga stellt das klassische Web-Interface zur Verfügung ("Classic Web", "die CGIs"). Sie können dieses wie folgt
+    installieren:</para>
 
-  <programlisting> #&gt; cd /path/to/icinga-src
+    <programlisting> #&gt; cd /path/to/icinga-src
  #&gt; make cgis
  #&gt; make install-cgis
  #&gt; make install-html</programlisting>
 
-  <para>Wenn Sie (zusätzlich) das neue Icinga-Web installieren wollen, lesen Sie bitte <link linkend="icinga-web-scratch">Installation des
-  Web-Interface</link>.</para>
+    <para>Wenn Sie (zusätzlich) das neue Icinga-Web installieren wollen, lesen Sie bitte <link linkend="icinga-web-scratch">Installation des
+    Web-Interface</link>.</para>
 
-  <para>Installieren Sie die &name-icinga;-Web-Konfigurationsdatei im &name-apache; conf.d-Verzeichnis.</para>
+    <para>Installieren Sie die &name-icinga;-Web-Konfigurationsdatei im &name-apache; conf.d-Verzeichnis.</para>
 
-  <programlisting> #&gt; cd /path/to/icinga-src
+    <programlisting> #&gt; cd /path/to/icinga-src
  #&gt; make install-webconf</programlisting>
 
-  <para>Legen Sie ein <emphasis>icingaadmin</emphasis>-Konto an, um sich am klassischen Web-Interface anmelden zu können. Merken Sie sich
-  das Passwort, das Sie diesem Konto geben - Sie brauchen es später.</para>
+    <para>Legen Sie ein <emphasis>icingaadmin</emphasis>-Konto an, um sich am klassischen Web-Interface anmelden zu können. Merken Sie sich
+    das Passwort, das Sie diesem Konto geben - Sie brauchen es später.</para>
 
-  <screen> #&gt; htpasswd -c &url-icinga-base;/etc/htpasswd.users icingaadmin</screen>
+    <screen> #&gt; htpasswd -c &url-icinga-base;/etc/htpasswd.users icingaadmin</screen>
 
-  <note>
-    <para>Abhängig von der Apache-Version müssen Sie ggf. <emphasis>htpasswd2 verwenden.</emphasis></para>
-  </note>
+    <note>
+      <para>Abhängig von der Apache-Version müssen Sie ggf. <emphasis>htpasswd2 verwenden.</emphasis></para>
+    </note>
 
-  <para>Wenn Sie das Passwort später ändern oder einen weiteren Benutzer hinzufügen möchten, verwenden Sie den folgenden Befehl:</para>
+    <para>Wenn Sie das Passwort später ändern oder einen weiteren Benutzer hinzufügen möchten, verwenden Sie den folgenden Befehl:</para>
 
-  <programlisting> #&gt; htpasswd &url-icinga-base;/etc/htpasswd.users &lt;USERNAME&gt;</programlisting>
+    <programlisting> #&gt; htpasswd &url-icinga-base;/etc/htpasswd.users &lt;USERNAME&gt;</programlisting>
 
-  <para>Starten Sie &name-apache; neu, damit die Änderungen wirksam werden.</para>
+    <para>Starten Sie &name-apache; neu, damit die Änderungen wirksam werden.</para>
 
-  <para><emphasis role="bold">&name-fedora; / &name-rhel; / &name-centos;</emphasis>:</para>
+    <itemizedlist>
+      <listitem>
+        <para><emphasis role="bold">&name-fedora; / &name-rhel; / &name-centos;</emphasis>:</para>
 
-  <programlisting> #&gt; service httpd restart</programlisting>
+        <programlisting> #&gt; service httpd restart</programlisting>
+      </listitem>
 
-  <para><emphasis role="bold">&name-ubuntu; / &name-opensuse;:</emphasis></para>
+      <listitem>
+        <para><emphasis role="bold">&name-ubuntu; / &name-opensuse;:</emphasis></para>
 
-  <programlisting> #&gt; service apache2 restart</programlisting>
+        <programlisting> #&gt; service apache2 restart</programlisting>
+      </listitem>
 
-  <para><emphasis role="bold">&name-debian;:</emphasis></para>
+      <listitem>
+        <para><emphasis role="bold">&name-debian;:</emphasis></para>
 
-  <programlisting> #&gt; /etc/init.d/apache2 reload</programlisting>
+        <programlisting> #&gt; /etc/init.d/apache2 reload</programlisting>
+      </listitem>
+    </itemizedlist>
 
-  <note>
-    <para>Prüfen Sie die Implementierung der verbesserten CGI-Sicherheitsmaßnahmen wie <link linkend="cgisecurity">hier</link> beschrieben,
-    um sicherzustellen, dass Ihre Web-Authentifizierungsinformationen nicht kompromittiert werden.</para>
-  </note>
+    <note>
+      <para>Prüfen Sie die Implementierung der verbesserten CGI-Sicherheitsmaßnahmen wie <link linkend="cgisecurity">hier</link>
+      beschrieben, um sicherzustellen, dass Ihre Web-Authentifizierungsinformationen nicht kompromittiert werden.</para>
+    </note>
+  </section>
 
-  <para><emphasis role="bold">Kompilieren und installieren der &name-nagios;-Plugins</emphasis></para>
+  <section>
+    <title><anchor xml:id="compile_plugins"/>Kompilieren und installieren der &name-nagios;-Plugins</title>
 
-  <para>Entpacken Sie die &name-nagios;-Plugins-Quellcode-Archivdatei.</para>
+    <para>Entpacken Sie die &name-nagios;-Plugins-Quellcode-Archivdatei.</para>
 
-  <screen> #&gt; cd /usr/src
+    <screen> #&gt; cd /usr/src
  #&gt; tar xzf nagios-plugins-&ver-nagiosplug;.tar.gz
  #&gt; cd nagios-plugins-&ver-nagiosplug;</screen>
 
-  <para>Kompilieren und installieren Sie die Plugins.</para>
+    <para>Kompilieren und installieren Sie die Plugins.</para>
 
-  <screen> #&gt; ./configure --prefix=/usr/local/icinga --with-cgiurl=/icinga/cgi-bin \
+    <screen> #&gt; ./configure --prefix=/usr/local/icinga --with-cgiurl=/icinga/cgi-bin \
     --with-htmurl=/icinga --with-nagios-user=icinga --with-nagios-group=icinga
  #&gt; make
  #&gt; make install</screen>
+  </section>
 
-  <para><emphasis role="bold">Anpassen der SE&name-linux;-Einstellungen</emphasis></para>
+  <section>
+    <title><anchor xml:id="q_id-selinux"/>Anpassen der SE&name-linux;-Einstellungen</title>
 
-  <para>&name-rhel; und ähnliche Distributionen wie &name-fedora; oder &name-centos; werden mit installiertem SE&name-linux; (Security
-  Enhanced &name-linux;) ausgeliefert und laufen im "Enforcing"-Modus. Dies kann zu "Internal Server Error"-Fehlern führen, wenn Sie
-  versuchen, die &name-icinga;-CGIs aufzurufen.</para>
+    <para>&name-rhel; und ähnliche Distributionen wie &name-fedora; oder &name-centos; werden mit installiertem SE&name-linux; (Security
+    Enhanced &name-linux;) ausgeliefert und laufen im "Enforcing"-Modus. Dies kann zu "Internal Server Error"-Fehlern führen, wenn Sie
+    versuchen, die &name-icinga;-CGIs aufzurufen.</para>
 
-  <para>Schauen Sie, ob SE&name-linux; im Enforcing-Modus läuft.</para>
+    <para>Schauen Sie, ob SE&name-linux; im Enforcing-Modus läuft.</para>
 
-  <screen> #&gt; getenforce</screen>
+    <screen> #&gt; getenforce</screen>
 
-  <para>Setzen Sie SE&name-linux; in den "Permissive"-Modus.</para>
+    <para>Setzen Sie SE&name-linux; in den "Permissive"-Modus.</para>
 
-  <screen> #&gt; setenforce 0</screen>
+    <screen> #&gt; setenforce 0</screen>
 
-  <para>Damit diese Änderung dauerhaft wird, müssen Sie diese Einstellung in <emphasis>/etc/selinux/config</emphasis> anpassen und das
-  System neustarten.</para>
+    <para>Damit diese Änderung dauerhaft wird, müssen Sie diese Einstellung in <emphasis>/etc/selinux/config</emphasis> anpassen und das
+    System neustarten.</para>
 
-  <para>Statt SE&name-linux; zu deaktivieren oder es in den Permissive-Modus zu versetzen, können Sie den folgenden Befehl benutzen, um die
-  CGIs im Enforcing/Targeted-Modus laufen zu lassen:</para>
+    <para>Statt SE&name-linux; zu deaktivieren oder es in den Permissive-Modus zu versetzen, können Sie den folgenden Befehl benutzen, um
+    die CGIs im Enforcing/Targeted-Modus laufen zu lassen:</para>
 
-  <programlisting> #&gt; chcon -R -t httpd_sys_script_exec_t &url-icinga-base;/sbin/
+    <programlisting> #&gt; chcon -R -t httpd_sys_script_exec_t &url-icinga-base;/sbin/
  #&gt; chcon -R -t httpd_sys_content_t &url-icinga-base;/share/
  #&gt; chcon -t httpd_sys_script_rw_t &url-icinga-base;/var/rw/icinga.cmd</programlisting>
 
-  <para>Besuchen Sie das &name-nagios;Community.org-Wiki unter <link
-  xlink:href="http://www.nagioscommunity.org/wiki">&url-nagios-community;</link>, um Informationen darüber zu erhalten, wie die
-  &name-icinga;-CGIs im Enforcing-Modus mit einer Targeted-Richtlinie ausgeführt werden.</para>
+    <para>Besuchen Sie das &name-nagios;Community.org-Wiki unter <link
+    xlink:href="http://www.nagioscommunity.org/wiki">&url-nagios-community;</link>, um Informationen darüber zu erhalten, wie die
+    &name-icinga;-CGIs im Enforcing-Modus mit einer Targeted-Richtlinie ausgeführt werden.</para>
+  </section>
 
-  <para><emphasis role="bold">&name-idoutils; und &name-icinga; starten</emphasis></para>
+  <section>
+    <title><anchor xml:id="q_id-start"/>&name-idoutils; und &name-icinga; starten</title>
 
-  <para>&name-idoutils; muss vor &name-icinga; gestartet werden</para>
+    <para>&name-idoutils; muss vor &name-icinga; gestartet werden</para>
 
-  <para><emphasis role="bold">&name-idoutils; starten</emphasis></para>
+    <para><emphasis role="bold">&name-idoutils; starten</emphasis></para>
 
-  <para><emphasis role="bold">&name-fedora; / &name-opensuse;/&name-ubuntu;:</emphasis></para>
+    <itemizedlist>
+      <listitem>
+        <para><emphasis role="bold">&name-fedora; / &name-opensuse;/&name-ubuntu;:</emphasis></para>
 
-  <programlisting> #&gt; service ido2db start</programlisting>
+        <programlisting> #&gt; service ido2db start</programlisting>
+      </listitem>
 
-  <para><emphasis role="bold">&name-debian;:</emphasis></para>
+      <listitem>
+        <para><emphasis role="bold">&name-debian;:</emphasis></para>
 
-  <programlisting> #&gt; /etc/init.d/ido2db start </programlisting>
+        <programlisting> #&gt; /etc/init.d/ido2db start</programlisting>
+      </listitem>
+    </itemizedlist>
 
-  <para><emphasis role="bold">&name-idoutils; beenden</emphasis></para>
+    <para><emphasis role="bold">&name-idoutils; beenden</emphasis></para>
 
-  <para><emphasis role="bold">&name-fedora; / &name-opensuse;/&name-ubuntu;:</emphasis></para>
+    <itemizedlist>
+      <listitem>
+        <para><emphasis role="bold">&name-fedora; / &name-opensuse;/&name-ubuntu;:</emphasis></para>
 
-  <programlisting> #&gt; service ido2db stop</programlisting>
+        <programlisting> #&gt; service ido2db stop</programlisting>
+      </listitem>
 
-  <para><emphasis role="bold">&name-debian;:</emphasis></para>
+      <listitem>
+        <para><emphasis role="bold">&name-debian;:</emphasis></para>
 
-  <programlisting> #&gt; /etc/init.d/ido2db stop</programlisting>
+        <programlisting> #&gt; /etc/init.d/ido2db stop</programlisting>
+      </listitem>
+    </itemizedlist>
 
-  <para><emphasis role="bold">Automatischer Start von &name-idoutils;</emphasis></para>
+    </section><section><title><anchor xml:id="q_id-configure_startup"/>Automatischer Start von &name-idoutils;</title>
 
-  <para>Fügen Sie &name-idoutils; zu der Liste der System-Services hinzu und sorgen Sie für einen automatischen Start, wenn das System
-  hochfährt (stellen Sie sicher, dass Sie vorher das Init-Script installiert haben).</para>
+    <para>Fügen Sie &name-idoutils; zu der Liste der System-Services hinzu und sorgen Sie für einen automatischen Start, wenn das System
+    hochfährt (stellen Sie sicher, dass Sie vorher das Init-Script installiert haben).</para>
 
-  <para><emphasis role="bold">&name-fedora; / &name-opensuse;:</emphasis></para>
+    <para><emphasis role="bold">&name-fedora; / &name-opensuse;:</emphasis></para>
 
-  <programlisting> #&gt; chkconfig --add ido2db
+    <programlisting> #&gt; chkconfig --add ido2db
  #&gt; chkconfig ido2db on </programlisting>
 
-  <para><emphasis role="bold">&name-debian; / &name-ubuntu;:</emphasis> <programlisting> #&gt; update-rc.d ido2db defaults</programlisting>
-  <emphasis role="bold">&name-icinga; starten:</emphasis></para>
+    <para><emphasis role="bold">&name-debian; / &name-ubuntu;:</emphasis> <programlisting> #&gt; update-rc.d ido2db defaults</programlisting>
+    <emphasis role="bold">&name-icinga; starten:</emphasis></para>
 
-  <para><emphasis role="bold">Start von &name-icinga;</emphasis></para>
+    <para><emphasis role="bold">Start von &name-icinga;</emphasis></para>
 
-  <para>Überprüfen Sie die &name-icinga;-Beispielkonfigurationsdateien.</para>
+    <para>Überprüfen Sie die &name-icinga;-Beispielkonfigurationsdateien.</para>
 
-  <programlisting> #&gt; &url-icinga-bin; -v &url-icinga-cfg;</programlisting>
+    <programlisting> #&gt; &url-icinga-bin; -v &url-icinga-cfg;</programlisting>
 
-  <para>Wenn es dabei keine Fehler gibt, starten Sie &name-icinga;.</para>
+    <para>Wenn es dabei keine Fehler gibt, starten Sie &name-icinga;.</para>
 
-  <para><emphasis role="bold">&name-fedora; / &name-opensuse;/&name-ubuntu;:</emphasis></para>
+    <para><emphasis role="bold">&name-fedora; / &name-opensuse;/&name-ubuntu;:</emphasis></para>
 
-  <programlisting> #&gt; service icinga start</programlisting>
+    <programlisting> #&gt; service icinga start</programlisting>
 
-  <para><emphasis role="bold">&name-debian;:</emphasis></para>
+    <para><emphasis role="bold">&name-debian;:</emphasis></para>
 
-  <programlisting> #&gt; /etc/init.d/icinga start</programlisting>
+    <programlisting> #&gt; /etc/init.d/icinga start</programlisting>
 
-  <para><emphasis role="bold">Automatischer Start von &name-icinga;</emphasis></para>
+    <para><emphasis role="bold">Automatischer Start von &name-icinga;</emphasis></para>
 
-  <para>Fügen Sie &name-icinga; zu der Liste der System-Services hinzu und sorgen Sie für einen automatischen Start, wenn das System
-  hochfährt (stellen Sie sicher, dass Sie vorher das Init-Script installiert haben).</para>
+    <para>Fügen Sie &name-icinga; zu der Liste der System-Services hinzu und sorgen Sie für einen automatischen Start, wenn das System
+    hochfährt (stellen Sie sicher, dass Sie vorher das Init-Script installiert haben).</para>
 
-  <para><emphasis role="bold">&name-fedora; / &name-opensuse;:</emphasis></para>
+    <para><emphasis role="bold">&name-fedora; / &name-opensuse;:</emphasis></para>
 
-  <programlisting> #&gt; chkconfig --add icinga 
+    <programlisting> #&gt; chkconfig --add icinga 
  #&gt; chkconfig icinga on </programlisting>
 
-  <para><emphasis role="bold">&name-debian; / &name-ubuntu;:</emphasis></para>
+    <para><emphasis role="bold">&name-debian; / &name-ubuntu;:</emphasis></para>
 
-  <programlisting> #&gt; update-rc.d icinga defaults</programlisting>
+    <programlisting> #&gt; update-rc.d icinga defaults</programlisting>
+  </section>
 
-  <para><emphasis role="bold">Anpassen der SE&name-linux;-Einstellungen</emphasis></para>
+  <section>
+    <title><anchor xml:id="q_id-login_classic"/>Anmelden am klassischen Web-Interface</title>
 
-  <para>&name-fedora; wird mit installiertem SE&name-linux; (Security Enhanced &name-linux;) ausgeliefert und läuft im "Enforcing"-Modus.
-  Dies kann zu "Internal Server Error"-Fehlern führen, wenn Sie versuchen, die &name-icinga;-CGIs aufzurufen.</para>
+    <para>Sie sollten nun auf das klassische &name-icinga;-Web-Interface zugreifen können. Sie werden nach dem Benutzernamen
+    (<emphasis>nagiosadmin</emphasis>) und Passwort gefragt, das Sie vorhin angegeben haben.</para>
 
-  <para>Schauen Sie, ob SE&name-linux; im Enforcing-Modus läuft.</para>
+    <screen> http://localhost/icinga/</screen>
 
-  <screen> #&gt; getenforce</screen>
+    <para>oder</para>
 
-  <para>Setzen Sie SE&name-linux; in den "Permissive"-Modus.</para>
+    <programlisting> http://yourdomain.com/icinga/</programlisting>
 
-  <screen> #&gt; setenforce 0</screen>
+    <para>Klicken Sie auf den "Service Detail"-Verweis in der Navigationsleiste, um Details darüber zu erhalten, was auf Ihrer lokalen
+    Maschine überwacht wird. Es wird ein paar Minuten dauern, bis &name-icinga; alle mit Ihrer Maschine verbundenen Services geprüft hat,
+    weil die Prüfungen über eine gewisse Zeit verteilt werden.</para>
+  </section>
 
-  <para>Damit diese Änderung dauerhaft wird, müssen Sie diese Einstellung in <emphasis>/etc/selinux/config</emphasis> anpassen und das
-  System neustarten.</para>
+  <section>
+    <title><anchor xml:id="q_id-other_mods"/>Andere Anpassungen</title>
 
-  <para>Statt SE&name-linux; zu deaktivieren oder es in den Permissive-Modus zu versetzen, können Sie den folgenden Befehl benutzen, um die
-  CGIs im Enforcing/Targeted-Modus laufen zu lassen:</para>
+    <para>Stellen Sie sicher, dass die Firewall-Einstellungen Ihrer Maschine einen Zugriff auf das klassische Web-Interface ermöglichen,
+    wenn Sie von anderen Rechnern darauf zugreifen wollen.</para>
 
-  <screen> #&gt; chcon -R -t httpd_sys_content_t &url-icinga-base;/sbin/
- #&gt; chcon -R -t httpd_sys_content_t &url-icinga-base;/share/</screen>
+    <programlisting> #&gt; iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT</programlisting>
 
-  <para>Besuchen Sie das NagiosCommunity.org-Wiki unter <link
-  xlink:href="http://www.nagioscommunity.org/wiki">&url-nagios-community;</link>, um Informationen darüber zu erhalten, wie die
-  &name-icinga;-CGIs im Enforcing-Modus mit einer Targeted-Richtlinie ausgeführt werden.</para>
+    <para>Die Konfiguration von e-Mail-Benachrichtigungen ist nicht Gegenstand dieser Anleitung. &name-icinga; ist konfiguriert, um
+    e-Mail-Benachrichtigungen zu versenden, aber möglicherweise ist auf Ihrem System noch kein Mail-Programm installiert bzw. konfiguriert.
+    Schauen Sie in Ihre Systemdokumentation, suchen Sie im Web oder gucken Sie im <link xlink:href="http://www.nagioscommunity.org/wiki">
+    NagiosCommunity.org-Wiki</link> nach genauen Anweisungen, wie Ihr System konfiguriert werden muss, damit es e-Mail-Mitteilungen an
+    externe Adressen versendet. Mehr Informationen zu Benachrichtigungen finden Sie <link linkend="notifications">hier</link></para>
+  </section>
 
-  <para><emphasis role="bold">Anmelden am klassischen Web-Interface</emphasis></para>
+  <section>
+    <title><anchor xml:id="q_id-done"/>Fertig</title>
 
-  <para>Sie sollten nun auf das klassische &name-icinga;-Web-Interface zugreifen können. Sie werden nach dem Benutzernamen
-  (<emphasis>nagiosadmin</emphasis>) und Passwort gefragt, das Sie vorhin angegeben haben.</para>
+    <para>Glückwunsch! Sie haben erfolgreich &name-icinga; installiert. Ihre Reise in die Überwachung hat gerade begonnen. Sie werden ohne
+    Zweifel mehr als nur Ihre lokale Maschine überwachen wollen, so dass Sie u.a. das folgende <link linkend="ch02">Kapitel </link> lesen
+    sollten...</para>
 
-  <screen> http://localhost/icinga/</screen>
+    <indexterm zone="quickstart-idoutils">
+      <primary>Quickstart</primary>
 
-  <para>oder</para>
+      <secondary>&name-icinga; mit &name-idoutils;</secondary>
+    </indexterm>
 
-  <programlisting> http://yourdomain.com/icinga/</programlisting>
-
-  <para>Klicken Sie auf den "Service Detail"-Verweis in der Navigationsleiste, um Details darüber zu erhalten, was auf Ihrer lokalen
-  Maschine überwacht wird. Es wird ein paar Minuten dauern, bis &name-icinga; alle mit Ihrer Maschine verbundenen Services geprüft hat, weil
-  die Prüfungen über eine gewisse Zeit verteilt werden.</para>
-
-  <para><emphasis role="bold">Andere Anpassungen:</emphasis></para>
-
-  <para>Stellen Sie sicher, dass die Firewall-Einstellungen Ihrer Maschine einen Zugriff auf das klassische Web-Interface ermöglichen, wenn
-  Sie von anderen Rechnern darauf zugreifen wollen.</para>
-
-  <programlisting> #&gt; iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT</programlisting>
-
-  <para>Die Konfiguration von e-Mail-Benachrichtigungen ist nicht Gegenstand dieser Anleitung. &name-icinga; ist konfiguriert, um
-  e-Mail-Benachrichtigungen zu versenden, aber möglicherweise ist auf Ihrem System noch kein Mail-Programm installiert bzw. konfiguriert.
-  Schauen Sie in Ihre Systemdokumentation, suchen Sie im Web oder gucken Sie im <link xlink:href="http://www.nagioscommunity.org/wiki">
-  NagiosCommunity.org-Wiki</link> nach genauen Anweisungen, wie Ihr System konfiguriert werden muss, damit es e-Mail-Mitteilungen an externe
-  Adressen versendet. Mehr Informationen zu Benachrichtigungen finden Sie <link linkend="notifications">hier</link></para>
-
-  <para><emphasis role="bold">Fertig</emphasis></para>
-
-  <para>Glückwunsch! Sie haben erfolgreich &name-icinga; installiert. Ihre Reise in die Überwachung hat gerade begonnen. Sie werden ohne
-  Zweifel mehr als nur Ihre lokale Maschine überwachen wollen, so dass Sie u.a. das folgende <link linkend="ch02">Kapitel </link> lesen
-  sollten...</para>
-
-  <indexterm zone="quickstart-idoutils">
-    <primary>Quickstart</primary>
-
-    <secondary>&name-icinga; mit &name-idoutils;</secondary>
-  </indexterm>
-
-  <indexterm zone="quickstart-idoutils_timezone-support">
-    <primary>&name-idoutils; / Zeitzonen-Unterstützung</primary>
-  </indexterm>
+    <indexterm zone="quickstart-idoutils_timezone-support">
+      <primary>&name-idoutils; / Zeitzonen-Unterstützung</primary>
+    </indexterm>
+  </section>
 </section>
