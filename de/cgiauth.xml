@@ -8,15 +8,15 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>Authentifizierung und Autorisierung in den CGIs</title>
 
-  <section>
+  <section id="introduction">
     <title>Einführung</title>
 
     <para>Dieses Dokument beschreibt, wie die &name-icinga;-CGIs entscheiden, wer die Überwachungs- und Konfigurationsinformationen sehen
     darf und wer über das Web-Interface Befehle an den &name-icinga;-Daemon erteilen darf.</para>
   </section>
 
-  <section>
-    <title><anchor xml:id="cgiauth-definitions"/>Definitionen</title>
+  <section id="definitionsicgiauth">
+    <title>Definitionen</title>
 
     <para>Bevor wir fortfahren, ist es wichtig, dass Sie die Bedeutung und den Unterschied zwischen authentifizierten Benutzern und
     authentifizierten Kontakten verstehen:</para>
@@ -34,8 +34,8 @@
     </itemizedlist>
   </section>
 
-  <section>
-    <title><anchor xml:id="cgiauth-config_web_users"/>Erstellen von authentifizierten Benutzern</title>
+  <section id="configwebusers">
+    <title>Erstellen von authentifizierten Benutzern</title>
 
     <para>Wenn wir annehmen, dass Sie Ihren Web-Server wie in der <link linkend="quickstart">Schnellstart-Anleitung</link> konfiguriert
     haben, dann sollte er Sie dazu auffordern, sich zu authentifizieren, bevor Sie die &name-icinga;-CGIs benutzen können. Sie sollten
@@ -50,8 +50,8 @@
     <screen> htpasswd &url-icinga-base;/etc/htpasswd.users &lt;username&gt;</screen>
   </section>
 
-  <section>
-    <title><anchor xml:id="cgiauth-enable_cgi_auth"/>Aktivieren der Authentifizierungs/Autorisierungsfunktionalität in den CGIs</title>
+  <section id="enablecgiauth">
+    <title>Aktivieren der Authentifizierungs/Autorisierungsfunktionalität in den CGIs</title>
 
     <para>Als nächstes sollten Sie sicherstellen, dass die CGI so konfiguriert sind, dass sie die Authentifizierungs- und
     Autorisierungsfunktionalität nutzen, um festzulegen, welchen Zugang Benutzer zu Informationen und/oder Befehlen haben. Dies wird durch
@@ -64,8 +64,8 @@
     CGIs.</para>
   </section>
 
-  <section>
-    <title><anchor xml:id="cgiauth-default_rights"/>Standardberechtigungen für CGI-Informationen</title>
+  <section id="defaultpermissions">
+    <title>Standardberechtigungen für CGI-Informationen</title>
 
     <para>Welche Standardberechtigungen haben Benutzer in den CGIs, wenn die Authentifizierungs- und Autorisierungsfunktionalität aktiviert
     ist?</para>
@@ -278,10 +278,11 @@
     </itemizedlist>
 
     <para>Sie werden unzweifelhaft Zugang zu diesen Informationen haben wollen, so dass Sie wie unten beschrieben zusätzliche Rechte für
-    sich (und vielleicht andere Benutzer) zuweisen möchten.</para>
+	    sich (und vielleicht andere Benutzer) zuweisen möchten.</para>
+    </section>
 
-    <para><anchor xml:id="cgiauth-additional_rights"/> <emphasis role="bold">Zusätzliche Berechtigungen zu CGI-Informationen
-    gewähren</emphasis></para>
+    <section id="additionalpermissions">
+	      <title>Zusätzliche Berechtigungen zu CGI-Informationen gewähren</title>
 
     <para>Uns ist klar, dass die verfügbaren Optionen es nicht erlauben, sehr genau auf bestimmte Berechtigungen einzugehen, aber es ist
     besser als nichts...</para>
@@ -320,16 +321,16 @@
     </itemizedlist>
   </section>
 
-  <section>
-    <title><anchor xml:id="cgiauth-cgi_auth_requirements"/>CGI-Autorisierungsanforderungen</title>
+  <section id="requirementscgiauth">
+    <title>CGI-Autorisierungsanforderungen</title>
 
     <para>Wenn Sie verwirrt sind, welche Autorisierung Sie benötigen, um Zugang zu verschiedenen Informationen in den CGIs zu bekommen,
     lesen Sie <link linkend="cgis">hier</link> den Abschnitt <emphasis> <emphasis role="bold">Autorisierungsanforderungen</emphasis>
     </emphasis>, in dem jedes CGI beschrieben ist.</para>
   </section>
 
-  <section>
-    <title><anchor xml:id="cgiauth-secure_web_servers"/>Authentifizierung auf sicheren Web-Servern</title>
+  <section id="securedwebservers">
+    <title>Authentifizierung auf sicheren Web-Servern</title>
 
     <para>Wenn Ihr Web-Server in einer sicheren Domäne steht (d.h. hinter einer Firewall) oder wenn Sie SSL benutzen, dann können Sie einen
     Standard-Benutzernamen definieren, der verwendet werden kann, um die CGI aufzurufen. Dies wird durch die Definition der <link

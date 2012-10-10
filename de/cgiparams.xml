@@ -8,7 +8,7 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>Informationen zu den CGI-Parametern</title>
 
-  <section>
+  <section id="introduction">
     <title>Einführung</title>
 
     <para>Das Menü auf der linken Seite des klassischen Web-Interface enthält Eintrage, die einen schnellen Zugriff auf die Informationen
@@ -23,7 +23,41 @@
     <para>Nach dieser Tabelle folgt eine Erklärung der Parameter (in Bearbeitung).</para>
   </section>
 
-  <section>
+  <section id="executecmdline">
+    <title>Executing CGIs on the command line</title>
+
+    <para>Anstelle ihres Browsers können sie die CGIs auch auf der Kommandozeile ausführen, und deren Ergebnisse mit anderen Tools verarbeiten.
+	Um einen ersten Eindruck zu erhalten, wechseln Sie in den Ordner mit den *.cgi Dateien (z.B. <filename>/usr/local/icinga/sbin</filename>),
+	setzen Sie einige Umgebungsvariablen und führen Sie eines der CGIs aus.
+<screen> $&gt; export REMOTE_USER=icingaadmin   # or choose the appropriate user
+ $&gt; export REQUEST_METHOD='GET'      # if you enter queries
+ $&gt; export QUERY_STRING='host=all'   # see the tables below
+
+ $&gt; ./status.cgi</screen>
+	Abhängig von der Anzahl von Hosts wird diese viele HTML Zeilen liefern. Für die meisten Leute ist es schwierig, dazwischen die Informationen
+	herauszulesen, also sollten Sie"&amp;csvoutput" oder "&amp;jsonoutput" zum QUERY_STRING mit anderen Argumenten hinzufügen.</para>
+
+    <para>Setzen Sie QUERY_STRING wie erforderlich und führen Sie das CGI aus.</para>
+
+    <para>Falls Sie eine Umgebungsvariable vergessen haben, werden Sie folgende Zeilen sehen:
+
+<screen> $&gt; ./status.cgi
+ getcgivars(): Unsupported REQUEST_METHOD -&gt; ''
+
+ I'm guessing you're trying to execute the CGI from a command line.
+ In order to do that, you need to set the REQUEST_METHOD environment
+ variable to either "GET", "HEAD", or "POST". When using the
+ GET and HEAD methods, arguments can be passed to the CGI
+ by setting the "QUERY_STRING" environment variable. If you're
+ using the POST method, data is read from standard input. Also of
+ note: if you've enabled authentication in the CGIs, you must set the
+ "REMOTE_USER" environment variable to be the name of the user you're
+ "authenticated" as.</screen></para>
+
+    <para>Mehr Beispiele finden Sie <link linkend="cgicmd">here</link>.</para>
+  </section>
+
+  <section id="propsstatustypes">
     <title>Properties / Statustypes</title>
 
     <para>Sie können <filename>status.cgi</filename> benutzen, um Objekte mit einem oder mehreren "Statustypen" (hoststatustype /
@@ -45,7 +79,7 @@
     </note>
   </section>
 
-  <section>
+  <section id="matrixparamscgis">
     <title>Matrix Parameter / CGIs</title>
 
     <informaltable>

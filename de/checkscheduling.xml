@@ -8,16 +8,16 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="checkscheduling-check_scheduling"/>Service- und Host-Prüfungsplanung</title>
 
-  <section>
-    <title><anchor xml:id="checkscheduling-introduction"/>Einführung</title>
+  <section id="introduction">
+    <title>Einführung</title>
 
     <para>Es gab eine Menge Fragen dazu, wie Service-Prüfungen in bestimmten Situationen geplant werden, außerdem wie sich Planung und
     eigentliche Ausführung unterscheiden und wie die Ergebnisse verarbeitet werden. Wir werden versuchen, ein bisschen mehr ins Detail zu
     gehen, wie dies alles funktioniert...</para>
   </section>
 
-  <section>
-    <title><anchor xml:id="checkscheduling-configuration_options"/>Konfigurationsoptionen</title>
+  <section id="configurationoptions">
+    <title>Konfigurationsoptionen</title>
 
     <para>Es gibt es verschiedene Konfigurationsoptionen, die beeinflussen, wie Service-Prüfungen geplant, ausgeführt und verarbeitet
     werden. Als Anfang enthält jede <link linkend="objectdefinitions-service">Service-Definition</link> drei Optionen, die festlegen, wann
@@ -88,8 +88,8 @@
     betrachten, wie Services beim ersten (Neu-)Start von &name-icinga; eingeplant werden...</para>
   </section>
 
-  <section>
-    <title><anchor xml:id="checkscheduling-initial_scheduling"/>Initiale Planung</title>
+  <section id="initialscheduling">
+    <title>Initiale Planung</title>
 
     <para>Wenn &name-icinga; (neu) startet, wird es versuchen, die initialen Prüfungen aller Services in einer Art und Weise so zu planen,
     dass die Load auf dem lokalen und den entfernten Hosts mimimiert wird. Dies wird durch die Verteilung und das Verschachteln der Services
@@ -113,8 +113,8 @@
     </note>
   </section>
 
-  <section>
-    <title><anchor xml:id="checkscheduling-service_inter_check_delay"/>Inter-Check-Verzögerung (inter-check delay)</title>
+  <section id="serviceintercheckdelay">
+    <title>Inter-Check-Verzögerung (inter-check delay)</title>
 
     <para>Wie bereits erwähnt, versucht &name-icinga; die Last auf dem Rechner, auf dem &name-icinga; läuft, auszugleichen, indem die
     Service-Prüfungen verteilt werden. Der Abstand zwischen aufeinander folgenden Service-Prüfungen wird "inter-check delay" genannt. Durch
@@ -140,8 +140,8 @@
     &name-icinga; läuft, in etwa gleich bleibt.</para>
   </section>
 
-  <section>
-    <title><anchor xml:id="checkscheduling-service_interleaving"/>Service-Verschachtelung (service interleaving)</title>
+  <section id="serviceinterleaving">
+    <title>Service-Verschachtelung (service interleaving)</title>
 
     <para>Wie oben erläutert hilft die inter-check-Verzögerung dabei, die Last auf dem lokalen Host auszugleichen. Was ist aber mit
     entfernten Hosts? Ist es notwendig, die Last auf entfernten Hosts auszugleichen? Warum? Ja, es ist wichtig, und ja, &name-icinga; kann
@@ -252,8 +252,8 @@
     </informaltable>
   </section>
 
-  <section>
-    <title><anchor xml:id="checkscheduling-max_concurrent_checks"/>Maximale Zahl gleichzeitiger Service-Prüfungen</title>
+  <section id="maxconcurrentchecks">
+    <title>Maximale Zahl gleichzeitiger Service-Prüfungen</title>
 
     <para>Um &name-icinga; davon abzuhalten, all Ihre CPU-Ressourcen zu verbrauchen, können Sie die maximale Zahl von gleichzeitigen
     Service-Prüfungen beschränken, die zu einer beliebigen Zeit laufen können. Dies wird durch die Option <link
@@ -317,8 +317,8 @@
     haben...</para>
   </section>
 
-  <section>
-    <title><anchor xml:id="checkscheduling-time_restraints"/>Zeitbeschränkungen</title>
+  <section id="timerestraints">
+    <title>Zeitbeschränkungen</title>
 
     <para>Die Option <emphasis>check_period</emphasis> legt den <link linkend="timeperiods">Zeitraum</link> fest, in dem &name-icinga;
     Service-Prüfungen ausführen kann. Falls die Zeit, zu der eine Prüfung für einen bestimmten Service ausgeführt werden werden soll, nicht
@@ -337,8 +337,8 @@
     </note>
   </section>
 
-  <section>
-    <title><anchor xml:id="checkscheduling-normal_scheduling"/>Normale Planung</title>
+  <section id="normalscheduling">
+    <title>Normale Planung</title>
 
     <para>In einer idealen Welt hätten Sie keine Netzwerkprobleme. Aber wenn das so wäre, dann hätten Sie auch kein
     Netzwerküberwachungsprogramm. Wie auch immer, wenn die Dinge reibungslos laufen und ein Service in einem OK-Zustand ist, nennen wir das
@@ -346,8 +346,8 @@
     angegeben ist. Das war's. Einfach, oder?</para>
   </section>
 
-  <section>
-    <title><anchor xml:id="checkscheduling-problem_scheduling"/>Planung bei Problemen</title>
+  <section id="problemscheduling">
+    <title>Planung bei Problemen</title>
 
     <para>Also, was passiert, wenn es Probleme mit einem Service gibt? Nun, eins der Dinge ist, dass sich die Service-Prüfungsplanung
     ändert. Wenn Sie die Option <emphasis>max_attempts</emphasis> auf einen Wert größer als eins gesetzt haben, wird &name-icinga; die
@@ -370,16 +370,16 @@
     <emphasis>retry_interval</emphasis>.</para>
   </section>
 
-  <section>
-    <title><anchor xml:id="checkscheduling-host_checks"/>Host-Prüfungen</title>
+  <section id="hostcheckscheduling">
+    <title>Host-Prüfungen</title>
 
     <para>Ein Fall, wo &name-icinga; den Status eines Hosts prüft, ist, wenn ein Service-Prüfung einen nicht-OK-Zustand ergibt.
     &name-icinga; prüft den Host, um zu entscheiden, ob der Host "up" ist oder nicht, bzw. ob der Host "up", "down" oder "unreachable" ist.
     Wenn die erste Host-Prüfung einen nicht-OK-Zustand ergibt, wird &name-icinga; Host-Prüfungen wie bei den Services durchführen.</para>
   </section>
 
-  <section>
-    <title><anchor xml:id="checkscheduling-scheduling_delays"/>Planungsverzögerungen</title>
+  <section id="schedulingdelays">
+    <title>Planungsverzögerungen</title>
 
     <para>Es sollte erwähnt werden, dass Service-Prüfungsplanung und -ausführung geschieht, so gut es geht. Individuelle Service-Prüfungen
     werden in&name-icinga; als Ereignisse mit niedriger Priorität angesehen, so dass sie verzögert werden können, wenn Ereignisse mit
@@ -387,8 +387,8 @@
     Befehlsprüfungen und Prüfergebnis-Ernteereignisse.</para>
   </section>
 
-  <section>
-    <title><anchor xml:id="checkscheduling-scheduling_example"/>Planungsbeispiel</title>
+  <section id="schedulingexample">
+    <title>Planungsbeispiel</title>
 
     <para>Die Planung von Service-Prüfungen, ihre Ausführung und die Verarbeitung ihrer Ergebnisse können ein bisschen schwierig zu
     verstehen sein, deshalb schauen wir uns ein einfaches Beispiel an. Betrachten wir das folgende Diagramm - wir werden uns darauf
@@ -432,8 +432,8 @@
     planen...?</para>
   </section>
 
-  <section>
-    <title><anchor xml:id="checkscheduling-service_options"/>Service-Definitionsoptionen, die die Planung beeinflussen</title>
+  <section id="serviceoptions">
+    <title>Service-Definitionsoptionen, die die Planung beeinflussen</title>
 
     <para>Jede Service-Definition enthält eine <emphasis>check_interval</emphasis>- und eine <emphasis>retry_interval</emphasis>-Option.
     Hoffentlich klärt das Folgende, was diese zwei Optionen tun, wie sie mit der <emphasis>max_check_attempts</emphasis>-Option in der
@@ -459,7 +459,7 @@
     festgelegten Intervall geprüft.</para>
   </section>
 
-  <section>
+  <section id="todo">
     <title>TODO</title>
 
     <para>

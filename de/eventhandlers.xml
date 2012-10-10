@@ -8,7 +8,7 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>Eventhandler</title>
 
-  <section>
+  <section id="introduction">
     <title>Einführung</title>
 
     <mediaobject>
@@ -49,7 +49,7 @@
     Betrachten Sie sorgfältig die möglichen Konsequenzen, bevor Sie automatische Reboots implementieren. :-)</para>
   </section>
 
-  <section>
+  <section id="execution">
     <title>Wann werden Eventhandler ausgeführt?</title>
 
     <para>Eventhandler werden ausgeführt, wenn ein Service oder Host</para>
@@ -108,7 +108,7 @@
     ausgeführt.</para>
   </section>
 
-  <section>
+  <section id="enable">
     <title>Eventhandler aktivieren</title>
 
     <para>Eventhandler können durch die <link linkend="configmain-enable_event_handlers">enable_event_handlers</link>-Direktive in Ihrer
@@ -120,7 +120,7 @@
     linkend="configmain-enable_event_handlers">enable_event_handlers</link>-Option deaktiviert ist.</para>
   </section>
 
-  <section>
+  <section id="executionorder">
     <title>Eventhandler-Ausführungsreihenfolge</title>
 
     <para>Wie bereits erwähnt werden globale Host- und Service-Eventhandler direkt vor Host- oder Service-spezifischen Eventhandlern
@@ -129,7 +129,7 @@
     <para>Eventhandler werden bei HARD-Problemen und Erholungszuständen direkt nach dem Versand von Benachrichtigungen ausgeführt.</para>
   </section>
 
-  <section>
+  <section id="writingcommands">
     <title>Eventhandler-Kommandos schreiben</title>
 
     <para>Eventhandler werden wahrscheinlich Shell- oder Perl-Scripte sein, aber es ist jede Art von ausführbarer Datei denkbar, die von der
@@ -158,7 +158,7 @@
     und <link linkend="distributed">verteilte</link> Überwachungsumgebungen zu implementieren.</para>
   </section>
 
-  <section>
+  <section id="commandpermissions">
     <title>Berechtigungen für Eventhandler-Befehle</title>
 
     <para>Eventhandler werden normalerweise mit den gleichen Berechtigungen ausgeführt wie der Benutzer, der &name-icinga; auf Ihrer
@@ -169,7 +169,9 @@
     damit er die notwendigen Systembefehle ausführen kann. Vielleicht möchten Sie <link
     xlink:href="http://www.courtesan.com/sudo/sudo.html">sudo</link> ausprobieren, um das zu erreichen.</para>
 
-    <para><anchor xml:id="eventhandlers-example"/><emphasis role="bold">Service-Eventhandler-Beispiel</emphasis></para>
+  </section>
+  <section id="serviceexample">
+	 <title>Service Event Handler Beispiel</title>
 
     <para>Das folgende Beispiel geht davon aus, dass Sie den HTTP-Server auf der lokalen Maschine überwachen und
     <emphasis>restart-httpd</emphasis> als den Eventhandler-Befehl für die HTTP-Service-Definition angegeben haben. Außerdem nehmen wir an,

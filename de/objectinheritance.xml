@@ -8,7 +8,7 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>Objektvererbung</title>
 
-  <section>
+  <section id="introduction">
     <title>Einführung</title>
 
     <para>Dieses Dokument versucht Objektvererbung zu erklären und wie sie in Ihren <link
@@ -20,7 +20,7 @@
     <emphasis>icinga-users</emphasis>-Mailing-List.</para>
   </section>
 
-  <section>
+  <section id="basics">
     <title>Grundlagen</title>
 
     <para>Es gibt drei Variablen in allen Objektdefinitionen, die Rekursion und Vererbung beeinflussen. Sie sind wie folgt
@@ -50,7 +50,7 @@
     einem Wert von <emphasis>1</emphasis> zu übersteuern.</para>
   </section>
 
-  <section>
+  <section id="localvsinveritedvars">
     <title>Lokale Variablen gegenüber vererbten Variablen</title>
 
     <para>Bei der Vererbung ist es wichtig zu wissen, dass "lokale" Objektvariablen immer Vorrang vor Variablen aus der Vorlage haben.
@@ -96,7 +96,7 @@
     kann.</para>
   </section>
 
-  <section>
+  <section id="inheritancechaining">
     <title>Vererbungsverkettung</title>
 
     <para>Objekte können Eigenschaften/Variablen aus mehreren Ebenen von Vorlagenobjekten erben. Nehmen Sie das folgende Beispiel:</para>
@@ -146,7 +146,7 @@
     Ebenen beschränken, um die Übersicht zu behalten.</para>
   </section>
 
-  <section>
+  <section id="templates">
     <title>Unvollständige Objektdefinitionen als Vorlagen nutzen</title>
 
     <para>Es ist möglich, unvollständige Objektdefinitionen als Vorlage für andere Objektdefinitionen zu nutzen. Mit "unvollständiger"
@@ -200,7 +200,10 @@
     <para>Die Nutzung einer Vorlagendefinition für Default-Werte erspart Ihnen mindestens eine Menge Tipparbeit. Es spart Ihnen auch eine
     Menge Kopfschmerzen, wenn Sie später die Default-Werte von Variablen für eine große Zahl von Hosts wollen.</para>
 
-    <para><emphasis role="bold">eigene Objektvariablen</emphasis> (custom object variables)</para>
+    </section>
+
+    <section id="customobjectvariables">
+	    <title>eigene Objektvariablen (custom object variables)</title>
 
     <para>Jede <link linkend="customobjectvars">eigene Objektvariable</link>, die Sie in Ihren Host-, Service- oder Kontaktdefinitionen
     definieren, wird wie jede andere Standardvariable vererbt. Nehmen Sie das folgende Beispiel:</para>
@@ -537,7 +540,7 @@ define service {
         }</screen>
   </section>
 
-  <section>
+  <section id="multipleinheritancesources">
     <title>Vorrang bei mehreren Vererbungsquellen</title>
 
     <para>Wenn Sie mehrere Vererbungsquellen nutzen, ist es wichtig zu wissen, wie &name-icinga; Variablen behandelt, die in mehreren

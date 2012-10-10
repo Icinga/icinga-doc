@@ -8,7 +8,7 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>TCP-Wrapper-Integration</title>
 
-  <section>
+  <section id="introduction">
     <title>Einführung</title>
 
     <mediaobject>
@@ -48,7 +48,7 @@
     </orderedlist>
   </section>
 
-  <section>
+  <section id="servicedefinitiontcpwrapper">
     <title>Einen Service definieren</title>
 
     <para>Wenn Sie es nicht bereits getan haben, erstellen Sie eine <link linkend="objectdefinitions-host">Host-Definition</link> für den
@@ -89,7 +89,7 @@
     </orderedlist>
   </section>
 
-  <section>
+  <section id="configtcpwrappers">
     <title>TCP-Wrapper konfigurieren</title>
 
     <para>Nun müssen Sie die <emphasis>/etc/hosts.deny</emphasis>-Datei auf <emphasis>firestorm</emphasis> editieren. Damit die TCP-Wrapper
@@ -103,7 +103,7 @@
     als nächstes schreiben.</para>
   </section>
 
-  <section>
+  <section id="tcpwrapperscript">
     <title>Das Script schreiben</title>
 
     <para>Als letztes müssen Sie das <emphasis>handle_tcp_wrapper</emphasis>-Script auf <emphasis>firestorm</emphasis> schreiben, das den
@@ -125,7 +125,7 @@
  /bin/echo -e "$1\t$2\t$3\t$4\n" | &url-icinga-base;/bin/send_nsca monitor -c &url-icinga-base;/etc/send_nsca.cfg</programlisting>
   </section>
 
-  <section>
+  <section id="finish">
     <title>Aufräumen</title>
 
     <para>Sie haben nun alles konfiguriert, was Sie brauchen, so dass Sie nur noch den <emphasis>inetd</emphasis>-Prozess auf

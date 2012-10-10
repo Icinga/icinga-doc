@@ -9,7 +9,7 @@
   <title><anchor xml:id="checkscheduling-check_scheduling"/>Service and Host Check Scheduling</title>
 
   <section id="introduction">
-    <title><anchor xml:id="checkscheduling-introduction"/>Introduction</title>
+    <title>Introduction</title>
 
     <para>There were a lot of questions regarding how service checks are scheduled in certain situations, along with how the scheduling
     differs from when the checks are actually executed and their results are processed. We'll try to go into a little more detail on how
@@ -17,7 +17,7 @@
   </section>
 
   <section id="configurationoptions">
-    <title><anchor xml:id="checkscheduling-configuration_options"/>Configuration Options</title>
+    <title>Configuration Options</title>
 
     <para>Before we begin, there are several configuration options that affect how service checks are scheduled, executed, and processed.
     For starters, each <link linkend="objectdefinitions-service">service definition</link> contains three options that determine when and
@@ -68,7 +68,7 @@
   </section>
 
   <section id="initialscheduling">
-    <title><anchor xml:id="checkscheduling-initial_scheduling"/>Initial Scheduling</title>
+    <title>Initial Scheduling</title>
 
     <para>When &name-icinga; (re)starts, it will attempt to schedule the initial check of all services in a manner that will minimize the
     load imposed on the local and remote hosts. This is done by spacing the initial service checks out, as well as interleaving them. The
@@ -92,7 +92,7 @@
   </section>
 
   <section id="serviceintercheckdelay">
-    <title><anchor xml:id="checkscheduling-service_inter_check_delay"/>Inter-Check Delay</title>
+    <title>Inter-Check Delay</title>
 
     <para>As mentioned before, &name-icinga; attempts to equalize the load placed on the machine that is running &name-icinga; by equally
     spacing out initial service checks. The spacing between consecutive service checks is called the inter-check delay. By giving a value to
@@ -200,7 +200,7 @@
   </section>
 
   <section id="maxconcurrentchecks">
-    <title><anchor xml:id="checkscheduling-max_concurrent_checks"/>Maximum Concurrent Service Checks</title>
+    <title>Maximum Concurrent Service Checks</title>
 
     <para>In order to prevent &name-icinga; from consuming all of your CPU resources, you can restrict the maximum number of concurrent
     service checks that can be running at any given time. This is controlled by using the <link
@@ -258,7 +258,7 @@
   </section>
 
   <section id="timerestraints">
-    <title><anchor xml:id="checkscheduling-time_restraints"/>Time Restraints</title>
+    <title>Time Restraints</title>
 
     <para>The <emphasis>check_period</emphasis> option determines the <link linkend="timeperiods">time period</link> during which
     &name-icinga; can run checks of the service. Regardless of what status a particular service is in, if the time that it is actually
@@ -278,7 +278,7 @@
   </section>
 
   <section id="normalscheduling">
-    <title><anchor xml:id="checkscheduling-normal_scheduling"/>Normal Scheduling</title>
+    <title>Normal Scheduling</title>
 
     <para>In an ideal world you wouldn't have network problems. But if that were the case, you wouldn't need a network monitoring tool.
     Anyway, when things are running smoothly and a service is in an OK state, we'll call that "normal". Service checks are normally
@@ -286,7 +286,7 @@
   </section>
 
   <section id="problemscheduling">
-    <title><anchor xml:id="checkscheduling-problem_scheduling"/>Scheduling During Problems</title>
+    <title>Scheduling During Problems</title>
 
     <para>So what happens when there are problems with a service? Well, one of the things that happens is the service check scheduling
     changes. If you've configured the <emphasis>max_attempts</emphasis> option of the service definition to be something greater than 1,
@@ -307,7 +307,7 @@
   </section>
 
   <section id="hostcheckscheduling">
-    <title><anchor xml:id="checkscheduling-host_checks"/>Host Checks</title>
+    <title>Host Checks</title>
 
     <para>Unlike service checks, host checks are <emphasis>not</emphasis> scheduled on a regular basis. Instead they are run on demand, as
     &name-icinga; sees a need. This is a common question asked by users, so it needs to be clarified.</para>
@@ -324,7 +324,7 @@
   </section>
 
   <section id="schedulingdelays">
-    <title><anchor xml:id="checkscheduling-scheduling_delays"/>Scheduling Delays</title>
+    <title>Scheduling Delays</title>
 
     <para>It should be noted that service check scheduling and execution is done on a best effort basis. Individual service checks are
     considered to be low priority events in &name-icinga;, so they can get delayed if high priority events need to be executed. Examples of
@@ -333,7 +333,7 @@
   </section>
 
   <section id="schedulingexample">
-    <title><anchor xml:id="checkscheduling-scheduling_example"/>Scheduling Example</title>
+    <title>Scheduling Example</title>
 
     <para>The scheduling of service checks, their execution, and the processing of their results can be a bit difficult to understand, so
     let's look at a simple example. Look at the diagram below - we'll refer to it as we explain how things are done.</para>
@@ -370,7 +370,7 @@
   </section>
 
   <section id="serviceoptions">
-    <title><anchor xml:id="checkscheduling-service_options"/>Service Definition Options That Affect Scheduling</title>
+    <title>Service Definition Options That Affect Scheduling</title>
 
     <para>Each service definition contains a <emphasis>check_interval</emphasis> and <emphasis>retry_interval</emphasis> option. Hopefully
     this will clarify what these two options do, how they relate to the <emphasis>max_check_attempts</emphasis> option in the service

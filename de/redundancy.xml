@@ -8,7 +8,7 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>Redundante und Failover-Netzwerk-Überwachung</title>
 
-  <section>
+  <section id="introduction">
     <title>Einführung</title>
 
     <para>Dieser Abschnitt beschreibt einige Szenarien zum Implementieren von redundanten Überwachungs-Hosts auf verschiedenen Arten von
@@ -21,18 +21,8 @@
     schwieriger, es zu implementieren.</para>
   </section>
 
-  <section>
-    <title>Index</title>
-
-    <para><link linkend="redundancy-prerequisites">Voraussetzungen</link></para>
-
-    <para><link linkend="redundancy-samples">Beispiel-Scripte</link></para>
-
-    <para><link linkend="redundancy-scenario_1">Szenario 1 - Redundante Überwachung</link></para>
-
-    <para><link linkend="redundancy-scenario_2">Szenario 2 - Failover Überwachung</link></para>
-
-    <para><anchor xml:id="redundancy-prerequisites"/> <emphasis role="bold">Voraussetzungen</emphasis></para>
+  <section id="prerequisites">
+          <title>Voraussetzungen</title>
 
     <para>Bevor Sie überhaupt daran denken können, Redundanz mit &name-icinga; zu implementieren, müssen Sie mit folgenden Dingen vertraut
     werden...</para>
@@ -56,16 +46,21 @@
       </listitem>
     </itemizedlist>
 
-    <para><anchor xml:id="redundancy-samples"/> <emphasis role="bold">Beispiel-Scripte</emphasis></para>
+  </section>
+
+  <section id="samplescripts">
+          <title>Beispielscripts</title>
 
     <para>Jedes dieser Beispiel-Scripte, die wir in dieser Dokumentation benutzen, finden Sie im
     <emphasis>eventhandlers/</emphasis>-Unterverzeichnis der &name-icinga;-Distribution. Vielleicht müssen Sie sie modifizieren, damit sie
     auf Ihrem System funktionieren...</para>
-
-    <para><anchor xml:id="redundancy-scenario_1"/> <emphasis role="bold">Szenario 1 - Redundante Überwachung</emphasis></para>
   </section>
 
-  <section>
+
+  <section id="redundantmonitoring">
+          <title><anchor xml:id="redundancy-scenario_1" />Scenario 1 - Redundante Üverwachung</title>
+
+  <section id="redundantmonitoring-introduction">
     <title>Einführung</title>
 
     <para>Dies ist eine einfache (und harmlose) Methode, redundante Überwachungs-Hosts zu implementieren, und es wird nur gegen eine
@@ -73,7 +68,7 @@
     verschiedene Netzwerk-Segmente hinweg zu bieten.</para>
   </section>
 
-  <section>
+  <section id="redundantmonitoring-goals">
     <title>Ziele</title>
 
     <para>Das Ziel dieser Art von Redundanz-Implementierung ist einfach. Sowohl der "Master"- als auch der "Slave"-Host überwachen die
@@ -91,7 +86,7 @@
     </orderedlist>
   </section>
 
-  <section>
+  <section id="redundantmonitoring-networklayoutdiagram">
     <title>Netzwork-Layout-Diagramm</title>
 
     <para>Das untenstehende Diagramm zeigt ein sehr simples Netzwerk-Setup. Bei diesem Szenario nehmen wir an, dass auf den Hosts A und E
@@ -114,7 +109,7 @@
     </informaltable>
   </section>
 
-  <section>
+  <section id="redundantmonitoring-initialprogramsettings">
     <title>anfängliche Programmeinstellungen</title>
 
     <para>Auf dem Slave-Host (Host E) wird die ursprüngliche <link
@@ -123,7 +118,7 @@
     linkend="configmain-check_external_commands">check_external_commands</link>-Direktive deaktiviert ist. Das war einfach genug...</para>
   </section>
 
-  <section>
+  <section id="redundantmonitoring-initialconfig">
     <title>anfängliche Konfiguration</title>
 
     <para>Als nächstes sollten wir die Unterschiede zwischen den <link linkend="configobject">Objekt-Konfigurationsdatei</link> von Master-
@@ -158,7 +153,7 @@
     Implementierung von Redundanz zu tun...</para>
   </section>
 
-  <section>
+  <section id="redundantmonitoring-eventhandlercmddefinition">
     <title>Eventhandler-Befehlsdefinitionen</title>
 
     <para>Wir müssen kurz innehalten und beschreiben, wie die Befehlsdefinitionen für die Eventhandler auf dem Slave-Host aussehen. Hier ist
@@ -177,7 +172,7 @@
     abgelegt haben. Sie können sie ablegen, wohin Sie wollen, aber dann müssen Sie die beigefügten Beispiele anpassen.</para>
   </section>
 
-  <section>
+  <section id="redundantmonitoring-eventhandlerscript">
     <title>Eventhandler-Scripte</title>
 
     <para>Okay, lassen Sie uns nun einen Blick darauf werden, wie die Eventhandler-Scripte aussehen...</para>
@@ -242,7 +237,7 @@
  exit 0</screen>
   </section>
 
-  <section>
+  <section id="redundantmonitoring-usage">
     <title>Was tun sie für uns</title>
 
     <para>Auf dem Slave-Host (Host E) sind anfänglich die Benachrichtigungen deaktiviert, so dass er keine Host- oder
@@ -286,7 +281,7 @@
     haben!</para>
   </section>
 
-  <section>
+  <section id="redundantmonitoring-timelags">
     <title>Zeitverzögerungen</title>
 
     <para>Redundanz bei &name-icinga; ist in keinster Weise perfekt. Eins der offenkundigeren Probleme ist die Verzögerung zwischen dem
@@ -348,7 +343,7 @@
     Intervall, in dem Services geprüft werden, und einer Menge pures Glück. Auf jeden Falls ist es besser als nichts.</para>
   </section>
 
-  <section>
+  <section id="redundantmonitoring-specialcases">
     <title>Spezialfälle</title>
 
     <para>Eins sollten Sie beachten: Wenn Host A "down" geht, werden bei Host E die Benachrichtigungen aktiviert und er übernimmt die
@@ -363,17 +358,20 @@
     diese Zeit durch die Erhöhung der Frequenz von Service-Prüfungen (auf Host E) für Host A minimiert werden. Der Rest ist purer Zufall,
     aber die gesamte "Blackout"-Zeit sollte nicht allzu hoch sein.</para>
 
-    <para><anchor xml:id="redundancy-scenario_2"/> <emphasis role="bold">Szenario 2 - Failover-Überwachung</emphasis></para>
   </section>
 
-  <section>
+  </section>
+  <section id="failovermonitoring">
+          <title>Scenario 2 - Failover Überwachung</title>
+
+  <section id="failovermonitoring-introduction">
     <title>Einführung</title>
 
     <para>Failover-Überwachung ist ähnlich wie die redundante Überwachung (wie beschrieben in <link linkend="redundancy-scenario_1">Szenario
     1</link>).</para>
   </section>
 
-  <section>
+  <section id="failovermonitoring-goals">
     <title>Ziele</title>
 
     <para>Das grundlegende Ziel der Failover-Überwachung besteht darin, dass der &name-icinga;-Prozess auf dem Slave-Host untätig ist,
@@ -387,7 +385,7 @@
     nun, wie Sie das Problem umgehen können.</para>
   </section>
 
-  <section>
+  <section id="failovermonitoring-initialprogramsettings">
     <title>Initiale Programm-Einstellungen</title>
 
     <para>Deaktivieren Sie aktive Service-Prüfungen und Benachrichtigungen auf dem Slave-Host durch die <link
@@ -398,7 +396,7 @@
     aktiviert ist.</para>
   </section>
 
-  <section>
+  <section id="failovermonitoring-masterprocesscheck">
     <title>Master-Prozess-Prüfungen</title>
 
     <para>Setzen Sie einen cron-Job auf dem Slave-Host auf, der periodisch (sagen wir jede Minute) läuft und den Status des
@@ -416,7 +414,7 @@
     beschrieben die Host- und Service-Handler definieren, weil die Dinge anders behandelt werden.</para>
   </section>
 
-  <section>
+  <section id="failovermonitoring-additionalissues">
     <title>Zusätzliche Themen</title>
 
     <para>An diesem Punkt haben Sie ein sehr einfaches Failover-Überwachungs-Setup implementiert. Trotzdem gibt es einen weiteren Punkt, den
@@ -456,5 +454,8 @@
 
       <secondary>Redundante und Failover-Netzwerk-Überwachung</secondary>
     </indexterm>
+
+  </section>
+
   </section>
 </section>

@@ -8,7 +8,7 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>&name-icinga; Plugins</title>
 
-  <section>
+  <section id="introduction">
     <title>Einführung</title>
 
     <para>&name-icinga; enthält nicht, wie viele andere Überwachungs-Tools, interne Mechanismen zur Prüfung des Zustands von Hosts und
@@ -16,7 +16,7 @@
     Arbeit tun.</para>
   </section>
 
-  <section>
+  <section id="overview">
     <title>Was sind Plugins?</title>
 
     <para>Plugins sind kompilierte Programme oder Scripts (Perl-Scripts, Shell-Scripts, usw.), die von einer Kommandozeile aus laufen
@@ -30,7 +30,7 @@
     linkend="notifications">Benachrichtigungen</link>, etc).</para>
   </section>
 
-  <section>
+  <section id="abstractionlayer">
     <title>Plugins als eine Abstraktionsschicht</title>
 
     <para><inlinemediaobject>
@@ -56,7 +56,7 @@
     Prüfungen auszuführen sind.</para>
   </section>
 
-  <section>
+  <section id="available">
     <title>Welche Plugins sind verfügbar?</title>
 
     <para>Es gibt bereits zahlreiche Plugins, um viele verschiedene Arten von Geräten und Services zu überwachen, u.a.:</para>
@@ -84,8 +84,8 @@
     </itemizedlist>
   </section>
 
-  <section>
-    <title><anchor xml:id="plugins-obtaining"/>Plugins beschaffen</title>
+  <section id="obtaining">
+    <title>Plugins beschaffen</title>
 
     <para>Plugins werden nicht mit &name-icinga; verteilt, aber Sie finden die offiziellen &name-nagios;-Plugins zum Download und viele
     weitere Plugins, die von &name-nagios;-Benutzern erstellt und gewartet werden, an folgenden Stellen:</para>
@@ -124,7 +124,7 @@
       </note></para>
   </section>
 
-  <section>
+  <section id="hints">
     <title><anchor xml:id="plugins-hints"/>Zum &name-icinga;-Benutzer wechseln</title>
 
     <important>
@@ -173,7 +173,7 @@
     </itemizedlist>
   </section>
 
-  <section>
+  <section id="extending">
     <title>Anpassen der Umgebung</title>
 
     <para>Einige Prüfungen (wie check_oracle_health) hängen davon ab, dass verschiedene Umgebungsvariablen gesetzt sind. Setzen Sie diese
@@ -193,8 +193,8 @@
  $&gt; echo $PATH</screen></para>
   </section>
 
-  <section>
-    <title><anchor xml:id="plugins-howto"/>Wie benutze ich Plugin X?</title>
+  <section id="howto">
+    <title>Wie benutze ich Plugin X?</title>
 
     <para>Fast alle Plugins zeigen grundlegende Bedienungshinweise an, wenn sie von der Kommandozeile mit der Option '-h' oder '--help'
     aufgerufen werden. Wenn Sie z.B. wissen möchten, wie das Plugins check_http arbeitet bzw. welche Optionen es akzeptiert, sollten Sie
@@ -203,8 +203,8 @@
     <screen> $&gt; ./check_http --help</screen>
   </section>
 
-  <section>
-    <title><anchor xml:id="plugins-new_plugin"/>Integration eines neuen Plugins</title>
+  <section id="newplugins">
+    <title>Integration eines neuen Plugins</title>
 
     <para>Nach der Installation des Plugins rufen Sie es mit den nötigen Optionen von der Kommandozeile aus auf. Wenn dies funktioniert,
     können Sie es in &name-icinga; integrieren.</para>
@@ -334,7 +334,7 @@ resultiert in:
     <para/>
   </section>
 
-  <section>
+  <section id="rawcommandline">
     <title>Raw command line</title>
 
     <para>Beginnend mit &name-icinga; 1.6 ermöglicht das klassische UI die Anzeige der Kommandozeile mit aufgelösten Variablen
@@ -355,7 +355,7 @@ resultiert in:
  max_debug_file_size=1000000000</programlisting>
   </section>
 
-  <section>
+  <section id="thresholdranges">
     <title>Schwellwert und Bereiche</title>
 
     <para>Einige Plugins unterstützen Bereichsangaben für die Warn- und Kritisch-Werte. Bitte überprüfen Sie die Dokumentation, ob das der
@@ -521,7 +521,7 @@ resultiert in:
     </note>
   </section>
 
-  <section>
+  <section id="errors">
     <title>Aktivieren der Definition</title>
 
     <para>Prüfen Sie die Konfiguration mit "/etc/init.d/icinga show-errors" und bereinigen Sie eventuelle Fehler, bevor Sie &name-icinga;
@@ -561,7 +561,7 @@ resultiert in:
     </itemizedlist>
   </section>
 
-  <section>
+  <section id="pluginsapi">
     <title>Plugin API</title>
 
     <para>Informationen zu technischen Aspekten von Plugins sowie zur Erstellung Ihrer eigenen Plugins finden Sie <link
