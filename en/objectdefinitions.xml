@@ -106,6 +106,11 @@
   <section id="host">
     <title><anchor xml:id="objectdefinitions-host"/>Host definition</title>
 
+    <note>
+	    <para>vrml_image and 3d_coords have been deprecated since 1.8 and removal of the 3d statusmap.
+	    </para>
+    </note>
+
     <para><emphasis>Description:</emphasis></para>
 
     <para>A host definition is used to define a physical server, workstation, device, etc. that resides on your network.</para>
@@ -462,14 +467,6 @@
           <row>
             <entry><para/></entry>
 
-            <entry><para>vrml_image</para></entry>
-
-            <entry><para>image_file</para></entry>
-          </row>
-
-          <row>
-            <entry><para/></entry>
-
             <entry><para>statusmap_image</para></entry>
 
             <entry><para> image_file </para></entry>
@@ -481,14 +478,6 @@
             <entry><para>2d_coords</para></entry>
 
             <entry><para>x_coord,y_coord</para></entry>
-          </row>
-
-          <row>
-            <entry><para/></entry>
-
-            <entry><para>3d_coords</para></entry>
-
-            <entry><para>x_coord,y_coord,z_coord</para></entry>
           </row>
 
           <row>
@@ -914,19 +903,6 @@
           </row>
 
           <row>
-            <entry align="left" valign="top"><para><emphasis role="bold">vrml_image</emphasis>:</para></entry>
-
-            <entry><para>This variable is used to define the name of a GIF, PNG, or JPG image that should be associated with this host. This
-            image will be used as the texture map for the specified host in the <link linkend="cgis-statuswrl_cgi">statuswrl</link> CGI.
-            Unlike the image you use for the <emphasis>&lt;icon_image&gt;</emphasis> variable, this one should probably
-            <emphasis>not</emphasis> have any transparency. If it does, the host object will look a bit weird. Images for hosts are assumed
-            to be in the <emphasis role="bold">logos/</emphasis> subdirectory in your HTML images directory (i.e.
-            <emphasis>&url-icinga-base;/share/images/logos</emphasis>).</para> <note>
-                <para>This directive has no effect in &name-icinga;</para>
-              </note></entry>
-          </row>
-
-          <row>
             <entry align="left" valign="top"><para><emphasis role="bold">statusmap_image</emphasis>:</para></entry>
 
             <entry><para>This variable is used to define the name of an image that should be associated with this host in the <link
@@ -954,16 +930,6 @@
               </note></entry>
           </row>
 
-          <row>
-            <entry align="left" valign="top"><para><emphasis role="bold">3d_coords</emphasis>:</para></entry>
-
-            <entry><para>This variable is used to define coordinates to use when drawing the host in the <link
-            linkend="cgis-statuswrl_cgi">statuswrl</link> CGI. Coordinates can be positive or negative real numbers. The origin for drawing
-            is (0.0,0.0,0.0). For reference, the size of the host cubes drawn is 0.5 units on each side (text takes a little more space).
-            The coordinates you specify here are used as the center of the host cube.<note>
-                <para>This directive has no effect in Icinga.</para>
-              </note></para></entry>
-          </row>
         </tbody>
       </tgroup>
     </informaltable>
@@ -4071,8 +4037,8 @@
     <para><emphasis>Description:</emphasis></para>
 
     <para>Extended host information entries are basically used to make the output from the <link linkend="cgis-status_cgi">status</link>,
-    <link linkend="cgis-statusmap_cgi">statusmap</link>, <!--<link linkend="cgis-statuswrl_cgi">statuswrl</link>,--> and <link
-    linkend="cgis-extinfo_cgi">extinfo</link> CGIs look pretty. They have no effect on monitoring and are completely optional.</para>
+	    <link linkend="cgis-statusmap_cgi">statusmap</link>, and <link linkend="cgis-extinfo_cgi">extinfo</link> CGIs look pretty. They have
+	    no effect on monitoring and are completely optional.</para>
 
     <para><emphasis>Definition Format:</emphasis></para>
 
@@ -4153,14 +4119,6 @@
           <row>
             <entry><para/></entry>
 
-            <entry><para>vrml_image</para></entry>
-
-            <entry>image_file</entry>
-          </row>
-
-          <row>
-            <entry><para/></entry>
-
             <entry><para>statusmap_image</para></entry>
 
             <entry>image_file</entry>
@@ -4172,14 +4130,6 @@
             <entry><para>2d_coords</para></entry>
 
             <entry>x_coord,y_coord</entry>
-          </row>
-
-          <row>
-            <entry><para/></entry>
-
-            <entry><para>3d_coords</para></entry>
-
-            <entry>x_coord,y_coord,z_coord</entry>
           </row>
 
           <row>
@@ -4199,10 +4149,8 @@
         notes_url       http://webserver.localhost.localdomain/hostinfo.pl?host=netware1
         icon_image      novell40.png 
         icon_image_alt  IntranetWare 4.11
-        vrml_image      novell40.png
         statusmap_image novell40.gd2
         2d_coords       100,250
-        3d_coords       100.0,50.0,75.0
         }</screen>
 
     <para><emphasis>Variable Descriptions:</emphasis></para>
@@ -4279,19 +4227,6 @@
           </row>
 
           <row>
-            <entry align="left" valign="top"><para><emphasis role="bold">vrml_image</emphasis>:</para></entry>
-
-            <entry><para>This variable is used to define the name of a GIF, PNG, or JPG image that should be associated with this host. This
-            image will be used as the texture map for the specified host in the <link linkend="cgis-statuswrl_cgi">statuswrl</link> CGI.
-            Unlike the image you use for the <emphasis>&lt;icon_image&gt;</emphasis> variable, this one should probably
-            <emphasis>not</emphasis> have any transparency. If it does, the host object will look a bit weird. Images for hosts are assumed
-            to be in the <emphasis role="bold">logos/</emphasis> subdirectory in your HTML images directory (i.e.
-            <emphasis>&url-icinga-base;/share/images/logos</emphasis>).<note>
-                <para>This directive has no effect in Icinga.</para>
-              </note></para></entry>
-          </row>
-
-          <row>
             <entry align="left" valign="top"><para><emphasis role="bold">statusmap_image</emphasis>:</para></entry>
 
             <entry><para>This variable is used to define the name of an image that should be associated with this host in the <link
@@ -4319,16 +4254,6 @@
               </note></entry>
           </row>
 
-          <row>
-            <entry align="left" valign="top"><para><emphasis role="bold">3d_coords</emphasis>:</para></entry>
-
-            <entry><para>This variable is used to define coordinates to use when drawing the host in the <link
-            linkend="cgis-statuswrl_cgi">statuswrl</link> CGI. Coordinates can be positive or negative real numbers. The origin for drawing
-            is (0.0,0.0,0.0). For reference, the size of the host cubes drawn is 0.5 units on each side (text takes a little more space).
-            The coordinates you specify here are used as the center of the host cube.<note>
-                <para>This directive has no effect in Icinga.</para>
-              </note></para></entry>
-          </row>
         </tbody>
       </tgroup>
     </informaltable>

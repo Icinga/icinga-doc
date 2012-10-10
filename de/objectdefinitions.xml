@@ -110,6 +110,11 @@
   <section>
     <title><anchor xml:id="objectdefinitions-host"/>Host-Definition</title>
 
+    <note>
+            <para>vrml_image und 3d_coords sind veraltet seit 1.8 und der entefernten 3d Statusmap.
+            </para>
+    </note>
+
     <para><emphasis>Beschreibung:</emphasis></para>
 
     <para>Eine Host-Definition wird benutzt, um einen Server, eine Workstation, ein Gerät usw. zu definieren, die sich in Ihrem Netzwerk
@@ -465,14 +470,6 @@
           <row>
             <entry><para/></entry>
 
-            <entry><para>vrml_image</para></entry>
-
-            <entry>image_file</entry>
-          </row>
-
-          <row>
-            <entry><para/></entry>
-
             <entry><para>statusmap_image</para></entry>
 
             <entry>image_file</entry>
@@ -484,14 +481,6 @@
             <entry><para>2d_coords</para></entry>
 
             <entry>x_coord,y_coord</entry>
-          </row>
-
-          <row>
-            <entry><para/></entry>
-
-            <entry><para>3d_coords</para></entry>
-
-            <entry>x_coord,y_coord,z_coord</entry>
           </row>
 
           <row>
@@ -921,14 +910,6 @@
           </row>
 
           <row>
-            <entry align="left" valign="top"><para><emphasis role="bold">vrml_image</emphasis>:</para></entry>
-
-            <entry><para>Diese Direktive wird in &name-icinga; nicht unterstützt.</para></entry>
-          </row>
-
-          <!---->
-
-          <row>
             <entry align="left" valign="top"><para><emphasis role="bold">statusmap_image</emphasis>:</para></entry>
 
             <entry><para>Diese Variable wird benutzt, um den Namen eines Bildes anzugeben, das mit diesem Host im <link
@@ -956,11 +937,6 @@
             Y-Koordinaten festlegen, die Sie angegeben haben.</para></entry>
           </row>
 
-          <row>
-            <entry align="left" valign="top"><para><emphasis role="bold">3d_coords</emphasis>:</para></entry>
-
-            <entry><para>Diese Direktive wird in &name-icinga; nicht unterstützt.</para></entry>
-          </row>
         </tbody>
       </tgroup>
     </informaltable>
@@ -4091,9 +4067,8 @@
     <para><emphasis>Beschreibung:</emphasis></para>
 
     <para>Einträge für erweiterte Hostinformationen sind grundsätzlich dazu gedacht, die Ausgaben der <link
-    linkend="cgis-status_cgi">status</link>-, <link linkend="cgis-statusmap_cgi">statusmap</link>- <!--  
-  , <link linkend="cgis-statuswrl_cgi">statuswrl</link>- 
---> und <link linkend="cgis-extinfo_cgi">extinfo</link>-CGIs schöner aussehen zu lassen. Sie haben keinen Einfluss auf die Überwachung und
+	    minkend="cgis-status_cgi">status</link>-, <link linkend="cgis-statusmap_cgi">statusmap</link>- und
+	    <link linkend="cgis-extinfo_cgi">extinfo</link>-CGIs schöner aussehen zu lassen. Sie haben keinen Einfluss auf die Überwachung und
     sind vollständig optional.</para>
 
     <para><inlinemediaobject>
@@ -4182,14 +4157,6 @@
           <row>
             <entry><para/></entry>
 
-            <entry><para>vrml_image</para></entry>
-
-            <entry>image_file</entry>
-          </row>
-
-          <row>
-            <entry><para/></entry>
-
             <entry><para>statusmap_image</para></entry>
 
             <entry>image_file</entry>
@@ -4201,14 +4168,6 @@
             <entry><para>2d_coords</para></entry>
 
             <entry>x_coord,y_coord</entry>
-          </row>
-
-          <row>
-            <entry><para/></entry>
-
-            <entry><para>3d_coords</para></entry>
-
-            <entry>x_coord,y_coord,z_coord</entry>
           </row>
 
           <row>
@@ -4314,20 +4273,6 @@
             linkend="cgis-statusmap_cgi">statusmap</link>-CGIs benutzt.</para></entry>
           </row>
 
-          <!--
-        <row>
-          <entry align="left" valign="top"><para><emphasis role="bold">vrml_image</emphasis>:</para></entry>
-
-          <entry><para>Diese Variable wird benutzt, um den Namen eines GIF-, PNG- oder JPG-Images anzugeben, das mit diesem Host
-          verbunden werden soll. Dieses Bild wird als Textur-Map für den angegebenen Host in der <link
-          linkend="cgis-statuswrl_cgi">statuswrl</link>-CGI benutzt. Anders als das Bild, das Sie in der
-          <emphasis>&lt;icon_image&gt;</emphasis>-Variable angeben, sollte dieses möglichst <emphasis>keinerlei</emphasis>
-          Transparenz haben. Wenn es das tut, wird das Host-Objekt ein wenig komisch aussehen. Bilder für Hosts werden im
-          <emphasis role="bold">logos/</emphasis>-Unterverzeichnis Ihres HTML-Images-Verzeichnis gesucht (d.h.
-          <emphasis>&url-icinga-base;/share/images/logos</emphasis>).</para></entry>
-        </row>
--->
-
           <row>
             <entry align="left" valign="top"><para><emphasis role="bold">statusmap_image</emphasis>:</para></entry>
 
@@ -4356,17 +4301,6 @@
             Y-Koordinaten festlegen, die Sie angegeben haben.</para></entry>
           </row>
 
-          <!--
-        <row>
-          <entry align="left" valign="top"><para><emphasis role="bold">3d_coords</emphasis>:</para></entry>
-
-          <entry><para>Diese Variable wird benutzt, um Koordinaten anzugeben, die beim Zeichnen des Hosts im <link
-          linkend="cgis-statuswrl_cgi">statuswrl</link>-CGI verwendet werden. Koordinaten können positive oder negative reelle
-          Zahlen sein. Der Ursprung für die Zeichnung ist (0.0,0.0,0.0). Die Größe des Host-Kubus ist 0,5 Einheiten auf jeder
-          Seite (Text benötigt etwas mehr Platz). Die Koordinaten, die Sie hier angeben, beziehen sich auf das Zentrum des
-          Host-Kubus.</para></entry>
-        </row>
--->
         </tbody>
       </tgroup>
     </informaltable>
