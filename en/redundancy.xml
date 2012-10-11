@@ -19,13 +19,13 @@
   <note>
     <para><emphasis condition="red" role="color"></emphasis> If you are just learning how to use &name-icinga;, we would suggest
     not trying to implement redundancy until you have becoming familiar with the <link
-    linkend="redundancy-prerequisites">prerequisites</link> that have been laid out. Redundancy is a relatively complicated
+    linkend="redprerequisites">prerequisites</link> that have been laid out. Redundancy is a relatively complicated
     issue to understand, and even more difficult to implement properly.</para>
   </note>
 
   </section>
 
-  <section id="prerequisites">
+  <section id="redprerequisites">
 	  <title>Prerequisites</title>
 
   <para>Before you can even think about implementing redundancy with &name-icinga;, you need to be familiar with the
@@ -385,7 +385,7 @@ exit 0</screen>
 	  <title>Introduction</title>
 
   <para>Failover monitoring is similiar to, but slightly different than redundant monitoring (as discussed above in <link
-  linkend="redundancy-scenario_1">scenario 1</link>).</para>
+  linkend="redundantmonitoring">scenario 1</link>).</para>
 
   </section>
 
@@ -396,7 +396,7 @@ exit 0</screen>
   &name-icinga; process on the master host is running. If the process on the master host stops running (or if the host goes down),
   the &name-icinga; process on the slave host starts monitoring everything.</para>
 
-  <para>While the method described in <link linkend="redundancy-scenario_1">scenario 1</link> will allow you to continue
+  <para>While the method described in <link linkend="redundantmonitoring">scenario 1</link> will allow you to continue
   receive notifications if the master monitoring hosts goes down, it does have some pitfalls. The biggest problem is that the
   slave host is monitoring the same hosts and servers as the master <emphasis>at the same time as the master</emphasis>! This can
   cause problems with excessive traffic and load on the machines being monitored if you have a lot of services defined. Here's how
@@ -431,7 +431,7 @@ exit 0</screen>
   monitoring everything twice.</para>
 
   <para>Also of note, you <emphasis>don't</emphasis> need to define host and service handlers as mentioned in <link
-  linkend="redundancy-scenario_1">scenario 1</link> because things are handled differently.</para>
+  linkend="redundantmonitoring">scenario 1</link> because things are handled differently.</para>
 
   </section>
 
