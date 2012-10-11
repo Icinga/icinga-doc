@@ -8,7 +8,7 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>What's New in &name-icinga; &ver-icinga;</title>
 
-  <para>As usual this is only a brief overview. Please take a look at the Changelog as well if you are missing something.</para>
+  <para>As usual this is only a brief overview. Please take a look at the <link linkend="moreinfo">Changelog</link> as well if you are missing something.</para>
 
   <indexterm zone="whatsnew">
     <primary>What's new in &name-icinga;</primary>
@@ -19,21 +19,20 @@
 
     <itemizedlist>
       <listitem>
-        <para><emphasis condition="red" role="color">move bindir/idomod.o to libdir/idomod.so - make sure to update your configs after
-        upgrade!</emphasis></para>
+	      <para>core: <emphasis condition="red" role="color">unknown macros are not left on the output anymore, logging a warning instead.</emphasis>
+	      either fix your config (i.e. wrong macros, escape dollar signs with another one) or set keep_unknown_macros=1 in icinga.cfg to revert
+	      to the old behaviour.
+	</para>
       </listitem>
 
       <listitem>
-        <para>move from /var/icinga to /var/spool/icinga in icinga.spec (upgrade safe)</para>
+	      <para>classic ui: Changed cgi GET params, Added/Changed cgi.cfg options, change strings in json output (more on Changelog</para>
       </listitem>
 
       <listitem>
-        <para>rename icinga-idoutils rpm to icinga-idoutils-libdbi-mysql|pgsql in icinga.spec</para>
+	      <para>docs: new stylesheet in html/docs/stylesheets/icinga-docs.css, javascript in html/docs/js/{icinga-docs.js,jquery-min.js}</para>
       </listitem>
 
-      <listitem>
-        <para>--enable-libtap is deprecated, make test now works out-of-the-box with rewritten tests core</para>
-      </listitem>
     </itemizedlist>
   </section>
 
@@ -42,29 +41,25 @@
 
     <itemizedlist>
       <listitem>
-        <para>avoid insane looping through event list when rescheduling checks (Mathias Kettner, Andreas Ericsson) #2182</para>
+        <para>add a command to disable notifications program-wide with expire time as scheduled event #905</para>
       </listitem>
 
       <listitem>
-        <para>add a lot of configure params to allow easier packaging (see CHANGES)</para>
+        <para>only reap results when checkresult_list is not overloaded (max_check_result_list_items) (thx Thomas Gelf) #3099</para>
       </listitem>
 
       <listitem>
-        <para>introduce lib/ for modules with new .so extension</para>
+        <para>avoid duplicate events when scheduling forced host|service check (Imri Zvik) #2993</para>
       </listitem>
 
       <listitem>
-        <para>add nebmodule version/name check for idomod (this allows future version dependencies) #2569</para>
+        <para>unknown macros are not replaced, and misleading to single dollar signs #2291</para>
       </listitem>
 
       <listitem>
-        <para>add trigger_time to downtimes to allow calculating of flexible downtimes endtime #2537</para>
+        <para>fix next_check attribute not updated after scheduling new check #2265</para>
       </listitem>
 
-      <listitem>
-        <para>* fix scheduled_downtime_depth falsely incremented if in flexible downtime with duration &lt; end-starttime window
-        #2536</para>
-      </listitem>
     </itemizedlist>
   </section>
 
@@ -73,42 +68,41 @@
 
     <itemizedlist>
       <listitem>
-        <para>add option for max log entries displayed in showlog.cgi #2145</para>
-      </listitem>
-    </itemizedlist>
-
-    <itemizedlist>
-      <listitem>
-        <para>add statusmap resizing with exclude/include button (thanks to Mat) #2186</para>
+        <para>Added pagination to various cgi's (thx to ideas and partly source from Nagios, Thruk, Icinga Web) #2725</para>
       </listitem>
 
       <listitem>
-        <para>add javascript to refresh page/pause easier #2119</para>
+        <para>Changed search in config.cgi to regex #2884</para>
       </listitem>
 
       <listitem>
-        <para>add display_status_totals as cgi.cfg option in order to allow the status totals to be shown again #2443</para>
+        <para>Added selection of timeperiod for notifications and history #2341</para>
       </listitem>
 
       <listitem>
-        <para>add readonly cgi.cfg view into the config section #1776</para>
+        <para>Added date/time selection for all date/time input fields #2576</para>
       </listitem>
 
       <listitem>
-        <para>add is_in_effect and trigger_time to downtime view for html, csv, json #2538</para>
+	      <para>Added host/service selection for commands, leaving out passive only checks on check reschedule in cmd.cgi #2697</para>
       </listitem>
 
       <listitem>
-        <para>add modified attributes view and reset cmd #2473 #2474</para>
+	      <para>Added host/service group filter to notifications.cgi and history.cgi #2679</para>
       </listitem>
 
       <listitem>
-        <para>fix status totals are wrong when searching #1524</para>
+        <para>javascript refresh jumps to page top, not restoring previous scrolling position; add url param 'scroll=' #2855</para>
       </listitem>
 
       <listitem>
-        <para>fix reset forms on return after submitting command #2117</para>
+        <para>add command to delete host downtime and all associated service downtimes (extinfo.cgi, status.cgi command drop down) #1572</para>
       </listitem>
+
+      <listitem>
+        <para>Added a refresh button to tac.cgi in header mode #3164</para>
+      </listitem>
+
     </itemizedlist>
   </section>
 
@@ -117,28 +111,17 @@
 
     <itemizedlist>
       <listitem>
-        <para>change varchar(255) to TEXT in mysql (not cs and address rfc columns) #2181</para>
+	      <para>fix insert on duplicate key with multiple unique keys marked unsafe in mysql >= 5.5.24; rewrite all queries #3008</para>
       </listitem>
 
       <listitem>
-        <para>set module info in idomod, to be checked on neb module load in future versions #2569</para>
+        <para>fix redundant indexes in MySQL schema (thx Michael Renner) #3018</para>
       </listitem>
 
       <listitem>
-        <para>change standard string escaping for postgresql queries to use the E'foo' notation #1974</para>
+        <para>re-add missing indexes from #1110 resolving performance issues on all supported rdbms #2618</para>
       </listitem>
 
-      <listitem>
-        <para>fix lob handling in Oracle #2303,#2342</para>
-      </listitem>
-
-      <listitem>
-        <para>fix OCI-21500 when freeing lobs #2509</para>
-      </listitem>
-
-      <listitem>
-        <para>fix pgsql unix_timestamp cannot handle timstamp with timezone #2203</para>
-      </listitem>
     </itemizedlist>
   </section>
 
@@ -147,51 +130,105 @@
 
     <itemizedlist>
       <listitem>
-        <para>add DQL-views as backend for templates. This means that you can create your XML views based on doctrine query language. It's
-        more flexible to adopt database changes or to connect other systems to your grids like trouble ticket or issue based systems</para>
+        <para>Permission of Cronks and categories editable in frontend</para>
       </listitem>
 
       <listitem>
-        <para>enable "save" and "save as" for custom cronks. This allows you to modify your views without hacking data</para>
+        <para>host- and servicename credentials</para>
       </listitem>
 
       <listitem>
-        <para>adjust GUI calculations to be more like in the classic UI. Many calculations had different algorithms compared to the classic
-        user interface which was confusing for the users</para>
+        <para>new credential model reduces join overhead</para>
       </listitem>
 
       <listitem>
-        <para>many fixes for views (grids and tactical overviews) to work more smoothly</para>
+        <para>more space in grids due new event integration</para>
       </listitem>
 
       <listitem>
-        <para>RDBMS fixes for getting data, fixed problems for Oracle and Postgres</para>
+        <para>running downtimes view</para>
       </listitem>
+
+      <listitem>
+        <para>new beautiful statusmap</para>
+      </listitem>
+
+      <listitem>
+        <para>Code namespace organizing</para>
+      </listitem>
+
+      <listitem>
+        <para>many many bugfixes</para>
+      </listitem>
+
     </itemizedlist>
   </section>
+
+  <section id="web">
+    <title>Icinga-Reporting</title>
+
+    <itemizedlist>
+      <listitem>
+        <para>added new template design and corrected some template issues</para>
+      </listitem>
+
+      <listitem>
+        <para>deleted all weekly, monthly and yearly SLA reports and created a combined one</para>
+      </listitem>
+
+      <listitem>
+        <para>integrated SLA function for MySQL -> Thanks to Thomas Gelf</para>
+      </listitem>
+
+      <listitem>
+        <para>enable preselected timeranges in every report</para>
+      </listitem>
+
+      <listitem>
+        <para>added servicegroup availability, morning report</para>
+      </listitem>
+
+      <listitem>
+        <para>added easy availability report for given host and dependant services</para>
+      </listitem>
+
+    </itemizedlist>
+  </section>
+
 
   <section id="docs">
     <title>Docs</title>
 
     <itemizedlist>
       <listitem>
-        <para>Hints how to use recurring downtimes #1867</para>
+        <para>add a new stylesheet and rework docbook.xsl #3046</para>
       </listitem>
+
+      <listitem>
+        <para>add tocs for all sections, add jquery toggle for toc #3193</para>
+      </listitem>
+
+      <listitem>
+        <para>create a dedicated page for packages and their customizations #2905</para>
+      </listitem>
+
+      <listitem>
+        <para>create a howto define a command, translate macros and testdrive plugins manually #2692</para>
+      </listitem>
+
     </itemizedlist>
   </section>
 
   <section id="moreinfo">
     <title>More information</title>
 
-    <para><link xlink:href="https://wiki.icinga.org/display/Dev/Releases">More at Icinga Wiki</link></para>
+    <para><link xlink:href="https://wiki.icinga.org/display/Dev/Changelogs">More at Icinga Wiki</link></para>
 
     <para>Should you find any issues, please report them to one of the following links:</para>
 
     <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-core">Report Issue &name-core;</link></para>
 
     <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-web">Report Issue &name-web;</link></para>
-
-    <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-api">Report Issue &name-api;</link></para>
 
     <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-reporting">Report Issue &name-rep;</link></para>
 
