@@ -8,17 +8,17 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>&name-icinga; aktualisieren</title>
 
-  <note> 
-    <para>Seit 1.8 finden Sie neue Konfigurationsoptionen, die in einer neuen Version hinzugefügt wurden, in <filename>sample-config/updates/</filename>
-          sowie <filename>module/idoutils/config/updates</filename>, z.B. <filename>cgi.cfg_added_1.7_to_1.8.cfg</filename>.
-    </para>
+  <note>
+    <para>Seit 1.8 finden Sie neue Konfigurationsoptionen, die in einer neuen Version hinzugefügt wurden, in
+    <filename>sample-config/updates/</filename> sowie <filename>module/idoutils/config/updates</filename>, z.B.
+    <filename>cgi.cfg_added_1.7_to_1.8.cfg</filename>.</para>
 
-    <para><emphasis condition="red" role="color">Der Core wird unbekannte Macros nicht mehr "as is" belassen, sondern diese entfernen und eine Warnung ins Log
-    schreiben.</emphasis> Entweder korrigieren Sie die Konfiguration (falsche Macros, Dollarzeichen mit einem weiteren absichern) oder Sie setzen keep_unknown_macros=1
-    in der icinga.cfg Datei um zum alten Verhalten zurueckzukehren.
-    </para>
+    <para><emphasis condition="red" role="color">Der Core wird unbekannte Macros nicht mehr "as is" belassen, sondern diese entfernen und
+    eine Warnung ins Log schreiben.</emphasis> Entweder korrigieren Sie die Konfiguration (falsche Macros, Dollarzeichen mit einem weiteren
+    absichern) oder Sie setzen keep_unknown_macros=1 in der <filename>icinga.cfg</filename>-Datei, um zum alten Verhalten
+    zurückzukehren.</para>
 
-    <para>Please have a look at the section "CHANGES" in the <filename>changelog</filename> as well.</para>
+    <para>Bitte werfen Sie auch einen Blick in den Abschnitt "CHANGES" in der Datei <filename>changelog</filename>.</para>
   </note>
 
   <indexterm zone="upgrading">
@@ -90,16 +90,24 @@
 
     <para>Falls Sie einen Upgrade von &name-nagios;-Version 3.0.x durchführen, dann fehlt Ihnen ggf. PHP.</para>
 
-    <para><emphasis>Debian / Ubuntu</emphasis> <programlisting> #&gt; apt-get install php5 libapache2-mod-php5</programlisting></para>
+    <para>
+      <emphasis>Debian / Ubuntu</emphasis>
 
-    <para><emphasis>Fedora / RedHat</emphasis></para>
+      <programlisting> #&gt; apt-get install php5 libapache2-mod-php5</programlisting>
+    </para>
+
+    <para>
+      <emphasis>Fedora / RedHat</emphasis>
+    </para>
 
     <programlisting> #&gt; yum install php mod_php</programlisting>
 
     <para><emphasis>openSuSE / SLES:</emphasis> Nutzen Sie yast zur Installation der Pakete <emphasis>php5</emphasis> und
     <emphasis>apache2-mod_php5</emphasis> oder benutzen Sie zypper</para>
 
-    <para><programlisting> #&gt; zypper install php5 apache2-mod_php5</programlisting></para>
+    <para>
+      <programlisting> #&gt; zypper install php5 apache2-mod_php5</programlisting>
+    </para>
 
     <para>Stellen Sie sicher, dass Sie eine gute Datensicherung Ihrer bestehenden &name-nagios;-Installation und der Konfigurationsdateien
     haben. Wenn irgendetwas schief geht oder nicht funktioniert, dann können Sie auf diese Weise schnell Ihre alte &name-nagios;-Version
@@ -178,7 +186,9 @@
         in <filename>&url-icinga-cfg;</filename> die Namen der Direktiven "nagios_user" in "icinga_user" und "nagios_group" in
         "icinga_group". Das betrifft ggf. auch die Pfade in der Datei.</para>
 
-        <para><programlisting> #&gt; sed -i 's/nagios/icinga/g' ./icinga.cfg/</programlisting></para>
+        <para>
+          <programlisting> #&gt; sed -i 's/nagios/icinga/g' ./icinga.cfg/</programlisting>
+        </para>
       </listitem>
 
       <listitem>
@@ -323,9 +333,11 @@
       <listitem>
         <para>Konfigurationsdateien</para>
 
-        <para><itemizedlist>
+        <para>
+          <itemizedlist>
             <listitem>
-              <para><itemizedlist>
+              <para>
+                <itemizedlist>
                   <listitem>
                     <para>Hauptkonfigurationsdatei (normalerweise <filename>nagios.cfg</filename>)</para>
                   </listitem>
@@ -341,7 +353,8 @@
                   <listitem>
                     <para>all Ihre Objektdefinitionsdateien</para>
                   </listitem>
-                </itemizedlist></para>
+                </itemizedlist>
+              </para>
             </listitem>
 
             <listitem>
@@ -355,7 +368,8 @@
             <listitem>
               <para>archivierte &name-nagios;-Protokolldateien</para>
             </listitem>
-          </itemizedlist></para>
+          </itemizedlist>
+        </para>
       </listitem>
 
       <listitem>
