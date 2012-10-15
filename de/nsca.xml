@@ -8,7 +8,7 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="nsca_"/>&name-nsca;</title>
 
-  <section id="introduction">
+  <section xml:id="introduction">
     <title>Einführung</title>
 
     <para>Nagios Service Check Acceptor (oder kurz &name-nsca;) ist ein Addon, um Prüfergebnisse von einem System zu einem anderen zu
@@ -35,7 +35,7 @@
     <para>Die folgenden Anweisungen basieren hauptsächlich auf dem README aus dem &name-nsca;-Paket.</para>
   </section>
 
-  <section id="prerequisites">
+  <section xml:id="prerequisites">
     <title>Voraussetzungen</title>
 
     <itemizedlist>
@@ -69,7 +69,7 @@
     </itemizedlist>
   </section>
 
-  <section id="downloadcompile">
+  <section xml:id="downloadcompile">
     <title>Download und Compile</title>
 
     <note>
@@ -120,7 +120,7 @@
     Perl-Module benötigen, die in der Datei README beschrieben sind.</para>
   </section>
 
-  <section id="customise">
+  <section xml:id="customise">
     <title>Anpassen</title>
 
     <para>Das <filename>sample-config</filename>-Verzeichnis enthält <filename>nsca.cfg</filename> und <filename>send_nsca.cfg</filename>.
@@ -131,7 +131,7 @@
     starten.</para>
   </section>
 
-  <section id="firsttest">
+  <section xml:id="firsttest">
     <title>Erster Test</title>
 
     <para>Wechseln Sie zum &name-icinga;-Benutzer und starten Sie einen ersten Test</para>
@@ -155,7 +155,7 @@
     linkend="configmain-log_passive_checks">log_passive_checks</link> in <literal>icinga.cfg</literal>.</para>
   </section>
 
-  <section id="installnsca">
+  <section xml:id="installnsca">
     <title>Installation</title>
 
     <para>"make install" macht (im Moment) nichts, so dass Sie selbst einige Dateien kopieren müssen. Die folgenden Befehle kopieren das
@@ -237,7 +237,7 @@
     </itemizedlist>
   </section>
 
-  <section id="remotesystem">
+  <section xml:id="remotesystem">
     <title>Entfernte/s System/e</title>
 
     <para>Sie sind mit dem lokalen System fertig, aber natürlich muss send_nsca noch auf entfernte Systeme kopiert werden.</para>
@@ -246,7 +246,7 @@
     configure/make auf mehreren Servern installieren bzw. ausführen müssen.</para>
   </section>
 
-  <section id="copyfiles">
+  <section xml:id="copyfiles">
     <title>Dateien kopieren</title>
 
     <para>Sie können frei entscheiden, wo Sie Binary und Konfigurationsdatei ablegen möchten. Wir nehmen an, dass Sie eine
@@ -256,7 +256,7 @@
  #&gt; scp -p &lt;&name-icinga; server&gt;:/usr/local/icinga-nsca/sample-config/send_nsca.cfg /usr/local/icinga/etc/</programlisting>
   </section>
 
-  <section id="secondtest">
+  <section xml:id="secondtest">
     <title>Zweiter Test</title>
 
     <para>Nun können Sie den Test auf dem entfernten System ausführen</para>
@@ -269,7 +269,7 @@
     linkend="configmain-log_passive_checks">log_passive_checks</link> in <literal>icinga.cfg</literal>.</para>
   </section>
 
-  <section id="troubleshooting">
+  <section xml:id="troubleshooting">
     <title>Fehlersuche</title>
 
     <para>Wenn der Daemon nicht berechtigt ist, in die Command-Pipe zu schreiben, dann sind die Daten verloren! Der Daemon sollte mit dem
@@ -295,7 +295,7 @@
     in <literal>nsca.log</literal>.</para>
   </section>
 
-  <section id="security">
+  <section xml:id="security">
     <title>Sicherheit</title>
 
     <para>Es gibt einige Sicherheitsimplikationen, wenn Sie entfernten Clients erlauben, Prüfergebnisse an &name-icinga; zu senden. Daher
@@ -304,7 +304,7 @@
     können, zusammen mit einer Erklärung, welche Art von Schutz die Verschlüsselung Ihnen bietet.</para>
   </section>
 
-  <section id="operation">
+  <section xml:id="operation">
     <title>Betrieb</title>
 
     <para>send_nsca wird benutzt, um die Prüfergebnisse vom entfernten Rechner zum &name-icinga;-Server zu senden. Die Syntax hängt vom
@@ -329,7 +329,7 @@
     <para>&lt;host_name&gt;[tab]&lt;return_code&gt;[tab]&lt;plugin_output&gt;[newline]</para>
   </section>
 
-  <section id="icingaintegration">
+  <section xml:id="icingaintegration">
     <title>Integration in Icinga</title>
 
     <para>Bisher haben Sie lediglich einige Voraussetzungen geschaffen, um passive Prüfergebnisse zu übermitteln, aber Sie haben noch keinen

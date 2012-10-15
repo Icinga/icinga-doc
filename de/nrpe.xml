@@ -8,7 +8,7 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="nrpe_"/>&name-nrpe;</title>
 
-  <section id="introduction">
+  <section xml:id="introduction">
     <title>Einführung</title>
 
     <para>Nagios Remote Plugin Executor (oder kurz &name-nrpe;) ist ein Addon, das benutzt wird, um Plugins auszuführen, die "lokale"
@@ -59,7 +59,7 @@
     finden ist.</para>
   </section>
 
-  <section id="prerequisites">
+  <section xml:id="prerequisites">
     <title>Voraussetzungen</title>
 
     <itemizedlist>
@@ -85,7 +85,7 @@
     </itemizedlist>
   </section>
 
-  <section id="download">
+  <section xml:id="download">
     <title>Download</title>
 
     <note>
@@ -104,7 +104,7 @@
     </important>
   </section>
 
-  <section id="optionalchanges">
+  <section xml:id="optionalchanges">
     <title>Optionale Anpassungen</title>
 
     <para>Die maximale Länge von Daten, die übertragen werden können, ist auf 2.048 Bytes begrenzt, die maximale Länge von Plugin-Ausgaben
@@ -117,7 +117,7 @@
     Wert 8.192 Bytes nicht überschreiten. <programlisting> #define MAX_EXTERNAL_COMMAND_LENGTH     8192   /* max length of an external command */</programlisting></para>
   </section>
 
-  <section id="compile">
+  <section xml:id="compile">
     <title>Kompilieren auf dem &name-icinga;-Server</title>
 
     <para>Wechseln Sie in das neu angelegte Verzeichnis und führen Sie "configure" und "make " aus <programlisting> #&gt; cd icinga-nrpe
@@ -136,7 +136,7 @@
       </note></para>
   </section>
 
-  <section id="firsttest">
+  <section xml:id="firsttest">
     <title>Erster Test</title>
 
     <para>Starten Sie den Daemon-Prozess und rufen Sie das Plugin auf <programlisting> #&gt; /usr/src/icinga-nrpe/src/nrpe -n \
@@ -150,7 +150,7 @@
     <para/>
   </section>
 
-  <section id="remotesystem">
+  <section xml:id="remotesystem">
     <title>Entfernte/s System/e</title>
 
     <para>Die Konfiguration und Installation auf dem &name-icinga;-Server ist vorerst abgeschlossen. Der zweite Teil erfolgt auf dem
@@ -158,7 +158,7 @@
     &name-icinga;-Server zurückliefert.</para>
   </section>
 
-  <section id="prerequisitesremotehost">
+  <section xml:id="prerequisitesremotehost">
     <title>Voraussetzungen auf dem entfernten System</title>
 
     <itemizedlist>
@@ -185,7 +185,7 @@
     </itemizedlist>
   </section>
 
-  <section id="secondtest">
+  <section xml:id="secondtest">
     <title>Zweiter Test</title>
 
     <para>Starten Sie den Daemon-Prozess auf dem entfernten Host</para>
@@ -206,7 +206,7 @@
     <programlisting> #&gt; kill `ps -ef | grep "sample-config/nrpe.cfg" | grep -v grep | awk '{print $2}'`</programlisting>
   </section>
 
-  <section id="remotehostinstall">
+  <section xml:id="remotehostinstall">
     <title>Installation auf dem entfernten Host</title>
 
     <para>Unabhängig vom verwendeten Modus, in dem der &name-nrpe;-Prozess auf dem entfernten Host läuft, benötigen Sie eine
@@ -293,7 +293,7 @@
     </itemizedlist>
   </section>
 
-  <section id="thirdtest">
+  <section xml:id="thirdtest">
     <title>Dritter Test</title>
 
     <para>Wechseln Sie auf dem &name-icinga;-Server zum &name-icinga;-Benutzer und führen Sie einen weiteren Test aus</para>
@@ -306,7 +306,7 @@
     außerdem, ob es Meldungen im Syslog (z.B. <filename>/var/log/messages</filename>) auf dem entfernten Host gibt.</para>
   </section>
 
-  <section id="troubleshooting">
+  <section xml:id="troubleshooting">
     <title>Fehlersuche</title>
 
     <para>Prüfen Sie auf dem entfernten Host, ob der nrpe-Prozess läuft<itemizedlist>
@@ -360,14 +360,14 @@
     nach Meldungen in Syslog / <literal>nrpe.log</literal>.</para>
   </section>
 
-  <section id="security">
+  <section xml:id="security">
     <title>Sicherheit</title>
 
     <para>Konsultieren Sie die Datei <filename>SECURITY</filename>, um mehr Informationen zu den Sicherheitsrisiken zu kommen, die beim
     Betrieb von &name-nrpe; auftreten können, zusammen mit einer Erklärung, welche Art von Schutz die Verschlüsselung bietet.</para>
   </section>
 
-  <section id="localcheckdefinition">
+  <section xml:id="localcheckdefinition">
     <title>Definition von lokalen Prüfungen</title>
 
     <para>Einige Dinge wurden bereits in <filename>etc/nrpe.cfg</filename> auf dem entfernten Host vorkonfiguriert</para>
@@ -414,7 +414,7 @@
     </informaltable>
   </section>
 
-  <section id="icingaserverdefinitions">
+  <section xml:id="icingaserverdefinitions">
     <title>Definitionen auf dem &name-icinga;-Server</title>
 
     <para>Nun wechseln wir auf den &name-icinga;-Server, um einige Objekt-Definitionen anzulegen. Zuerst fügen Sie eine command-Definition
@@ -487,7 +487,7 @@
     sein.</para>
   </section>
 
-  <section id="moretroubleshooting">
+  <section xml:id="moretroubleshooting">
     <title>Weitere Fehlersuche</title>
 
     <para>Einige Fehler während der Installation wurden bereits angesprochen. Unglücklicherweise gibt es weitere Fehlermöglichkeiten.
@@ -605,7 +605,7 @@
     xlink:href="http://www.icinga.org/support/">&url-icinga;support/</link>).</para>
   </section>
 
-  <section id="upgrading">
+  <section xml:id="upgrading">
     <title>Aktualisierung</title>
 
     <itemizedlist>

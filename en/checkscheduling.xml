@@ -8,7 +8,7 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="checkscheduling-check_scheduling"/>Service and Host Check Scheduling</title>
 
-  <section id="introduction">
+  <section xml:id="introduction">
     <title>Introduction</title>
 
     <para>There were a lot of questions regarding how service checks are scheduled in certain situations, along with how the scheduling
@@ -16,7 +16,7 @@
     this all works...</para>
   </section>
 
-  <section id="configurationoptions">
+  <section xml:id="configurationoptions">
     <title>Configuration Options</title>
 
     <para>Before we begin, there are several configuration options that affect how service checks are scheduled, executed, and processed.
@@ -67,7 +67,7 @@
     services are initially scheduled when &name-icinga; first starts or restarts...</para>
   </section>
 
-  <section id="initialscheduling">
+  <section xml:id="initialscheduling">
     <title>Initial Scheduling</title>
 
     <para>When &name-icinga; (re)starts, it will attempt to schedule the initial check of all services in a manner that will minimize the
@@ -91,7 +91,7 @@
     </note>
   </section>
 
-  <section id="serviceintercheckdelay">
+  <section xml:id="serviceintercheckdelay">
     <title>Inter-Check Delay</title>
 
     <para>As mentioned before, &name-icinga; attempts to equalize the load placed on the machine that is running &name-icinga; by equally
@@ -114,7 +114,7 @@
     over time like this, we can hope that the load on the local server that is running &name-icinga; remains somewhat balanced.</para>
   </section>
 
-  <section id="serviceinterleaving">
+  <section xml:id="serviceinterleaving">
     <title><anchor xml:id="checkscheduling-service_interleaving"/>Service Interleaving</title>
 
     <para>As discussed above, the inter-check delay helps to equalize the load that &name-icinga; imposes on the local host. What about
@@ -199,7 +199,7 @@
     </informaltable>
   </section>
 
-  <section id="maxconcurrentchecks">
+  <section xml:id="maxconcurrentchecks">
     <title>Maximum Concurrent Service Checks</title>
 
     <para>In order to prevent &name-icinga; from consuming all of your CPU resources, you can restrict the maximum number of concurrent
@@ -257,7 +257,7 @@
     running smoothly on your system, but hopefully this provided some general guidelines...</para>
   </section>
 
-  <section id="timerestraints">
+  <section xml:id="timerestraints">
     <title>Time Restraints</title>
 
     <para>The <emphasis>check_period</emphasis> option determines the <link linkend="timeperiods">time period</link> during which
@@ -277,7 +277,7 @@
     </note>
   </section>
 
-  <section id="normalscheduling">
+  <section xml:id="normalscheduling">
     <title>Normal Scheduling</title>
 
     <para>In an ideal world you wouldn't have network problems. But if that were the case, you wouldn't need a network monitoring tool.
@@ -285,7 +285,7 @@
     scheduled at the frequency specified by the <emphasis>check_interval</emphasis> option. That's it. Simple, huh?</para>
   </section>
 
-  <section id="problemscheduling">
+  <section xml:id="problemscheduling">
     <title>Scheduling During Problems</title>
 
     <para>So what happens when there are problems with a service? Well, one of the things that happens is the service check scheduling
@@ -306,7 +306,7 @@
     <emphasis>check_interval</emphasis> option instead of the <emphasis>retry_interval</emphasis> option.</para>
   </section>
 
-  <section id="hostcheckscheduling">
+  <section xml:id="hostcheckscheduling">
     <title>Host Checks</title>
 
     <para>Unlike service checks, host checks are <emphasis>not</emphasis> scheduled on a regular basis. Instead they are run on demand, as
@@ -323,7 +323,7 @@
     are having problems.</para>
   </section>
 
-  <section id="schedulingdelays">
+  <section xml:id="schedulingdelays">
     <title>Scheduling Delays</title>
 
     <para>It should be noted that service check scheduling and execution is done on a best effort basis. Individual service checks are
@@ -332,7 +332,7 @@
     will slow down the execution and processing of service checks.</para>
   </section>
 
-  <section id="schedulingexample">
+  <section xml:id="schedulingexample">
     <title>Scheduling Example</title>
 
     <para>The scheduling of service checks, their execution, and the processing of their results can be a bit difficult to understand, so
@@ -369,7 +369,7 @@
     service checks if it comes under heavy load. Besides, what's the point of scheduling something in the past...?</para>
   </section>
 
-  <section id="serviceoptions">
+  <section xml:id="serviceoptions">
     <title>Service Definition Options That Affect Scheduling</title>
 
     <para>Each service definition contains a <emphasis>check_interval</emphasis> and <emphasis>retry_interval</emphasis> option. Hopefully
@@ -396,7 +396,7 @@
     option.</para>
   </section>
 
-  <section id="todo">
+  <section xml:id="todo">
     <title>TODO</title>
 
     <para><anchor xml:id="checkscheduling-host_inter_check_delay"/><emphasis role="bold">Host Check Directives</emphasis></para>

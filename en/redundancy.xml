@@ -9,7 +9,7 @@
          xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="redundancy_failover" />Redundant and Failover Network Monitoring</title>
 
-  <section id="introduction">
+  <section xml:id="introduction">
 	  <title>Introduction</title>
 
   <para>This section describes a few scenarios for implementing redundant monitoring hosts an various types of network layouts.
@@ -25,7 +25,7 @@
 
   </section>
 
-  <section id="redprerequisites">
+  <section xml:id="redprerequisites">
 	  <title>Prerequisites</title>
 
   <para>Before you can even think about implementing redundancy with &name-icinga;, you need to be familiar with the
@@ -52,7 +52,7 @@
 
   </section>
 
-  <section id="samplescripts">
+  <section xml:id="samplescripts">
 	  <title>Sample Scripts</title>
 
   <para>All of the sample scripts that we use in this documentation can be found in the <emphasis>eventhandlers/</emphasis>
@@ -60,10 +60,10 @@
 
   </section>
 
-  <section id="redundantmonitoring">
+  <section xml:id="redundantmonitoring">
 	  <title>Scenario 1 - Redundant Monitoring</title>
 
-  <section id="redundantmonitoring-introduction">
+  <section xml:id="redundantmonitoring-introduction">
 	  <title>Introduction</title>
 
   <para>This is an easy (and naive) method of implementing redundant monitoring hosts on your network and it will only protect
@@ -71,7 +71,7 @@
   redundancy across different network segments, etc.</para>
 
   </section>
-  <section id="redundantmonitoring-goals">
+  <section xml:id="redundantmonitoring-goals">
 	  <title>Goals</title>
 
   <para>The goal of this type of redundancy implementation is simple. Both the "master" and "slave" hosts monitor the same hosts
@@ -91,7 +91,7 @@
 
   </section>
 
-  <section id="redundantmonitoring-networklayoutdiagram">
+  <section xml:id="redundantmonitoring-networklayoutdiagram">
 	  <title>Network Layout Diagram</title>
 
   <para>The diagram below shows a very simple network setup. For this scenario we will be assuming that hosts A and E are both
@@ -116,7 +116,7 @@
 
   </section>
 
-  <section id="redundantmonitoring-initialprogramsettings">
+  <section xml:id="redundantmonitoring-initialprogramsettings">
 	  <title>Initial Program Settings</title>
 
   <para>The slave host (host E) has its initial <link linkend="configmain-enable_notifications">enable_notifications</link>
@@ -126,7 +126,7 @@
 
   </section>
 
-  <section id="redundantmonitoring-initialconfig">
+  <section xml:id="redundantmonitoring-initialconfig">
 	  <title>Initial Configuration</title>
 
   <para>Next we need to consider the differences between the <link linkend="configobject">object configuration file(s)</link> on
@@ -162,7 +162,7 @@
 
   </section>
 
-  <section id="redundantmonitoring-eventhandlercmddefinition">
+  <section xml:id="redundantmonitoring-eventhandlercmddefinition">
 	  <title>Event Handler Command Definitions</title>
 
   <para>We need to stop for a minute and describe what the command definitions for the event handlers on the slave host look like.
@@ -184,7 +184,7 @@
 
   </section>
 
-  <section id="redundantmonitoring-eventhandlerscript">
+  <section xml:id="redundantmonitoring-eventhandlerscript">
 	  <title>Event Handler Scripts</title>
 
   <para>Okay, now lets take a look at what the event handler scripts look like...</para>
@@ -252,7 +252,7 @@ exit 0</screen>
 
   </section>
 
-  <section id="redundantmonitoring-usage">
+  <section xml:id="redundantmonitoring-usage">
 	  <title>What This Does For Us</title>
 
   <para>The slave host (host E) initially has notifications disabled, so it won't send out any host or service notifications while
@@ -296,7 +296,7 @@ exit 0</screen>
 
   </section>
 
-  <section id="redundantmonitoring-timelags">
+  <section xml:id="redundantmonitoring-timelags">
 	  <title>Time Lags</title>
 
   <para>Redundancy in &name-icinga; is by no means perfect. One of the more obvious problems is the lag time between the master
@@ -359,7 +359,7 @@ exit 0</screen>
 
   </section>
 
-  <section id="redundantmonitoring-specialcases">
+  <section xml:id="redundantmonitoring-specialcases">
 	  <title>Special Cases</title>
 
   <para>Here is one thing you should be aware of... If host A goes down, host E will have notifications enabled and take over the
@@ -377,11 +377,11 @@ exit 0</screen>
   </section>
 
   </section>
-  <section id="failovermonitoring">
+  <section xml:id="failovermonitoring">
 	  <title>Scenario 2 - Failover Monitoring</title>
 
 
-  <section id="failovermonitoring-introduction">
+  <section xml:id="failovermonitoring-introduction">
 	  <title>Introduction</title>
 
   <para>Failover monitoring is similiar to, but slightly different than redundant monitoring (as discussed above in <link
@@ -389,7 +389,7 @@ exit 0</screen>
 
   </section>
 
-  <section id="failovermonitoring-goals">
+  <section xml:id="failovermonitoring-goals">
 	  <title>Goals</title>
 
   <para>The basic goal of failover monitoring is to have the &name-icinga; process on the slave host sit idle while the
@@ -404,7 +404,7 @@ exit 0</screen>
 
   </section>
 
-  <section id="failovermonitoring-initialprogramsettings">
+  <section xml:id="failovermonitoring-initialprogramsettings">
 	  <title>Initial Program Settings</title>
 
   <para>Disable active service checks and notifications on the slave host using the <link
@@ -416,7 +416,7 @@ exit 0</screen>
 
   </section>
 
-  <section id="failovermonitoring-masterprocesscheck">
+  <section xml:id="failovermonitoring-masterprocesscheck">
 	  <title>Master Process Check</title>
 
   <para>Set up a cron job on the slave host that periodically (say every minute) runs a script that checks the status of the
@@ -435,7 +435,7 @@ exit 0</screen>
 
   </section>
 
-  <section id="failovermonitoring-additionalissues">
+  <section xml:id="failovermonitoring-additionalissues">
 	  <title>Additional Issues</title>
 
   <para>At this point, you have implemented a very basic failover monitoring setup. However, there is one more thing you should

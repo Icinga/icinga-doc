@@ -8,14 +8,14 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="Icinga_plugins"/>&name-icinga; Plugins</title>
 
-  <section id="introduction">
+  <section xml:id="introduction">
     <title>Introduction</title>
 
     <para>Unlike many other monitoring tools, &name-icinga; does not include any internal mechanisms for checking the status of hosts and
     services on your network. Instead, &name-icinga; relies on external programs (called plugins) to do all the dirty work.</para>
   </section>
 
-  <section id="overview">
+  <section xml:id="overview">
     <title>What Are Plugins?</title>
 
     <para>Plugins are compiled executables or scripts (Perl scripts, shell scripts, etc.) that can be run from a command line to check the
@@ -28,7 +28,7 @@
     linkend="eventhandlers">event handlers</link>, sending out <link linkend="notifications">notifications</link>, etc).</para>
   </section>
 
-  <section id="abstractionlayer">
+  <section xml:id="abstractionlayer">
     <title>Plugins As An Abstraction Layer</title>
 
     <para><inlinemediaobject>
@@ -52,7 +52,7 @@
     the plugins themselves know exactly what they're monitoring and how to perform the actual checks.</para>
   </section>
 
-  <section id="available">
+  <section xml:id="available">
     <title>What Plugins Are Available?</title>
 
     <para>There are plugins currently available to monitor many different kinds of devices and services, including:</para>
@@ -80,7 +80,7 @@
     </itemizedlist>
   </section>
 
-  <section id="obtaining">
+  <section xml:id="obtaining">
     <title>Obtaining Plugins</title>
 
     <para>Plugins are not distributed with &name-icinga;, but you can download the official &name-nagios; plugins and many additional
@@ -123,7 +123,7 @@
     </note>
   </section>
 
-  <section id="hints">
+  <section xml:id="hints">
     <title>Switch to the &name-icinga; user</title>
 
     <important>
@@ -171,7 +171,7 @@
     </itemizedlist>
   </section>
 
-  <section id="extending">
+  <section xml:id="extending">
     <title>Extending the environment</title>
 
     <para>Several checks (like check_oracle_health) depend on various environment variables to be set. Don't put these in
@@ -190,7 +190,7 @@
  $&gt; echo $PATH</screen></para>
   </section>
 
-  <section id="howto">
+  <section xml:id="howto">
     <title>How Do I Use Plugin X?</title>
 
     <para>Nearly all plugins will display basic usage information when you execute them using '<code>-h</code>' or '<code>--help</code>' on
@@ -200,7 +200,7 @@
     <screen> $&gt; ./check_http --help</screen>
   </section>
 
-  <section id="newplugins">
+  <section xml:id="newplugins">
     <title>Integrating a new plugin</title>
 
     <para>After the installation of the plugin (see "<link linkend="obtaining">Obtaining plugins</link>") call it from the command
@@ -320,7 +320,7 @@ results in:
     </note>
   </section>
 
-  <section id="rawcommandline">
+  <section xml:id="rawcommandline">
     <title>Raw command line</title>
 
     <para>Starting with &name-icinga; 1.6 the classic UI allows to inspect the raw command line including values from
@@ -341,7 +341,7 @@ results in:
  max_debug_file_size=1000000000</programlisting>
   </section>
 
-  <section id="thresholdranges">
+  <section xml:id="thresholdranges">
     <title>Threshold and ranges</title>
 
     <para>Some plugins support specifying ranges for the warning and critical values. Please check the documentation if this is the case for
@@ -503,7 +503,7 @@ results in:
     </note>
   </section>
 
-  <section id="errors">
+  <section xml:id="errors">
     <title><anchor xml:id="plugins-errors"/>Activating the definition</title>
 
     <para>Check the configuration using "/etc/init.d/icinga show-errors" and resolve any errors before issuing "/etc/init.d/icinga restart".
@@ -542,7 +542,7 @@ results in:
     </itemizedlist>
   </section>
 
-  <section id="pluginsapi">
+  <section xml:id="pluginsapi">
     <title>Plugin API</title>
 
     <para>You can find information on the technical aspects of plugins, as well as how to go about creating your own custom plugins <link

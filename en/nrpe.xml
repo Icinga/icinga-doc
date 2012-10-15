@@ -8,7 +8,7 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="nrpe_"/>&name-nrpe;</title>
 
-  <section id="introduction">
+  <section xml:id="introduction">
     <title>Introduction</title>
 
     <para>Nagios Remote Plugin Executor (or &name-nrpe; for short) is an addon used to execute plugins to monitor "local" resources on
@@ -54,7 +54,7 @@
     <para>The following instructions are partially based on documentation found in the original &name-nrpe; package by Ethan Galstad.</para>
   </section>
 
-  <section id="prerequisites">
+  <section xml:id="prerequisites">
     <title>Prerequisites</title>
 
     <itemizedlist>
@@ -80,7 +80,7 @@
     </itemizedlist>
   </section>
 
-  <section id="download">
+  <section xml:id="download">
     <title>Download</title>
 
     <note>
@@ -96,7 +96,7 @@
     </important>
   </section>
 
-  <section id="optionalchanges">
+  <section xml:id="optionalchanges">
     <title>Optional changes</title>
 
     <para>The maximum length of data to be transmitted is set to 2,048 bytes, the maximal length of plugin output is set to 512 bytes. If
@@ -109,7 +109,7 @@
     8,192 bytes. <programlisting> #define MAX_EXTERNAL_COMMAND_LENGTH     8192   /* max length of an external command */</programlisting></para>
   </section>
 
-  <section id="compile">
+  <section xml:id="compile">
     <title>Compile on the &name-icinga; server</title>
 
     <para>Change to the newly created directory and call configure and make <programlisting> #&gt; cd icinga-nrpe
@@ -128,7 +128,7 @@
       </note></para>
   </section>
 
-  <section id="firsttest">
+  <section xml:id="firsttest">
     <title>First test</title>
 
     <para>Startup the daemon and call the plugin <programlisting> #&gt; /usr/src/icinga-nrpe/src/nrpe -n \
@@ -142,7 +142,7 @@
     <para/>
   </section>
 
-  <section id="remotesystem">
+  <section xml:id="remotesystem">
     <title>Remote system(s)</title>
 
     <para>The configuration and installation on the &name-icinga; server is finished so far. The second part has to be done on the remote
@@ -150,7 +150,7 @@
     &name-icinga; server.</para>
   </section>
 
-  <section id="prerequisitesremotehost">
+  <section xml:id="prerequisitesremotehost">
     <title>Prerequisites on the remote host(s)</title>
 
     <itemizedlist>
@@ -176,7 +176,7 @@
     </itemizedlist>
   </section>
 
-  <section id="secondtest">
+  <section xml:id="secondtest">
     <title>Second test</title>
 
     <para>Startup the daemon on the remote host</para>
@@ -196,7 +196,7 @@
     <programlisting> #&gt; kill `ps -ef | grep "sample-config/nrpe.cfg" | grep -v grep | awk '{print $2}'`</programlisting>
   </section>
 
-  <section id="remotehostinstall">
+  <section xml:id="remotehostinstall">
     <title>Installation on the remote host</title>
 
     <para>Independent from the method the &name-nrpe; process is running on the remote host you need a config file containing the commands
@@ -282,7 +282,7 @@
     </itemizedlist>
   </section>
 
-  <section id="thirdtest">
+  <section xml:id="thirdtest">
     <title>Third test</title>
 
     <para>Switch to the &name-icinga; server, change to the &name-icinga; user and run another test</para>
@@ -295,7 +295,7 @@
     <filename>/var/log/messages</filename>) on the remote server as well.</para>
   </section>
 
-  <section id="troubleshooting">
+  <section xml:id="troubleshooting">
     <title>Troubleshooting</title>
 
     <para>Check that the nrpe process is running on the remote server<itemizedlist>
@@ -346,14 +346,14 @@
     syslog / <literal>nrpe.log</literal>.</para>
   </section>
 
-  <section id="security">
+  <section xml:id="security">
     <title>Security</title>
 
     <para>Read the <filename>SECURITY</filename> file for more information on the security risks of running &name-nrpe;, along with an
     explanation of what kind of protection the encryption provides you.</para>
   </section>
 
-  <section id="localcheckdefinition">
+  <section xml:id="localcheckdefinition">
     <title>Definition of local checks</title>
 
     <para>Some things have been predefined in <filename>etc/nrpe.cfg</filename> on the remote host</para>
@@ -400,7 +400,7 @@
     </informaltable>
   </section>
 
-  <section id="icingaserverdefinitions">
+  <section xml:id="icingaserverdefinitions">
     <title>Definitions on the &name-icinga; server</title>
 
     <para>Now we switch over to the &name-icinga; server to create some object definitions. First add a command definition to your
@@ -471,7 +471,7 @@
     <para><programlisting> #&gt; /etc/init.d/icinga restart</programlisting>After some time your plugins should have been called.</para>
   </section>
 
-  <section id="moretroubleshooting">
+  <section xml:id="moretroubleshooting">
     <title>More Troubleshooting</title>
 
     <para>Some errors during the initial setup have been mentioned already. Unfortunately you may encounter others errors. Below you'll find
@@ -588,7 +588,7 @@
     xlink:href="http://www.icinga.org/support/">&url-icinga;support/</link>).</para>
   </section>
 
-  <section id="upgrading">
+  <section xml:id="upgrading">
     <title>Upgrading</title>
 
     <itemizedlist>

@@ -12,7 +12,7 @@
   request your monitoring information via GET or POST requests (in the future (&gt;1.2), you will also be able to send commands via
   PUT).</para>
 
-  <section id="why">
+  <section xml:id="why">
     <title>Why should I use the API?</title>
 
     <para>For most people, the combination &name-icinga;/&name-web; will fit most needs. You can watch your monitoring status, act on
@@ -25,7 +25,7 @@
     standardized, machine-readable format like JSON or XML</para>
   </section>
 
-  <section id="features">
+  <section xml:id="features">
     <title>Features of the &name-web; REST API</title>
 
     <para>Currently supported (v1.2): <itemizedlist>
@@ -69,14 +69,14 @@
       </itemizedlist></para>
   </section>
 
-  <section id="difference">
+  <section xml:id="difference">
     <title>What's the difference between the &name-api; and the &name-web; REST API?</title>
 
     <para>The &name-api; can at this point considered as an internal toolkit to access the database informations. In fact, the REST API acts
     on top of this API and extends it via the HTTP protocol. In the future, the &name-api; will be merged into &name-web;.</para>
   </section>
 
-  <section id="prerequisites">
+  <section xml:id="prerequisites">
     <title>Prerequisites</title>
 
     <para>In order to use the API, you first have to enable the Auth provider for it. This can be done under
@@ -120,13 +120,13 @@
     <para>That's it, now you can start.</para>
   </section>
 
-  <section id="reference">
+  <section xml:id="reference">
     <title>Reference</title>
 
     <para>So, here are the goodies. In the next few points we'll explain how the API can be accessed:</para>
   </section>
 
-  <section id="get">
+  <section xml:id="get">
     <title>GET</title>
 
     <para>Advantages:</para>
@@ -158,7 +158,7 @@
     </itemizedlist>
   </section>
 
-  <section id="geturlstructure">
+  <section xml:id="geturlstructure">
     <title>The structure of the URL:</title>
 
     <para>To access the api, the URL should look as in the following (italics are optional, bold ones are required)
@@ -166,7 +166,7 @@
     GROUPING / LIMIT / COUNTFIELD / <emphasis role="bold">OUTPUT_TYPE</emphasis></para>
   </section>
 
-  <section id="getparamdetails">
+  <section xml:id="getparamdetails">
     <title>The Parameters en detail:</title>
 
     <itemizedlist>
@@ -218,7 +218,7 @@
     </itemizedlist>
   </section>
 
-  <section id="getexample">
+  <section xml:id="getexample">
     <title>Example for GET</title>
 
     <para>Get all services that are critical or warning, but have a host that is ok. Sort descending by the service state and count the
@@ -288,7 +288,7 @@ order(SERVICE_CURRENT_STATE;DESC)/countColumn=SERVICE_ID/authkey=APITEST123456/x
 *CAUTION*: If you're not using the countField parameter, you'll get a flat json with the result.</programlisting>
   </section>
 
-  <section id="post">
+  <section xml:id="post">
     <title>POST</title>
 
     <para>Advantages:</para>
@@ -316,7 +316,7 @@ order(SERVICE_CURRENT_STATE;DESC)/countColumn=SERVICE_ID/authkey=APITEST123456/x
     </itemizedlist>
   </section>
 
-  <section id="postparamdetail">
+  <section xml:id="postparamdetail">
     <title>Parameters en detail</title>
 
     <para>The link is almost the same like the GET baselink, but with the output type in it: For example, host.com/icinga-web/web/api/json.
@@ -394,7 +394,7 @@ order(SERVICE_CURRENT_STATE;DESC)/countColumn=SERVICE_ID/authkey=APITEST123456/x
     </itemizedlist>
   </section>
 
-  <section id="postexample">
+  <section xml:id="postexample">
     <title>Example for POST</title>
 
     <para>Let's take the example from Example for GET and use a post request this time. We're going to use curl, so the example can be
