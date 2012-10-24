@@ -37,12 +37,12 @@
 
         <note>
           <para>Starting with &name-icinga; 1.8 there is a database function providing all needed sla-informations. This function needs to
-          be installed additional to the &name-rep; package.</para>
+          be imported into your existing &name-idoutils; database  additional to the &name-rep; package.</para>
         </note>
 
         <para>&name-mysql;</para>
 
-	<para><screen>#&gt; /usr/bin/mysql -u root -p &lt;password&gt; &lt; icinga-reports-1.8.0/sql/mysql/icinga_availability.sql</screen></para>
+	<para><screen>#&gt; /usr/bin/mysql -u root -p &lt;password&gt; icinga &lt; icinga-reports-1.8.0/sql/mysql/icinga_availability.sql</screen></para>
 
         <para>Please make sure your database user (here icinga@localhost) has the correct GRANT for EXECUTE. <screen>#&gt; /usr/bin/mysql -u root -p &lt;password&gt; icinga
 mysql&gt; GRANT EXECUTE ON icinga.* TO 'icinga'@'localhost' ;
