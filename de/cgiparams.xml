@@ -26,22 +26,19 @@
   <section xml:id="executecmdline">
     <title>Executing CGIs on the command line</title>
 
-    <para>Anstelle ihres Browsers können sie die CGIs auch auf der Kommandozeile ausführen, und deren Ergebnisse mit anderen Tools verarbeiten.
-	Um einen ersten Eindruck zu erhalten, wechseln Sie in den Ordner mit den *.cgi Dateien (z.B. <filename>/usr/local/icinga/sbin</filename>),
-	setzen Sie einige Umgebungsvariablen und führen Sie eines der CGIs aus.
-<screen> $&gt; export REMOTE_USER=icingaadmin   # or choose the appropriate user
+    <para>Anstelle ihres Browsers können sie die CGIs auch auf der Kommandozeile ausführen, und deren Ergebnisse mit anderen Tools
+    verarbeiten. Um einen ersten Eindruck zu erhalten, wechseln Sie in den Ordner mit den *.cgi Dateien (z.B.
+    <filename>/usr/local/icinga/sbin</filename>), setzen Sie einige Umgebungsvariablen und führen Sie eines der CGIs aus. <screen> $&gt; export REMOTE_USER=icingaadmin   # or choose the appropriate user
  $&gt; export REQUEST_METHOD='GET'      # if you enter queries
  $&gt; export QUERY_STRING='host=all'   # see the tables below
 
- $&gt; ./status.cgi</screen>
-	Abhängig von der Anzahl von Hosts wird diese viele HTML Zeilen liefern. Für die meisten Leute ist es schwierig, dazwischen die Informationen
-	herauszulesen, also sollten Sie"&amp;csvoutput" oder "&amp;jsonoutput" zum QUERY_STRING mit anderen Argumenten hinzufügen.</para>
+ $&gt; ./status.cgi</screen> Abhängig von der Anzahl von Hosts wird diese viele HTML Zeilen liefern. Für die meisten Leute ist es schwierig,
+    dazwischen die Informationen herauszulesen, also sollten Sie"&amp;csvoutput" oder "&amp;jsonoutput" zum QUERY_STRING mit anderen
+    Argumenten hinzufügen.</para>
 
     <para>Setzen Sie QUERY_STRING wie erforderlich und führen Sie das CGI aus.</para>
 
-    <para>Falls Sie eine Umgebungsvariable vergessen haben, werden Sie folgende Zeilen sehen:
-
-<screen> $&gt; ./status.cgi
+    <para>Falls Sie eine Umgebungsvariable vergessen haben, werden Sie folgende Zeilen sehen: <screen> $&gt; ./status.cgi
  getcgivars(): Unsupported REQUEST_METHOD -&gt; ''
 
  I'm guessing you're trying to execute the CGI from a command line.
@@ -2104,6 +2101,38 @@
           </row>
 
           <row>
+            <entry><anchor xml:id="cgiparams-paused"/>paused [7]</entry>
+
+            <entry/>
+
+            <entry/>
+
+            <entry/>
+
+            <entry>X</entry>
+
+            <entry/>
+
+            <entry/>
+
+            <entry/>
+
+            <entry>X</entry>
+
+            <entry/>
+
+            <entry>X</entry>
+
+            <entry>X</entry>
+
+            <entry/>
+
+            <entry>X</entry>
+
+            <entry/>
+          </row>
+
+          <row>
             <entry><anchor xml:id="cgiparams-performance_data"/>performance_data</entry>
 
             <entry/>
@@ -2444,7 +2473,7 @@
 
             <entry/>
 
-	    <entry>X</entry>
+            <entry>X</entry>
 
             <entry/>
 
@@ -4223,6 +4252,18 @@
           </row>
 
           <row>
+            <entry><link linkend="cgiparams-paused">paused</link></entry>
+
+            <entry>Stoppt den automatischen Update</entry>
+
+            <entry/>
+
+            <entry>paused</entry>
+
+            <entry/>
+          </row>
+
+          <row>
             <entry><link linkend="cgiparams-performance_data">performance_data</link></entry>
 
             <entry>Die als Performance-Daten zu sendende Zeichenkette</entry>
@@ -4988,6 +5029,8 @@
 
     <para>[6] Entfällt ab &name-icinga; 1.8.</para>
 
+    <para>[7] Undokumentiert seit &name-icinga; 1.2.</para>
+
     <indexterm zone="cgiparams">
       <primary>CGIs</primary>
 
@@ -5392,6 +5435,12 @@
       <primary>CGI-Parameter</primary>
 
       <secondary>order</secondary>
+    </indexterm>
+
+    <indexterm zone="cgiparams-paused">
+      <primary>CGI-Parameter</primary>
+
+      <secondary>paused</secondary>
     </indexterm>
 
     <indexterm zone="cgiparams-performance_data">
