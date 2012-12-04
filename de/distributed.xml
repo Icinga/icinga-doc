@@ -130,14 +130,15 @@
 
     <para>Die Definition für den <emphasis>submit_check_result</emphasis>-Befehl sieht ungefähr so aus:</para>
 
-    <screen>
- <emphasis role="bold">define command{ command_name submit_check_result command_line &url-icinga-libexec;/eventhandlers/submit_check_result $HOSTNAME$ '$SERVICEDESC$' $SERVICESTATE$ '$SERVICEOUTPUT$' }</emphasis>
-    </screen>
+    <programlisting> define command{ 
+    command_name submit_check_result
+    command_line &url-icinga-libexec;/eventhandlers/submit_check_result $HOSTNAME$ '$SERVICEDESC$' $SERVICESTATE$ '$SERVICEOUTPUT$'
+ }</programlisting>
 
     <para>Die <emphasis>submit_check_result</emphasis> Shell-Scripte sehen ungefähr so aus (ersetzen Sie <emphasis>central_server</emphasis>
     durch die IP-Adresse des zentralen Servers):</para>
 
-    <screen> #!/bin/sh
+    <programlisting> #!/bin/sh
  # Arguments:
  #  $1 = host_name (Short name of host that the service is
  #       associated with)
@@ -167,7 +168,7 @@
  # pipe the service check info into the send_nsca program, which
  # in turn transmits the data to the nsca daemon on the central
  # monitoring server
- /bin/printf "%s\t%s\t%s\t%s\n" "$1" "$2" "$return_code" "$4" | &url-icinga-base;/bin/send_nsca -H <emphasis> central_server</emphasis> -c &url-icinga-base;/etc/send_nsca.cfg</screen>
+ /bin/printf "%s\t%s\t%s\t%s\n" "$1" "$2" "$return_code" "$4" | &url-icinga-base;/bin/send_nsca -H <emphasis> central_server</emphasis> -c &url-icinga-base;/etc/send_nsca.cfg</programlisting>
 
     <para>Das Script oben geht davon aus, dass das send_nsca-Programm und die Konfigurationsdatei (send_nsca.cfg) in den Verzeichnissen
     <emphasis>&url-icinga-base;/bin/</emphasis> und <emphasis>&url-icinga-base;/etc/</emphasis> zu finden sind.</para>
@@ -332,9 +333,10 @@
     Befehl namens 'service-is-stale' und benutzen den Befehlsnamen in der <emphasis>check_command</emphasis>-Option Ihrer Services. Hier
     nun, wie die Definition aussehen könnte...</para>
 
-    <screen>
- <emphasis role="bold"> define command{ command_name service-is-stale command_line &url-icinga-libexec;/check_dummy 2 "CRITICAL: Service results are stale" }</emphasis>
-    </screen>
+    <programlisting> define command{
+    command_name service-is-stale
+    command_line &url-icinga-libexec;/check_dummy 2 "CRITICAL: Service results are stale"
+ }</programlisting>
 
     <para>Wenn &name-icinga; feststellt, dass das Service-Ergebnis abgestanden ist und das <emphasis
     role="bold">service-is-stale</emphasis>-Kommando aufruft, wird das <emphasis>&url-icinga-libexec;/check_dummy</emphasis>-Plugin
