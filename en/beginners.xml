@@ -14,26 +14,27 @@
   what it can do for you, you'll never want to be without it. :-) Here are some important things to keep in mind for first-time
   &name-icinga; users:<orderedlist>
       <listitem>
-        <para>Relax - it's going to take some time. Don't expect to be able to get things working exactly the way you want them right off
+        <para><emphasis role="bold">Relax - it's going to take some time.</emphasis> Don't expect to be able to get things working exactly the way you want them right off
         the bat. It's not that easy. Setting up &name-icinga; can involve a bit of work - partly because of the options that &name-icinga;
         offers, partly because you need to know what to monitor on your network (and how best to do it).</para>
       </listitem>
 
       <listitem>
-        <para>Meanwhile you will find packages for the most important distributions. Please consider using one of them instead of installing
-        from source. It will save you some time. Please keep in mind that the paths differ from the ones mentioned in this documentation.
+	<para><emphasis role="bold">Use package instead of source install.</emphasis> Meanwhile you will find packages for the most important distributions. Please consider
+	using one of them instead of installing from source. It will save you some time. Please keep in mind that the paths differ from the ones mentioned in this documentation.
+	For a detailed list of package specific locations, check <link xlink:href="https://wiki.icinga.org/display/howtos/Package+Specific+Locations">wiki page</link>.
         For information on packages please take a look <link linkend="icinga_packages">here</link>.</para>
       </listitem>
 
       <listitem>
-        <para>If you don't find a package or don't want to use if for whatever reason then please use the <link
+        <para><emphasis role="bold">Use the Quickstart guides.</emphasis> If you don't find a package or don't want to use if for whatever reason then please use the <link
         linkend="quickstart">quickstart</link> instructions. The quickstart installation guide is designed to get most new users up and
         running with a basic &name-icinga; setup fairly quickly. Within 20 minutes you can have &name-icinga; installed and monitoring your
         local system. Once that's complete, you can move on to learning how to configure &name-icinga; to do more.</para>
       </listitem>
 
       <listitem>
-        <para>Read the documentation. &name-icinga; can be tricky to configure when you've got a good grasp of what's going on, and nearly
+        <para><emphasis role="bold">Read the documentation.</emphasis> &name-icinga; can be tricky to configure when you've got a good grasp of what's going on, and nearly
         impossible if you don't. Make sure you read the documentation (particularly the sections on <link linkend="ch03">"Configuring
         &name-icinga;"</link> and <link linkend="ch05">"The Basics"</link>). It is important to know how <link
         linkend="plugins">plugins</link> work. Take a look at the <link linkend="monitoring_overview">monitoring overview</link> as well.
@@ -41,7 +42,18 @@
       </listitem>
 
       <listitem>
-        <para>Seek the help of others. If you've read the documentation, reviewed the sample config files, and are still having problems,
+        <para><emphasis role="bold">Understand the architecture.</emphasis> &name-icinga; Core ships with 2 GUIs, &name-ui; and &name-web;. &name-ui; uses the native status
+	and log file format, while &name-ui; requires &name-idoutils; with a database backend. Both GUIs can co-exist on the same host below
+	/icinga and /icinga-web.
+	The &name-idoutils; database is also a requirement for &name-rep; based on &name-jasper; which can be integrated into &name-web; as cronk.
+	Check <link linkend="ch12">&name-idoutils; chapter</link> for details on the &name-idoutils; components involved.
+	<link linkend="plugins">Plugins</link> are essential to your checks, as well as <link linkend="ch10">addons</link> may enhance your setup. 
+	</para>
+
+      </listitem>
+
+      <listitem>
+        <para><emphasis role="bold">Seek the help of others.</emphasis> If you've read the documentation, reviewed the sample config files, and are still having problems,
         send an email message describing your problems to the icinga-users mailing list. If you've done some background reading and you
         provide a good problem description, odds are that someone will give you some pointers on getting things working properly. "good
         description" means to include details on your operating system, the version of &name-icinga;, as well as what you tried and the
