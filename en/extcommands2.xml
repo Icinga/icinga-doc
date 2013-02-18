@@ -3,13 +3,20 @@
 <!ENTITY % all.entities SYSTEM "all-entities.ent">
 %all.entities;
 ]>
-<section version="5.0" xml:id="extcommands2" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
-         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+<section version="5.0" xml:id="extcommands2"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="extcmd2"/>List of External Commands</title>
 
-  <para>Below you will find descriptions of each external command. It is quite easy to send external commands to &name-icinga; and you only
-  need to change the last line of the example code to use a different command (so we omitted these lines in the description).</para>
+  <para>Below you will find descriptions of each external command. It is quite
+  easy to send external commands to &name-icinga; and you only need to change
+  the last line of the example code to use a different command (so we omitted
+  these lines in the description).</para>
 
   <para><emphasis>Example:</emphasis></para>
 
@@ -191,55 +198,70 @@
   </itemizedlist>
 -->
 
-  <para><anchor xml:id="extcmd2-acknowledge_host_problem"/> <emphasis role="bold">ACKNOWLEDGE_HOST_PROBLEM</emphasis></para>
+  <para><anchor xml:id="extcmd2-acknowledge_host_problem"/> <emphasis
+  role="bold">ACKNOWLEDGE_HOST_PROBLEM</emphasis></para>
 
   <para><code>ACKNOWLEDGE_HOST_PROBLEM;</code>&lt;host_name&gt;;&lt;sticky&gt;;&lt;notify&gt;;&lt;persistent&gt;;&lt;author&gt;;&lt;comment&gt;</para>
 
-  <para>Allows you to acknowledge the current problem for the specified host. By acknowledging the current problem, future notifications
-  (for the same host state) are disabled.</para>
+  <para>Allows you to acknowledge the current problem for the specified host.
+  By acknowledging the current problem, future notifications (for the same
+  host state) are disabled.</para>
 
-  <para>If the "sticky" option is set to two (2), the acknowledgement will remain until the host recovers (returns to an UP state).
-  Otherwise the acknowledgement will automatically be removed when the host changes state.</para>
+  <para>If the "sticky" option is set to two (2), the acknowledgement will
+  remain until the host recovers (returns to an UP state). Otherwise the
+  acknowledgement will automatically be removed when the host changes
+  state.</para>
 
-  <para>If the "notify" option is set to one (1), a notification will be sent out to contacts indicating that the current host problem has
-  been acknowledged, if set to null (0) there will be no notification.</para>
+  <para>If the "notify" option is set to one (1), a notification will be sent
+  out to contacts indicating that the current host problem has been
+  acknowledged, if set to null (0) there will be no notification.</para>
 
-  <para>If the "persistent" option is set to one (1), the comment associated with the acknowledgement will remain even after the host
-  recovers.</para>
+  <para>If the "persistent" option is set to one (1), the comment associated
+  with the acknowledgement will remain even after the host recovers.</para>
 
-  <para><anchor xml:id="extcmd2-acknowledge_host_problem_expire"/> <emphasis role="bold">ACKNOWLEDGE_HOST_PROBLEM_EXPIRE</emphasis></para>
+  <para><anchor xml:id="extcmd2-acknowledge_host_problem_expire"/> <emphasis
+  role="bold">ACKNOWLEDGE_HOST_PROBLEM_EXPIRE</emphasis></para>
 
   <para><code>ACKNOWLEDGE_HOST_PROBLEM_EXPIRE;</code>&lt;host_name&gt;;&lt;sticky&gt;;&lt;notify&gt;;&lt;persistent&gt;;&lt;timestamp&gt;;&lt;author&gt;;&lt;comment&gt;</para>
 
-  <para>Allows you to define the time (seconds since the UNIX epoch) when the acknowledgement will expire (will be deleted).</para>
+  <para>Allows you to define the time (seconds since the UNIX epoch) when the
+  acknowledgement will expire (will be deleted).</para>
 
   <note>
     <para>This option is available starting with &name-icinga; 1.6</para>
   </note>
 
-  <para><anchor xml:id="extcmd2-acknowledge_svc_problem"/> <emphasis role="bold">ACKNOWLEDGE_SVC_PROBLEM</emphasis></para>
+  <para><anchor xml:id="extcmd2-acknowledge_svc_problem"/> <emphasis
+  role="bold">ACKNOWLEDGE_SVC_PROBLEM</emphasis></para>
 
   <para><code>ACKNOWLEDGE_SVC_PROBLEM;</code>&lt;host_name&gt;;&lt;service_description&gt;;&lt;sticky&gt;;&lt;notify&gt;;&lt;persistent&gt;;&lt;author&gt;;&lt;comment&gt;</para>
 
-  <para>Allows you to acknowledge the current problem for the specified service. By acknowledging the current problem, future notifications
-  (for the same servicestate) are disabled.</para>
+  <para>Allows you to acknowledge the current problem for the specified
+  service. By acknowledging the current problem, future notifications (for the
+  same servicestate) are disabled.</para>
 
-  <para>If the "sticky" option is set to two (2), the acknowledgement will remain until the service recovers (returns to an OK state).
-  Otherwise the acknowledgement will automatically be removed when the service changes state.</para>
+  <para>If the "sticky" option is set to two (2), the acknowledgement will
+  remain until the service recovers (returns to an OK state). Otherwise the
+  acknowledgement will automatically be removed when the service changes
+  state.</para>
 
-  <para>If the "notify" option is set to one (1), a notification will be sent out to contacts indicating that the current service problem
-  has been acknowledged, if set to null (0) there will be no notification.</para>
+  <para>If the "notify" option is set to one (1), a notification will be sent
+  out to contacts indicating that the current service problem has been
+  acknowledged, if set to null (0) there will be no notification.</para>
 
-  <para>If the "persistent" option is set to one (1), the comment associated with the acknowledgement will remain even after the service
-  recovers.</para>
+  <para>If the "persistent" option is set to one (1), the comment associated
+  with the acknowledgement will remain even after the service recovers.</para>
 
-  <para><anchor xml:id="extcmd2-acknowledge_svc_problem_expire"/> <emphasis role="bold">ACKNOWLEDGE_SVC_PROBLEM_EXPIRE</emphasis></para>
+  <para><anchor xml:id="extcmd2-acknowledge_svc_problem_expire"/> <emphasis
+  role="bold">ACKNOWLEDGE_SVC_PROBLEM_EXPIRE</emphasis></para>
 
   <para><code>ACKNOWLEDGE_SVC_PROBLEM_EXPIRE;</code>&lt;host_name&gt;;&lt;service_description&gt;;&lt;sticky&gt;;&lt;notify&gt;;&lt;persistent&gt;;&lt;timestamp&gt;;&lt;author&gt;;&lt;comment&gt;</para>
 
-  <para>Allows you to define the time (seconds since the UNIX epoch) when the acknowledgement will expire (will be deleted).</para>
+  <para>Allows you to define the time (seconds since the UNIX epoch) when the
+  acknowledgement will expire (will be deleted).</para>
 
-  <para><anchor xml:id="extcmd2-add_host_comment"/> <emphasis role="bold">ADD_HOST_COMMENT</emphasis></para>
+  <para><anchor xml:id="extcmd2-add_host_comment"/> <emphasis
+  role="bold">ADD_HOST_COMMENT</emphasis></para>
 
   <note>
     <para>This option is available starting with &name-icinga; 1.6</para>
@@ -247,319 +269,419 @@
 
   <para><code>ADD_HOST_COMMENT;</code>&lt;host_name&gt;;&lt;persistent&gt;;&lt;author&gt;;&lt;comment&gt;</para>
 
-  <para>Adds a comment to a particular host. If the "persistent" field is set to zero (0), the comment will be deleted the next time
-  &name-icinga; is restarted. Otherwise, the comment will persist across program restarts until it is deleted manually.</para>
+  <para>Adds a comment to a particular host. If the "persistent" field is set
+  to zero (0), the comment will be deleted the next time &name-icinga; is
+  restarted. Otherwise, the comment will persist across program restarts until
+  it is deleted manually.</para>
 
-  <para><anchor xml:id="extcmd2-add_svc_comment"/> <emphasis role="bold">ADD_SVC_COMMENT</emphasis></para>
+  <para><anchor xml:id="extcmd2-add_svc_comment"/> <emphasis
+  role="bold">ADD_SVC_COMMENT</emphasis></para>
 
   <para><code>ADD_SVC_COMMENT;</code>&lt;host_name&gt;;&lt;service_description&gt;;&lt;persistent&gt;;&lt;author&gt;;&lt;comment&gt;</para>
 
-  <para>Adds a comment to a particular service. If the "persistent" field is set to zero (0), the comment will be deleted the next time
-  &name-icinga; is restarted. Otherwise, the comment will persist across program restarts until it is deleted manually.</para>
+  <para>Adds a comment to a particular service. If the "persistent" field is
+  set to zero (0), the comment will be deleted the next time &name-icinga; is
+  restarted. Otherwise, the comment will persist across program restarts until
+  it is deleted manually.</para>
 
-  <para><anchor xml:id="extcmd2-change_contact_host_notification_timeperiod"/> <emphasis
+  <para><anchor xml:id="extcmd2-change_contact_host_notification_timeperiod"/>
+  <emphasis
   role="bold">CHANGE_CONTACT_HOST_NOTIFICATION_TIMEPERIOD</emphasis></para>
 
   <para><code>CHANGE_CONTACT_HOST_NOTIFICATION_TIMEPERIOD;</code>&lt;contact_name&gt;;&lt;notification_timeperiod&gt;</para>
 
-  <para>Changes the host notification timeperiod for a particular contact to what is specified by the "notification_timeperiod" option. The
-  "notification_timeperiod" option should be the short name of the timeperiod that is to be used as the contact's host notification
-  timeperiod. The timeperiod must have been configured in &name-icinga; before it was last (re)started.</para>
+  <para>Changes the host notification timeperiod for a particular contact to
+  what is specified by the "notification_timeperiod" option. The
+  "notification_timeperiod" option should be the short name of the timeperiod
+  that is to be used as the contact's host notification timeperiod. The
+  timeperiod must have been configured in &name-icinga; before it was last
+  (re)started.</para>
 
-  <para><anchor xml:id="extcmd2-change_contact_modattr"/> <emphasis role="bold">CHANGE_CONTACT_MODATTR</emphasis></para>
+  <para><anchor xml:id="extcmd2-change_contact_modattr"/> <emphasis
+  role="bold">CHANGE_CONTACT_MODATTR</emphasis></para>
 
   <para><code>CHANGE_CONTACT_MODATTR;</code>&lt;contact_name&gt;;&lt;value&gt;</para>
 
-  <para>This command changes the modified attributes value for the specified contact. Modified attributes values are used by &name-icinga;
-  to determine which object properties should be retained across program restarts. Thus, modifying the value of the attributes can affect
-  data retention. This is an advanced option and should only be used by people who are intimately familiar with the data retention logic in
-  &name-icinga;.</para>
+  <para>This command changes the modified attributes value for the specified
+  contact. Modified attributes values are used by &name-icinga; to determine
+  which object properties should be retained across program restarts. Thus,
+  modifying the value of the attributes can affect data retention. This is an
+  advanced option and should only be used by people who are intimately
+  familiar with the data retention logic in &name-icinga;.</para>
 
-  <para><anchor xml:id="extcmd2-change_contact_modhattr"/> <emphasis role="bold">CHANGE_CONTACT_MODHATTR</emphasis></para>
+  <para><anchor xml:id="extcmd2-change_contact_modhattr"/> <emphasis
+  role="bold">CHANGE_CONTACT_MODHATTR</emphasis></para>
 
   <para><code>CHANGE_CONTACT_MODHATTR;</code>&lt;contact_name&gt;;&lt;value&gt;</para>
 
-  <para>This command changes the modified host attributes value for the specified contact. Modified attributes values are used by
-  &name-icinga; to determine which object properties should be retained across program restarts. Thus, modifying the value of the attributes
-  can affect data retention. This is an advanced option and should only be used by people who are intimately familiar with the data
-  retention logic in &name-icinga;.</para>
+  <para>This command changes the modified host attributes value for the
+  specified contact. Modified attributes values are used by &name-icinga; to
+  determine which object properties should be retained across program
+  restarts. Thus, modifying the value of the attributes can affect data
+  retention. This is an advanced option and should only be used by people who
+  are intimately familiar with the data retention logic in
+  &name-icinga;.</para>
 
-  <para><anchor xml:id="extcmd2-change_contact_modsattr"/> <emphasis role="bold">CHANGE_CONTACT_MODSATTR</emphasis></para>
+  <para><anchor xml:id="extcmd2-change_contact_modsattr"/> <emphasis
+  role="bold">CHANGE_CONTACT_MODSATTR</emphasis></para>
 
   <para><code>CHANGE_CONTACT_MODSATTR;</code>&lt;contact_name&gt;;&lt;value&gt;</para>
 
-  <para>This command changes the modified service attributes value for the specified contact. Modified attributes values are used by
-  &name-icinga; to determine which object properties should be retained across program restarts. Thus, modifying the value of the attributes
-  can affect data retention. This is an advanced option and should only be used by people who are intimately familiar with the data
-  retention logic in &name-icinga;.</para>
+  <para>This command changes the modified service attributes value for the
+  specified contact. Modified attributes values are used by &name-icinga; to
+  determine which object properties should be retained across program
+  restarts. Thus, modifying the value of the attributes can affect data
+  retention. This is an advanced option and should only be used by people who
+  are intimately familiar with the data retention logic in
+  &name-icinga;.</para>
 
-  <para><anchor xml:id="extcmd2-change_contact_svc_notification_timeperiod"/> <emphasis
+  <para><anchor xml:id="extcmd2-change_contact_svc_notification_timeperiod"/>
+  <emphasis
   role="bold">CHANGE_CONTACT_SVC_NOTIFICATION_TIMEPERIOD</emphasis></para>
 
   <para><code>CHANGE_CONTACT_SVC_NOTIFICATION_TIMEPERIOD;</code>&lt;contact_name&gt;;&lt;notification_timeperiod&gt;</para>
 
-  <para>Changes the service notification timeperiod for a particular contact to what is specified by the "notification_timeperiod" option.
-  The "notification_timeperiod" option should be the short name of the timeperiod that is to be used as the contact's service notification
-  timeperiod. The timeperiod must have been configured in &name-icinga; before it was last (re)started.</para>
+  <para>Changes the service notification timeperiod for a particular contact
+  to what is specified by the "notification_timeperiod" option. The
+  "notification_timeperiod" option should be the short name of the timeperiod
+  that is to be used as the contact's service notification timeperiod. The
+  timeperiod must have been configured in &name-icinga; before it was last
+  (re)started.</para>
 
-  <para><anchor xml:id="extcmd2-change_custom_contact_var"/> <emphasis role="bold">CHANGE_CUSTOM_CONTACT_VAR</emphasis></para>
+  <para><anchor xml:id="extcmd2-change_custom_contact_var"/> <emphasis
+  role="bold">CHANGE_CUSTOM_CONTACT_VAR</emphasis></para>
 
   <para><code>CHANGE_CUSTOM_CONTACT_VAR;</code>&lt;contact_name&gt;;&lt;varname&gt;;&lt;varvalue&gt;</para>
 
   <para>Changes the value of a custom contact variable.</para>
 
-  <para><anchor xml:id="extcmd2-change_custom_host_var"/> <emphasis role="bold">CHANGE_CUSTOM_HOST_VAR</emphasis></para>
+  <para><anchor xml:id="extcmd2-change_custom_host_var"/> <emphasis
+  role="bold">CHANGE_CUSTOM_HOST_VAR</emphasis></para>
 
   <para><code>CHANGE_CUSTOM_HOST_VAR;</code>&lt;host_name&gt;;&lt;varname&gt;;&lt;varvalue&gt;</para>
 
   <para>Changes the value of a custom host variable.</para>
 
-  <para><anchor xml:id="extcmd2-change_custom_svc_var"/> <emphasis role="bold">CHANGE_CUSTOM_SVC_VAR</emphasis></para>
+  <para><anchor xml:id="extcmd2-change_custom_svc_var"/> <emphasis
+  role="bold">CHANGE_CUSTOM_SVC_VAR</emphasis></para>
 
   <para><code>CHANGE_CUSTOM_SVC_VAR;</code>&lt;host_name&gt;;&lt;service_description&gt;;&lt;varname&gt;;&lt;varvalue&gt;</para>
 
   <para>Changes the value of a custom service variable.</para>
 
-  <para><anchor xml:id="extcmd2-change_global_host_event_handler"/> <emphasis role="bold">CHANGE_GLOBAL_HOST_EVENT_HANDLER</emphasis></para>
+  <para><anchor xml:id="extcmd2-change_global_host_event_handler"/> <emphasis
+  role="bold">CHANGE_GLOBAL_HOST_EVENT_HANDLER</emphasis></para>
 
   <para><code>CHANGE_GLOBAL_HOST_EVENT_HANDLER;</code>&lt;event_handler_command&gt;</para>
 
-  <para>Changes the global host event handler command to be that specified by the "event_handler_command" option. The
-  "event_handler_command" option specifies the short name of the command that should be used as the new host event handler. The command must
-  have been configured in &name-icinga; before it was last (re)started.</para>
+  <para>Changes the global host event handler command to be that specified by
+  the "event_handler_command" option. The "event_handler_command" option
+  specifies the short name of the command that should be used as the new host
+  event handler. The command must have been configured in &name-icinga; before
+  it was last (re)started.</para>
 
-  <para><anchor xml:id="extcmd2-change_global_svc_event_handler"/> <emphasis role="bold">CHANGE_GLOBAL_SVC_EVENT_HANDLER</emphasis></para>
+  <para><anchor xml:id="extcmd2-change_global_svc_event_handler"/> <emphasis
+  role="bold">CHANGE_GLOBAL_SVC_EVENT_HANDLER</emphasis></para>
 
   <para><code>CHANGE_GLOBAL_SVC_EVENT_HANDLER;</code>&lt;event_handler_command&gt;</para>
 
-  <para>Changes the global service event handler command to be that specified by the "event_handler_command" option. The
-  "event_handler_command" option specifies the short name of the command that should be used as the new service event handler. The command
-  must have been configured in &name-icinga; before it was last (re)started.</para>
+  <para>Changes the global service event handler command to be that specified
+  by the "event_handler_command" option. The "event_handler_command" option
+  specifies the short name of the command that should be used as the new
+  service event handler. The command must have been configured in
+  &name-icinga; before it was last (re)started.</para>
 
-  <para><anchor xml:id="extcmd2-change_host_check_command"/> <emphasis role="bold">CHANGE_HOST_CHECK_COMMAND</emphasis></para>
+  <para><anchor xml:id="extcmd2-change_host_check_command"/> <emphasis
+  role="bold">CHANGE_HOST_CHECK_COMMAND</emphasis></para>
 
   <para><code>CHANGE_HOST_CHECK_COMMAND;</code>&lt;host_name&gt;;&lt;check_command&gt;</para>
 
-  <para>Changes the check command for a particular host to be that specified by the "check_command" option. The "check_command" option
-  specifies the short name of the command that should be used as the new host check command. The command must have been configured in
-  &name-icinga; before it was last (re)started.</para>
+  <para>Changes the check command for a particular host to be that specified
+  by the "check_command" option. The "check_command" option specifies the
+  short name of the command that should be used as the new host check command.
+  The command must have been configured in &name-icinga; before it was last
+  (re)started.</para>
 
-  <para><anchor xml:id="extcmd2-change_host_check_timeperiod"/> <emphasis role="bold">CHANGE_HOST_CHECK_TIMEPERIOD</emphasis></para>
+  <para><anchor xml:id="extcmd2-change_host_check_timeperiod"/> <emphasis
+  role="bold">CHANGE_HOST_CHECK_TIMEPERIOD</emphasis></para>
 
   <para><code>CHANGE_HOST_CHECK_TIMEPERIOD;</code>&lt;host_name&gt;;&lt;timeperiod&gt;</para>
 
   <para>Changes the valid check period for the specified host.</para>
 
-  <para><anchor xml:id="extcmd2-change_host_event_handler"/> <emphasis role="bold">CHANGE_HOST_EVENT_HANDLER</emphasis></para>
+  <para><anchor xml:id="extcmd2-change_host_event_handler"/> <emphasis
+  role="bold">CHANGE_HOST_EVENT_HANDLER</emphasis></para>
 
   <para><code>CHANGE_HOST_EVENT_HANDLER;</code>&lt;host_name&gt;;&lt;event_handler_command&gt;</para>
 
-  <para>Changes the event handler command for a particular host to be that specified by the "event_handler_command" option. The
-  "event_handler_command" option specifies the short name of the command that should be used as the new host event handler. The command must
-  have been configured in &name-icinga; before it was last (re)started.</para>
+  <para>Changes the event handler command for a particular host to be that
+  specified by the "event_handler_command" option. The "event_handler_command"
+  option specifies the short name of the command that should be used as the
+  new host event handler. The command must have been configured in
+  &name-icinga; before it was last (re)started.</para>
 
-  <para><anchor xml:id="extcmd2-change_host_modattr"/> <emphasis role="bold">CHANGE_HOST_MODATTR</emphasis></para>
+  <para><anchor xml:id="extcmd2-change_host_modattr"/> <emphasis
+  role="bold">CHANGE_HOST_MODATTR</emphasis></para>
 
   <para><code>CHANGE_HOST_MODATTR;</code>&lt;host_name&gt;;&lt;value&gt;</para>
 
-  <para>This command changes the modified attributes value for the specified host. Modified attributes values are used by &name-icinga; to
-  determine which object properties should be retained across program restarts. Thus, modifying the value of the attributes can affect data
-  retention. This is an advanced option and should only be used by people who are intimately familiar with the data retention logic in
-  &name-icinga;.</para>
+  <para>This command changes the modified attributes value for the specified
+  host. Modified attributes values are used by &name-icinga; to determine
+  which object properties should be retained across program restarts. Thus,
+  modifying the value of the attributes can affect data retention. This is an
+  advanced option and should only be used by people who are intimately
+  familiar with the data retention logic in &name-icinga;.</para>
 
-  <para><anchor xml:id="extcmd2-change_host_notification_timeperiod"/> <emphasis
-  role="bold">CHANGE_HOST_NOTIFICATION_TIMEPERIOD</emphasis></para>
+  <para><anchor xml:id="extcmd2-change_host_notification_timeperiod"/>
+  <emphasis role="bold">CHANGE_HOST_NOTIFICATION_TIMEPERIOD</emphasis></para>
 
   <para><code>CHANGE_HOST_NOTIFICATION_TIMEPERIOD;</code>&lt;host_name&gt;;&lt;notification_timeperiod&gt;</para>
 
-  <para>Changes the notification timeperiod for a particular host to what is specified by the "notification_timeperiod" option. The
-  "notification_timeperiod" option should be the short name of the timeperiod that is to be used as the service notification timeperiod. The
-  timeperiod must have been configured in &name-icinga; before it was last (re)started.</para>
+  <para>Changes the notification timeperiod for a particular host to what is
+  specified by the "notification_timeperiod" option. The
+  "notification_timeperiod" option should be the short name of the timeperiod
+  that is to be used as the service notification timeperiod. The timeperiod
+  must have been configured in &name-icinga; before it was last
+  (re)started.</para>
 
-  <para><anchor xml:id="extcmd2-change_max_host_check_attempts"/> <emphasis role="bold">CHANGE_MAX_HOST_CHECK_ATTEMPTS</emphasis></para>
+  <para><anchor xml:id="extcmd2-change_max_host_check_attempts"/> <emphasis
+  role="bold">CHANGE_MAX_HOST_CHECK_ATTEMPTS</emphasis></para>
 
   <para><code>CHANGE_MAX_HOST_CHECK_ATTEMPTS;</code>&lt;host_name&gt;;&lt;check_attempts&gt;</para>
 
-  <para>Changes the maximum number of check attempts (retries) for a particular host.</para>
+  <para>Changes the maximum number of check attempts (retries) for a
+  particular host.</para>
 
-  <para><anchor xml:id="extcmd2-change_max_svc_check_attempts"/> <emphasis role="bold">CHANGE_MAX_SVC_CHECK_ATTEMPTS</emphasis></para>
+  <para><anchor xml:id="extcmd2-change_max_svc_check_attempts"/> <emphasis
+  role="bold">CHANGE_MAX_SVC_CHECK_ATTEMPTS</emphasis></para>
 
   <para><code>CHANGE_MAX_SVC_CHECK_ATTEMPTS;</code>&lt;host_name&gt;;&lt;service_description&gt;;&lt;check_attempts&gt;</para>
 
-  <para>Changes the maximum number of check attempts (retries) for a particular service.</para>
+  <para>Changes the maximum number of check attempts (retries) for a
+  particular service.</para>
 
   <para><anchor xml:id="extcmd2-change_normal_host_check_interval"/> <emphasis
   role="bold">CHANGE_NORMAL_HOST_CHECK_INTERVAL</emphasis></para>
 
   <para><code>CHANGE_NORMAL_HOST_CHECK_INTERVAL;</code>&lt;host_name&gt;;&lt;check_interval&gt;</para>
 
-  <para>Changes the normal (regularly scheduled) check interval for a particular host.</para>
+  <para>Changes the normal (regularly scheduled) check interval for a
+  particular host.</para>
 
-  <para><anchor xml:id="extcmd2-change_normal_svc_check_interval"/> <emphasis role="bold">CHANGE_NORMAL_SVC_CHECK_INTERVAL</emphasis></para>
+  <para><anchor xml:id="extcmd2-change_normal_svc_check_interval"/> <emphasis
+  role="bold">CHANGE_NORMAL_SVC_CHECK_INTERVAL</emphasis></para>
 
   <para><code>CHANGE_NORMAL_SVC_CHECK_INTERVAL;</code>&lt;host_name&gt;;&lt;service_description&gt;;&lt;check_interval&gt;</para>
 
-  <para>Changes the normal (regularly scheduled) check interval for a particular service</para>
+  <para>Changes the normal (regularly scheduled) check interval for a
+  particular service</para>
 
-  <para><anchor xml:id="extcmd2-change_retry_host_check_interval"/> <emphasis role="bold">CHANGE_RETRY_HOST_CHECK_INTERVAL</emphasis></para>
+  <para><anchor xml:id="extcmd2-change_retry_host_check_interval"/> <emphasis
+  role="bold">CHANGE_RETRY_HOST_CHECK_INTERVAL</emphasis></para>
 
   <para><code>CHANGE_RETRY_HOST_CHECK_INTERVAL;</code>&lt;host_name&gt;;&lt;service_description&gt;;&lt;check_interval&gt;</para>
 
   <para>Changes the retry check interval for a particular host.</para>
 
-  <para><anchor xml:id="extcmd2-change_retry_svc_check_interval"/> <emphasis role="bold">CHANGE_RETRY_SVC_CHECK_INTERVAL</emphasis></para>
+  <para><anchor xml:id="extcmd2-change_retry_svc_check_interval"/> <emphasis
+  role="bold">CHANGE_RETRY_SVC_CHECK_INTERVAL</emphasis></para>
 
   <para><code>CHANGE_RETRY_SVC_CHECK_INTERVAL;</code>&lt;host_name&gt;;&lt;service_description&gt;;&lt;check_interval&gt;</para>
 
   <para>Changes the retry check interval for a particular service.</para>
 
-  <para><anchor xml:id="extcmd2-change_svc_check_command"/> <emphasis role="bold">CHANGE_SVC_CHECK_COMMAND</emphasis></para>
+  <para><anchor xml:id="extcmd2-change_svc_check_command"/> <emphasis
+  role="bold">CHANGE_SVC_CHECK_COMMAND</emphasis></para>
 
   <para><code>CHANGE_SVC_CHECK_COMMAND;</code>&lt;host_name&gt;;&lt;service_description&gt;;&lt;check_command&gt;</para>
 
-  <para>Changes the check command for a particular service to be that specified by the "check_command" option. The "check_command" option
-  specifies the short name of the command that should be used as the new service check command. The command must have been configured in
+  <para>Changes the check command for a particular service to be that
+  specified by the "check_command" option. The "check_command" option
+  specifies the short name of the command that should be used as the new
+  service check command. The command must have been configured in
   &name-icinga; before it was last (re)started.</para>
 
-  <para><anchor xml:id="extcmd2-change_svc_check_timeperiod"/> <emphasis role="bold">CHANGE_SVC_CHECK_TIMEPERIOD</emphasis></para>
+  <para><anchor xml:id="extcmd2-change_svc_check_timeperiod"/> <emphasis
+  role="bold">CHANGE_SVC_CHECK_TIMEPERIOD</emphasis></para>
 
   <para><code>CHANGE_SVC_CHECK_TIMEPERIOD;</code>&lt;host_name&gt;;&lt;service_description&gt;;&lt;check_timeperiod&gt;</para>
 
-  <para>Changes the check timeperiod for a particular service to what is specified by the "check_timeperiod" option. The "check_timeperiod"
-  option should be the short name of the timeperod that is to be used as the service check timeperiod. The timeperiod must have been
-  configured in &name-icinga; before it was last (re)started.</para>
+  <para>Changes the check timeperiod for a particular service to what is
+  specified by the "check_timeperiod" option. The "check_timeperiod" option
+  should be the short name of the timeperod that is to be used as the service
+  check timeperiod. The timeperiod must have been configured in &name-icinga;
+  before it was last (re)started.</para>
 
-  <para><anchor xml:id="extcmd2-change_svc_event_handler"/> <emphasis role="bold">CHANGE_SVC_EVENT_HANDLER</emphasis></para>
+  <para><anchor xml:id="extcmd2-change_svc_event_handler"/> <emphasis
+  role="bold">CHANGE_SVC_EVENT_HANDLER</emphasis></para>
 
   <para><code>CHANGE_SVC_EVENT_HANDLER;</code>&lt;host_name&gt;;&lt;service_description&gt;;&lt;event_handler_command&gt;</para>
 
-  <para>Changes the event handler command for a particular service to be that specified by the "event_handler_command" option. The
-  "event_handler_command" option specifies the short name of the command that should be used as the new service event handler. The command
-  must have been configured in &name-icinga; before it was last (re)started.</para>
+  <para>Changes the event handler command for a particular service to be that
+  specified by the "event_handler_command" option. The "event_handler_command"
+  option specifies the short name of the command that should be used as the
+  new service event handler. The command must have been configured in
+  &name-icinga; before it was last (re)started.</para>
 
-  <para><anchor xml:id="extcmd2-change_svc_modattr"/> <emphasis role="bold">CHANGE_SVC_MODATTR</emphasis></para>
+  <para><anchor xml:id="extcmd2-change_svc_modattr"/> <emphasis
+  role="bold">CHANGE_SVC_MODATTR</emphasis></para>
 
   <para><code>CHANGE_SVC_MODATTR;</code>&lt;host_name&gt;;&lt;service_description&gt;;&lt;value&gt;</para>
 
-  <para>This command changes the modified attributes value for the specified service. Modified attributes values are used by &name-icinga;
-  to determine which object properties should be retained across program restarts. Thus, modifying the value of the attributes can affect
-  data retention. This is an advanced option and should only be used by people who are intimately familiar with the data retention logic in
-  &name-icinga;.</para>
+  <para>This command changes the modified attributes value for the specified
+  service. Modified attributes values are used by &name-icinga; to determine
+  which object properties should be retained across program restarts. Thus,
+  modifying the value of the attributes can affect data retention. This is an
+  advanced option and should only be used by people who are intimately
+  familiar with the data retention logic in &name-icinga;.</para>
 
-  <para><anchor xml:id="extcmd2-change_svc_notification_timeperiod"/> <emphasis
-  role="bold">CHANGE_SVC_NOTIFICATION_TIMEPERIOD</emphasis></para>
+  <para><anchor xml:id="extcmd2-change_svc_notification_timeperiod"/>
+  <emphasis role="bold">CHANGE_SVC_NOTIFICATION_TIMEPERIOD</emphasis></para>
 
   <para><code>CHANGE_SVC_NOTIFICATION_TIMEPERIOD;</code>&lt;host_name&gt;;&lt;service_description&gt;;&lt;notification_timeperiod&gt;</para>
 
-  <para>Changes the notification timeperiod for a particular service to what is specified by the "notification_timeperiod" option. The
-  "notification_timeperiod" option should be the short name of the timeperiod that is to be used as the service notification timeperiod. The
-  timeperiod must have been configured in &name-icinga; before it was last (re)started.</para>
+  <para>Changes the notification timeperiod for a particular service to what
+  is specified by the "notification_timeperiod" option. The
+  "notification_timeperiod" option should be the short name of the timeperiod
+  that is to be used as the service notification timeperiod. The timeperiod
+  must have been configured in &name-icinga; before it was last
+  (re)started.</para>
 
-  <para><anchor xml:id="extcmd2-del_all_host_comments"/> <emphasis role="bold">DEL_ALL_HOST_COMMENTS</emphasis></para>
+  <para><anchor xml:id="extcmd2-del_all_host_comments"/> <emphasis
+  role="bold">DEL_ALL_HOST_COMMENTS</emphasis></para>
 
   <para><code>DEL_ALL_HOST_COMMENTS;</code>&lt;host_name&gt;</para>
 
   <para>Deletes all comments associated with a particular host.</para>
 
-  <para><anchor xml:id="extcmd2-del_all_svc_comments"/> <emphasis role="bold">DEL_ALL_SVC_COMMENTS</emphasis></para>
+  <para><anchor xml:id="extcmd2-del_all_svc_comments"/> <emphasis
+  role="bold">DEL_ALL_SVC_COMMENTS</emphasis></para>
 
   <para><code>DEL_ALL_SVC_COMMENTS;</code>&lt;host_name&gt;;&lt;service_description&gt;</para>
 
   <para>Deletes all comments associated with a particular service.</para>
 
-  <para><anchor xml:id="extcmd2-del_host_comment"/> <emphasis role="bold">DEL_HOST_COMMENT</emphasis></para>
+  <para><anchor xml:id="extcmd2-del_host_comment"/> <emphasis
+  role="bold">DEL_HOST_COMMENT</emphasis></para>
 
   <para><code>DEL_HOST_COMMENT;</code>&lt;comment_id&gt;</para>
 
-  <para>Deletes a host comment. The id number of the comment that is to be deleted must be specified.</para>
+  <para>Deletes a host comment. The id number of the comment that is to be
+  deleted must be specified.</para>
 
-  <para><anchor xml:id="extcmd2-del_downtime_by_host_name"/> <emphasis role="bold">DEL_DOWNTIME_BY_HOST_NAME</emphasis></para>
+  <para><anchor xml:id="extcmd2-del_downtime_by_host_name"/> <emphasis
+  role="bold">DEL_DOWNTIME_BY_HOST_NAME</emphasis></para>
 
   <para><code>DEL_DOWNTIME_BY_HOST_NAME;</code>&lt;host_name&gt;[;&lt;servicedesc&gt;[;&lt;starttime&gt;[;&lt;commentstring&gt;]]]</para>
 
-  <para>Deletes the host downtime entry and associated services for the host whose host_name matches the "host_name" argument. If the
-  downtime is currently in effect, the host will come out of scheduled downtime (as long as there are no other overlapping active downtime
-  entries). Please note that you can add more (optional) "filters" to limit the scope.</para>
+  <para>Deletes the host downtime entry and associated services for the host
+  whose host_name matches the "host_name" argument. If the downtime is
+  currently in effect, the host will come out of scheduled downtime (as long
+  as there are no other overlapping active downtime entries). Please note that
+  you can add more (optional) "filters" to limit the scope.</para>
 
   <note>
-    <para>This command is available starting with &name-icinga; 1.4. Changes provided by the <link xlink:href="http://www.opsview.com/">
+    <para>This command is available starting with &name-icinga; 1.4. Changes
+    provided by the <link xlink:href="http://www.opsview.com/">
     &name-opsview;</link> team.</para>
   </note>
 
-  <para><anchor xml:id="extcmd2-del_downtime_by_hostgroup_name"/> <emphasis role="bold">DEL_DOWNTIME_BY_HOSTGROUP_NAME</emphasis></para>
+  <para><anchor xml:id="extcmd2-del_downtime_by_hostgroup_name"/> <emphasis
+  role="bold">DEL_DOWNTIME_BY_HOSTGROUP_NAME</emphasis></para>
 
   <para><code>DEL_DOWNTIME_BY_HOSTGROUP_NAME;</code>&lt;hostgroup_name&gt;[;&lt;hostname&gt;[;&lt;servicedesc&gt;[;&lt;starttime&gt;[;&lt;commentstring&gt;]]]]</para>
 
-  <para>Deletes the host downtime entries and associated services of all hosts of the host group matching the "hostgroup_name" argument. If
-  the downtime is currently in effect, the host will come out of scheduled downtime (as long as there are no other overlapping active
-  downtime entries). Please note that you can add more (optional) "filters" to limit the scope.</para>
+  <para>Deletes the host downtime entries and associated services of all hosts
+  of the host group matching the "hostgroup_name" argument. If the downtime is
+  currently in effect, the host will come out of scheduled downtime (as long
+  as there are no other overlapping active downtime entries). Please note that
+  you can add more (optional) "filters" to limit the scope.</para>
 
   <note>
-    <para>This command is available starting with &name-icinga; 1.4. Changes provided by the <link xlink:href="http://www.opsview.com/">
+    <para>This command is available starting with &name-icinga; 1.4. Changes
+    provided by the <link xlink:href="http://www.opsview.com/">
     &name-opsview;</link> team.</para>
   </note>
 
-  <para><anchor xml:id="extcmd2-del_downtime_by_start_time_comment"/> <emphasis
-  role="bold">DEL_DOWNTIME_BY_START_TIME_COMMENT</emphasis></para>
+  <para><anchor xml:id="extcmd2-del_downtime_by_start_time_comment"/>
+  <emphasis role="bold">DEL_DOWNTIME_BY_START_TIME_COMMENT</emphasis></para>
 
-  <para><code>DEL_DOWNTIME_BY_START_TIME_COMMENT;</code>&lt;start time[;comment_string]&gt;</para>
+  <para><code>DEL_DOWNTIME_BY_START_TIME_COMMENT;</code>&lt;start
+  time[;comment_string]&gt;</para>
 
-  <para>Deletes downtimes with start times matching the timestamp specified by the "start time" argument and an optional comment
-  string.</para>
+  <para>Deletes downtimes with start times matching the timestamp specified by
+  the "start time" argument and an optional comment string.</para>
 
   <note>
-    <para>This command is available starting with &name-icinga; 1.4. Changes provided by the <link xlink:href="http://www.opsview.com/">
-    &name-opsview; </link> team.</para>
+    <para>This command is available starting with &name-icinga; 1.4. Changes
+    provided by the <link xlink:href="http://www.opsview.com/"> &name-opsview;
+    </link> team.</para>
   </note>
 
-  <para><anchor xml:id="extcmd2-del_host_downtime"/> <emphasis role="bold">DEL_HOST_DOWNTIME</emphasis></para>
+  <para><anchor xml:id="extcmd2-del_host_downtime"/> <emphasis
+  role="bold">DEL_HOST_DOWNTIME</emphasis></para>
 
   <para><code>DEL_HOST_DOWNTIME;</code>&lt;downtime_id&gt;</para>
 
-  <para>Deletes the host downtime entry that has an ID number matching the "downtime_id" argument. If the downtime is currently in effect,
-  the host will come out of scheduled downtime (as long as there are no other overlapping active downtime entries).</para>
+  <para>Deletes the host downtime entry that has an ID number matching the
+  "downtime_id" argument. If the downtime is currently in effect, the host
+  will come out of scheduled downtime (as long as there are no other
+  overlapping active downtime entries).</para>
 
-  <para><anchor xml:id="extcmd2-del_svc_comment"/> <emphasis role="bold">DEL_SVC_COMMENT</emphasis></para>
+  <para><anchor xml:id="extcmd2-del_svc_comment"/> <emphasis
+  role="bold">DEL_SVC_COMMENT</emphasis></para>
 
   <para><code>DEL_SVC_COMMENT;</code>&lt;comment_id&gt;</para>
 
-  <para>Deletes a service comment. The id number of the comment that is to be deleted must be specified.</para>
+  <para>Deletes a service comment. The id number of the comment that is to be
+  deleted must be specified.</para>
 
-  <para><anchor xml:id="extcmd2-del_svc_downtime"/> <emphasis role="bold">DEL_SVC_DOWNTIME</emphasis></para>
+  <para><anchor xml:id="extcmd2-del_svc_downtime"/> <emphasis
+  role="bold">DEL_SVC_DOWNTIME</emphasis></para>
 
   <para><code>DEL_SVC_DOWNTIME;</code>&lt;downtime_id&gt;</para>
 
-  <para>Deletes the service downtime entry that has an ID number matching the "downtime_id" argument. If the downtime is currently in
-  effect, the service will come out of scheduled downtime (as long as there are no other overlapping active downtime entries).</para>
+  <para>Deletes the service downtime entry that has an ID number matching the
+  "downtime_id" argument. If the downtime is currently in effect, the service
+  will come out of scheduled downtime (as long as there are no other
+  overlapping active downtime entries).</para>
 
-  <para><anchor xml:id="extcmd2-delay_host_notification"/> <emphasis role="bold">DELAY_HOST_NOTIFICATION</emphasis></para>
+  <para><anchor xml:id="extcmd2-delay_host_notification"/> <emphasis
+  role="bold">DELAY_HOST_NOTIFICATION</emphasis></para>
 
   <para><code>DELAY_HOST_NOTIFICATION;</code>&lt;host_name&gt;;&lt;notification_time&gt;</para>
 
-  <para>Delays the next notification for a particular host until "notification_time". The "notification_time" argument is specified in
-  time_t format (seconds since the UNIX epoch). Note that this will only have an affect if the host stays in the same problem state that it
-  is currently in. If the host changes to another state, a new notification may go out before the time you specify in the
-  "notification_time" argument.</para>
+  <para>Delays the next notification for a particular host until
+  "notification_time". The "notification_time" argument is specified in time_t
+  format (seconds since the UNIX epoch). Note that this will only have an
+  affect if the host stays in the same problem state that it is currently in.
+  If the host changes to another state, a new notification may go out before
+  the time you specify in the "notification_time" argument.</para>
 
-  <para><anchor xml:id="extcmd2-delay_svc_notification"/> <emphasis role="bold">DELAY_SVC_NOTIFICATION</emphasis></para>
+  <para><anchor xml:id="extcmd2-delay_svc_notification"/> <emphasis
+  role="bold">DELAY_SVC_NOTIFICATION</emphasis></para>
 
   <para><code>DELAY_SVC_NOTIFICATION;</code>&lt;host_name&gt;;&lt;service_description&gt;;&lt;notification_time&gt;</para>
 
-  <para>Delays the next notification for a parciular service until "notification_time". The "notification_time" argument is specified in
-  time_t format (seconds since the UNIX epoch). Note that this will only have an affect if the service stays in the same problem state that
-  it is currently in. If the service changes to another state, a new notification may go out before the time you specify in the
-  "notification_time" argument.</para>
+  <para>Delays the next notification for a parciular service until
+  "notification_time". The "notification_time" argument is specified in time_t
+  format (seconds since the UNIX epoch). Note that this will only have an
+  affect if the service stays in the same problem state that it is currently
+  in. If the service changes to another state, a new notification may go out
+  before the time you specify in the "notification_time" argument.</para>
 
-  <para><anchor xml:id="extcmd2-disable_all_notifications_beyond_host"/> <emphasis
+  <para><anchor xml:id="extcmd2-disable_all_notifications_beyond_host"/>
+  <emphasis
   role="bold">DISABLE_ALL_NOTIFICATIONS_BEYOND_HOST</emphasis></para>
 
   <para><code>DISABLE_ALL_NOTIFICATIONS_BEYOND_HOST;</code>&lt;host_name&gt;</para>
 
-  <para>Disables notifications for all hosts and services "beyond" (e.g. on all child hosts of) the specified host. The current notification
-  setting for the specified host is not affected.</para>
+  <para>Disables notifications for all hosts and services "beyond" (e.g. on
+  all child hosts of) the specified host. The current notification setting for
+  the specified host is not affected.</para>
 
-  <para><anchor xml:id="extcmd2-disable_contact_host_notifications"/> <emphasis
-  role="bold">DISABLE_CONTACT_HOST_NOTIFICATIONS</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_contact_host_notifications"/>
+  <emphasis role="bold">DISABLE_CONTACT_HOST_NOTIFICATIONS</emphasis></para>
 
   <para><code>DISABLE_CONTACT_HOST_NOTIFICATIONS;</code>&lt;contact_name&gt;</para>
 
@@ -572,247 +694,304 @@
 
   <para>Disables service notifications for a particular contact.</para>
 
-  <para><anchor xml:id="extcmd2-disable_contactgroup_host_notifications"/> <emphasis
+  <para><anchor xml:id="extcmd2-disable_contactgroup_host_notifications"/>
+  <emphasis
   role="bold">DISABLE_CONTACTGROUP_HOST_NOTIFICATIONS</emphasis></para>
 
   <para><code>DISABLE_CONTACTGROUP_HOST_NOTIFICATIONS;</code>&lt;contactgroup_name&gt;</para>
 
-  <para>Disables host notifications for all contacts in a particular contactgroup.</para>
+  <para>Disables host notifications for all contacts in a particular
+  contactgroup.</para>
 
-  <para><anchor xml:id="extcmd2-disable_contactgroup_svc_notifications"/> <emphasis
+  <para><anchor xml:id="extcmd2-disable_contactgroup_svc_notifications"/>
+  <emphasis
   role="bold">DISABLE_CONTACTGROUP_SVC_NOTIFICATIONS</emphasis></para>
 
   <para><code>DISABLE_CONTACTGROUP_SVC_NOTIFICATIONS;</code>&lt;contactgroup_name&gt;</para>
 
-  <para>Disables service notifications for all contacts in a particular contactgroup.</para>
+  <para>Disables service notifications for all contacts in a particular
+  contactgroup.</para>
 
-  <para><anchor xml:id="extcmd2-disable_event_handlers"/> <emphasis role="bold">DISABLE_EVENT_HANDLERS</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_event_handlers"/> <emphasis
+  role="bold">DISABLE_EVENT_HANDLERS</emphasis></para>
 
   <para><code>DISABLE_EVENT_HANDLERS</code></para>
 
-  <para>Disables host and service event handlers on a program-wide basis.</para>
+  <para>Disables host and service event handlers on a program-wide
+  basis.</para>
 
-  <para><anchor xml:id="extcmd2-disable_failure_prediction"/> <emphasis role="bold">DISABLE_FAILURE_PREDICTION</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_failure_prediction"/> <emphasis
+  role="bold">DISABLE_FAILURE_PREDICTION</emphasis></para>
 
   <para><code>DISABLE_FAILURE_PREDICTION</code></para>
 
   <para>Disables failure prediction on a program-wide basis.</para>
 
-  <para><anchor xml:id="extcmd2-disable_flap_detection"/> <emphasis role="bold">DISABLE_FLAP_DETECTION</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_flap_detection"/> <emphasis
+  role="bold">DISABLE_FLAP_DETECTION</emphasis></para>
 
   <para><code>DISABLE_FLAP_DETECTION</code></para>
 
-  <para>Disables host and service flap detection on a program-wide basis.</para>
+  <para>Disables host and service flap detection on a program-wide
+  basis.</para>
 
-  <para><anchor xml:id="extcmd2-disable_host_and_child_notifications"/> <emphasis
-  role="bold">DISABLE_HOST_AND_CHILD_NOTIFICATIONS</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_host_and_child_notifications"/>
+  <emphasis role="bold">DISABLE_HOST_AND_CHILD_NOTIFICATIONS</emphasis></para>
 
   <para><code>DISABLE_HOST_AND_CHILD_NOTIFICATIONS;</code>&lt;host_name&gt;</para>
 
-  <para>Disables notifications for the specified host, as well as all hosts "beyond" (e.g. on all child hosts of) the specified host.</para>
+  <para>Disables notifications for the specified host, as well as all hosts
+  "beyond" (e.g. on all child hosts of) the specified host.</para>
 
-  <para><anchor xml:id="extcmd2-disable_host_check"/> <emphasis role="bold">DISABLE_HOST_CHECK</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_host_check"/> <emphasis
+  role="bold">DISABLE_HOST_CHECK</emphasis></para>
 
   <para><code>DISABLE_HOST_CHECK;</code>&lt;host_name&gt;</para>
 
-  <para>Disables (regularly scheduled and on-demand) active checks of the specified host.</para>
+  <para>Disables (regularly scheduled and on-demand) active checks of the
+  specified host.</para>
 
-  <para><anchor xml:id="extcmd2-disable_host_event_handler"/> <emphasis role="bold">DISABLE_HOST_EVENT_HANDLER</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_host_event_handler"/> <emphasis
+  role="bold">DISABLE_HOST_EVENT_HANDLER</emphasis></para>
 
   <para><code>DISABLE_HOST_EVENT_HANDLER;</code>&lt;host_name&gt;</para>
 
   <para>Disables the event handler for the specified host.</para>
 
-  <para><anchor xml:id="extcmd2-disable_host_flap_detection"/> <emphasis role="bold">DISABLE_HOST_FLAP_DETECTION</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_host_flap_detection"/> <emphasis
+  role="bold">DISABLE_HOST_FLAP_DETECTION</emphasis></para>
 
   <para><code>DISABLE_HOST_FLAP_DETECTION;</code>&lt;host_name&gt;</para>
 
   <para>Disables flap detection for the specified host.</para>
 
-  <para><anchor xml:id="extcmd2-disable_host_freshness_checks"/> <emphasis role="bold">DISABLE_HOST_FRESHNESS_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_host_freshness_checks"/> <emphasis
+  role="bold">DISABLE_HOST_FRESHNESS_CHECKS</emphasis></para>
 
   <para><code>DISABLE_HOST_FRESHNESS_CHECKS</code></para>
 
   <para>Disables freshness checks of all hosts on a program-wide basis.</para>
 
-  <para><anchor xml:id="extcmd2-disable_host_notifications"/> <emphasis role="bold">DISABLE_HOST_NOTIFICATIONS</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_host_notifications"/> <emphasis
+  role="bold">DISABLE_HOST_NOTIFICATIONS</emphasis></para>
 
   <para><code>DISABLE_HOST_NOTIFICATIONS;</code>&lt;host_name&gt;</para>
 
   <para>Disables notifications for a particular host.</para>
 
-  <para><anchor xml:id="extcmd2-disable_host_svc_checks"/> <emphasis role="bold">DISABLE_HOST_SVC_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_host_svc_checks"/> <emphasis
+  role="bold">DISABLE_HOST_SVC_CHECKS</emphasis></para>
 
   <para><code>DISABLE_HOST_SVC_CHECKS;</code>&lt;host_name&gt;</para>
 
   <para>Disables active checks of all services on the specified host.</para>
 
-  <para><anchor xml:id="extcmd2-disable_host_svc_notifications"/> <emphasis role="bold">DISABLE_HOST_SVC_NOTIFICATIONS</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_host_svc_notifications"/> <emphasis
+  role="bold">DISABLE_HOST_SVC_NOTIFICATIONS</emphasis></para>
 
   <para><code>DISABLE_HOST_SVC_NOTIFICATIONS;</code>&lt;host_name&gt;</para>
 
   <para>Disables notifications for all services on the specified host.</para>
 
-  <para><anchor xml:id="extcmd2-disable_hostgroup_host_checks"/> <emphasis role="bold">DISABLE_HOSTGROUP_HOST_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_hostgroup_host_checks"/> <emphasis
+  role="bold">DISABLE_HOSTGROUP_HOST_CHECKS</emphasis></para>
 
   <para><code>DISABLE_HOSTGROUP_HOST_CHECKS;</code>&lt;hostgroup_name&gt;</para>
 
   <para>Disables active checks for all hosts in a particular hostgroup.</para>
 
-  <para><anchor xml:id="extcmd2-disable_hostgroup_host_notifications"/> <emphasis
-  role="bold">DISABLE_HOSTGROUP_HOST_NOTIFICATIONS</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_hostgroup_host_notifications"/>
+  <emphasis role="bold">DISABLE_HOSTGROUP_HOST_NOTIFICATIONS</emphasis></para>
 
   <para><code>DISABLE_HOSTGROUP_HOST_NOTIFICATIONS;</code>&lt;hostgroup_name&gt;</para>
 
-  <para>Disables notifications for all hosts in a particular hostgroup. This does not disable notifications for the services associated with
-  the hosts in the hostgroup - see the DISABLE_HOSTGROUP_SVC_NOTIFICATIONS command for that.</para>
+  <para>Disables notifications for all hosts in a particular hostgroup. This
+  does not disable notifications for the services associated with the hosts in
+  the hostgroup - see the DISABLE_HOSTGROUP_SVC_NOTIFICATIONS command for
+  that.</para>
 
-  <para><anchor xml:id="extcmd2-disable_hostgroup_passive_host_checks"/> <emphasis
+  <para><anchor xml:id="extcmd2-disable_hostgroup_passive_host_checks"/>
+  <emphasis
   role="bold">DISABLE_HOSTGROUP_PASSIVE_HOST_CHECKS</emphasis></para>
 
   <para><code>DISABLE_HOSTGROUP_PASSIVE_HOST_CHECKS;</code>&lt;hostgroup_name&gt;</para>
 
-  <para>Disables passive checks for all hosts in a particular hostgroup.</para>
+  <para>Disables passive checks for all hosts in a particular
+  hostgroup.</para>
 
-  <para><anchor xml:id="extcmd2-disable_hostgroup_passive_svc_checks"/> <emphasis
-  role="bold">DISABLE_HOSTGROUP_PASSIVE_SVC_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_hostgroup_passive_svc_checks"/>
+  <emphasis role="bold">DISABLE_HOSTGROUP_PASSIVE_SVC_CHECKS</emphasis></para>
 
   <para><code>DISABLE_HOSTGROUP_PASSIVE_SVC_CHECKS;</code>&lt;hostgroup_name&gt;</para>
 
-  <para>Disables passive checks for all services associated with hosts in a particular hostgroup.</para>
+  <para>Disables passive checks for all services associated with hosts in a
+  particular hostgroup.</para>
 
-  <para><anchor xml:id="extcmd2-disable_hostgroup_svc_checks"/> <emphasis role="bold">DISABLE_HOSTGROUP_SVC_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_hostgroup_svc_checks"/> <emphasis
+  role="bold">DISABLE_HOSTGROUP_SVC_CHECKS</emphasis></para>
 
   <para><code>DISABLE_HOSTGROUP_SVC_CHECKS;</code>&lt;hostgroup_name&gt;</para>
 
-  <para>Disables active checks for all services associated with hosts in a particular hostgroup.</para>
+  <para>Disables active checks for all services associated with hosts in a
+  particular hostgroup.</para>
 
-  <para><anchor xml:id="extcmd2-disable_hostgroup_svc_notifications"/> <emphasis
-  role="bold">DISABLE_HOSTGROUP_SVC_NOTIFICATIONS</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_hostgroup_svc_notifications"/>
+  <emphasis role="bold">DISABLE_HOSTGROUP_SVC_NOTIFICATIONS</emphasis></para>
 
   <para><code>DISABLE_HOSTGROUP_SVC_NOTIFICATIONS;</code>&lt;hostgroup_name&gt;</para>
 
-  <para>Disables notifications for all services associated with hosts in a particular hostgroup. This does not disable notifications for the
-  hosts in the hostgroup - see the DISABLE_HOSTGROUP_HOST_NOTIFICATIONS command for that.</para>
+  <para>Disables notifications for all services associated with hosts in a
+  particular hostgroup. This does not disable notifications for the hosts in
+  the hostgroup - see the DISABLE_HOSTGROUP_HOST_NOTIFICATIONS command for
+  that.</para>
 
-  <para><anchor xml:id="extcmd2-disable_notifications"/> <emphasis role="bold">DISABLE_NOTIFICATIONS</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_notifications"/> <emphasis
+  role="bold">DISABLE_NOTIFICATIONS</emphasis></para>
 
   <para><code>DISABLE_NOTIFICATIONS</code></para>
 
-  <para>Disables host and service notifications on a program-wide basis.</para>
+  <para>Disables host and service notifications on a program-wide
+  basis.</para>
 
   <para><anchor xml:id="extcmd2-disable_notifications_expire_time"/> <emphasis
   role="bold">DISABLE_NOTIFICATIONS_EXPIRE_TIME</emphasis></para>
 
   <para><code>DISABLE_NOTIFICATIONS_EXPIRE_TIME;&lt;schedule_time&gt;;&lt;expire_time&gt;</code></para>
 
-  <para>&lt;schedule_time&gt; has no effect currently, set it to current timestamp in your scripts.</para>
+  <para>&lt;schedule_time&gt; has no effect currently, set it to current
+  timestamp in your scripts.</para>
 
-  <para>Disables host and service notifications on a program-wide basis, with given expire time.</para>
+  <para>Disables host and service notifications on a program-wide basis, with
+  given expire time.</para>
 
-  <para><anchor xml:id="extcmd2-disable_passive_host_checks"/> <emphasis role="bold">DISABLE_PASSIVE_HOST_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_passive_host_checks"/> <emphasis
+  role="bold">DISABLE_PASSIVE_HOST_CHECKS</emphasis></para>
 
   <para><code>DISABLE_PASSIVE_HOST_CHECKS;</code>&lt;host_name&gt;</para>
 
-  <para>Disables acceptance and processing of passive host checks for the specified host.</para>
+  <para>Disables acceptance and processing of passive host checks for the
+  specified host.</para>
 
-  <para><anchor xml:id="extcmd2-disable_passive_svc_checks"/> <emphasis role="bold">DISABLE_PASSIVE_SVC_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_passive_svc_checks"/> <emphasis
+  role="bold">DISABLE_PASSIVE_SVC_CHECKS</emphasis></para>
 
   <para><code>DISABLE_PASSIVE_SVC_CHECKS;</code>&lt;host_name&gt;;&lt;service_description&gt;</para>
 
   <para>Disables passive checks for the specified service.</para>
 
-  <para><anchor xml:id="extcmd2-disable_performance_data"/> <emphasis role="bold">DISABLE_PERFORMANCE_DATA</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_performance_data"/> <emphasis
+  role="bold">DISABLE_PERFORMANCE_DATA</emphasis></para>
 
   <para><code>DISABLE_PERFORMANCE_DATA</code></para>
 
-  <para>Disables the processing of host and service performance data on a program-wide basis.</para>
+  <para>Disables the processing of host and service performance data on a
+  program-wide basis.</para>
 
-  <para><anchor xml:id="extcmd2-disable_service_flap_detection"/> <emphasis role="bold">DISABLE_SERVICE_FLAP_DETECTION</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_service_flap_detection"/> <emphasis
+  role="bold">DISABLE_SERVICE_FLAP_DETECTION</emphasis></para>
 
   <para><code>DISABLE_SERVICE_FLAP_DETECTION;</code>&lt;host_name&gt;;&lt;service_description&gt;</para>
 
   <para>Disables flap detection for the specified service.</para>
 
-  <para><anchor xml:id="extcmd2-disable_service_freshness_checks"/> <emphasis role="bold">DISABLE_SERVICE_FRESHNESS_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_service_freshness_checks"/> <emphasis
+  role="bold">DISABLE_SERVICE_FRESHNESS_CHECKS</emphasis></para>
 
   <para><code>DISABLE_SERVICE_FRESHNESS_CHECKS</code></para>
 
-  <para>Disables freshness checks of all services on a program-wide basis.</para>
+  <para>Disables freshness checks of all services on a program-wide
+  basis.</para>
 
-  <para><anchor xml:id="extcmd2-disable_servicegroup_host_checks"/> <emphasis role="bold">DISABLE_SERVICEGROUP_HOST_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_servicegroup_host_checks"/> <emphasis
+  role="bold">DISABLE_SERVICEGROUP_HOST_CHECKS</emphasis></para>
 
   <para><code>DISABLE_SERVICEGROUP_HOST_CHECKS;</code>&lt;servicegroup_name&gt;</para>
 
-  <para>Disables active checks for all hosts that have services that are members of a particular servicegroup.</para>
+  <para>Disables active checks for all hosts that have services that are
+  members of a particular servicegroup.</para>
 
-  <para><anchor xml:id="extcmd2-disable_servicegroup_host_notifications"/> <emphasis
+  <para><anchor xml:id="extcmd2-disable_servicegroup_host_notifications"/>
+  <emphasis
   role="bold">DISABLE_SERVICEGROUP_HOST_NOTIFICATIONS</emphasis></para>
 
   <para><code>DISABLE_SERVICEGROUP_HOST_NOTIFICATIONS;</code>&lt;servicegroup_name&gt;</para>
 
-  <para>Disables notifications for all hosts that have services that are members of a particular servicegroup.</para>
+  <para>Disables notifications for all hosts that have services that are
+  members of a particular servicegroup.</para>
 
-  <para><anchor xml:id="extcmd2-disable_servicegroup_passive_host_checks"/> <emphasis
+  <para><anchor xml:id="extcmd2-disable_servicegroup_passive_host_checks"/>
+  <emphasis
   role="bold">DISABLE_SERVICEGROUP_PASSIVE_HOST_CHECKS</emphasis></para>
 
   <para><code>DISABLE_SERVICEGROUP_PASSIVE_HOST_CHECKS;</code>&lt;servicegroup_name&gt;</para>
 
-  <para>Disables the acceptance and processing of passive checks for all hosts that have services that are members of a particular service
-  group.</para>
+  <para>Disables the acceptance and processing of passive checks for all hosts
+  that have services that are members of a particular service group.</para>
 
-  <para><anchor xml:id="extcmd2-disable_servicegroup_passive_svc_checks"/> <emphasis
+  <para><anchor xml:id="extcmd2-disable_servicegroup_passive_svc_checks"/>
+  <emphasis
   role="bold">DISABLE_SERVICEGROUP_PASSIVE_SVC_CHECKS</emphasis></para>
 
   <para><code>DISABLE_SERVICEGROUP_PASSIVE_SVC_CHECKS;</code>&lt;servicegroup_name&gt;</para>
 
-  <para>Disables the acceptance and processing of passive checks for all services in a particular servicegroup.</para>
+  <para>Disables the acceptance and processing of passive checks for all
+  services in a particular servicegroup.</para>
 
-  <para><anchor xml:id="extcmd2-disable_servicegroup_svc_checks"/> <emphasis role="bold">DISABLE_SERVICEGROUP_SVC_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_servicegroup_svc_checks"/> <emphasis
+  role="bold">DISABLE_SERVICEGROUP_SVC_CHECKS</emphasis></para>
 
   <para><code>DISABLE_SERVICEGROUP_SVC_CHECKS;</code>&lt;servicegroup_name&gt;</para>
 
-  <para>Disables active checks for all services in a particular servicegroup.</para>
+  <para>Disables active checks for all services in a particular
+  servicegroup.</para>
 
-  <para><anchor xml:id="extcmd2-disable_servicegroup_svc_notifications"/> <emphasis
+  <para><anchor xml:id="extcmd2-disable_servicegroup_svc_notifications"/>
+  <emphasis
   role="bold">DISABLE_SERVICEGROUP_SVC_NOTIFICATIONS</emphasis></para>
 
   <para><code>DISABLE_SERVICEGROUP_SVC_NOTIFICATIONS;</code>&lt;servicegroup_name&gt;</para>
 
-  <para>Disables notifications for all services that are members of a particular servicegroup.</para>
+  <para>Disables notifications for all services that are members of a
+  particular servicegroup.</para>
 
-  <para><anchor xml:id="extcmd2-disable_svc_check"/> <emphasis role="bold">DISABLE_SVC_CHECK</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_svc_check"/> <emphasis
+  role="bold">DISABLE_SVC_CHECK</emphasis></para>
 
   <para><code>DISABLE_SVC_CHECK;</code>&lt;host_name&gt;;&lt;service_description&gt;</para>
 
   <para>Disables active checks for a particular service.</para>
 
-  <para><anchor xml:id="extcmd2-disable_svc_event_handler"/> <emphasis role="bold">DISABLE_SVC_EVENT_HANDLER</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_svc_event_handler"/> <emphasis
+  role="bold">DISABLE_SVC_EVENT_HANDLER</emphasis></para>
 
   <para><code>DISABLE_SVC_EVENT_HANDLER;</code>&lt;host_name&gt;;&lt;service_description&gt;</para>
 
   <para>Disables the event handler for the specified service.</para>
 
-  <para><anchor xml:id="extcmd2-disable_svc_flap_detection"/> <emphasis role="bold">DISABLE_SVC_FLAP_DETECTION</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_svc_flap_detection"/> <emphasis
+  role="bold">DISABLE_SVC_FLAP_DETECTION</emphasis></para>
 
   <para><code>DISABLE_SVC_FLAP_DETECTION;</code>&lt;host_name&gt;;&lt;service_description&gt;</para>
 
   <para>Disables flap detection for the specified service.</para>
 
-  <para><anchor xml:id="extcmd2-disable_svc_notifications"/> <emphasis role="bold">DISABLE_SVC_NOTIFICATIONS</emphasis></para>
+  <para><anchor xml:id="extcmd2-disable_svc_notifications"/> <emphasis
+  role="bold">DISABLE_SVC_NOTIFICATIONS</emphasis></para>
 
   <para><code>DISABLE_SVC_NOTIFICATIONS;</code>&lt;host_name&gt;;&lt;service_description&gt;</para>
 
   <para>Disables notifications for a particular service.</para>
 
-  <para><anchor xml:id="extcmd2-enable_all_notifications_beyond_host"/> <emphasis
-  role="bold">ENABLE_ALL_NOTIFICATIONS_BEYOND_HOST</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_all_notifications_beyond_host"/>
+  <emphasis role="bold">ENABLE_ALL_NOTIFICATIONS_BEYOND_HOST</emphasis></para>
 
   <para><code>ENABLE_ALL_NOTIFICATIONS_BEYOND_HOST;</code>&lt;host_name&gt;</para>
 
-  <para>Enables notifications for all hosts and services "beyond" (e.g. on all child hosts of) the specified host. The current notification
-  setting for the specified host is not affected. Notifications will only be sent out for these hosts and services if notifications are also
-  enabled on a program-wide basis.</para>
+  <para>Enables notifications for all hosts and services "beyond" (e.g. on all
+  child hosts of) the specified host. The current notification setting for the
+  specified host is not affected. Notifications will only be sent out for
+  these hosts and services if notifications are also enabled on a program-wide
+  basis.</para>
 
   <para><anchor xml:id="extcmd2-enable_contact_host_notifications"/> <emphasis
   role="bold">ENABLE_CONTACT_HOST_NOTIFICATIONS</emphasis></para>
@@ -821,557 +1000,738 @@
 
   <para>Enables host notifications for a particular contact.</para>
 
-  <para><anchor xml:id="extcmd2-enable_contact_svc_notifications"/> <emphasis role="bold">ENABLE_CONTACT_SVC_NOTIFICATIONS</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_contact_svc_notifications"/> <emphasis
+  role="bold">ENABLE_CONTACT_SVC_NOTIFICATIONS</emphasis></para>
 
   <para><code>ENABLE_CONTACT_SVC_NOTIFICATIONS;</code>&lt;contact_name&gt;</para>
 
   <para>Disables service notifications for a particular contact.</para>
 
-  <para><anchor xml:id="extcmd2-enable_contactgroup_host_notifications"/> <emphasis
+  <para><anchor xml:id="extcmd2-enable_contactgroup_host_notifications"/>
+  <emphasis
   role="bold">ENABLE_CONTACTGROUP_HOST_NOTIFICATIONS</emphasis></para>
 
   <para><code>ENABLE_CONTACTGROUP_HOST_NOTIFICATIONS;</code>&lt;contactgroup_name&gt;</para>
 
-  <para>Enables host notifications for all contacts in a particular contactgroup.</para>
+  <para>Enables host notifications for all contacts in a particular
+  contactgroup.</para>
 
-  <para><anchor xml:id="extcmd2-enable_contactgroup_svc_notifications"/> <emphasis
+  <para><anchor xml:id="extcmd2-enable_contactgroup_svc_notifications"/>
+  <emphasis
   role="bold">ENABLE_CONTACTGROUP_SVC_NOTIFICATIONS</emphasis></para>
 
   <para><code>ENABLE_CONTACTGROUP_SVC_NOTIFICATIONS;</code>&lt;contactgroup_name&gt;</para>
 
-  <para>Enables service notifications for all contacts in a particular contactgroup.</para>
+  <para>Enables service notifications for all contacts in a particular
+  contactgroup.</para>
 
-  <para><anchor xml:id="extcmd2-enable_event_handlers"/> <emphasis role="bold">ENABLE_EVENT_HANDLERS</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_event_handlers"/> <emphasis
+  role="bold">ENABLE_EVENT_HANDLERS</emphasis></para>
 
   <para><code>ENABLE_EVENT_HANDLERS</code></para>
 
-  <para>Enables host and service event handlers on a program-wide basis.</para>
+  <para>Enables host and service event handlers on a program-wide
+  basis.</para>
 
-  <para><anchor xml:id="extcmd2-enable_failure_prediction"/> <emphasis role="bold">ENABLE_FAILURE_PREDICTION</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_failure_prediction"/> <emphasis
+  role="bold">ENABLE_FAILURE_PREDICTION</emphasis></para>
 
   <para><code>ENABLE_FAILURE_PREDICTION</code></para>
 
   <para>Enables failure prediction on a program-wide basis.</para>
 
-  <para><anchor xml:id="extcmd2-enable_flap_detection"/> <emphasis role="bold">ENABLE_FLAP_DETECTION</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_flap_detection"/> <emphasis
+  role="bold">ENABLE_FLAP_DETECTION</emphasis></para>
 
   <para><code>ENABLE_FLAP_DETECTION</code></para>
 
-  <para>Enables host and service flap detection on a program-wide basis.</para>
+  <para>Enables host and service flap detection on a program-wide
+  basis.</para>
 
-  <para><anchor xml:id="extcmd2-enable_host_and_child_notifications"/> <emphasis
-  role="bold">ENABLE_HOST_AND_CHILD_NOTIFICATIONS</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_host_and_child_notifications"/>
+  <emphasis role="bold">ENABLE_HOST_AND_CHILD_NOTIFICATIONS</emphasis></para>
 
   <para><code>ENABLE_HOST_AND_CHILD_NOTIFICATIONS;</code>&lt;host_name&gt;</para>
 
-  <para>Enables notifications for the specified host, as well as all hosts "beyond" (e.g. on all child hosts of) the specified host.
-  Notifications will only be sent out for these hosts if notifications are also enabled on a program-wide basis.</para>
+  <para>Enables notifications for the specified host, as well as all hosts
+  "beyond" (e.g. on all child hosts of) the specified host. Notifications will
+  only be sent out for these hosts if notifications are also enabled on a
+  program-wide basis.</para>
 
-  <para><anchor xml:id="extcmd2-enable_host_check"/> <emphasis role="bold">ENABLE_HOST_CHECK</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_host_check"/> <emphasis
+  role="bold">ENABLE_HOST_CHECK</emphasis></para>
 
   <para><code>ENABLE_HOST_CHECK;</code>&lt;host_name&gt;</para>
 
-  <para>Enables (regularly scheduled and on-demand) active checks of the specified host.</para>
+  <para>Enables (regularly scheduled and on-demand) active checks of the
+  specified host.</para>
 
-  <para><anchor xml:id="extcmd2-enable_host_event_handler"/> <emphasis role="bold">ENABLE_HOST_EVENT_HANDLER</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_host_event_handler"/> <emphasis
+  role="bold">ENABLE_HOST_EVENT_HANDLER</emphasis></para>
 
   <para><code>ENABLE_HOST_EVENT_HANDLER;</code>&lt;host_name&gt;</para>
 
   <para>Enables the event handler for the specified host.</para>
 
-  <para><anchor xml:id="extcmd2-enable_host_flap_detection"/> <emphasis role="bold">ENABLE_HOST_FLAP_DETECTION</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_host_flap_detection"/> <emphasis
+  role="bold">ENABLE_HOST_FLAP_DETECTION</emphasis></para>
 
   <para><code>ENABLE_HOST_FLAP_DETECTION;</code>&lt;host_name&gt;</para>
 
-  <para>Enables flap detection for the specified host. In order for the flap detection algorithms to be run for the host, flap detection
-  must be enabled on a program-wide basis as well.</para>
+  <para>Enables flap detection for the specified host. In order for the flap
+  detection algorithms to be run for the host, flap detection must be enabled
+  on a program-wide basis as well.</para>
 
-  <para><anchor xml:id="extcmd2-enable_host_freshness_checks"/> <emphasis role="bold">ENABLE_HOST_FRESHNESS_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_host_freshness_checks"/> <emphasis
+  role="bold">ENABLE_HOST_FRESHNESS_CHECKS</emphasis></para>
 
   <para><code>ENABLE_HOST_FRESHNESS_CHECKS</code></para>
 
-  <para>Enables freshness checks of all hosts on a program-wide basis. Individual hosts that have freshness checks disabled will not be
-  checked for freshness.</para>
+  <para>Enables freshness checks of all hosts on a program-wide basis.
+  Individual hosts that have freshness checks disabled will not be checked for
+  freshness.</para>
 
-  <para><anchor xml:id="extcmd2-enable_host_notifications"/> <emphasis role="bold">ENABLE_HOST_NOTIFICATIONS</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_host_notifications"/> <emphasis
+  role="bold">ENABLE_HOST_NOTIFICATIONS</emphasis></para>
 
   <para><code>ENABLE_HOST_NOTIFICATIONS;</code>&lt;host_name&gt;</para>
 
-  <para>Enables notifications for a particular host. Notifications will be sent out for the host only if notifications are enabled on a
-  program-wide basis as well.</para>
+  <para>Enables notifications for a particular host. Notifications will be
+  sent out for the host only if notifications are enabled on a program-wide
+  basis as well.</para>
 
-  <para><anchor xml:id="extcmd2-enable_host_svc_checks"/> <emphasis role="bold">ENABLE_HOST_SVC_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_host_svc_checks"/> <emphasis
+  role="bold">ENABLE_HOST_SVC_CHECKS</emphasis></para>
 
   <para><code>ENABLE_HOST_SVC_CHECKS;</code>&lt;host_name&gt;</para>
 
   <para>Enables active checks of all services on the specified host.</para>
 
-  <para><anchor xml:id="extcmd2-enable_host_svc_notifications"/> <emphasis role="bold">ENABLE_HOST_SVC_NOTIFICATIONS</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_host_svc_notifications"/> <emphasis
+  role="bold">ENABLE_HOST_SVC_NOTIFICATIONS</emphasis></para>
 
   <para><code>ENABLE_HOST_SVC_NOTIFICATIONS;</code>&lt;host_name&gt;</para>
 
-  <para>Enables notifications for all services on the specified host. Note that notifications will not be sent out if notifications are
-  disabled on a program-wide basis.</para>
+  <para>Enables notifications for all services on the specified host. Note
+  that notifications will not be sent out if notifications are disabled on a
+  program-wide basis.</para>
 
-  <para><anchor xml:id="extcmd2-enable_hostgroup_host_checks"/> <emphasis role="bold">ENABLE_HOSTGROUP_HOST_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_hostgroup_host_checks"/> <emphasis
+  role="bold">ENABLE_HOSTGROUP_HOST_CHECKS</emphasis></para>
 
   <para><code>ENABLE_HOSTGROUP_HOST_CHECKS;</code>&lt;hostgroup_name&gt;</para>
 
   <para>Enables active checks for all hosts in a particular hostgroup.</para>
 
-  <para><anchor xml:id="extcmd2-enable_hostgroup_host_notifications"/> <emphasis
-  role="bold">ENABLE_HOSTGROUP_HOST_NOTIFICATIONS</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_hostgroup_host_notifications"/>
+  <emphasis role="bold">ENABLE_HOSTGROUP_HOST_NOTIFICATIONS</emphasis></para>
 
   <para><code>ENABLE_HOSTGROUP_HOST_NOTIFICATIONS;</code>&lt;hostgroup_name&gt;</para>
 
-  <para>Enables notifications for all hosts in a particular hostgroup. This does not enable notifications for the services associated with
-  the hosts in the hostgroup - see the ENABLE_HOSTGROUP_SVC_NOTIFICATIONS command for that. In order for notifications to be sent out for
-  these hosts, notifications must be enabled on a program-wide basis as well.</para>
+  <para>Enables notifications for all hosts in a particular hostgroup. This
+  does not enable notifications for the services associated with the hosts in
+  the hostgroup - see the ENABLE_HOSTGROUP_SVC_NOTIFICATIONS command for that.
+  In order for notifications to be sent out for these hosts, notifications
+  must be enabled on a program-wide basis as well.</para>
 
-  <para><anchor xml:id="extcmd2-enable_hostgroup_passive_host_checks"/> <emphasis
-  role="bold">ENABLE_HOSTGROUP_PASSIVE_HOST_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_hostgroup_passive_host_checks"/>
+  <emphasis role="bold">ENABLE_HOSTGROUP_PASSIVE_HOST_CHECKS</emphasis></para>
 
   <para><code>ENABLE_HOSTGROUP_PASSIVE_HOST_CHECKS;</code>&lt;hostgroup_name&gt;</para>
 
   <para>Enables passive checks for all hosts in a particular hostgroup.</para>
 
-  <para><anchor xml:id="extcmd2-enable_hostgroup_passive_svc_checks"/> <emphasis
-  role="bold">ENABLE_HOSTGROUP_PASSIVE_SVC_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_hostgroup_passive_svc_checks"/>
+  <emphasis role="bold">ENABLE_HOSTGROUP_PASSIVE_SVC_CHECKS</emphasis></para>
 
   <para><code>ENABLE_HOSTGROUP_PASSIVE_SVC_CHECKS;</code>&lt;hostgroup_name&gt;</para>
 
-  <para>Enables passive checks for all services associated with hosts in a particular hostgroup.</para>
+  <para>Enables passive checks for all services associated with hosts in a
+  particular hostgroup.</para>
 
-  <para><anchor xml:id="extcmd2-enable_hostgroup_svc_checks"/> <emphasis role="bold">ENABLE_HOSTGROUP_SVC_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_hostgroup_svc_checks"/> <emphasis
+  role="bold">ENABLE_HOSTGROUP_SVC_CHECKS</emphasis></para>
 
   <para><code>ENABLE_HOSTGROUP_SVC_CHECKS;</code>&lt;hostgroup_name&gt;</para>
 
-  <para>Enables active checks for all services associated with hosts in a particular hostgroup.</para>
+  <para>Enables active checks for all services associated with hosts in a
+  particular hostgroup.</para>
 
-  <para><anchor xml:id="extcmd2-enable_hostgroup_svc_notifications"/> <emphasis
-  role="bold">ENABLE_HOSTGROUP_SVC_NOTIFICATIONS</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_hostgroup_svc_notifications"/>
+  <emphasis role="bold">ENABLE_HOSTGROUP_SVC_NOTIFICATIONS</emphasis></para>
 
   <para><code>ENABLE_HOSTGROUP_SVC_NOTIFICATIONS;</code>&lt;hostgroup_name&gt;</para>
 
-  <para>Enables notifications for all services that are associated with hosts in a particular hostgroup. This does not enable notifications
-  for the hosts in the hostgroup - see the ENABLE_HOSTGROUP_HOST_NOTIFICATIONS command for that. In order for notifications to be sent out
-  for these services, notifications must be enabled on a program-wide basis as well.</para>
+  <para>Enables notifications for all services that are associated with hosts
+  in a particular hostgroup. This does not enable notifications for the hosts
+  in the hostgroup - see the ENABLE_HOSTGROUP_HOST_NOTIFICATIONS command for
+  that. In order for notifications to be sent out for these services,
+  notifications must be enabled on a program-wide basis as well.</para>
 
-  <para><anchor xml:id="extcmd2-enable_notifications"/> <emphasis role="bold">ENABLE_NOTIFICATIONS</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_notifications"/> <emphasis
+  role="bold">ENABLE_NOTIFICATIONS</emphasis></para>
 
   <para><code>ENABLE_NOTIFICATIONS</code></para>
 
   <para>Enables host and service notifications on a program-wide basis.</para>
 
-  <para><anchor xml:id="extcmd2-enable_passive_host_checks"/> <emphasis role="bold">ENABLE_PASSIVE_HOST_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_passive_host_checks"/> <emphasis
+  role="bold">ENABLE_PASSIVE_HOST_CHECKS</emphasis></para>
 
   <para><code>ENABLE_PASSIVE_HOST_CHECKS;</code>&lt;host_name&gt;</para>
 
-  <para>Enables acceptance and processing of passive host checks for the specified host.</para>
+  <para>Enables acceptance and processing of passive host checks for the
+  specified host.</para>
 
-  <para><anchor xml:id="extcmd2-enable_passive_svc_checks"/> <emphasis role="bold">ENABLE_PASSIVE_SVC_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_passive_svc_checks"/> <emphasis
+  role="bold">ENABLE_PASSIVE_SVC_CHECKS</emphasis></para>
 
   <para><code>ENABLE_PASSIVE_SVC_CHECKS;</code>&lt;host_name&gt;;&lt;service_description&gt;</para>
 
   <para>Enables passive checks for the specified service.</para>
 
-  <para><anchor xml:id="extcmd2-enable_performance_data"/> <emphasis role="bold">ENABLE_PERFORMANCE_DATA</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_performance_data"/> <emphasis
+  role="bold">ENABLE_PERFORMANCE_DATA</emphasis></para>
 
   <para><code>ENABLE_PERFORMANCE_DATA</code></para>
 
-  <para>Enables the processing of host and service performance data on a program-wide basis.</para>
+  <para>Enables the processing of host and service performance data on a
+  program-wide basis.</para>
 
-  <para><anchor xml:id="extcmd2-enable_service_freshness_checks"/> <emphasis role="bold">ENABLE_SERVICE_FRESHNESS_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_service_freshness_checks"/> <emphasis
+  role="bold">ENABLE_SERVICE_FRESHNESS_CHECKS</emphasis></para>
 
   <para><code>ENABLE_SERVICE_FRESHNESS_CHECKS</code></para>
 
-  <para>Enables freshness checks of all services on a program-wide basis. Individual services that have freshness checks disabled will not
-  be checked for freshness.</para>
+  <para>Enables freshness checks of all services on a program-wide basis.
+  Individual services that have freshness checks disabled will not be checked
+  for freshness.</para>
 
-  <para><anchor xml:id="extcmd2-enable_servicegroup_host_checks"/> <emphasis role="bold">ENABLE_SERVICEGROUP_HOST_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_servicegroup_host_checks"/> <emphasis
+  role="bold">ENABLE_SERVICEGROUP_HOST_CHECKS</emphasis></para>
 
   <para><code>ENABLE_SERVICEGROUP_HOST_CHECKS;</code>&lt;servicegroup_name&gt;</para>
 
-  <para>Enables active checks for all hosts that have services that are members of a particular servicegroup.</para>
+  <para>Enables active checks for all hosts that have services that are
+  members of a particular servicegroup.</para>
 
-  <para><anchor xml:id="extcmd2-enable_servicegroup_host_notifications"/> <emphasis
+  <para><anchor xml:id="extcmd2-enable_servicegroup_host_notifications"/>
+  <emphasis
   role="bold">ENABLE_SERVICEGROUP_HOST_NOTIFICATIONS</emphasis></para>
 
   <para><code>ENABLE_SERVICEGROUP_HOST_NOTIFICATIONS;</code>&lt;servicegroup_name&gt;</para>
 
-  <para>Enables notifications for all hosts that have services that are members of a particular servicegroup. In order for notifications to
-  be sent out for these hosts, notifications must also be enabled on a program-wide basis.</para>
+  <para>Enables notifications for all hosts that have services that are
+  members of a particular servicegroup. In order for notifications to be sent
+  out for these hosts, notifications must also be enabled on a program-wide
+  basis.</para>
 
-  <para><anchor xml:id="extcmd2-enable_servicegroup_passive_host_checks"/> <emphasis
+  <para><anchor xml:id="extcmd2-enable_servicegroup_passive_host_checks"/>
+  <emphasis
   role="bold">ENABLE_SERVICEGROUP_PASSIVE_HOST_CHECKS</emphasis></para>
 
   <para><code>ENABLE_SERVICEGROUP_PASSIVE_HOST_CHECKS;</code>&lt;servicegroup_name&gt;</para>
 
-  <para>Enables the acceptance and processing of passive checks for all hosts that have services that are members of a particular service
-  group.</para>
+  <para>Enables the acceptance and processing of passive checks for all hosts
+  that have services that are members of a particular service group.</para>
 
-  <para><anchor xml:id="extcmd2-enable_servicegroup_passive_svc_checks"/> <emphasis
+  <para><anchor xml:id="extcmd2-enable_servicegroup_passive_svc_checks"/>
+  <emphasis
   role="bold">ENABLE_SERVICEGROUP_PASSIVE_SVC_CHECKS</emphasis></para>
 
   <para><code>ENABLE_SERVICEGROUP_PASSIVE_SVC_CHECKS;</code>&lt;servicegroup_name&gt;</para>
 
-  <para>Enables the acceptance and processing of passive checks for all services in a particular servicegroup.</para>
+  <para>Enables the acceptance and processing of passive checks for all
+  services in a particular servicegroup.</para>
 
-  <para><anchor xml:id="extcmd2-enable_servicegroup_svc_checks"/> <emphasis role="bold">ENABLE_SERVICEGROUP_SVC_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_servicegroup_svc_checks"/> <emphasis
+  role="bold">ENABLE_SERVICEGROUP_SVC_CHECKS</emphasis></para>
 
   <para><code>ENABLE_SERVICEGROUP_SVC_CHECKS;</code>&lt;servicegroup_name&gt;</para>
 
-  <para>Enables active checks for all services in a particular servicegroup.</para>
+  <para>Enables active checks for all services in a particular
+  servicegroup.</para>
 
-  <para><anchor xml:id="extcmd2-enable_servicegroup_svc_notifications"/> <emphasis
+  <para><anchor xml:id="extcmd2-enable_servicegroup_svc_notifications"/>
+  <emphasis
   role="bold">ENABLE_SERVICEGROUP_SVC_NOTIFICATIONS</emphasis></para>
 
   <para><code>ENABLE_SERVICEGROUP_SVC_NOTIFICATIONS;</code>&lt;servicegroup_name&gt;</para>
 
-  <para>Enables notifications for all services that are members of a particular servicegroup. In order for notifications to be sent out for
-  these services, notifications must also be enabled on a program-wide basis.</para>
+  <para>Enables notifications for all services that are members of a
+  particular servicegroup. In order for notifications to be sent out for these
+  services, notifications must also be enabled on a program-wide basis.</para>
 
-  <para><anchor xml:id="extcmd2-enable_svc_check"/> <emphasis role="bold">ENABLE_SVC_CHECK</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_svc_check"/> <emphasis
+  role="bold">ENABLE_SVC_CHECK</emphasis></para>
 
   <para><code>ENABLE_SVC_CHECK;</code>&lt;host_name&gt;;&lt;service_description&gt;</para>
 
   <para>Enables active checks for a particular service.</para>
 
-  <para><anchor xml:id="extcmd2-enable_svc_event_handler"/> <emphasis role="bold">ENABLE_SVC_EVENT_HANDLER</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_svc_event_handler"/> <emphasis
+  role="bold">ENABLE_SVC_EVENT_HANDLER</emphasis></para>
 
   <para><code>ENABLE_SVC_EVENT_HANDLER;</code>&lt;host_name&gt;;&lt;service_description&gt;</para>
 
   <para>Enables the event handler for the specified service.</para>
 
-  <para><anchor xml:id="extcmd2-enable_svc_flap_detection"/> <emphasis role="bold">ENABLE_SVC_FLAP_DETECTION</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_svc_flap_detection"/> <emphasis
+  role="bold">ENABLE_SVC_FLAP_DETECTION</emphasis></para>
 
   <para><code>ENABLE_SVC_FLAP_DETECTION;</code>&lt;host_name&gt;;&lt;service_description&gt;</para>
 
-  <para>Enables flap detection for the specified service. In order for the flap detection algorithms to be run for the service, flap
-  detection must be enabled on a program-wide basis as well.</para>
+  <para>Enables flap detection for the specified service. In order for the
+  flap detection algorithms to be run for the service, flap detection must be
+  enabled on a program-wide basis as well.</para>
 
-  <para><anchor xml:id="extcmd2-enable_svc_notifications"/> <emphasis role="bold">ENABLE_SVC_NOTIFICATIONS</emphasis></para>
+  <para><anchor xml:id="extcmd2-enable_svc_notifications"/> <emphasis
+  role="bold">ENABLE_SVC_NOTIFICATIONS</emphasis></para>
 
   <para><code>ENABLE_SVC_NOTIFICATIONS;</code>&lt;host_name&gt;;&lt;service_description&gt;</para>
 
-  <para>Enables notifications for a particular service. Notifications will be sent out for the service only if notifications are enabled on
-  a program-wide basis as well.</para>
+  <para>Enables notifications for a particular service. Notifications will be
+  sent out for the service only if notifications are enabled on a program-wide
+  basis as well.</para>
 
-  <para><anchor xml:id="extcmd2-process_file"/> <emphasis role="bold">PROCESS_FILE</emphasis></para>
+  <para><anchor xml:id="extcmd2-process_file"/> <emphasis
+  role="bold">PROCESS_FILE</emphasis></para>
 
   <para><code>PROCESS_FILE;</code>&lt;file_name&gt;;&lt;delete&gt;</para>
 
-  <para>Directs &name-icinga; to process all external commands that are found in the file specified by the &lt;file_name&gt; argument. If
-  the &lt;delete&gt; option is non-zero, the file will be deleted once it has been processes. If the &lt;delete&gt; option is set to zero,
-  the file is left untouched.</para>
+  <para>Directs &name-icinga; to process all external commands that are found
+  in the file specified by the &lt;file_name&gt; argument. If the
+  &lt;delete&gt; option is non-zero, the file will be deleted once it has been
+  processes. If the &lt;delete&gt; option is set to zero, the file is left
+  untouched.</para>
 
-  <para><anchor xml:id="extcmd2-process_host_check_result"/> <emphasis role="bold">PROCESS_HOST_CHECK_RESULT</emphasis></para>
+  <para><anchor xml:id="extcmd2-process_host_check_result"/> <emphasis
+  role="bold">PROCESS_HOST_CHECK_RESULT</emphasis></para>
 
   <para><code>PROCESS_HOST_CHECK_RESULT;</code>&lt;host_name&gt;;&lt;status_code&gt;;&lt;plugin_output&gt;</para>
 
-  <para>This is used to submit a passive check result for a particular host. The "status_code" indicates the state of the host check and
-  should be one of the following: 0=UP, 1=DOWN, 2=UNREACHABLE. The "plugin_output" argument contains the text returned from the host check,
-  along with optional performance data.</para>
+  <para>This is used to submit a passive check result for a particular host.
+  The "status_code" indicates the state of the host check and should be one of
+  the following: 0=UP, 1=DOWN, 2=UNREACHABLE. The "plugin_output" argument
+  contains the text returned from the host check, along with optional
+  performance data.</para>
 
-  <para><anchor xml:id="extcmd2-process_service_check_result"/> <emphasis role="bold">PROCESS_SERVICE_CHECK_RESULT</emphasis></para>
+  <para><anchor xml:id="extcmd2-process_service_check_result"/> <emphasis
+  role="bold">PROCESS_SERVICE_CHECK_RESULT</emphasis></para>
 
   <para><code>PROCESS_SERVICE_CHECK_RESULT;</code>&lt;host_name&gt;;&lt;service_description&gt;;&lt;return_code&gt;;&lt;plugin_output&gt;</para>
 
-  <para>This is used to submit a passive check result for a particular service. The "return_code" field should be one of the following:
-  0=OK, 1=WARNING, 2=CRITICAL, 3=UNKNOWN. The "plugin_output" field contains text output from the service check, along with optional
-  performance data.</para>
+  <para>This is used to submit a passive check result for a particular
+  service. The "return_code" field should be one of the following: 0=OK,
+  1=WARNING, 2=CRITICAL, 3=UNKNOWN. The "plugin_output" field contains text
+  output from the service check, along with optional performance data.</para>
 
-  <para><anchor xml:id="extcmd2-read_state_information"/> <emphasis role="bold">READ_STATE_INFORMATION</emphasis></para>
+  <para><anchor xml:id="extcmd2-read_state_information"/> <emphasis
+  role="bold">READ_STATE_INFORMATION</emphasis></para>
 
   <para><code>READ_STATE_INFORMATION</code></para>
 
-  <para>Causes &name-icinga; to load all current monitoring status information from the state retention file. Normally, state retention
-  information is loaded when the &name-icinga; process starts up and before it starts monitoring. WARNING: This command will cause
-  &name-icinga; to discard all current monitoring status information and use the information stored in state retention file! Use with
-  care.</para>
+  <para>Causes &name-icinga; to load all current monitoring status information
+  from the state retention file. Normally, state retention information is
+  loaded when the &name-icinga; process starts up and before it starts
+  monitoring. WARNING: This command will cause &name-icinga; to discard all
+  current monitoring status information and use the information stored in
+  state retention file! Use with care.</para>
 
-  <para><anchor xml:id="extcmd2-remove_host_acknowledgement"/> <emphasis role="bold">REMOVE_HOST_ACKNOWLEDGEMENT</emphasis></para>
+  <para><anchor xml:id="extcmd2-remove_host_acknowledgement"/> <emphasis
+  role="bold">REMOVE_HOST_ACKNOWLEDGEMENT</emphasis></para>
 
   <para><code>REMOVE_HOST_ACKNOWLEDGEMENT;</code>&lt;host_name&gt;</para>
 
-  <para>This removes the problem acknowledgement for a particular host. Once the acknowledgement has been removed, notifications can once
-  again be sent out for the given host.</para>
+  <para>This removes the problem acknowledgement for a particular host. Once
+  the acknowledgement has been removed, notifications can once again be sent
+  out for the given host.</para>
 
-  <para><anchor xml:id="extcmd2-remove_svc_acknowledgement"/> <emphasis role="bold">REMOVE_SVC_ACKNOWLEDGEMENT</emphasis></para>
+  <para><anchor xml:id="extcmd2-remove_svc_acknowledgement"/> <emphasis
+  role="bold">REMOVE_SVC_ACKNOWLEDGEMENT</emphasis></para>
 
   <para><code>REMOVE_SVC_ACKNOWLEDGEMENT;</code>&lt;host_name&gt;;&lt;service_description&gt;</para>
 
-  <para>This removes the problem acknowledgement for a particular service. Once the acknowledgement has been removed, notifications can once
-  again be sent out for the given service.</para>
+  <para>This removes the problem acknowledgement for a particular service.
+  Once the acknowledgement has been removed, notifications can once again be
+  sent out for the given service.</para>
 
-  <para><anchor xml:id="extcmd2-restart_process"/> <emphasis role="bold">RESTART_PROCESS</emphasis></para>
+  <para><anchor xml:id="extcmd2-restart_process"/> <emphasis
+  role="bold">RESTART_PROCESS</emphasis></para>
 
   <para><code>RESTART_PROCESS</code></para>
 
-  <para>Restarts the &name-icinga; process. Note: You can still use the old deprecated RESTART_PROGRAM</para>
+  <para>Restarts the &name-icinga; process. Note: You can still use the old
+  deprecated RESTART_PROGRAM</para>
 
-  <para><anchor xml:id="extcmd2-save_state_information"/> <emphasis role="bold">SAVE_STATE_INFORMATION</emphasis></para>
+  <para><anchor xml:id="extcmd2-save_state_information"/> <emphasis
+  role="bold">SAVE_STATE_INFORMATION</emphasis></para>
 
   <para><code>SAVE_STATE_INFORMATION</code></para>
 
-  <para>Causes &name-icinga; to save all current monitoring status information to the state retention file. Normally, state retention
-  information is saved before the &name-icinga; process shuts down and (potentially) at regularly scheduled intervals. This command allows
-  you to force &name-icinga; to save this information to the state retention file immediately. This does not affect the current status
-  information in the &name-icinga; process.</para>
+  <para>Causes &name-icinga; to save all current monitoring status information
+  to the state retention file. Normally, state retention information is saved
+  before the &name-icinga; process shuts down and (potentially) at regularly
+  scheduled intervals. This command allows you to force &name-icinga; to save
+  this information to the state retention file immediately. This does not
+  affect the current status information in the &name-icinga; process.</para>
 
-  <para><anchor xml:id="extcmd2-schedule_and_propagate_host_downtime"/> <emphasis
-  role="bold">SCHEDULE_AND_PROPAGATE_HOST_DOWNTIME</emphasis></para>
+  <para><anchor xml:id="extcmd2-schedule_and_propagate_host_downtime"/>
+  <emphasis role="bold">SCHEDULE_AND_PROPAGATE_HOST_DOWNTIME</emphasis></para>
 
   <para><code>SCHEDULE_AND_PROPAGATE_HOST_DOWNTIME;</code>&lt;host_name&gt;;&lt;start_time&gt;;&lt;end_time&gt;;&lt;fixed&gt;;&lt;trigger_id&gt;;&lt;duration&gt;;&lt;author&gt;;&lt;comment&gt;</para>
 
-  <para>Schedules downtime for a specified host and all of its children (hosts). If the "fixed" argument is set to one (1), downtime will
-  start and end at the times specified by the "start" and "end" arguments. Otherwise, downtime will begin between the "start" and "end"
-  times and last for "duration" seconds. The "start" and "end" arguments are specified in time_t format (seconds since the UNIX epoch). The
-  specified (parent) host downtime can be triggered by another downtime entry if the "trigger_id" is set to the ID of another scheduled
-  downtime entry. Set the "trigger_id" argument to zero (0) if the downtime for the specified (parent) host should not be triggered by
-  another downtime entry.</para>
+  <para>Schedules downtime for a specified host and all of its children
+  (hosts). If the "fixed" argument is set to one (1), downtime will start and
+  end at the times specified by the "start" and "end" arguments. Otherwise,
+  downtime will begin between the "start" and "end" times and last for
+  "duration" seconds. The "start" and "end" arguments are specified in time_t
+  format (seconds since the UNIX epoch). The specified (parent) host downtime
+  can be triggered by another downtime entry if the "trigger_id" is set to the
+  ID of another scheduled downtime entry. Set the "trigger_id" argument to
+  zero (0) if the downtime for the specified (parent) host should not be
+  triggered by another downtime entry.</para>
 
-  <para><anchor xml:id="extcmd2-schedule_and_propagate_triggered_host_downtime"/> <emphasis
+  <para><anchor
+  xml:id="extcmd2-schedule_and_propagate_triggered_host_downtime"/> <emphasis
   role="bold">SCHEDULE_AND_PROPAGATE_TRIGGERED_HOST_DOWNTIME</emphasis></para>
 
   <para><code>SCHEDULE_AND_PROPAGATE_TRIGGERED_HOST_DOWNTIME;</code>&lt;host_name&gt;;&lt;start_time&gt;;&lt;end_time&gt;;&lt;fixed&gt;;&lt;trigger_id&gt;;&lt;duration&gt;;&lt;author&gt;;&lt;comment&gt;</para>
 
-  <para>Schedules downtime for a specified host and all of its children (hosts). If the "fixed" argument is set to one (1), downtime will
-  start and end at the times specified by the "start" and "end" arguments. Otherwise, downtime will begin between the "start" and "end"
-  times and last for "duration" seconds. The "start" and "end" arguments are specified in time_t format (seconds since the UNIX epoch).
-  Downtime for child hosts are all set to be triggered by the downtime for the specified (parent) host. The specified (parent) host downtime
-  can be triggered by another downtime entry if the "trigger_id" is set to the ID of another scheduled downtime entry. Set the "trigger_id"
-  argument to zero (0) if the downtime for the specified (parent) host should not be triggered by another downtime entry.</para>
+  <para>Schedules downtime for a specified host and all of its children
+  (hosts). If the "fixed" argument is set to one (1), downtime will start and
+  end at the times specified by the "start" and "end" arguments. Otherwise,
+  downtime will begin between the "start" and "end" times and last for
+  "duration" seconds. The "start" and "end" arguments are specified in time_t
+  format (seconds since the UNIX epoch). Downtime for child hosts are all set
+  to be triggered by the downtime for the specified (parent) host. The
+  specified (parent) host downtime can be triggered by another downtime entry
+  if the "trigger_id" is set to the ID of another scheduled downtime entry.
+  Set the "trigger_id" argument to zero (0) if the downtime for the specified
+  (parent) host should not be triggered by another downtime entry.</para>
 
-  <para><anchor xml:id="extcmd2-schedule_forced_host_check"/> <emphasis role="bold">SCHEDULE_FORCED_HOST_CHECK</emphasis></para>
+  <para><anchor xml:id="extcmd2-schedule_forced_host_check"/> <emphasis
+  role="bold">SCHEDULE_FORCED_HOST_CHECK</emphasis></para>
 
   <para><code>SCHEDULE_FORCED_HOST_CHECK;</code>&lt;host_name&gt;;&lt;check_time&gt;</para>
 
-  <para>Schedules a forced active check of a particular host at "check_time". The "check_time" argument is specified in time_t format
-  (seconds since the UNIX epoch). Forced checks are performed regardless of what time it is (e.g. timeperiod restrictions are ignored) and
-  whether or not active checks are enabled on a host-specific or program-wide basis.</para>
+  <para>Schedules a forced active check of a particular host at "check_time".
+  The "check_time" argument is specified in time_t format (seconds since the
+  UNIX epoch). Forced checks are performed regardless of what time it is (e.g.
+  timeperiod restrictions are ignored) and whether or not active checks are
+  enabled on a host-specific or program-wide basis.</para>
 
-  <para><anchor xml:id="extcmd2-schedule_forced_host_svc_checks"/> <emphasis role="bold">SCHEDULE_FORCED_HOST_SVC_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-schedule_forced_host_svc_checks"/> <emphasis
+  role="bold">SCHEDULE_FORCED_HOST_SVC_CHECKS</emphasis></para>
 
   <para><code>SCHEDULE_FORCED_HOST_SVC_CHECKS;</code>&lt;host_name&gt;;&lt;check_time&gt;</para>
 
-  <para>Schedules a forced active check of all services associated with a particular host at "check_time". The "check_time" argument is
-  specified in time_t format (seconds since the UNIX epoch). Forced checks are performed regardless of what time it is (e.g. timeperiod
-  restrictions are ignored) and whether or not active checks are enabled on a service-specific or program-wide basis.</para>
+  <para>Schedules a forced active check of all services associated with a
+  particular host at "check_time". The "check_time" argument is specified in
+  time_t format (seconds since the UNIX epoch). Forced checks are performed
+  regardless of what time it is (e.g. timeperiod restrictions are ignored) and
+  whether or not active checks are enabled on a service-specific or
+  program-wide basis.</para>
 
-  <para><anchor xml:id="extcmd2-schedule_forced_svc_check"/> <emphasis role="bold">SCHEDULE_FORCED_SVC_CHECK</emphasis></para>
+  <para><anchor xml:id="extcmd2-schedule_forced_svc_check"/> <emphasis
+  role="bold">SCHEDULE_FORCED_SVC_CHECK</emphasis></para>
 
   <para><code>SCHEDULE_FORCED_SVC_CHECK;</code>&lt;host_name&gt;;&lt;service_description&gt;;&lt;check_time&gt;</para>
 
-  <para>Schedules a forced active check of a particular service at "check_time". The "check_time" argument is specified in time_t format
-  (seconds since the UNIX epoch). Forced checks are performed regardless of what time it is (e.g. timeperiod restrictions are ignored) and
-  whether or not active checks are enabled on a service-specific or program-wide basis.</para>
+  <para>Schedules a forced active check of a particular service at
+  "check_time". The "check_time" argument is specified in time_t format
+  (seconds since the UNIX epoch). Forced checks are performed regardless of
+  what time it is (e.g. timeperiod restrictions are ignored) and whether or
+  not active checks are enabled on a service-specific or program-wide
+  basis.</para>
 
-  <para><anchor xml:id="extcmd2-schedule_host_check"/> <emphasis role="bold">SCHEDULE_HOST_CHECK</emphasis></para>
+  <para><anchor xml:id="extcmd2-schedule_host_check"/> <emphasis
+  role="bold">SCHEDULE_HOST_CHECK</emphasis></para>
 
   <para><code>SCHEDULE_HOST_CHECK;</code>&lt;host_name&gt;;&lt;check_time&gt;</para>
 
-  <para>Schedules the next active check of a particular host at "check_time". The "check_time" argument is specified in time_t format
-  (seconds since the UNIX epoch). Note that the host may not actually be checked at the time you specify. This could occur for a number of
-  reasons: active checks are disabled on a program-wide or host-specific basis, the host is already scheduled to be checked at an earlier
-  time, etc. If you want to force the host check to occur at the time you specify, look at the SCHEDULE_FORCED_HOST_CHECK command.</para>
+  <para>Schedules the next active check of a particular host at "check_time".
+  The "check_time" argument is specified in time_t format (seconds since the
+  UNIX epoch). Note that the host may not actually be checked at the time you
+  specify. This could occur for a number of reasons: active checks are
+  disabled on a program-wide or host-specific basis, the host is already
+  scheduled to be checked at an earlier time, etc. If you want to force the
+  host check to occur at the time you specify, look at the
+  SCHEDULE_FORCED_HOST_CHECK command.</para>
 
-  <para><anchor xml:id="extcmd2-schedule_host_downtime"/> <emphasis role="bold">SCHEDULE_HOST_DOWNTIME</emphasis></para>
+  <para><anchor xml:id="extcmd2-schedule_host_downtime"/> <emphasis
+  role="bold">SCHEDULE_HOST_DOWNTIME</emphasis></para>
 
   <para><code>SCHEDULE_HOST_DOWNTIME;</code>&lt;host_name&gt;;&lt;start_time&gt;;&lt;end_time&gt;;&lt;fixed&gt;;&lt;trigger_id&gt;;&lt;duration&gt;;&lt;author&gt;;&lt;comment&gt;</para>
 
-  <para>Schedules downtime for a specified host. If the "fixed" argument is set to one (1), downtime will start and end at the times
-  specified by the "start" and "end" arguments. Otherwise, downtime will begin between the "start" and "end" times and last for "duration"
-  seconds. The "start" and "end" arguments are specified in time_t format (seconds since the UNIX epoch). The specified host downtime can be
-  triggered by another downtime entry if the "trigger_id" is set to the ID of another scheduled downtime entry. Set the "trigger_id"
-  argument to zero (0) if the downtime for the specified host should not be triggered by another downtime entry.</para>
+  <para>Schedules downtime for a specified host. If the "fixed" argument is
+  set to one (1), downtime will start and end at the times specified by the
+  "start" and "end" arguments. Otherwise, downtime will begin between the
+  "start" and "end" times and last for "duration" seconds. The "start" and
+  "end" arguments are specified in time_t format (seconds since the UNIX
+  epoch). The specified host downtime can be triggered by another downtime
+  entry if the "trigger_id" is set to the ID of another scheduled downtime
+  entry. Set the "trigger_id" argument to zero (0) if the downtime for the
+  specified host should not be triggered by another downtime entry.</para>
 
-  <para><anchor xml:id="extcmd2-schedule_host_svc_checks"/> <emphasis role="bold">SCHEDULE_HOST_SVC_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-schedule_host_svc_checks"/> <emphasis
+  role="bold">SCHEDULE_HOST_SVC_CHECKS</emphasis></para>
 
   <para><code>SCHEDULE_HOST_SVC_CHECKS;</code>&lt;host_name&gt;;&lt;check_time&gt;</para>
 
-  <para>Schedules the next active check of all services on a particular host at "check_time". The "check_time" argument is specified in
-  time_t format (seconds since the UNIX epoch). Note that the services may not actually be checked at the time you specify. This could occur
-  for a number of reasons: active checks are disabled on a program-wide or service-specific basis, the services are already scheduled to be
-  checked at an earlier time, etc. If you want to force the service checks to occur at the time you specify, look at the
-  SCHEDULE_FORCED_HOST_SVC_CHECKS command.</para>
+  <para>Schedules the next active check of all services on a particular host
+  at "check_time". The "check_time" argument is specified in time_t format
+  (seconds since the UNIX epoch). Note that the services may not actually be
+  checked at the time you specify. This could occur for a number of reasons:
+  active checks are disabled on a program-wide or service-specific basis, the
+  services are already scheduled to be checked at an earlier time, etc. If you
+  want to force the service checks to occur at the time you specify, look at
+  the SCHEDULE_FORCED_HOST_SVC_CHECKS command.</para>
 
-  <para><anchor xml:id="extcmd2-schedule_host_svc_downtime"/> <emphasis role="bold">SCHEDULE_HOST_SVC_DOWNTIME</emphasis></para>
+  <para><anchor xml:id="extcmd2-schedule_host_svc_downtime"/> <emphasis
+  role="bold">SCHEDULE_HOST_SVC_DOWNTIME</emphasis></para>
 
   <para><code>SCHEDULE_HOST_SVC_DOWNTIME;</code>&lt;host_name&gt;;&lt;start_time&gt;;&lt;end_time&gt;;&lt;fixed&gt;;&lt;trigger_id&gt;;&lt;duration&gt;;&lt;author&gt;;&lt;comment&gt;</para>
 
-  <para>Schedules downtime for all services associated with a particular host. If the "fixed" argument is set to one (1), downtime will
-  start and end at the times specified by the "start" and "end" arguments. Otherwise, downtime will begin between the "start" and "end"
-  times and last for "duration" seconds. The "start" and "end" arguments are specified in time_t format (seconds since the UNIX epoch). The
-  service downtime entries can be triggered by another downtime entry if the "trigger_id" is set to the ID of another scheduled downtime
-  entry. Set the "trigger_id" argument to zero (0) if the downtime for the services should not be triggered by another downtime
+  <para>Schedules downtime for all services associated with a particular host.
+  If the "fixed" argument is set to one (1), downtime will start and end at
+  the times specified by the "start" and "end" arguments. Otherwise, downtime
+  will begin between the "start" and "end" times and last for "duration"
+  seconds. The "start" and "end" arguments are specified in time_t format
+  (seconds since the UNIX epoch). The service downtime entries can be
+  triggered by another downtime entry if the "trigger_id" is set to the ID of
+  another scheduled downtime entry. Set the "trigger_id" argument to zero (0)
+  if the downtime for the services should not be triggered by another downtime
   entry.</para>
 
-  <para><anchor xml:id="extcmd2-schedule_hostgroup_host_downtime"/> <emphasis role="bold">SCHEDULE_HOSTGROUP_HOST_DOWNTIME</emphasis></para>
+  <para><anchor xml:id="extcmd2-schedule_hostgroup_host_downtime"/> <emphasis
+  role="bold">SCHEDULE_HOSTGROUP_HOST_DOWNTIME</emphasis></para>
 
   <para><code>SCHEDULE_HOSTGROUP_HOST_DOWNTIME;</code>&lt;hostgroup_name&gt;;&lt;start_time&gt;;&lt;end_time&gt;;&lt;fixed&gt;;&lt;trigger_id&gt;;&lt;duration&gt;;&lt;author&gt;;&lt;comment&gt;</para>
 
-  <para>Schedules downtime for all hosts in a specified hostgroup. If the "fixed" argument is set to one (1), downtime will start and end at
-  the times specified by the "start" and "end" arguments. Otherwise, downtime will begin between the "start" and "end" times and last for
-  "duration" seconds. The "start" and "end" arguments are specified in time_t format (seconds since the UNIX epoch). The host downtime
-  entries can be triggered by another downtime entry if the "trigger_id" is set to the ID of another scheduled downtime entry. Set the
-  "trigger_id" argument to zero (0) if the downtime for the hosts should not be triggered by another downtime entry.</para>
+  <para>Schedules downtime for all hosts in a specified hostgroup. If the
+  "fixed" argument is set to one (1), downtime will start and end at the times
+  specified by the "start" and "end" arguments. Otherwise, downtime will begin
+  between the "start" and "end" times and last for "duration" seconds. The
+  "start" and "end" arguments are specified in time_t format (seconds since
+  the UNIX epoch). The host downtime entries can be triggered by another
+  downtime entry if the "trigger_id" is set to the ID of another scheduled
+  downtime entry. Set the "trigger_id" argument to zero (0) if the downtime
+  for the hosts should not be triggered by another downtime entry.</para>
 
-  <para><anchor xml:id="extcmd2-schedule_hostgroup_svc_downtime"/> <emphasis role="bold">SCHEDULE_HOSTGROUP_SVC_DOWNTIME</emphasis></para>
+  <para><anchor xml:id="extcmd2-schedule_hostgroup_svc_downtime"/> <emphasis
+  role="bold">SCHEDULE_HOSTGROUP_SVC_DOWNTIME</emphasis></para>
 
   <para><code>SCHEDULE_HOSTGROUP_SVC_DOWNTIME;</code>&lt;hostgroup_name&gt;;&lt;start_time&gt;;&lt;end_time&gt;;&lt;fixed&gt;;&lt;trigger_id&gt;;&lt;duration&gt;;&lt;author&gt;;&lt;comment&gt;</para>
 
-  <para>Schedules downtime for all services associated with hosts in a specified hostgroup. If the "fixed" argument is set to one (1),
-  downtime will start and end at the times specified by the "start" and "end" arguments. Otherwise, downtime will begin between the "start"
-  and "end" times and last for "duration" seconds. The "start" and "end" arguments are specified in time_t format (seconds since the UNIX
-  epoch). The service downtime entries can be triggered by another downtime entry if the "trigger_id" is set to the ID of another scheduled
-  downtime entry. Set the "trigger_id" argument to zero (0) if the downtime for the services should not be triggered by another downtime
-  entry.</para>
+  <para>Schedules downtime for all services associated with hosts in a
+  specified hostgroup. If the "fixed" argument is set to one (1), downtime
+  will start and end at the times specified by the "start" and "end"
+  arguments. Otherwise, downtime will begin between the "start" and "end"
+  times and last for "duration" seconds. The "start" and "end" arguments are
+  specified in time_t format (seconds since the UNIX epoch). The service
+  downtime entries can be triggered by another downtime entry if the
+  "trigger_id" is set to the ID of another scheduled downtime entry. Set the
+  "trigger_id" argument to zero (0) if the downtime for the services should
+  not be triggered by another downtime entry.</para>
 
-  <para><anchor xml:id="extcmd2-schedule_servicegroup_host_downtime"/> <emphasis
-  role="bold">SCHEDULE_SERVICEGROUP_HOST_DOWNTIME</emphasis></para>
+  <para><anchor xml:id="extcmd2-schedule_servicegroup_host_downtime"/>
+  <emphasis role="bold">SCHEDULE_SERVICEGROUP_HOST_DOWNTIME</emphasis></para>
 
   <para><code>SCHEDULE_SERVICEGROUP_HOST_DOWNTIME;</code>&lt;servicegroup_name&gt;;&lt;start_time&gt;;&lt;end_time&gt;;&lt;fixed&gt;;&lt;trigger_id&gt;;&lt;duration&gt;;&lt;author&gt;;&lt;comment&gt;</para>
 
-  <para>Schedules downtime for all hosts that have services in a specified servicegroup. If the "fixed" argument is set to one (1), downtime
-  will start and end at the times specified by the "start" and "end" arguments. Otherwise, downtime will begin between the "start" and "end"
-  times and last for "duration" seconds. The "start" and "end" arguments are specified in time_t format (seconds since the UNIX epoch). The
-  host downtime entries can be triggered by another downtime entry if the "trigger_id" is set to the ID of another scheduled downtime entry.
-  Set the "trigger_id" argument to zero (0) if the downtime for the hosts should not be triggered by another downtime entry.</para>
+  <para>Schedules downtime for all hosts that have services in a specified
+  servicegroup. If the "fixed" argument is set to one (1), downtime will start
+  and end at the times specified by the "start" and "end" arguments.
+  Otherwise, downtime will begin between the "start" and "end" times and last
+  for "duration" seconds. The "start" and "end" arguments are specified in
+  time_t format (seconds since the UNIX epoch). The host downtime entries can
+  be triggered by another downtime entry if the "trigger_id" is set to the ID
+  of another scheduled downtime entry. Set the "trigger_id" argument to zero
+  (0) if the downtime for the hosts should not be triggered by another
+  downtime entry.</para>
 
-  <para><anchor xml:id="extcmd2-schedule_servicegroup_svc_downtime"/> <emphasis
-  role="bold">SCHEDULE_SERVICEGROUP_SVC_DOWNTIME</emphasis></para>
+  <para><anchor xml:id="extcmd2-schedule_servicegroup_svc_downtime"/>
+  <emphasis role="bold">SCHEDULE_SERVICEGROUP_SVC_DOWNTIME</emphasis></para>
 
   <para><code>SCHEDULE_SERVICEGROUP_SVC_DOWNTIME;</code>&lt;servicegroup_name&gt;;&lt;start_time&gt;;&lt;end_time&gt;;&lt;fixed&gt;;&lt;trigger_id&gt;;&lt;duration&gt;;&lt;author&gt;;&lt;comment&gt;</para>
 
-  <para>Schedules downtime for all services in a specified servicegroup. If the "fixed" argument is set to one (1), downtime will start and
-  end at the times specified by the "start" and "end" arguments. Otherwise, downtime will begin between the "start" and "end" times and last
-  for "duration" seconds. The "start" and "end" arguments are specified in time_t format (seconds since the UNIX epoch). The service
-  downtime entries can be triggered by another downtime entry if the "trigger_id" is set to the ID of another scheduled downtime entry. Set
-  the "trigger_id" argument to zero (0) if the downtime for the services should not be triggered by another downtime entry.</para>
+  <para>Schedules downtime for all services in a specified servicegroup. If
+  the "fixed" argument is set to one (1), downtime will start and end at the
+  times specified by the "start" and "end" arguments. Otherwise, downtime will
+  begin between the "start" and "end" times and last for "duration" seconds.
+  The "start" and "end" arguments are specified in time_t format (seconds
+  since the UNIX epoch). The service downtime entries can be triggered by
+  another downtime entry if the "trigger_id" is set to the ID of another
+  scheduled downtime entry. Set the "trigger_id" argument to zero (0) if the
+  downtime for the services should not be triggered by another downtime
+  entry.</para>
 
-  <para><anchor xml:id="extcmd2-schedule_svc_check"/> <emphasis role="bold">SCHEDULE_SVC_CHECK</emphasis></para>
+  <para><anchor xml:id="extcmd2-schedule_svc_check"/> <emphasis
+  role="bold">SCHEDULE_SVC_CHECK</emphasis></para>
 
   <para><code>SCHEDULE_SVC_CHECK;</code>&lt;host_name&gt;;&lt;service_description&gt;;&lt;check_time&gt;</para>
 
-  <para>Schedules the next active check of a specified service at "check_time". The "check_time" argument is specified in time_t format
-  (seconds since the UNIX epoch). Note that the service may not actually be checked at the time you specify. This could occur for a number
-  of reasons: active checks are disabled on a program-wide or service-specific basis, the service is already scheduled to be checked at an
-  earlier time, etc. If you want to force the service check to occur at the time you specify, look at the SCHEDULE_FORCED_SVC_CHECK
-  command.</para>
+  <para>Schedules the next active check of a specified service at
+  "check_time". The "check_time" argument is specified in time_t format
+  (seconds since the UNIX epoch). Note that the service may not actually be
+  checked at the time you specify. This could occur for a number of reasons:
+  active checks are disabled on a program-wide or service-specific basis, the
+  service is already scheduled to be checked at an earlier time, etc. If you
+  want to force the service check to occur at the time you specify, look at
+  the SCHEDULE_FORCED_SVC_CHECK command.</para>
 
-  <para><anchor xml:id="extcmd2-schedule_svc_downtime"/> <emphasis role="bold">SCHEDULE_SVC_DOWNTIME</emphasis></para>
+  <para><anchor xml:id="extcmd2-schedule_svc_downtime"/> <emphasis
+  role="bold">SCHEDULE_SVC_DOWNTIME</emphasis></para>
 
   <para><code>SCHEDULE_SVC_DOWNTIME;</code>&lt;host_name&gt;;&lt;service_desription&gt;&lt;start_time&gt;;&lt;end_time&gt;;&lt;fixed&gt;;&lt;trigger_id&gt;;&lt;duration&gt;;&lt;author&gt;;&lt;comment&gt;</para>
 
-  <para>Schedules downtime for a specified service. If the "fixed" argument is set to one (1), downtime will start and end at the times
-  specified by the "start" and "end" arguments. Otherwise, downtime will begin between the "start" and "end" times and last for "duration"
-  seconds. The "start" and "end" arguments are specified in time_t format (seconds since the UNIX epoch). The specified service downtime can
-  be triggered by another downtime entry if the "trigger_id" is set to the ID of another scheduled downtime entry. Set the "trigger_id"
-  argument to zero (0) if the downtime for the specified service should not be triggered by another downtime entry.</para>
+  <para>Schedules downtime for a specified service. If the "fixed" argument is
+  set to one (1), downtime will start and end at the times specified by the
+  "start" and "end" arguments. Otherwise, downtime will begin between the
+  "start" and "end" times and last for "duration" seconds. The "start" and
+  "end" arguments are specified in time_t format (seconds since the UNIX
+  epoch). The specified service downtime can be triggered by another downtime
+  entry if the "trigger_id" is set to the ID of another scheduled downtime
+  entry. Set the "trigger_id" argument to zero (0) if the downtime for the
+  specified service should not be triggered by another downtime entry.</para>
 
-  <para><anchor xml:id="extcmd2-send_custom_host_notification"/> <emphasis role="bold">SEND_CUSTOM_HOST_NOTIFICATION</emphasis></para>
+  <para><anchor xml:id="extcmd2-send_custom_host_notification"/> <emphasis
+  role="bold">SEND_CUSTOM_HOST_NOTIFICATION</emphasis></para>
 
   <para><code>SEND_CUSTOM_HOST_NOTIFICATION;</code>&lt;host_name&gt;;&lt;options&gt;;&lt;author&gt;;&lt;comment&gt;</para>
 
-  <para>Allows you to send a custom host notification. Very useful in dire situations, emergencies or to communicate with all admins that
-  are responsible for a particular host. When the host notification is sent out, the $NOTIFICATIONTYPE$ macro will be set to "CUSTOM". The
-  &lt;options&gt; field is a logical OR of the following integer values that affect aspects of the notification that are sent out: 0 = No
-  option (default), 1 = Broadcast (send notification to all normal and all escalated contacts for the host), 2 = Forced (notification is
-  sent out regardless of current time, whether or not notifications are enabled, etc.), 4 = Increment current notification # for the host
-  (this is not done by default for custom notifications). The comment field can be used with the</para>
+  <para>Allows you to send a custom host notification. Very useful in dire
+  situations, emergencies or to communicate with all admins that are
+  responsible for a particular host. When the host notification is sent out,
+  the $NOTIFICATIONTYPE$ macro will be set to "CUSTOM". The &lt;options&gt;
+  field is a logical OR of the following integer values that affect aspects of
+  the notification that are sent out: 0 = No option (default), 1 = Broadcast
+  (send notification to all normal and all escalated contacts for the host), 2
+  = Forced (notification is sent out regardless of current time, whether or
+  not notifications are enabled, etc.), 4 = Increment current notification #
+  for the host (this is not done by default for custom notifications). The
+  contents of the comment field is available in notification commands using
+  the $NOTIFICATIONCOMMENT$ macro.</para>
 
-  <para><anchor xml:id="extcmd2-send_custom_svc_notification"/> <emphasis role="bold">SEND_CUSTOM_SVC_NOTIFICATION</emphasis></para>
+  <para><anchor xml:id="extcmd2-send_custom_svc_notification"/> <emphasis
+  role="bold">SEND_CUSTOM_SVC_NOTIFICATION</emphasis></para>
 
   <para><code>SEND_CUSTOM_SVC_NOTIFICATION;</code>&lt;host_name&gt;;&lt;service_description&gt;;&lt;options&gt;;&lt;author&gt;;&lt;comment&gt;</para>
 
-  <para>Allows you to send a custom service notification. Very useful in dire situations, emergencies or to communicate with all admins that
-  are responsible for a particular service. When the service notification is sent out, the $NOTIFICATIONTYPE$ macro will be set to "CUSTOM".
-  The &lt;options&gt; field is a logical OR of the following integer values that affect aspects of the notification that are sent out: 0 =
-  No option (default), 1 = Broadcast (send notification to all normal and all escalated contacts for the service), 2 = Forced (notification
-  is sent out regardless of current time, whether or not notifications are enabled, etc.), 4 = Increment current notification # for the
-  service(this is not done by default for custom notifications). The comment field can be used with the</para>
+  <para>Allows you to send a custom service notification. Very useful in dire
+  situations, emergencies or to communicate with all admins that are
+  responsible for a particular service. When the service notification is sent
+  out, the $NOTIFICATIONTYPE$ macro will be set to "CUSTOM". The
+  &lt;options&gt; field is a logical OR of the following integer values that
+  affect aspects of the notification that are sent out: 0 = No option
+  (default), 1 = Broadcast (send notification to all normal and all escalated
+  contacts for the service), 2 = Forced (notification is sent out regardless
+  of current time, whether or not notifications are enabled, etc.), 4 =
+  Increment current notification # for the service(this is not done by default
+  for custom notifications). The contents of the comment field is available in
+  notification commands using the $NOTIFICATIONCOMMENT$ macro.</para>
 
-  <para><anchor xml:id="extcmd2-set_host_notification_number"/> <emphasis role="bold">SET_HOST_NOTIFICATION_NUMBER</emphasis></para>
+  <para><anchor xml:id="extcmd2-set_host_notification_number"/> <emphasis
+  role="bold">SET_HOST_NOTIFICATION_NUMBER</emphasis></para>
 
   <para><code>SET_HOST_NOTIFICATION_NUMBER;</code>&lt;host_name&gt;;&lt;notification_number&gt;</para>
 
-  <para>Sets the current notification number for a particular host. A value of 0 indicates that no notification has yet been sent for the
-  current host problem. Useful for forcing an escalation (based on notification number) or replicating notification information in redundant
-  monitoring environments. Notification numbers greater than zero have no noticeable affect on the notification process if the host is
-  currently in an UP state.</para>
+  <para>Sets the current notification number for a particular host. A value of
+  0 indicates that no notification has yet been sent for the current host
+  problem. Useful for forcing an escalation (based on notification number) or
+  replicating notification information in redundant monitoring environments.
+  Notification numbers greater than zero have no noticeable affect on the
+  notification process if the host is currently in an UP state.</para>
 
-  <para><anchor xml:id="extcmd2-set_svc_notification_number"/> <emphasis role="bold">SET_SVC_NOTIFICATION_NUMBER</emphasis></para>
+  <para><anchor xml:id="extcmd2-set_svc_notification_number"/> <emphasis
+  role="bold">SET_SVC_NOTIFICATION_NUMBER</emphasis></para>
 
   <para><code>SET_SVC_NOTIFICATION_NUMBER;</code>&lt;host_name&gt;;&lt;service_description&gt;;&lt;notification_number&gt;</para>
 
-  <para>Sets the current notification number for a particular service. A value of 0 indicates that no notification has yet been sent for the
-  current service problem. Useful for forcing an escalation (based on notification number) or replicating notification information in
-  redundant monitoring environments. Notification numbers greater than zero have no noticeable affect on the notification process if the
-  service is currently in an OK state.</para>
+  <para>Sets the current notification number for a particular service. A value
+  of 0 indicates that no notification has yet been sent for the current
+  service problem. Useful for forcing an escalation (based on notification
+  number) or replicating notification information in redundant monitoring
+  environments. Notification numbers greater than zero have no noticeable
+  affect on the notification process if the service is currently in an OK
+  state.</para>
 
-  <para><anchor xml:id="extcmd2-shutdown_program"/> <emphasis role="bold">SHUTDOWN_PROGRAM</emphasis></para>
+  <para><anchor xml:id="extcmd2-shutdown_program"/> <emphasis
+  role="bold">SHUTDOWN_PROGRAM</emphasis></para>
 
   <para><code>SHUTDOWN_PROGRAM</code></para>
 
   <para>Shuts down the &name-icinga; process.</para>
 
-  <para><anchor xml:id="extcmd2-start_accepting_passive_host_checks"/> <emphasis
-  role="bold">START_ACCEPTING_PASSIVE_HOST_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-start_accepting_passive_host_checks"/>
+  <emphasis role="bold">START_ACCEPTING_PASSIVE_HOST_CHECKS</emphasis></para>
 
   <para><code>START_ACCEPTING_PASSIVE_HOST_CHECKS</code></para>
 
-  <para>Enables acceptance and processing of passive host checks on a program-wide basis.</para>
+  <para>Enables acceptance and processing of passive host checks on a
+  program-wide basis.</para>
 
-  <para><anchor xml:id="extcmd2-start_accepting_passive_svc_checks"/> <emphasis
-  role="bold">START_ACCEPTING_PASSIVE_SVC_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-start_accepting_passive_svc_checks"/>
+  <emphasis role="bold">START_ACCEPTING_PASSIVE_SVC_CHECKS</emphasis></para>
 
   <para><code>START_ACCEPTING_PASSIVE_SVC_CHECKS</code></para>
 
   <para>Enables passive service checks on a program-wide basis.</para>
 
-  <para><anchor xml:id="extcmd2-start_executing_host_checks"/> <emphasis role="bold">START_EXECUTING_HOST_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-start_executing_host_checks"/> <emphasis
+  role="bold">START_EXECUTING_HOST_CHECKS</emphasis></para>
 
   <para><code>START_EXECUTING_HOST_CHECKS</code></para>
 
   <para>Enables active host checks on a program-wide basis.</para>
 
-  <para><anchor xml:id="extcmd2-start_executing_svc_checks"/> <emphasis role="bold">START_EXECUTING_SVC_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-start_executing_svc_checks"/> <emphasis
+  role="bold">START_EXECUTING_SVC_CHECKS</emphasis></para>
 
   <para><code>START_EXECUTING_SVC_CHECKS</code></para>
 
   <para>Enables active checks of services on a program-wide basis.</para>
 
-  <para><anchor xml:id="extcmd2-start_obsessing_over_host"/> <emphasis role="bold">START_OBSESSING_OVER_HOST</emphasis></para>
+  <para><anchor xml:id="extcmd2-start_obsessing_over_host"/> <emphasis
+  role="bold">START_OBSESSING_OVER_HOST</emphasis></para>
 
   <para><code>START_OBSESSING_OVER_HOST;</code>&lt;host_name&gt;</para>
 
-  <para>Enables processing of host checks via the OCHP command for the specified host.</para>
+  <para>Enables processing of host checks via the OCHP command for the
+  specified host.</para>
 
-  <para><anchor xml:id="extcmd2-start_obsessing_over_host_checks"/> <emphasis role="bold">START_OBSESSING_OVER_HOST_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-start_obsessing_over_host_checks"/> <emphasis
+  role="bold">START_OBSESSING_OVER_HOST_CHECKS</emphasis></para>
 
   <para><code>START_OBSESSING_OVER_HOST_CHECKS</code></para>
 
-  <para>Enables processing of host checks via the OCHP command on a program-wide basis.</para>
+  <para>Enables processing of host checks via the OCHP command on a
+  program-wide basis.</para>
 
-  <para><anchor xml:id="extcmd2-start_obsessing_over_svc"/> <emphasis role="bold">START_OBSESSING_OVER_SVC</emphasis></para>
+  <para><anchor xml:id="extcmd2-start_obsessing_over_svc"/> <emphasis
+  role="bold">START_OBSESSING_OVER_SVC</emphasis></para>
 
   <para><code>START_OBSESSING_OVER_SVC;</code>&lt;host_name&gt;;&lt;service_description&gt;</para>
 
-  <para>Enables processing of service checks via the OCSP command for the specified service.</para>
+  <para>Enables processing of service checks via the OCSP command for the
+  specified service.</para>
 
-  <para><anchor xml:id="extcmd2-start_obsessing_over_svc_checks"/> <emphasis role="bold">START_OBSESSING_OVER_SVC_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-start_obsessing_over_svc_checks"/> <emphasis
+  role="bold">START_OBSESSING_OVER_SVC_CHECKS</emphasis></para>
 
   <para><code>START_OBSESSING_OVER_SVC_CHECKS</code></para>
 
-  <para>Enables processing of service checks via the OCSP command on a program-wide basis.</para>
+  <para>Enables processing of service checks via the OCSP command on a
+  program-wide basis.</para>
 
-  <para><anchor xml:id="extcmd2-stop_accepting_passive_host_checks"/> <emphasis
-  role="bold">STOP_ACCEPTING_PASSIVE_HOST_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-stop_accepting_passive_host_checks"/>
+  <emphasis role="bold">STOP_ACCEPTING_PASSIVE_HOST_CHECKS</emphasis></para>
 
   <para><code>STOP_ACCEPTING_PASSIVE_HOST_CHECKS</code></para>
 
-  <para>Disables acceptance and processing of passive host checks on a program-wide basis.</para>
+  <para>Disables acceptance and processing of passive host checks on a
+  program-wide basis.</para>
 
   <para><anchor xml:id="extcmd2-stop_accepting_passive_svc_checks"/> <emphasis
   role="bold">STOP_ACCEPTING_PASSIVE_SVC_CHECKS</emphasis></para>
@@ -1380,41 +1740,51 @@
 
   <para>Disables passive service checks on a program-wide basis.</para>
 
-  <para><anchor xml:id="extcmd2-stop_executing_host_checks"/> <emphasis role="bold">STOP_EXECUTING_HOST_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-stop_executing_host_checks"/> <emphasis
+  role="bold">STOP_EXECUTING_HOST_CHECKS</emphasis></para>
 
   <para><code>STOP_EXECUTING_HOST_CHECKS</code></para>
 
   <para>Disables active host checks on a program-wide basis.</para>
 
-  <para><anchor xml:id="extcmd2-stop_executing_svc_checks"/> <emphasis role="bold">STOP_EXECUTING_SVC_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-stop_executing_svc_checks"/> <emphasis
+  role="bold">STOP_EXECUTING_SVC_CHECKS</emphasis></para>
 
   <para><code>STOP_EXECUTING_SVC_CHECKS</code></para>
 
   <para>Disables active checks of services on a program-wide basis.</para>
 
-  <para><anchor xml:id="extcmd2-stop_obsessing_over_host"/> <emphasis role="bold">STOP_OBSESSING_OVER_HOST</emphasis></para>
+  <para><anchor xml:id="extcmd2-stop_obsessing_over_host"/> <emphasis
+  role="bold">STOP_OBSESSING_OVER_HOST</emphasis></para>
 
   <para><code>STOP_OBSESSING_OVER_HOST;</code>&lt;host_name&gt;</para>
 
-  <para>Disables processing of host checks via the OCHP command for the specified host.</para>
+  <para>Disables processing of host checks via the OCHP command for the
+  specified host.</para>
 
-  <para><anchor xml:id="extcmd2-stop_obsessing_over_host_checks"/> <emphasis role="bold">STOP_OBSESSING_OVER_HOST_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-stop_obsessing_over_host_checks"/> <emphasis
+  role="bold">STOP_OBSESSING_OVER_HOST_CHECKS</emphasis></para>
 
   <para><code>STOP_OBSESSING_OVER_HOST_CHECKS</code></para>
 
-  <para>Disables processing of host checks via the OCHP command on a program-wide basis.</para>
+  <para>Disables processing of host checks via the OCHP command on a
+  program-wide basis.</para>
 
-  <para><anchor xml:id="extcmd2-stop_obsessing_over_svc"/> <emphasis role="bold">STOP_OBSESSING_OVER_SVC</emphasis></para>
+  <para><anchor xml:id="extcmd2-stop_obsessing_over_svc"/> <emphasis
+  role="bold">STOP_OBSESSING_OVER_SVC</emphasis></para>
 
   <para><code>STOP_OBSESSING_OVER_SVC;</code>&lt;host_name&gt;;&lt;service_description&gt;</para>
 
-  <para>Disables processing of service checks via the OCSP command for the specified service.</para>
+  <para>Disables processing of service checks via the OCSP command for the
+  specified service.</para>
 
-  <para><anchor xml:id="extcmd2-stop_obsessing_over_svc_checks"/> <emphasis role="bold">STOP_OBSESSING_OVER_SVC_CHECKS</emphasis></para>
+  <para><anchor xml:id="extcmd2-stop_obsessing_over_svc_checks"/> <emphasis
+  role="bold">STOP_OBSESSING_OVER_SVC_CHECKS</emphasis></para>
 
   <para><code>STOP_OBSESSING_OVER_SVC_CHECKS</code></para>
 
-  <para>Disables processing of service checks via the OCSP command on a program-wide basis.</para>
+  <para>Disables processing of service checks via the OCSP command on a
+  program-wide basis.</para>
 
   <indexterm zone="extcmd2-acknowledge_host_problem">
     <primary>External commands</primary>
