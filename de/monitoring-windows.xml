@@ -366,4 +366,54 @@
     <para>Wenn die Überprüfung irgendwelche Fehler enthält, dann müssen Sie diese beheben, bevor Sie fortfahren. Stellen Sie sicher, dass
     Sie &name-icinga; nicht (erneut) starten, bevor die Überprüfung ohne Fehler durchgelaufen ist!</para>
   </section>
+
+  <section xml:id="troubleshooting">
+    <title>Troubleshooting</title>
+
+    <para>Manchmal funktioniert es nicht. Der einfachste Weg ist es, das Plugin als &name-icinga;-Benutzer auf der Kommandozeile
+    auszuführen: <screen> $&gt; /usr/local/icinga/libexec/check_nt -H &lt;ip address&gt; -p &lt;port&gt; -s &lt;password&gt; -v UPTIME</screen>&lt;ip
+    address&gt; ist die Adresse des Windows-Rechners, &lt;port&gt; und &lt;password&gt; die Werte aus <filename>nsc.ini</filename>. Bitte
+    beachten Sie, dass ein leeres Passwort ggf. als "" (zwei Anführungszeichen) anzugeben ist. Das Ergebnis könnte eins der folgenden
+    sein:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>CRITICAL: Socket timeout after 10 seconds</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Eine Firewall blockiert auf dem Windows-Rechner, auf dem &name-icinga;-Server oder dazwischen.</para>
+          </listitem>
+
+          <listitem>
+            <para>Der NSClient++-Dienst läuft nicht</para>
+          </listitem>
+
+          <listitem>
+            <para>Der angegebene Port ist falsch</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>could not fetch information from server</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Der angegebene Port ist falsch (ältere NSClient-Versionen)</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>NSCLIENT: wrong password</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Die Lösung bleibt dem Leser überlassen</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+    </itemizedlist>
+  </section>
 </section>
