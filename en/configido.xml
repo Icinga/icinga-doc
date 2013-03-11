@@ -1760,6 +1760,100 @@
       <para>This option is available starting with &name-icinga; 1.6.</para>
     </note>
 
+    <para><anchor xml:id="configido-use_transactions"/> <emphasis role="bold">Enable transactions</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20"/>
+
+        <colspec colname="c2" colwidth="*"/>
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">use_transactions=&lt;0|1&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">use_transactions=0</emphasis>
+            </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This setting enables SQL transactions during data processing. It will be useful when dumping config objects and their relations
+    (contacts, etc), during normal operations it won't help that much. The intention is clearly to reduce the reload/restart time when
+    idomod dumps the config data, blocking the core.</para>
+
+    <para>Possible values are:<itemizedlist>
+        <listitem>
+          <para>0 = disabled (default)</para>
+        </listitem>
+
+        <listitem>
+          <para>1 = enabled</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <important>
+      <para>This uses BEGIN / COMMIT for the transactions - make sure this works with your DBMS<emphasis role="bold">.</emphasis></para>
+    </important>
+
+    <note>
+      <para>This option is available starting with &name-icinga; 1.9.</para>
+    </note>
+
+    <para><anchor xml:id="configido-enable_socket_queue"/> <emphasis role="bold">Enable socket queue</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20"/>
+
+        <colspec colname="c2" colwidth="*"/>
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">enable_socket_queue=&lt;0|1&gt;</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">enable_socket_queue=0</emphasis>
+            </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>This setting enables a socket queue which will proxy the data received from ido socket and the data(base) actions.</para>
+
+    <para>Possible values are:<itemizedlist>
+        <listitem>
+          <para>0 = disabled (default)</para>
+        </listitem>
+
+        <listitem>
+          <para>1 = enabled</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <important>
+      <para>This setting is highly experimental and may cause data loss on your system if enabled. This is especially harmful when dumping
+      the config during core reload/restart. If problems occur, explicitely tell that you are using this feature. <emphasis
+      role="bold">You've been warned</emphasis><emphasis role="bold">.</emphasis></para>
+    </important>
+
+    <note>
+      <para>This option is available starting with &name-icinga; 1.9.</para>
+    </note>
+
     <indexterm zone="configido">
       <primary>IDOUtils</primary>
 
@@ -2320,6 +2414,18 @@
 
     <indexterm zone="configido-enable_sla">
       <primary>enable_sla=</primary>
+
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-use_transactions">
+      <primary>use_transactions=</primary>
+
+      <secondary>ido2db.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-enable_socket_queue">
+      <primary>enable_socket_queue=</primary>
 
       <secondary>ido2db.cfg</secondary>
     </indexterm>
