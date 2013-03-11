@@ -22,7 +22,8 @@
     <listitem>
       <para>Have a look at the current location of the <link linkend="configmain-status_file">status file</link> (e.g.
       <filename>/usr/local/icinga/var/status.dat</filename>) and the <link linkend="configmain-object_cache_file">object cache file</link>
-      (e.g. <filename>/usr/local/icnga/var/objects.cache</filename>) and determine the size of both files.<programlisting> #&gt; ls -la /usr/local/icinga/var/
+      (e.g. <filename>/usr/local/icinga/var/objects.cache</filename>) and determine the size of both files. Add the size of the status file
+      for temporary data (<link linkend="configmain-temp_file">temp_file</link>).<programlisting> #&gt; ls -la /usr/local/icinga/var/
  -rw-rw-r--   1 icinga icinga 8.2M Jun 10 11:57 status.dat
  -rw-r--r--   1 icinga icinga 5.9M Jun 10 11:58 objects.cache</programlisting></para>
     </listitem>
@@ -44,11 +45,14 @@
     </listitem>
 
     <listitem>
-      <para>Edit the &name-icinga; main configuration file and change the setting of the two appropriate directives<programlisting> #object_cache_file=/usr/local/icinga/var/objects.cache
+      <para>Edit the &name-icinga; main configuration file and change the setting of the appropriate directives<programlisting> #object_cache_file=/usr/local/icinga/var/objects.cache
  object_cache_file=/var/icinga/ramdisk/objects.cache
 
  #status_file=/usr/local/icinga/var/status.dat
- status_file=/var/icinga/ramdisk/status.dat</programlisting></para>
+ status_file=/var/icinga/ramdisk/status.dat
+
+ #temp_file=/usr/local/icinga/var/icinga.tmp
+ temp_file=/var/icinga/ramdisk/icinga.tmp</programlisting></para>
     </listitem>
 
     <listitem>
