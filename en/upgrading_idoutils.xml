@@ -13,9 +13,8 @@
   those modifications to the install routine.</para>
 
   <note>
-    <para>Starting with 1.8, you will find newly added config options in version diffed config files in <filename>module/idoutils/config/updates</filename>
-    e.g. <filename>ido2db.cfg_added_1.7_to_1.8.cfg</filename>.
-    </para>
+    <para>Starting with 1.8, you will find newly added config options in version diffed config files in
+    <filename>module/idoutils/config/updates</filename> e.g. <filename>ido2db.cfg_added_1.7_to_1.8.cfg</filename>.</para>
   </note>
 
   <note>
@@ -24,7 +23,7 @@
   </note>
 
   <para>The upgrade files can be found next to the database install files in
-  <literal>/path/to/icinga-src/module/idoutils/db/yourrdbm/</literal>. The syntax is as follows:</para>
+  <literal>/path/to/icinga-src/module/idoutils/db/yourrdbm/upgrade/</literal>. The syntax is as follows:</para>
 
   <para><literal>&lt;rdbm&gt;-upgrade-&lt;version&gt;.sql</literal></para>
 
@@ -56,16 +55,17 @@
 
   <itemizedlist>
     <listitem>
-      <para><emphasis role="bold">MySQL</emphasis> <programlisting> $ mysql -u root -p &lt;dbname&gt; &lt; /path/to/icinga-src/module/idoutils/db/mysql/mysql-upgrade-&lt;version&gt;.sql</programlisting></para>
+      <para><emphasis role="bold">MySQL</emphasis> <programlisting> $ mysql -u root -p &lt;dbname&gt; &lt; /path/to/icinga-src/module/idoutils/db/mysql/upgrade/mysql-upgrade-&lt;version&gt;.sql</programlisting></para>
     </listitem>
 
     <listitem>
       <para><emphasis role="bold">Postgresql</emphasis> <programlisting> # su - postgres
- $ psql -U icinga -d icinga &lt; /path/to/icinga-src/module/idoutils/db/pgsql/pgsql-upgrade-&lt;version&gt;.sql</programlisting></para>
+ $ psql -U icinga -d icinga &lt; /path/to/icinga-src/module/idoutils/db/pgsql/upgrade/pgsql-upgrade-&lt;version&gt;.sql</programlisting></para>
     </listitem>
 
     <listitem>
       <para><emphasis role="bold">Oracle</emphasis> <programlisting> # su - oracle
+ $ cd /path/to/icinga-src/module/idoutils/db/oracle/upgrade
  $ sqlplus dbuser/dbpass
  SQL&gt; @oracle-upgrade-&lt;version&gt;.sql</programlisting></para>
     </listitem>
@@ -78,9 +78,9 @@
   <section xml:id="upgrade1.8">
     <title>Upgrading &name-idoutils; to 1.8</title>
 
-    <para>There are some important fixes regarding on redundant indexes in MySQL, as well as missing indexes for proper performance (e.g. Icinga Web).
-    Furthermore, there's a new column for the programstatus table for the new global disable notification expire time.</para>
-    
+    <para>There are some important fixes regarding on redundant indexes in MySQL, as well as missing indexes for proper performance (e.g.
+    Icinga Web). Furthermore, there's a new column for the programstatus table for the new global disable notification expire time.</para>
+
     <para>Please have a look at the section "CHANGES" in the <filename>changelog</filename> as well.</para>
   </section>
 
