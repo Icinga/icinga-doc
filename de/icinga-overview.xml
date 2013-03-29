@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="icinga-overview" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title>&name-icinga;-Überblick</title>
+
+  <para><emphasis role="bold"><anchor xml:id="icinga_overview"/>Überblick</emphasis></para>
+
+  <para>Dieser Abschnitt soll Ihnen einen kurzen Überblick darüber geben, was enthalten ist und was nicht. Er ist möglicherweise nicht
+  vollständig, aber wir arbeiten daran.</para>
+
+  <para>&name-icinga; besteht aus einem Kern, der die Ergebnisse verarbeitet, die von Prüfungen stammen, die entweder vom Core initiert
+  werden (<link linkend="activechecks">aktive Prüfungen</link>), oder von anderen Maschinen kommen (<link linkend="passivechecks">passive
+  Prüfungen</link>), der entscheidet ob <link linkend="notifications">Benachrichtungen</link> versandt werden müssen, der Informationen in
+  Log-Dateien schreibt oder sie durch ein <link linkend="cgis">Web-interface</link> darstellt, sowie andere Aufgaben.</para>
+
+  <para>Der Kern enthält <emphasis>keinerlei</emphasis> Prüfungen, sondern diese werden stattdessen von <link
+  linkend="plugins">Plugins</link> ausgeführt. Die Benachrichtigung von <link linkend="objectdefinitions-contact">Kontakten</link> erfolgt
+  mit Methoden, die vom Betriebssystem zur Verfügung gestellt werden (z.B. sendmail/postfix/..., SMS, Pager). <note>
+      <para>Die Installation und Konfiguration von Plugins, Addons und betriebssystemnaher Software sprengt in den meisten Fällen den Rahmen
+      dieser Dokumentation. Konsultieren Sie daher möglichst zuerst die Dokumentation des Herstellers, benutzen Sie Ihre bevorzugte
+      Suchmaschine falls das nicht hilft, und suchen Sie Hilfe in Foren. Wenn Sie Anleitungen aus Blogs oder anderen privaten Quellen
+      konsultieren, dann finden Sie oft veraltete Informationen oder solche, die nicht auf Ihre Umgebung passt, so dass Sie darauf
+      verzichten sollten.</para>
+    </note>Die Erweiterung der Funktionalität kann durch die Installation von <link linkend="addons">Addons</link> erreicht werden. Dort
+  finden Sie Hinweise zu Web-basierten Konfigurations-Tools, alternativen Web-Interfaces, der Darstellung von Performance-Daten,
+  Benachrichtigung von Kontakten und mehr.</para>
+
+  <para>Die Konfiguration basiert auf Textdateien und die Verwaltung erfordert lediglich einen Texteditor wie den vi. Die <link
+  linkend="objectinheritance">Vererbung</link> mit Hilfe von Vorlagen vereinfacht die Definition von Objekten, indem sie die Definition auf
+  ein Minimum reduziert.</para>
+
+  <para>Der Zugriff auf die Informationen kann durch das CGI-basierte Classic-UI, das &name-web;-UI, oder verschiedene andere Interfaces
+  erfolgen, die ebenfalls in <link linkend="addons">Addons</link> genannt werden.</para>
+</section>

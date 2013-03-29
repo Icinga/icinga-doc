@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="icinga-overview" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title>&name-icinga; Overview</title>
+
+  <para><emphasis role="bold"><anchor xml:id="icinga_overview"/>Overview</emphasis></para>
+
+  <para>This section should give you a short overview on what is included and what isn't. It might be incomplete but we're working on
+  that.</para>
+
+  <para>&name-icinga; consists of a core processing results from checks which are initiated by the core (<link linkend="activechecks">active
+  checks</link>), or delivered from other machines (<link linkend="passivechecks">passive checks</link>), deciding if <link
+  linkend="notifications">notifications</link> have to be sent, providing information by writing log files and showing it via a <link
+  linkend="cgis">web interface</link>, and several other tasks.</para>
+
+  <para>The core does <emphasis>not</emphasis> contain any checks itself but they are executed by <link linkend="plugins">plugins</link>
+  instead. Notifying <link linkend="objectdefinitions-contact">contacts</link> is done by methods provided by the operating system (i.e.
+  sendmail/postfix/..., sms, pager). <note>
+      <para>Installation and configuration of plugins, addons, and os related software is mostly beyond the scope of this documentation so
+      please consult the documentation provided by the manufacturer first, use your favourite search engine if that doesn't help, and seek
+      help in forums. Consulting instructions from blogs or other personal stuff you will often find information that is outdated or doesn't
+      fit your environment so try to avoid such sources.</para>
+    </note>Extending the functionality can be accomplished by installing <link linkend="addons">addons</link>. There you will find hints on
+  web-based configuration tools, alternative web interfaces, presenting performance data, notifying contacts, and more.</para>
+
+  <para>The configuration is based on text files and managing them requires just a text editor like vi. <link
+  linkend="objectinheritance">Inheritance</link> using templates simplifies defining objects because it enables you to reduce the definition
+  to a minimum.</para>
+
+  <para>Accessing the information can be done via the cgi-based classic ui, the &name-web; ui, or several other interfaces like mentioned in
+  <link linkend="addons">addons</link> as well.</para>
+</section>
