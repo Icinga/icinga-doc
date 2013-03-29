@@ -24,6 +24,11 @@ $(document).ready(function() {
 		var target = $(e.target).attr('target');
 		var href = $(e.target).attr('href');
 
+		//open new window if ctrl key was pressed
+		if(e.ctrlKey) {
+			target = '_blank';
+		}
+
 		//if target was undefined, open in the same window,
 		//otherwise open a new window with the target identifier
 		if(target !== undefined) {
