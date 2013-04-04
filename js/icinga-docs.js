@@ -26,7 +26,15 @@ $(document).ready(function() {
 
 		//open new window if ctrl key was pressed
 		if(e.ctrlKey) {
-			target = '_blank';
+			if(target === undefined) {
+				target = '_blank';
+			}
+		}
+		//open new window if middle mouse button was pressed
+		if(e.which == 2) {
+			if(target === undefined) {
+				target = '_blank';
+			}
 		}
 
 		//if target was undefined, open in the same window,
