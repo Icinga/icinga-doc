@@ -710,6 +710,38 @@ Alias /icinga-web /usr/local/icinga-web/pub
         Fehlermeldung: ".htaccess: Invalid command 'RewriteEngine', perhaps misspelled or defined by a module not included in the server
         configuration"</para>
       </listitem>
+
+      <listitem>
+        <para>.htaccess/VHost-Konfiguration =&gt; Pfade nicht korrekt? Icinga-Web zeigt keine Daten?</para>
+      </listitem>
+
+      <listitem>
+        <para>"Ich kann meinen neu installierten Cronk nicht sehen" oder "nach einem Update kann ich nicht auf das Reporting-Cronk
+        zugreifen"</para>
+
+        <para>Beginnend mit 1.8.2 gibt es einen neuen Session-Cache, der beim Update von &name-web; bzw. der Installation eines neuen Cronks
+        oder Moduls ggf. zu Irritationen führen kann. Die Lösung ist recht einfach</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Löschen Sie den xml-Cache</para>
+          </listitem>
+
+          <listitem>
+            <para>Zurücksetzen des Applikationszustands des Benutzers (rechte obere Ecke -&gt; Preferences)</para>
+          </listitem>
+
+          <listitem>
+            <para>Abmelden und neu anmelden (rechte obere Ecke)</para>
+
+            <para><inlinemediaobject>
+                <imageobject>
+                  <imagedata fileref="../images/icinga-web-user-prefs-logout.png" format="PNG"/>
+                </imageobject>
+              </inlinemediaobject></para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
     </itemizedlist>
 
     <para>Icinga Web - Login erfolgt- aber die Seite lädt und lädt...</para>
@@ -718,10 +750,6 @@ Alias /icinga-web /usr/local/icinga-web/pub
       <listitem>
         <para>Request failed, Ressource /icinga-web/appkit/ext/application State could not be loaded - is the url correct? =&gt; mod_rewrite
         enabled ?</para>
-      </listitem>
-
-      <listitem>
-        <para>.htaccess/VHost-Konfiguration =&gt; Pfade nicht korrekt? Icinga-Web zeigt keine Daten?</para>
       </listitem>
 
       <listitem>
