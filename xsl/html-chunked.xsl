@@ -86,7 +86,7 @@
 
 <!--
 <xsl:template name="user.footer.content">
-  <HR/><P class="copyright">&#x00A9; 2009-2012 Icinga Development Team, http://www.icinga.org</P>
+  <HR/><P class="copyright">&#x00A9; 2009-2013 Icinga Development Team, http://www.icinga.org</P>
 </xsl:template>
 -->
 <xsl:template name="user.footer.navigation">

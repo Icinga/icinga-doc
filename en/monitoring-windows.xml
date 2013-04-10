@@ -359,4 +359,53 @@
     <para>If the verification process produces any errors messages, fix your configuration file before continuing. Make sure that you don't
     (re)start &name-icinga; until the verification process completes without any errors!</para>
   </section>
+
+  <section xml:id="troubleshooting">
+    <title>Troubleshooting</title>
+
+    <para>Sometimes it won't work. The easiest way is to execute the plugin as &name-icinga; user on the command line, something like
+    <screen> $&gt; /usr/local/icinga/libexec/check_nt -H &lt;ip address&gt; -p &lt;port&gt; -s &lt;password&gt; -v UPTIME</screen>&lt;ip
+    address&gt; is the address of the windows machine, &lt;port&gt; and &lt;password&gt; the values defined in <filename>nsc.ini</filename>.
+    Please note that an empty password might be specified as "" (two double quotes). The result may be one of the following:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>CRITICAL: Socket timeout after 10 seconds</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>A firewall is blocking on the windows machine, on the &name-icinga; server, or inbetween.</para>
+          </listitem>
+
+          <listitem>
+            <para>The NSClient++ task is not running</para>
+          </listitem>
+
+          <listitem>
+            <para>The port you specified is wrong</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>could not fetch information from server</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>The port you specified is wrong (older NSClient versions)</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>NSCLIENT: wrong password</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>the solution is left to the reader</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+    </itemizedlist>
+  </section>
 </section>

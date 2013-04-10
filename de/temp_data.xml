@@ -6,7 +6,7 @@
 <section version="5.0" xml:id="temp_data" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-  <title><anchor xml:id="temp-data" />Temporäre Daten</title>
+  <title><anchor xml:id="temp-data"/>Temporäre Daten</title>
 
   <para>Verschiedene Dateien werden beim Start von &name-icinga; angelegt und während der Laufzeit sehr oft verarbeitet. Abhängig von der
   Größe Ihrer Konfiguration kann dies zu hoher I/O-Last und damit zu einer eingeschränkten Bedienbarkeit führen. Um physikalische
@@ -22,7 +22,8 @@
     <listitem>
       <para>Werfen Sie einen Blick auf den aktuellen Standort des <link linkend="configmain-status_file">status file</link> (z.B.
       <filename>/usr/local/icinga/var/status.dat</filename>) und des <link linkend="configmain-object_cache_file">object cache file</link>
-      (z.B. <filename>/usr/local/icnga/var/objects.cache</filename>) und ermitteln Sie die Größe der beiden Dateien.<programlisting> #&gt; ls -la /usr/local/icinga/var/
+      (z.B. <filename>/usr/local/icnga/var/objects.cache</filename>) und ermitteln Sie die Größe der beiden Dateien. Addieren Sie die Größe
+      der Statusdatei (status_file) für temporäre Daten (<link linkend="configmain-temp_file">temp_file</link>).<programlisting> #&gt; ls -la /usr/local/icinga/var/
  -rw-rw-r--   1 icinga icinga 8.2M Jun 10 11:57 status.dat
  -rw-r--r--   1 icinga icinga 5.9M Jun 10 11:58 objects.cache</programlisting></para>
     </listitem>
@@ -49,7 +50,10 @@
  object_cache_file=/var/icinga/ramdisk/objects.cache
 
  #status_file=/usr/local/icinga/var/status.dat
- status_file=/var/icinga/ramdisk/status.dat</programlisting></para>
+ status_file=/var/icinga/ramdisk/status.dat
+ 
+ #temp_file=/usr/local/icinga/var/icinga.tmp
+ temp_file=/var/icinga/ramdisk/icinga.tmp</programlisting></para>
     </listitem>
 
     <listitem>

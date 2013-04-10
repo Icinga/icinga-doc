@@ -284,20 +284,20 @@
         </note>
 
         <note>
-          <para>Ab &name-debian; 6.0/&name-ubuntu; 10.10 heißt das Paket libpng12-0, der Name des dev-Pakets ändert sich nicht.</para>
+          <para>Ab &name-debian; 6.0/&name-ubuntu; 10.10 heißen die Pakete libpng12-0 und libdbi0, Debian 6.0 verwendet zudem libdbi0-dev, Debian 7.0 wird hingegen libdbi-dev benötigen.</para>
         </note>
 
         <itemizedlist>
           <listitem>
             <para><emphasis role="bold">&name-mysql;:</emphasis></para>
 
-            <programlisting> #&gt; apt-get install mysql-server mysql-client libdbi0 libdbi0-dev libdbd-mysql</programlisting>
+            <programlisting> #&gt; apt-get install mysql-server mysql-client libdbi1 libdbi-dev libdbd-mysql</programlisting>
           </listitem>
 
           <listitem>
             <para><emphasis role="bold">&name-postgres;:</emphasis></para>
 
-            <programlisting> #&gt; apt-get install postgresql libdbi1 libdbi-dev libdbd-pgsql libpg-dev</programlisting>
+            <programlisting> #&gt; apt-get install postgresql libdbi1 libdbi-dev libdbd-pgsql libpq-dev</programlisting>
           </listitem>
         </itemizedlist>
       </listitem>
@@ -436,7 +436,7 @@
     <para>Vergessen Sie nicht die <link xlink:href="http://www.nagiosplugins.org/">Nagios Plugins</link>.</para>
   </section>
 
-  <section xml:id="compileinstallidoutils">>
+  <section xml:id="compileinstallidoutils">
     <title>&name-icinga; und die &name-idoutils; kompilieren und installieren</title>
 
     <para>Entpacken Sie das &name-icinga;-Archiv</para>
@@ -501,7 +501,8 @@
  #&gt; make install-init 
  #&gt; make install-config 
  #&gt; make install-eventhandlers
- #&gt; make install-commandmode </programlisting> oder kürzer <programlisting> #&gt; make fullinstall
+ #&gt; make install-commandmode 
+ #&gt; make install-idoutils</programlisting> oder kürzer <programlisting> #&gt; make fullinstall
  #&gt; make install-config</programlisting></para>
 
     <note>
@@ -786,7 +787,7 @@
     <para>Kompilieren und installieren Sie die Plugins.</para>
 
     <screen> #&gt; ./configure --prefix=/usr/local/icinga --with-cgiurl=/icinga/cgi-bin \
-    --with-htmurl=/icinga --with-nagios-user=icinga --with-nagios-group=icinga
+    --with-nagios-user=icinga --with-nagios-group=icinga
  #&gt; make
  #&gt; make install</screen>
   </section>
@@ -816,9 +817,6 @@
  #&gt; chcon -R -t httpd_sys_content_t &url-icinga-base;/share/
  #&gt; chcon -t httpd_sys_script_rw_t &url-icinga-base;/var/rw/icinga.cmd</programlisting>
 
-    <para>Besuchen Sie das &name-nagios;Community.org-Wiki unter <link
-    xlink:href="http://www.nagioscommunity.org/wiki">&url-nagios-community;</link>, um Informationen darüber zu erhalten, wie die
-    &name-icinga;-CGIs im Enforcing-Modus mit einer Targeted-Richtlinie ausgeführt werden.</para>
   </section>
 
   <section xml:id="startiido2dbandicinga">
@@ -932,8 +930,7 @@
 
     <para>Die Konfiguration von e-Mail-Benachrichtigungen ist nicht Gegenstand dieser Anleitung. &name-icinga; ist konfiguriert, um
     e-Mail-Benachrichtigungen zu versenden, aber möglicherweise ist auf Ihrem System noch kein Mail-Programm installiert bzw. konfiguriert.
-    Schauen Sie in Ihre Systemdokumentation, suchen Sie im Web oder gucken Sie im <link xlink:href="http://www.nagioscommunity.org/wiki">
-    NagiosCommunity.org-Wiki</link> nach genauen Anweisungen, wie Ihr System konfiguriert werden muss, damit es e-Mail-Mitteilungen an
+    Schauen Sie in Ihre Systemdokumentation oder suchen Sie im Web nach genauen Anweisungen, wie Ihr System konfiguriert werden muss, damit es e-Mail-Mitteilungen an
     externe Adressen versendet. Mehr Informationen zu Benachrichtigungen finden Sie <link linkend="notifications">hier</link></para>
   </section>
 

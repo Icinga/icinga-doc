@@ -34,12 +34,12 @@
 
         <note>
           <para>Ab &name-icinga; 1.8 gibt es eine Funktion in der Datenbank die alle benötigten SLA- Informationen bereitstellt. Diese
-          Funktion ist zusätzlich zu dem Report- Paket zu installieren.</para>
+          Funktion muss zusätzlich zu dem Report- Paket zu in die bestehende &name-idoutils; Datenbank importiert werden.</para>
         </note>
 
         <para>&name-mysql;</para>
 
-	<para><screen>#&gt; /usr/bin/mysql -u root -p &lt;password&gt; &lt; icinga-reports-1.8.0/sql/mysql/icinga_availability.sql</screen></para>
+	<para><screen>#&gt; /usr/bin/mysql icinga &lt; icinga-reports-1.8.0/sql/mysql/icinga_availability.sql</screen></para>
 
         <para>Stellen Sie bitte ebenfalls sicher, dass der Datenbank- Benutzer (hier icinga@localhost) das Recht EXECUTE besitzt.<screen>#&gt; /usr/bin/mysql -u root -p &lt;password&gt; icinga
 mysql&gt; GRANT EXECUTE ON icinga.* TO 'icinga'@'localhost' ;

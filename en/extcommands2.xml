@@ -94,7 +94,7 @@
 <listitem><para><link linkend="extcmd2-disable_passive_host_checks">DISABLE_PASSIVE_HOST_CHECKS</link></para></listitem>
 <listitem><para><link linkend="extcmd2-disable_passive_svc_checks">DISABLE_PASSIVE_SVC_CHECKS</link></para></listitem>
 <listitem><para><link linkend="extcmd2-disable_performance_data">DISABLE_PERFORMANCE_DATA</link></para></listitem>
-<listitem><para><link linkend="extcmd2-disable_service_flap_detection">DISABLE_SERVICE_FLAP_DETECTION</link></para></listitem>
+<listitem><para><link linkend="extcmd2-disable_svc_flap_detection">DISABLE_SVC_FLAP_DETECTION</link></para></listitem>
 <listitem><para><link linkend="extcmd2-disable_service_freshness_checks">DISABLE_SERVICE_FRESHNESS_CHECKS</link></para></listitem>
 <listitem><para><link linkend="extcmd2-disable_servicegroup_host_checks">DISABLE_SERVICEGROUP_HOST_CHECKS</link></para></listitem>
 <listitem><para><link linkend="extcmd2-disable_servicegroup_host_notifications">DISABLE_SERVICEGROUP_HOST_NOTIFICATIONS</link></para></listitem>
@@ -171,7 +171,7 @@
 <listitem><para><link linkend="extcmd2-send_custom_svc_notification">SEND_CUSTOM_SVC_NOTIFICATION</link></para></listitem>
 <listitem><para><link linkend="extcmd2-set_host_notification_number">SET_HOST_NOTIFICATION_NUMBER</link></para></listitem>
 <listitem><para><link linkend="extcmd2-set_svc_notification_number">SET_SVC_NOTIFICATION_NUMBER</link></para></listitem>
-<listitem><para><link linkend="extcmd2-shutdown_program">SHUTDOWN_PROGRAM</link></para></listitem>
+<listitem><para><link linkend="extcmd2-shutdown_process">SHUTDOWN_PROCESS</link></para></listitem>
 <listitem><para><link linkend="extcmd2-start_accepting_passive_host_checks">START_ACCEPTING_PASSIVE_HOST_CHECKS</link></para></listitem>
 <listitem><para><link linkend="extcmd2-start_accepting_passive_svc_checks">START_ACCEPTING_PASSIVE_SVC_CHECKS</link></para></listitem>
 <listitem><para><link linkend="extcmd2-start_executing_host_checks">START_EXECUTING_HOST_CHECKS</link></para></listitem>
@@ -728,11 +728,14 @@
 
   <para>Disables the processing of host and service performance data on a program-wide basis.</para>
 
-  <para><anchor xml:id="extcmd2-disable_service_flap_detection"/> <emphasis role="bold">DISABLE_SERVICE_FLAP_DETECTION</emphasis></para>
+  <!--
+  <para><anchor xml:id="extcmd2-disable_svc_flap_detection"/> <emphasis
+  role="bold">DISABLE_SVC_FLAP_DETECTION</emphasis></para>
 
-  <para><code>DISABLE_SERVICE_FLAP_DETECTION;</code>&lt;host_name&gt;;&lt;service_description&gt;</para>
+  <para><code>DISABLE_SVC_FLAP_DETECTION;</code>&lt;host_name&gt;;&lt;service_description&gt;</para>
 
   <para>Disables flap detection for the specified service.</para>
+-->
 
   <para><anchor xml:id="extcmd2-disable_service_freshness_checks"/> <emphasis role="bold">DISABLE_SERVICE_FRESHNESS_CHECKS</emphasis></para>
 
@@ -1108,7 +1111,7 @@
 
   <para><code>RESTART_PROCESS</code></para>
 
-  <para>Restarts the &name-icinga; process. Note: You can still use the old deprecated RESTART_PROGRAM</para>
+  <para>Restarts the &name-icinga; process.</para>
 
   <para><anchor xml:id="extcmd2-save_state_information"/> <emphasis role="bold">SAVE_STATE_INFORMATION</emphasis></para>
 
@@ -1279,7 +1282,8 @@
   &lt;options&gt; field is a logical OR of the following integer values that affect aspects of the notification that are sent out: 0 = No
   option (default), 1 = Broadcast (send notification to all normal and all escalated contacts for the host), 2 = Forced (notification is
   sent out regardless of current time, whether or not notifications are enabled, etc.), 4 = Increment current notification # for the host
-  (this is not done by default for custom notifications). The comment field can be used with the</para>
+  (this is not done by default for custom notifications). The contents of the comment field is available in notification commands using the
+  $NOTIFICATIONCOMMENT$ macro.</para>
 
   <para><anchor xml:id="extcmd2-send_custom_svc_notification"/> <emphasis role="bold">SEND_CUSTOM_SVC_NOTIFICATION</emphasis></para>
 
@@ -1290,7 +1294,8 @@
   The &lt;options&gt; field is a logical OR of the following integer values that affect aspects of the notification that are sent out: 0 =
   No option (default), 1 = Broadcast (send notification to all normal and all escalated contacts for the service), 2 = Forced (notification
   is sent out regardless of current time, whether or not notifications are enabled, etc.), 4 = Increment current notification # for the
-  service(this is not done by default for custom notifications). The comment field can be used with the</para>
+  service(this is not done by default for custom notifications). The contents of the comment field is available in notification commands
+  using the $NOTIFICATIONCOMMENT$ macro.</para>
 
   <para><anchor xml:id="extcmd2-set_host_notification_number"/> <emphasis role="bold">SET_HOST_NOTIFICATION_NUMBER</emphasis></para>
 
@@ -1310,9 +1315,9 @@
   redundant monitoring environments. Notification numbers greater than zero have no noticeable affect on the notification process if the
   service is currently in an OK state.</para>
 
-  <para><anchor xml:id="extcmd2-shutdown_program"/> <emphasis role="bold">SHUTDOWN_PROGRAM</emphasis></para>
+  <para><anchor xml:id="extcmd2-shutdown_process"/> <emphasis role="bold">SHUTDOWN_PROCESS</emphasis></para>
 
-  <para><code>SHUTDOWN_PROGRAM</code></para>
+  <para><code>SHUTDOWN_PROCESS</code></para>
 
   <para>Shuts down the &name-icinga; process.</para>
 
@@ -1824,10 +1829,10 @@
     <secondary>DISABLE_PERFORMANCE_DATA</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2-disable_service_flap_detection">
+  <indexterm zone="extcmd2-disable_svc_flap_detection">
     <primary>External commands</primary>
 
-    <secondary>DISABLE_SERVICE_FLAP_DETECTION</secondary>
+    <secondary>DISABLE_SVC_FLAP_DETECTION</secondary>
   </indexterm>
 
   <indexterm zone="extcmd2-disable_service_freshness_checks">
@@ -2280,10 +2285,10 @@
     <secondary>SET_SVC_NOTIFICATION_NUMBER</secondary>
   </indexterm>
 
-  <indexterm zone="extcmd2-shutdown_program">
+  <indexterm zone="extcmd2-shutdown_process">
     <primary>External commands</primary>
 
-    <secondary>SHUTDOWN_PROGRAM</secondary>
+    <secondary>SHUTDOWN_PROCESS</secondary>
   </indexterm>
 
   <indexterm zone="extcmd2-start_accepting_passive_host_checks">
