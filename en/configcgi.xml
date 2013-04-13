@@ -2379,6 +2379,44 @@
     <para>This option is available starting with &name-icinga; 1.9</para>
   </note>
 
+
+  <para><anchor xml:id="configcgi-standalone_installation"/><emphasis role="bold">Enable Classic UI Standalone Installation
+  </emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">standalone_installation=0|1</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">standalone_installation=1</emphasis></emphasis></para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This option controls if Classic UI is used as standalone setup. This option was mainly implemented for Icinga 2 and its compat layer, but
+  may be helpful in other setups as well, like for a standalone dashboard next to the default install. Enabling this option will make Classic UI
+  ignore the main_config_file setting and require all options to be set in cgi.cfg instead. The section "Standalone (Icinga 2)" within the sample
+  config holds all needed settings.
+  </para>
+
+  <note>
+    <para>This option is available starting with &name-icinga; 1.9</para>
+  </note>
+
+
   <indexterm zone="config_cgi">
     <primary>CGI Configuration File Options</primary>
   </indexterm>
@@ -2788,4 +2826,11 @@
 
     <secondary>Set initial state of "Set Expire Time" checkbox</secondary>
   </indexterm>
+
+  <indexterm zone="configcgi-standalone_installation">
+    <primary>standalone_installation=</primary>
+
+    <secondary>Set Classic UI Standalone Installation Mode</secondary>
+  </indexterm>
+
 </section>
