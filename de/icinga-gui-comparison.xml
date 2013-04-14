@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="icinga_gui_comparison" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="icinga-gui-comparison"/>&name-icinga; Web-GUI-Vergleich</title>
+
+  <para>Icinga bietet für Benutzer zwei Web-Interfaces an, um Icinga-Monitoring-Ergebnisse anzusehen und Befehle an den Core zu senden. In
+  Icinga-New- und Classic-Web sind Host- und Service-Status, Historie, Benachrichtungen und Status-Map verfügbar, um einen Überblick über
+  den aktuellen Zustand Ihres Netzwerks zu erhalten. Beide unterstützen sowohl IPv4 als auch IPv6-Adressen.</para>
+
+  <section>
+    <anchor xml:id="icinga_gui_classic"/>
+
+    <title>Icinga-Classic-Web</title>
+
+    <para>Traditional im Design ist dies Icingas Benutzer-Interface für diejenigen, die das bekannte Ein-Fenster-Format wie in Nagios mögen,
+    kombiniert mit coolen Ergänzungen:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>JSON-Ausgaben für schnelleren Datenzugriff</para>
+      </listitem>
+
+      <listitem>
+        <para>CSV-Export in den CGIs, um Addon-Entwicklung zu unterstützen</para>
+      </listitem>
+
+      <listitem>
+        <para>Log-Datei-Suche mit Filtern, regulären Ausdrücken und Wildcard-Fähigkeiten</para>
+      </listitem>
+
+      <listitem>
+        <para>Host-Suche mit Wildcard-Fähigkeiten</para>
+      </listitem>
+
+      <listitem>
+        <para>Zusammengesetzte Befehle, die simultan für mehrere Hosts/Services gesandt werden</para>
+      </listitem>
+
+      <listitem>
+        <para>Abhängigkeiten, die in Host-/Service-Details angezeigt werden</para>
+      </listitem>
+
+      <listitem>
+        <para>Integierter Konfigurationsbefehl-Expander für Endbenutzer</para>
+      </listitem>
+
+      <listitem>
+        <para>Taktische Übersicht im Header, um stets einen Blick auf die wichtigsten Details zu haben</para>
+      </listitem>
+
+      <listitem>
+        <para>CGI-Konfigurationsoptionen, um die Benutzerberechtigungen sehen zu können</para>
+      </listitem>
+
+      <listitem>
+        <para>Modifizierte Attribute, um die Unterschiede zwischen Host- und Service-Konfigurationseinstellungen und den letzten
+        Attributänderungen im Frontend zu sehen</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Weil das Icinga-Classic-Web ständig weiter entwickelt wird, können Sie sicher sein, dass jedes Addon, das Sie mit Nagios nutzen,
+    auch mit Icinga funktionieren wird.</para>
+
+    <table border="1">
+      <caption>Screenshots &name-icinga;-Classic-Web</caption>
+
+      <tr>
+        <td>
+          <screenshot>
+            <mediaobject>
+              <caption>Taktische Übersicht</caption>
+
+              <imageobject>
+                <imagedata fileref="../images/Icinga_Classic_TacticalOverview.png" scalefit="1" width="100%"/>
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+        </td>
+
+        <td>
+          <screenshot>
+            <mediaobject>
+              <caption>Host-Gruppen</caption>
+
+              <imageobject>
+                <imagedata fileref="../images/Icinga_Classic_HostGroup.png" scalefit="1" width="100%"/>
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+        </td>
+
+        <td>
+          <screenshot>
+            <mediaobject>
+              <caption>Service-Status</caption>
+
+              <imageobject>
+                <imagedata fileref="../images/Icinga_Classic_ServiceStatus.png" scalefit="1" width="100%"/>
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <screenshot>
+            <mediaobject>
+              <caption>Befehle</caption>
+
+              <imageobject>
+                <imagedata fileref="../images/Icinga_Classic_Commands.png" scalefit="1" width="100%"/>
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+        </td>
+
+        <td>
+          <screenshot>
+            <mediaobject>
+              <caption>CGI-konfiguration</caption>
+
+              <imageobject>
+                <imagedata fileref="../images/Icinga_Classic_CGIConfig.png" scalefit="1" width="100%"/>
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+        </td>
+
+        <td>
+          <screenshot>
+            <mediaobject>
+              <caption>Ausfallzeiten</caption>
+
+              <imageobject>
+                <imagedata fileref="../images/Icinga_Classic_Downtimes.png" scalefit="1" width="100%"/>
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <screenshot>
+            <mediaobject>
+              <caption>Datumauswahl</caption>
+
+              <imageobject>
+                <imagedata fileref="../images/Icinga_Classic_DatePicker.png" scalefit="1" width="100%"/>
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+        </td>
+
+        <td>
+          <screenshot>
+            <mediaobject>
+              <caption>Seitenweise Log-Anzeige</caption>
+
+              <imageobject>
+                <imagedata fileref="../images/Icinga_Classic_PaginationLogs.png" scalefit="1" width="100%"/>
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+        </td>
+
+        <td>
+          <screenshot>
+            <mediaobject>
+              <caption>Trending</caption>
+
+              <imageobject>
+                <imagedata fileref="../images/Icinga_Classic_Trending.png" scalefit="1" width="100%"/>
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+        </td>
+      </tr>
+    </table>
+  </section>
+
+  <section>
+    <anchor xml:id="icinga_gui_new_web"/>
+
+    <title>Icinga-New-Web</title>
+
+    <para>Dynamisch und benutzerfreundlich ist dieses Agavi-basierende, Ajax-getriebene, Web-2.0-inspirierte Icinga-Frontend.</para>
+
+    <note>
+      <para>Icinga-Web benötigt eine Datenbank zum Betrieb. Bisher werden &name-mysql;, &name-postgres; und &name-oracle;
+      unterstützt.</para>
+    </note>
+
+    <itemizedlist>
+      <listitem>
+        <para>
+          <emphasis role="bold">Betrachten Sie Ihr Monitoring wie Sie möchten</emphasis>
+        </para>
+
+        <para>Icinga-New-Web zeigt aktuelle Statusdaten in einem konfigurierbaren Datenblatt, so dass Sie:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Daten nach Spalten sortieren und gruppieren können (z.B. Host oder Status)</para>
+          </listitem>
+
+          <listitem>
+            <para>Daten im Detail filtern können (z.B. HTTP-Services,die nicht "OK" sind)</para>
+          </listitem>
+
+          <listitem>
+            <para>durch Anklicken von Kästchen gleichzeitig Befehle mehrere Host-/Services senden können</para>
+          </listitem>
+
+          <listitem>
+            <para>Host- oder Service-Details und Historie im gleichen Fenster anzeigen können</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para>
+          <emphasis role="bold">Suche mit Ajax-Leichtigkeit</emphasis>
+        </para>
+
+        <para>Das mächtige Ajax-Suchwerkzeug erlaubt es Ihnen, die ersten Buchstaben einer Zeichenkette einzugeben, aus den angezeigten
+        Ergebnissen aus Hosts, Services und Gruppen auszuwählen, die zusammen mit dem farblich kodierten Status dargestellt werden. Unnötig
+        zu sagen, dass das Tool nur die Ergebnisse anzeigt, die den Benutzerberechtigugen entsprechen - ideal für größere
+        Unternehmen.</para>
+      </listitem>
+
+      <listitem>
+        <para>
+          <emphasis role="bold">Customize-a-Cronk ‘n’ Dashboard</emphasis>
+        </para>
+
+        <para>Eine Bibliothek von Cronks (Widgets) bietet verschiedene Ansichten, die per "Drag-and-Drop" auf dem Bildschirm eingestellt,
+        verändert, minimiert, vergrößert und kategorisiert werden können. Weil die Änderungen persistent sind, können Sie später wieder zu
+        Ihrem angepassten Cronk oder einer Anordnung von Cronks zurückkehren, die Ihr persönliches Armaturenbrett (Dashboard)
+        darstellen.</para>
+      </listitem>
+
+      <listitem>
+        <para>
+          <emphasis role="bold">Benutzerrechte exakt verwalten</emphasis>
+        </para>
+
+        <para>Jenseits der Standard-Gruppenbeschränkungen können Benutzereinstellungen individualisiert werden, um den Zugang auf bestimmte
+        Host- oder Service-Gruppen zu beschränken, die Fähigkeit zum Senden von Befehlen zu entziehen, oder sogar das Ansehen von
+        benutzerdefinierten Variablen bestimmter Hosts oder Services zu verhindern. Alles vom Frontend aus. Mit LDAP- oder
+        Active-Directory-Unterstützung macht Icinga-Web auch das Leben für große Unternehmen leichter.</para>
+      </listitem>
+    </itemizedlist>
+
+    <table border="1">
+      <caption>Screenshots &name-icinga;-New-Web</caption>
+
+      <tr>
+        <td>
+          <screenshot>
+            <mediaobject>
+              <caption>Portal-Ansicht</caption>
+
+              <imageobject>
+                <imagedata fileref="../images/IcingaWeb_Portal2.png" scalefit="1" width="100%"/>
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+        </td>
+
+        <td>
+          <screenshot>
+            <mediaobject>
+              <caption>Taktische Übersicht</caption>
+
+              <imageobject>
+                <imagedata fileref="../images/IcingaWeb_TacticalOverview.png" scalefit="1" width="100%"/>
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+        </td>
+
+        <td>
+          <screenshot>
+            <mediaobject>
+              <caption>Offene Probleme</caption>
+
+              <imageobject>
+                <imagedata fileref="../images/IcingaWeb_OpenProblems.png" scalefit="1" width="100%"/>
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <screenshot>
+            <mediaobject>
+              <caption>Host-Status-Ereignisse</caption>
+
+              <imageobject>
+                <imagedata fileref="../images/IcingaWeb_HostStatus_Events.png" scalefit="1" width="100%"/>
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+        </td>
+
+        <td>
+          <screenshot>
+            <mediaobject>
+              <caption>Host-Filter</caption>
+
+              <imageobject>
+                <imagedata fileref="../images/IcingaWeb_Host_filtered.png" scalefit="1" width="100%"/>
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+        </td>
+
+        <td>
+          <screenshot>
+            <mediaobject>
+              <caption>Ausfallzeiten</caption>
+
+              <imageobject>
+                <imagedata fileref="../images/IcingaWeb_Downtimes.png" scalefit="1" width="100%"/>
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <screenshot>
+            <mediaobject>
+              <caption>Suche</caption>
+
+              <imageobject>
+                <imagedata fileref="../images/IcingaWeb_Search.png" scalefit="1" width="100%"/>
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+        </td>
+
+        <td>
+          <screenshot>
+            <mediaobject>
+              <caption>Befehle</caption>
+
+              <imageobject>
+                <imagedata fileref="../images/IcingaWeb_Commands.png" scalefit="1" width="100%"/>
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+        </td>
+
+        <td>
+          <screenshot>
+            <mediaobject>
+              <caption>Reporting</caption>
+
+              <imageobject>
+                <imagedata fileref="../images/IcingaWeb_Reporting.png" scalefit="1" width="100%"/>
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <screenshot>
+            <mediaobject>
+              <caption>Business Process</caption>
+
+              <imageobject>
+                <imagedata fileref="../images/IcingaWeb_BusinessProcess.png" scalefit="1" width="100%"/>
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+        </td>
+
+        <td>
+          <screenshot>
+            <mediaobject>
+              <caption>Log-Datei-Anzeige</caption>
+
+              <imageobject>
+                <imagedata fileref="../images/IcingaWeb_LogViewer.png" scalefit="1" width="100%"/>
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+        </td>
+
+        <td>
+          <screenshot>
+            <mediaobject>
+              <caption>Benutzer-Administration</caption>
+
+              <imageobject>
+                <imagedata fileref="../images/IcingaWeb_UserAdmin.png" scalefit="1" width="100%"/>
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <screenshot>
+            <mediaobject>
+              <caption>Cronk-Builder</caption>
+
+              <imageobject>
+                <imagedata fileref="../images/IcingaWeb_CronkBuilder.png" scalefit="1" width="100%"/>
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+        </td>
+
+        <td>
+          <screenshot>
+            <mediaobject>
+              <caption>Cronk-Konfiguration</caption>
+
+              <imageobject>
+                <imagedata fileref="../images/IcingaWeb_Cronk_Configuration.png" scalefit="1" width="100%"/>
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+        </td>
+
+        <td>
+          <screenshot>
+            <mediaobject>
+              <caption>Status-Map</caption>
+
+              <imageobject>
+                <imagedata fileref="../images/IcingaWeb_StatusMap.png" scalefit="1" width="100%"/>
+              </imageobject>
+            </mediaobject>
+          </screenshot>
+        </td>
+      </tr>
+    </table>
+  </section>
+
+  <indexterm zone="icinga_gui_comparison">
+    <primary>Icinga web GUI comparison</primary>
+  </indexterm>
+
+  <indexterm zone="icinga_gui_classic">
+    <primary>Icinga web GUI comparison</primary>
+
+    <secondary>Icinga classic web GUI</secondary>
+  </indexterm>
+
+  <indexterm zone="icinga_gui_new_web">
+    <primary>Icinga web GUI comparison</primary>
+
+    <secondary>Icinga new web GUI</secondary>
+  </indexterm>
+</section>
