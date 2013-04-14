@@ -295,6 +295,12 @@
 
     <programlisting> #&gt; make install-webconf</programlisting>
 
+    <note>
+      <para>Ab &name-icinga; 1.9 installiert dieser Befehl zusätzlich die Datei <filename>htpasswd.users</filename>, die
+      Anmeldeinformationen für den Benutzer <emphasis>icingaadmin</emphasis> enthält, so dass Sie den nächsten Schritt überspringen können.
+      Das Passwort lautet <emphasis>icingaadmin</emphasis>.</para>
+    </note>
+
     <para>Legen Sie ein <emphasis>icingaadmin</emphasis>-Konto an, um sich am klassischen Web-Interface anmelden zu können. Merken Sie sich
     das Passwort, das Sie diesem Konto geben - Sie brauchen es später.</para>
 
@@ -366,7 +372,6 @@
     <programlisting> #&gt; chcon -R -t httpd_sys_script_exec_t &url-icinga-base;/sbin/
  #&gt; chcon -R -t httpd_sys_content_t &url-icinga-base;/share/
  #&gt; chcon -t httpd_sys_script_rw_t &url-icinga-base;/var/rw/icinga.cmd</programlisting>
-
   </section>
 
   <section xml:id="starticinga">
@@ -430,9 +435,9 @@
 
     <para>Die Konfiguration von e-Mail-Benachrichtigungen ist nicht Gegenstand dieser Anleitung. &name-icinga; ist konfiguriert, um
     e-Mail-Benachrichtigungen zu versenden, aber möglicherweise ist auf Ihrem System noch kein Mail-Programm installiert bzw. konfiguriert.
-    Schauen Sie in Ihre Systemdokumentation oder suchen Sie im Web nach genauen Anweisungen, wie Ihr System
-    konfiguriert werden muss, damit es e-Mail-Mitteilungen an externe Adressen versendet. Mehr Informationen zu Benachrichtigungen finden
-    Sie <link linkend="notifications">hier</link>.</para>
+    Schauen Sie in Ihre Systemdokumentation oder suchen Sie im Web nach genauen Anweisungen, wie Ihr System konfiguriert werden muss, damit
+    es e-Mail-Mitteilungen an externe Adressen versendet. Mehr Informationen zu Benachrichtigungen finden Sie <link
+    linkend="notifications">hier</link>.</para>
   </section>
 
   <section xml:id="done">

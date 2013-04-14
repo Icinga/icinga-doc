@@ -298,6 +298,12 @@
 
     <programlisting> #&gt; make install-webconf</programlisting>
 
+    <note>
+      <para>Starting with &name-icinga; 1.9 this command additionally installs the file <filename>htpasswd.users</filename> which contains
+      credentials for the user <emphasis>icingaadmin</emphasis> so you can skip the following step. The password is
+      <emphasis>icingaadmin</emphasis>.</para>
+    </note>
+
     <para>Create an <emphasis>icingaadmin</emphasis> account for logging into the Icinga classic web interface. If you want to change it
     later, use the same command. Remember the password you assign to this account - you'll need it later.</para>
 
@@ -370,7 +376,6 @@
     <programlisting> #&gt; chcon -R -t httpd_sys_script_exec_t &url-icinga-base;/sbin/
  #&gt; chcon -R -t httpd_sys_content_t &url-icinga-base;/share/
  #&gt; chcon -R -t httpd_sys_script_rw_t &url-icinga-base;/var/rw/</programlisting>
-
   </section>
 
   <section xml:id="starticinga">
