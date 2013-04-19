@@ -6,344 +6,286 @@
 <section version="5.0" xml:id="reporting" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-  <title>Installation des &name-rep;-Pakets mit &name-jasper;</title>
+  <title>Installation von &name-rep; mit &name-jasper;</title>
 
-  <para>Das &name-rep;-Paket basiert auf einem &name-idoutils;-Backend und dem &name-core;.</para>
+  <para>&name-rep; basiert auf dem &name-idoutils;-Backend und unterstützt, genau wie der &name-core;, alle großen
+  Datenbankplattformen.</para>
 
-  <para>Dies ist eine Kurzanleitung zur Installation des &name-rep; mit dem &name-jasper;.</para>
+  <para>Hier geben wir Ihnen einige Hinweise, wie Sie das &name-rep; mit &name-jasper; installieren.</para>
 
-  <para><emphasis role="bold">Voraussetzungen</emphasis></para>
+  <section xml:id="introduction">
+    <title>Offizielle Dokumentation</title>
 
-  <para>Der &name-core; und die &name-idoutils; sind installiert und konfiguriert. Das &name-rep; benötigt außerdem ein System mit
-  installiertem <link xlink:href="http://jasperforge.org/projects/jasperserver">&name-jasper;</link>, sowie einen <link
-  xlink:href="http://tomcat.apache.org">&name-tomcat;-Server.</link></para>
+    <para>Mehr Information finden Sie unter <link
+    xlink:href="http://sourceforge.net/projects/jasperserver/files/JasperServer/JasperServer%205.0.0/JasperReports-Server-CP-Install-Guide.pdf">http://sourceforge.net/projects/jasperserver/files/JasperServer/JasperServer%205.0.0/JasperReports-Server-CP-Install-Guide.pdf</link>
+    oder <link
+    xlink:href="http://jasperforge.org/espdocs/espbrowse.php?id=86&amp;type=folder&amp;group_id=112&amp;parent=86">http://jasperforge.org/espdocs/espbrowse.php?id=86&amp;type=folder&amp;group_id=112&amp;parent=86</link></para>
+  </section>
 
-  <note>
-    <para>Wenn Sie &name-icinga; noch nicht installiert haben, folgen Sie bitte den Anweisungen in der "<link
-    linkend="quickstart-idoutils">quickstart-idoutils</link>"-Dokumentation.</para>
-  </note>
+  <section xml:id="officialdocs">
+    <title>Voraussetzungen</title>
 
-  <para><emphasis role="bold">Installation des &name-jasper;s</emphasis></para>
+    <itemizedlist>
+      <listitem>
+        <para>&name-icinga; und &name-idoutils;</para>
 
-  <para>Sie können das &name-jasper;-Installations-Binary verwenden, oder Sie nutzen das spezifische WAR-Archiv, um die Software auf einem
-  bereits existierenden Server bereitzustellen.</para>
+        <para>Installiert wie in den Schnellstartanleitungen beschrieben, entweder über die <link
+        linkend="quickstart-idoutils">Sourcen</link> oder über <link linkend="icinga-packages">Distributionspakete</link></para>
 
-  <itemizedlist>
-    <listitem>
-      <para>Installation über das Binary</para>
+        <note>
+          <para>Ab &name-icinga; 1.8 gibt es eine Funktion in der Datenbank die alle benötigten SLA- Informationen bereitstellt. Diese
+          Funktion muss zusätzlich zu dem Report- Paket zu in die bestehende &name-idoutils; Datenbank importiert werden.</para>
+        </note>
 
-      <para>Nutzen Sie den &name-jasper;-ce-linux-installer, angeboten über:<link
-      xlink:href="http://sourceforge.net/projects/jasperserver/files/"> Sourceforge</link> mit bereits enthaltener &name-mysql;-Database und
-      &name-tomcat;-Server. Die Ausführung des Binarys leitet Sie durch den Installationsprozess.</para>
-    </listitem>
+        <para>&name-mysql;</para>
 
-    <listitem>
-      <para>Installation des WAR-Archives</para>
+        <para><screen>#&gt; /usr/bin/mysql icinga &lt; icinga-reports-1.9.0/db/icinga/mysql/availability.sql</screen></para>
 
-      <para>Sie können das &name-jasper;-CE WAR in einen bestehenden &name-tomcat;6-Server integrieren und Ihre bereits angelegte
-      &name-icinga;-Datenbank benutzen. Hier wird die WAR-Installation in einen &name-tomcat;6- Server beschreiben. Die offizielle
-      &name-jasper;-Installationsanleitung finden Sie <link
-      xlink:href="http://sourceforge.net/projects/jasperserver/files/">hier</link>.</para>
-    </listitem>
-  </itemizedlist>
+        <para>Stellen Sie bitte ebenfalls sicher, dass der Datenbank- Benutzer (hier icinga@localhost) das Recht EXECUTE besitzt.<screen>#&gt; /usr/bin/mysql -u root -p &lt;password&gt; icinga
+mysql&gt; GRANT EXECUTE ON icinga.* TO 'icinga'@'localhost' ;
+quit</screen></para>
+      </listitem>
+    </itemizedlist>
 
-  <para><emphasis role="bold">Installation von &name-tomcat;</emphasis></para>
+    <itemizedlist>
+      <listitem>
+        <para>Apache Tomcat</para>
 
-  <para><emphasis>&name-fedora;/&name-rhel;/&name-centos;/&name-opensuse;/&name-sles;</emphasis></para>
+        <para>Nur falls Sie nicht den mit &name-jasper; gebündelten Tomcat benutzen möchten.</para>
 
-  <programlisting> #&gt; yum install tomcat6</programlisting>
+        <para><screen> #&gt; apt-get install tomcat6</screen></para>
+      </listitem>
 
-  <para><emphasis>&name-debian;/&name-ubuntu;</emphasis></para>
+      <listitem>
+        <para>&name-postgres;</para>
 
-  <programlisting> #&gt; apt-get install tomcat6</programlisting>
+        <para>Nur falls Sie nicht das mit JasperServer gebündelte &name-postgres; benutzen möchten. &name-postgres; ist für die
+        &name-jasper; interne Speicherung erforderlich.</para>
 
-  <para><emphasis role="bold">Installation des &name-jasper; CE in Ihren &name-tomcat; Server</emphasis></para>
+        <note>
+          <para>Das Backend von &name-jasper; wurde ab Version 4.2.1 von &name-mysql; nach &name-postgres; geändert! <link
+          xlink:href="http://jasperforge.org/plugins/espnews/browse.php?group_id=112&amp;news_id=292">Source</link></para>
+        </note>
+      </listitem>
 
-  <itemizedlist>
-    <listitem>
-      <para>Download von jasperserver-ce-x.x.x-bin.zip von <link
-      xlink:href="http://sourceforge.net/projects/jasperserver/files/">Sourceforge/Jasper</link></para>
-    </listitem>
+      <listitem>
+        <para>&name-jasper;</para>
 
-    <listitem>
-      <para>Folgen Sie der Installationsdokumentation veröffentlicht auf <link
-      xlink:href="http://sourceforge.net/projects/jasperserver/files/"> Sourceforge/Jasper</link>
-      (&name-jasper;-CE-Install-Guide.pdf)</para>
-    </listitem>
-  </itemizedlist>
+        <note>
+          <para>&name-jasper; 5.0.0 wird erst ab &name-rep; 1.9 unterstützt! Für die Installation Version des &name-rep;- Paketes &lt; 1.9 ,
+          nutzen Sie bitte mindestens &name-jasper; 4.5.0.</para>
+        </note>
 
-  <para>Nach erfolgreicher &name-jasper;-Installation können Sie das Interface erreichen über: http://&lt;IhrHost&gt;:8080/jasperserver.
-  Melden Sie sich an mit jasperadmin/jasperadmin. Bitte ändern Sie das Passwort so schnell wie möglich.</para>
+        <para>Abhängig von Ihrer Architektur (<code>uname -a</code>) holen Sie sich den entsprechenden Installer - hier im Beispiel
+        x64<screen> $&gt; wget http://sourceforge.net/projects/jasperserver/files/JasperServer/JasperServer%205.0.0/jasperreports-server-cp-5.0.0-linux-x64-installer.run
 
-  <para>Falls Sie irgendwelche Fehler erhalten, konsultieren Sie bitte den &name-jasper; Troubleshooting Guide</para>
+ $&gt; chmod +x jasperreports-server-cp-5.0.0-linux-x64-installer.run
+ $&gt; sudo ./jasperreports-server-cp-5.0.0-linux-x64-installer.run</screen></para>
 
-  <para><emphasis role="bold">Download der Templates</emphasis></para>
+        <itemizedlist>
+          <listitem>
+            <para>stimmen Sie der Lizenz zu</para>
+          </listitem>
 
-  <itemizedlist>
-    <listitem>
-      <para>Download des &name-rep;-Pakets von <link
-      xlink:href="http://sourceforge.net/projects/icinga/files/">Sourceforge/Icinga</link></para>
-    </listitem>
+          <listitem>
+            <para>wählen Sie "bundled tomcat"</para>
+          </listitem>
 
-    <listitem>
-      <para><emphasis role="bold">Oder</emphasis> Benutzen des GIT: Sie können alle Templates und die aktuellen Servlet-Implementationen
-      herunterladen von: <link xlink:href="git://git.icinga.org/icinga-reports.git/">&url-icingagit-rep;</link>.</para>
+          <listitem>
+            <para>wählen Sie "bundled postgresql"</para>
 
-      <para>Laden Sie Ihren Klone von icinga-reports.git</para>
+            <itemizedlist>
+              <listitem>
+                <para>wählen Sie eine anderen &name-postgres;-Port, wie z.B. 5443, um nicht mit existierenden Einstellungen zu
+                kollidieren</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
 
-      <programlisting> #&gt; git clone git://git.icinga.org/icinga-reports.git</programlisting>
-    </listitem>
+          <listitem>
+            <para>installieren Sie die Beispiel-Reports und "ireports"</para>
+          </listitem>
+        </itemizedlist>
 
-    <listitem>
-      <para><emphasis role="bold">Oder</emphasis> Download der Software von <link
-      xlink:href="https://git.icinga.org/index?p=icinga-reports.git;a=snapshot;h=refs/heads/master;sf=tgz">https://git.icinga.org/index?p=icinga-reports.git;a=snapshot;h=refs/heads/master;sf=tgz</link>.</para>
-    </listitem>
-  </itemizedlist>
+        <para>Der Installer wird automatisch die benötigte Datenbank und das Schema anlegen und die Beispiele installieren.</para>
 
-  <para><emphasis role="bold">Installation des &name-rep;-Pakets</emphasis></para>
-
-  <para>Entpacken Sie die heruntergeladene Datei und kopieren Sie diese in Ihr &name-jasper;-Verzeichnis.</para>
-
-  <programlisting> #&gt; tar xzvf icinga-reports-xxx.tar.gz
- #&gt; cp icinga-reports-&lt;version&gt;/jasperreports/package/icinga-reports.zip /opt/jasperserver/scripts/
- #&gt; cd /opt/jasperserver/scripts/</programlisting>
-
-  <para>Für das Importieren des gesamten Reporting-Pakets benötigen Sie nur ein Kommando: <programlisting> #&gt; ./js-import.sh --input-zip icinga-reports.zip</programlisting></para>
-
-  <para>Möchten Sie ein existierendes Repository updaten, benutzen Sie bitte folgendes Kommando: <programlisting> #&gt; ./js-import.sh --input-zip icinga-reports.zip --update</programlisting></para>
-
-  <para>Das &name-icinga;- Repository können Sie exportieren mit: <programlisting> #&gt; ./js-export.sh --uris /Icinga --output-zip icinga-reports.zip</programlisting></para>
-
-  <note>
-    <para>Falls das Import-Skript fehlschlägt, überprüfen Sie bitte Ihre Angaben zu Benutzer und Passwort in
-    <filename>jasperserver.xml</filename>. Sie können den Benutzer und das Passwort ändern in der Datei
-    &lt;jasperserver-ce-dir&gt;/scripts/config/js.jdbc.properties.</para>
-  </note>
-
-  <note>
-    <para>Der export-/import-Prozess ist detailliert beschrieben in Kapitel 5.12 des &name-jasper; CE-Install-Guide</para>
-  </note>
-
-  <para><emphasis role="bold">Installieren der JAVA-Klassen für die SLA-Reports</emphasis></para>
-
-  <para>Das automatische Generieren von monatlichen, wöchentlichen und jährlichen Reports setzt die automatische Datumsberechnung für den
-  jeweiligen Bericht voraus. Um dieses Feature nutzen zu können, müssen Sie das icinga-reporting.jar- Archiv ( zu finden unter
-  <filename>icinga-reports/ReportClasses/</filename>) in das lib-Verzeichnis Ihres Jasperservers installieren (kopieren). Dies sollte unter
-  dem WEB-INF-Verzeichnis Ihrer Installation zu finden sein, z.B.
-  <filename>/opt/jasperserver-ce-3.7.1/apache-tomcat/webapps/jasperserver/WEB-INF/lib</filename>. Bitte starten Sie nach der Installation
-  Ihren Jasperserver neu!</para>
-
-  <para><emphasis role="bold">Konfigurieren des Quartzscheduler</emphasis></para>
-
-  <para>Die Verteilung der Reports erfolgt über den Quartzscheduler. Um die Absenderadresse und Ihre lokalen Gateways zu konfigurieren,
-  editieren Sie bitte:</para>
-
-  <para>&lt;tomcat_home&gt;<filename>/webapps/jasperserver/WEB-INF/js.quartz.properties</filename> und starten Sie Ihren Tomcat neu.
-  <programlisting> service tomcat6 restart or /etc/init.d/tomcat restart</programlisting></para>
-
-  <para><emphasis role="bold">Konfigurieren der Datenbankverbindung</emphasis></para>
-
-  <para>Einloggen auf http://localhost:8080/jasperserver mit jasperadmin/jasperadmin.</para>
-
-  <para>Nach erfolgreicher Paketinstallation finden Sie die Datasource hier:</para>
-
-  <para><filename>/root/Icinga/datasource</filename> (stellen Sie sicher, dass <emphasis role="bold">Refine </emphasis>"changed by anyone"
-  eingestellt ist).</para>
-
-  <para>- Editieren Sie die existierende Datasource und geben Sie Ihre Verbindungsparameter ein.</para>
-
-  <para>- Testen Sie die Konfiguration und speichern Sie die Verbindung.</para>
-
-  <para>- Alle Reporte in unserem Paket verwenden diese Datasource und sollten nun ausführbar sein.</para>
-
-  <note>
-    <para>Denken Sie daran das Suchfeld zu ändern und setzen Sie die vier "Dropdowns" auf die folgenden Werte, um Ihre Datenquelle zu
-    finden:</para>
-  </note>
-
-  <itemizedlist>
-    <listitem>
-      <para>"Changed by anyone" (wie bereits oben erwähnt)</para>
-    </listitem>
-
-    <listitem>
-      <para>"All"</para>
-    </listitem>
-
-    <listitem>
-      <para>"Any time"</para>
-    </listitem>
-
-    <listitem>
-      <para>"Any schedule"</para>
-    </listitem>
-  </itemizedlist>
-
-  <para>Wenn Sie nun den Suche-Button betätigen, sollten Sie die Datenquellen sehen.</para>
-
-  <para><emphasis role="bold">Unterschiedliche Tabellen-Präfix</emphasis></para>
-
-  <para>Falls Sie Ihren Tabellen-Präfix während der Installation geändert haben, können Sie den existierenden Präfix mit folgendem Skript
-  ersetzen:</para>
-
-  <programlisting> grep -l -r " icinga_" .  | xargs sed -i.BAK -e 's/ icinga_/ /g'
- grep -l -r "icinga_" . | xargs sed -i.BAK -e 's/^icinga_//g'
- find . -iname "*BAK" -exec rm -f {} \;</programlisting>
-
-  <para><emphasis role="bold">Known Bugs:</emphasis> Wenn Sie in Ihrem PDF-Export keine Graphen-Beschriftungen sehen, wechseln Sie von
-  OpenJDK zu SUNJava.</para>
-
-  <informaltable frame="none">
-    <tgroup cols="2">
-      <colspec colname="c1" colwidth="50*" />
-
-      <colspec colname="c2" colwidth="50*" />
-
-      <tbody>
-        <row>
-          <entry><para><figure>
-              <title>&name-rep; in &name-web;</title>
-
-              <mediaobject>
-                <imageobject role="html">
-                  <imagedata fileref="../images/rep_avail.png" format="PNG"></imagedata>
-                </imageobject>
-              </mediaobject>
-            </figure></para></entry>
-
-          <entry><para><figure>
-              <title>&name-rep; TOP10 in &name-web;</title>
-
-              <mediaobject>
-                <imageobject role="html">
-                  <imagedata fileref="../images/reptop10.png" format="PNG"></imagedata>
-                </imageobject>
-              </mediaobject>
-            </figure></para></entry>
-        </row>
-      </tbody>
-    </tgroup>
-  </informaltable>
-
-  <para><emphasis role="bold">Integration in &name-web;</emphasis></para>
-
-  <para><emphasis>Voraussetzungen</emphasis></para>
-
-  <itemizedlist>
-    <listitem>
-      <para>icinga-core</para>
-    </listitem>
-
-    <listitem>
-      <para>MySQL lauffähig</para>
-    </listitem>
-
-    <listitem>
-      <para>ido2db-Modul konfiguriert und in die Datenbank schreibend</para>
-    </listitem>
-
-    <listitem>
-      <para>&name-web; installiert</para>
-    </listitem>
-
-    <listitem>
-      <para>Jasper-Server installiert und lauffähig</para>
-    </listitem>
-
-    <listitem>
-      <para>icinga-reporting Paket auf dem Jasper-Server installiert</para>
-    </listitem>
-  </itemizedlist>
-
-  <para><emphasis>Installation</emphasis></para>
-
-  <para>Der Reporting-Cronk ist voll in &name-web; integriert, so dass Sie nichts zusätzlich installieren müssen.</para>
-
-  <para><emphasis>Konfiguration</emphasis></para>
-
-  <para>Abhängig von Ihrer aktuellen Umgebung müssen Sie den Cronk konfigurieren, um den Jasper-Server-Standort und die
-  Benutzerinformationen zu setzen. Die Konfiguration erfolgt im Reporting-Modul:<programlisting> $ cd app/modules/Reporting/config/
- $ ls autoload.xml config_handlers.xml module.xml routing.xml
- $ vi module.xml</programlisting><programlisting> &lt;!-- Jasper configurations --&gt;
- &lt;setting name="jasperconfig.default"&gt;
-    &lt;ae:parameter name="jasper_url"&gt;http://10.121.0.95:8080/jasperserver&lt;/ae:parameter&gt;
-    &lt;ae:parameter name="jasper_user"&gt;jasperadmin&lt;/ae:parameter&gt;
-    &lt;ae:parameter name="jasper_pass"&gt;jasperadmin&lt;/ae:parameter&gt;
-    &lt;ae:parameter name="tree_root"&gt;/Icinga/reports&lt;/ae:parameter&gt;
- &lt;/setting&gt;
- &lt;!-- Custom config if I have more that one --&gt;
- &lt;!--
- &lt;setting name="jasperconfig.custom1"&gt;
-    &lt;ae:parameter name="jasper_url"&gt;http://127.0.0.175/jasperserver&lt;/ae:parameter&gt;
-    &lt;ae:parameter name="jasper_user"&gt;custom_user&lt;/ae:parameter&gt;
-    &lt;ae:parameter name="jasper_pass"&gt;custom_passwd&lt;/ae:parameter&gt;
- &lt;/setting&gt;
- --&gt;</programlisting>Bitte passen Sie jasperconfig.default an Ihre Umgebung an und ändern Sie die Werte von jasper_url, jasper_user und
-  jasper_pass.</para>
-
-  <para>Sie können mehr als einen Jasper-Server integrieren. Der Konfigurationsname wird später in den Reporting-Cronk inkludiert. Bitte
-  wählen Sie einen eindeutigen Namen für jede Konfiguration.</para>
-
-  <para>Die XML-Konfiguration ist 'prefixed'. Der volle Name für 'jasperconfig.default' lautet modules.reporting.jasperconfig.default. Der
-  lange Name ist die richtige Einstellung für die Nutzung in der Cronks-Konfiguration.</para>
-
-  <para>Der Default <filename>/Icinga/reports</filename> ist der Pfad für das Icinga-Reporting-Paket, aber Sie können jeden mit Jasper
-  konfigurierten Report mit Hilfe des Cronks ausführen. Wenn Sie mehrere Benutzer für unterschiedliche Lokationen einrichten möchten, dann
-  müssen Sie mehrere Cronks mit groups_only-Berechtigungen anlegen.</para>
-
-  <para><emphasis>Cronk-Konfiguration</emphasis></para>
-
-  <para>Die Jasper-Konfiguration ist erledigt. Sie benötigen nun einen Cronk, dem Sie mitteilen müssen, welche Konfiguration Sie benutzen
-  möchten. Gehen Sie zu Ihrer Cronk-Konfiguration (<filename>cronks.xml</filename>) und fügen Sie einen neuen Cronk ähnlich dem Folgenden
-  hinzu:</para>
-
-  <note>
-    <para>Bedingt durch Konfigurationsänderungen zwischen 1.4 und 1.5 gibt es verschiedene Stellen für die Cronk-Einstellungen. Bitte werfen
-    Sie einen Blick in die anderen Dokumente, wo das zu tun ist</para>
-  </note>
-
-  <programlisting> &lt;cronk name="IcingaReportingDefault"&gt;
-    &lt;ae:parameter name="module"&gt;Reporting&lt;/ae:parameter&gt;
-    &lt;ae:parameter name="action"&gt;Cronk.Main&lt;/ae:parameter&gt;
-    &lt;ae:parameter name="hide"&gt;false&lt;/ae:parameter&gt;
-    &lt;ae:parameter name="description"&gt;Seamless Jasper Integration&lt;/ae:parameter&gt;
-    &lt;ae:parameter name="name"&gt;Reporting&lt;/ae:parameter&gt;
-    &lt;ae:parameter name="categories"&gt;reporting&lt;/ae:parameter&gt;
-    &lt;ae:parameter name="image"&gt;cronks.Weather Could Sun&lt;/ae:parameter&gt;
-    &lt;ae:parameter name="ae:parameter"&gt;
-       &lt;ae:parameter name="jasperconfig"&gt;modules.reporting.jasperconfig.default&lt;/ae:parameter&gt;
-       &lt;ae:parameter name="enable_onthefly"&gt;1&lt;/ae:parameter&gt;
-       &lt;ae:parameter name="enable_repository"&gt;1&lt;/ae:parameter&gt;
-       &lt;ae:parameter name="enable_scheduling"&gt;1&lt;/ae:parameter&gt;
-    &lt;/ae:parameter&gt;
- &lt;/cronk&gt;</programlisting>
-
-  <para>Haben Sie den Konfigurations-String bemerkt? Dies ist die Zeichenkette, die Sie in <filename>module.xml</filename> im vorigen
-  Abschnitt eingestellt haben.</para>
-
-  <para>Sie können außerdem noch einige Modi für diesen Cronk aktivieren:</para>
-
-  <itemizedlist>
-    <listitem>
-      <para><code>enable_onthefly</code> Der "Reports-im-Fluge-erzeugen" Modus. Er erlaubt Ihnen, Ihre Reports im icinga-web zu erzeugen,
-      Voransichten anzusehen, etc ...</para>
-    </listitem>
-
-    <listitem>
-      <para><code>enable_repository</code> Eine Repository-Sicht. Wenn Sie geplante Reports habe, die die Ausgaben im Jasper-Server
-      Virtual-Directory erzeugen. Sie können Jasper-Ressourcen herunterladen und eine Vorschau auf Inhalte werden.</para>
-    </listitem>
-  </itemizedlist>
-
-  <para></para>
-
-  <para>Wir geben Ihnen einige Beispiel-Reports an die Hand, ändern Sie diese gern auf Ihre Bedürfnisse :)</para>
-
-  <para></para>
-
-  <indexterm zone="reporting">
-    <primary>&name-rep; mit &name-jasper;</primary>
-
-    <secondary>&name-rep;</secondary>
-  </indexterm>
+        <note>
+          <para>Die standardmäßig wird &name-jasper; nach /opt/jasperreports-server-cp-5.0.0/ installiert. Wenn Sie den &name-jasper;
+          aktualisieren, versichern Sie sich mit der richtigen Version zu arbeiten!</para>
+        </note>
+
+        <para><emphasis>Start</emphasis></para>
+
+        <para><screen> #&gt; cd /opt/jasperreports-server-cp-5.0.0/
+ #&gt; ./ctlscript.sh start</screen>Für einzelne Komponenten<screen> #&gt; ./ctlscript.sh postgresql start|stop
+ #&gt; ./ctlscript.sh tomcat start|stop</screen></para>
+      </listitem>
+    </itemizedlist>
+  </section>
+
+  <section xml:id="icingareporting">
+    <title>Icinga Reporting</title>
+
+    <para>Beginnend mit Icinga 1.6 liefert das Paket configure- und make-Skripte.</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Sourcen</para>
+
+        <para>Laden Sie das Paket von sourceforge herunter und entpacken es. Falls Sie ein Problem haben, das ggf. in der Entwickerversion
+        gelöst ist, dann holen Sie sich den aktuellen Entwickler-Snapshot aus git <screen> $&gt; wget http://sourceforge.net/projects/icinga/files/icinga-reporting/1.9.0/icinga-reports-1.9.0.tar.gz; \
+    tar xzf icinga-reports-1.9.0.tar.gz; \
+    cd icinga-reports-1.9.0</screen>oder<screen> $&gt; git clone git://git.icinga.org/icinga-reports.git ; \
+    cd icinga-reports</screen></para>
+
+        <para>Falls ein Entwickler Sie gebeten hat, ihren/seinen Branch zu benutzen, dann benutzen Sie</para>
+
+        <screen> $&gt; git branch localbranch origin/devhead/devbranch
+ $&gt; git checkout localbranch
+ $&gt; git log</screen>
+      </listitem>
+
+      <listitem>
+        <para>Konfigurieren</para>
+
+        <para>Falls Sie den &name-jasper; vorher nicht mit dem Default-Präfix installiert haben, dann müssen Sie configure den Standort
+        mitteilen. <screen> $&gt; ./configure --with-jasper-server=/opt/jasperreports-server-cp-5.0.0</screen></para>
+      </listitem>
+
+      <listitem>
+        <para>Make</para>
+
+        <para>Rufen Sie 'make' ohne Parameter auf, um eine komplette Liste der verfügbaren Optionen zu erhalten.</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>&name-mysql; Connector</para>
+
+            <para>&name-jasper; wird mit dem &name-postgres;-Connector ausgeliefert, aber wenn Sie &name-mysql; benötigen, dann bietet das
+            &name-rep;-Paket einen Connector zur Installation an.<screen> #&gt; make install-mysql-connector</screen>Starten Sie den
+            Tomcat-Server neu<screen> #&gt; cd /opt/jasperreports-server-cp-5.0.0
+ #&gt; ./ctlscript.sh stop tomcat
+ #&gt; ./ctlscript.sh start tomcat</screen></para>
+          </listitem>
+
+          <listitem>
+            <para>Installieren</para>
+
+            <para>Der &name-jasper; muss gestartet sein! <screen> #&gt; make install</screen>Starten Sie den Tomcat-Server neu<screen> #&gt; cd /opt/jasperreports-server-cp-5.0.0
+ #&gt; ./ctlscript.sh stop tomcat
+ #&gt; ./ctlscript.sh start tomcat</screen></para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+    </itemizedlist>
+  </section>
+
+  <section xml:id="configuration">
+    <title>Konfiguration</title>
+
+    <para>Öffnen Sie das Web-Interface, Standardwerte sind jasperadmin:jasperadmin</para>
+
+    <para><uri>http://127.0.0.1:8080/jasperserver</uri></para>
+
+    <itemizedlist>
+      <listitem>
+        <para>IDO</para>
+
+        <para>Gehen Sie nach <uri>/root/Icinga/datasource</uri> (stellen Sie sicher, dass Refine den Wert "changed by anyone"
+        enthält).</para>
+
+    <figure>
+      <title>&name-icinga; reporting datasource ido mysql</title>
+
+      <screenshot>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="../images/icinga-reporting-datasource-ido-mysql_1.8.png"/>
+          </imageobject>
+        </mediaobject>
+      </screenshot>
+    </figure>
+
+        <itemizedlist>
+          <listitem>
+		  <para>Editieren Sie die vorhandene "datasource" und stellen Sie Ihre Werte ein.
+                          MySQL driver: com.mysql.jdbc.Driver
+                          MySQL URL: jdbc:mysql://localhost:3306/icinga
+		  </para>
+          </listitem>
+
+    <figure>
+      <title>&name-icinga; reporting</title>
+
+      <screenshot>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="../images/icinga-reporting-overview_1.8.png"/>
+          </imageobject>
+        </mediaobject>
+      </screenshot>
+    </figure>
+
+          <listitem>
+            <para>Testen Sie die Konfiguration und speichern Sie die Verbindung.</para>
+          </listitem>
+
+          <listitem>
+            <para>Alle Reports in unserem Paket zeigen auf diese "datasource" und sollten lauffähig sein.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+    </itemizedlist>
+  </section>
+
+  <section xml:id="reports">
+    <title>Reports</title>
+
+    <para>Überprüfen Sie, dass die Reports verfügbar und lauffähig sind.</para>
+
+    <figure>
+      <title>&name-icinga; reporting</title>
+
+      <screenshot>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="../images/icinga-reporting-overview_1.8.png"/>
+          </imageobject>
+        </mediaobject>
+      </screenshot>
+    </figure>
+  </section>
+
+  <section xml:id="errors">
+    <title>Fehler</title>
+
+    <itemizedlist>
+      <listitem>
+        <para>Anzeigefehler</para>
+
+        <para><screen> org.springframework.web.util.NestedServletException: Handler processing failed; 
+ nested exception is java.lang.InternalError:
+ Can't connect to X11 window server using ':0' as the value of the DISPLAY variable.</screen>Der Tomcat läuft als root und versucht, auf das
+        X11-Display des Benutzers zuzugreifen. Erlauben Sie es für jeden lokalen Benutzer.<screen> $&gt; xhost +local:all</screen></para>
+      </listitem>
+
+      <listitem>
+        <para>Generierungsfehler</para>
+
+        <para><screen> org.springframework.web.util.NestedServletException: Handler processing failed;
+ nested exception is java.lang.NoClassDefFoundError:
+ Could not initialize class net.sf.jasperreports.engine.util.JRStyledTextParser</screen>Es könnte Sun AWT sein, das versucht, auf
+        X11-Klassen zuzugreifen, aber tatsächlich ist es die PDF-Generierung für einen Report.<screen> $&gt; sudo apt-get install msttcorefonts
+ $&gt; cd /opt/jasperreports-server-cp-5.0.0
+ $&gt; sudo sh ctlscript.sh stop
+ $&gt; sudo sh ctlscript.sh start</screen></para>
+      </listitem>
+    </itemizedlist>
+
+    <indexterm zone="reporting">
+      <primary>&name-rep; with &name-jasper;</primary>
+
+      <secondary>&name-rep;</secondary>
+    </indexterm>
+  </section>
 </section>
