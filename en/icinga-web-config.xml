@@ -166,6 +166,14 @@ app/modules/AppKit/
 
         <td>Default language, date and time formats and settings</td>
       </tr>
+
+      <tr>
+        <td>module.xml</td>
+
+        <td>app/modules/Appkit/config/</td>
+
+        <td>Overwrite user preferences using userpreferences.xml (in etc/conf.d)</td>
+      </tr>
     </table>
 
     <itemizedlist>
@@ -207,6 +215,10 @@ app/modules/AppKit/
 
       <listitem>
         <para><link linkend="configweb-timezone">Change default Timezone</link></para>
+      </listitem>
+
+      <listitem>
+        <para><link linkend="configweb-userprefs">Change user preferences</link></para>
       </listitem>
 
       <listitem>
@@ -823,6 +835,8 @@ app/modules/AppKit/
 
         <para>Make sure your webservers user has write access to the icinga pipe and make sure the icinga_pipe symbol is located in the
         readwrite or write section of your host (or defaults). Make sure the path is correct</para>
+
+        <para/>
       </listitem>
     </itemizedlist>
 
@@ -835,6 +849,11 @@ app/modules/AppKit/
 
     <programlisting>#&gt; vi app/modules/AppKit/config/module.xml
 &lt;ae:parameter name="date.timezone"&gt;GMT&lt;/ae:parameter&gt;</programlisting>
+
+    <para><anchor xml:id="configweb-userprefs"/> <emphasis role="bold">Change user preferences</emphasis></para>
+
+    <para>The file <filename>module.xml</filename> contains several settings which can be overwritten by custom settings to be placed in
+    <filename>userpreferences.xml</filename> (in the <filename>etc/config</filename> folder).</para>
   </section>
 
   <section xml:id="moduleconfig">
@@ -882,7 +901,8 @@ app/modules/AppKit/
         <para>You can also duplicate the provider to provide more authentication bases. You can split the auth into authentication and
         authorising parts if you want. If you have new providers, please share them and let the auth database grow!</para>
 
-        <para>Please store your custom authentication configuration in <filename>auth.site.xml</filename> !</para>
+        <para>Please store your custom authentication configuration in <filename>auth.xml</filename> (in the <filename>etc/config</filename>
+        folder)!</para>
       </listitem>
 
       <listitem>

@@ -167,6 +167,14 @@
 
         <td>Default language, date and time formats and settings</td>
       </tr>
+
+      <tr>
+        <td>module.xml</td>
+
+        <td>app/modules/Appkit/config/</td>
+
+        <td>Overwrite user preferences using userpreferences.xml (in etc/conf.d)</td>
+      </tr>
     </table>
 
     <itemizedlist>
@@ -211,6 +219,10 @@
       </listitem>
 
       <listitem>
+        <para><link linkend="configweb-userprefs">Benutzervorgaben ändern</link></para>
+      </listitem>
+
+      <listitem>
         <para><link linkend="configweb-module">Module-Konfiguration</link></para>
       </listitem>
 
@@ -219,10 +231,9 @@
       </listitem>
 
       <listitem>
-        <para><link linkend="customconfig">Benutzerdefinitierte Konfiguration</link></para>
+        <para><link linkend="customconfig">Benutzerdefinierte Konfiguration</link></para>
       </listitem>
     </itemizedlist>
-
   </section>
 
   <section xml:id="globalconfig">
@@ -840,6 +851,8 @@
         <para>Stellen Sie sicher, dass der WebServer-Benutzer Schreibberechtigung auf die Icinga-Pipe besitzt und dass das
         "icinga_pipe"-Symbol im "readwrite"- oder "write"-Abschnitt Ihres Host (oder im default-Abschnitt) vorhanden ist. Stellen Sie
         sicher, dass der Pfad korrekt ist.</para>
+
+        <para/>
       </listitem>
     </itemizedlist>
 
@@ -853,10 +866,14 @@
     <programlisting>#&gt; vi app/modules/AppKit/config/module.xml
 &lt;ae:parameter name="date.timezone"&gt;GMT&lt;/ae:parameter&gt;</programlisting>
 
-  </section>
-  <section xml:id="moduleconfig">
-    <title><anchor xml:id="configweb-module"/>Moduli-Konfiguration:</title>
+    <para><anchor xml:id="configweb-userprefs"/> <emphasis role="bold">Benutzervorgaben ändern</emphasis></para>
 
+    <para>Die Datei <filename>module.xml</filename> enthält verschiedene Einstellungen, die durch eigene Werte überschrieben werden können,
+    die in der Datei <filename>userpreferences.xml</filename> (im Ordner <filename>etc/config</filename> einzutragen sind).</para>
+  </section>
+
+  <section xml:id="moduleconfig">
+    <title><anchor xml:id="configweb-module"/>Modul-Konfiguration:</title>
 
     <itemizedlist>
       <listitem>
@@ -899,7 +916,7 @@
 
         <para>Sie können die Anbieter duplizieren und so Ihre Authentifizierungs-Basis vergrößern.</para>
 
-        <para>Bitte speichern Sie Ihre Konfiguration in <filename>auth.site.xml</filename> !</para>
+        <para>Bitte speichern Sie Ihre Konfiguration in <filename>auth.site.xml</filename>!</para>
       </listitem>
 
       <listitem>
@@ -935,11 +952,10 @@ autoload.xml  config_handlers.xml  cronks.xml  module.xml  validators.xml</progr
         die Statusinformationen.</para>
       </listitem>
     </itemizedlist>
-
   </section>
 
   <section xml:id="customconfig">
-      <title>Benutzerdefinierte Konfiguration</title>
+    <title>Benutzerdefinierte Konfiguration</title>
 
     <para><emphasis role="bold">Bitte beachten:</emphasis></para>
 
