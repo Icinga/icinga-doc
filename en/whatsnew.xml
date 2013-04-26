@@ -34,24 +34,33 @@
 
     <itemizedlist>
       <listitem>
-        <para>increase performance with hash comparing hosts/services on config read #3722</para>
+        <para>increase core performance on config read with hash compare #3722 </para>
       </listitem>
 
       <listitem>
-        <para>introduce warning level -vv on config verification #3510</para>
+	      <para>keep logfile open, reduce open/close performance decreases #3390 </para>
       </listitem>
 
       <listitem>
-        <para>keep logfile open, reducing open/close performance decreases #3390</para>
+        <para>enhance performance on illegal macro and host-service relation processing #3389 #3820 </para>
       </listitem>
 
       <listitem>
-        <para>enhance illegal macro character processing performance #3389</para>
+	      <para>add skipping of status.dat/objects.cache write by setting to /dev/null #3819 </para>
       </listitem>
 
       <listitem>
-        <para>increase performance on host-&gt;service relation counter (config reading, flapping) #3820</para>
+        <para>fix host_check last_check == next_check wrong in scheduling queue #2195 </para>
       </listitem>
+
+      <listitem>
+        <para>fix triggered downtimes for child hosts are missing after restart #3390 </para>
+      </listitem>
+
+      <listitem>
+        <para>fix unable to exclude hostgroups when using nested hostgroups #2619 </para>
+      </listitem>
+
     </itemizedlist>
   </section>
 
@@ -60,38 +69,33 @@
 
     <itemizedlist>
       <listitem>
-        <para>Added date selector for "log file navigation' #3168</para>
+	      <para>increase performance with hash compare on host/service show/filter #3722 </para>
       </listitem>
 
       <listitem>
-        <para>Classic-UI can now be installed 'stand-alone' #3869</para>
+	      <para>add date/time selector to logfile navigation #3168 </para>
       </listitem>
 
       <listitem>
-        <para>Added configuration declaration to make expiring acknowledgements the default #3476</para>
+        <para>classicui can be installed standalone (icinga2 compat) #3869 </para>
       </listitem>
 
       <listitem>
-        <para>Fixed command expansion to handle '%' correctly #3929</para>
+        <para>add config options for acknowledgement notifications and expiry #3467 #3476 </para>
       </listitem>
 
       <listitem>
-        <para>Added example configs for nginx and lighttpd #2253</para>
-      </listitem>
-
-      <para>JSON</para>
-
-      <listitem>
-        <para>Added process status to every JSON response</para>
+        <para>add 'executed command' to extinfo.cfg linking to command expander #3901 </para>
       </listitem>
 
       <listitem>
-        <para>Generate valid JSON code when error occurs</para>
+        <para>add process status to json response #3172 </para>
       </listitem>
 
       <listitem>
-        <para>Fixed JSON output escaping #3541</para>
+        <para>add lighttp config examples #2253 </para>
       </listitem>
+
     </itemizedlist>
   </section>
 
@@ -100,16 +104,25 @@
 
     <itemizedlist>
       <listitem>
-        <para>use transactions for large object dumps, opt-in config option #3527</para>
+        <para>use transactions for large object dumps, opt-in via config #3527 </para>
       </listitem>
 
       <listitem>
-        <para>add experimental socket queue proxy; opt-in via config option #3533</para>
+        <para>add socket queue proxy (reduce core reload time significanlty), opt-in via config #3533 </para>
       </listitem>
 
       <listitem>
-        <para>Oracle - change output fields to clob #3412</para>
+        <para>oracle: change output columns to clob #3412 </para>
       </listitem>
+
+      <listitem>
+	      <para>fix memory leaks in idomod/ido2db #3749 </para>
+      </listitem>
+
+      <listitem>
+	      <para>add workaround fix for num_rows_affected broken in libdbi/mariadb, returned ids are 0 #3728 </para>
+      </listitem>
+
     </itemizedlist>
   </section>
 
@@ -118,22 +131,60 @@
 
     <itemizedlist>
       <listitem>
-        <para>Auth Basic Provider search headers</para>
+        <para>Revamped credential system, better grouping of permissions and performance #3715</para>
       </listitem>
 
       <listitem>
-        <para>Improve grids (columns width and details)</para>
+        <para>New and smaller Cronk menu design, showing the cronks as a list #3396</para>
       </listitem>
+
+      <listitem>
+        <para>New filtering window which allows detailed and combined filters #3268</para>
+      </listitem>
+
+      <listitem>
+        <para>Many small interface improvements #3511 #3430 #3896</para>
+      </listitem>
+
+      <listitem>
+        <para>New Apache configuration, making the .htaccess files obsolete #2759</para>
+      </listitem>
+
+      <listitem>
+	      <para>Search in admin user- / group dialog #3909</para>
+      </listitem>
+
+      <listitem>
+        <para>PENDING are now shown for any new host or service in the database #2602 #3844</para>
+      </listitem>
+
     </itemizedlist>
   </section>
 
-  <section xml:id="web">
+  <section xml:id="reporting">
     <title>Icinga-Reporting</title>
 
     <itemizedlist>
       <listitem>
-        <para>add AvailReportParser into contrib/ (standalone) #3978</para>
+	      <para>add AvailReportParser into contrib/ (standalone) #3978 </para>
       </listitem>
+
+      <listitem>
+        <para>reorganize directory structure #3742 </para>
+      </listitem>
+
+      <listitem>
+        <para>fixed image expression in pnp4nagios template #3693 </para>
+      </listitem>
+
+      <listitem>
+        <para>fixed state replacement in morning report #3752 </para>
+      </listitem>
+
+      <listitem>
+        <para>fixed rounding error with small numbers #3942 </para>
+      </listitem>
+
     </itemizedlist>
   </section>
 
@@ -142,8 +193,33 @@
 
     <itemizedlist>
       <listitem>
+	      <para>add upgrade/troubleshooting notes about invisible icinga web cronks/modules after upgrade #3939 </para>
+      </listitem>
+
+      <listitem>
+        <para>make install-webconf-auth installs htpasswd.user with icingaadmin credentials #3964 </para>
+      </listitem>
+
+      <listitem>
+        <para>icinga web 1.9: new menu style (smaller icons) #3944 </para>
+      </listitem>
+
+      <listitem>
+        <para>icinga web 1.9: new filtering methods #3947 </para>
+      </listitem>
+
+      <listitem>
+        <para>add userpreferences.xml to icinga web configs #3991 </para>
+      </listitem>
+
+      <listitem>
         <para>add web gui comparison to beginners #3907</para>
       </listitem>
+
+      <listitem>
+        <para>middle-clicking on TOC links doesn't open pages in new tab #3561 </para>
+      </listitem>
+
     </itemizedlist>
   </section>
 
