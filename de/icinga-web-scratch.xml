@@ -537,7 +537,9 @@
           <listitem>
             <para>mod_rewrite, vielleicht müssen Sie einen Verweis erstellen:</para>
 
-            <para><screen> #&gt; ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load</screen></para>
+            <para>
+              <screen> #&gt; ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load</screen>
+            </para>
 
             <para>Bei OpenSuSE und SLES können Sie das Modul mit "a2enmod rewrite" aktivieren. Falls das nicht funktioniert, gibt es in der
             Datei <filename>/etc/sysconfig/apache2</filename> die Zeile "APACHE_MODULES=...", der das Modul "rewrite" hinzugefügt werden
@@ -548,54 +550,10 @@
             <para>Bei RHEL/Fedora/CentOS ist die Unterstützung bereits im httpd enthalten.</para>
           </listitem>
 
-          <listitem>
-            <para>Über htaccess aktivierte Einstellungen</para>
-
-            <para>Editieren Sie die <filename>.htaccess</filename> unter <filename>/usr/local/icinga-web/pub</filename> und ändern Sie die
-            RewriteBase (ab Zeile 14): <programlisting> DirectoryIndex index.php
-
- Options -MultiViews -Indexes +FollowSymLinks
- Order allow,deny
- Allow from all
-
- &lt;IfModule mod_rewrite.c&gt;
-    RewriteEngine On
-
-    # This depends on your path
-    # on independent hosts the base is '/'
-    RewriteBase /icinga-web/
-
-        # If the requested URL does not exist (it's likely an agavi route),
-        # pass it as path info to index.php, the Agavi dispatch script.
-        RewriteRule ^$ index.php?/ [QSA,L]
-        RewriteCond %{REQUEST_FILENAME} !-f
-        RewriteCond %{REQUEST_FILENAME} !-d
-        RewriteRule (.*) index.php?/$1 [QSA,L]
- &lt;/IfModule&gt;
-
- &lt;IfModule mod_deflate.c&gt;
-        SetOutputFilter DEFLATE
-
-        BrowserMatch ^Mozilla/4 gzip-only-text/html
-        BrowserMatch ^Mozilla/4\.0[678] no-gzip
-
-        BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
-        BrowserMatch \bMSI[E] !no-gzip !gzip-only-text/html
-
-        Header append Vary User-Agent env=!dont-vary
- &lt;/IfModule&gt;
-
- &lt;IfDefine APACHE2&gt;
-        AcceptPathInf  On
- &lt;/IfDefine&gt;
-
- #&lt;IfModule mod_auth_basic.c&gt;
- #       AuthType Basic
- #       AuthName "My http basic auth realm"
- #       AuthUserFile /path/to/my/htusers
- #       require valid-user
- #&lt;/IfModule&gt;</programlisting></para>
-          </listitem>
+          <note>
+            <para>In 1.9 wurde die Datei <filename>.htaccess</filename> entfernt und die Optionen sind nun in der Apache-Konfiguration zu
+            finden.</para>
+          </note>
         </itemizedlist>
 
         <para>Bitte wechseln Sie in das Konfigurationsverzeichnis Ihres Webservers. Überprüfen Sie, ob die mit <emphasis role="bold">make
