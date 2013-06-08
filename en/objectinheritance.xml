@@ -8,7 +8,7 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="object_inheritance"/>Object Inheritance</title>
 
-  <section xml:id="introduction">
+  <section xml:id="objectinheritance-introduction">
 	  <title>Introduction</title>
 
   <para>This documentation attempts to explain object inheritance and how it can be used in your <link linkend="objectdefinitions">object
@@ -20,7 +20,7 @@
 
   </section>
 
-  <section xml:id="basics">
+  <section xml:id="objectinheritance-basics">
 	  <title>Basics</title>
 
   <para>There are three variables affecting recursion and inheritance that are present in all object definitions. They are
@@ -51,7 +51,7 @@
 
   </section>
 
-  <section xml:id="localvsinveritedvars">
+  <section xml:id="objectinheritance-localvsinveritedvars">
 	  <title>Local Variables vs. Inherited Variables</title>
 
   <para>One important thing to understand with inheritance is that "local" object variables always take precedence over variables defined in
@@ -98,7 +98,7 @@
 
   </section>
 
-  <section xml:id="inheritancechaining">
+  <section xml:id="objectinheritance-inheritancechaining">
 	  <title>Inheritance Chaining</title>
 
   <para>Objects can inherit properties/variables from multiple levels of template objects. Take the following example:</para>
@@ -157,7 +157,7 @@
 
   </section>
 
-  <section xml:id="templates">
+  <section xml:id="objectinheritance-templates">
 	  <title>Using Incomplete Object Definitions as Templates</title>
 
   <para>It is possible to use imcomplete object definitions as templates for use by other object definitions. By "incomplete" definition, I
@@ -219,7 +219,7 @@
 
   </section>
 
-  <section xml:id="customobjectvariables">
+  <section xml:id="objectinheritance-customobjectvariables">
 	  <title>Custom Object Variables</title>
 
   <para>Any <link linkend="customobjectvars">custom object variables</link> that you define in your host, service, or contact definition
@@ -252,7 +252,10 @@
         _snmp_community         public
         }</screen>
 
-  <para><anchor xml:id="objectinheritance-cancel_string"/><emphasis role="bold">Cancelling Inheritance of String Values</emphasis></para>
+  </section>
+
+  <section xml:id="objectinheritance-cancel_string">
+	  <title>Cancelling Inheritance of String Values</title>
 
   <para>In some cases you may not want your host, service, or contact definitions to inherit values of string variables from the templates
   they reference. If this is the case, you can specify "<emphasis role="bold">null</emphasis>" (without quotes) as the value of the variable
@@ -283,7 +286,10 @@
         address                 192.168.1.3
         }</screen>
 
-  <para><anchor xml:id="objectinheritance-add_string"/><emphasis role="bold">Additive Inheritance of String Values</emphasis></para>
+  </section>
+
+  <section xml:id="objectinheritance-add_string">
+	  <title>Additive Inheritance of String Values</title>
 
   <para>&name-icinga; gives preference to local variables instead of values inherited from templates. In most cases local variable values
   override those that are defined in templates. In some cases it makes sense to allow &name-icinga; to use the values of inherited
@@ -317,7 +323,10 @@
         hostgroups              all-servers,linux-servers,web-servers
         }</screen>
 
-  <para><anchor xml:id="objectinheritance-implied_inheritance"/><emphasis role="bold">Implied Inheritance</emphasis></para>
+  </section>
+
+  <section xml:id="objectinheritance-implied_inheritance">
+	  <title>Implied Inheritance</title>
 
   <para>Normally you have to either explicitly specify the value of a required variable in an object definition or inherit it from a
   template. There are a few exceptions to this rule, where &name-icinga; will assume that you want to use a value that instead comes from a
@@ -430,8 +439,10 @@
     host/service combination failing/recovering although it is possibly to execute a service for one or more host groups.</para>
   </note>
 
-  <para><anchor xml:id="objectinheritance-impliedescalations"/><emphasis role="bold">Implied/Additive Inheritance in
-  Escalations</emphasis></para>
+  </section>
+
+  <section xml:id="objectinheritance-implied_escalations">
+	  <title>Implied/Additive Inheritance in Escalations</title>
 
   <para>Service and host escalation definitions can make use of a special rule that combines the features of implied and additive
   inheritance. If escalations 1) do not inherit the values of their <emphasis>contact_groups</emphasis> or <emphasis>contacts</emphasis>
@@ -461,7 +472,10 @@
         ...
         }</screen>
 
-  <para><anchor xml:id="objectinheritance-important_values"/><emphasis role="bold">Important values</emphasis></para>
+  </section>
+
+  <section xml:id="objectinheritance-important_values">
+	  <title>Important values</title>
 
   <para>Service templates can make use of a special rule which gives precedence to their check_command value. If the check_command is
   prefixed with an exclamation mark (!), then the template's check_command is marked as important and will be used over the check_command
@@ -503,7 +517,10 @@ define service {
  Template1 =&gt; Template2 =&gt; Service1   &lt;== will NOT work</programlisting></para>
   </note>
 
-  <para><anchor xml:id="objectinheritance-multiple_templates"/><emphasis role="bold">Multiple Inheritance Sources</emphasis></para>
+  </section>
+
+  <section xml:id="objectinheritance-multiple_templates">
+	  <title>Multiple Inheritance Sources</title>
 
   <para>Thus far, all examples of inheritance have shown object definitions inheriting variables/values from just a single source. You are
   also able to inherit variables/values from multiple sources for more complex configurations, as shown below.</para>
@@ -569,7 +586,7 @@ define host{
 
   </section>
 
-  <section xml:id="multipleinheritancesources">
+  <section xml:id="objectinheritance-multipleinheritancesources">
 	  <title>Precedence With Multiple Inheritance Sources</title>
 
   <para>When you use multiple inheritance sources, it is important to know how &name-icinga; handles variables that are defined in multiple
@@ -625,7 +642,7 @@ define host{
     <secondary>Implied Inheritance</secondary>
   </indexterm>
 
-  <indexterm zone="objectinheritance-impliedescalations">
+  <indexterm zone="objectinheritance-implied_escalations">
     <primary>Object Inheritance</primary>
 
     <secondary>Implied/Additive Inheritance in Escalations</secondary>
