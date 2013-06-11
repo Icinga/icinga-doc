@@ -327,8 +327,7 @@
             packages "libdbi", "libdbi-devel", "libdbi-drivers" and "libdbi-dbd-mysql", or alternatively <filename>zypper</filename>.</para>
 
             <screen> #&gt; zypper install mysql mysql-devel mysql-client \
-    libdbi libdbi-devel libdbi-drivers libdbi-dbd-mysql
-      </screen>
+    libdbi libdbi-devel libdbi-drivers libdbi-dbd-mysql</screen>
 
             <note>
               <para>In OpenSuSE 11 (SLES 11) the name of the package was changed from "mysql-devel" to "libmysqlclient-devel".</para>
@@ -452,7 +451,12 @@
 
     <para>Run the &name-icinga; configure script and enable &name-idoutils;. You will get help by using the --help flag:</para>
 
-    <screen> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils </screen>
+    <note>
+      <para>Starting with &name-icinga; 1.9 the default has changed so the &name-idoutils; will be compiled automatically unless disabled
+      explicitly.</para>
+    </note>
+
+    <screen> #&gt; ./configure --with-command-group=icinga-cmd</screen>
 
     <para>Also with &name-postgres; you should not use the argument --enable-pgsq because it is not supported yet.</para>
 
