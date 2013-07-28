@@ -3,41 +3,26 @@
 <!ENTITY % all.entities SYSTEM "all-entities.ent">
 %all.entities;
 ]>
-<section version="5.0" xml:id="nrpe" xmlns="http://docbook.org/ns/docbook"
-         xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:xi="http://www.w3.org/2001/XInclude"
-         xmlns:svg="http://www.w3.org/2000/svg"
-         xmlns:m="http://www.w3.org/1998/Math/MathML"
-         xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
+<section version="5.0" xml:id="nrpe" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="nrpe_"/>&name-nrpe;</title>
 
   <section xml:id="introduction">
     <title>Einführung</title>
 
-    <para>Nagios Remote Plugin Executor (oder kurz &name-nrpe;) ist ein Addon,
-    das benutzt wird, um Plugins auszuführen, die "lokale" Ressourcen auf
-    entfernten (Linux/Unix) Systemen überwachen. Einige Ressourcen können
-    (oder sollen) nicht per SNMP oder andere Agenten über das Netzwerk
-    überwacht werden, so dass Sie diese Prüfungen mit Programmen durchführen
-    müssen, die lokal auf den zu überwachenden Maschinen installiert sind und
-    die Ergebnisse an den &name-icinga;-Server zurückliefern. Im Gegensatz zu
-    NSCA geschieht dies aktiv, d.h. durch den &name-icinga;-Server
-    initiiert.<note>
-        <para>Mit Hilfe von <link
-        xlink:href="http://www.nsclient.org">&name-nsclient;</link> anstatt
-        &name-nrpe; auf dem entfernten Host können Sie auch Prüfungen auf
-        Windows-Maschinen ausführen.</para>
-      </note>Sie können <emphasis>check_by_ssh</emphasis> benutzen, um Plugins
-    auf entfernten Maschinen auszuführen, aber es gibt einen Nachteil bei
-    diesen Ansatz. Der Aufbau einer SSH-Session erfordert CPU-Ressourcen
-    sowohl auf dem Überwachungsrechner als auch auf dem entfernten Host, was
-    zu einer Performance-Beeinträchtigung führen kann, wenn Sie auf diese
-    Weise eine Vielzahl von Hosts und/oder Services überwachen. Die Benutzung
-    von &name-nrpe; ist ein wenig unsicherer als SSH, aber in vielen Fällen
-    mag der Performance-Gewinn die Abstriche bei der Sicherheit überwiegen.
-    SSL kann übrigens aktiviert werden, wenn Sie eine sicherere Verbindung
-    benötigen.</para>
+    <para>Nagios Remote Plugin Executor (oder kurz &name-nrpe;) ist ein Addon, das benutzt wird, um Plugins auszuführen, die "lokale"
+    Ressourcen auf entfernten (Linux/Unix) Systemen überwachen. Einige Ressourcen können (oder sollen) nicht per SNMP oder andere Agenten
+    über das Netzwerk überwacht werden, so dass Sie diese Prüfungen mit Programmen durchführen müssen, die lokal auf den zu überwachenden
+    Maschinen installiert sind und die Ergebnisse an den &name-icinga;-Server zurückliefern. Im Gegensatz zu NSCA geschieht dies aktiv, d.h.
+    durch den &name-icinga;-Server initiiert.<note>
+        <para>Mit Hilfe von <link xlink:href="http://www.nsclient.org">&name-nsclient;</link> anstatt &name-nrpe; auf dem entfernten Host
+        können Sie auch Prüfungen auf Windows-Maschinen ausführen.</para>
+      </note>Sie können <emphasis>check_by_ssh</emphasis> benutzen, um Plugins auf entfernten Maschinen auszuführen, aber es gibt einen
+    Nachteil bei diesen Ansatz. Der Aufbau einer SSH-Session erfordert CPU-Ressourcen sowohl auf dem Überwachungsrechner als auch auf dem
+    entfernten Host, was zu einer Performance-Beeinträchtigung führen kann, wenn Sie auf diese Weise eine Vielzahl von Hosts und/oder
+    Services überwachen. Die Benutzung von &name-nrpe; ist ein wenig unsicherer als SSH, aber in vielen Fällen mag der Performance-Gewinn
+    die Abstriche bei der Sicherheit überwiegen. SSL kann übrigens aktiviert werden, wenn Sie eine sicherere Verbindung benötigen.</para>
 
     <figure>
       <title>&name-nrpe;</title>
@@ -49,21 +34,16 @@
       </mediaobject>
     </figure>
 
-    <para><emphasis>check_nrpe</emphasis> ist ein Plugin, das auf dem lokalen
-    &name-icinga;-Server genau wie jedes andere Plugin ausgeführt wird. Es
-    verbindet sich mit dem &name-nrpe;-Prozess, der als Daemon auf der
-    entfernten Maschine läuft. Der Daemon selbst führt das Plugin auf der
-    gleichen Maschine aus und überträgt die gesammelten Informationen an das
-    check_nrpe-Plugin, das sie wiederum an &name-icinga; weitergibt. <note>
-        <para>Abhängig von der CPU / dem OS auf der entfernten Maschine müssen
-        Sie ggf. &name-nrpe; und die Plugins auf verschiedenen Plattformen
-        kompilieren.</para>
-      </note>Mit Hilfe von &name-nrpe; werden Sie vorwiegend Ressourcen
-    überwachen, die lokal auf der gleichen Maschine sind, wie z.B. die
-    CPU-Auslastung, Speicherverbrauch, Plattenplatz, Prozesse, etc., aber es
-    kann auch genutzt werden, um Ressourcen zu kontrollieren, die nicht direkt
-    vom Überwachungsrechner erreichbar sind. Die Maschine mit dem
-    &name-nrpe;-Daemon dient in diesem Fall als eine Art Relais.</para>
+    <para><emphasis>check_nrpe</emphasis> ist ein Plugin, das auf dem lokalen &name-icinga;-Server genau wie jedes andere Plugin ausgeführt
+    wird. Es verbindet sich mit dem &name-nrpe;-Prozess, der als Daemon auf der entfernten Maschine läuft. Der Daemon selbst führt das
+    Plugin auf der gleichen Maschine aus und überträgt die gesammelten Informationen an das check_nrpe-Plugin, das sie wiederum an
+    &name-icinga; weitergibt. <note>
+        <para>Abhängig von der CPU / dem OS auf der entfernten Maschine müssen Sie ggf. &name-nrpe; und die Plugins auf verschiedenen
+        Plattformen kompilieren.</para>
+      </note>Mit Hilfe von &name-nrpe; werden Sie vorwiegend Ressourcen überwachen, die lokal auf der gleichen Maschine sind, wie z.B. die
+    CPU-Auslastung, Speicherverbrauch, Plattenplatz, Prozesse, etc., aber es kann auch genutzt werden, um Ressourcen zu kontrollieren, die
+    nicht direkt vom Überwachungsrechner erreichbar sind. Die Maschine mit dem &name-nrpe;-Daemon dient in diesem Fall als eine Art
+    Relais.</para>
 
     <figure>
       <title>&name-nrpe; remote</title>
@@ -75,9 +55,8 @@
       </mediaobject>
     </figure>
 
-    <para>Die folgenden Anweisungen basieren teilweise auf der Dokumentation,
-    die im ursprünglichen &name-nrpe;-Paket von Ethan Galstad zu finden
-    ist.</para>
+    <para>Die folgenden Anweisungen basieren teilweise auf der Dokumentation, die im ursprünglichen &name-nrpe;-Paket von Ethan Galstad zu
+    finden ist.</para>
   </section>
 
   <section xml:id="prerequisites">
@@ -85,13 +64,11 @@
 
     <itemizedlist>
       <listitem>
-        <para>&name-icinga; sollte auf dem Überwachungsserver installiert und
-        lauffähig sein</para>
+        <para>&name-icinga; sollte auf dem Überwachungsserver installiert und lauffähig sein</para>
       </listitem>
 
       <listitem>
-        <para>ein C-Compiler (wie z.B. gcc) ist auf dem lokalen Host
-        installiert. Wenn nicht:</para>
+        <para>ein C-Compiler (wie z.B. gcc) ist auf dem lokalen Host installiert. Wenn nicht:</para>
 
         <programlisting> #&gt; yum install gcc       # &name-rhel; / &name-fedora; / &name-centos;
  #&gt; apt-get install gcc   # &name-debian; / &name-ubuntu;
@@ -99,8 +76,7 @@
       </listitem>
 
       <listitem>
-        <para>openssl ist (optional) auf dem lokalen Host installiert. Wenn
-        nicht:</para>
+        <para>openssl ist (optional) auf dem lokalen Host installiert. Wenn nicht:</para>
 
         <programlisting> #&gt; yum install openssl openssl-devel       # &name-rhel; / &name-fedora; / &name-centos;
  #&gt; apt-get install openssl openssl-devel   # &name-debian; / &name-ubuntu;
@@ -113,62 +89,48 @@
     <title>Download</title>
 
     <note>
-      <para>Anstatt &name-nrpe; von Grund auf zu installieren möchten Sie
-      vielleicht ein Paket benutzen, das es möglicherweise für Ihr
+      <para>Anstatt &name-nrpe; von Grund auf zu installieren möchten Sie vielleicht ein Paket benutzen, das es möglicherweise für Ihr
       Betriebssystem gibt.</para>
 
-      <para>Falls Sie aus den Sourcen installieren möchten, dann benutzen Sie
-      bitte die offiziellen Release-Tarballs, z.B. durch<programlisting> #&gt; wget http://sourceforge.net/projects/nagios/files/nrpe-2.x/nrpe-&ver-nrpe;/nrpe-&ver-nrpe;.tar.gz -O nrpe.tgz
+      <para>Falls Sie aus den Sourcen installieren möchten, dann benutzen Sie bitte die offiziellen Release-Tarballs, z.B.
+      durch<programlisting> #&gt; wget http://sourceforge.net/projects/nagios/files/nrpe-2.x/nrpe-&ver-nrpe;/nrpe-&ver-nrpe;.tar.gz -O nrpe.tgz
  #&gt; tar xzf nrpe.tgz</programlisting></para>
     </note>
 
     <important>
-      <para>Bitte benutzen Sie keine Snapshots, solange Sie kein Problem
-      haben, das in der aktuellen Entwicklerversion ggf. gelöst ist.</para>
+      <para>Bitte benutzen Sie keine Snapshots, solange Sie kein Problem haben, das in der aktuellen Entwicklerversion ggf. gelöst
+      ist.</para>
     </important>
   </section>
 
   <section xml:id="optionalchanges">
     <title>Optionale Anpassungen</title>
 
-    <para>Die maximale Länge von Daten, die übertragen werden können, ist auf
-    2.048 Bytes begrenzt, die maximale Länge von Plugin-Ausgaben auf 512
-    Bytes. Wenn das für Ihre Zwecke nicht ausreicht, dann müssen Sie die
-    entsprechenden Werte in der Datei
-    <filename>icinga-nrpe/include/common.h</filename> anpassen (und
-    &name-nrpe; neu kompilieren!).<programlisting> #define MAX_INPUT_BUFFER        2048    /* max size of most buffers we use */
- #define MAX_PLUGINOUTPUT_LENGTH 512 </programlisting>Bitte denken Sie daran,
-    dass Sie die Programme erneut kompilieren müssen, wenn Sie diese Werte zu
-    einem späteren Zeitpunkt ändern.</para>
+    <para>Die maximale Länge von Daten, die übertragen werden können, ist auf 2.048 Bytes begrenzt, die maximale Länge von Plugin-Ausgaben
+    auf 512 Bytes. Wenn das für Ihre Zwecke nicht ausreicht, dann müssen Sie die entsprechenden Werte in der Datei
+    <filename>nrpe-&ver-nrpe;/include/common.h</filename> anpassen (und &name-nrpe; neu kompilieren!).<programlisting> #define MAX_INPUT_BUFFER        2048    /* max size of most buffers we use */
+ #define MAX_PLUGINOUTPUT_LENGTH 512 </programlisting>Bitte denken Sie daran, dass Sie die Programme erneut kompilieren müssen, wenn Sie
+    diese Werte zu einem späteren Zeitpunkt ändern.</para>
 
-    <para>Bedingt durch die Einstellung des folgenden define in
-    <filename>include/common.h</filename> (im Icinga-Core) kann der maximale
+    <para>Bedingt durch die Einstellung des folgenden define in <filename>include/common.h</filename> (im Icinga-Core) kann der maximale
     Wert 8.192 Bytes nicht überschreiten. <programlisting> #define MAX_EXTERNAL_COMMAND_LENGTH     8192   /* max length of an external command */</programlisting></para>
   </section>
 
   <section xml:id="compile">
     <title>Kompilieren auf dem &name-icinga;-Server</title>
 
-    <para>Wechseln Sie in das neu angelegte Verzeichnis und führen Sie
-    "configure" und "make " aus <programlisting> #&gt; cd icinga-nrpe
+    <para>Wechseln Sie in das neu angelegte Verzeichnis und führen Sie "configure" und "make " aus <programlisting> #&gt; cd nrpe-&ver-nrpe;
  #&gt; ./configure 
  #&gt; make all
  #&gt; make install-plugin</programlisting><note>
-        <para>Wenn Sie später SSL benutzen wollen, dann müssen Sie stattdessen
-        "<literal>./configure --enable-ssl</literal>" angeben. Außerdem gibt
-        es weitere Optionen, um den Standort von SSL-Dateien anzugeben, falls
-        sie nicht automatisch gefunden werden.</para>
-      </note>Wenn Benutzer oder Gruppe für den Daemon-Prozess von "icinga"
-    abweichen oder der zu benutzende Port nicht der Default 5666 ist, dann
-    können Sie verschiedene Optionen benutzen, um abweichende Werte anzugeben
-    (<literal>--with-nrpe-user=</literal>&lt;user&gt;,
-    <literal>--with-nrpe-group=</literal>&lt;group&gt;,
-    <literal>--with-nrpe-port=</literal>&lt;port&gt;). Benutzen Sie
-    "<literal>./configure -h</literal>", um eine vollständige Liste der
-    Optionen zu erhalten. "<literal>make install-plugin</literal>" kopiert
-    <filename>check_nrpe</filename> in das Plugin-Verzeichnis. <note>
-        <para>Mit Hilfe von "<literal>ldd src/check_nrpe</literal>" und
-        "<literal>ldd src/nrpe</literal>" sollten Sie feststellen können, ob
+        <para>Wenn Sie später SSL benutzen wollen, dann müssen Sie stattdessen "<literal>./configure --enable-ssl</literal>" angeben.
+        Außerdem gibt es weitere Optionen, um den Standort von SSL-Dateien anzugeben, falls sie nicht automatisch gefunden werden.</para>
+      </note>Wenn Benutzer oder Gruppe für den Daemon-Prozess von "icinga" abweichen oder der zu benutzende Port nicht der Default 5666 ist,
+    dann können Sie verschiedene Optionen benutzen, um abweichende Werte anzugeben (<literal>--with-nrpe-user=</literal>&lt;user&gt;,
+    <literal>--with-nrpe-group=</literal>&lt;group&gt;, <literal>--with-nrpe-port=</literal>&lt;port&gt;). Benutzen Sie
+    "<literal>./configure -h</literal>", um eine vollständige Liste der Optionen zu erhalten. "<literal>make install-plugin</literal>"
+    kopiert <filename>check_nrpe</filename> in das Plugin-Verzeichnis. <note>
+        <para>Mit Hilfe von "<literal>ldd src/check_nrpe</literal>" und "<literal>ldd src/nrpe</literal>" sollten Sie feststellen können, ob
         SSL-Bibliotheken in den erzeugten Programmen enthalten sind.</para>
       </note></para>
   </section>
@@ -176,29 +138,21 @@
   <section xml:id="firsttest">
     <title>Erster Test</title>
 
-    <para>Starten Sie den Daemon-Prozess und rufen Sie das Plugin auf
-    <programlisting> #&gt; /usr/src/icinga-nrpe/src/nrpe -n \
-    -c /usr/src/icinga-nrpe/sample-config/nrpe.cfg -d
- #&gt; /usr/local/icinga/libexec/check_nrpe -H 127.0.0.1 -n</programlisting>Dies
-    sollte die Versionsnummer von &name-nrpe; zurückliefern. Wenn Sie die
-    Meldung "CHECK_NRPE: Error receiving data from daemon" erhalten, wurde der
-    angegebene Host nicht in der Datei <filename>nrpe.cfg</filename> gefunden
-    (Direktive allowed_hosts). Mehrere IP-Adressen werden durch Komma
-    getrennt.</para>
+    <para>Starten Sie den Daemon-Prozess und rufen Sie das Plugin auf <programlisting> #&gt; /usr/src/nrpe-&ver-nrpe;/src/nrpe -n \
+    -c /usr/src/nrpe-&ver-nrpe;/sample-config/nrpe.cfg -d
+ #&gt; /usr/local/icinga/libexec/check_nrpe -H 127.0.0.1 -n</programlisting>Dies sollte die Versionsnummer von &name-nrpe; zurückliefern.
+    Wenn Sie die Meldung "CHECK_NRPE: Error receiving data from daemon" erhalten, wurde der angegebene Host nicht in der Datei
+    <filename>nrpe.cfg</filename> gefunden (Direktive allowed_hosts). Mehrere IP-Adressen werden durch Komma getrennt.</para>
 
     <para>Stoppen Sie den Daemon-Prozess<programlisting> #&gt; kill `ps -ef | grep "sample-config/nrpe.cfg" | grep -v grep | awk '{print $2}'`</programlisting></para>
-
-    <para/>
   </section>
 
   <section xml:id="remotesystem">
     <title>Entfernte/s System/e</title>
 
-    <para>Die Konfiguration und Installation auf dem &name-icinga;-Server ist
-    vorerst abgeschlossen. Der zweite Teil erfolgt auf dem entfernten System,
-    auf dem der &name-nrpe;-Daemon auf ankommende Anfragen lauscht, sie
-    ausführt und die Ergebnisse an den &name-icinga;-Server
-    zurückliefert.</para>
+    <para>Die Konfiguration und Installation auf dem &name-icinga;-Server ist vorerst abgeschlossen. Der zweite Teil erfolgt auf dem
+    entfernten System, auf dem der &name-nrpe;-Daemon auf ankommende Anfragen lauscht, sie ausführt und die Ergebnisse an den
+    &name-icinga;-Server zurückliefert.</para>
   </section>
 
   <section xml:id="prerequisitesremotehost">
@@ -206,33 +160,23 @@
 
     <itemizedlist>
       <listitem>
-        <para>Stellen Sie sicher, dass die benötigten Plugins auf dem
-        entfernten System verfügbar sind. Lesen Sie ggf. in der <link
-        linkend="quickstart">Schnellstartanleitung</link>, wie die Plugins zu
-        installieren sind.</para>
+        <para>Stellen Sie sicher, dass die benötigten Plugins auf dem entfernten System verfügbar sind. Lesen Sie ggf. in der <link
+        linkend="quickstart">Schnellstartanleitung</link>, wie die Plugins zu installieren sind.</para>
       </listitem>
 
       <listitem>
-        <para>Sie können das Verzeichnis <filename>icinga-nrpe</filename> samt
-        Unterverzeichnisses vom &name-icinga;-Server kopieren. Eine
-        Möglichkeit ist<programlisting> #&gt; cd /usr/src/
- #&gt; scp -pr &lt;&name-icinga;-server&gt;:/$PWD/icinga-nrpe .</programlisting>
-        <note>
-            <para>Wenn die Architektur auf Ihrem entfernten System von Ihrem
-            &name-icinga;-Server abweicht, dann müssen Sie die Sourcen erneut
-            kompilieren. Dies trifft zu, wenn Sie verschiedene CPUs
-            (i386/Itanium/PA-RISC/...) und/oder unterschiedliche OS-Versionen
-            (32-Bit/64-Bit) einsetzen. Wenn dies der Fall ist, dann müssen Sie
-            (wie oben beschrieben) einen C-Compiler und OpenSSL (wenn Sie SSL
-            benutzen wollen) installieren, bevor Sie fortfahren können.
-            <programlisting> #&gt; cd icinga-nrpe
+        <para>Sie können das Verzeichnis <filename>nrpe-&ver-nrpe;</filename> samt Unterverzeichnisses vom &name-icinga;-Server kopieren.
+        Eine Möglichkeit ist<programlisting> #&gt; cd /usr/src/
+ #&gt; scp -pr &lt;&name-icinga;-server&gt;:/$PWD/nrpe-&ver-nrpe; .</programlisting> <note>
+            <para>Wenn die Architektur auf Ihrem entfernten System von Ihrem &name-icinga;-Server abweicht, dann müssen Sie die Sourcen
+            erneut kompilieren. Dies trifft zu, wenn Sie verschiedene CPUs (i386/Itanium/PA-RISC/...) und/oder unterschiedliche OS-Versionen
+            (32-Bit/64-Bit) einsetzen. Wenn dies der Fall ist, dann müssen Sie (wie oben beschrieben) einen C-Compiler und OpenSSL (wenn Sie
+            SSL benutzen wollen) installieren, bevor Sie fortfahren können. <programlisting> #&gt; cd nrpe-&ver-nrpe;
  #&gt; make distclean
  #&gt; ./configure     # bitte benutzen Sie die gleichen Optionen wie auf dem &name-icinga;-Server 
  #&gt; make all</programlisting></para>
-          </note>Editieren Sie die Konfigurationsdatei
-        <filename>sample-config/nrpe.cfg</filename> und ändern Sie die
-        Einstellung von "allowed_hosts=&lt;IP address&gt;" auf die IP-Adresse
-        Ihres &name-icinga;-Servers. Mehrere IP-Adressen werden durch Komma
+          </note>Editieren Sie die Konfigurationsdatei <filename>sample-config/nrpe.cfg</filename> und ändern Sie die Einstellung von
+        "allowed_hosts=&lt;IP address&gt;" auf die IP-Adresse Ihres &name-icinga;-Servers. Mehrere IP-Adressen werden durch Komma
         getrennt.</para>
       </listitem>
     </itemizedlist>
@@ -243,18 +187,15 @@
 
     <para>Starten Sie den Daemon-Prozess auf dem entfernten Host</para>
 
-    <programlisting> #&gt; /usr/src/icinga-nrpe/src/nrpe -n \
-    -c /usr/src/icinga-nrpe/sample-config/nrpe.cfg -d</programlisting>
+    <programlisting> #&gt; /usr/src/nrpe-&ver-nrpe;/src/nrpe -n \
+    -c /usr/src/nrpe-&ver-nrpe;/sample-config/nrpe.cfg -d</programlisting>
 
-    <para>und führen Sie das Plugin auf dem &name-icinga;-Server erneut aus,
-    dieses Mal mit der IP-Adresse des entfernten Hosts</para>
+    <para>und führen Sie das Plugin auf dem &name-icinga;-Server erneut aus, dieses Mal mit der IP-Adresse des entfernten Hosts</para>
 
     <programlisting> #&gt; /usr/local/icinga/libexec/check_nrpe -H &lt;IP remote host&gt; -n</programlisting>
 
-    <para>Dies sollte die Versionsnummer von &name-nrpe; zurückliefern. Wenn
-    Sie die Meldung "CHECK_NRPE: Error receiving data from daemon" erhalten,
-    wurde der &name-icinga;-Server nicht in der Datei
-    <filename>nrpe.cfg</filename> (Direktive allowed_hosts) auf dem entfernten
+    <para>Dies sollte die Versionsnummer von &name-nrpe; zurückliefern. Wenn Sie die Meldung "CHECK_NRPE: Error receiving data from daemon"
+    erhalten, wurde der &name-icinga;-Server nicht in der Datei <filename>nrpe.cfg</filename> (Direktive allowed_hosts) auf dem entfernten
     Host gefunden.</para>
 
     <para>Stoppen Sie den Daemon-Prozess auf dem entfernten Host</para>
@@ -265,14 +206,11 @@
   <section xml:id="remotehostinstall">
     <title>Installation auf dem entfernten Host</title>
 
-    <para>Unabhängig vom verwendeten Modus, in dem der &name-nrpe;-Prozess auf
-    dem entfernten Host läuft, benötigen Sie eine Konfigurationsdatei, die die
-    auszuführenden Befehle enthält. Mit dem folgenden Befehl wird sie
-    installiert</para>
+    <para>Unabhängig vom verwendeten Modus, in dem der &name-nrpe;-Prozess auf dem entfernten Host läuft, benötigen Sie eine
+    Konfigurationsdatei, die die auszuführenden Befehle enthält. Mit dem folgenden Befehl wird sie installiert</para>
 
-    <para><programlisting> #&gt; make install-daemon-config</programlisting>Es
-    gibt zwei Arten, den &name-nrpe;-Prozess zu starten, entweder als
-    eigenständigen Daemon-Prozess oder per xinetd (was empfohlen wird).</para>
+    <para><programlisting> #&gt; make install-daemon-config</programlisting>Es gibt zwei Arten, den &name-nrpe;-Prozess zu starten, entweder
+    als eigenständigen Daemon-Prozess oder per xinetd (was empfohlen wird).</para>
 
     <itemizedlist>
       <listitem>
@@ -282,8 +220,7 @@
 
         <programlisting> #&gt; make install-daemon</programlisting>
 
-        <para>Wenn Sie xinetd benutzen, wird der Daemon automatisch gestartet.
-        Den eigenständigen Prozess müssen Sie manuell starten</para>
+        <para>Wenn Sie xinetd benutzen, wird der Daemon automatisch gestartet. Den eigenständigen Prozess müssen Sie manuell starten</para>
 
         <programlisting> #&gt; /usr/local/icinga/bin/nrpe -c /usr/local/icinga/etc/nrpe.cfg</programlisting>
       </listitem>
@@ -293,38 +230,30 @@
       <listitem>
         <para><emphasis role="bold">inetd/xinetd</emphasis></para>
 
-        <para>Wenn der Daemon durch (x)inetd gestartet werden soll, dann
-        müssen Sie /etc/services erweitern, eine weitere Datei ändern/kopieren
-        und (x)inetd erneut starten. Wenn das Paket nicht installiert ist,
-        dann tun Sie bitte folgendes</para>
+        <para>Wenn der Daemon durch (x)inetd gestartet werden soll, dann müssen Sie /etc/services erweitern, eine weitere Datei
+        ändern/kopieren und (x)inetd erneut starten. Wenn das Paket nicht installiert ist, dann tun Sie bitte folgendes</para>
 
         <programlisting> #&gt; yum install xinetd       # &name-rhel; / &name-fedora; / &name-centos;
  #&gt; apt-get install xinetd   # &name-debian; / &name-ubuntu;
  #&gt; zypper install xinetd    # &name-sles; / &name-opensuse; (oder benutzen Sie YaST)</programlisting>
 
         <note>
-          <para>Die Einstellung von "server_port" in der Datei
-          <filename>nrpe.cfg</filename> wird ignoriert, wenn Sie inetd/xinetd
+          <para>Die Einstellung von "server_port" in der Datei <filename>nrpe.cfg</filename> wird ignoriert, wenn Sie inetd/xinetd
           benutzen.</para>
         </note>
 
         <programlisting> #&gt; echo "nrpe 5666/tcp # nrpe" &gt;&gt; /etc/services</programlisting>
 
-        <para>Abhängig vom installierten Superserver auf dem entfernten System
-        gibt es drei Alternativen</para>
+        <para>Abhängig vom installierten Superserver auf dem entfernten System gibt es drei Alternativen</para>
 
         <itemizedlist>
           <listitem>
             <para>inetd MIT tcpwrappers</para>
 
-            <para>Fügen Sie Einträge in <filename>/etc/hosts.allow</filename>
-            und <filename>/etc/hosts.deny</filename> ein, um
-            TCP-wrapper-protection für den nrpe-Service zu aktivieren. Dies
-            ist optional, wird aber wärmstens empfohlen. Fügen Sie
-            "<literal>nrpe stream tcp nowait </literal>&lt;user&gt;
-            <literal>/usr/sbin/tcpd </literal>&lt;nrpe-binary&gt;<literal> -c
-            </literal>&lt;nrpe-cfg&gt;<literal> --inetd</literal>" zur Datei
-            <filename>/etc/inetd.conf</filename> hinzu, z.B.</para>
+            <para>Fügen Sie Einträge in <filename>/etc/hosts.allow</filename> und <filename>/etc/hosts.deny</filename> ein, um
+            TCP-wrapper-protection für den nrpe-Service zu aktivieren. Dies ist optional, wird aber wärmstens empfohlen. Fügen Sie
+            "<literal>nrpe stream tcp nowait </literal>&lt;user&gt; <literal>/usr/sbin/tcpd </literal>&lt;nrpe-binary&gt;<literal> -c
+            </literal>&lt;nrpe-cfg&gt;<literal> --inetd</literal>" zur Datei <filename>/etc/inetd.conf</filename> hinzu, z.B.</para>
 
             <programlisting> #&gt; echo "nrpe stream tcp nowait icinga /usr/sbin/tcpd /usr/local/icinga/bin/nrpe \
     -c /usr/local/icinga/etc/nrpe.cfg --inetd" &gt;&gt; /etc/inetd.conf
@@ -334,10 +263,8 @@
           <listitem>
             <para>inetd OHNE tcpwrappers</para>
 
-            <para>Fügen Sie "<literal>nrpe stream tcp nowait
-            </literal>&lt;user&gt; &lt;nrpe-binary&gt;<literal> -c
-            </literal>&lt;nrpe-cfg&gt;<literal> --inetd</literal>" zur Datei
-            <filename>/etc/inetd.conf</filename> hinzu, z.B.</para>
+            <para>Fügen Sie "<literal>nrpe stream tcp nowait </literal>&lt;user&gt; &lt;nrpe-binary&gt;<literal> -c
+            </literal>&lt;nrpe-cfg&gt;<literal> --inetd</literal>" zur Datei <filename>/etc/inetd.conf</filename> hinzu, z.B.</para>
 
             <programlisting> #&gt; echo "nrpe stream tcp nowait icinga /usr/local/icinga/bin/nrpe \
     -c /usr/local/icinga/etc/nrpe.cfg --inetd" &gt;&gt; /etc/inetd.conf
@@ -347,19 +274,13 @@
           <listitem>
             <para>xinetd (empfohlen)</para>
 
-            <para>Editieren Sie die Konfigurationsdatei
-            <filename>nrpe.xinetd</filename> im Verzeichnis
-            <filename>sample-config</filename> und ersetzen Sie die Adresse
-            hinter &lt;only_from&gt; durch die IP-Adresse des
-            &name-icinga;-Servers (wo check_nrpe laufen wird). Mehrere
-            IP-Adressen werden durch Leerzeichen voneinander getrennt.</para>
+            <para>Editieren Sie die Konfigurationsdatei <filename>nrpe.xinetd</filename> im Verzeichnis <filename>sample-config</filename>
+            und ersetzen Sie die Adresse hinter &lt;only_from&gt; durch die IP-Adresse des &name-icinga;-Servers (wo check_nrpe laufen
+            wird). Mehrere IP-Adressen werden durch Leerzeichen voneinander getrennt.</para>
 
-            <para>Fügen Sie Einträge in <filename>/etc/hosts.allow</filename>
-            und <filename>/etc/hosts.deny</filename> ein, um
-            TCP-wrapper-protection für den nrpe-Service zu aktivieren. Dies
-            ist optional, wird aber wärmstens empfohlen. Kopieren Sie die
-            Datei in das xinetd-Verzeichnis und starten Sie den xinetd-Prozess
-            neu</para>
+            <para>Fügen Sie Einträge in <filename>/etc/hosts.allow</filename> und <filename>/etc/hosts.deny</filename> ein, um
+            TCP-wrapper-protection für den nrpe-Service zu aktivieren. Dies ist optional, wird aber wärmstens empfohlen. Kopieren Sie die
+            Datei in das xinetd-Verzeichnis und starten Sie den xinetd-Prozess neu</para>
 
             <programlisting> #&gt; make install-xinetd
  #&gt; /etc/init.d/xinetd restart</programlisting>
@@ -372,68 +293,54 @@
   <section xml:id="thirdtest">
     <title>Dritter Test</title>
 
-    <para>Wechseln Sie auf dem &name-icinga;-Server zum &name-icinga;-Benutzer
-    und führen Sie einen weiteren Test aus</para>
+    <para>Wechseln Sie auf dem &name-icinga;-Server zum &name-icinga;-Benutzer und führen Sie einen weiteren Test aus</para>
 
     <programlisting> #&gt; su - icinga
  $&gt; /usr/local/icinga/libexec/check_nrpe -H &lt;IP remote server&gt;</programlisting>
 
-    <para>Dies sollte ein weiteres Mal die &name-nrpe;-Versionsnummer
-    ausgeben. Wenn dieser Test fehlschlägt, dann ist es nicht sinnvoll
-    fortzufahren. Prüfen Sie stattdessen die Einstellungen in
-    <filename>nrpe.cfg/nrpe.xinet</filename> auf dem entfernten Server. Prüfen
-    Sie außerdem, ob es Meldungen im Syslog (z.B.
-    <filename>/var/log/messages</filename>) auf dem entfernten Host
-    gibt.</para>
+    <para>Dies sollte ein weiteres Mal die &name-nrpe;-Versionsnummer ausgeben. Wenn dieser Test fehlschlägt, dann ist es nicht sinnvoll
+    fortzufahren. Prüfen Sie stattdessen die Einstellungen in <filename>nrpe.cfg/nrpe.xinet</filename> auf dem entfernten Server. Prüfen Sie
+    außerdem, ob es Meldungen im Syslog (z.B. <filename>/var/log/messages</filename>) auf dem entfernten Host gibt.</para>
   </section>
 
   <section xml:id="troubleshooting">
     <title>Fehlersuche</title>
 
-    <para>Prüfen Sie auf dem entfernten Host, ob der nrpe-Prozess
-    läuft<itemizedlist>
+    <para>Prüfen Sie auf dem entfernten Host, ob der nrpe-Prozess läuft<itemizedlist>
         <listitem>
-          <para>wenn als eigenständiger Prozess installiert <programlisting> #&gt; ps -ef | grep -v grep | grep nrpe</programlisting>
-          Falls der Prozess nicht läuft, dann <itemizedlist>
+          <para>wenn als eigenständiger Prozess installiert <programlisting> #&gt; ps -ef | grep -v grep | grep nrpe</programlisting> Falls
+          der Prozess nicht läuft, dann <itemizedlist>
               <listitem>
                 <para>starten Sie ihn wie oben angegeben</para>
               </listitem>
 
               <listitem>
-                <para>prüfen Sie, ob die Konfigurationsdatei
-                <filename>/usr/local/icinga/etc/nrpe.cfg</filename> vorhanden
-                ist</para>
+                <para>prüfen Sie, ob die Konfigurationsdatei <filename>/usr/local/icinga/etc/nrpe.cfg</filename> vorhanden ist</para>
               </listitem>
 
               <listitem>
-                <para>prüfen Sie, ob die Direktive
-                <emphasis>allowed_hosts</emphasis> in der Datei
-                <filename>/usr/local/icinga/etc/nrpe.cfg</filename> einen
-                Eintrag für die IP-Adresse des &name-icinga;-Servers enthält.
+                <para>prüfen Sie, ob die Direktive <emphasis>allowed_hosts</emphasis> in der Datei
+                <filename>/usr/local/icinga/etc/nrpe.cfg</filename> einen Eintrag für die IP-Adresse des &name-icinga;-Servers enthält.
                 Mehrere IP-Adressen werden durch Komma getrennt</para>
               </listitem>
             </itemizedlist></para>
         </listitem>
 
         <listitem>
-          <para>wenn per xinetd gestartet<programlisting> #&gt; netstat -at | grep -v grep | grep nrpe</programlisting>
-          Die Ausgabe sollte etwa dem Folgenden entsprechen <programlisting> tcp 0 0 *:nrpe *:* LISTEN</programlisting>Wenn
-          das nicht der Fall ist, dann prüfen Sie, ob <itemizedlist>
+          <para>wenn per xinetd gestartet<programlisting> #&gt; netstat -at | grep -v grep | grep nrpe</programlisting> Die Ausgabe sollte
+          etwa dem Folgenden entsprechen <programlisting> tcp 0 0 *:nrpe *:* LISTEN</programlisting>Wenn das nicht der Fall ist, dann prüfen
+          Sie, ob <itemizedlist>
               <listitem>
-                <para>die Datei <filename>/etc/services</filename> einen
-                Eintrag für nrpe enthält</para>
+                <para>die Datei <filename>/etc/services</filename> einen Eintrag für nrpe enthält</para>
               </listitem>
 
               <listitem>
-                <para>die Datei <filename>/etc/xinetd.d/nrpe</filename>
-                vorhanden ist</para>
+                <para>die Datei <filename>/etc/xinetd.d/nrpe</filename> vorhanden ist</para>
               </listitem>
 
               <listitem>
-                <para>die Direktive <emphasis>only_from</emphasis> directive
-                in der Datei <filename>/etc/xinetd.d/nrpe</filename> einen
-                Eintrag für die IP-Adresse des &name-icinga;-Servers enthält.
-                Mehrere IP-Adressen werden durch Leerzeichen voneinander
+                <para>die Direktive <emphasis>only_from</emphasis> directive in der Datei <filename>/etc/xinetd.d/nrpe</filename> einen
+                Eintrag für die IP-Adresse des &name-icinga;-Servers enthält. Mehrere IP-Adressen werden durch Leerzeichen voneinander
                 getrennt</para>
               </listitem>
 
@@ -442,31 +349,25 @@
               </listitem>
 
               <listitem>
-                <para>die System-Logs Fehler von xinetd und/oder nrpe
-                enthalten. Beheben Sie die gemeldeten Probleme</para>
+                <para>die System-Logs Fehler von xinetd und/oder nrpe enthalten. Beheben Sie die gemeldeten Probleme</para>
               </listitem>
             </itemizedlist></para>
         </listitem>
-      </itemizedlist>Aktivieren Sie "debug=1" in
-    <filename>nrpe.cfg</filename>, starten Sie den Daemon (falls zutreffend)
-    und schauen Sie nach Meldungen in Syslog /
-    <literal>nrpe.log</literal>.</para>
+      </itemizedlist>Aktivieren Sie "debug=1" in <filename>nrpe.cfg</filename>, starten Sie den Daemon (falls zutreffend) und schauen Sie
+    nach Meldungen in Syslog / <literal>nrpe.log</literal>.</para>
   </section>
 
   <section xml:id="security">
     <title>Sicherheit</title>
 
-    <para>Konsultieren Sie die Datei <filename>SECURITY</filename>, um mehr
-    Informationen zu den Sicherheitsrisiken zu kommen, die beim Betrieb von
-    &name-nrpe; auftreten können, zusammen mit einer Erklärung, welche Art von
-    Schutz die Verschlüsselung bietet.</para>
+    <para>Konsultieren Sie die Datei <filename>SECURITY</filename>, um mehr Informationen zu den Sicherheitsrisiken zu kommen, die beim
+    Betrieb von &name-nrpe; auftreten können, zusammen mit einer Erklärung, welche Art von Schutz die Verschlüsselung bietet.</para>
   </section>
 
   <section xml:id="localcheckdefinition">
     <title>Definition von lokalen Prüfungen</title>
 
-    <para>Einige Dinge wurden bereits in <filename>etc/nrpe.cfg</filename> auf
-    dem entfernten Host vorkonfiguriert</para>
+    <para>Einige Dinge wurden bereits in <filename>etc/nrpe.cfg</filename> auf dem entfernten Host vorkonfiguriert</para>
 
     <programlisting> # command[&lt;command_name&gt;]=&lt;command_line&gt;
  command[check_users]=/usr/local/icinga/libexec/check_users -w 5 -c 10
@@ -491,23 +392,19 @@
           <row>
             <entry>command</entry>
 
-            <entry>Kennzeichnung, dass das Folgende eine command-Definition
-            ist</entry>
+            <entry>Kennzeichnung, dass das Folgende eine command-Definition ist</entry>
           </row>
 
           <row>
             <entry>&lt;command_name&gt;</entry>
 
-            <entry>Verbindung zwischen der command-Definition auf dem
-            &name-icinga;-Server und dem Befehl auf dem entfernten
-            Host</entry>
+            <entry>Verbindung zwischen der command-Definition auf dem &name-icinga;-Server und dem Befehl auf dem entfernten Host</entry>
           </row>
 
           <row>
             <entry>&lt;command_line&gt;</entry>
 
-            <entry>Aufruf des Plugins inklusive aller notwendigen
-            Argumente</entry>
+            <entry>Aufruf des Plugins inklusive aller notwendigen Argumente</entry>
           </row>
         </tbody>
       </tgroup>
@@ -517,25 +414,19 @@
   <section xml:id="icingaserverdefinitions">
     <title>Definitionen auf dem &name-icinga;-Server</title>
 
-    <para>Nun wechseln wir auf den &name-icinga;-Server, um einige
-    Objekt-Definitionen anzulegen. Zuerst fügen Sie eine command-Definition zu
-    Ihrer Konfiguration hinzu (falls Sie noch keine passende haben). Wie immer
-    ist der Name der Konfigurationsdatei Ihnen überlassen, aber bei den
-    meisten Leuten heißt sie
-    <filename>commands.cfg</filename>.<programlisting> define command{
+    <para>Nun wechseln wir auf den &name-icinga;-Server, um einige Objekt-Definitionen anzulegen. Zuerst fügen Sie eine command-Definition
+    zu Ihrer Konfiguration hinzu (falls Sie noch keine passende haben). Wie immer ist der Name der Konfigurationsdatei Ihnen überlassen,
+    aber bei den meisten Leuten heißt sie <filename>commands.cfg</filename>.<programlisting> define command{
     command_name        check_nrpe
     command_line        $USER1$/check_nrpe -H $HOSTADDRESS$ -c $ARG1$
-   }</programlisting> Wir nehmen an, dass Sie bereits eine Host-Definition
-    haben, die der folgenden ähnlich ist<programlisting> define host{
+   }</programlisting> Wir nehmen an, dass Sie bereits eine Host-Definition haben, die der folgenden ähnlich ist<programlisting> define host{
     use                 generic-host     ; Default-Werte von einer Vorlage erben
     host_name           remotehost       ; Der Name, den wir diesem Host geben
     alias               Linux Host       ; Ein laengerer Name fuer diesen Host
     address             192.168.0.1      ; IP-Adresse des Servers
-    }</programlisting>Diese Beispieldefinitionen benutzen die oben gezeigten
-    Befehle.</para>
+    }</programlisting>Diese Beispieldefinitionen benutzen die oben gezeigten Befehle.</para>
 
-    <para>Der folgende Service wird die Anzahl der momentan angemeldeten
-    Benutzer auf dem entfernten Host überwachen</para>
+    <para>Der folgende Service wird die Anzahl der momentan angemeldeten Benutzer auf dem entfernten Host überwachen</para>
 
     <programlisting> define service{
     use                 generic-service
@@ -544,19 +435,14 @@
     check_command       check_nrpe!check_users
     }</programlisting>
 
-    <para>"<literal>check_nrpe</literal>" ist die Verbindung zwischen der
-    Service-Direktive "<literal>check_command</literal>" und der
-    "<literal>command_name</literal>"-Direktive in der command-Definition auf
-    dem &name-icinga;-Server. Die "<literal>command_line</literal>" in der
-    command-Definition zeigt, dass "<literal>check_nrpe</literal>" aufgerufen
-    wird. "<literal>check_users</literal>" wird als erstes Argument übergeben.
-    Der nrpe-Prozess auf dem entfernten Host nimmt dieses Argument und sucht
-    nach einer passenden Definition in <filename>nrpe.cfg</filename>. Der
-    Befehl wird ausgeführt und das Ergebnis an das check_nrpe-Plugin auf dem
-    &name-icinga;-Server zurückgeliefert.</para>
+    <para>"<literal>check_nrpe</literal>" ist die Verbindung zwischen der Service-Direktive "<literal>check_command</literal>" und der
+    "<literal>command_name</literal>"-Direktive in der command-Definition auf dem &name-icinga;-Server. Die
+    "<literal>command_line</literal>" in der command-Definition zeigt, dass "<literal>check_nrpe</literal>" aufgerufen wird.
+    "<literal>check_users</literal>" wird als erstes Argument übergeben. Der nrpe-Prozess auf dem entfernten Host nimmt dieses Argument und
+    sucht nach einer passenden Definition in <filename>nrpe.cfg</filename>. Der Befehl wird ausgeführt und das Ergebnis an das
+    check_nrpe-Plugin auf dem &name-icinga;-Server zurückgeliefert.</para>
 
-    <para>Der folgende Service wird die CPU-Auslastung auf dem entfernten Host
-    überwachen</para>
+    <para>Der folgende Service wird die CPU-Auslastung auf dem entfernten Host überwachen</para>
 
     <programlisting> define service{
     use                 generic-service
@@ -565,8 +451,7 @@
     check_command       check_nrpe!check_load
     }</programlisting>
 
-    <para>Der folgende Service wird den Plattenplatz auf /dev/hda1 auf dem
-    entfernten Host überwachen</para>
+    <para>Der folgende Service wird den Plattenplatz auf /dev/hda1 auf dem entfernten Host überwachen</para>
 
     <programlisting> define service{
     use                 generic-service
@@ -575,8 +460,7 @@
     check_command       check_nrpe!check_hda1
     }</programlisting>
 
-    <para>Der folgende Service wird die Anzahl der Prozesse auf dem entfernten
-    Host überwachen</para>
+    <para>Der folgende Service wird die Anzahl der Prozesse auf dem entfernten Host überwachen</para>
 
     <programlisting> define service{
     use                 generic-service
@@ -585,8 +469,7 @@
     check_command       check_nrpe!check_total_procs
     }</programlisting>
 
-    <para>Der folgende Service wird die Anzahl der Zombie-Prozesse auf dem
-    entfernten Host überwachen</para>
+    <para>Der folgende Service wird die Anzahl der Zombie-Prozesse auf dem entfernten Host überwachen</para>
 
     <programlisting> define service{
     use                 generic-service
@@ -595,38 +478,31 @@
     check_command       check_nrpe!check_zombie_procs
     }</programlisting>
 
-    <para>Starten Sie Icinga neu, damit die Änderungen in Ihre laufende
-    Konfiguration übernommen werden</para>
+    <para>Starten Sie Icinga neu, damit die Änderungen in Ihre laufende Konfiguration übernommen werden</para>
 
-    <para><programlisting> #&gt; /etc/init.d/icinga restart</programlisting>Nach
-    einer Weile sollten Ihre Plugins ausgeführt worden sein.</para>
+    <para><programlisting> #&gt; /etc/init.d/icinga restart</programlisting>Nach einer Weile sollten Ihre Plugins ausgeführt worden
+    sein.</para>
   </section>
 
   <section xml:id="moretroubleshooting">
     <title>Weitere Fehlersuche</title>
 
-    <para>Einige Fehler während der Installation wurden bereits angesprochen.
-    Unglücklicherweise gibt es weitere Fehlermöglichkeiten. Nachfolgend finden
-    Sie Hinweise für einige der häufigsten Fehler mit dem
-    &name-nrpe;-Addon.</para>
+    <para>Einige Fehler während der Installation wurden bereits angesprochen. Unglücklicherweise gibt es weitere Fehlermöglichkeiten.
+    Nachfolgend finden Sie Hinweise für einige der häufigsten Fehler mit dem &name-nrpe;-Addon.</para>
 
     <itemizedlist>
       <listitem>
         <para>"NRPE: Command timed out after x seconds"</para>
 
-        <para>Der Befehl, der vom &name-nrpe;-Daemon ausgeführt wurde, endete
-        nicht innerhalb der angegebenen Zeit. Sie können den Timeout-Wert für
-        Befehle durch Editieren der &name-nrpe;-Konfigurationsdatei erhöhen
-        und die Wert der command_timeout-Variable anpassen. Verwenden Sie die
-        -t -Kommandozeilenoption, um einen höheren Timeout-Wert für das
-        check_nrpe-Plugin anzugeben. Das folgende Beispiel erhöht den Timeout
-        auf 30 Sekunden:</para>
+        <para>Der Befehl, der vom &name-nrpe;-Daemon ausgeführt wurde, endete nicht innerhalb der angegebenen Zeit. Sie können den
+        Timeout-Wert für Befehle durch Editieren der &name-nrpe;-Konfigurationsdatei erhöhen und die Wert der command_timeout-Variable
+        anpassen. Verwenden Sie die -t -Kommandozeilenoption, um einen höheren Timeout-Wert für das check_nrpe-Plugin anzugeben. Das
+        folgende Beispiel erhöht den Timeout auf 30 Sekunden:</para>
 
         <programlisting> /usr/local/icinga/libexec/check_nrpe -H localhost -c somecommand -t 30</programlisting>
 
-        <para>Wenn Sie den &name-nrpe;-Daemon im Standalone-Modus ausführen
-        (und nicht unter inetd oder xinetd), dann müssen Sie ihn neustarten,
-        damit der neue Timeout-Wert erkannt wird.</para>
+        <para>Wenn Sie den &name-nrpe;-Daemon im Standalone-Modus ausführen (und nicht unter inetd oder xinetd), dann müssen Sie ihn
+        neustarten, damit der neue Timeout-Wert erkannt wird.</para>
       </listitem>
     </itemizedlist>
 
@@ -638,36 +514,27 @@
 
         <itemizedlist>
           <listitem>
-            <para>Es gibt eine Firewall, die die Kommmunikation zwischen dem
-            Überwachungs-Server (auf dem das check_nrpe-Plugin läuft) und dem
-            entfernten Host (auf dem der &name-nrpe;-Daemon läuft) blockiert.
-            Stellen Sie sicher, dass die Firewall-Regeln (z.B. iptables) auf
-            dem entfernten Host die Kommunikation erlauben und prüfen Sie,
-            dass sich keine physikalische Firewall zwischen den
+            <para>Es gibt eine Firewall, die die Kommmunikation zwischen dem Überwachungs-Server (auf dem das check_nrpe-Plugin läuft) und
+            dem entfernten Host (auf dem der &name-nrpe;-Daemon läuft) blockiert. Stellen Sie sicher, dass die Firewall-Regeln (z.B.
+            iptables) auf dem entfernten Host die Kommunikation erlauben und prüfen Sie, dass sich keine physikalische Firewall zwischen den
             Überwachungs-Server und dem entfernten Host befindet.</para>
           </listitem>
 
           <listitem>
-            <para>Wenn Sie den Daemon-Modus benutzen: Die IP-Adresse in
-            <filename>nrpe.cfg</filename> (allowed_hosts=...) stimmt nicht
-            nicht der IP-Adresse des Überwachungs-Servers überein. Falls die
-            Adressen übereinstimmen, dann haben Sie ggf. vergessen, den Daemon
+            <para>Wenn Sie den Daemon-Modus benutzen: Die IP-Adresse in <filename>nrpe.cfg</filename> (allowed_hosts=...) stimmt nicht nicht
+            der IP-Adresse des Überwachungs-Servers überein. Falls die Adressen übereinstimmen, dann haben Sie ggf. vergessen, den Daemon
             nach der letzten Änderung neu zu starten.</para>
           </listitem>
 
           <listitem>
-            <para>Wenn Sie die (x)inetd-Version benutzen: Die IP-Adresse in
-            /etc/xinetd/nrpe (only_from=...) stimmt nicht nicht der IP-Adresse
-            des Überwachungs-Servers überein. Falls die Adressen
-            übereinstimmen, dann haben Sie ggf. vergessen, den xindetd-Prozess
-            nach der letzten Änderung neu zu starten.</para>
+            <para>Wenn Sie die (x)inetd-Version benutzen: Die IP-Adresse in /etc/xinetd/nrpe (only_from=...) stimmt nicht nicht der
+            IP-Adresse des Überwachungs-Servers überein. Falls die Adressen übereinstimmen, dann haben Sie ggf. vergessen, den
+            xindetd-Prozess nach der letzten Änderung neu zu starten.</para>
           </listitem>
 
           <listitem>
-            <para>Der &name-nrpe;-Daemon ist nicht installiert oder läuft
-            nicht auf dem entfernten Host. Prüfen Sie mit einem der folgenden
-            Befehle, dass der &name-nrpe;-Daemon als eigenständiger Prozess
-            läuft bzw. unter inetd/xinetd:</para>
+            <para>Der &name-nrpe;-Daemon ist nicht installiert oder läuft nicht auf dem entfernten Host. Prüfen Sie mit einem der folgenden
+            Befehle, dass der &name-nrpe;-Daemon als eigenständiger Prozess läuft bzw. unter inetd/xinetd:</para>
 
             <programlisting> ps axuw | grep nrpe       # falls standalone-Daemon
  netstat -at | grep nrpe   # falls via xinetd</programlisting>
@@ -678,22 +545,17 @@
 
     <itemizedlist>
       <listitem>
-        <para>"CHECK_NRPE: Received 0 bytes from daemon. Check the remote
-        server logs for an error message."</para>
+        <para>"CHECK_NRPE: Received 0 bytes from daemon. Check the remote server logs for an error message."</para>
 
-        <para>Als erstes sollten Sie die Protokolle des entfernten Hosts auf
-        Fehlermeldungen prüfen. Ehrlich :-). Dieser Fehler kann u.a. folgende
-        Ursachen haben:</para>
+        <para>Als erstes sollten Sie die Protokolle des entfernten Hosts auf Fehlermeldungen prüfen. Ehrlich :-). Dieser Fehler kann u.a.
+        folgende Ursachen haben:</para>
 
         <itemizedlist>
           <listitem>
-            <para>Das check_nrpe-Plugin konnte keinen SSL-Handshake mit dem
-            &name-nrpe;-Daemon durchführen. Eine Fehlermeldung in den
-            Log-Dateien sollte zeigen, ob dies der Fall war oder nicht. Prüfen
-            Sie die Versionsstände von OpenSSL auf dem Überwachungs-Server und
-            dem entfernten Host. Wenn Sie eine kommerzielle SSL-Version auf
-            dem entfernten Host betreiben, dann kann es ggf. zu
-            Kompatibilitätsproblemen kommen.</para>
+            <para>Das check_nrpe-Plugin konnte keinen SSL-Handshake mit dem &name-nrpe;-Daemon durchführen. Eine Fehlermeldung in den
+            Log-Dateien sollte zeigen, ob dies der Fall war oder nicht. Prüfen Sie die Versionsstände von OpenSSL auf dem
+            Überwachungs-Server und dem entfernten Host. Wenn Sie eine kommerzielle SSL-Version auf dem entfernten Host betreiben, dann kann
+            es ggf. zu Kompatibilitätsproblemen kommen.</para>
           </listitem>
         </itemizedlist>
       </listitem>
@@ -703,22 +565,18 @@
       <listitem>
         <para>"NRPE: Unable to read output"</para>
 
-        <para>Dieser Fehler zeigt an, dass der vom &name-nrpe;-Daemon
-        ausgeführte Befehl keinerlei Zeichenausgaben zurückliefert. Dies kann
+        <para>Dieser Fehler zeigt an, dass der vom &name-nrpe;-Daemon ausgeführte Befehl keinerlei Zeichenausgaben zurückliefert. Dies kann
         auf folgende Probleme hinweisen:</para>
 
         <itemizedlist>
           <listitem>
-            <para>Der Pfad des auszuführenden Plugins auf dem entfernten Host
-            ist inkorrekt. Falls Sie die Definition in nrpe.cfg ändern, dann
-            denke Sie daran, den Daemon neu zu starten.</para>
+            <para>Der Pfad des auszuführenden Plugins auf dem entfernten Host ist inkorrekt. Falls Sie die Definition in nrpe.cfg ändern,
+            dann denke Sie daran, den Daemon neu zu starten.</para>
           </listitem>
 
           <listitem>
-            <para>Das hinter command_line angegebene Plugin arbeitet
-            fehlerhaft. Führen Sie den Befehl manuell auf der Kommandozeile
-            aus, um sicherzustellen, dass das Plugin Textausgaben liefert.
-            Starten Sie den Befehl NICHT als root!</para>
+            <para>Das hinter command_line angegebene Plugin arbeitet fehlerhaft. Führen Sie den Befehl manuell auf der Kommandozeile aus, um
+            sicherzustellen, dass das Plugin Textausgaben liefert. Starten Sie den Befehl NICHT als root!</para>
           </listitem>
         </itemizedlist>
       </listitem>
@@ -728,27 +586,19 @@
       <listitem>
         <para>"NRPE: Command 'x' not defined"</para>
 
-        <para>Der Befehl 'x' ist nicht in der &name-nrpe;-Konfigurationsdatei
-        auf dem entfernten Host definiert. Bitte fügen Sie die
-        Befehlsdefinition für 'x' hinzu. Sehen Sie sich die vorhandenen
-        Befehlsdefinitionen in der &name-nrpe;-Konfigurationsdatei an, um
-        einen Eindruck davon zu bekommen, wie es aussehen sollte. Wenn Sie den
-        &name-nrpe;-Daemon im Standalone-Modus ausführen (und nicht unter
-        inetd oder xinetd), dann müssen Sie ihn neustarten, damit der neue
-        Timeout-Wert erkannt wird.</para>
+        <para>Der Befehl 'x' ist nicht in der &name-nrpe;-Konfigurationsdatei auf dem entfernten Host definiert. Bitte fügen Sie die
+        Befehlsdefinition für 'x' hinzu. Sehen Sie sich die vorhandenen Befehlsdefinitionen in der &name-nrpe;-Konfigurationsdatei an, um
+        einen Eindruck davon zu bekommen, wie es aussehen sollte. Wenn Sie den &name-nrpe;-Daemon im Standalone-Modus ausführen (und nicht
+        unter inetd oder xinetd), dann müssen Sie ihn neustarten, damit der neue Timeout-Wert erkannt wird.</para>
       </listitem>
     </itemizedlist>
 
-    <para>Falls Sie immer noch Probleme haben, dann setzen Sie "debug=1" in
-    <filename>nrpe.cfg</filename> auf dem entfernen Host. Denken Sie daran,
-    den &name-nrpe;-Prozess neu zu starten, wenn dieser im Standalone-Modus
-    läuft. Führen Sie die Prüfung auf dem Überwachungs-Server aus.
-    Anschließend sollten Sie Debugging-Informationen im Syslog (z.B.
-    <filename>/var/log/messages</filename>) finden, die bei der Fehlerbehebung
-    weiterhelfen sollten.</para>
+    <para>Falls Sie immer noch Probleme haben, dann setzen Sie "debug=1" in <filename>nrpe.cfg</filename> auf dem entfernen Host. Denken Sie
+    daran, den &name-nrpe;-Prozess neu zu starten, wenn dieser im Standalone-Modus läuft. Führen Sie die Prüfung auf dem Überwachungs-Server
+    aus. Anschließend sollten Sie Debugging-Informationen im Syslog (z.B. <filename>/var/log/messages</filename>) finden, die bei der
+    Fehlerbehebung weiterhelfen sollten.</para>
 
-    <para>Sie können such auch an eine der Mailing-Listen bzw. Foren wenden
-    (<link
+    <para>Sie können such auch an eine der Mailing-Listen bzw. Foren wenden (<link
     xlink:href="http://www.icinga.org/support/">&url-icinga;support/</link>).</para>
   </section>
 
@@ -761,8 +611,7 @@
 
         <para>Laden Sie die Software herunter<programlisting> #&gt; cd /usr/src
  #&gt; wget "http://sourceforge.net/projects/nagios/files/nrpe-2.x/nrpe-&ver-nrpe;/nrpe-&ver-nrpe;.tar.gz" -O nrpe.tgz
- #&gt; tar xzf nrpe.tgz</programlisting>Dann kompilieren Sie die Software und
-        installieren das Plugin<programlisting> #&gt; cd icinga-nrpe
+ #&gt; tar xzf nrpe.tgz</programlisting>Dann kompilieren Sie die Software und installieren das Plugin<programlisting> #&gt; cd nrpe-&ver-nrpe;
  #&gt; make distclean
  #&gt; ./configure     # benutzen Sie die gleichen Optionen wie beim ersten Mal
  #&gt; make all
@@ -774,8 +623,7 @@
 
         <para>Laden Sie die Software herunter<programlisting> #&gt; cd /usr/src
  #&gt; wget "http://sourceforge.net/projects/nagios/files/nrpe-2.x/nrpe-&ver-nrpe;/nrpe-&ver-nrpe;.tar.gz" -O nrpe.tgz
- #&gt; tar xzf nrpe.tgz</programlisting>Dann kompilieren Sie die Software und
-        installieren den Daemon-Prozess<programlisting> #&gt; cd icinga-nrpe
+ #&gt; tar xzf nrpe.tgz</programlisting>Dann kompilieren Sie die Software und installieren den Daemon-Prozess<programlisting> #&gt; cd nrpe-&ver-nrpe;
  #&gt; make distclean
  #&gt; ./configure     # benutzen Sie fie gleichen Optionen wie beim ersten Mal
  #&gt; make all
