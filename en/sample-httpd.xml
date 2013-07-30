@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="sample-httpd" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+    xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+
+  <title><anchor xml:id="sample_httpd"/>httpd.conf</title>
+
+  <programlisting># SAMPLE CONFIG SNIPPETS FOR APACHE WEB SERVER
+#
+# This file contains examples of entries that need
+# to be incorporated into your Apache web server
+# configuration file.  Customize the paths, etc. as
+# needed to fit your system.
+
+ScriptAlias @cgiurl@ "@sbindir@"
+
+&lt;Directory "@sbindir@"&gt;
+#  SSLRequireSSL
+   Options ExecCGI
+   AllowOverride None
+   Order allow,deny
+   Allow from all
+#  Order deny,allow
+#  Deny from all
+#  Allow from 127.0.0.1
+   AuthName "Icinga Access"
+   AuthType Basic
+   AuthUserFile @HTTPAUTHFILE@
+   Require valid-user
+&lt;Directory&gt;
+
+Alias @htmurl@ "@datadir@/"
+
+&lt;Directory "@datadir@/"&gt;
+#  SSLRequireSSL
+   Options None
+   AllowOverride All
+   Order allow,deny
+   Allow from all
+#  Order deny,allow
+#  Deny from all
+#  Allow from 127.0.0.1
+   AuthName "Icinga Access"
+   AuthType Basic
+   AuthUserFile @HTTPAUTHFILE@
+   Require valid-user
+&lt;Directory&gt;</programlisting>
+</section>
