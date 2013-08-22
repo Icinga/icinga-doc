@@ -17,53 +17,85 @@
 
       <mediaobject>
         <imageobject role="html">
-          <imagedata fileref="../images/MyServiceStatus.png" format="PNG"/>
+          <imagedata align="left" fileref="../images/icinga-web-exp_1.png" format="PNG"/>
         </imageobject>
       </mediaobject>
     </figure></para>
 
-    <section xml:id="installpnp">
-	    <title>Install &name-pnp;</title>
+  <para>On the left you will see the expander icon. Clicking on it opens a bar (shown below the OK sign).</para>
 
-  <orderedlist>
-    <listitem>
-      <para>Install &name-pnp; as described in the &name-pnp; <link
-      xlink:href="http://docs.pnp4nagios.org/pnp-0.6/start">documentation</link></para>
-    </listitem>
+  <mediaobject>
+    <imageobject role="html">
+      <imagedata align="left" fileref="../images/icinga-web-exp_2.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
 
-    <listitem>
-      <para>Change the &name-pnp; configuration to match your &name-icinga; configuration. You probably may want to change these:
-      <screen>#&gt; vi npcd.cfg</screen>
-<programlisting>    user = icinga
+  <para>On the right in the "PNP4Nagios" section there are two buttons.</para>
+
+  <mediaobject>
+    <imageobject role="html">
+      <imagedata align="left" fileref="../images/icinga-web-exp_3.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+
+  <para>Right-clicking on either of them and selecting "Move into grid" will move the appropriate icon into the grid.</para>
+
+  <mediaobject>
+    <imageobject role="html">
+      <imagedata align="left" fileref="../images/icinga-web-exp_4.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+
+  <para>Selecting the new icon opens the PNP graph in a small window showing only one time frame or it will create a new tab showing the
+  usual PNP view.</para>
+
+  <para>Clicking on "Setting" and selecting "Reset grid action icons" will remove the inserted icons restoring the default view.</para>
+
+  <mediaobject>
+    <imageobject role="html">
+      <imagedata align="left" fileref="../images/icinga-web-exp_5.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+
+  <section xml:id="installpnp">
+    <title>Install &name-pnp;</title>
+
+    <orderedlist>
+      <listitem>
+        <para>Install &name-pnp; as described in the &name-pnp; <link
+        xlink:href="http://docs.pnp4nagios.org/pnp-0.6/start">documentation</link></para>
+      </listitem>
+
+      <listitem>
+        <para>Change the &name-pnp; configuration to match your &name-icinga; configuration. You probably may want to change these: <screen>#&gt; vi npcd.cfg</screen>
+        <programlisting>    user = icinga
     group = icinga
     log_file = /var/log/icinga/npcd.log
     perfdata_spool_dir = /var/icinga/spool/
-    perfdata_file = /var/icinga/perfdata.dump</programlisting> <screen>#&gt; vi process_perfdata.cfg</screen>
-<programlisting>    LOG_FILE = /var/log/icinga/perfdata.log
+    perfdata_file = /var/icinga/perfdata.dump</programlisting> <screen>#&gt; vi process_perfdata.cfg</screen> <programlisting>    LOG_FILE = /var/log/icinga/perfdata.log
     XML_ENC = ISO-8859-1  # use if encountering national character issues</programlisting> <screen>#&gt; vi config.php 
     $conf['nagios_base'] = "/icinga/cgi-bin";</screen></para>
 
-      <note>
-        <para>Be sure to use existing paths, create them if necessary, and/or adapt the settings to your distribution.</para>
+        <note>
+          <para>Be sure to use existing paths, create them if necessary, and/or adapt the settings to your distribution.</para>
 
-        <para>Please verify that the &name-icinga; command definitions for "process-host-perfdata-file" and "process-service-perfdata-file"
-        (probably in <filename>etc/objects/commands.cfg</filename>) point to the same target directory as specified in
-        perfdata_spool_dir.</para>
-      </note>
-    </listitem>
-  </orderedlist>
-
+          <para>Please verify that the &name-icinga; command definitions for "process-host-perfdata-file" and
+          "process-service-perfdata-file" (probably in <filename>etc/objects/commands.cfg</filename>) point to the same target directory as
+          specified in perfdata_spool_dir.</para>
+        </note>
+      </listitem>
+    </orderedlist>
   </section>
 
   <section xml:id="templateextension">
-	  <title>Templates Extension</title>
+    <title>Templates Extension</title>
 
-  <para>Since version 1.5 you can leave the grid templates untouched because we integrated XML extension to customize grid templates with
-  simple snippets. PNP integration is made with these extensions to be upgrade safe.</para>
+    <para>Since version 1.5 you can leave the grid templates untouched because we integrated XML extension to customize grid templates with
+    simple snippets. PNP integration is made with these extensions to be upgrade safe.</para>
 
-  <para>Excerpt from the <filename>INSTALL</filename> in <filename>contrib/PNP_Integration/</filename></para>
+    <para>Excerpt from the <filename>INSTALL</filename> in <filename>contrib/PNP_Integration/</filename></para>
 
-  <para><screen>#&gt; cat contrib/PNP_Integration/INSTALL
+    <para><screen>#&gt; cat contrib/PNP_Integration/INSTALL
     ************************
     * INSTALLATION
     ************************
@@ -71,30 +103,30 @@
     * To install this addon, simply copy both xml files under templateExtensions
     * to your icinga-webs app/modules/Cronks/data/xml/extensions folder
     * and clear the app/cache/CronkTemplates folder
-    * To remove it, just delete the extension files and clear the cache folder again</screen><emphasis>Install Script</emphasis> <screen> $&gt; cd etc/contrib/PNP_Integration
- $&gt; sh install.sh</screen></para>
+    * To remove it, just delete the extension files and clear the cache folder again</screen><emphasis>Install Script</emphasis> </para>
 
-  <para><note>
-      <para>Please note that you will have to reinstall the addon after Icinga-Web upgrade.</para>
-    </note></para>
+    <para>Because it's only copying the two files mentioned there is no script. Sorry.</para>
 
-    </section>
+    <para><note>
+        <para>Please note that you will have to reinstall the addon after Icinga-Web upgrade.</para>
+      </note></para>
+  </section>
 
-    <section xml:id="confighostpages">
-	    <title>Create a configuration to include &name-pnp; host pages in &name-web;</title>
+  <section xml:id="confighostpages">
+    <title>Create a configuration to include &name-pnp; host pages in &name-web;</title>
 
-  <para><note>
-      <para>The following lines describing the manual integration are for version 1.4 and below</para>
-    </note></para>
+    <para><note>
+        <para>The following lines describing the manual integration are for version 1.4 and below</para>
+      </note></para>
 
-  <orderedlist>
-    <listitem>
-      <para>Create a new grid view</para>
+    <orderedlist>
+      <listitem>
+        <para>Create a new grid view</para>
 
-      <para>Make a copy of the default icinga-host-template.xml in app/modules/Cronks/data/xml/grid under your &name-web; installation path,
-      example: <screen>#&gt; cp /usr/local/icinga-web/app/modules/Cronks/data/xml/grid/icinga-host-template.xml \
-    /usr/local/icinga-web/app/modules/Cronks/data/xml/grid/icinga-my-host-template.xml</screen> In the new file we just created add
-      a new field definition: <programlisting>        &lt;field name="pnp4nagios_host_link"&gt;
+        <para>Make a copy of the default icinga-host-template.xml in app/modules/Cronks/data/xml/grid under your &name-web; installation
+        path, example: <screen>#&gt; cp /usr/local/icinga-web/app/modules/Cronks/data/xml/grid/icinga-host-template.xml \
+    /usr/local/icinga-web/app/modules/Cronks/data/xml/grid/icinga-my-host-template.xml</screen> In the new file we just created add a new
+        field definition: <programlisting>        &lt;field name="pnp4nagios_host_link"&gt;
             &lt;!-- datasource maps a data field from api call --&gt;
             &lt;datasource&gt;
                 &lt;parameter name="field"&gt;HOST_NAME&lt;/parameter&gt;
@@ -148,12 +180,12 @@
                 &lt;parameter name="enabled"&gt;false&lt;/parameter&gt;
             &lt;/order&gt;
         &lt;/field&gt;</programlisting></para>
-    </listitem>
+      </listitem>
 
-    <listitem>
-      <para>Add the new grid view to the "Data" cronk-container</para>
+      <listitem>
+        <para>Add the new grid view to the "Data" cronk-container</para>
 
-      <para>Edit cronks.xml in directory app/modules/Cronks/config/ under your icinga-web add a section: <programlisting>&lt;cronk name="gridMyHostView"&gt;
+        <para>Edit cronks.xml in directory app/modules/Cronks/config/ under your icinga-web add a section: <programlisting>&lt;cronk name="gridMyHostView"&gt;
     &lt;ae:parameter name="module"&gt;Cronks&lt;/ae:parameter&gt;
     &lt;ae:parameter name="action"&gt;System.ViewProc&lt;/ae:parameter&gt;
     &lt;ae:parameter name="hide"&gt;false&lt;/ae:parameter&gt;
@@ -165,31 +197,30 @@
         &lt;ae:parameter name="template"&gt;icinga-my-host-template&lt;/ae:parameter&gt;
     &lt;/ae:parameter&gt;
 &lt;/cronk&gt;</programlisting></para>
-    </listitem>
-  </orderedlist>
-
+      </listitem>
+    </orderedlist>
   </section>
 
   <section xml:id="configservicepages">
-	  <title>Create a configuration to include pnp4nagios service pages in icinga-web</title>
+    <title>Create a configuration to include pnp4nagios service pages in icinga-web</title>
 
-  <para><note>
-      <para>The following lines describing the manual integration are for version 1.4 and below</para>
-    </note></para>
+    <para><note>
+        <para>The following lines describing the manual integration are for version 1.4 and below</para>
+      </note></para>
 
-  <orderedlist>
-    <listitem>
-      <para>Create a new grid view</para>
+    <orderedlist>
+      <listitem>
+        <para>Create a new grid view</para>
 
-      <para>Make a copy of the default icinga-service-template.xml in app/modules/Cronks/data/xml/grid under your icinga-web installation
-      path.</para>
+        <para>Make a copy of the default icinga-service-template.xml in app/modules/Cronks/data/xml/grid under your icinga-web installation
+        path.</para>
 
-      <screen>cp /usr/local/icinga-web/app/modules/Cronks/data/xml/grid/icinga-service-template.xml \
+        <screen>cp /usr/local/icinga-web/app/modules/Cronks/data/xml/grid/icinga-service-template.xml \
     /usr/local/icinga-web/app/modules/Cronks/data/xml/grid/icinga-my-service-template.xml</screen>
 
-      <para>In the new file we just created add a new field definition:</para>
+        <para>In the new file we just created add a new field definition:</para>
 
-      <programlisting>        &lt;field name="pnp4nagios_service_link"&gt;
+        <programlisting>        &lt;field name="pnp4nagios_service_link"&gt;
             &lt;!-- datasource maps a data field from api call --&gt;
             &lt;datasource&gt;
                 &lt;parameter name="field"&gt;SERVICE_NAME&lt;/parameter&gt;
@@ -243,14 +274,14 @@
                 &lt;parameter name="enabled"&gt;false&lt;/parameter&gt;
             &lt;/order&gt;
         &lt;/field&gt;</programlisting>
-    </listitem>
+      </listitem>
 
-    <listitem>
-      <para>Add the new grid view to the "Data" Cronk-Container</para>
+      <listitem>
+        <para>Add the new grid view to the "Data" Cronk-Container</para>
 
-      <para>Edit cronks.xml in directory app/modules/Cronks/config/ under your icinga-web add a section:</para>
+        <para>Edit cronks.xml in directory app/modules/Cronks/config/ under your icinga-web add a section:</para>
 
-      <programlisting>&lt;cronk name="gridMyServiceView"&gt;
+        <programlisting>&lt;cronk name="gridMyServiceView"&gt;
     &lt;ae:parameter name="module"&gt;Cronks&lt;/ae:parameter&gt;
     &lt;ae:parameter name="action"&gt;System.ViewProc&lt;/ae:parameter&gt;
     &lt;ae:parameter name="hide"&gt;false&lt;/ae:parameter&gt;
@@ -262,38 +293,37 @@
         &lt;ae:parameter name="template"&gt;icinga-my-service-template&lt;/ae:parameter&gt;
     &lt;/ae:parameter&gt;
 &lt;/cronk&gt;</programlisting>
-    </listitem>
+      </listitem>
 
-    <listitem>
-      <para>Using your new created grid view as default (if you want)</para>
+      <listitem>
+        <para>Using your new created grid view as default (if you want)</para>
 
-      <para>Please backup your original view first: <screen>#&gt; cp data/xml/grid/icinga-service-template.xml data/xml/grid/icinga-service-template.bak</screen>
-      then <screen>#&gt; cp data/xml/grid/icinga-my-service-template.xml data/xml/grid/icinga-service-template.xml</screen>Clear
-      the cache, like described below. Performance graphs are now in your default "serviceStatus" Cronk!</para>
-    </listitem>
-  </orderedlist>
-
+        <para>Please backup your original view first: <screen>#&gt; cp data/xml/grid/icinga-service-template.xml data/xml/grid/icinga-service-template.bak</screen>
+        then <screen>#&gt; cp data/xml/grid/icinga-my-service-template.xml data/xml/grid/icinga-service-template.xml</screen>Clear the
+        cache, like described below. Performance graphs are now in your default "serviceStatus" Cronk!</para>
+      </listitem>
+    </orderedlist>
   </section>
 
   <section xml:id="clearcache">
-	  <title>Clearing the cache</title>
+    <title>Clearing the cache</title>
 
-  <note>
-    <para>If you edit any *.xml file you have to clear the cache afterwards!</para>
-  </note>
+    <note>
+      <para>If you edit any *.xml file you have to clear the cache afterwards!</para>
+    </note>
 
-  <screen>#&gt; rm -f app/cache/config/*.php</screen>
+    <screen>#&gt; rm -f app/cache/config/*.php</screen>
 
-  <para>or /path/to/clearcache.sh</para>
+    <para>or /path/to/clearcache.sh</para>
 
-  <screen>#&gt; /usr/local/icinga-web/bin/clearcache.sh</screen>
+    <screen>#&gt; /usr/local/icinga-web/bin/clearcache.sh</screen>
 
-  <para>That's all, you're done!</para>
+    <para>That's all, you're done!</para>
 
-  <indexterm zone="icinga-web-pnp">
-    <primary>&name-pnp;</primary>
+    <indexterm zone="icinga-web-pnp">
+      <primary>&name-pnp;</primary>
 
-    <secondary>pnp with &name-web;</secondary>
-  </indexterm>
-</section>
+      <secondary>pnp with &name-web;</secondary>
+    </indexterm>
+  </section>
 </section>
