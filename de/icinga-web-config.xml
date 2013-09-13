@@ -837,6 +837,22 @@
       <listitem>
         <para><anchor xml:id="configweb-translation"/><filename>translation.xml</filename> - Default-Sprache, Datum- und Zeitformate und
         Einstellungen</para>
+
+        <para>Falls Ihre Zeitzone von GMT abweicht, dann müssen Sie ggf. die entsprechenden Einstellungen in <filename>php.ini</filename>
+        (oder in <filename>translation.xml</filename>, falls Sie dort nicht ändern können). Anderenfalls erhalten Sie möglicherweise eine
+        Fehlermeldung ähnlich der folgenden:</para>
+
+        <figure>
+          <title>&name-web; instance down</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="../images/icinga-web-instance-down.png"/>
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>Setzen Sie die Direktive auf einen gültigen Wert (z.B. 'Europe/Berlin').</para>
       </listitem>
     </itemizedlist>
   </section>
@@ -851,20 +867,17 @@
         <para>Stellen Sie sicher, dass der WebServer-Benutzer Schreibberechtigung auf die Icinga-Pipe besitzt und dass das
         "icinga_pipe"-Symbol im "readwrite"- oder "write"-Abschnitt Ihres Host (oder im default-Abschnitt) vorhanden ist. Stellen Sie
         sicher, dass der Pfad korrekt ist.</para>
-
-        <para/>
       </listitem>
     </itemizedlist>
 
     <para><anchor xml:id="configweb-timezone"/> <emphasis role="bold">&name-web;-Zeitzone</emphasis></para>
 
-    <para>Beispiel: Ändern der Zeitzone für &name-web;</para>
-
-    <para>Wenn die Zeitzone von &name-web; von Ihrer lokalen Zeitzone abweicht, überprüfen Sie bitte den Parameter "date.timezone" in
-    <filename>app/modules/AppKit/config/module.xml</filename> (z.B. 'Europe/Berlin')</para>
+    <para>Wenn die Zeitzone von &name-web; von Ihrer lokalen Zeitzone abweicht, überprüfen Sie bitte den Parameter "date.timezone" in Ihrer
+    <filename>php.ini</filename>. Alternativ überprüfen Sie den Eintrag in <filename>app/modules/AppKit/config/module.xml</filename> (z.B.
+    'Europe/Berlin')</para>
 
     <programlisting>#&gt; vi app/modules/AppKit/config/module.xml
-&lt;ae:parameter name="date.timezone"&gt;GMT&lt;/ae:parameter&gt;</programlisting>
+&lt;ae:parameter name="date.timezone"&gt;Europe/Berlin&lt;/ae:parameter&gt;</programlisting>
 
     <para><anchor xml:id="configweb-userprefs"/> <emphasis role="bold">Benutzervorgaben ändern</emphasis></para>
 
