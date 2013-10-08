@@ -2498,9 +2498,8 @@
     <para>Diese Option ist verfügbar ab &name-icinga; 1.9</para>
   </note>
 
-  <para><anchor xml:id="configcgi-standalone_installation"/><emphasis role="bold">Classic UI Standalone Installation
-  </emphasis></para>
-  
+  <para><anchor xml:id="configcgi-standalone_installation"/><emphasis role="bold">Classic UI Standalone Installation </emphasis></para>
+
   <informaltable frame="none">
     <tgroup cols="2">
       <colspec colname="c1" colwidth="5*"/>
@@ -2524,16 +2523,62 @@
     </tgroup>
   </informaltable>
 
-  <para>Diese Option legt fest, ob die Classic UI "standalone" installiert und verwendet wird. Diese Option wurde mehrheitlich für Icinga 2 und dessen Compat
-  Layer implementiert, kann aber auch in anderen Installationen verwendet werden, beispielsweise als zusätzliches Dashboard.
-  Wenn Sie diese Option aktivieren, wird die Classic UI die Option main_config_file ignorieren, und stattdessen alle benötigten Einstellungen in
-  der cgi.cfg suchen. Sie finden diese in der Beispielkonfiguration in der Sektion "Standalone (Icinga 2)".
-  </para>
+  <para>Diese Option legt fest, ob die Classic UI "standalone" installiert und verwendet wird. Diese Option wurde mehrheitlich für Icinga 2
+  und dessen Compat Layer implementiert, kann aber auch in anderen Installationen verwendet werden, beispielsweise als zusätzliches
+  Dashboard. Wenn Sie diese Option aktivieren, wird die Classic UI die Option main_config_file ignorieren, und stattdessen alle benötigten
+  Einstellungen in der cgi.cfg suchen. Sie finden diese in der Beispielkonfiguration in der Sektion "Standalone (Icinga 2)".</para>
 
   <note>
-    <para>This option is available starting with &name-icinga; 1.9</para>
+    <para>Diese Option ist verfügbar ab &name-icinga; 1.9</para>
   </note>
 
+  <para><anchor xml:id="configcgi-show_partial_servicegroups"/><emphasis role="bold">Ansehen von partiellen Service-Gruppen
+  erlauben</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">show_partial_servicegroups=0|1</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">show_partial_servicegroups=1</emphasis></emphasis></para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Als Standard (d.h., wenn die Direktive nicht gesetzt oder deaktiviert ist) kann ein Benutzer eine Service-Gruppe und die darin
+  enthaltenen Hosts bzw. Service nur dann sehen, wenn er ein autorisierter Kontakt für alle Hosts und Services der Gruppe ist. Dieses
+  Verhalten kann mit der Direktive <literal>show_partial_servicegroups=1</literal> geändert werden. Wenn sie aktiviert ist, wird die
+  Service-Gruppen-Übersicht für alle Service-Gruppen eine partielle Auflistung von Hosts und Services zeigen, bei denen der Benutzer als
+  autorisierter Kontakt eingetragen ist. Sie zeigt außerdem den Hinweis "(Partial Servicegroups Enabled)" oben in der
+  Service-Gruppen-Übersicht, um Verwirrung darüber zu verhindern, ob die Direktive gesetzt ist oder nicht. Allerdings werden Service-Gruppen
+  nicht extra gekennzeichnet, bei denen nur eine partielle Auflistung gezeigt wird.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>0 - deaktiviert, Benutzer sieht nur vollständige Service-Gruppen (Standard)</para>
+    </listitem>
+
+    <listitem>
+      <para>1 - aktiviert, Benutzer sieht auch partielle Service-Gruppen</para>
+    </listitem>
+  </itemizedlist>
+
+  <note>
+    <para>Diese Option ist verfügbar ab &name-icinga; 1.10</para>
+  </note>
 
   <indexterm zone="configcgi">
     <primary>CGI-Konfiguration</primary>
@@ -2947,4 +2992,9 @@
     <secondary>Classic UI Standalone Installation Modus</secondary>
   </indexterm>
 
+  <indexterm zone="configcgi-show_partial_servicegroups">
+    <primary>show_partial_servicegroups=</primary>
+
+    <secondary>Ansehen von partiellen Service-Gruppen erlauben</secondary>
+  </indexterm>
 </section>
