@@ -952,6 +952,48 @@
     <para>This option determines the maximum size (in bytes) of the debug file. If the file grows larger than this size, it will be renamed
     with a .old extension. If a file already exists with a .old extension it will be deleted automatically. This helps to ensure that your
     disk space usage doesn't get out of control when debugging.</para>
+
+    <para><anchor xml:id="configido-dump_customvar_status"/> <emphasis role="bold">Dump status of custom variables</emphasis></para>
+
+    <informaltable frame="none">
+      <tgroup cols="2">
+        <colspec colname="c1" colwidth="20"/>
+
+        <colspec colname="c2" colwidth="*"/>
+
+        <tbody>
+          <row>
+            <entry><para>Format:</para></entry>
+
+            <entry><para><emphasis role="bold">dump_customvar_status=0|1</emphasis></para></entry>
+          </row>
+
+          <row>
+            <entry><para>Example:</para></entry>
+
+            <entry><para><emphasis condition="red" role="color"><emphasis role="bold">dump_customvar_status=1</emphasis>
+            </emphasis></para></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para>Custom variables are dumped as required configuration on core startup but also during runtime (there may be modifications via
+    external commands). Since these updates happen on each host/service/contact status update without any possibility to filter via
+    data_processing_options, this is made a separate config option. In most scenarios, those updates are not required, therefore the default
+    option is disabled.</para>
+
+    <para>Possible values are:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>0 = disabled (default)</para>
+      </listitem>
+
+      <listitem>
+        <para>1 = enabled</para>
+      </listitem>
+    </itemizedlist>
   </section>
 
   <section xml:id="ido2dboptions">
@@ -2116,6 +2158,12 @@
 
     <indexterm zone="configido-max_debug_file_size">
       <primary>max_debug_file_size=</primary>
+
+      <secondary>idomod.cfg</secondary>
+    </indexterm>
+
+    <indexterm zone="configido-dump_customvar_status">
+      <primary>dump_customvar_status=</primary>
 
       <secondary>idomod.cfg</secondary>
     </indexterm>
