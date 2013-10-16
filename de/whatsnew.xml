@@ -20,11 +20,28 @@
 
     <itemizedlist>
       <listitem>
-        <para>IDOUtils: ido2db.cfg enable_sla is now deprecated! #3450</para>
+        <para>Icinga Classic UI adds on-demand filter popup and livesearch for better usability #852 #1657</para>
       </listitem>
-
       <listitem>
-        <para>Icinga-Web: tackle cronk is now deprecated</para>
+        <para>custom vars are now visible in Icinga Classic UI. Filter them using 'exclude_customvar_{name,value}' #4390</para>
+      </listitem>
+      <listitem>
+        <para>remove slahistory, timedevents functionality #4363 #4482 </para>
+      </listitem>
+      <listitem>
+        <para>IDOUtils clean_{config,realtime}_tables_on_core_startup config options DEPRECATED #4791 </para>
+      </listitem>
+      <listitem>
+        <para>External Business Process Cronk removed from Icinga Web tarball #4818</para>
+      </listitem>
+      <listitem>
+        <para>All Flash components removed from the Icinga Web tarball. (#3474 #4806)</para>
+      </listitem>
+      <listitem>
+        <para>Icinga Web 1.10 requires an IDOUtils schema version of >= 1.10</para>
+      </listitem>
+      <listitem>
+        <para>Icinga Web and IDOUtils schema upgrades to 1.10 required.</para>
       </listitem>
     </itemizedlist>
   </section>
@@ -34,31 +51,23 @@
 
     <itemizedlist>
       <listitem>
-        <para>increase core performance on config read with hash compare #3722 </para>
+        <para>allow exclude (!) to work for regexp matches as well #3720 </para>
       </listitem>
 
       <listitem>
-	      <para>keep logfile open, reduce open/close performance decreases #3390 </para>
+	      <para>add check source to checkresult/status data #4709  </para>
       </listitem>
 
       <listitem>
-        <para>enhance performance on illegal macro and host-service relation processing #3389 #3820 </para>
+        <para>multiple idomod modules: only first gets data from registered callback functions #4199  </para>
       </listitem>
 
       <listitem>
-	      <para>add skipping of status.dat/objects.cache write by setting to /dev/null #3819 </para>
+        <para>add manpages from debian upstream #4055  </para>
       </listitem>
 
       <listitem>
-        <para>fix host_check last_check == next_check wrong in scheduling queue #2195 </para>
-      </listitem>
-
-      <listitem>
-        <para>fix triggered downtimes for child hosts are missing after restart #3390 </para>
-      </listitem>
-
-      <listitem>
-        <para>fix unable to exclude hostgroups when using nested hostgroups #2619 </para>
+        <para>add vim highlight script for Icinga syntax #4150  </para>
       </listitem>
 
     </itemizedlist>
@@ -68,32 +77,29 @@
     <title>Classic UI</title>
 
     <itemizedlist>
+
       <listitem>
-	      <para>increase performance with hash compare on host/service show/filter #3722 </para>
+        <para>add display filter modification for status.cgi #852  </para>
       </listitem>
 
       <listitem>
-	      <para>add date/time selector to logfile navigation #3168 </para>
+        <para>added live search #1657  </para>
       </listitem>
 
       <listitem>
-        <para>classicui can be installed standalone (icinga2 compat) #3869 </para>
+        <para>show custom variables in extended info #4390  </para>
       </listitem>
 
       <listitem>
-        <para>add config options for acknowledgement notifications and expiry #3467 #3476 </para>
+	      <para>allow to exclude custom variable name/value based on pattern #4390  </para>
       </listitem>
 
       <listitem>
-        <para>add 'executed command' to extinfo.cfg linking to command expander #3901 </para>
+        <para>added option for partial servicegroups #2740  </para>
       </listitem>
 
       <listitem>
-        <para>add process status to json response #3172 </para>
-      </listitem>
-
-      <listitem>
-        <para>add lighttp config examples #2253 </para>
+        <para>show check source in extinfo #4709  </para>
       </listitem>
 
     </itemizedlist>
@@ -103,24 +109,21 @@
     <title>IDOutils</title>
 
     <itemizedlist>
+
       <listitem>
-        <para>use transactions for large object dumps #3527 </para>
+        <para>add a table trimming option for 'downtime history' #3989  </para>
       </listitem>
 
       <listitem>
-        <para>add socket queue proxy (reduce core reload time significanlty) #3533 </para>
+        <para>allow to disable customvar status updates with dump_customvar_status=0|1 in idomod.cfg #4479  </para>
       </listitem>
 
       <listitem>
-        <para>oracle: change output columns to clob #3412 </para>
+	      <para>add object_id (host, service) to logentries status updates/state changes #4754  </para>
       </listitem>
 
       <listitem>
-	      <para>fix memory leaks in idomod/ido2db #3749 </para>
-      </listitem>
-
-      <listitem>
-	      <para>add workaround fix for num_rows_affected broken in libdbi/mariadb, returned ids are 0 #3728 </para>
+        <para>remove slahistory, timedevents functionality #4363 #4482  </para>
       </listitem>
 
     </itemizedlist>
@@ -130,32 +133,26 @@
     <title>Icinga-Web</title>
 
     <itemizedlist>
+
       <listitem>
-        <para>Revamped credential system, better grouping of permissions and performance #3715</para>
+        <para>menu categories split and layout changed #4807 #4691 </para>
       </listitem>
 
       <listitem>
-        <para>New and smaller Cronk menu design, showing the cronks as a list #3396</para>
+        <para>all problem cronks for hosts, services and split view #4167</para>
       </listitem>
 
       <listitem>
-        <para>New filtering window which allows detailed and combined filters #3268</para>
+	      <para>instance cronk is more useful and disable all notifications
+	        with expire time #3956 #3888</para>
       </listitem>
 
       <listitem>
-        <para>Many small interface improvements #3511 #3430 #3896</para>
+	      <para>delete all comments of a host/service #2636 </para>
       </listitem>
 
       <listitem>
-        <para>New Apache configuration, making the .htaccess files obsolete #2759</para>
-      </listitem>
-
-      <listitem>
-	      <para>Search in admin user- / group dialog #3909</para>
-      </listitem>
-
-      <listitem>
-        <para>PENDING are now shown for any new host or service in the database #2602 #3844</para>
+	      <para>add state_type shown in problems to all grids #3529 </para>
       </listitem>
 
     </itemizedlist>
@@ -165,24 +162,9 @@
     <title>Icinga-Reporting</title>
 
     <itemizedlist>
-      <listitem>
-	      <para>add AvailReportParser into contrib/ (standalone) #3978 </para>
-      </listitem>
 
       <listitem>
-        <para>reorganize directory structure #3742 </para>
-      </listitem>
-
-      <listitem>
-        <para>fixed image expression in pnp4nagios template #3693 </para>
-      </listitem>
-
-      <listitem>
-        <para>fixed state replacement in morning report #3752 </para>
-      </listitem>
-
-      <listitem>
-        <para>fixed rounding error with small numbers #3942 </para>
+        <para>minor sql fixes for templates in postgresql #1880</para>
       </listitem>
 
     </itemizedlist>
@@ -192,32 +174,33 @@
     <title>Docs</title>
 
     <itemizedlist>
+
       <listitem>
-	      <para>add upgrade/troubleshooting notes about invisible icinga web cronks/modules after upgrade #3939 </para>
+        <para>add samples files for reference #4422 </para>
       </listitem>
 
       <listitem>
-        <para>make install-webconf-auth installs htpasswd.user with icingaadmin credentials #3964 </para>
+        <para>update pnp screenshots, explain icinga web expander icon #4527 #4288 </para>
       </listitem>
 
       <listitem>
-        <para>icinga web 1.9: new menu style (smaller icons) #3944 </para>
+        <para>add hint to views.xml config file #4690 </para>
       </listitem>
 
       <listitem>
-        <para>icinga web 1.9: new filtering methods #3947 </para>
+        <para>add "show_partial_servicegroups" to cgi.cfg #4730 </para>
       </listitem>
 
       <listitem>
-        <para>add userpreferences.xml to icinga web configs #3991 </para>
+        <para>add "dump_customvar_status" to idomod.cfg #4705 </para>
       </listitem>
 
       <listitem>
-        <para>add web gui comparison to beginners #3907</para>
+        <para>remove enable_sla, timedevent* from idoutils docs #4487 </para>
       </listitem>
 
       <listitem>
-        <para>middle-clicking on TOC links doesn't open pages in new tab #3561 </para>
+        <para>update icinga web troubleshooting for timezones #4554 </para>
       </listitem>
 
     </itemizedlist>
