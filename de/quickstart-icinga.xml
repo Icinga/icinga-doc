@@ -241,6 +241,12 @@
 
     <programlisting> #&gt; ./configure --with-command-group=icinga-cmd --disable-idoutils</programlisting>
 
+    <note>
+      <para>Beginnend mit Apache 2.4 hat sich der Standard-Konfigurationsordner von <filename>/etc/apache2/conf.d</filename> in
+      <filename>/etc/apache2/conf-available</filename> geändert, so dass Sie abhängig von Ihrer Distribution (testing-versionen von
+      &name-debian; / &name-ubuntu;) dem Aufruf von configure diese Option hinzufügen müssen <screen>#&gt; ./configure --with-httpd-conf=/etc/apache2/conf-available</screen></para>
+    </note>
+
     <para>Kompilieren Sie den &name-icinga;-Source-Code. Um mögliche Optionen zu sehen, rufen Sie lediglich "make" auf.</para>
 
     <programlisting> #&gt; make all</programlisting>
@@ -296,7 +302,8 @@
     <para>Wenn Sie (zusätzlich) das neue Icinga Web installieren wollen, lesen Sie bitte <link linkend="icinga-web-scratch">Installation des
     Web-Interface</link>.</para>
 
-    <para>Installieren Sie die &name-icinga;-Web-Konfigurationsdatei im &name-apache; conf.d-Verzeichnis.</para>
+    <para>Installieren Sie die &name-icinga;-Web-Konfigurationsdatei im &name-apache; conf.d-Verzeichnis (bzw. conf-available ab Apache
+    2.4).</para>
 
     <programlisting> #&gt; make install-webconf</programlisting>
 
@@ -304,6 +311,10 @@
       <para>Ab &name-icinga; 1.9 installiert der Befehl 'make install-webconf-auth' zusätzlich die Datei
       <filename>htpasswd.users</filename>, die Anmeldeinformationen für den Benutzer <emphasis>icingaadmin</emphasis> enthält, so dass Sie
       den nächsten Schritt überspringen können. Das Passwort lautet <emphasis>icingaadmin</emphasis>.</para>
+    </note>
+
+    <note>
+      <para>Beginnend mit Apache 2.4 (testing-Versionen von &name-debian; / &name-ubuntu;) müssen Sie die Konfiguration aktivieren<screen>#&gt; a2enconf icinga</screen></para>
     </note>
 
     <para>Legen Sie ein <emphasis>icingaadmin</emphasis>-Konto an, um sich am klassischen Web-Interface anmelden zu können. Merken Sie sich

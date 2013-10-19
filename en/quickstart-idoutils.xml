@@ -458,6 +458,12 @@
 
     <screen> #&gt; ./configure --with-command-group=icinga-cmd</screen>
 
+    <note>
+      <para>Starting with Apache 2.4 the web configuration folder changed from <filename>/etc/apache2/conf.d</filename> to
+      <filename>/etc/apache2/conf-available</filename> so depending on your distribution (testing versions of &name-debian; / &name-ubuntu;
+      ) you might have to add this option to the call of configure <screen>#&gt; ./configure --with-httpd-conf=/etc/apache2/conf-available</screen></para>
+    </note>
+
     <para>Also with &name-postgres; you should not use the argument --enable-pgsq because it is not supported yet.</para>
 
     <important>
@@ -743,6 +749,10 @@
       <para>Starting with &name-icinga; 1.9 the command 'make install-webconf-auth' additionally installs the file
       <filename>htpasswd.users</filename> which contains credentials for the user <emphasis>icingaadmin</emphasis> so you can skip the
       following step. The password is <emphasis>icingaadmin</emphasis>.</para>
+    </note>
+
+    <note>
+      <para>Starting with Apache 2.4 (testing versions of &name-debian; / &name-ubuntu;) you have to enable the configuration <screen>#&gt; a2enconf icinga</screen></para>
     </note>
 
     <para>Create an <emphasis>icingaadmin</emphasis> account for logging into the &name-icinga; classic web interface. Remember the password

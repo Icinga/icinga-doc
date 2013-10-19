@@ -38,7 +38,6 @@
             <para><emphasis role="bold">Ubuntu / Debian</emphasis></para>
 
             <screen> #&gt; apt-get install php5 php5-cli php-pear php5-xmlrpc php5-xsl php5-mysql php-soap php5-gd php5-ldap php5-mysql</screen>
-
           </listitem>
 
           <listitem>
@@ -90,7 +89,6 @@
             <para><emphasis role="bold">Ubuntu / Debian</emphasis></para>
 
             <screen> #&gt; apt-get install php5 php5-cli php-pear php5-xmlrpc php5-xsl php-soap php5-gd php5-ldap php5-pgsql</screen>
-
           </listitem>
 
           <listitem>
@@ -176,6 +174,14 @@
           process depend on the distribution used.</para>
         </note>
 
+        <note>
+          <para>Starting with Apache 2.4 (testing versions of &name-debian; / &name-ubuntu;) the default web configuration folder has
+          changed from <filename>/etc/apache2/conf.d</filename> to <filename>/etc/apache2/conf-available</filename> so you might have to add
+          this option to the call of configure</para>
+
+          <screen>#&gt; ./configure --with-web-apache-path=/etc/apache2/conf-available</screen>
+        </note>
+
         <para>Please use:</para>
 
         <screen> #&gt; ./configure --help</screen>
@@ -201,6 +207,20 @@
         <para>Install the new Apache configuration</para>
 
         <screen> #&gt; make install-apache-config</screen>
+
+        <note>
+          Starting with Apache 2.4 (testing versions of 
+
+          &name-debian;
+
+           / 
+
+          &name-ubuntu;
+
+          ) you have to enable the module
+
+          <screen>#&gt; a2enconf icinga-web</screen>
+        </note>
 
         <para>If you don't need an alias, you can alternatively use the old behaviour setting a symlink instead: <screen> #&gt; make install-javascript</screen></para>
 

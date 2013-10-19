@@ -249,6 +249,14 @@
 
     <programlisting> #&gt; ./configure --with-command-group=icinga-cmd --disable-idoutils</programlisting>
 
+    <para><note>
+        <para>Starting with Apache 2.4 the default web configuration folder changed from <filename>/etc/apache2/conf.d</filename> to
+        <filename>/etc/apache2/conf-available</filename> so depending on your distribution (testing versions of &name-debian; /
+        &name-ubuntu;) you might have to add this option to the call of configure</para>
+
+        <screen>#&gt; ./configure --with-httpd-conf=/etc/apache2/conf-available</screen>
+      </note></para>
+
     <para>Compile the &name-icinga; source code. To see available options, only use "make".</para>
 
     <programlisting> #&gt; make all</programlisting>
@@ -299,17 +307,22 @@
     <para>If you are interested in the new &name-icinga; Web, please refer to <link linkend="icinga-web-scratch">Install &name-icinga; Web
     Interface</link>.</para>
 
-    <para>Install the Icinga Classic web config file in the Apache conf.d directory.</para>
+    <para>Install the Icinga Classic web config file in the Apache <filename>conf.d</filename> directory
+    (<filename>conf-available</filename> starting with Apache 2.4).</para>
 
     <programlisting> #&gt; make install-webconf</programlisting>
 
     <note>
-      <para>Starting with &name-icinga; 1.9 thecommand 'make install-webconf-auth' additionally installs the file
+      <para>Starting with &name-icinga; 1.9 the command 'make install-webconf-auth' additionally installs the file
       <filename>htpasswd.users</filename> which contains credentials for the user <emphasis>icingaadmin</emphasis> so you can skip the
       following step. The password is <emphasis>icingaadmin</emphasis>.</para>
     </note>
 
-    <para>Create an <emphasis>icingaadmin</emphasis> account for logging into the Icinga classic web interface. If you want to change it
+    <para><note>
+        <para>Starting with Apache 2.4 (testing versions of &name-debian; / &name-ubuntu;) you have to enable the configuration</para>
+
+        <screen>#&gt; a2enconf icinga</screen>
+      </note>Create an <emphasis>icingaadmin</emphasis> account for logging into the Icinga classic web interface. If you want to change it
     later, use the same command. Remember the password you assign to this account - you'll need it later.</para>
 
     <programlisting> #&gt; htpasswd -c &url-icinga-base;/etc/htpasswd.users icingaadmin</programlisting>

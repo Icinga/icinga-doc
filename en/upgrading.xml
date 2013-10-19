@@ -35,9 +35,9 @@
   </note>
 
   <note>
-    <para>Starting with 1.9, the directive <literal>event_profiling_enabled</literal> in <filename>icinga.cfg</filename> is deprecated.</para>
+    <para>Starting with 1.9, the directive <literal>event_profiling_enabled</literal> in <filename>icinga.cfg</filename> is
+    deprecated.</para>
   </note>
-
 
   <indexterm zone="upgrading_nagios">
     <primary>Upgrading</primary>
@@ -72,8 +72,8 @@
     Get the latest Icinga version from <link xlink:href="http://www.icinga.org/">&url-icinga;</link> and extract it. Then run configure like
     you did with the old version. <programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils</programlisting>
     Compile the source. <programlisting> #&gt; make all</programlisting> Please make sure that you don't overwrite your configs - always
-    make a backup! Don't use <code>make install-config</code> and/or <code>make install-webconf</code> and/or <code>make install-webconf-auth</code>if you want to manually diff the
-    config files. <programlisting> #&gt; make install install-base install-cgis install-html install-init \
+    make a backup! Don't use <code>make install-config</code> and/or <code>make install-webconf</code> and/or <code>make
+    install-webconf-auth</code>if you want to manually diff the config files. <programlisting> #&gt; make install install-base install-cgis install-html install-init \
     install-commandmode install-idoutils</programlisting> or decide what you want to upgrade by just typing 'make' which shows all available
     options. Check your config and restart Icinga. <programlisting> #&gt; /etc/init.d/icinga checkconfig
  #&gt; /etc/init.d/icinga restart</programlisting>That's it!</para>
@@ -94,6 +94,19 @@
    newfilename=`echo $oldfilename | sed -e 's/Icinga/icinga/g'`
    mv $oldfilename $newfilename
  done</programlisting>
+
+    <para><emphasis role="bold">Upgrading to Apache 2.4</emphasis></para>
+
+    <para>Starting with Apache 2.4 the default web configuration folder changed from <filename>/etc/apache2/conf.d</filename> to
+    <filename>/etc/apache2/conf-available</filename>. If you want to migrate then just move the file(s), enable the configuration(s) and
+    reload the web server: <screen>#&gt; mv /etc/apache2/conf.d/icinga*.conf /etc/apache2/conf-available
+#&gt; a2enconf icinga icinga-web
+#&gt; service apache2 reload</screen></para>
+
+    <note>
+      <para>Following <literal>a2enconf</literal> you have to specify the configuration. The example assumes that you have installed both
+      Icinga Classic UI and Icinga Web.</para>
+    </note>
   </section>
 
   <section xml:id="upgradenagios3x">

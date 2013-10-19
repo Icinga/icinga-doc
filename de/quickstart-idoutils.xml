@@ -459,6 +459,12 @@
 
     <programlisting> #&gt; ./configure --with-command-group=icinga-cmd</programlisting>
 
+    <note>
+      <para>Beginnend mit Apache 2.4 hat sich der Standard-Konfigurationsordner von <filename>/etc/apache2/conf.d</filename> in
+      <filename>/etc/apache2/conf-available</filename> geändert, so dass Sie abhängig von Ihrer Distribution (testing-Versionen von
+      &name-debian; / &name-ubuntu;) dem Aufruf von configure diese Option hinzufügen müssen <screen>#&gt; ./configure --with-httpd-conf=/etc/apache2/conf-available</screen></para>
+    </note>
+
     <important>
       <para>Das Kompilieren auf Solaris kann wegen unerfüllten Bibliotheksabhängigkeiten von gethostbyname fehlschlagen. Wenn dies der Fall
       ist, führen Sie folgenden Befehl vor configure aus:</para>
@@ -744,6 +750,10 @@
       <para>Ab &name-icinga; 1.9 installiert der Befehl 'make install-webconf-auth' zusätzlich die Datei
       <filename>htpasswd.users</filename>, die Anmeldeinformationen für den Benutzer <emphasis>icingaadmin</emphasis> enthält, so dass Sie
       den nächsten Schritt überspringen können. Das Passwort lautet <emphasis>icingaadmin</emphasis>.</para>
+    </note>
+
+    <note>
+      <para>Beginnend mit Apache 2.4 (testing-Versionen von &name-debian; / &name-ubuntu;) müssen Sie die Konfiguration aktivieren<screen>#&gt; a2enconf icinga</screen></para>
     </note>
 
     <para>Legen Sie ein <emphasis>icingaadmin</emphasis>-Konto an, um sich am klassischen Web-Interface anmelden zu können. Merken Sie sich

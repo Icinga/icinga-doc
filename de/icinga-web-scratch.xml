@@ -37,7 +37,6 @@
             <para><emphasis role="bold">Ubuntu / Debian</emphasis></para>
 
             <screen> #&gt; apt-get install php5 php5-cli php-pear php5-xmlrpc php5-xsl php5-mysql php5-ldap php-soap php5-gd php5-mysql</screen>
-
           </listitem>
 
           <listitem>
@@ -85,7 +84,6 @@
             <para><emphasis role="bold">Ubuntu / Debian</emphasis></para>
 
             <screen> #&gt; apt-get install php5 php5-cli php-pear php5-xmlrpc php5-xsl php5-ldap php5-soap php5-gd php5-pgsql</screen>
-
           </listitem>
 
           <listitem>
@@ -172,6 +170,12 @@
           Gruppenname des Web-Prozesses sind abhängig von der verwendeten Distribution.</para>
         </note>
 
+        <note>
+          <para>Beginnend mit Apache 2.4 hat sich der Standard-Konfigurationsordner von <filename>/etc/apache2/conf.d</filename> in
+          <filename>/etc/apache2/conf-available</filename> geändert, so dass Sie abhängig von Ihrer Distribution (testing-Versionen von
+          &name-debian; / &name-ubuntu;) dem Aufruf von configure diese Option hinzufügen müssen <screen>#&gt; ./configure --with-web-apache-path=/etc/apache2/conf-available</screen></para>
+        </note>
+
         <para>Alle Konfigurationsmöglichkeiten sehen Sie mit:</para>
 
         <screen> #&gt; ./configure --help</screen>
@@ -196,6 +200,11 @@
         <para>Installation der neuen Apache-Konfiguration</para>
 
         <screen> #&gt; make install-apache-config</screen>
+
+        <note>
+          <para>Beginnend mit Apache 2.4 (testing-Versionen von &name-debian; / &name-ubuntu;) müssen Sie die Konfiguration
+          aktivieren<screen>#&gt; a2enconf icinga-web</screen></para>
+        </note>
 
         <para>Wenn Sie das nicht möchten, können Sie das bisherige Verfahren nutzen, durch die Eingabe von:</para>
 
@@ -386,7 +395,7 @@
 
         <note>
           <para>Optional: Ihre spezifischen &name-icinga; Datenbankeinstellungen können Sie vornehmen in
-          <filename>etc/conf.d/database.xml</filename> (oder dem web-conf-folder Ziel). Es gibt zwei Datenbanken: icinga_web (welche für die
+          <filename>etc/conf.d/database.xml</filename> (oder dem web_conf_path-Ziel). Es gibt zwei Datenbanken: icinga_web (welche für die
           interne Verwaltung von icinga_web verwendet wird) und icinga, welche auf die Datenbank zeigt, in die ido2db schreibt. Diese
           Informationen bleiben während eines Update-Prozesses erhalten.</para>
         </note>

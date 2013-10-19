@@ -82,6 +82,20 @@
     <programlisting> #&gt; /etc/init.d/icinga checkconfig
  #&gt; /etc/init.d/icinga restart</programlisting>
 
+    <para><emphasis role="bold">Aktualisieren auf Apache 2.4</emphasis></para>
+
+      <para>Beginnend mit Apache 2.4 hat sich der Standard-Konfigurationsordner von <filename>/etc/apache2/conf.d</filename> in
+      <filename>/etc/apache2/conf-available</filename> geändert. Wenn Sie migrieren wollen, dann verschieben Sie einfach die Datei(en), aktivieren die Konfiguration(en) und starten den Web-Server neu<screen>#&gt; mv /etc/apache2/conf.d/icinga*.conf /etc/apache2/conf-available
+#&gt; a2enconf icinga icinga-web
+#&gt; service apache2 reload</screen></para>
+
+    <note><para>
+      Hinter
+
+      <literal>a2enconf</literal>
+
+      geben Sie die Konfiguration(en) an. Das Beispiel nimmt an, dass Sie Icinga Classic UI und Icinga Web installiert haben.
+    </para></note>
     <para>Das war's - Sie sind fertig!</para>
 
     <indexterm zone="upgrading-icinga">
