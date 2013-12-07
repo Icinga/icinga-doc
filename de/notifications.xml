@@ -88,14 +88,129 @@
     linkend="flapping">flattert</link> (wenn Sie Flatter-Erkennung aktiviert haben). Falls der Service oder Host gerade flattert, <emphasis
     role="bold">wird niemand informiert</emphasis>. Andernfalls geht es weiter zum nächsten Filter.</para>
 
-    <para>Der dritte für Hosts oder Services zu durchlaufende Filter sind die Host- oder Service-spezifischen Benachrichtigungsoptionen.
-    Jede Service-Definition enthält Optionen, die festlegen, ob Benachrichtungen für Warnungen, kritische Zustände oder Erholungen versandt
+    <para>Der dritte für Hosts oder Services zu durchlaufende Filter sind die <link linkend="objectdefinitions-host">Host</link>- oder <link
+    linkend="objectdefinitions-service">Service</link>-spezifischen Benachrichtigungsoptionen (sh. Links bzw. nachfolgende Tabelle). Jede
+    Service-Definition enthält Optionen, die festlegen, ob Benachrichtungen für Warnungen, kritische Zustände oder Erholungen versandt
     werden oder nicht. Ähnlich ist es bei Hosts, wo festgelegt wird, ob Benachrichtigungen versandt werden, wenn der Host down geht,
     unerreichbar wird oder sich wieder erholt. Falls die Host- oder Service-Benachrichtigungen diese Optionen nicht passieren, <emphasis
     role="bold">wird niemand informiert</emphasis>. Wenn sie die Optionen durchlaufen, geht es zum nächsten Filter... Anmerkung:
     Benachrichtigungen über Host- oder Service-Erholungen werden nur dann versandt, wenn auch eine Benachrichtigung über das ursprüngliche
     Problem versandt wurde. Es ist nicht sinnvoll, eine Benachrichtigung über eine Erholung zu bekommen, wenn Sie nicht wussten, dass ein
     Problem existiert.</para>
+
+    <para/>
+
+    <anchor xml:id="notifications-options"/>
+
+    <informaltable>
+      <tgroup cols="2">
+        <thead>
+          <row>
+            <entry align="center">Option</entry>
+
+            <entry align="center">Bedeutung der Host-Benachrichtigungsoption</entry>
+          </row>
+        </thead>
+
+        <tbody>
+          <row>
+            <entry>d</entry>
+
+            <entry>Benachrichtigungen bei einem DOWN-Zustand versenden</entry>
+          </row>
+
+          <row>
+            <entry>u</entry>
+
+            <entry>Benachrichtigungen bei einem UNREACHABLE-Zustand versenden</entry>
+          </row>
+
+          <row>
+            <entry>r</entry>
+
+            <entry>Benachrichtigungen bei Erholungen (OK-Zustand) versenden</entry>
+          </row>
+
+          <row>
+            <entry>f</entry>
+
+            <entry>Benachrichtigungen versenden, wenn der Host mit <link linkend="flapping">Flattern</link> anfängt bzw. aufhört</entry>
+          </row>
+
+          <row>
+            <entry>s</entry>
+
+            <entry>Benachrichtigungen versenden, wenn eine <link linkend="downtime">geplante Ausfallzeit</link> anfängt oder aufhört</entry>
+          </row>
+
+          <row>
+            <entry>n</entry>
+
+            <entry>Es werden keine Benachrichtungen versandt, <emphasis role="bold">egal wie die anderen Optionen aussehen
+            mögen</emphasis></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para/>
+
+    <informaltable>
+      <tgroup cols="2">
+        <thead>
+          <row>
+            <entry align="center">Option</entry>
+
+            <entry align="center">Bedeutung der Service-Benachrichtigungsoption</entry>
+          </row>
+        </thead>
+
+        <tbody>
+          <row>
+            <entry>w</entry>
+
+            <entry>Benachrichtigungen bei einem WARNING-Zustand versenden</entry>
+          </row>
+
+          <row>
+            <entry>c</entry>
+
+            <entry>Benachrichtigungen bei einem CRITICAL-Zustand versenden</entry>
+          </row>
+
+          <row>
+            <entry>u</entry>
+
+            <entry>Benachrichtigungen bei einem UNKNOWN-Zustand versenden</entry>
+          </row>
+
+          <row>
+            <entry>r</entry>
+
+            <entry>Benachrichtigungen bei Erholungen (OK-Zustand) versenden</entry>
+          </row>
+
+          <row>
+            <entry>f</entry>
+
+            <entry>Benachrichtigungen versenden, wenn der Service mit <link linkend="flapping">Flattern</link> anfängt bzw. aufhört</entry>
+          </row>
+
+          <row>
+            <entry>s</entry>
+
+            <entry>Benachrichtigungen versenden, wenn eine <link linkend="downtime">geplante Ausfallzeit</link> anfängt oder aufhört</entry>
+          </row>
+
+          <row>
+            <entry>n</entry>
+
+            <entry>Es werden keine Benachrichtungen versandt, <emphasis role="bold">egal wie die anderen Optionen aussehen
+            mögen</emphasis></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
 
     <para>Der vierte Host- oder Service-Filter, der durchlaufen werden muss, ist der Zeitfenster-Test. Jede Host- und Service-Definition hat
     eine &lt;<emphasis>notification_period</emphasis>&gt;-Option, die angibt, welches Zeitfenster gültige Benachrichtigungszeiten für den

@@ -87,7 +87,8 @@
     linkend="flapping">flapping</link> (if you enabled flap detection). If the service or host is currently flapping, <emphasis
     role="bold">no one gets notified</emphasis>. Otherwise it gets passed to the next filter.</para>
 
-    <para>The third host or service filter that must be passed is the host- or service-specific notification options. Each service
+    <para>The third host or service filter that must be passed is the <link linkend="objectdefinitions-host">host</link>- or <link
+    linkend="objectdefinitions-service">service</link>-specific notification options (see links and table below for details). Each service
     definition contains options that determine whether or not notifications can be sent out for warning states, critical states, and
     recoveries. Similiarly, each host definition contains options that determine whether or not notifications can be sent out when the host
     goes down, becomes unreachable, or recovers. If the host or service notification does not pass these options, <emphasis role="bold">no
@@ -97,6 +98,118 @@
       <para>Notifications about host or service recoveries are only sent out if a notification was sent out for the original problem. It
       doesn't make sense to get a recovery notification for something you never knew was a problem.</para>
     </note>
+
+    <anchor xml:id="notifications-options"/>
+
+    <para/>
+
+    <informaltable>
+      <tgroup cols="2">
+        <thead>
+          <row>
+            <entry align="center">option</entry>
+
+            <entry align="center">meaning of host notification option</entry>
+          </row>
+        </thead>
+
+        <tbody>
+          <row>
+            <entry>d</entry>
+
+            <entry>send notifications on a DOWN state</entry>
+          </row>
+
+          <row>
+            <entry>u</entry>
+
+            <entry>send notifications on an UNREACHABLE state</entry>
+          </row>
+
+          <row>
+            <entry>r</entry>
+
+            <entry>send notifications on recoveries (OK state)</entry>
+          </row>
+
+          <row>
+            <entry>f</entry>
+
+            <entry>send notifications when the host starts and stops <link linkend="flapping">flapping</link></entry>
+          </row>
+
+          <row>
+            <entry>s</entry>
+
+            <entry>send notifications when <link linkend="downtime">scheduled downtime</link> starts and ends</entry>
+          </row>
+
+          <row>
+            <entry>n</entry>
+
+            <entry>no notifications are sent, <emphasis role="bold">no matter what the other options might be</emphasis></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <para/>
+
+    <informaltable>
+      <tgroup cols="2">
+        <thead>
+          <row>
+            <entry align="center">option</entry>
+
+            <entry align="center">meaning of service notification option</entry>
+          </row>
+        </thead>
+
+        <tbody>
+          <row>
+            <entry>w</entry>
+
+            <entry>send notifications on a WARNING state</entry>
+          </row>
+
+          <row>
+            <entry>c</entry>
+
+            <entry>send notifications on an CRITICAL state</entry>
+          </row>
+
+          <row>
+            <entry>u</entry>
+
+            <entry>send notifications on an UNKNOWN state</entry>
+          </row>
+
+          <row>
+            <entry>r</entry>
+
+            <entry>send notifications on recoveries (OK state)</entry>
+          </row>
+
+          <row>
+            <entry>f</entry>
+
+            <entry>send notifications when the service starts and stops <link linkend="flapping">flapping</link></entry>
+          </row>
+
+          <row>
+            <entry>s</entry>
+
+            <entry>send notifications when <link linkend="downtime">scheduled downtime</link> starts and ends</entry>
+          </row>
+
+          <row>
+            <entry>n</entry>
+
+            <entry>no notifications are sent, <emphasis role="bold">no matter what the other options might be</emphasis></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
 
     <para>The fourth host or service filter that must be passed is the time period test. Each host and service definition has a
     &lt;<emphasis>notification_period</emphasis>&gt; option that specifies which time period contains valid notification times for the host
