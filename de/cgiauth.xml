@@ -6,13 +6,13 @@
 <section version="5.0" xml:id="cgiauth" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-  <title>Authentifizierung und Autorisierung in den CGIs</title>
+  <title>Authentifizierung und Autorisierung im Classic UI</title>
 
   <section xml:id="introduction">
     <title>Einführung</title>
 
-    <para>Dieses Dokument beschreibt, wie die &name-icinga;-CGIs entscheiden, wer die Überwachungs- und Konfigurationsinformationen sehen
-    darf und wer über das Web-Interface Befehle an den &name-icinga;-Daemon erteilen darf.</para>
+    <para>Dieses Dokument beschreibt, wie das &name-icinga;-Classic UI (früher "CGIs" genannt) entscheiden, wer die Überwachungs- und
+    Konfigurationsinformationen sehen darf und wer über das Web-Interface Befehle an den &name-icinga;-Daemon erteilen darf.</para>
   </section>
 
   <section xml:id="definitionscgiauth">
@@ -24,7 +24,7 @@
     <itemizedlist>
       <listitem>
         <para>Ein <emphasis role="bold">authentifizierter Benutzer</emphasis> ist jemand, der sich dem Web-Server gegenüber mit Benutzer und
-        Passwort authentifiziert hat und dem Zugang zum &name-icinga;-Web-Interface gewährt wurde.</para>
+        Passwort authentifiziert hat und dem Zugang zum &name-icinga;-Classic-Web-Interface gewährt wurde.</para>
       </listitem>
 
       <listitem>
@@ -38,23 +38,23 @@
     <title>Erstellen von authentifizierten Benutzern</title>
 
     <para>Wenn wir annehmen, dass Sie Ihren Web-Server wie in der <link linkend="quickstart">Schnellstart-Anleitung</link> konfiguriert
-    haben, dann sollte er Sie dazu auffordern, sich zu authentifizieren, bevor Sie die &name-icinga;-CGIs benutzen können. Sie sollten
-    außerdem ein Benutzerkonto (<emphasis>icingaadmin</emphasis>) haben, das Zugang zu den CGIs hat.</para>
+    haben, dann sollte er Sie dazu auffordern, sich zu authentifizieren, bevor Sie das &name-icinga;-Classic UI benutzen können. Sie sollten
+    außerdem ein Benutzerkonto (<emphasis>icingaadmin</emphasis>) haben, das Zugang zum Classic UI hat.</para>
 
     <para>Während Sie weitere <link linkend="objectdefinitions-contact">Kontakte</link> definieren, um Host- und Service-Benachrichtigungen
     zu erhalten, möchten Sie wahrscheinlich auch, dass sie Zugang zum &name-icinga;-Web-Interface haben. Sie können den folgenden Befehl
-    benutzen, um zusätzliche Benutzer hinzuzufügen, die sich bei den CGI authentifizieren können. Ersetzen Sie &lt;username&gt; durch den
-    Benutzernamen, den Sie hinzufügen möchten. In den meisten Fällen sollte der Benutzername mit dem Kurznamen eines <link
+    benutzen, um zusätzliche Benutzer hinzuzufügen, die sich beim Classic UI authentifizieren können. Ersetzen Sie &lt;username&gt; durch
+    den Benutzernamen, den Sie hinzufügen möchten. In den meisten Fällen sollte der Benutzername mit dem Kurznamen eines <link
     linkend="objectdefinitions-contact">Kontakts</link> übereinstimmen, den Sie definiert haben.</para>
 
     <screen> htpasswd &url-icinga-base;/etc/htpasswd.users &lt;username&gt;</screen>
   </section>
 
   <section xml:id="enablecgiauth">
-    <title>Aktivieren der Authentifizierungs/Autorisierungsfunktionalität in den CGIs</title>
+    <title>Aktivieren der Authentifizierungs/Autorisierungsfunktionalität im Classic UI</title>
 
-    <para>Als nächstes sollten Sie sicherstellen, dass die CGI so konfiguriert sind, dass sie die Authentifizierungs- und
-    Autorisierungsfunktionalität nutzen, um festzulegen, welchen Zugang Benutzer zu Informationen und/oder Befehlen haben. Dies wird durch
+    <para>Als nächstes sollten Sie sicherstellen, dass das Classic UI so konfiguriert ist, dass es die Authentifizierungs- und
+    Autorisierungsfunktionalität nutzt, um festzulegen, welchen Zugang Benutzer zu Informationen und/oder Befehlen haben. Dies wird durch
     die <link linkend="configcgi-use_authentication">use_authentication</link>-Variable in der <link
     linkend="configcgi">CGI-Konfigurationsdatei</link> erreicht, die einen Wert ungleich Null haben muss. Beispiel:</para>
 
@@ -65,10 +65,10 @@
   </section>
 
   <section xml:id="defaultpermissions">
-    <title>Standardberechtigungen für CGI-Informationen</title>
+    <title>Standardberechtigungen für Classic UI-Informationen</title>
 
-    <para>Welche Standardberechtigungen haben Benutzer in den CGIs, wenn die Authentifizierungs- und Autorisierungsfunktionalität aktiviert
-    ist?</para>
+    <para>Welche Standardberechtigungen haben Benutzer im Classic UI, wenn die Authentifizierungs- und Autorisierungsfunktionalität
+    aktiviert ist?</para>
 
     <informaltable frame="all">
       <tgroup cols="3">
@@ -278,11 +278,11 @@
     </itemizedlist>
 
     <para>Sie werden unzweifelhaft Zugang zu diesen Informationen haben wollen, so dass Sie wie unten beschrieben zusätzliche Rechte für
-	    sich (und vielleicht andere Benutzer) zuweisen möchten.</para>
-    </section>
+    sich (und vielleicht andere Benutzer) zuweisen möchten.</para>
+  </section>
 
-    <section xml:id="additionalpermissions">
-	      <title>Zusätzliche Berechtigungen zu CGI-Informationen gewähren</title>
+  <section xml:id="additionalpermissions">
+    <title>Zusätzliche Berechtigungen zu Classic UI-Informationen gewähren</title>
 
     <para>Uns ist klar, dass die verfügbaren Optionen es nicht erlauben, sehr genau auf bestimmte Berechtigungen einzugehen, aber es ist
     besser als nichts...</para>
@@ -322,9 +322,9 @@
   </section>
 
   <section xml:id="requirementscgiauth">
-    <title>CGI-Autorisierungsanforderungen</title>
+    <title>Classic UI-Autorisierungsanforderungen</title>
 
-    <para>Wenn Sie verwirrt sind, welche Autorisierung Sie benötigen, um Zugang zu verschiedenen Informationen in den CGIs zu bekommen,
+    <para>Wenn Sie verwirrt sind, welche Autorisierung Sie benötigen, um Zugang zu verschiedenen Informationen im Classic UI zu bekommen,
     lesen Sie <link linkend="cgis">hier</link> den Abschnitt <emphasis> <emphasis role="bold">Autorisierungsanforderungen</emphasis>
     </emphasis>, in dem jedes CGI beschrieben ist.</para>
   </section>
@@ -333,58 +333,58 @@
     <title>Authentifizierung auf sicheren Web-Servern</title>
 
     <para>Wenn Ihr Web-Server in einer sicheren Domäne steht (d.h. hinter einer Firewall) oder wenn Sie SSL benutzen, dann können Sie einen
-    Standard-Benutzernamen definieren, der verwendet werden kann, um die CGI aufzurufen. Dies wird durch die Definition der <link
+    Standard-Benutzernamen definieren, der verwendet werden kann, um das Classic UI aufzurufen. Dies wird durch die Definition der <link
     linkend="configcgi-default_user_name">default_user_name</link>-Option in der <link linkend="configcgi">CGI-Konfigurationsdatei</link>
-    erreicht. Durch die Definition eines Standard-Benutzernamens, der die CGIs aufrufen kann, können Sie Benutzern erlauben, die CGIs
+    erreicht. Durch die Definition eines Standard-Benutzernamens, der die CGIs aufrufen kann, können Sie Benutzern erlauben, das Classic UI
     aufzurufen, ohne dass sie sich am Web-Server authentifizieren müssen. Sie möchten das vielleicht nutzen, um die Verwendung der
     Basis-Web-Authentifizierung zu verhindern, weil diese Passwörter im Klartext über das Internet überträgt.</para>
 
     <para><emphasis role="bold">Wichtig:</emphasis> Definieren Sie <emphasis>keinen</emphasis> Standard-Benutzernamen, solange Sie nicht
-    einen sicheren Web-Server haben und sicher sind, dass sich jeder, der die CGIs aufruft, in irgendeiner Weise authentifiziert hat. Wenn
-    Sie diese Variable definieren, dann wird jeder, der sich am Web-Server authentifiziert, alle Rechte dieses Benutzers erben!</para>
+    einen sicheren Web-Server haben und sicher sind, dass sich jeder, der das Classic UI aufruft, in irgendeiner Weise authentifiziert hat.
+    Wenn Sie diese Variable definieren, dann wird jeder, der sich am Web-Server authentifiziert, alle Rechte dieses Benutzers erben!</para>
 
     <indexterm zone="cgiauth">
-      <primary>CGI-Autorisierung</primary>
+      <primary>Classic UI-Autorisierung (CGI-Autorisierung)</primary>
     </indexterm>
 
     <indexterm zone="definitionscgiauth">
-      <primary>CGI-Authentifizierung</primary>
+      <primary>Classic UI-Authentifizierung (CGI-Authentifizierung)</primary>
 
       <secondary>Authentifizierter Kontakt</secondary>
     </indexterm>
 
     <indexterm zone="definitionscgiauth">
-      <primary>CGI-Authentifizierung</primary>
+      <primary>Classic UI-Authentifizierung (CGI-Authentifizierung)</primary>
 
       <secondary>Authentifizierter Benutzer</secondary>
     </indexterm>
 
     <indexterm zone="cgiauth-config_web_users">
-      <primary>CGI-Authentifizierung</primary>
+      <primary>Classic UI-Authentifizierung (CGI-Authentifizierung)</primary>
 
       <secondary>Erstellen von authentifizierten Benutzern</secondary>
     </indexterm>
 
     <indexterm zone="cgiauth-enable_cgi_auth">
-      <primary>CGI-Authentifizierung</primary>
+      <primary>Classic UI-Authentifizierung (CGI-Authentifizierung)</primary>
 
       <secondary>Aktivieren der Authentifizierungs/Autorisierungsfunktionalität in den CGIs</secondary>
     </indexterm>
 
     <indexterm zone="cgiauth-default_rights">
-      <primary>CGI-Authentifizierung</primary>
+      <primary>Classic UI-Authentifizierung (CGI-Authentifizierung)</primary>
 
       <secondary>Standardberechtigungen für CGI-Informationen</secondary>
     </indexterm>
 
     <indexterm zone="cgiauth-additional_rights">
-      <primary>CGI-Authentifizierung</primary>
+      <primary>Classic UI-Authentifizierung (CGI-Authentifizierung)</primary>
 
       <secondary>Zusätzliche Berechtigungen zu CGI-Informationen gewähren</secondary>
     </indexterm>
 
     <indexterm zone="cgiauth-secure_web_servers">
-      <primary>CGI-Authentifizierung</primary>
+      <primary>Classic UI-Authentifizierung (CGI-Authentifizierung)</primary>
 
       <secondary>Authentifizierung auf sicheren Web-Servern</secondary>
     </indexterm>
