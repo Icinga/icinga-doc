@@ -2446,18 +2446,48 @@
   Enabled)" to the top of the Servicegroup Overview to help prevent any confusion over whether the option is in use or not. However for
   privacy reasons, servicegroups that are only showing a partial listing are not specifically indicated.</para>
 
+  <para><anchor xml:id="configcgi-disable_cmd_cgi_csrf_proctection"/><emphasis role="bold">Disable CSRF protection for command
+  cgi</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">disable_cmd_cgi_csrf_proctection=0|1</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">disable_cmd_cgi_csrf_proctection=1</emphasis></emphasis></para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>By default (meaning the directive is not present or disabled), a command submitted by an external program (like Nagstamon) accessing
+  cmd.cgi directly will be rejected to protect against CSRF attacks (Cross-Site Request Forgery). Enable (=1) this option only if you need
+  this functionality.</para>
+
   <itemizedlist>
     <listitem>
-      <para>0 - disabled, user only sees full servicegroups (default)</para>
+      <para>0 - disabled, protect against CSRF attacks (default)</para>
     </listitem>
 
     <listitem>
-      <para>1 - enabled, user sees partial servicegroups</para>
+      <para>1 - enabled, allow external programs to submit commands</para>
     </listitem>
   </itemizedlist>
 
   <note>
-    <para>This option is available starting with &name-icinga; 1.10</para>
+    <para>This option is available starting with &name-icinga; 1.11</para>
   </note>
 
   <indexterm zone="config_cgi">
@@ -2880,5 +2910,11 @@
     <primary>show_partial_servicegroups=</primary>
 
     <secondary>Allow viewing of partial service groups</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-disable_cmd_cgi_csrf_protection">
+    <primary>disable_cmd_cgi_csrf_protection=</primary>
+
+    <secondary>Disable protection of cmd.cgi against csrf attacks</secondary>
   </indexterm>
 </section>
