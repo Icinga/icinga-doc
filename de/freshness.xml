@@ -140,7 +140,7 @@
     <para>Beachten Sie, dass aktive Prüfungen für den Service deaktiviert sind. Das ist so, weil die Ergebnisse für den Service nur durch
     eine externe Applikation geliefert werden. Die Frische-Prüfung ist aktiviert und der Frische-Schwellwert ist auf 26 Stunden gesetzt. Das
     ist ein bisschen mehr als 24 Stunden, weil Backup-Jobs ab und zu länger dauern (abhängig davon, wie viele Daten zu sichern sind, wie
-    viel Netzwerkverkehr herrscht, usw.). Das <emphasis>no-backup-report</emphasis>-Kommando wird nur ausgeführt, wenn die Ergebnissse des
+    viel Netzwerkverkehr herrscht, usw.). Das <emphasis>no-backup-report</emphasis>-Kommando wird nur ausgeführt, wenn die Ergebnisse des
     Service als abgestanden angesehen werden. Die Definition des <emphasis>no-backup-report</emphasis>-Kommandos könnte wie folgt
     aussehen...</para>
 
@@ -158,6 +158,68 @@
       <primary>Frische (freshness)</primary>
 
       <secondary>Service- und Host-Frischeprüfungen</secondary>
+    </indexterm>
+  </section>
+
+  <section xml:id="stale">
+    <title>"Check results ... are stale. Forcing an immediate check ...</title>
+
+    <para>Manchmal finden Sie vielleicht Meldungen wie die folgende in icinga.log:<screen> Check results for service x on host y are stale by 0d 0h 0m 10s (threshold=0d 0h 10m 0s).
+ Forcing an immediate check of the service...</screen></para>
+
+    <para>Das bedeutet, dass der Service in der Vergangenheit geprüft wurde und die als Schwellwert definierte Zeit (z.B. 10min) vergangen
+    ist, ohne dass ein neues Prüfergebnis geliefert wurde, so dass eine Prüfung durch den Core erzwungen wird.</para>
+
+    <para>Die Meldung kommt aus dem Code-Fragment in base/checks.c (Zeilen wurden umgebrochen, um die Lesbarkeit zu
+    verbessern)<programlisting> /* the results for the last check of this service are stale */
+    if (expiration_time &lt; current_time) {
+
+       get_time_breakdown((current_time - expiration_time), &amp;days, &amp;hours, &amp;minutes, &amp;seconds);
+       get_time_breakdown(freshness_threshold, &amp;tdays, &amp;thours, &amp;tminutes, &amp;tseconds);
+
+       /* log a warning */ 
+       if (log_this == TRUE)
+          logit(NSLOG_RUNTIME_WARNING, TRUE,
+             "Warning: The results of service '%s' on host '%s' are stale by %dd %dh %dm %ds (threshold=%dd %dh %dm %ds).
+             I'm forcing an immediate check of the service.\n",
+             temp_service-&gt;description, temp_service-&gt;host_name,
+             days, hours, minutes, seconds, tdays, thours, tminutes, tseconds
+          );
+
+       log_debug_info(DEBUGL_CHECKS, 1,
+          "Check results for service '%s' on host '%s' are stale by %dd %dh %dm %ds (threshold=%dd %dh %dm %ds).
+          Forcing an immediate check of the service...\n",
+          temp_service-&gt;description, temp_service-&gt;host_name,
+          days, hours, minutes, seconds, tdays, thours, tminutes, tseconds
+       );
+
+       return FALSE;
+    }</programlisting>Normalerweise trifft folgendes zu<itemizedlist>
+        <listitem>
+          <para><literal>expiration_time</literal> = last_check + freshness threshold (z.B. 10 Min.)</para>
+        </listitem>
+
+        <listitem>
+          <para>expiration_time ist in der Vergangenheit (<literal>&lt; current_time</literal>) == stale</para>
+        </listitem>
+
+        <listitem>
+          <para>der Unterschied zwischen jetzt und expiration_time wird im Protokoll angezeigt (z.B. 10 Sek.)</para>
+        </listitem>
+      </itemizedlist>Falls der Service nicht jetzt, aber bereits in der Vergangenheit geprüft wurde (event_start &gt; last_check) und der
+    Schwellwert 0 ist, wird max_service_check_spread multipliziert mit dem Intervall als zusätzlicher Offset addiert (das passiert während
+    der Startphase, um festzustellen, wann die erste Prüfung (und Status + Ausgabe) erfolgen muss).</para>
+
+    <indexterm zone="stale">
+      <primary>Frische (freshness)</primary>
+
+      <secondary>Check results ... are stale. Forcing an immediate check</secondary>
+    </indexterm>
+
+    <indexterm zone="stale">
+      <primary>stale</primary>
+
+      <secondary>Check results ... are stale. Forcing an immediate check</secondary>
     </indexterm>
   </section>
 </section>
