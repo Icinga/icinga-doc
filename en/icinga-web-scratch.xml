@@ -272,9 +272,6 @@
 
         <para>The user must have default data privileges like SELECT, UPDATE, INSERT, DELETE.</para>
 
-        <screen> SQL&gt; GRANT USAGE ON *.* TO 'icinga_web'@'localhost' IDENTIFIED BY 'icinga_web';
- SQL&gt; GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER, INDEX ON icinga_web.* TO 'icinga_web'@'localhost';</screen>
-
         <itemizedlist>
           <listitem>
             <para><emphasis role="bold">&name-mysql;</emphasis></para>
@@ -283,11 +280,7 @@
 
  mysql&gt; CREATE DATABASE icinga_web;
 
-        GRANT USAGE ON *.* TO 'icinga_web'@'localhost' IDENTIFIED BY 'icinga_web' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0;
-
-        GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER, INDEX ON icinga_web.* TO 'icinga_web'@'localhost';
-
-        FLUSH PRIVILEGES;
+ 	   GRANT SELECT, INSERT, UPDATE, DELETE, DROP, CREATE VIEW, INDEX, EXECUTE ON icinga_web.* TO 'icinga_web'@'localhost' IDENTIFIED BY 'icinga_web';
 
         quit</screen>
           </listitem>
