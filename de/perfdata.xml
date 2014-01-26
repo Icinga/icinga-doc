@@ -181,18 +181,21 @@
   <section xml:id="formatperfdata">
     <title><anchor xml:id="perfdata-format"/>Format Performance-Daten</title>
 
-    <para>Die Nagios-Entwicklerrichtlinien (<link
-		    xlink:href="https://www.monitoring-plugins.org/doc/guidelines.html">https://www.monitoring-plugins.org/doc/guidelines.html</link>)
-	    enthalten in <link xlink:href="https://www.monitoring-plugins.org/doc/guidelines.html#AEN200">Abschnitt 2.6</link> die Definition
-    und eine Erklärung des Performance-Daten-Formats. Es wird nachfolgend zu Ihrer Bequemlichkeit wiederholt (und übersetzt):</para>
+    <para>Die &name-monitoringplug;-Entwicklerrichtlinien (<link
+    xlink:href="&url-monitoringplug;/doc/guidelines.html">&url-monitoringplug;/doc/guidelines.html</link>) enthalten in <link
+    xlink:href="&url-monitoringplug;/doc/guidelines.html#AEN200">Abschnitt 2.6</link> die Definition und eine Erklärung des
+    Performance-Daten-Formats. Es wird nachfolgend zu Ihrer Bequemlichkeit wiederholt (und übersetzt):</para>
 
     <para>----- 8&lt; -----</para>
 
     <para><emphasis>2.6.Performance-Daten</emphasis></para>
 
-    <para>Performance-Daten wird von Nagios definiert als "alles nach dem | der Plugin-Ausgabe" - bitte werfen Sie einen Blick in die
-    Nagios(/Icinga)-Dokumentation für Information, wie man diese Daten in Log-Dateien umlenken kann. Auf jeden Fall ist der Plugin-Autor
-    dafür verantwortlich, dass die Performance-Daten dem "Nagios-Plugin"-Format entsprechen. Dies ist das erwartete Format:</para>
+    <para>Nagios 3 und neuer konkatenieren die Teile nach einem "|" in a) der ersten Ausgabezeile des Plugins und b) in der zweiten bis
+    letzten Zeile zu einer Zeichenkette, die an die konfigurierte Performance-Daten-Verarbeitung weitergeleitet wird. (Bitte beachten Sie,
+    dass bisher keine zusätzlichen "Whitespaces" zwischen diesen beiden eingefügt wird, so dass das Plugin welche bereitstellen muss, damit
+    das letzte Paar aus a) und das erste aus b) nicht ineinander laufen.) Bitte werfen Sie einen Blick in die Nagios(/Icinga)-Dokumention
+    für Informationen, wie solch eine Verarbeitung zu konfigurieren ist. Auf jeden Fall ist der Plugin-Autor dafür verantwortlich, dass die
+    Performance-Daten dem "Nagios-Plugin"-Format entsprechen. Dies ist das erwartete Format:</para>
 
     <para>'Bezeichnung'=Wert[UOM];[warn];[crit];[min];[max]</para>
 
