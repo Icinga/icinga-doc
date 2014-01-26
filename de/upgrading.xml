@@ -66,7 +66,14 @@
 
     <para>Starten Sie das &name-icinga;-configure-Script mit den gleichen Optionen wie bei der letzten Installation, z.B. so:</para>
 
-    <programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils</programlisting>
+    <programlisting> #&gt; ./configure --with-command-group=icinga-cmd</programlisting>
+
+    <note>
+      <para>Beginnend mit &name-icinga; 1.9 hat sich der Default geändert, so dass Sie die Kompilation der &name-idoutils; ggf. explizit
+      verhindern müssen.</para>
+
+      <programlisting> #&gt; ./configure --with-command-group=icinga-cmd --disable-idoutils</programlisting>
+    </note>
 
     <para>Kompilieren Sie den &name-icinga;-Quellcode.</para>
 
@@ -84,18 +91,17 @@
 
     <para><emphasis role="bold">Aktualisieren auf Apache 2.4</emphasis></para>
 
-      <para>Beginnend mit Apache 2.4 hat sich der Standard-Konfigurationsordner von <filename>/etc/apache2/conf.d</filename> in
-      <filename>/etc/apache2/conf-available</filename> geändert. Wenn Sie migrieren wollen, dann verschieben Sie einfach die Datei(en), aktivieren die Konfiguration(en) und starten den Web-Server neu<screen>#&gt; mv /etc/apache2/conf.d/icinga*.conf /etc/apache2/conf-available
+    <para>Beginnend mit Apache 2.4 hat sich der Standard-Konfigurationsordner von <filename>/etc/apache2/conf.d</filename> in
+    <filename>/etc/apache2/conf-available</filename> geändert. Wenn Sie migrieren wollen, dann verschieben Sie einfach die Datei(en),
+    aktivieren die Konfiguration(en) und starten den Web-Server neu<screen>#&gt; mv /etc/apache2/conf.d/icinga*.conf /etc/apache2/conf-available
 #&gt; a2enconf icinga icinga-web
 #&gt; service apache2 reload</screen></para>
 
-    <note><para>
-      Hinter
+    <note>
+      <para>Hinter <literal>a2enconf</literal> geben Sie die Konfiguration(en) an. Das Beispiel nimmt an, dass Sie Icinga Classic UI und
+      Icinga Web installiert haben.</para>
+    </note>
 
-      <literal>a2enconf</literal>
-
-      geben Sie die Konfiguration(en) an. Das Beispiel nimmt an, dass Sie Icinga Classic UI und Icinga Web installiert haben.
-    </para></note>
     <para>Das war's - Sie sind fertig!</para>
 
     <indexterm zone="upgrading-icinga">

@@ -68,11 +68,15 @@
     <para>Regular updates of &name-icinga; are possible just by re-installing &name-icinga;. Please keep in mind that <code>configure</code>
     requires the same parameters as before - look it up in <filename>config.log</filename> and store that in a safe location.</para>
 
-    <para>Become the icinga user. Debian/Ubuntu users might use <code>sudo -s icinga</code>. <programlisting> $&gt; su -l icinga</programlisting>
-    Get the latest Icinga version from <link xlink:href="http://www.icinga.org/">&url-icinga;</link> and extract it. Then run configure like
-    you did with the old version. <programlisting> #&gt; ./configure --with-command-group=icinga-cmd --enable-idoutils</programlisting>
-    Compile the source. <programlisting> #&gt; make all</programlisting> Please make sure that you don't overwrite your configs - always
-    make a backup! Don't use <code>make install-config</code> and/or <code>make install-webconf</code> and/or <code>make
+    <para>Become the icinga user. Debian/Ubuntu users might use <code>sudo -s icinga</code>. <programlisting> $&gt; su -l icinga</programlisting>Get
+    the latest Icinga version from <link xlink:href="http://www.icinga.org/">&url-icinga;</link> and extract it. Then run configure like you
+    did with the old version. <programlisting> #&gt; ./configure --with-command-group=icinga-cmd</programlisting> <note>
+        <para>Starting with &name-icinga; 1.9 the default has changed so you might have to disable the compilation of &name-idoutils;
+        explicitly.</para>
+
+        <programlisting> #&gt; ./configure --with-command-group=icinga-cmd --disable-idoutils</programlisting>
+      </note> Compile the source. <programlisting> #&gt; make all</programlisting> Please make sure that you don't overwrite your configs -
+    always make a backup! Don't use <code>make install-config</code> and/or <code>make install-webconf</code> and/or <code>make
     install-webconf-auth</code>if you want to manually diff the config files. <programlisting> #&gt; make install install-base install-cgis install-html install-init \
     install-commandmode install-idoutils</programlisting> or decide what you want to upgrade by just typing 'make' which shows all available
     options. Check your config and restart Icinga. <programlisting> #&gt; /etc/init.d/icinga checkconfig
