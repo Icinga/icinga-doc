@@ -76,8 +76,8 @@
 
     <para>The next thing you need to do is make sure that the Classic UI is configured to use the authentication and authorization
     functionality in determining what information and/or commands users have access to. This is done be setting the <link
-    linkend="configcgi-use_authentication">use_authentication</link> variable in the <link linkend="configcgi">CGI configuration file</link>
-    to a non-zero value. Example:</para>
+    linkend="configcgi-use_authentication">use_authentication</link> variable in the <link linkend="configcgi">Classic UI configuration
+    file</link> to a non-zero value. Example:</para>
 
     <programlisting> use_authentication=1</programlisting>
 
@@ -86,7 +86,7 @@
     <indexterm zone="cgiauth-enable_cgi_auth">
       <primary>Classic UI Authentication (CGI Authentication)</primary>
 
-      <secondary>Enabling Authentication/Authorization Functionality In The CGIs</secondary>
+      <secondary>Enabling Authentication/Authorization Functionality In The Classic UI</secondary>
     </indexterm>
   </section>
 
@@ -106,7 +106,7 @@
 
         <tbody>
           <row>
-            <entry><para>CGI Data</para></entry>
+            <entry><para>Classic UI Data</para></entry>
 
             <entry><para>Authenticated Contacts<superscript> <link linkend="definitionscgiauth">*</link> </superscript> </para></entry>
 
@@ -284,20 +284,20 @@
 
     <itemizedlist>
       <listitem>
-        <para>Viewing the raw log file via the <link linkend="cgis-showlog_cgi">showlog CGI</link></para>
+        <para>Viewing the raw log file via the <link linkend="cgis-showlog_cgi">showlog module</link></para>
       </listitem>
 
       <listitem>
-        <para>Viewing &name-icinga; process information via the <link linkend="cgis-extinfo_cgi">extended information CGI</link></para>
+        <para>Viewing &name-icinga; process information via the <link linkend="cgis-extinfo_cgi">extended information modules</link></para>
       </listitem>
 
       <listitem>
-        <para>Issuing &name-icinga; process commands via the <link linkend="cgis-cmd_cgi">command CGI</link></para>
+        <para>Issuing &name-icinga; process commands via the <link linkend="cgis-cmd_cgi">command module</link></para>
       </listitem>
 
       <listitem>
         <para>Viewing host group, contact, contact group, time period, and command definitions via the <link
-        linkend="cgis-config_cgi">configuration CGI</link></para>
+        linkend="cgis-config_cgi">configuration module</link></para>
       </listitem>
     </itemizedlist>
 
@@ -315,11 +315,12 @@
     <title>Granting Additional Permissions To Classic UI Information</title>
 
     <para>You can grant <emphasis>authenticated contacts</emphasis> or other <emphasis>authenticated users</emphasis> permission to
-    additional information in the Classic UI by adding them to various authorization variables in the <link linkend="configcgi">CGI
+    additional information in the Classic UI by adding them to various authorization variables in the <link linkend="configcgi">Classic UI
     configuration file</link>. We realize that the available options don't allow for getting really specific about particular permissions,
     but its better than nothing..</para>
 
-    <para>Additional authorization can be given to users by adding them to the following variables in the CGI configuration file...</para>
+    <para>Additional authorization can be given to users by adding them to the following variables in the Classic UI configuration
+    file...</para>
 
     <itemizedlist>
       <listitem>
@@ -356,7 +357,8 @@
     <title>Classic UI Authorization Requirements</title>
 
     <para>If you are confused about the authorization needed to access various information in the Classic UI, read the <emphasis> <emphasis
-    role="bold">Authorization Requirements</emphasis> </emphasis> section for each CGI as described <link linkend="cgis">here</link>.</para>
+    role="bold">Authorization Requirements</emphasis> </emphasis> section for each form as described <link
+    linkend="cgis">here</link>.</para>
 
     <indexterm zone="cgiauth-additional_rights">
       <primary>Classic UI Authentication (CGI Authentication)</primary>
@@ -370,10 +372,10 @@
 
     <para>If your web server is located in a secure domain (i.e., behind a firewall) or if you are using SSL, you can define a default
     username that can be used to access the Classic UI. This is done by defining the <link
-    linkend="configcgi-default_user_name">default_user_name</link> option in the <link linkend="configcgi">CGI configuration file</link>. By
-    defining a default username that can access the Classic UI, you can allow users to access the Classic UI without necessarily having to
-    authenticate to the web server. You may want to use this to avoid having to use basic web authentication, as basic authentication
-    transmits passwords in clear text over the Internet.</para>
+    linkend="configcgi-default_user_name">default_user_name</link> option in the <link linkend="configcgi">Classic UI configuration
+    file</link>. By defining a default username that can access the Classic UI, you can allow users to access the Classic UI without
+    necessarily having to authenticate to the web server. You may want to use this to avoid having to use basic web authentication, as basic
+    authentication transmits passwords in clear text over the Internet.</para>
 
     <para><emphasis role="bold">Important:</emphasis> Do <emphasis>not</emphasis> define a default username unless you are running a secure
     web server and are sure that everyone who has access to the Classic UI has been authenticated in some manner. If you define this

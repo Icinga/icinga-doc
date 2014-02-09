@@ -6,35 +6,35 @@
 <section version="5.0" xml:id="cgiparams" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-  <title>Information On CGI parameters</title>
+  <title>Information On Classic UI parameters</title>
 
   <section xml:id="introduction">
     <title>Introduction</title>
 
     <para>The menu on the left side of the classical web interface contains entries which offer a quick way to the information most people
-    need. However you can change the parameters or use other options as well. Some CGIs require an objecttype ("host", "hostgroup",
-    "service", or "servicegroup"), often followed by one or more options. The best way is to take a look at the existing URLs and change
-    them according to your needs.</para>
+    need. However you can change the parameters or use other options as well. Some Classic UI modules (CGIs) require an objecttype ("host",
+    "hostgroup", "service", or "servicegroup"), often followed by one or more options. The best way is to take a look at the existing URLs
+    and change them according to your needs.</para>
 
-    <para>Below you will find a table showing the parameters and the CGIs they apply to. The names of the CGIs are abbreviated. An
-    explanation along with a hint to the source code can be found <link linkend="cgiparams_abbrev">here</link>.</para>
+    <para>Below you will find a table showing the parameters and the Classic UI modules they apply to. The names of the Classic UI modules
+    are abbreviated. An explanation along with a hint to the source code can be found <link linkend="cgiparams_abbrev">here</link>.</para>
 
     <para>Following this table is an explanation of the parameters (work in progress).</para>
   </section>
 
   <section xml:id="executecmdline">
-    <title>Executing CGIs on the command line</title>
+    <title>Executing Classic UI modules on the command line</title>
 
-    <para>Instead of using your browser you may want to run the CGIs on the command line and process the results with other tools. For a
-    first impression change to the folder containing the *.cgi modules (e.g. <filename>/usr/local/icinga/sbin</filename>), set some
-    environment variables and execute one of the CGIs:<screen> $&gt; export REMOTE_USER=icingaadmin   # or choose the appropriate user
+    <para>Instead of using your browser you may want to run the Classic UI modules on the command line and process the results with other
+    tools. For a first impression change to the folder containing the *.cgi modules (e.g. <filename>/usr/local/icinga/sbin</filename>), set
+    some environment variables and execute one of the Classic UI modules:<screen> $&gt; export REMOTE_USER=icingaadmin   # or choose the appropriate user
  $&gt; export REQUEST_METHOD='GET'      # if you enter queries
  $&gt; export QUERY_STRING='host=all'   # see the tables below 
 
  $&gt; ./status.cgi</screen>Depending on the number of hosts this may return a lot of lines containing HTML code in between which most
     people will find hard to read so you should add "&amp;csvoutput" or "&amp;jsonoutput" to QUERY_STRING along with other arguments.</para>
 
-    <para>Set QUERY_STRING as needed and execute the desired CGI.</para>
+    <para>Set QUERY_STRING as needed and execute the desired Classic UI module.</para>
 
     <para>If you forgot to set the environment variables you'll receive the following lines:<screen> $&gt; ./status.cgi
  getcgivars(): Unsupported REQUEST_METHOD -&gt; ''
@@ -73,7 +73,7 @@
   </section>
 
   <section xml:id="matrixparamscgis">
-    <title>Matrix Parameters / CGIs</title>
+    <title>Matrix Parameters / Classic UI modules</title>
 
     <informaltable>
       <tgroup cols="15">
@@ -4799,9 +4799,9 @@
   </section>
 
   <section xml:id="cgiparams_abbrev">
-    <title>Abbreviations, CGIs, Links</title>
+    <title>Abbreviations, Classic UI modules, Links</title>
 
-    <para>Abbreviations used in the first table, relations to CGI and menu items, and links to the source code in
+    <para>Abbreviations used in the first table, relations to Classic UI module and menu items, and links to the source code in
     &lt;icinga-core&gt;/cgis.</para>
 
     <informaltable>
@@ -4810,7 +4810,7 @@
           <row>
             <entry align="center">Abbreviation</entry>
 
-            <entry align="center">CGI</entry>
+            <entry align="center">Classic UI module</entry>
 
             <entry align="center">Menu item(s)</entry>
 

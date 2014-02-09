@@ -6,37 +6,37 @@
 <section version="5.0" xml:id="cgiparams" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-  <title>Informationen zu den CGI-Parametern</title>
+  <title>Informationen zu den Classic UI-Modul-Parametern</title>
 
   <section xml:id="introduction">
     <title>Einführung</title>
 
     <para>Das Menü auf der linken Seite des klassischen Web-Interface enthält Eintrage, die einen schnellen Zugriff auf die Informationen
-    bieten, die die meisten Leute benötigen. Sie können diese Parameter ändern oder auch andere Optionen wählen. Einige CGIs benötigen einen
-    Objekttyp ("host", "hostgroup", "service" oder "servicegroup"), oftmals gefolgt von einer oder mehreren Optionen. Der beste Weg ist es,
-    einen Blick auf die existierenden URLs zu werden und sie Ihren Bedürfnissen anzupassen.</para>
+    bieten, die die meisten Leute benötigen. Sie können diese Parameter ändern oder auch andere Optionen wählen. Einige Module benötigen
+    einen Objekttyp ("host", "hostgroup", "service" oder "servicegroup"), oftmals gefolgt von einer oder mehreren Optionen. Der beste Weg
+    ist es, einen Blick auf die existierenden URLs zu werden und sie Ihren Bedürfnissen anzupassen.</para>
 
-    <para>Nachfolgend finden Sie eine Tabelle mit den Parametern und den CGIs, die sie anbieten. Die Namen der CGIs sind abgekürzt (damit
-    die Tabelle nicht so breit wird). Eine Erklärung der Abkürzungen zusammen mit einem Hinweis auf den Source-Code finden Sie <link
+    <para>Nachfolgend finden Sie eine Tabelle mit den Parametern und den Modulen, die sie anbieten. Die Namen der Module sind abgekürzt
+    (damit die Tabelle nicht so breit wird). Eine Erklärung der Abkürzungen zusammen mit einem Hinweis auf den Source-Code finden Sie <link
     linkend="cgiparams_abbrev">hier</link>.</para>
 
     <para>Nach dieser Tabelle folgt eine Erklärung der Parameter (in Bearbeitung).</para>
   </section>
 
   <section xml:id="executecmdline">
-    <title>Executing CGIs on the command line</title>
+    <title>Ausführen der Classic UI-Modules auf der Kommandozeile</title>
 
-    <para>Anstelle ihres Browsers können sie die CGIs auch auf der Kommandozeile ausführen, und deren Ergebnisse mit anderen Tools
+    <para>Anstelle über Ihren Browsers können Sie die Module auch auf der Kommandozeile ausführen und deren Ergebnisse mit anderen Tools
     verarbeiten. Um einen ersten Eindruck zu erhalten, wechseln Sie in den Ordner mit den *.cgi Dateien (z.B.
-    <filename>/usr/local/icinga/sbin</filename>), setzen Sie einige Umgebungsvariablen und führen Sie eines der CGIs aus. <screen> $&gt; export REMOTE_USER=icingaadmin   # or choose the appropriate user
+    <filename>/usr/local/icinga/sbin</filename>), setzen Sie einige Umgebungsvariablen und führen Sie eines der Module aus. <screen> $&gt; export REMOTE_USER=icingaadmin   # or choose the appropriate user
  $&gt; export REQUEST_METHOD='GET'      # if you enter queries
  $&gt; export QUERY_STRING='host=all'   # see the tables below
 
- $&gt; ./status.cgi</screen> Abhängig von der Anzahl von Hosts wird diese viele HTML Zeilen liefern. Für die meisten Leute ist es schwierig,
+ $&gt; ./status.cgi</screen>Abhängig von der Anzahl von Hosts wird diese viele HTML-Zeilen liefern. Für die meisten Leute ist es schwierig,
     dazwischen die Informationen herauszulesen, also sollten Sie"&amp;csvoutput" oder "&amp;jsonoutput" zum QUERY_STRING mit anderen
     Argumenten hinzufügen.</para>
 
-    <para>Setzen Sie QUERY_STRING wie erforderlich und führen Sie das CGI aus.</para>
+    <para>Setzen Sie QUERY_STRING wie erforderlich und führen Sie das Modul aus.</para>
 
     <para>Falls Sie eine Umgebungsvariable vergessen haben, werden Sie folgende Zeilen sehen: <screen> $&gt; ./status.cgi
  getcgivars(): Unsupported REQUEST_METHOD -&gt; ''
@@ -51,7 +51,7 @@
  "REMOTE_USER" environment variable to be the name of the user you're
  "authenticated" as.</screen></para>
 
-    <para>Mehr Beispiele finden Sie <link linkend="cgicmd">here</link>.</para>
+    <para>Mehr Beispiele finden Sie <link linkend="cgicmd">hier</link>.</para>
   </section>
 
   <section xml:id="propsstatustypes">
@@ -77,7 +77,7 @@
   </section>
 
   <section xml:id="matrixparamscgis">
-    <title>Matrix Parameter / CGIs</title>
+    <title>Matrix Parameter / Module</title>
 
     <informaltable>
       <tgroup cols="15">
@@ -4782,9 +4782,9 @@
     </informaltable>
 
     <note>
-      <para>Seit 1.8 gibt es 'scroll' als Parameter für status.cgi. Dies dient dazu, die aktuelle Scrollposition abzuspeichern und
-      wiederherzustellen. Dies ist nicht essenziell, da diese Variable nur intern verwendet wird, wenn refresh_type=javascript gesetzt ist
-      in der cgi.cfg</para>
+      <para>Seit 1.8 gibt es 'scroll' als Parameter für <filename>status.cgi</filename>. Dies dient dazu, die aktuelle Scroll-Position
+      abzuspeichern und wiederherzustellen. Dies ist nicht essenziell, da diese Variable nur intern verwendet wird, wenn
+      refresh_type=javascript gesetzt ist in der cgi.cfg</para>
     </note>
 
     <para>[1] Logisches ODER bedeutet, dass die jeweiligen Zahlen addiert werden. Es werden dann die Objekte angezeigt, die ALLE Bedingungen
@@ -4807,7 +4807,7 @@
   </section>
 
   <section xml:id="cgiparams_abbrev">
-    <title>Abkürzungen, CGIs, Verweise</title>
+    <title>Abkürzungen, Classic UI-Module (CGIs), Verweise</title>
 
     <para>Abkürzungen, die in der ersten Tabelle benutzt werden, Beziehungen zu CGIs- und Menüeintragen sowie Verweise auf den Source-Code
     in &lt;icinga-core&gt;/cgis.</para>
@@ -4818,7 +4818,7 @@
           <row>
             <entry align="center">Abkürzung</entry>
 
-            <entry align="center">CGI</entry>
+            <entry align="center">Classic UI-Modul</entry>
 
             <entry align="center">Menüeintrag</entry>
 
@@ -4972,7 +4972,7 @@
   </section>
 
   <section xml:id="cgiparams-filter">
-    <title>Host und Service Filter Properties</title>
+    <title>Host- und Service-Filter-Eigenschaften</title>
 
     <para><emphasis role="bold">Ausschnitt aus include/cgiutils.h</emphasis></para>
 
@@ -5026,7 +5026,7 @@
   </section>
 
   <section xml:id="cgiparams-statustypes">
-    <title>Host und Service Statustypen</title>
+    <title>Host- und Service-Statustypen</title>
 
     <para><emphasis role="bold">Ausschnitt aus include/statusdata.h</emphasis></para>
 

@@ -6,25 +6,25 @@
 <section version="5.0" xml:id="cgicmd" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
-  <title><anchor xml:id="cgi_cmd"/>Ausführen von CGIs auf der Kommandozeile</title>
+  <title><anchor xml:id="cgi_cmd"/>Ausführen von Classic UI-Modulen (CGIs) auf der Kommandozeile</title>
 
   <section xml:id="introduction">
     <title>Einführung</title>
 
     <para>In den meisten Fällen werden Sie Ihren Browser benutzen, um die Informationen anzusehen, die Sie benötigen. Es mag Situationen
     geben, in denen Sie die Daten mit anderen Werkzeugen bearbeiten möchten, um Wiki-Einträge zu erzeugen, Mails zu verschicken usw.
-    Zusammen mit den <link linkend="cgiparams">Informationen zu den CGI-Parametern</link> können Sie die CGIs auf der Kommandozeile
-    aufrufen.</para>
+    Zusammen mit den <link linkend="cgiparams">Informationen zu den Classic UI-Modul-Parametern</link> können Sie die Classic UI-Module auf
+    der Kommandozeile aufrufen.</para>
   </section>
 
   <section xml:id="prerequisites">
     <title>Voraussetzungen</title>
 
-    <para>Bevor Sie die CGIs tatsächlich aufrufen können, müssen Sie drei Umgebungsvariablen setzen: <itemizedlist>
+    <para>Bevor Sie die Module tatsächlich aufrufen können, müssen Sie drei Umgebungsvariablen setzen: <itemizedlist>
         <listitem>
           <para>REMOTE_USER</para>
 
-          <para>Diese Variable enthälft einen Benutzer, der berechtigt ist, die Informationen abzurufen. In den meisten Fällen wird dies
+          <para>Diese Variable enthält einen Benutzer, der berechtigt ist, die Informationen abzurufen. In den meisten Fällen wird dies
           "icingaadmin" sein (<literal>set REMOTE_USER='icingaadmin')</literal></para>
         </listitem>
 
@@ -37,7 +37,7 @@
         <listitem>
           <para>QUERY_STRING</para>
 
-          <para>Anstatt Argumente über die Kommandozeile an die CGIs zu übergeben, müssen Sie die Variable "QUERY_STRING" mit den
+          <para>Anstatt Argumente über die Kommandozeile an die Module zu übergeben, müssen Sie die Variable "QUERY_STRING" mit den
           entsprechenden Werten füllen.</para>
 
           <note>
@@ -65,12 +65,12 @@
     <title>Beispiele</title>
 
     <note>
-      <para>Die CGIs werden aus dem Ordner aufgerufen, in dem sich die *.cgi-Dateien befinden (z.B.
+      <para>Die Module werden aus dem Ordner aufgerufen, in dem sich die *.cgi-Dateien befinden (z.B.
       <filename>/usr/local/icinga/sbin</filename>). Dies ist nicht notwendig, sondern dient lediglich der Einfachheit. Solange nichts
       anderes angegeben ist, gilt <literal>REQUEST_METHOD='GET'</literal>.</para>
     </note>
 
-    <para>Tactical overview<screen> $&gt; set QUERY_STRING='jsonoutput'
+    <para>Taktischer Überblick<screen> $&gt; set QUERY_STRING='jsonoutput'
  $&gt; ./tac.cgi</screen></para>
 
     <para>Alle Hosts im Zustand DOWN<screen> $&gt; set QUERY_STRING='jsonoutput&amp;style=hostdetail&amp;hoststatustypes=4'
@@ -99,9 +99,9 @@
     <para>(wird fortgesetzt)</para>
 
     <indexterm zone="cgicmd">
-      <primary>CGIs</primary>
+      <primary>Classic UI-Module (CGIs)</primary>
 
-      <secondary>Ausführen von CGIs auf der Kommandozeile</secondary>
+      <secondary>Ausführen von Classic UI-Modulen auf der Kommandozeile</secondary>
     </indexterm>
   </section>
 </section>
