@@ -327,7 +327,7 @@
 
             <entry><para>flap_detection_options</para></entry>
 
-            <entry><para>[o,d,u]</para></entry>
+            <entry><para>[o,d,u,n]</para></entry>
           </row>
 
           <row>
@@ -381,7 +381,7 @@
           <row>
             <entry><para/></entry>
 
-            <entry><emphasis condition="red" role="color">notification_interval</emphasis></entry>
+            <entry><emphasis condition="red" role="color"><emphasis>notification_interval</emphasis></emphasis></entry>
 
             <entry><para>#</para></entry>
           </row>
@@ -397,7 +397,7 @@
           <row>
             <entry><para/></entry>
 
-            <entry><emphasis condition="red" role="color">notification_period</emphasis></entry>
+            <entry><emphasis condition="red" role="color"><emphasis>notification_period</emphasis></emphasis></entry>
 
             <entry><para>timeperiod_name</para></entry>
           </row>
@@ -407,7 +407,7 @@
 
             <entry><para>notification_options</para></entry>
 
-            <entry><para>[d,u,r,f,s]</para></entry>
+            <entry><para>[d,u,r,f,s,n]</para></entry>
           </row>
 
           <row>
@@ -423,7 +423,7 @@
 
             <entry><para>stalking_options</para></entry>
 
-            <entry><para>[o,d,u]</para></entry>
+            <entry><para>[o,d,u,n]</para></entry>
           </row>
 
           <row>
@@ -611,15 +611,15 @@
 
             <entry><para>By default &name-icinga; will assume that all hosts are in UP states when in starts. You can override the initial
             state for a host by using this directive. Valid options are: <emphasis role="bold">o</emphasis> = UP, <emphasis
-            role="bold">d</emphasis> = DOWN, and <emphasis role="bold">u</emphasis> = UNREACHABLE.</para></entry>
+            role="bold">d</emphasis> = DOWN, and <emphasis role="bold">u</emphasis> = UNREACHABLE. Default: o.</para></entry>
           </row>
 
           <row>
             <entry align="left" valign="top"><para><emphasis role="bold">max_check_attempts</emphasis>:</para></entry>
 
             <entry><para>This directive is used to define the number of times that &name-icinga; will retry the host check command if it
-            returns any state other than an OK state. Setting this value to 1 will cause &name-icinga; to generate an alert without retrying
-            the host check again. </para> <note>
+            returns any state other than an OK state. This value will cause &name-icinga; to generate an alert without retrying the host
+            check again. </para> <note>
                 <para>If you do not want to check the status of the host, you must still set this to a minimum value of 1. To bypass the
                 host check, just leave the <emphasis>check_command</emphasis> option blank.</para>
               </note></entry>
@@ -631,7 +631,7 @@
             <entry><para>This directive is used to define the number of "time units" between regularly scheduled checks of the host. Unless
             you've changed the <link linkend="configmain-interval_length">interval_length</link> directive from the default value of 60,
             this number will mean minutes. More information on this value can be found in the <link linkend="checkscheduling">check
-            scheduling</link> documentation.</para></entry>
+            scheduling</link> documentation. Floating point values are allowed. Default: 5.</para></entry>
           </row>
 
           <row>
@@ -643,21 +643,27 @@
             "normal" rate as defined by the <emphasis role="bold">check_interval</emphasis> value. Unless you've changed the <link
             linkend="configmain-interval_length">interval_length</link> directive from the default value of 60, this number will mean
             minutes. More information on this value can be found in the <link linkend="checkscheduling">check scheduling</link>
-            documentation.</para></entry>
+            documentation. Floating point values are allowed. Default: 1.</para></entry>
           </row>
 
           <row>
             <entry align="left" valign="top"><para><emphasis role="bold">active_checks_enabled *</emphasis>:</para></entry>
 
             <entry><para>This directive is used to determine whether or not active checks (either regularly scheduled or on-demand) of this
-            host are enabled. Values: 0 = disable active host checks, 1 = enable active host checks.</para></entry>
+            host are enabled. Values: 0 = disable active host checks, 1 = enable active host checks. Default: 1.<note>
+                <para>This value will have no effect if "<link
+                linkend="configmain-execute_host_checks">execute_host_checks</link>=0".</para>
+              </note></para></entry>
           </row>
 
           <row>
             <entry align="left" valign="top"><para><emphasis role="bold">passive_checks_enabled *</emphasis>:</para></entry>
 
             <entry><para>This directive is used to determine whether or not passive checks are enabled for this host. Values: 0 = disable
-            passive host checks, 1 = enable passive host checks.</para></entry>
+            passive host checks, 1 = enable passive host checks. Default: 1.<note>
+                <para>This value will have no effect if "<link
+                linkend="configmain-accept_passive_host_checks">accept_passive_host_checks</link>=0".</para>
+              </note></para></entry>
           </row>
 
           <row>
@@ -671,21 +677,24 @@
             <entry align="left" valign="top"><para><emphasis role="bold">obsess_over_host *</emphasis>:</para></entry>
 
             <entry><para>This directive determines whether or not checks for the host will be "obsessed" over using the <link
-            linkend="configmain-ochp_command">ochp_command</link>.</para></entry>
+            linkend="configmain-ochp_command">ochp_command</link>. Default: 1.</para></entry>
           </row>
 
           <row>
             <entry align="left" valign="top"><para><emphasis role="bold">check_freshness *</emphasis>:</para></entry>
 
             <entry><para>This directive is used to determine whether or not <link linkend="freshness">freshness checks</link> are enabled
-            for this host. Values: 0 = disable freshness checks, 1 = enable freshness checks.</para></entry>
+            for this host. Values: 0 = disable freshness checks, 1 = enable freshness checks. Default: 0.<note>
+                <para>This value will have no effect if "<link
+                linkend="configmain-check_host_freshness">check_host_freshness</link>=0".</para>
+              </note></para></entry>
           </row>
 
           <row>
             <entry align="left" valign="top"><para><emphasis role="bold">freshness_threshold</emphasis>:</para></entry>
 
             <entry><para>This directive is used to specify the freshness threshold (in seconds) for this host. If you set this directive to
-            a value of 0, &name-icinga; will determine a freshness threshold to use automatically.</para></entry>
+            a value of 0, &name-icinga; will determine a freshness threshold to use automatically. Default: 0.</para></entry>
           </row>
 
           <row>
@@ -703,7 +712,10 @@
             <entry align="left" valign="top"><para><emphasis role="bold">event_handler_enabled *</emphasis>:</para></entry>
 
             <entry><para>This directive is used to determine whether or not the event handler for this host is enabled. Values: 0 = disable
-            host event handler, 1 = enable host event handler.</para></entry>
+            host event handler, 1 = enable host event handler. Default: 1.<note>
+                <para>This value will have no effect if "<link
+                linkend="configmain-enable_event_handlers">enable_event_handlers</link>=0".</para>
+              </note></para></entry>
           </row>
 
           <row>
@@ -712,7 +724,7 @@
             <entry><para>This directive is used to specify the low state change threshold used in flap detection for this host. More
             information on flap detection can be found <link linkend="flapping">here</link>. If you set this directive to a value of 0, the
             program-wide value specified by the <link linkend="configmain-low_host_flap_threshold">low_host_flap_threshold</link> directive
-            will be used.</para></entry>
+            will be used. Floating point values are allowed. Default: 0.</para></entry>
           </row>
 
           <row>
@@ -721,7 +733,7 @@
             <entry><para>This directive is used to specify the high state change threshold used in flap detection for this host. More
             information on flap detection can be found <link linkend="flapping">here</link>. If you set this directive to a value of 0, the
             program-wide value specified by the <link linkend="configmain-high_host_flap_threshold">high_host_flap_threshold</link>
-            directive will be used.</para></entry>
+            directive will be used. Floating point values are allowed. Default: 0.</para></entry>
           </row>
 
           <row>
@@ -729,7 +741,9 @@
 
             <entry><para>This directive is used to determine whether or not flap detection is enabled for this host. More information on
             flap detection can be found <link linkend="flapping">here</link>. Values: 0 = disable host flap detection, 1 = enable host flap
-            detection.</para></entry>
+            detection. Default: 1.<note>
+                <para>This value will have no effect if "<link linkend="configmain-enable_flap_detection">flap_detection</link>=0".</para>
+              </note></para></entry>
           </row>
 
           <row>
@@ -737,22 +751,25 @@
 
             <entry><para>This directive is used to determine what host states the <link linkend="flapping">flap detection logic</link> will
             use for this host. Valid options are a combination of one or more of the following: <emphasis role="bold">o</emphasis> = UP
-            states, <emphasis role="bold">d</emphasis> = DOWN states, <emphasis role="bold">u</emphasis> = UNREACHABLE
-            states.</para></entry>
+            states, <emphasis role="bold">d</emphasis> = DOWN states, <emphasis role="bold">u</emphasis> = UNREACHABLE states. Default:
+            o,d,u.</para></entry>
           </row>
 
           <row>
             <entry><para><emphasis role="bold">failure_prediction_enabled</emphasis>:</para></entry>
 
             <entry><para>This directive is used to determine whether or not failure prediction is enabled for this host. Values: 0 = disable
-            host failure prediction, 1 = enable host failure prediction. </para></entry>
+            host failure prediction, 1 = enable host failure prediction. Default: 1. </para></entry>
           </row>
 
           <row>
             <entry align="left" valign="top"><para><emphasis role="bold">process_perf_data *</emphasis>:</para></entry>
 
             <entry><para>This directive is used to determine whether or not the processing of performance data is enabled for this host.
-            Values: 0 = disable performance data processing, 1 = enable performance data processing.</para></entry>
+            Values: 0 = disable performance data processing, 1 = enable performance data processing. Default: 1<note>
+                <para>This value will have no effect if "<link
+                linkend="configmain-process_performance_data">process_performance_data</link>=0".</para>
+              </note></para></entry>
           </row>
 
           <row>
@@ -761,7 +778,7 @@
             <entry><para>This directive is used to determine whether or not status-related information about the host is retained across
             program restarts. This is only useful if you have enabled state retention using the <link
             linkend="configmain-retain_state_information">retain_state_information</link> directive. Value: 0 = disable status information
-            retention, 1 = enable status information retention.</para></entry>
+            retention, 1 = enable status information retention. Default: 1.</para></entry>
           </row>
 
           <row>
@@ -770,7 +787,7 @@
             <entry><para>This directive is used to determine whether or not non-status information about the host is retained across program
             restarts. This is only useful if you have enabled state retention using the <link
             linkend="configmain-retain_state_information">retain_state_information</link> directive. Value: 0 = disable non-status
-            information retention, 1 = enable non-status information retention.</para></entry>
+            information retention, 1 = enable non-status information retention. Default: 1.</para></entry>
           </row>
 
           <row>
@@ -801,7 +818,7 @@
             <emphasis>still</emphasis> down or unreachable. Unless you've changed the <link
             linkend="configmain-interval_length">interval_length</link> directive from the default value of 60, this number will mean
             minutes. If you set this value to 0, &name-icinga; will <emphasis>not</emphasis> re-notify contacts about problems for this host
-            - only one problem notification will be sent out.</para></entry>
+            - only one problem notification will be sent out. Floating point values are allowed. Default: 30.</para></entry>
           </row>
 
           <row>
@@ -810,7 +827,8 @@
             <entry><para>This directive is used to define the number of "time units" to wait before sending out the first problem
             notification when this host enters a non-UP state. Unless you've changed the <link
             linkend="configmain-interval_length">interval_length</link> directive from the default value of 60, this number will mean
-            minutes. If you set this value to 0, &name-icinga; will start sending out notifications immediately.</para></entry>
+            minutes. If you set this value to 0, &name-icinga; will start sending out notifications immediately. Floating point values are
+            allowed. Default: 0.</para></entry>
           </row>
 
           <row>
@@ -834,14 +852,17 @@
             role="bold">n</emphasis> (none) as an option, no host notifications will be sent out.</emphasis> If you do not specify any
             notification options, &name-icinga; will assume that you want notifications to be sent out for all possible states. Example: If
             you specify <emphasis role="bold">d,r</emphasis> in this field, notifications will only be sent out when the host goes DOWN and
-            when it recovers from a DOWN state.</para></entry>
+            when it recovers from a DOWN state. Default: d,u,r,f,s.</para></entry>
           </row>
 
           <row>
             <entry align="left" valign="top"><para><emphasis role="bold">notifications_enabled *</emphasis>:</para></entry>
 
             <entry><para>This directive is used to determine whether or not notifications for this host are enabled. Values: 0 = disable
-            host notifications, 1 = enable host notifications.</para></entry>
+            host notifications, 1 = enable host notifications. Default: 1.<note>
+                <para>This value will have no effect if "<link
+                linkend="configmain-enable_notifications">enable_notifications</link>=0".</para>
+              </note></para></entry>
           </row>
 
           <row>
@@ -850,7 +871,7 @@
             <entry><para>This directive determines which host states "stalking" is enabled for. Valid options are a combination of one or
             more of the following: <emphasis role="bold">o</emphasis> = stalk on UP states, <emphasis role="bold">d</emphasis> = stalk on
             DOWN states, and <emphasis role="bold">u</emphasis> = stalk on UNREACHABLE states. More information on state stalking can be
-            found <link linkend="stalking">here</link>.</para></entry>
+            found <link linkend="stalking">here</link>. Default: n.</para></entry>
           </row>
 
           <row>
@@ -1341,7 +1362,7 @@
 
             <entry><para>flap_detection_options</para></entry>
 
-            <entry><para>[o,w,c,u]</para></entry>
+            <entry><para>[o,w,c,u,n]</para></entry>
           </row>
 
           <row>
@@ -1405,7 +1426,7 @@
 
             <entry><para>notification_options</para></entry>
 
-            <entry><para>[w,u,c,r,f,s]</para></entry>
+            <entry><para>[w,u,c,r,f,s,n]</para></entry>
           </row>
 
           <row>
@@ -1437,7 +1458,7 @@
 
             <entry><para>stalking_options</para></entry>
 
-            <entry><para>[o,w,u,c]</para></entry>
+            <entry><para>[o,w,u,c,n]</para></entry>
           </row>
 
           <row>
@@ -1565,7 +1586,8 @@
             <entry><para>This directive is used to denote whether the service is "volatile". Services are normally <emphasis>not</emphasis>
             volatile. More information on volatile service and how they differ from normal services can be found <link
             linkend="volatileservices">here</link>. Value: 0 = service is not volatile, 1 = service is volatile, 2 = service is volatile but
-            will respect the re-notification interval for notifications (option "2" was introduced in &name-icinga; 1.0.2).</para></entry>
+            will respect the re-notification interval for notifications (option "2" was introduced in &name-icinga; 1.0.2). Default:
+            0.</para></entry>
           </row>
 
           <row>
@@ -1583,15 +1605,15 @@
             <entry><para>By default &name-icinga; will assume that all services are in OK states when in starts. You can override the
             initial state for a service by using this directive. Valid options are: <emphasis role="bold">o</emphasis> = OK, <emphasis
             role="bold">w</emphasis> = WARNING, <emphasis role="bold">u</emphasis> = UNKNOWN, and <emphasis role="bold">c</emphasis> =
-            CRITICAL.</para></entry>
+            CRITICAL. Default: o.</para></entry>
           </row>
 
           <row>
             <entry align="left" valign="top"><para><emphasis role="bold">max_check_attempts</emphasis>:</para></entry>
 
             <entry><para>This directive is used to define the number of times that &name-icinga; will retry the service check command if it
-            returns any state other than an OK state. Setting this value to 1 will cause &name-icinga; to generate an alert without retrying
-            the service check again.</para></entry>
+            returns any state other than an OK state. This value will cause &name-icinga; to generate an alert without retrying the service
+            check again.</para></entry>
           </row>
 
           <row>
@@ -1602,7 +1624,7 @@
             but has already been rechecked <emphasis role="bold">max_check_attempts</emphasis> number of times. Unless you've changed the
             <link linkend="configmain-interval_length">interval_length</link> directive from the default value of 60, this number will mean
             minutes. More information on this value can be found in the <link linkend="checkscheduling">check scheduling</link>
-            documentation.</para></entry>
+            documentation. Floating point values are allowed. Default: 5.</para></entry>
           </row>
 
           <row>
@@ -1614,21 +1636,27 @@
             its "normal" rate as defined by the <emphasis role="bold">check_interval</emphasis> value. Unless you've changed the <link
             linkend="configmain-interval_length">interval_length</link> directive from the default value of 60, this number will mean
             minutes. More information on this value can be found in the <link linkend="checkscheduling">check scheduling</link>
-            documentation.</para></entry>
+            documentation. Floating point values are allowed. Default: 1.</para></entry>
           </row>
 
           <row>
             <entry align="left" valign="top"><para><emphasis role="bold">active_checks_enabled *</emphasis>:</para></entry>
 
             <entry><para>This directive is used to determine whether or not active checks of this service are enabled. Values: 0 = disable
-            active service checks, 1 = enable active service checks.</para></entry>
+            active service checks, 1 = enable active service checks. Default: 1.<note>
+                <para>This value will have no effect if "<link
+                linkend="configmain-execute_service_checks">execute_service_checks</link>=0".</para>
+              </note></para></entry>
           </row>
 
           <row>
             <entry align="left" valign="top"><para><emphasis role="bold">passive_checks_enabled *</emphasis>:</para></entry>
 
             <entry><para>This directive is used to determine whether or not passive checks of this service are enabled. Values: 0 = disable
-            passive service checks, 1 = enable passive service checks.</para></entry>
+            passive service checks, 1 = enable passive service checks. Default: 1.<note>
+                <para>This value will have no effect if "<link
+                linkend="configmain-accept_passive_service_checks">accept_passive_service_checks</link>=0".</para>
+              </note></para></entry>
           </row>
 
           <row>
@@ -1649,14 +1677,17 @@
             <entry align="left" valign="top"><para><emphasis role="bold">check_freshness *</emphasis>:</para></entry>
 
             <entry><para>This directive is used to determine whether or not <link linkend="freshness">freshness checks</link> are enabled
-            for this service. Values: 0 = disable freshness checks, 1 = enable freshness checks.</para></entry>
+            for this service. Values: 0 = disable freshness checks, 1 = enable freshness checks. Default: 0.<note>
+                <para>This value will have no effect if "<link
+                linkend="configmain-check_service_freshness">check_service_freshness</link>=0".</para>
+              </note></para></entry>
           </row>
 
           <row>
             <entry align="left" valign="top"><para><emphasis role="bold">freshness_threshold</emphasis>:</para></entry>
 
             <entry><para>This directive is used to specify the freshness threshold (in seconds) for this service. If you set this directive
-            to a value of 0, &name-icinga; will determine a freshness threshold to use automatically.</para></entry>
+            to a value of 0, &name-icinga; will determine a freshness threshold to use automatically. Default: 0.</para></entry>
           </row>
 
           <row>
@@ -1674,7 +1705,10 @@
             <entry align="left" valign="top"><para><emphasis role="bold">event_handler_enabled *</emphasis>:</para></entry>
 
             <entry><para>This directive is used to determine whether or not the event handler for this service is enabled. Values: 0 =
-            disable service event handler, 1 = enable service event handler.</para></entry>
+            disable service event handler, 1 = enable service event handler. Default: 1.<note>
+                <para>This value will have no effect if "<link
+                linkend="configmain-enable_event_handlers">enable_event_handlers</link>=0".</para>
+              </note></para></entry>
           </row>
 
           <row>
@@ -1683,7 +1717,7 @@
             <entry><para>This directive is used to specify the low state change threshold used in flap detection for this service. More
             information on flap detection can be found <link linkend="flapping">here</link>. If you set this directive to a value of 0, the
             program-wide value specified by the <link linkend="configmain-low_service_flap_threshold">low_service_flap_threshold</link>
-            directive will be used.</para></entry>
+            directive will be used. Default: 0.</para></entry>
           </row>
 
           <row>
@@ -1692,7 +1726,7 @@
             <entry><para>This directive is used to specify the high state change threshold used in flap detection for this service. More
             information on flap detection can be found <link linkend="flapping">here</link>. If you set this directive to a value of 0, the
             program-wide value specified by the <link linkend="configmain-high_service_flap_threshold">high_service_flap_threshold</link>
-            directive will be used.</para></entry>
+            directive will be used. Default: 0.</para></entry>
           </row>
 
           <row>
@@ -1700,7 +1734,10 @@
 
             <entry><para>This directive is used to determine whether or not flap detection is enabled for this service. More information on
             flap detection can be found <link linkend="flapping">here</link>. Values: 0 = disable service flap detection, 1 = enable service
-            flap detection.</para></entry>
+            flap detection. Default: 1.<note>
+                <para>This value will have no effect if "<link
+                linkend="configmain-enable_flap_detection">enable_flap_detection</link>=0".</para>
+              </note></para></entry>
           </row>
 
           <row>
@@ -1709,7 +1746,7 @@
             <entry><para>This directive is used to determine what service states the <link linkend="flapping">flap detection logic</link>
             will use for this service. Valid options are a combination of one or more of the following: <emphasis role="bold">o</emphasis> =
             OK states, <emphasis role="bold">w</emphasis> = WARNING states, <emphasis role="bold">c</emphasis> = CRITICAL states, <emphasis
-            role="bold">u</emphasis> = UNKNOWN states.</para></entry>
+            role="bold">u</emphasis> = UNKNOWN states. Default: o,w,u,c.</para></entry>
           </row>
 
           <row>
@@ -1723,7 +1760,10 @@
             <entry align="left" valign="top"><para><emphasis role="bold">process_perf_data *</emphasis>:</para></entry>
 
             <entry><para>This directive is used to determine whether or not the processing of performance data is enabled for this service.
-            Values: 0 = disable performance data processing, 1 = enable performance data processing.</para></entry>
+            Values: 0 = disable performance data processing, 1 = enable performance data processing. Default: 1.<note>
+                <para>This value will have no effect if "<link
+                linkend="configmain-process_performance_data">process_performance_data</link>=0".</para>
+              </note></para></entry>
           </row>
 
           <row>
@@ -1732,7 +1772,7 @@
             <entry><para>This directive is used to determine whether or not status-related information about the service is retained across
             program restarts. This is only useful if you have enabled state retention using the <link
             linkend="configmain-retain_state_information">retain_state_information</link> directive. Value: 0 = disable status information
-            retention, 1 = enable status information retention.</para></entry>
+            retention, 1 = enable status information retention. Default: 1.</para></entry>
           </row>
 
           <row>
@@ -1741,7 +1781,7 @@
             <entry><para>This directive is used to determine whether or not non-status information about the service is retained across
             program restarts. This is only useful if you have enabled state retention using the <link
             linkend="configmain-retain_state_information">retain_state_information</link> directive. Value: 0 = disable non-status
-            information retention, 1 = enable non-status information retention.</para></entry>
+            information retention, 1 = enable non-status information retention. Default: 1.</para></entry>
           </row>
 
           <row>
@@ -1751,7 +1791,7 @@
             is <emphasis>still</emphasis> in a non-OK state. Unless you've changed the <link
             linkend="configmain-interval_length">interval_length</link> directive from the default value of 60, this number will mean
             minutes. If you set this value to 0, &name-icinga; will <emphasis>not</emphasis> re-notify contacts about problems for this
-            service - only one problem notification will be sent out.</para></entry>
+            service - only one problem notification will be sent out. Floating point values are allowed. Default: 30.</para></entry>
           </row>
 
           <row>
@@ -1760,7 +1800,8 @@
             <entry><para>This directive is used to define the number of "time units" to wait before sending out the first problem
             notification when this service enters a non-OK state. Unless you've changed the <link
             linkend="configmain-interval_length">interval_length</link> directive from the default value of 60, this number will mean
-            minutes. If you set this value to 0, &name-icinga; will start sending out notifications immediately.</para></entry>
+            minutes. If you set this value to 0, &name-icinga; will start sending out notifications immediately.Floating point values are
+            allowed. Default: 0.</para></entry>
           </row>
 
           <row>
@@ -1783,15 +1824,18 @@
             <emphasis condition="red" role="color">If you specify <emphasis role="bold">n</emphasis> (none) as an option, no service
             notifications will be sent out.</emphasis> If you do not specify any notification options, &name-icinga; will assume that you
             want notifications to be sent out for all possible states. Example: If you specify <emphasis role="bold">w,r</emphasis> in this
-            field, notifications will only be sent out when the service goes into a WARNING state and when it recovers from a WARNING
-            state.</para></entry>
+            field, notifications will only be sent out when the service goes into a WARNING state and when it recovers from a WARNING state.
+            Default: u,w,c,r,f,s</para></entry>
           </row>
 
           <row>
             <entry align="left" valign="top"><para><emphasis role="bold">notifications_enabled *</emphasis>:</para></entry>
 
             <entry><para>This directive is used to determine whether or not notifications for this service are enabled. Values: 0 = disable
-            service notifications, 1 = enable service notifications.</para></entry>
+            service notifications, 1 = enable service notifications. Default: 1.<note>
+                <para>This value will have no effect if "<link
+                linkend="configmain-enable_notifications">enable_notifications</link>=0".</para>
+              </note></para></entry>
           </row>
 
           <row>
@@ -1821,7 +1865,8 @@
             <entry><para>This directive determines which service states "stalking" is enabled for. Valid options are a combination of one or
             more of the following: <emphasis role="bold">o</emphasis> = stalk on OK states, <emphasis role="bold">w</emphasis> = stalk on
             WARNING states, <emphasis role="bold">u</emphasis> = stalk on UNKNOWN states, and <emphasis role="bold">c</emphasis> = stalk on
-            CRITICAL states. More information on state stalking can be found <link linkend="stalking">here</link>.</para></entry>
+            CRITICAL states. More information on state stalking can be found <link linkend="stalking">here</link>. Default:
+            n.</para></entry>
           </row>
 
           <row>
@@ -2306,14 +2351,20 @@
             <entry align="left" valign="top"><para><emphasis role="bold">host_notifications_enabled</emphasis>:</para></entry>
 
             <entry><para>This directive is used to determine whether or not the contact will receive notifications about host problems and
-            recoveries. Values: 0 = don't send notifications, 1 = send notifications.</para></entry>
+            recoveries. Values: 0 = don't send notifications, 1 = send notifications. Default: 1.<note>
+                <para>This value will have no effect if "<link
+                linkend="configmain-enable_notifications">enable_notifications</link>=0".</para>
+              </note></para></entry>
           </row>
 
           <row>
             <entry align="left" valign="top"><para><emphasis role="bold">service_notifications_enabled</emphasis>:</para></entry>
 
             <entry><para>This directive is used to determine whether or not the contact will receive notifications about service problems
-            and recoveries. Values: 0 = don't send notifications, 1 = send notifications.</para></entry>
+            and recoveries. Values: 0 = don't send notifications, 1 = send notifications. Default: 1.<note>
+                <para>This value will have no effect if "<link
+                linkend="configmain-enable_notifications">enable_notifications</link>=0".</para>
+              </note></para></entry>
           </row>
 
           <row>
@@ -2353,8 +2404,8 @@
             recoveries (UP states), <emphasis role="bold">f</emphasis> = notify when the host starts and stops <link
             linkend="flapping">flapping</link>, and <emphasis role="bold">s</emphasis> = send notifications when host or service <link
             linkend="downtime">scheduled downtime</link> starts and ends. <emphasis condition="red" role="color">If you specify <emphasis
-            role="bold">n</emphasis> (none) as an option, the contact will not receive any type of host
-            notifications.</emphasis></para></entry>
+            role="bold">n</emphasis> (none) as an option, the contact will not receive any type of host notifications.</emphasis> Default:
+            <emphasis role="bold">n</emphasis>.</para></entry>
           </row>
 
           <row>
@@ -2366,7 +2417,7 @@
             CRITICAL service states, <emphasis role="bold">r</emphasis> = notify on service recoveries (OK states), and <emphasis
             role="bold">f</emphasis> = notify when the service starts and stops <link linkend="flapping">flapping</link>.<emphasis
             condition="red" role="color"> If you specify <emphasis role="bold">n</emphasis> (none) as an option, the contact will not
-            receive any type of service notifications.</emphasis></para></entry>
+            receive any type of service notifications.</emphasis> Default: <emphasis role="bold">n</emphasis>.</para></entry>
           </row>
 
           <row>
@@ -2420,7 +2471,7 @@
             <entry><para>This directive is used to determine whether or not status-related information about the contact is retained across
             program restarts. This is only useful if you have enabled state retention using the <link
             linkend="configmain-retain_state_information">retain_state_information</link> directive. Value: 0 = disable status information
-            retention, 1 = enable status information retention.</para></entry>
+            retention, 1 = enable status information retention. Default: 1.</para></entry>
           </row>
 
           <row>
@@ -2429,7 +2480,7 @@
             <entry><para>This directive is used to determine whether or not non-status information about the contact is retained across
             program restarts. This is only useful if you have enabled state retention using the <link
             linkend="configmain-retain_state_information">retain_state_information</link> directive. Value: 0 = disable non-status
-            information retention, 1 = enable non-status information retention.</para></entry>
+            information retention, 1 = enable non-status information retention. Default: 1.</para></entry>
           </row>
         </tbody>
       </tgroup>
@@ -3058,7 +3109,7 @@
             <entry align="left" valign="top"><para><emphasis role="bold">host_name</emphasis>:</para></entry>
 
             <entry><para>This directive is used to identify the <emphasis>short name(s)</emphasis> of the <link
-            linkend="objectdefinitions-host">host(s)</link> that the service <emphasis>that is being depended upon</emphasis> (also referred
+            linkend="objectdefinitions-host">host(s)</link> that the service<emphasis> that is being depended upon</emphasis> (also referred
             to as the master service) "runs" on or is associated with. Multiple hosts should be separated by commas.</para></entry>
           </row>
 
@@ -3066,7 +3117,7 @@
             <entry align="left" valign="top"><para><emphasis role="bold">hostgroup_name</emphasis>:</para></entry>
 
             <entry><para>This directive is used to identify the <emphasis>short name(s)</emphasis> of the <link
-            linkend="objectdefinitions-host">hostgroup(s)</link> that the service <emphasis>that is being depended upon</emphasis> (also
+            linkend="objectdefinitions-host">hostgroup(s)</link> that the service<emphasis> that is being depended upon</emphasis> (also
             referred to as the master service) "runs" on or is associated with. Multiple hostgroups should be separated by commas. The
             hostgroup_name may be used instead of, or in addition to, the host_name directive.</para></entry>
           </row>
@@ -3075,16 +3126,16 @@
             <entry align="left" valign="top"><para><emphasis role="bold">service_description</emphasis>:</para></entry>
 
             <entry><para>This directive is used to identify the <emphasis>description</emphasis> of the <link
-            linkend="objectdefinitions-service">service</link><emphasis>that is being depended upon</emphasis> (also referred to as the
+            linkend="objectdefinitions-service">service</link><emphasis> that is being depended upon</emphasis> (also referred to as the
             master service).</para></entry>
           </row>
 
           <row>
             <entry align="left" valign="top"><para><emphasis role="bold">inherits_parent</emphasis>:</para></entry>
 
-            <entry><para>This directive indicates whether or not the dependency inherits dependencies of the service <emphasis>that is being
+            <entry><para>This directive indicates whether or not the dependency inherits dependencies of the service<emphasis> that is being
             depended upon</emphasis> (also referred to as the master service). In other words, if the master service is dependent upon other
-            services and any one of those dependencies fail, this dependency will also fail.</para></entry>
+            services and any one of those dependencies fail, this dependency will also fail. Default: 0.</para></entry>
           </row>
 
           <row>
@@ -3444,7 +3495,7 @@
             of the following: <emphasis role="bold">r</emphasis> = escalate on an OK (recovery) state, <emphasis role="bold">w</emphasis> =
             escalate on a WARNING state, <emphasis role="bold">u</emphasis> = escalate on an UNKNOWN state, and <emphasis
             role="bold">c</emphasis> = escalate on a CRITICAL state. Example: If you specify <emphasis role="bold">w</emphasis> in this
-            field, the escalation will only be used if the service is in a WARNING state.</para></entry>
+            field, the escalation will only be used if the service is in a WARNING state. Default: w,u,c,r.</para></entry>
           </row>
 
           <row>
@@ -3658,7 +3709,7 @@
             <entry align="left" valign="top"><para><emphasis role="bold">host_name</emphasis>:</para></entry>
 
             <entry><para>This directive is used to identify the <emphasis>short name(s)</emphasis> of the <link
-            linkend="objectdefinitions-host">host(s)</link><emphasis>that is being depended upon</emphasis> (also referred to as the master
+            linkend="objectdefinitions-host">host(s)</link><emphasis> that is being depended upon</emphasis> (also referred to as the master
             host). Multiple hosts should be separated by commas.</para></entry>
           </row>
 
@@ -3666,7 +3717,7 @@
             <entry align="left" valign="top"><para><emphasis role="bold">hostgroup_name</emphasis>:</para></entry>
 
             <entry><para>This directive is used to identify the <emphasis>short name(s)</emphasis> of the <link
-            linkend="objectdefinitions-host">hostgroup(s)</link><emphasis>that is being depended upon</emphasis> (also referred to as the
+            linkend="objectdefinitions-host">hostgroup(s)</link><emphasis> that is being depended upon</emphasis> (also referred to as the
             master host). Multiple hostgroups should be separated by commas. The hostgroup_name may be used instead of, or in addition to,
             the host_name directive.</para></entry>
           </row>
@@ -3674,9 +3725,9 @@
           <row>
             <entry align="left" valign="top"><para><emphasis role="bold">inherits_parent</emphasis>:</para></entry>
 
-            <entry><para>This directive indicates whether or not the dependency inherits dependencies of the host <emphasis>that is being
+            <entry><para>This directive indicates whether or not the dependency inherits dependencies of the host<emphasis> that is being
             depended upon</emphasis> (also referred to as the master host). In other words, if the master host is dependent upon other hosts
-            and any one of those dependencies fail, this dependency will also fail.</para></entry>
+            and any one of those dependencies fail, this dependency will also fail. Default: 0.</para></entry>
           </row>
 
           <row>
@@ -3975,8 +4026,8 @@
             escalation, the escalation is considered to be valid during all host states. Valid options are a combination of one or more of
             the following: <emphasis role="bold">r</emphasis> = escalate on an UP (recovery) state, <emphasis role="bold">d</emphasis> =
             escalate on a DOWN state, and <emphasis role="bold">u</emphasis> = escalate on an UNREACHABLE state. Example: If you specify
-            <emphasis role="bold">d</emphasis> in this field, the escalation will only be used if the host is in a DOWN
-            state.</para></entry>
+            <emphasis role="bold">d</emphasis> in this field, the escalation will only be used if the host is in a DOWN state. Default:
+            d,u,r.</para></entry>
           </row>
 
           <row>

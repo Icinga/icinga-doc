@@ -383,15 +383,22 @@
     System neustarten.</para>
 
     <para>Statt SE&name-linux; zu deaktivieren oder es in den Permissive-Modus zu versetzen, können Sie den folgenden Befehl benutzen, um
-    die CGIs im Enforcing/Targeted-Modus laufen zu lassen:</para>
+    die CGIs im Enforcing/Targeted-Modus laufen zu lassen. Der <emphasis>semanage</emphasis>-Befehl wird automatisch Einträge in die Datei
+    <filename>/etc/selinux/targeted/contexts/files/file_contexts.local</filename> einfügen:</para>
 
-    <programlisting> #&gt; chcon -R -t httpd_sys_script_exec_t &url-icinga-base;/sbin/
- #&gt; chcon -R -t httpd_sys_content_t &url-icinga-base;/share/
- #&gt; chcon -t httpd_sys_script_rw_t &url-icinga-base;/var/rw/icinga.cmd</programlisting>
+    <programlisting> #&gt; semanage fcontext -a -t httpd_sys_script_exec_t '/usr/local/icinga/sbin(/.*)?'
+ #&gt; semanage fcontext -a -t httpd_sys_content_t '/usr/local/icinga/share(/.*)?'
+ #&gt; semanage fcontext -a -t httpd_sys_rw_content_t '/usr/local/icinga/var(/.*)?'</programlisting>
 
-    <para>Eine alternative Vorgehensweise wird unter <link
+    <para>Sobald Sie die notwendigen Kontexte definiert haben, müssen die Einträge aktiviert werden.</para>
+
+    <programlisting> #&gt; chcon -R &url-icinga-base;/sbin
+ #&gt; chcon -R &url-icinga-base;/share
+ #&gt; chcon -R &url-icinga-base;/var</programlisting>
+
+    <para>Einzelheiten finden Sie unter <link
     xlink:href="http://www.linuxquestions.org/questions/blog/sag47-492023/selinux-and-icinga-34926/">http://www.linuxquestions.org/questions/blog/sag47-492023/selinux-and-icinga-34926/</link>
-    beschrieben (englisch).</para>
+    (englisch).</para>
   </section>
 
   <section xml:id="starticinga">
