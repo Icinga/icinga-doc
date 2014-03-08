@@ -607,7 +607,7 @@
 
         <para>Create Database, User, Grants:</para>
 
-            <screen> # mysql -u root -p
+        <screen> # mysql -u root -p
 
  mysql&gt; CREATE DATABASE icinga;
 
@@ -820,13 +820,18 @@
     system.</para>
 
     <para>Instead of deactivating SE&name-linux; or setting it into permissive mode you can use the following commands to run the CGIs in
-    enforcing/targeted mode:</para>
+    enforcing/targeted mode. The <emphasis>semanage</emphasis> command will automatically add entries to
+    <filename>/etc/selinux/targeted/contexts/files/file_contexts.local</filename>.<programlisting> #&gt; semanage fcontext -a -t httpd_sys_script_exec_t '/usr/local/icinga/sbin(/.*)?'
+ #&gt; semanage fcontext -a -t httpd_sys_content_t '/usr/local/icinga/share(/.*)?'
+ #&gt; semanage fcontext -a -t httpd_sys_rw_content_t '/usr/local/icinga/var(/.*)?'</programlisting></para>
 
-    <screen> #&gt; chcon -R -t httpd_sys_script_exec_t &url-icinga-base;/sbin/
- #&gt; chcon -R -t httpd_sys_content_t &url-icinga-base;/share/
- #&gt; chcon -t httpd_sys_script_rw_t &url-icinga-base;/var/rw/icinga.cmd</screen>
+    <para>Once you have defined the necessary contexts you have to apply the settings:</para>
 
-    <para>Alternatively you may want to take a look at <link
+    <programlisting> #&gt; chcon -R &url-icinga-base;/sbin
+ #&gt; chcon -R &url-icinga-base;/share
+ #&gt; chcon -R &url-icinga-base;/var/rw</programlisting>
+
+    <para>For details please take a look at <link
     xlink:href="http://www.linuxquestions.org/questions/blog/sag47-492023/selinux-and-icinga-34926/">http://www.linuxquestions.org/questions/blog/sag47-492023/selinux-and-icinga-34926/</link>.</para>
   </section>
 

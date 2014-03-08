@@ -134,9 +134,9 @@
 
     <itemizedlist>
       <listitem>
-        <para>Please download the archive from <link
-			xlink:href="http://www.icinga.org/download/">http://www.icinga.org/download/</link>. If your need a
-        function only available in the latest developer version then clone from the icinga-web.git to get the freshest branch:</para>
+        <para>Please download the archive from <link xlink:href="http://www.icinga.org/download/">http://www.icinga.org/download/</link>. If
+        your need a function only available in the latest developer version then clone from the icinga-web.git to get the freshest
+        branch:</para>
 
         <screen> #&gt; git clone git://git.icinga.org/icinga-web.git</screen>
 
@@ -209,7 +209,7 @@
         <screen> #&gt; make install-apache-config</screen>
 
         <note>
-          Starting with Apache 2.4 (testing versions of 
+           Starting with Apache 2.4 (testing versions of 
 
           &name-debian;
 
@@ -217,9 +217,11 @@
 
           &name-ubuntu;
 
-          ) you have to enable the module
+           ) you have to enable the module 
 
           <screen>#&gt; a2enconf icinga-web</screen>
+
+           
         </note>
 
         <para>If you don't need an alias, you can alternatively use the old behaviour setting a symlink instead: <screen> #&gt; make install-javascript</screen></para>
@@ -231,7 +233,41 @@
  Installation of icinga-web succeeded.
  Please check the new Apache2 configuration (etc/apache2/icinga-web.conf).</screen>
 
-        <para>Other useful target: <screen> #&gt; make icinga-reset-password</screen> Reset password for any account on icinga-web.</para>
+        <para>Other useful target: <screen> #&gt; make icinga-reset-password</screen>Reset password for any account on icinga-web.</para>
+      </listitem>
+
+      <listitem xml:id="selinuxsettings">
+        <title>Adjusting the SE&name-linux; settings</title>
+
+        <para>&name-rhel; and derived distributions like &name-fedora; and &name-centos; are shipped with activated SE&name-linux; (Security
+        Enhanced &name-linux;) running in "enforcing" mode. This may lead to "Internal Server Error" messages when you try to invoke the
+        &name-icinga;-CGIs.</para>
+
+        <para>Check if SE&name-linux; runs in enforcing mode</para>
+
+        <screen> #&gt; getenforce</screen>
+
+        <para>Set SE&name-linux; in "permissive" mode</para>
+
+        <screen> #&gt; setenforce 0</screen>
+
+        <para>To make this change permanent you have to adjust this setting in <emphasis>/etc/selinux/config</emphasis> and restart the
+        system.</para>
+
+        <para>Instead of deactivating SE&name-linux; or setting it into permissive mode you can use the following commands to run the CGIs
+        in enforcing/targeted mode. The <emphasis>semanage</emphasis> command will automatically add entries to
+        <filename>/etc/selinux/targeted/contexts/files/file_contexts.local</filename>.<programlisting> #&gt; semanage fcontext -a -t httpd_sys_content_t '/usr/local/icinga-web/app(/.*)?'
+ #&gt; semanage fcontext -a -t httpd_sys_content_t '/usr/local/icinga-web/lib(/.*)?'
+ #&gt; semanage fcontext -a -t httpd_sys_content_t '/usr/local/icinga-web/pub(/.*)?'
+ #&gt; semanage fcontext -a -t httpd_sys_rw_content_t '/usr/local/icinga-web/app/cache(/.*)?'
+ #&gt; semanage fcontext -a -t httpd_sys_rw_content_t '/usr/local/icinga-web/log(/.*)?'</programlisting></para>
+
+        <para>Once you have defined the necessary contexts you have to apply the settings:</para>
+
+        <programlisting> #&gt; chcon -R /usr/local/icinga-web</programlisting>
+
+        <para>For details please take a look at <link
+        xlink:href="http://www.linuxquestions.org/questions/blog/sag47-492023/selinux-and-icinga-34926/">http://www.linuxquestions.org/questions/blog/sag47-492023/selinux-and-icinga-34926/</link>.</para>
       </listitem>
 
       <listitem>
@@ -280,7 +316,7 @@
 
  mysql&gt; CREATE DATABASE icinga_web;
 
- 	   GRANT SELECT, INSERT, UPDATE, DELETE, DROP, CREATE VIEW, INDEX, EXECUTE ON icinga_web.* TO 'icinga_web'@'localhost' IDENTIFIED BY 'icinga_web';
+    GRANT SELECT, INSERT, UPDATE, DELETE, DROP, CREATE VIEW, INDEX, EXECUTE ON icinga_web.* TO 'icinga_web'@'localhost' IDENTIFIED BY 'icinga_web';
 
         quit</screen>
           </listitem>

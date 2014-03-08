@@ -130,9 +130,9 @@
 
     <itemizedlist>
       <listitem>
-        <para>Laden Sie das Archiv herunter von <link
-			xlink:href="http://www.icinga.org/download/">http://www.icinga.org/download/</link>. Falls Sie eine
-        Funktion benötigen, die nur in der aktuellen Entwicklerversion vorhanden ist, dann klonen Sie von icinga-web.git:</para>
+        <para>Laden Sie das Archiv herunter von <link xlink:href="http://www.icinga.org/download/">http://www.icinga.org/download/</link>.
+        Falls Sie eine Funktion benötigen, die nur in der aktuellen Entwicklerversion vorhanden ist, dann klonen Sie von
+        icinga-web.git:</para>
 
         <screen> #&gt; git clone git://git.icinga.org/icinga-web.git</screen>
 
@@ -224,6 +224,43 @@
         <screen> #&gt; make icinga-reset-password</screen>
 
         <para>Setzt das Passwort für jeden Account auf icinga-web zurück.</para>
+      </listitem>
+
+      <listitem xml:id="selinuxsettings">
+        <title>Anpassen der SE&name-linux;-Einstellungen</title>
+
+        <para>&name-rhel; und ähnliche Distributionen wie &name-fedora; oder &name-centos; werden mit installiertem SE&name-linux; (Security
+        Enhanced &name-linux;) ausgeliefert und laufen im "Enforcing"-Modus. Dies kann zu "Internal Server Error"-Fehlern führen, wenn Sie
+        versuchen, die &name-icinga;-CGIs aufzurufen.</para>
+
+        <para>Schauen Sie, ob SE&name-linux; im Enforcing-Modus läuft.</para>
+
+        <screen> #&gt; getenforce</screen>
+
+        <para>Setzen Sie SE&name-linux; in den "Permissive"-Modus.</para>
+
+        <screen> #&gt; setenforce 0</screen>
+
+        <para>Damit diese Änderung dauerhaft wird, müssen Sie diese Einstellung in <emphasis>/etc/selinux/config</emphasis> anpassen und das
+        System neustarten.</para>
+
+        <para>Statt SE&name-linux; zu deaktivieren oder es in den Permissive-Modus zu versetzen, können Sie den folgenden Befehl benutzen,
+        um die CGIs im Enforcing/Targeted-Modus laufen zu lassen. Der <emphasis>semanage</emphasis>-Befehl wird automatisch Einträge in die
+        Datei <filename>/etc/selinux/targeted/contexts/files/file_contexts.local</filename> einfügen:</para>
+
+        <programlisting> #&gt; semanage fcontext -a -t httpd_sys_content_t '/usr/local/icinga-web/app(/.*)?'
+ #&gt; semanage fcontext -a -t httpd_sys_content_t '/usr/local/icinga-web/lib(/.*)?'
+ #&gt; semanage fcontext -a -t httpd_sys_content_t '/usr/local/icinga-web/pub(/.*)?'
+ #&gt; semanage fcontext -a -t httpd_sys_rw_content_t '/usr/local/icinga-web/app/cache(/.*)?'
+ #&gt; semanage fcontext -a -t httpd_sys_rw_content_t '/usr/local/icinga-web/log(/.*)?'</programlisting>
+
+        <para>Sobald Sie die notwendigen Kontexte definiert haben, müssen die Einträge aktiviert werden.</para>
+
+        <programlisting> #&gt; chcon -R /usr/local/icinga-web</programlisting>
+
+        <para>Einzelheiten finden Sie unter <link
+        xlink:href="http://www.linuxquestions.org/questions/blog/sag47-492023/selinux-and-icinga-34926/">http://www.linuxquestions.org/questions/blog/sag47-492023/selinux-and-icinga-34926/</link>
+        (englisch).</para>
       </listitem>
 
       <listitem>
