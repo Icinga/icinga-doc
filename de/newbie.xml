@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="newbie" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="newbie_"/>Ich bin neu bei...</title>
+
+  <para>Außerhalb des Computing wird ein "Newbie" mit "Neuling" bezeichnet und das begann lange, bevor Sie Laufen lernten. Sie haben diese
+  Herausforderung gemeistert und so gibt es keinen Grund, jetzt zurückzuschrecken. Die folgenden Abschnitte enthalten einige Hinweise zu
+  verschiedenen Themen. Bitte lesen Sie aufmerksam, wenn Sie meinen, dass Sie irgendwo "neu" sind. Wir werden Sie hierhin verweisen, wenn
+  wir der Meinung sind, dass Ihnen ein wenig Grundlagen fehlen ;-).</para>
+
+  <section xml:id="newbie-linux">
+    <title>Linux</title>
+
+    <para>Eine ansehnliche Zahl von Leuten ist beim Thema "Monitoring" neu, und auch beim Thema &name-linux;. Sie wurden aufgefordert, ein
+    Monitoring-System zu erstellen, das verschiedene Hosts und einige Services auf diesen Geräten überwachen soll. Die Zahl selbst ist
+    uninteressant, weil die erste Hürde bereits das Betriebssystem ist.</para>
+
+    <para>Besonders junge Leute sind an grafische Benutzeroberflächen gewöhnt, die es einfach machen, mit ein paar Maus-Klicks Software zu
+    installieren, währenddessen irgendwelche Werte in einen Lagerraum gesteckt werden, der gemeinhin als "Registry" bekannt ist. Sogar
+    Server-Betriebssysteme haben heutzutage irgendeine Art von grafischer Benutzeroberfläche, aber es trotzdem noch erforderlich, Befehle an
+    einer textbasierten Konsole einzugeben.</para>
+
+    <para>Holen Sie sich daher ein gutes Buch zu &name-linux;-Grundlagen aus Ihrer Stadtbibliothek, um einen Überblick über die
+    Verzeichnisstruktur und häufig benutzte Befehle zu bekommen. Benutzen Sie Ihren Browser, wenn Sie keine Bücher mögen, aber stellen Sie
+    bitte keine diesbezüglichen Fragen in einem Monitoring-Forum (Sie würden auch nicht fragen, wie man laufen lernt, wenn Sie das erste Mal
+    in einem Fitness-Studio sind, oder?).<note>
+        <para>Die Verlockung, Befehle als "root" (alias "Administrator" auf &name-windows;-Systemen) auszuführen, ist hoch, aber bitte
+        versuchen Sie dem zu widerstehen, denn es kann relativ schnell zu einem unbrauchbaren System führen, u.a. weil es nicht dauernd
+        quängelnde Fragen gibt ("Sind Sie sicher...?"). Bedingt durch die Berechtigungen dieses Superusers bemerken Sie ggf. nicht bestimmte
+        (notwendige) Beschränkungen des Benutzers, der normalerweise zum Ausführen der Überwachungsausgaben verwendet wird, was in Aussagen
+        resultiert wie "das hat schon 'mal funktioniert".</para>
+      </note></para>
+  </section>
+
+  <section xml:id="newbie-mail">
+    <title>Mail</title>
+
+    <para>In den meisten Fällen wollen Sie Mitteilungen versenden, wenn überwachte Objekte ausfallen oder sich wieder erholen, anstatt auf
+    die Benutzeroberfläche zu schauen. Das mag auf Ihrem lokalen System (dem Überwachungs-Server) funktionieren, aber das Versenden von
+    e-Mails an andere Systeme erfordert von Ihnen, dass Sie Ihrem lokalen Postamt sagen, wohin es sie schicken soll (eine "relaying"
+    genannte Methode). Moderne Systeme haben Sicherheitseinstellungen, die unerwünschte Mails (bestenfalls) zurückschicken oder einfach
+    ignorieren, so dass Sie das empfangende Postamt anweisen müssen, die von Ihrem lokalen Postamt eingehenden Mails tatsächlich anzunehmen
+    und weiterzuleiten.</para>
+
+    <orderedlist>
+      <listitem>
+        <para>Testen Sie, ob ein e-Mail-Programm auf Ihrem lokalen System installiert ist. Führen Sie auf der Kommandozeile etwas Ähnliches
+        wie das Folgende aus:<screen>echo "foo bar" | mail -s "meine erste e-Mail" ihr.name@ihre.firma</screen>Falls Sie eine Fehlermeldung
+        wie "Programm nicht gefunden" bekommen, dann sollten Sie ein Mail-Programm installieren. Schauen Sie in der Dokumentation Ihrer
+        Distribution nach Einzelheiten (z.B. <filename>apt-get</filename>, <filename>yum</filename>, <filename>zypper</filename>, um nur
+        einige Paket-Manager zu nennen).<note>
+            <para>Bitte merken Sie sich die Position Ihres Mails-Programms, weil Sie später überprüfen müssen, ob die Angabe in den
+            Benachrichtigungs-Skripten korrekt ist.</para>
+          </note></para>
+      </listitem>
+
+      <listitem>
+        <para>Editieren Sie Ihre lokale Mail-Konfigurationsdatei, damit der Relay-Host-Eintrag (z.B.
+        <filename>/etc/postfix/main.cf</filename>, Direktive <link
+        xlink:href="http://www.postfix.org/postconf.5.html#relayhost">relayhost</link>) auf den (zentralen) Mail-Server zeigt.</para>
+      </listitem>
+
+      <listitem>
+        <para>Bitten Sie den Mail-Server-Administrator, die Einstellungen zu ändern, so dass von Ihrem Server kommende Mails akzeptiert und
+        weitergeleitet werden.</para>
+      </listitem>
+    </orderedlist>
+
+    <indexterm zone="newbie-mail">
+      <primary>Newbie</primary>
+
+      <secondary>Mail</secondary>
+    </indexterm>
+  </section>
+
+  <section xml:id="newbie-snmp">
+    <title>SNMP</title>
+
+    <para>"SNMP, ist ein Netzwerkprotokoll, das von der IETF entwickelt wurde, um Netzwerkelemente (z. B. Router, Server, Switches, Drucker,
+    Computer usw.) von einer zentralen Station aus überwachen und steuern zu können." (<link
+    xlink:href="http://en.wikipedia.org/wiki/SNMP">Zitat Wikipedia</link>).</para>
+
+    <para>Mit Hilfe des check_snmp-Plugins aus dem <link xlink:href="&amp;url-monitoring-plugins;">Monitoring Plugins</link>-Paket können
+    Sie Daten von "managed" Systemen abrufen. Bitte stellen Sie sicher, dass auf dem Zielsystem ein SNMP-Dämon läuft, der konfiguriert
+    wurde, um auf Anfragen Ihres Überwachungsrechners zu antworten. Führen Sie etwas wie <literal>snmpwalk -v1 -c public -On target_system
+    system</literal> aus, um die Funktionalität zu prüfen.</para>
+
+    <para>Sie können OIDs in einer menschlich besser lesbaren Form angeben oder rein numerisch. Letzteres verhindert die Notwendigkeit, die
+    MIBs zu lesen, ist schneller und weniger fehleranfällig.</para>
+
+    <indexterm zone="newbie-snmp">
+      <primary>Newbie</primary>
+
+      <secondary>SNMP</secondary>
+    </indexterm>
+  </section>
+
+  <section xml:id="newbie-packages">
+    <title>Pakete</title>
+
+    <para>Bitte benutzen Sie Pakete, um die benötigte Software zu installieren, wo immer das möglich ist. Es umgeht einige Probleme während
+    Installation und Konfiguration - aber wichtiger ist - es erlaubt einfache Aktualisierungen. Als Monitoring-Neuling brauchen Sie sehr
+    selten eine Änderung, die im allerneusten Git-Snapshot enthalten ist. "Leading edge" kann sehr schnell zu "bleeding edge" werden, und
+    nachdem Sie wahrscheinlich genug damit zu tun haben, das Produkt mit einem begrenzten Wissen der ganzen Beziehungen zu installieren und
+    lauffähig zu bekommen, sollten Sie auf diese Art von Problemen verzichten und bei einer stabilen Version bleiben.</para>
+
+    <indexterm zone="newbie-packages">
+      <primary>Newbie</primary>
+
+      <secondary>Pakete</secondary>
+    </indexterm>
+  </section>
+
+  <section xml:id="newbie-monitoring">
+    <title>Überwachung</title>
+
+    <para>"Monitoring" bedeutet, Informationen von anderen Systemen abzufragen. Stellen Sie sicher, dass Sie berechtigt sind auf diese
+    anderen Systeme zuzugreifen, indem Sie die Personen fragen, die diese System administrieren. Ports zu untersuchen und ähnliche Dinge zu
+    tun könnte als Angriff angesehen werden! Wenn es Firewall oder andere Maßnahmen gibt, um den Zugang zu beschränken, dann bitten Sie
+    darum, dass geeignete Regeln/Ausnahmen definiert werden.</para>
+
+    <note>
+      <para>Abhängig von den Datenschutzvorschriften sind Sie ggf. nicht berechtigt, Workstations oder andere Systeme zu überwachen, an
+      denen Einzelpersonen arbeiten oder der Umfang der Überwachung könnte eingeschränkt sein. Stellen Sie sicher, dass Sie eine
+      schriftliche Genehmigung haben, <emphasis>bevor</emphasis> Sie mit der Überwachung beginnen.</para>
+    </note>
+
+    <indexterm zone="newbie-monitoring">
+      <primary>Newbie</primary>
+
+      <secondary>Monitoring</secondary>
+    </indexterm>
+  </section>
+
+  <section xml:id="newbie-help">
+    <title>Hilfe!</title>
+
+    <para>Monitoring ist ein komplexes Thema und selbst wenn Sie gute Kenntnisse Ihres Betriebssystem besitzen, tauchen Fragen vielleicht
+    schneller auf als gedacht. Nutzen Sie Ihre Suchmaschine. Jemand anders hatte ggf. bereits dieses Problem und möglicherweise gibt es
+    schon eine Lösung. Wenn nicht, dann gibt es eine Vielzahl von Foren da draußen. Bitte wählen Sie eins, das zu Ihrem Problem passt.
+    Fragen, die zu Ihrem Monitoring gehören, können am besten von Leuten beantwortet werden, die sich auf dieses Gebiet spezialisiert haben,
+    und Betriebssystem bezogene Fragen werden besser an anderer Stelle gestellt.</para>
+
+    <para>Die Community ist bereit zu helfen, aber Sie sind der Einzige, der das Problem sieht, also bitte ...</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>liefern Sie detaillierte Informationen zu dem verwendeten Betriebssystem. Die Nennung der Distribution ist nicht ausreichend.
+        Geben Sie die Version an sowie Patch-Level / Service-Pack, falls zutreffend, ggf. mehrfach, falls mehrere Rechner betroffen
+        sind.</para>
+      </listitem>
+
+      <listitem>
+        <para>geben Sie Version und Installationsmodus der Software an (z.B. Icinga, Plugin, Addon, ...). Einige Dinge sind ggf. bereits in
+        spätere Versionen behoben, oder nur auf eine Version beschränkt. Falls Sie keine Pakete benutzt haben (wir hatten erwähnt, dass Sie
+        das tun sollten, oder?), dann sind die Installationspfade ggf. unterschiedlich und können zu Problemen führen. Manchmal
+        funktionieren bestimmte Kombinationen nicht (z.B. ein neues Betriebssystem-Release führt andere Paketabhängigkeiten ein).</para>
+      </listitem>
+
+      <listitem>
+        <para>zeigen Sie Ein- und Ausgaben, falls die Ausführung eines Plugins fehlschlägt (am besten Copy&amp;Paste). Manchmal machen
+        (fehlende) Leerzeichen / spezielle Zeichen den Unterschied, so dass Prosa in den meisten Fällen nicht hilft, das Problem zu
+        beschreiben (nur die Fakten bitte).</para>
+      </listitem>
+
+      <listitem>
+        <para>zeigen Sie relevante Konfigurationsinformationen zu dem Problem (bitte verzichten Sie auf Kommentare und Leerzeilen, die die
+        Ausgabe schwer lesbar machen).</para>
+      </listitem>
+
+      <listitem>
+        <para>fügen Sie relevante Zeilen von Log-Dateien an (z.B. icinga.log, syslog, web server log).</para>
+      </listitem>
+
+      <listitem>
+        <para>versuchen Sie, einen Screenshot anzufügen, wenn Sie ein Problem mit einer der Benutzeroberflächen zu zeigen.</para>
+      </listitem>
+
+      <listitem>
+        <para>fügen Sie Informationen zum Ursprung der Software hinzu ("Ich benutze das Plugin my_plugin" hilft nicht), um anderen den
+        Zugriff auf die gleiche Version zu ermöglichen, die dann ggf. den Fehler bestätigen.</para>
+      </listitem>
+
+      <listitem>
+        <para>fügen Sie Informationen zu den verwendeten Anweisungen hinzu. Diese sind ggf. veraltet oder beziehen sich nur auf eine
+        bestimmte Version der Software.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Je mehr (präzisere) Informationen Sie liefern, um so höher ist die Chance, dass Sie Antworten erhalten, mit denen Sie Ihr Problem
+    lösen können. Anderenfalls verlieren Sie u.U. wertvolle Zeit, weil Sie nach Informationen gefragt werden, die Sie bereits beim ersten
+    Mal hätten liefern können.</para>
+
+    <para>Seien Sie geduldig. Die Reaktionszeit auf Beiträge, die "dringend" oder ähnliche Wörter enthalten, scheint reziprok dazu zu sein.
+    Foren sind meistens unentgeltliche Plattformen mit Leuten, die in ihrer Freizeit antworten.</para>
+
+    <para>Bitte verzichten Sie auf <link xlink:href="http://de.wikipedia.org/wiki/Crossposting">Crossposting</link> (zur gleichen Zeit die
+    gleiche Frage an unterschiedlichen Stellen platzieren).</para>
+
+    <indexterm zone="newbie-help">
+      <primary>Newbie</primary>
+
+      <secondary>Hilfe</secondary>
+    </indexterm>
+  </section>
+</section>

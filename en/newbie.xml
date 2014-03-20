@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section [
+<!ENTITY % all.entities SYSTEM "all-entities.ent">
+%all.entities;
+]>
+<section version="5.0" xml:id="newbie" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <title><anchor xml:id="newbie_"/>I'm a newbie to ...</title>
+
+  <para>Prior to computing a "newbie" was called "novice" and it began long before you could walk. You managed that challenge and so there
+  is no reason to shy away now. The following sections contains some hints on several topics. Please read them carefully if you feel to be a
+  newbie to any of them. We will point you here if we have the feeling that you are lacking some basic knowledge ;-).</para>
+
+  <section xml:id="newbie-linux">
+    <title>Linux</title>
+
+    <para>Quite a number of people are new to monitoring, and they are new to &name-linux;, too. They have been instructed to setup a
+    monitoring system which should monitor several hosts and some services on these devices. The number itself is irrelevant because the
+    first obstacle is the operating system.</para>
+
+    <para>Especially young folks are accustomed to graphic user interfaces making it easy to install software with a number of mouse clicks
+    which sets whatever values in a hive commonly known as "registry". Even server operating systems have some kind of graphic user
+    interfaces nowadays but often enough it is necessary to issue commands from a text based console nonetheless.</para>
+
+    <para>Please grab a good book on &name-linux; basics from your local public library to get an overview on the file layout and frequently
+    used commands. Use your browser if you don't like books but please don't ask such questions in a monitoring forum (you wouldn't ask for
+    instructions on how to find one's feet if you in a gym for the first time, would you?).<note>
+        <para>The tempt to execute commands as "root" (a.k.a. "Administrator" on &name-windows; systems) is high but please try to avoid
+        that because it can leave your system unusable quite easily and there is noone asking nagging questions ("Are you sure...?"). Due to
+        the permissions of this superuser you might not recognise (necessary) limitations of the user normally used to execute monitoring
+        tasks resulting in statements such "it already worked".</para>
+      </note></para>
+
+    <indexterm zone="newbie-linux">
+      <primary>Newbie</primary>
+
+      <secondary>Linux</secondary>
+    </indexterm>
+  </section>
+
+  <section xml:id="newbie-mail">
+    <title>Mail</title>
+
+    <para>In most cases you want to send messages if monitored objects fail or recover instead of just watching the user interface. This
+    might work on your local system (the monitoring server) but sending mails to other systems requires you to advise your local post office
+    where to send them (a method called "relaying"). Modern systems have security settings rejecting (at best) or just ignoring unwanted
+    mails so you have to instruct the receiving post office to actually accept and relay mails coming from your local post office.</para>
+
+    <orderedlist>
+      <listitem>
+        <para>Test if a mail program is installed on your local system. Execute something like the following from the command line<screen>echo "foo bar" | mail -s "my first mail" your.name@your.company</screen>If
+        you receive an error message like "program not found" you might have to install a mail program. See the documentation of your
+        distribution for details (e.g. <filename>apt-get</filename>, <filename>yum</filename>, <filename>zypper</filename>, just to name a
+        few package managers).<note>
+            <para>Be sure to remember the location of your mail program because you have to verify if the location is set correctly in the
+            notification scripts.</para>
+          </note></para>
+      </listitem>
+
+      <listitem>
+        <para>Edit your local mail config file to set the relay host entry (e.g. <filename>/etc/postfix/main.cf</filename>, directive <link
+        xlink:href="http://www.postfix.org/postconf.5.html#relayhost">relayhost</link>) pointing to the (central) mail server.</para>
+      </listitem>
+
+      <listitem>
+        <para>Ask the mail server administrator to change the settings to accept and relay mail coming from your server.</para>
+      </listitem>
+    </orderedlist>
+
+    <indexterm zone="newbie-mail">
+      <primary>Newbie</primary>
+
+      <secondary>Mail</secondary>
+    </indexterm>
+  </section>
+
+  <section xml:id="newbie-snmp">
+    <title>SNMP</title>
+
+    <para>"SNMP exposes management data in the form of variables on the managed systems, which describe the system configuration. These
+    variables can then be queried (and sometimes set) by managing applications." (<link
+    xlink:href="http://en.wikipedia.org/wiki/SNMP">Excerpt from Wikipedia</link>).</para>
+
+    <para>Using the check_snmp plugin from the <link xlink:href="&amp;url-monitoring-plugins;">Monitoring Plugins</link> package you can
+    retrieve data from managed systems. Please make sure that the target system has a running SMNP daemon which is configured to respond to
+    queries from you monitoring server. Executing something like <literal>snmpwalk -v1 -c public -On target_system system</literal> should
+    be used to verify that.</para>
+
+    <para>You can specify OIDs in a more human readable way or using numbers only. The latter eliminates the need to read MIBs, is faster
+    and less error prone.</para>
+
+    <indexterm zone="newbie-snmp">
+      <primary>Newbie</primary>
+
+      <secondary>SNMP</secondary>
+    </indexterm>
+  </section>
+
+  <section xml:id="newbie-packages">
+    <title>Packages</title>
+
+    <para>Please use packages to install the necessary software wherever possible. It circumvents some problems during installation and
+    configuration - but more important - it allows for easy updates. Being a newbie to monitoring you very seldomly need a feature
+    introduced in the most current git snapshot. "Leading edge" can result in "bleeding edge" very quickly and having enough trouble getting
+    the product up and running with a limited knowledge of all the relations you don't need this kind of problems and hence should stick to
+    a stable version. Please take a look <link linkend="icinga_packages">here</link>, too.</para>
+
+    <indexterm zone="newbie-packages">
+      <primary>Newbie</primary>
+
+      <secondary>Packages</secondary>
+    </indexterm>
+  </section>
+
+  <section xml:id="newbie-monitoring">
+    <title>Monitoring</title>
+
+    <para>"Monitoring" means getting information from other systems. Make sure that you are permitted to access these other systems by
+    asking the people who are administrating these systems if you are allowed to do so. Probing ports and things alike might be considered
+    an attack! If there are firewalls or other means of restricting access then ask for appropriate rules/exceptions to be defined.</para>
+
+    <note>
+      <para>Depending on data protection policies you may not be allowed to access workstations or other systems where individuals work or
+      the extent of monitoring may be restricted. Make sure to get written permission <emphasis>before</emphasis> you start
+      monitoring.</para>
+    </note>
+
+    <indexterm zone="newbie-monitoring">
+      <primary>Newbie</primary>
+
+      <secondary>Monitoring</secondary>
+    </indexterm>
+  </section>
+
+  <section xml:id="newbie-help">
+    <title>Help!</title>
+
+    <para>Monitoring is a complex field and even if you have a solid knowledge of your operating system questions may arise earlier than you
+    expected. Use your favourite search engine. Somebody else might have had the same problem and probably there is a solution already. If
+    not then there are a lot of forums out there. Please select one fitting to your problem. Questions related to your monitoring are best
+    answered by folks specialised on that topic and operating system questions are better placed elsewhere.</para>
+
+    <para>The community is ready to help but you are the only one viewing the problem so please ...</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>give detailed information on the operating system(s) used. Naming the distribution is not enough. State version and patch
+        level / service pack if applicable. Please repeat if more than one machine is involved.</para>
+      </listitem>
+
+      <listitem>
+        <para>specify the version and installation mode of the software (e.g. Icinga, plugin, addon, ...). Some issues might be fixed in
+        later versions, or be limited to a specific version. If you didn't use packages (we mentioned that you should, didn't we?) the
+        installation paths might be different and result in problems. Sometimes certain combinations might not work (e.g. a new os release
+        introducing different package dependencies).</para>
+      </listitem>
+
+      <listitem>
+        <para>show input and output if executing a plugin fails (preferably copy&amp;paste). Sometimes (missing) blanks / special characters
+        make the difference so using prose describing the problem doesn't help in most cases (just the facts, please).</para>
+      </listitem>
+
+      <listitem>
+        <para>show relevant config information related to the problem (please omit comments and empty lines making the output difficult to
+        read).</para>
+      </listitem>
+
+      <listitem>
+        <para>attach relevant lines from log files (e.g. icinga.log, syslog, web server log).</para>
+      </listitem>
+
+      <listitem>
+        <para>try to attach a screenshot if you want to show a problem with any of the user interfaces.</para>
+      </listitem>
+
+      <listitem>
+        <para>add information on the source of the software ("I use plugin my_plugin" doesn't help) to allow others to get the same version
+        and possibly confirm that problem.</para>
+      </listitem>
+
+      <listitem>
+        <para>add information on the instructions you used. They might be outdated or apply only to a certain version of the
+        software.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>The more (precise) information you give the higher is the chance that you get answers enabling you to solve the problem. Otherwise
+    you might lose valuable time because you are asked to provide information you should have given the first time.</para>
+
+    <para>Be patient. The reaction time on threads containing "urgent" or similar expressions tends to be reciprocal. Forums are mostly
+    non-profit platforms and folks answering do that in their spare time.</para>
+
+    <para>Please avoid <link xlink:href="http://en.wikipedia.org/wiki/Crossposting">crossposting</link> (asking the same question at the
+    same time at different places).</para>
+
+    <indexterm zone="newbie-help">
+      <primary>Newbie</primary>
+
+      <secondary>Help!</secondary>
+    </indexterm>
+  </section>
+</section>
