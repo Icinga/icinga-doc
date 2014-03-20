@@ -217,19 +217,7 @@
         <screen> #&gt; make install-apache-config</screen>
 
         <note>
-           Starting with Apache 2.4 (testing versions of 
-
-          &name-debian;
-
-           / 
-
-          &name-ubuntu;
-
-           ) you have to enable the module 
-
-          <screen>#&gt; a2enconf icinga-web</screen>
-
-           
+          <para>Starting with Apache 2.4 (testing versions of &name-debian; / &name-ubuntu; ) you have to enable the module <screen>#&gt; a2enconf icinga-web</screen></para>
         </note>
 
         <para>If you don't need an alias, you can alternatively use the old behaviour setting a symlink instead: <screen> #&gt; make install-javascript</screen></para>
@@ -244,8 +232,8 @@
         <para>Other useful target: <screen> #&gt; make icinga-reset-password</screen>Reset password for any account on icinga-web.</para>
       </listitem>
 
-      <listitem xml:id="selinuxsettings">
-        <title>Adjusting the SE&name-linux; settings</title>
+      <listitem>
+        <para><emphasis role="bold">Adjusting the SE&name-linux; settings</emphasis></para>
 
         <para>&name-rhel; and derived distributions like &name-fedora; and &name-centos; are shipped with activated SE&name-linux; (Security
         Enhanced &name-linux;) running in "enforcing" mode. This may lead to "Internal Server Error" messages when you try to invoke the
@@ -416,7 +404,7 @@
 
     <para>There are two different sections:</para>
 
-    <para>* Settings of Icinga Web, escpecially database settings</para>
+    <para>* Settings of Icinga Web, especially database settings</para>
 
     <para>* Settings of the Icinga API which is mandatory as data source</para>
 
@@ -588,9 +576,7 @@
           <listitem>
             <para>mod_rewrite enabled, maybe you have to create a link:</para>
 
-            <para>
-              <screen> #&gt; ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load</screen>
-            </para>
+            <para><screen> #&gt; ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load</screen></para>
 
             <para>Using OpenSuSE or SLES you can use "a2enmod rewrite" to activate the module. If that doesn't work you have to edit the
             file "<filename>/etc/sysconfig/apache2</filename>". The module "rewrite" has to be appended to the line
@@ -600,12 +586,12 @@
 
             <para>The httpd of RHEL / Fedora / CentOS already supports rewriting so you don't have to change anything in this regard.</para>
           </listitem>
-
-          <note>
-            <para>The file <filename>.htaccess</filename> has been removed in 1.9 and the options have been moved to the Apache
-            configuration file.</para>
-          </note>
         </itemizedlist>
+
+        <note>
+          <para>The file <filename>.htaccess</filename> has been removed in 1.9 and the options have been moved to the Apache configuration
+          file.</para>
+        </note>
 
         <para>Go to the webservers configuration directory. Look if the created config by <emphasis role="bold">make
         install-apache-config</emphasis> suits to your configuration. Or create new aliases (maybe in
