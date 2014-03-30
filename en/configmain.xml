@@ -2915,7 +2915,7 @@
   (smart) for automatic calculation of the interleave factor unless you have a specific reason to change it. The best way to understand how
   interleaving works is to watch the <link linkend="cgis-status_cgi">status CGI</link> (detailed view) when &name-icinga; is just starting.
   You should see that the service check results are spread out as they begin to appear. More information on how interleaving works can be
-  found <link linkend="checkscheduling-service_interleaving">here</link>.</para>
+  found <link linkend="serviceinterleaving">here</link>.</para>
 
   <itemizedlist>
     <listitem>
@@ -3115,7 +3115,7 @@
   average check interval and spread initial checks of all hosts out over that interval, thereby helping to eliminate CPU load spikes. Using
   no delay is generally <emphasis>not</emphasis> recommended. Using no delay will cause all host checks to be scheduled for execution at the
   same time. More information on how to estimate how the inter-check delay affects host check scheduling can be found <link
-  linkend="checkscheduling-host_inter_check_delay">here</link>. Values are as follows:</para>
+  linkend="hostintercheckdelay">here</link>. Values are as follows:</para>
 
   <itemizedlist>
     <listitem>
@@ -5275,9 +5275,9 @@
     </informaltable> This option allows you to specify illegal characters that cannot be used in host names, service descriptions, or names
   of other object types. &name-icinga; will allow you to use most characters in object definitions, but we recommend not using the
   characters shown in the example above. Doing may give you problems in the web interface, notification commands, etc.</para>
+
   <note>
-	  <para>In 1.10 the colon was added in order to prevent irritations used as delimiter in on-demand macros.
-	  </para>
+    <para>In 1.10 the colon was added in order to prevent irritations used as delimiter in on-demand macros.</para>
   </note>
 
   <para><anchor xml:id="configmain-illegal_macro_output_chars"/> <emphasis role="bold">Illegal Macro Output Characters</emphasis></para>
@@ -6042,12 +6042,6 @@
     <primary>status_file=</primary>
 
     <secondary>Status File</secondary>
-  </indexterm>
-
-  <indexterm zone="configmain-status_log">
-    <primary>status_log=</primary>
-
-    <secondary>Status Log</secondary>
   </indexterm>
 
   <indexterm zone="configmain-status_update_interval">

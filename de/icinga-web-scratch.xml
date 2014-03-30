@@ -239,8 +239,8 @@
         <para>Setzt das Passwort für jeden Account auf icinga-web zurück.</para>
       </listitem>
 
-      <listitem xml:id="selinuxsettings">
-        <title>Anpassen der SE&name-linux;-Einstellungen</title>
+      <listitem>
+        <para><anchor xml:id="selinuxsettings"/><emphasis role="bold">Anpassen der SE&name-linux;-Einstellungen</emphasis></para>
 
         <para>&name-rhel; und ähnliche Distributionen wie &name-fedora; oder &name-centos; werden mit installiertem SE&name-linux; (Security
         Enhanced &name-linux;) ausgeliefert und laufen im "Enforcing"-Modus. Dies kann zu "Internal Server Error"-Fehlern führen, wenn Sie
@@ -578,9 +578,7 @@
           <listitem>
             <para>mod_rewrite, vielleicht müssen Sie einen Verweis erstellen:</para>
 
-            <para>
-              <screen> #&gt; ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load</screen>
-            </para>
+            <para><screen> #&gt; ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load</screen></para>
 
             <para>Bei OpenSuSE und SLES können Sie das Modul mit "a2enmod rewrite" aktivieren. Falls das nicht funktioniert, gibt es in der
             Datei <filename>/etc/sysconfig/apache2</filename> die Zeile "APACHE_MODULES=...", der das Modul "rewrite" hinzugefügt werden
@@ -590,12 +588,12 @@
 
             <para>Bei RHEL/Fedora/CentOS ist die Unterstützung bereits im httpd enthalten.</para>
           </listitem>
-
-          <note>
-            <para>In 1.9 wurde die Datei <filename>.htaccess</filename> entfernt und die Optionen sind nun in der Apache-Konfiguration zu
-            finden.</para>
-          </note>
         </itemizedlist>
+
+        <note>
+          <para>In 1.9 wurde die Datei <filename>.htaccess</filename> entfernt und die Optionen sind nun in der Apache-Konfiguration zu
+          finden.</para>
+        </note>
 
         <para>Bitte wechseln Sie in das Konfigurationsverzeichnis Ihres Webservers. Überprüfen Sie, ob die mit <emphasis role="bold">make
         install-apache-config</emphasis> erstellte Konfiguration Ihren Anforderungen entspricht, oder erstellen Sie noch einen neuen Alias

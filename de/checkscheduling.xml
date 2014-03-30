@@ -8,6 +8,12 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="checkscheduling-check_scheduling"/>Service- und Host-Prüfungsplanung</title>
 
+  <indexterm zone="checkscheduling">
+    <primary>Scheduling</primary>
+
+    <secondary>Service- und Host-Prüfungsplanung</secondary>
+  </indexterm>
+
   <section xml:id="introduction">
     <title>Einführung</title>
 
@@ -25,21 +31,15 @@
 
     <itemizedlist>
       <listitem>
-        <para>
-          <emphasis>check_interval</emphasis>
-        </para>
+        <para><emphasis>check_interval</emphasis></para>
       </listitem>
 
       <listitem>
-        <para>
-          <emphasis>retry_interval</emphasis>
-        </para>
+        <para><emphasis>retry_interval</emphasis></para>
       </listitem>
 
       <listitem>
-        <para>
-          <emphasis>check_period</emphasis>
-        </para>
+        <para><emphasis>check_period</emphasis></para>
       </listitem>
     </itemizedlist>
 
@@ -48,35 +48,20 @@
 
     <itemizedlist>
       <listitem>
-        <para>
-          <link linkend="configmain-service_inter_check_delay_method">
-            <emphasis>service_inter_check_delay_method</emphasis>
-          </link>
-        </para>
+        <para><link linkend="configmain-service_inter_check_delay_method"> <emphasis>service_inter_check_delay_method</emphasis>
+        </link></para>
       </listitem>
 
       <listitem>
-        <para>
-          <link linkend="configmain-service_interleave_factor">
-            <emphasis>service_interleave_factor</emphasis>
-          </link>
-        </para>
+        <para><link linkend="configmain-service_interleave_factor"> <emphasis>service_interleave_factor</emphasis> </link></para>
       </listitem>
 
       <listitem>
-        <para>
-          <link linkend="configmain-max_concurrent_checks">
-            <emphasis>max_concurrent_checks</emphasis>
-          </link>
-        </para>
+        <para><link linkend="configmain-max_concurrent_checks"> <emphasis>max_concurrent_checks</emphasis> </link></para>
       </listitem>
 
       <listitem>
-        <para>
-          <link linkend="configmain-check_result_reaper_frequency">
-            <emphasis>check_result_reaper_frequency</emphasis>
-          </link>
-        </para>
+        <para><link linkend="configmain-check_result_reaper_frequency"> <emphasis>check_result_reaper_frequency</emphasis> </link></para>
       </listitem>
     </itemizedlist>
 
@@ -86,6 +71,12 @@
 
     <para>Wir werden nun mehr ins Detail gehen, wie all diese Optionen die Service-Prüfungsplaung beeinflussen. Lassen Sie uns zuerst
     betrachten, wie Services beim ersten (Neu-)Start von &name-icinga; eingeplant werden...</para>
+
+    <indexterm zone="configurationoptions">
+      <primary>Scheduling</primary>
+
+      <secondary>Konfigurationsoptionen</secondary>
+    </indexterm>
   </section>
 
   <section xml:id="initialscheduling">
@@ -111,6 +102,12 @@
       sie nicht nutzen, solange eine weitere &name-icinga;-Instanz läuft. &name-icinga; wird <emphasis>nicht</emphasis> die Überwachung
       starten, wenn diese Option benutzt wird.</para>
     </note>
+
+    <indexterm zone="initialscheduling">
+      <primary>Scheduling</primary>
+
+      <secondary>Initiale Planung</secondary>
+    </indexterm>
   </section>
 
   <section xml:id="serviceintercheckdelay">
@@ -126,9 +123,8 @@
     <para>Wenn Sie die Einstellung "smart" bei der Variable <emphasis>service_inter_check_delay_method</emphasis> angeben, wird
     &name-icinga; den Wert für die inter-check-Verzögerung wie folgt berechnen:</para>
 
-    <para>
-      <emphasis>inter-check-Verzögerung = (durchschnittl. Check-Intervall für alle Services) / (Gesamtzahl der Services)</emphasis>
-    </para>
+    <para><emphasis>inter-check-Verzögerung = (durchschnittl. Check-Intervall für alle Services) / (Gesamtzahl der
+    Services)</emphasis></para>
 
     <para>Nehmen wir ein Beispiel. Sagen wir, Sie haben 1.000 Services mit einem normalen Prüfintervall von fünf Minuten (natürlich werden
     einige Services mit anderen Intervallen geprüft, aber wir vereinfachen an dieser Stelle...). Die gesamte Check-Intervall-Zeit ist 5.000
@@ -138,6 +134,12 @@
     werden. Durch die Verteilung alle 0,3 Sekunden können wir erreichen, dass &name-icinga; jede Sekunde drei Service-Prüfungen einplant
     und/oder ausführt. Durch die gleichmäßige Aufteilung über die Zeit können wir hoffen, dass die Last auf dem lokalen Rechner, auf dem
     &name-icinga; läuft, in etwa gleich bleibt.</para>
+
+    <indexterm zone="serviceintercheckdelay">
+      <primary>Scheduling</primary>
+
+      <secondary>Inter-Check-Verzögerung (inter-check delay)</secondary>
+    </indexterm>
   </section>
 
   <section xml:id="serviceinterleaving">
@@ -158,9 +160,7 @@
     <para>Wenn Sie die Einstellung "smart" bei der Variable <emphasis>service_interleave_factor</emphasis> angeben, wird &name-icinga; den
     Wert für den Verschachtelungsfaktor wie folgt berechnen:</para>
 
-    <para>
-      <emphasis>interleave factor = ceil ( Gesamtzahl der Services / Gesamtzahl der Hosts )</emphasis>
-    </para>
+    <para><emphasis>interleave factor = ceil ( Gesamtzahl der Services / Gesamtzahl der Hosts )</emphasis></para>
 
     <para>Nehmen wir ein Beispiel. Sagen wir, Sie haben insgesamt 1.000 Services und 150 Hosts, die Sie überwachen. &name-icinga; würde
     einen Verschachtelungsfaktor von 7 berechnen (1000 / 150 = 6,6; aufgerundet 7). Das bedeutet, dass &name-icinga; bei der initialen
@@ -181,75 +181,57 @@
 
         <tbody>
           <row>
-            <entry>
-              <para>nicht verschachtelte Prüfungen</para>
-            </entry>
+            <entry><para>nicht verschachtelte Prüfungen</para></entry>
 
-            <entry>
-              <para>verschachtelte Prüfungen</para>
-            </entry>
+            <entry><para>verschachtelte Prüfungen</para></entry>
           </row>
 
           <row>
-            <entry align="left" valign="middle">
-              <para>
-                <inlinemediaobject>
-                  <imageobject>
-                    <imagedata fileref="../images/noninterleaved1.png" format="PNG" width="500"/>
-                  </imageobject>
-                </inlinemediaobject>
-              </para>
-            </entry>
+            <entry align="left" valign="middle"><para> <inlinemediaobject>
+                <imageobject>
+                  <imagedata fileref="../images/noninterleaved1.png" format="PNG" width="500"/>
+                </imageobject>
+              </inlinemediaobject> </para></entry>
 
-            <entry align="left" valign="middle">
-              <para>
-                <inlinemediaobject>
-                  <imageobject>
-                    <imagedata fileref="../images/interleaved1.png" format="PNG" width="500"/>
-                  </imageobject>
-                </inlinemediaobject>
-              </para>
-            </entry>
+            <entry align="left" valign="middle"><para> <inlinemediaobject>
+                <imageobject>
+                  <imagedata fileref="../images/interleaved1.png" format="PNG" width="500"/>
+                </imageobject>
+              </inlinemediaobject> </para></entry>
           </row>
 
           <row>
-            <entry align="left" valign="middle">
-              <para>
-                <inlinemediaobject>
-                  <imageobject>
-                    <imagedata fileref="../images/noninterleaved2.png" format="PNG" width="500"/>
-                  </imageobject>
-                </inlinemediaobject>
-              </para>
-            </entry>
+            <entry align="left" valign="middle"><para> <inlinemediaobject>
+                <imageobject>
+                  <imagedata fileref="../images/noninterleaved2.png" format="PNG" width="500"/>
+                </imageobject>
+              </inlinemediaobject> </para></entry>
 
-            <entry align="left" valign="middle">
-              <para>
-                <inlinemediaobject>
-                  <imageobject>
-                    <imagedata fileref="../images/interleaved2.png" format="PNG" width="500"/>
-                  </imageobject>
-                </inlinemediaobject>
-              </para>
-            </entry>
+            <entry align="left" valign="middle"><para> <inlinemediaobject>
+                <imageobject>
+                  <imagedata fileref="../images/interleaved2.png" format="PNG" width="500"/>
+                </imageobject>
+              </inlinemediaobject> </para></entry>
           </row>
 
           <row>
             <entry/>
 
-            <entry align="left" valign="middle">
-              <para>
-                <inlinemediaobject>
-                  <imageobject>
-                    <imagedata fileref="../images/interleaved3.png" format="PNG" width="500"/>
-                  </imageobject>
-                </inlinemediaobject>
-              </para>
-            </entry>
+            <entry align="left" valign="middle"><para> <inlinemediaobject>
+                <imageobject>
+                  <imagedata fileref="../images/interleaved3.png" format="PNG" width="500"/>
+                </imageobject>
+              </inlinemediaobject> </para></entry>
           </row>
         </tbody>
       </tgroup>
     </informaltable>
+
+    <indexterm zone="serviceinterleaving">
+      <primary>Scheduling</primary>
+
+      <secondary>Service-Verschachtelung (service interleaving)</secondary>
+    </indexterm>
   </section>
 
   <section xml:id="maxconcurrentchecks">
@@ -290,10 +272,8 @@
     <para>Dann benutzen Sie die folgende Berechnung, um einen geeigneten Wert für die maximale Zahl von gleichzeitig erlaubten Prüfungen zu
     errechnen...</para>
 
-    <para>
-      <emphasis>max. Anzahl gleichzeitiger Prüfungen = ceil( max( check result reaper frequency , average check execution time ) /
-      inter-check delay )</emphasis>
-    </para>
+    <para><emphasis>max. Anzahl gleichzeitiger Prüfungen = ceil( max( check result reaper frequency , average check execution time ) /
+    inter-check delay )</emphasis></para>
 
     <para>Die errechnete Zahl sollte einen guten Ausgangspunkt für die <emphasis>max_concurrent_checks</emphasis>-Variable bieten. Es kann
     sein, dass Sie diesen Wert noch ein wenig erhöhen müssen, falls Service-Prüfungen nach wie vor nicht zur geplanten Zeit ausgeführt
@@ -304,9 +284,7 @@
     einen ungefähren Wert für die maximale Zahl von gleichzeitigen Prüfungen wie folgt berechnen (wir nehmen an, dass die durchschnittliche
     Ausführungszeit für Service-Prüfungen kleiner als zehn Sekunden ist) ...</para>
 
-    <para>
-      <emphasis>max. Zahl gleichzeitiger Prüfungen = ceil( 10 / 0.137 )</emphasis>
-    </para>
+    <para><emphasis>max. Zahl gleichzeitiger Prüfungen = ceil( 10 / 0.137 )</emphasis></para>
 
     <para>In diesem Fall ist der berechnete Wert 73. Das ergibt Sinn, denn &name-icinga; wird etwas mehr als sieben neue Service-Prüfungen
     pro Sekunde ausführen und es wird Service-Prüfergebnisse nur alle zehn Sekunden verarbeiten. Das bedeutet, dass es zu einer beliebigen
@@ -315,6 +293,12 @@
     &name-icinga; Service-Prüfergebnisse verarbeitet bzw. andere Dinge tut. Sie werden offensichtlich ein wenig testen und verändern müssen,
     damit alles reibungslos funktioniert, aber mit diesen Informationen sollten Sie ein paar generelle Richtlinien an der Hand
     haben...</para>
+
+    <indexterm zone="maxconcurrentchecks">
+      <primary>Scheduling</primary>
+
+      <secondary>Maximale Zahl gleichzeitiger Service-Prüfungen (maximum concurrent service checks)</secondary>
+    </indexterm>
   </section>
 
   <section xml:id="timerestraints">
@@ -335,6 +319,12 @@
       sich nicht verwirren! Die Planung und Ausführunge von Service-Prüfungen sind zwei unterschiedliche (wenn auch, zusammenhängende)
       Dinge.</para>
     </note>
+
+    <indexterm zone="timerestraints">
+      <primary>Scheduling</primary>
+
+      <secondary>Zeitbeschränkungen</secondary>
+    </indexterm>
   </section>
 
   <section xml:id="normalscheduling">
@@ -344,6 +334,12 @@
     Netzwerküberwachungsprogramm. Wie auch immer, wenn die Dinge reibungslos laufen und ein Service in einem OK-Zustand ist, nennen wir das
     "normal". Service-Prüfungen werden normalerweise in der Häufigkeit geplant, die in der Option <emphasis>check_interval</emphasis>
     angegeben ist. Das war's. Einfach, oder?</para>
+
+    <indexterm zone="normalscheduling">
+      <primary>Scheduling</primary>
+
+      <secondary>Normale Planung</secondary>
+    </indexterm>
   </section>
 
   <section xml:id="problemscheduling">
@@ -368,6 +364,12 @@
     1 zurücksetzen. Da der Service in einem harten nicht-OK-Status ist, wird die Service-Prüfung mit der normalen Häufigkeit geplant, die in
     der Option <emphasis>check_interval</emphasis> angegeben ist, statt des Wertes aus der Option
     <emphasis>retry_interval</emphasis>.</para>
+
+    <indexterm zone="problemscheduling">
+      <primary>Scheduling</primary>
+
+      <secondary>Planung bei Problemen</secondary>
+    </indexterm>
   </section>
 
   <section xml:id="hostcheckscheduling">
@@ -376,6 +378,12 @@
     <para>Ein Fall, wo &name-icinga; den Status eines Hosts prüft, ist, wenn ein Service-Prüfung einen nicht-OK-Zustand ergibt.
     &name-icinga; prüft den Host, um zu entscheiden, ob der Host "up" ist oder nicht, bzw. ob der Host "up", "down" oder "unreachable" ist.
     Wenn die erste Host-Prüfung einen nicht-OK-Zustand ergibt, wird &name-icinga; Host-Prüfungen wie bei den Services durchführen.</para>
+
+    <indexterm zone="hostcheckscheduling">
+      <primary>Scheduling</primary>
+
+      <secondary>Host-Prüfungen</secondary>
+    </indexterm>
   </section>
 
   <section xml:id="schedulingdelays">
@@ -385,6 +393,12 @@
     werden in&name-icinga; als Ereignisse mit niedriger Priorität angesehen, so dass sie verzögert werden können, wenn Ereignisse mit
     höherer Priorität ausgeführt werden müssen. Beispiel von Ereignissen mit hoher Priorität umfassen Log-Datei-Rotationen, externe
     Befehlsprüfungen und Prüfergebnis-Ernteereignisse.</para>
+
+    <indexterm zone="schedulingdelays">
+      <primary>Scheduling</primary>
+
+      <secondary>Planungsverzögerungen</secondary>
+    </indexterm>
   </section>
 
   <section xml:id="schedulingexample">
@@ -394,13 +408,11 @@
     verstehen sein, deshalb schauen wir uns ein einfaches Beispiel an. Betrachten wir das folgende Diagramm - wir werden uns darauf
     beziehen, während wir die Dinge erklären.</para>
 
-    <para>
-      <inlinemediaobject>
+    <para><inlinemediaobject>
         <imageobject>
           <imagedata fileref="../images/checktiming.png" format="PNG"/>
         </imageobject>
-      </inlinemediaobject>
-    </para>
+      </inlinemediaobject></para>
 
     <para>Zuallererst sind <emphasis role="bold">X</emphasis><subscript>n</subscript> Prüfergebnis-Ernteereignisse, die in der Häufigkeit
     geplant werden, die durch die Option <link linkend="configmain-check_result_reaper_frequency">check_result_reaper_frequency</link> in
@@ -430,6 +442,12 @@
     durch das Anpassen der nächsten Prüfzeit ausgleichen. Das wird gemacht, damit &name-icinga; nicht verrückt wird beim Versuch, mit den
     Service-Prüfungen Schritt zu halten, wenn eine hohe Last auftritt. Außerdem, wie sinnvoll ist es, etwas in der Vergangenheit zu
     planen...?</para>
+
+    <indexterm zone="schedulingexample">
+      <primary>Scheduling</primary>
+
+      <secondary>Planungsbeispiel</secondary>
+    </indexterm>
   </section>
 
   <section xml:id="serviceoptions">
@@ -457,101 +475,27 @@
     niemals mit dem Intervall geprüft, das in der <emphasis>retry_interval</emphasis>-Option angegeben ist. Statt dessen wird er sofort in
     einen <link linkend="statetypes">hard-Zustand</link> wechseln und anschließend mit dem in der Option <emphasis>check_interval</emphasis>
     festgelegten Intervall geprüft.</para>
+
+    <indexterm zone="serviceoptions">
+      <primary>Scheduling</primary>
+
+      <secondary>Service-Definitionssoptionen, die die Planung beeinflussen</secondary>
+    </indexterm>
   </section>
 
   <section xml:id="todo">
     <title>TODO</title>
 
-    <para>
-      <emphasis role="bold"><anchor xml:id="checkscheduling-host_inter_check_delay"/>Host-Prüfungs-Direktiven</emphasis>
-    </para>
+    <para><emphasis role="bold"><anchor xml:id="hostintercheckdelay"/>Host-Prüfungs-Direktiven</emphasis></para>
 
     <para>Die meisten der o.g. Informationen treffen auch auf Host-Prüfungen zu.</para>
 
     <para>Dieser Abschnitt wird aktualisiert. Voraussichtlich gibt es mehr Informationen in einer der nächsten Ausgaben...</para>
+
+    <indexterm zone="hostintercheckdelay">
+      <primary>Scheduling</primary>
+
+      <secondary>Host-Prüfungsdirektiven</secondary>
+    </indexterm>
   </section>
-
-  <indexterm zone="checkscheduling-check_scheduling">
-    <primary>Scheduling</primary>
-
-    <secondary>Service- und Host-Prüfungsplanung</secondary>
-  </indexterm>
-
-  <indexterm zone="checkscheduling-configuration_options">
-    <primary>Scheduling</primary>
-
-    <secondary>Konfigurationsoptionen</secondary>
-  </indexterm>
-
-  <indexterm zone="checkscheduling-initial_scheduling">
-    <primary>Scheduling</primary>
-
-    <secondary>Initiale Planung</secondary>
-  </indexterm>
-
-  <indexterm zone="serviceintercheckdelay">
-    <primary>Scheduling</primary>
-
-    <secondary>Inter-Check-Verzögerung (inter-check delay)</secondary>
-  </indexterm>
-
-  <indexterm zone="serviceinterleaving">
-    <primary>Scheduling</primary>
-
-    <secondary>Service-Verschachtelung (service interleaving)</secondary>
-  </indexterm>
-
-  <indexterm zone="maxconcurrentchecks">
-    <primary>Scheduling</primary>
-
-    <secondary>Maximale Zahl gleichzeitiger Service-Prüfungen (maximum concurrent service checks)</secondary>
-  </indexterm>
-
-  <indexterm zone="checkscheduling-time_restraints">
-    <primary>Scheduling</primary>
-
-    <secondary>Zeitbeschränkungen</secondary>
-  </indexterm>
-
-  <indexterm zone="checkscheduling-normal_scheduling">
-    <primary>Scheduling</primary>
-
-    <secondary>Normale Planung</secondary>
-  </indexterm>
-
-  <indexterm zone="checkscheduling-problem_scheduling">
-    <primary>Scheduling</primary>
-
-    <secondary>Planung bei Problemen</secondary>
-  </indexterm>
-
-  <indexterm zone="checkscheduling-host_checks">
-    <primary>Scheduling</primary>
-
-    <secondary>Host-Prüfungen</secondary>
-  </indexterm>
-
-  <indexterm zone="checkscheduling-scheduling_delays">
-    <primary>Scheduling</primary>
-
-    <secondary>Planungsverzögerungen</secondary>
-  </indexterm>
-
-  <indexterm zone="checkscheduling-scheduling_example">
-    <primary>Scheduling</primary>
-
-    <secondary>Planungsbeispiel</secondary>
-  </indexterm>
-
-  <indexterm zone="checkscheduling-service_options">
-    <primary>Scheduling</primary>
-
-    <secondary>Service-Definitionssoptionen, die die Planung beeinflussen</secondary>
-  </indexterm>
-
-  <indexterm zone="checkscheduling-host_inter_check_delay">
-    <primary>Scheduling</primary>
-
-    <secondary>Host-Prüfungsdirektiven</secondary>
-  </indexterm>
 </section>

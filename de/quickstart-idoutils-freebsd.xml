@@ -48,7 +48,7 @@
   funktionieren, die anfangen wollen.</para>
 
   <para>Diese Anleitung enthält Anweisungen für <link xlink:href="http://www.freebsd.org/">&name-freebsd;</link> 8.1-RELEASE. Dank an <link
-  xlink:href="&url-monitoringportal;/wbb/index.php?page=User&amp;userID=8925">"ScotchTape"</link> für die angepassten
+  xlink:href="http://www.monitoring-portal.org/wbb/index.php?page=User&amp;userID=8925">"ScotchTape"</link> für die angepassten
   Anweisungen.</para>
 
   <para>Spätere Distributionen von &name-freebsd; werden wahrscheinlich auch mit diesen Anweisungen funktionieren.</para>
@@ -218,7 +218,7 @@
 
   <para>Laden Sie die Sourcen von der <link xlink:href="http://www.icinga.org/">&name-icinga; Website</link>.</para>
 
-  <para>Vergessen Sie nicht die <link xlink:href="&url-monitoringplug;/">&name-monitoringplug;</link>.</para>
+  <para>Vergessen Sie nicht die <link xlink:href="https://www.monitoring-plugins.org/">&name-monitoringplug;</link>.</para>
 
   <para><emphasis role="bold">&name-icinga; und &name-idoutils; kompilieren und installieren</emphasis></para>
 
@@ -326,21 +326,13 @@
   <para><emphasis role="bold">Aktivieren Sie das idomod-Eventbroker-Modul</emphasis></para>
 
   <important>
-     
-
     <para>Unter normalen Umständen gibt es im <filename>modules</filename>-Unterverzeichnis bereits die folgende module-Definition, so dass
-    Sie keine Änderungen an der Hauptkonfigurationsdatei vornehmen müssen.</para>
-
-     
-
-    <screen> define module{
+    Sie keine Änderungen an der Hauptkonfigurationsdatei vornehmen müssen. <programlisting> define module{
         module_name    ido_mod
         path           &url-icinga-base;/lib/idomod.so
         module_type    neb
         args           config_file=&url-icinga-base;/etc/idomod.cfg
-        }</screen>
-
-     Das bedeutet auch, dass ein entsprechender broker_module-Eintrag nicht aktiviert werden darf! 
+        }</programlisting> Das bedeutet auch, dass ein entsprechender broker_module-Eintrag nicht aktiviert werden darf!</para>
   </important>
 
   <para><emphasis role="bold">Konfigurieren von Datenbank und &name-idoutils;</emphasis></para>
@@ -354,7 +346,7 @@
     Datenbank anlegen können. Im Falle von &name-mysql; benutzen Sie <code>/usr/local/etc/rc.d/mysql-server start</code>.</para>
   </note>
 
-            <screen> # mysql -u root -p
+  <screen> # mysql -u root -p
 
  mysql&gt; CREATE DATABASE icinga;
 
@@ -395,9 +387,9 @@
  #&gt; gmake install-webconf</programlisting>
 
   <note>
-    <para>Ab &name-icinga; 1.9 installiert der Befehl 'make install-webconf-auth' zusätzlich die Datei <filename>htpasswd.users</filename>, die Anmeldeinformationen
-    für den Benutzer <emphasis>icingaadmin</emphasis> enthält, so dass Sie den nächsten Schritt überspringen können. Das Passwort lautet
-    <emphasis>icingaadmin</emphasis>.</para>
+    <para>Ab &name-icinga; 1.9 installiert der Befehl 'make install-webconf-auth' zusätzlich die Datei <filename>htpasswd.users</filename>,
+    die Anmeldeinformationen für den Benutzer <emphasis>icingaadmin</emphasis> enthält, so dass Sie den nächsten Schritt überspringen
+    können. Das Passwort lautet <emphasis>icingaadmin</emphasis>.</para>
   </note>
 
   <para>Legen Sie ein <emphasis>icingaadmin</emphasis>-Konto an, um sich am klassischen Web-Interface anmelden zu können. Merken Sie sich
