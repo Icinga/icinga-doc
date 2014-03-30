@@ -90,7 +90,10 @@
     <itemizedlist>
       <listitem>
         <para>Only those services and hosts which are being monitored directly by the distributed server are defined in the <link
-        linkend="configobject">object configuration file</link>.</para>
+        linkend="configobject">object configuration file</link>.<note>
+            <para>Although "obsess_over_service" is enabled per default in the object definition it may have been
+            <emphasis>dis</emphasis>abled via a template so make please sure to <emphasis>en</emphasis>able it where you need it.</para>
+          </note></para>
       </listitem>
 
       <listitem>
@@ -270,9 +273,9 @@ esac
   <section xml:id="problemspassive">
     <title>Problems With Passive Checks</title>
 
-    <para>For all intents and purposes we can say that the central server is relying solely on passive checks for monitoring. The main problem
-    with relying completely on passive checks for monitoring is the fact that &name-icinga; must rely on something else to provide the
-    monitoring data. What if the remote host that is sending in passive check results goes down or becomes unreachable? If &name-icinga;
+    <para>For all intents and purposes we can say that the central server is relying solely on passive checks for monitoring. The main
+    problem with relying completely on passive checks for monitoring is the fact that &name-icinga; must rely on something else to provide
+    the monitoring data. What if the remote host that is sending in passive check results goes down or becomes unreachable? If &name-icinga;
     isn't actively checking the services on the host, how will it know that there is a problem?</para>
 
     <para>Fortunately, there is a way we can handle these types of problems...</para>
@@ -363,7 +366,10 @@ esac
       </listitem>
 
       <listitem>
-        <para>The distributed server is configured to <link linkend="configmain-obsess_over_hosts">obsess over hosts</link>.</para>
+        <para>The distributed server is configured to <link linkend="configmain-obsess_over_hosts">obsess over hosts</link>.<note>
+            <para>Although "obsess_over_host" is enabled per default in the object definition it may have been <emphasis>dis</emphasis>abled
+            via a template so make please sure to <emphasis>en</emphasis>able it where you need it.</para>
+          </note></para>
       </listitem>
 
       <listitem>
