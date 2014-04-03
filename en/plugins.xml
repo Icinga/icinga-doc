@@ -8,14 +8,14 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title><anchor xml:id="Icinga_plugins"/>&name-icinga; Plugins</title>
 
-  <section xml:id="introduction">
+  <section xml:id="introduction_plugins">
     <title>Introduction</title>
 
     <para>Unlike many other monitoring tools, &name-icinga; does not include any internal mechanisms for checking the status of hosts and
     services on your network. Instead, &name-icinga; relies on external programs (called plugins) to do all the dirty work.</para>
   </section>
 
-  <section xml:id="overview">
+  <section xml:id="plugins-overview">
     <title>What Are Plugins?</title>
 
     <para>Plugins are compiled executables or scripts (Perl scripts, shell scripts, etc.) that can be run from a command line to check the
@@ -52,7 +52,7 @@
     the plugins themselves know exactly what they're monitoring and how to perform the actual checks.</para>
   </section>
 
-  <section xml:id="available">
+  <section xml:id="plugins-available">
     <title>What Plugins Are Available?</title>
 
     <para>There are plugins currently available to monitor many different kinds of devices and services, including:</para>
@@ -80,7 +80,7 @@
     </itemizedlist>
   </section>
 
-  <section xml:id="obtaining">
+  <section xml:id="plugins-obtaining">
     <title>Obtaining Plugins</title>
 
     <para>Plugins are not distributed with &name-icinga;, but you can download the official &name-nagios; plugins and many additional
@@ -88,15 +88,16 @@
 
     <itemizedlist>
       <listitem>
-        <para>&name-monitoringplug; Project: <link xlink:href="&url-monitoringplug;">&url-monitoringplug;</link></para>
+        <para>&name-monitoringplug; Project: <link xlink:href="https://www.monitoring-plugins.org">&url-monitoringplug;</link></para>
       </listitem>
 
       <listitem>
-	 <para>&name-monitoringplug; Downloads Page: <link xlink:href="&url-monitoringplug;/download.html">&url-monitoringplug;/download.html</link></para>
+        <para>&name-monitoringplug; Downloads Page: <link
+        xlink:href="https://www.monitoring-plugins.org/download.html">&url-monitoringplug;/download.html</link></para>
       </listitem>
 
       <listitem>
-        <para>MonitoringExchange.org: <link xlink:href="&url-monitoringexchange;">&url-monitoringexchange;</link></para>
+        <para>MonitoringExchange.org: <link xlink:href="http://www.monitoringexchange.org">&url-monitoringexchange;</link></para>
       </listitem>
     </itemizedlist>
 
@@ -122,7 +123,7 @@
     </note>
   </section>
 
-  <section xml:id="hints">
+  <section xml:id="plugins-hints">
     <title>Switch to the &name-icinga; user</title>
 
     <important>
@@ -170,7 +171,7 @@
     </itemizedlist>
   </section>
 
-  <section xml:id="extending">
+  <section xml:id="plugins-extending">
     <title>Extending the environment</title>
 
     <para>Several checks (like check_oracle_health) depend on various environment variables to be set. Don't put these in
@@ -189,7 +190,7 @@
  $&gt; echo $PATH</screen></para>
   </section>
 
-  <section xml:id="howto">
+  <section xml:id="plugins-howto">
     <title>How Do I Use Plugin X?</title>
 
     <para>Nearly all plugins will display basic usage information when you execute them using '<code>-h</code>' or '<code>--help</code>' on
@@ -199,10 +200,10 @@
     <screen> $&gt; ./check_http --help</screen>
   </section>
 
-  <section xml:id="newplugins">
+  <section xml:id="plugins-new_plugin">
     <title>Integrating a new plugin</title>
 
-    <para>After the installation of the plugin (see "<link linkend="obtaining">Obtaining plugins</link>") call it from the command
+    <para>After the installation of the plugin (see "<link linkend="plugins-obtaining">Obtaining plugins</link>") call it from the command
     line using the appropriate options. If this works then you can integrate it into &name-icinga;.</para>
 
     <para>Let's imagine you used the following call on the command line</para>
@@ -319,7 +320,7 @@ results in:
     </note>
   </section>
 
-  <section xml:id="rawcommandline">
+  <section xml:id="plugins-rawcommandline">
     <title>Raw command line</title>
 
     <para>Starting with &name-icinga; 1.6 the classic UI allows to inspect the raw command line including values from
@@ -340,12 +341,12 @@ results in:
  max_debug_file_size=1000000000</programlisting>
   </section>
 
-  <section xml:id="thresholdranges">
+  <section xml:id="plugins-thresholdranges">
     <title>Threshold and ranges</title>
 
     <para>Some plugins support specifying ranges for the warning and critical values. Please check the documentation if this is the case for
     the plugin you want to use. The following is an excerpt from the <link
-	    xlink:href="&url-monitoringplug;/doc/guidelines.html#THRESHOLDFORMAT">developer guidelines</link>:</para>
+    xlink:href="https://www.monitoring-plugins.org/doc/guidelines.html#THRESHOLDFORMAT">developer guidelines</link>:</para>
 
     <para>A range is defined as a start and end point (inclusive) on a numeric scale (possibly negative or positive infinity).</para>
 
@@ -502,8 +503,8 @@ results in:
     </note>
   </section>
 
-  <section xml:id="errors">
-    <title><anchor xml:id="plugins-errors"/>Activating the definition</title>
+  <section xml:id="plugins-errors">
+    <title>Activating the definition</title>
 
     <para>Check the configuration using "/etc/init.d/icinga show-errors" and resolve any errors before issuing "/etc/init.d/icinga restart".
     Wait until the object is checked and look at the status details. There might be errors.</para>
@@ -587,13 +588,13 @@ results in:
       <secondary>NRPE using arguments</secondary>
     </indexterm>
 
-    <indexterm zone="plugins-raw">
+    <indexterm zone="plugins-rawcommandline">
       <primary>Plugins</primary>
 
       <secondary>Raw command line</secondary>
     </indexterm>
 
-    <indexterm zone="plugins-threshold">
+    <indexterm zone="plugins-thresholdranges">
       <primary>Plugins</primary>
 
       <secondary>Thresholds and ranges</secondary>

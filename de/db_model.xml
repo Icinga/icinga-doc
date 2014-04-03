@@ -8,20 +8,24 @@
          xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <title>&name-idoutils; Database Model</title>
 
-  <para>This documentation is based on the &name-ndoutils; database model documentation by Ethan Galstad and altered to fit
-  the changes necessary in &name-idoutils;.</para>
+  <para>This documentation is based on the &name-ndoutils; database model documentation by Ethan Galstad and altered to fit the changes
+  necessary in &name-idoutils;.</para>
 
   <para><emphasis role="bold">Introduction</emphasis></para>
 
   <para>This documentation is still in flux, and there are undoubtably errors present, so take everything you find here with a grain of
   salt. If you have suggestions, changes, etc. for the documentation, please let us know.</para>
 
-  <important><para>Although we took care to be accurate there may be alterations in the current code which aren't reflected here so if in
-  doubt please take a look at the actual code.</para></important>
+  <important>
+    <para>Although we took care to be accurate there may be alterations in the current code which aren't reflected here so if in doubt
+    please take a look at the actual code.</para>
+  </important>
 
-  <note><para>The data types and field lenghts mentioned throughout the following documentation show the definitions for &name-mysql;.
-    &name-oracle; and &name-postgres; use other data types and field lengths.</para></note>
- 
+  <note>
+    <para>The data types and field lenghts mentioned throughout the following documentation show the definitions for &name-mysql;.
+    &name-oracle; and &name-postgres; use other data types and field lengths.</para>
+  </note>
+
   <para><emphasis role="bold">Table Names</emphasis></para>
 
   <para>The IDOUtils addon allows users to specify a custom prefix to each table name in the database. By default, this prefix is set to
@@ -49,27 +53,27 @@
 
   <para>There are a lot of tables containing different information so the description is divided into five parts: <itemizedlist>
       <listitem>
-        <para><link linkend="centraltables">Central Tables</link></para>
+        <para><link linkend="dbm_ct">Central Tables</link></para>
       </listitem>
 
       <listitem>
-        <para><link linkend="debuggingtables">Debugging Tables</link></para>
+        <para><link linkend="dbm_dt">Debugging Tables</link></para>
       </listitem>
 
       <listitem>
-        <para><link linkend="historicaltables">Historical Tables</link></para>
+        <para><link linkend="dbm_ht">Historical Tables</link></para>
       </listitem>
 
       <listitem>
-        <para><link linkend="statustables">Current Status Tables</link></para>
+        <para><link linkend="dbm_cu">Current Status Tables</link></para>
       </listitem>
 
       <listitem>
-        <para><link linkend="configtables">Configuration Tables</link></para>
+        <para><link linkend="dbm_cf">Configuration Tables</link></para>
       </listitem>
     </itemizedlist></para>
 
-  <section xml:id="centraltables">
+  <section xml:id="dbm_ct">
     <title>Central Tables</title>
 
     <indexterm zone="dbm_ct">
@@ -100,12 +104,12 @@
 
       <mediaobject>
         <imageobject>
-          <imagedata fileref="../images/db_model_ct.png"></imagedata>
+          <imagedata fileref="../images/db_model_ct.png"/>
         </imageobject>
       </mediaobject>
     </figure>
 
-    <anchor xml:id="dbm_instances" />
+    <anchor xml:id="dbm_instances"/>
 
     <indexterm zone="dbm_instances">
       <primary>Tables</primary>
@@ -150,7 +154,7 @@
 
               <entry>Instance name, as passed to and used by &name-idoutils; components</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -160,13 +164,13 @@
 
               <entry>Optional text describing the instance in more detail</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_objects" />
+    <anchor xml:id="dbm_objects"/>
 
     <indexterm zone="dbm_objects">
       <primary>Tables</primary>
@@ -204,7 +208,7 @@
 
               <entry>A unique number identifying the object</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -216,9 +220,9 @@
 
               <entry>A number indicating the instance of &name-icinga; to which the object belongs</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -242,7 +246,7 @@
 
               <entry>The first name associated with the object definition, as used in your &name-icinga; configuration files</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>NK2</entry>
             </row>
@@ -255,7 +259,7 @@
               <entry>The second name (if any) associated with the object definition, as used in your &name-icinga; configuration files. This
               field is only used for service definitions which have a host name (name1 field) and service description (name2 field)</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>NK3</entry>
             </row>
@@ -271,7 +275,7 @@
 
               <entry>0 = Inactive; 1 = Active</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
@@ -296,7 +300,7 @@
       </informaltable></para>
   </section>
 
-  <section xml:id="debuggingtables">
+  <section xml:id="dbm_dt">
     <title>Debugging Tables</title>
 
     <indexterm zone="dbm_dt">
@@ -323,12 +327,12 @@
 
       <mediaobject>
         <imageobject>
-          <imagedata fileref="../images/db_model_dt.png"></imagedata>
+          <imagedata fileref="../images/db_model_dt.png"/>
         </imageobject>
       </mediaobject>
     </figure>
 
-    <anchor xml:id="dbm_conninfo" />
+    <anchor xml:id="dbm_conninfo"/>
 
     <indexterm zone="dbm_conninfo">
       <primary>Tables</primary>
@@ -364,7 +368,7 @@
 
               <entry>Unique number identifying the connection info record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -376,9 +380,9 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; for which data is being transmitted/processed</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -390,7 +394,7 @@
 
               <entry>Typically "IDOMOD" or "LOG2IDO"</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -400,9 +404,9 @@
 
               <entry>Text string identifying the version of the user agent that is sending data</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -415,7 +419,7 @@
               <entry>"REALTIME" if being sent directly from a running &name-icinga; process or "ARCHIVED" if being sent from a flat
               file</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -427,7 +431,7 @@
 
               <entry>"TCPSOCKET" or "UNIXSOCKET"</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -440,7 +444,7 @@
 
               <entry>"INITIAL" or "RECONNECT"</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -450,9 +454,9 @@
 
               <entry>The initial time the user agent connected to the daemon</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -462,9 +466,9 @@
 
               <entry>The time (if any) the user agent disconnect from the daemon</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -475,9 +479,9 @@
               <entry>The time that the user agent last checked in with the daemon to indicate that it was still alive and sending
               data</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -487,9 +491,9 @@
 
               <entry>The timestamp of the first data that the user agent sent to the daemon</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -499,9 +503,9 @@
 
               <entry>The timestamp of the last (or latest) data that the user agent sent to the daemon</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -511,9 +515,9 @@
 
               <entry>The number of bytes of data that have been sent by the user agent and processed by the daemon</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -523,9 +527,9 @@
 
               <entry>The number of lines of data that have been sent by the user agent and processed by the daemon</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -535,9 +539,9 @@
 
               <entry>The number of data entries that have been sent by the user agent and processed by the daemon</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
@@ -562,7 +566,7 @@
       </informaltable></para>
   </section>
 
-  <section xml:id="historicaltables">
+  <section xml:id="dbm_ht">
     <title>Historical Tables</title>
 
     <indexterm zone="dbm_ht">
@@ -641,7 +645,6 @@
       <listitem>
         <para><link linkend="dbm_systemcommands">systemcommands</link></para>
       </listitem>
-
     </itemizedlist>
 
     <para><emphasis>Relationship Diagram</emphasis></para>
@@ -654,12 +657,12 @@
 
       <mediaobject>
         <imageobject>
-          <imagedata fileref="../images/db_model_ht.png"></imagedata>
+          <imagedata fileref="../images/db_model_ht.png"/>
         </imageobject>
       </mediaobject>
     </figure>
 
-    <anchor xml:id="dbm_acknowledgements" />
+    <anchor xml:id="dbm_acknowledgements"/>
 
     <indexterm zone="dbm_acknowledgements">
       <primary>Tables</primary>
@@ -693,7 +696,7 @@
 
               <entry>Unique number identifying the acknowledgement record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -705,9 +708,9 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -717,9 +720,9 @@
 
               <entry>Date and time the acknowledgement was entered</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -729,9 +732,9 @@
 
               <entry>Microsecond portion of acknowledgement entry time</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -743,7 +746,7 @@
 
               <entry>0 = Host ack; 1 = Service ack</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -753,9 +756,9 @@
 
               <entry>The object id of the host or service this acknowledgement applies to</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -767,7 +770,7 @@
 
               <entry>Host acks: 0 = UP; 1 = DOWN; 2 = UNREACHABLE; Service acks: 0 = OK; 1 = WARNING; 2 = CRTICAL; 3 = UNKNOWN</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -777,9 +780,9 @@
 
               <entry>Text field containing the name of the person who made the acknowledgement</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -789,9 +792,9 @@
 
               <entry>Text field containing notes on the acknowledgement</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -803,7 +806,7 @@
 
               <entry>0 = Not sticky; 1 = Sticky</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -815,7 +818,7 @@
 
               <entry>0 = Not persistent; 1 = Persistent</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -827,7 +830,7 @@
 
               <entry>0 = Don't notify; 1 = Notify</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -837,9 +840,9 @@
 
               <entry>Date and time the acknowledgement was deleted</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
@@ -869,7 +872,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_commenthistory" />
+    <anchor xml:id="dbm_commenthistory"/>
 
     <indexterm zone="dbm_commenthistory">
       <primary>Tables</primary>
@@ -904,7 +907,7 @@
 
               <entry>Unique number identifying the comment record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -916,7 +919,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -928,9 +931,9 @@
 
               <entry>Date and time the comment was entered</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -940,9 +943,9 @@
 
               <entry>Microsecond portion of comment entry time</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -954,7 +957,7 @@
 
               <entry>1 = Host comment; 2 = Service comment</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -966,7 +969,7 @@
 
               <entry>1 = User; 2 = Scheduled downtime; 3 = Flapping; 4 = Acknowledgement</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -976,9 +979,9 @@
 
               <entry>The object id of the host or service this acknowledgement applies to</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -988,7 +991,7 @@
 
               <entry>Date and time associated with the comment</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -1000,7 +1003,7 @@
 
               <entry>The comment ID internal to the &name-icinga; daemon, which may no longer be valid or present</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -1012,9 +1015,9 @@
 
               <entry>Text field containing the name of the person who made the comment</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1024,9 +1027,9 @@
 
               <entry>Text field containing the comment</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1038,7 +1041,7 @@
 
               <entry>0 = Not persistent; 1 = Persistent</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1050,7 +1053,7 @@
 
               <entry>0 = Internal (&name-icinga;); 1 = External (user)</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1062,7 +1065,7 @@
 
               <entry>0 = Doesn't expire; 1 = Expires</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1072,9 +1075,9 @@
 
               <entry>Date and time at which the comment expires</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1084,9 +1087,9 @@
 
               <entry>Date and time (if any) when the comment was deleted</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1096,9 +1099,9 @@
 
               <entry>Microsecond time (if any) when the comment was deleted</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
@@ -1128,7 +1131,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_contactnotifications" />
+    <anchor xml:id="dbm_contactnotifications"/>
 
     <indexterm zone="dbm_contactnotifications">
       <primary>Tables</primary>
@@ -1163,7 +1166,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -1175,7 +1178,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -1187,9 +1190,9 @@
 
               <entry>The id of the notification this record is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1199,7 +1202,7 @@
 
               <entry>The object id of the contact this notification was send to</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -1211,7 +1214,7 @@
 
               <entry>The date/time the notification to this contact was started</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -1223,7 +1226,7 @@
 
               <entry>The microsecond portion of the time the notification started</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK4</entry>
             </row>
@@ -1235,9 +1238,9 @@
 
               <entry>The date/time the notification to this contact ended</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1247,9 +1250,9 @@
 
               <entry>The microsecond portion of the time the notification ended</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
@@ -1285,7 +1288,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_dbversion" />
+    <anchor xml:id="dbm_dbversion"/>
 
     <indexterm zone="dbm_dbversion">
       <primary>Tables</primary>
@@ -1319,7 +1322,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -1331,7 +1334,7 @@
 
               <entry>Name of the database</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK</entry>
             </row>
@@ -1343,15 +1346,15 @@
 
               <entry>Version number of the database</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_contactnotificationsmethods" />
+    <anchor xml:id="dbm_contactnotificationsmethods"/>
 
     <indexterm zone="dbm_contactnotificationsmethods">
       <primary>Tables</primary>
@@ -1386,7 +1389,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -1398,7 +1401,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -1410,7 +1413,7 @@
 
               <entry>The id of the contact notification this record is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -1422,7 +1425,7 @@
 
               <entry>The date/time the notification command started</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -1434,7 +1437,7 @@
 
               <entry>The microsecond portion of the time the notification command started</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK4</entry>
             </row>
@@ -1446,9 +1449,9 @@
 
               <entry>The date/time the notification command ended</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1458,9 +1461,9 @@
 
               <entry>The microsecond portion of the time the notification command ended</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1470,9 +1473,9 @@
 
               <entry>The id of the command that was used for the notification command</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1482,9 +1485,9 @@
 
               <entry>The arguments that were passed to the notification command</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
@@ -1520,7 +1523,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_downtimehistory" />
+    <anchor xml:id="dbm_downtimehistory"/>
 
     <indexterm zone="dbm_downtimehistory">
       <primary>Tables</primary>
@@ -1554,7 +1557,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -1566,7 +1569,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -1580,7 +1583,7 @@
 
               <entry>1 = Service downtime; 2 = Host downtime</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1590,7 +1593,7 @@
 
               <entry>The object id of the host or service this scheduled downtime is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -1602,7 +1605,7 @@
 
               <entry>The date/time the scheduled downtime was entered/submitted</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -1614,9 +1617,9 @@
 
               <entry>The name of the person who scheduled this downtime</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1626,9 +1629,9 @@
 
               <entry>A comment, as entered by the author, associated with the scheduled downtime</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1638,7 +1641,7 @@
 
               <entry>A number (internal to the &name-icinga; daemon) associated with the scheduled downtime</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK4</entry>
             </row>
@@ -1651,9 +1654,9 @@
               <entry>The id of another scheduled downtime entry that scheduled downtime is optionally triggered by. Non-triggered downtimes
               will have a value of 0 in this field</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1666,7 +1669,7 @@
 
               <entry>0 = Flexible (Not fixed); 1 = Fixed</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1677,9 +1680,9 @@
               <entry>The number of seconds that the scheduled downtime should last. This is only used by &name-icinga; is the downtime is
               flexible. If the downtime is fixed, this value should reflect the difference between the start and end times</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1690,9 +1693,9 @@
               <entry>The date/time the scheduled downtime is supposed to start. If this is a flexible (non-fixed) downtime, this refers to
               the earliest possible time that the downtime can start</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1703,9 +1706,9 @@
               <entry>The date/time the scheduled downtime is supposed to end. If this is a flexible (non-fixed) downtime, this refers to the
               last possible time that the downtime can start</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1718,7 +1721,7 @@
 
               <entry>0 = Was not started; 1 = Was started</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1728,9 +1731,9 @@
 
               <entry>The date/time the scheduled downtime was actually started (if applicable)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1740,9 +1743,9 @@
 
               <entry>Microsecond portion of the actual start time</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1752,9 +1755,9 @@
 
               <entry>The date/time the scheduled downtime actually ended</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1764,9 +1767,9 @@
 
               <entry>Microsecond portion of the actual end time</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1778,7 +1781,7 @@
 
               <entry>0 = Not cancelled; 1 = Cancelled early</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
@@ -1814,7 +1817,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_eventhandlers" />
+    <anchor xml:id="dbm_eventhandlers"/>
 
     <indexterm zone="dbm_eventhandlers">
       <primary>Tables</primary>
@@ -1849,7 +1852,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -1861,7 +1864,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -1876,7 +1879,7 @@
               <entry>0 = Host event handler; 1 = Service event handler; 2 = Global host event handler; 3 = Global service event
               handler</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1886,7 +1889,7 @@
 
               <entry>The object id of the host or service associated with this event handler</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -1901,7 +1904,7 @@
               <entry>For host event handlers: 0 = UP; 1 = DOWN; 2 = UNREACHABLE; For service event handlers:; 0 = OK; 1 = WARNING; 2 =
               CRITICAL; 3 = UNKNOWN</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1913,7 +1916,7 @@
 
               <entry>0 = SOFT state; 1 = HARD state</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1923,7 +1926,7 @@
 
               <entry>The date/time the event handler started</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -1935,7 +1938,7 @@
 
               <entry>The microsecond portion of the time the event handler started</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK4</entry>
             </row>
@@ -1947,9 +1950,9 @@
 
               <entry>The date/time the event handler ended</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1959,9 +1962,9 @@
 
               <entry>The microsecond portion of the time the event handler ended</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1971,9 +1974,9 @@
 
               <entry>The id of the command that was run</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1983,9 +1986,9 @@
 
               <entry>Arguments to the event handler command that was run</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -1995,9 +1998,9 @@
 
               <entry>Fully expanded command line of the event handler that was run</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2007,9 +2010,9 @@
 
               <entry>Timeout value in seconds for the event handler</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2021,7 +2024,7 @@
 
               <entry>0 = Did NOT time out. 1 = Timed out</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2031,9 +2034,9 @@
 
               <entry>Time in seconds that the event handler command was running</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2043,9 +2046,9 @@
 
               <entry>The return code value from the event handler command</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2055,9 +2058,9 @@
 
               <entry>The first line of text output (if any) from the event handler command</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
@@ -2093,7 +2096,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_externalcommands" />
+    <anchor xml:id="dbm_externalcommands"/>
 
     <indexterm zone="dbm_externalcommands">
       <primary>Tables</primary>
@@ -2128,7 +2131,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -2140,9 +2143,9 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2152,9 +2155,9 @@
 
               <entry>The date/time the external command was processed</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2166,7 +2169,7 @@
 
               <entry>See &name-icinga; source code</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2176,9 +2179,9 @@
 
               <entry>The name of the command that was processed</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2188,9 +2191,9 @@
 
               <entry>Optional arguments that were specified with the command.</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
@@ -2214,7 +2217,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_flappinghistory" />
+    <anchor xml:id="dbm_flappinghistory"/>
 
     <indexterm zone="dbm_flappinghistory">
       <primary>Tables</primary>
@@ -2248,7 +2251,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -2260,9 +2263,9 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2272,9 +2275,9 @@
 
               <entry>The date/time of the flapping event</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2284,9 +2287,9 @@
 
               <entry>The microsecond portion of the time of the flapping event</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2298,7 +2301,7 @@
 
               <entry>1000 = Flapping started; 1001 = Flapping stopped</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2311,7 +2314,7 @@
 
               <entry>1 = Flapping stopped normally 2 = Flapping was disabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2323,7 +2326,7 @@
 
               <entry>0 = Host 1 = Service</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2333,9 +2336,9 @@
 
               <entry>The id of the host or service associated with the flapping event</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2345,9 +2348,9 @@
 
               <entry>The percent state change of the host or service at the time of the event</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2357,9 +2360,9 @@
 
               <entry>The low flapping percent state change threshold (as configured in &name-icinga;) of the host or service</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2369,9 +2372,9 @@
 
               <entry>The high flapping percent state change threshold (as configured in &name-icinga;) of the host or service</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2381,9 +2384,9 @@
 
               <entry>The date/time of the comment associated with the flapping event</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2393,9 +2396,9 @@
 
               <entry>The number (internal to the &name-icinga; daemon) of the comment associated with the flapping event.</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
@@ -2425,7 +2428,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_hostchecks" />
+    <anchor xml:id="dbm_hostchecks"/>
 
     <indexterm zone="dbm_hostchecks">
       <primary>Tables</primary>
@@ -2465,7 +2468,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -2477,7 +2480,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -2489,7 +2492,7 @@
 
               <entry>The id of the host this check applies to</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -2503,7 +2506,7 @@
 
               <entry>0 = Active check 1 = Passive check</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2515,7 +2518,7 @@
 
               <entry>0 = Processed check; 1 = Raw check</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2525,9 +2528,9 @@
 
               <entry>Current check attempt of the host</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2537,9 +2540,9 @@
 
               <entry>Max check attempts (as defined in &name-icinga;) for the host</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2551,7 +2554,7 @@
 
               <entry>For raw checks: 0 = UP 1 = DOWN/UNREACHABLE; For processed checks: 0 = UP 1 = DOWN 2 = UNREACHABLE</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2563,7 +2566,7 @@
 
               <entry>0 = SOFT state 1 = HARD state</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2573,7 +2576,7 @@
 
               <entry>The date/time the host check was started</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -2585,7 +2588,7 @@
 
               <entry>Microsecond portion of the time the host check was started</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK4</entry>
             </row>
@@ -2597,9 +2600,9 @@
 
               <entry>The date/time the host check was completed</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2609,9 +2612,9 @@
 
               <entry>Microsecond portion of the time the host check was completed</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2621,9 +2624,9 @@
 
               <entry>The id of the command that was used to perform the host check</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2633,9 +2636,9 @@
 
               <entry>The arguments that were passed to the host check command</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2645,9 +2648,9 @@
 
               <entry>The fully expanded command line that was used to check the host</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2657,9 +2660,9 @@
 
               <entry>Number of seconds before the host check command would time out</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2671,7 +2674,7 @@
 
               <entry>0 = Did NOT timeout 1 = Timed out</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2681,9 +2684,9 @@
 
               <entry>Number of seconds it took to execute the host check</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2696,9 +2699,9 @@
               time it was actually executed. For passive checks it is the different between the timestamp on the passive host check result
               (submitted through the external command file) and the time the passive check result was processed by &name-icinga;</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2708,9 +2711,9 @@
 
               <entry>The return code from the host check command</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2720,9 +2723,9 @@
 
               <entry>Status text output from the host check command (first line)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2732,9 +2735,9 @@
 
               <entry>Status text output from the host check command (consecutive lines)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2744,9 +2747,9 @@
 
               <entry>Optional performance data returned from the host check command.</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
@@ -2782,7 +2785,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_logentries" />
+    <anchor xml:id="dbm_logentries"/>
 
     <indexterm zone="dbm_logentries">
       <primary>Tables</primary>
@@ -2816,7 +2819,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -2828,9 +2831,9 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2840,9 +2843,9 @@
 
               <entry>The id of the host/service that entry was caused for (NULL if not provided)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2853,9 +2856,9 @@
               <entry>The date/time associated with the log entry. This is NOT necessarily the same as the date/time that &name-icinga; wrote
               the log entry to the log file (see below)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2865,9 +2868,9 @@
 
               <entry>The date/time that &name-icinga; wrote this log entry to the log file</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2877,9 +2880,9 @@
 
               <entry>The microsecond portion of the time that &name-icinga; wrote this log entry</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2891,7 +2894,7 @@
 
               <entry>See &name-icinga; source code</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2901,9 +2904,9 @@
 
               <entry>The log entry that was written out to the log file</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2913,9 +2916,9 @@
 
               <entry>A number used internally by the IDO2DB daemon</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -2925,9 +2928,9 @@
 
               <entry>A number used internally by the IDO2DB daemon.</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
@@ -2957,7 +2960,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_notifications" />
+    <anchor xml:id="dbm_notifications"/>
 
     <indexterm zone="dbm_notifications">
       <primary>Tables</primary>
@@ -2993,7 +2996,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -3005,7 +3008,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -3019,7 +3022,7 @@
 
               <entry>0 = Host notification 1 = Service notification</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3032,7 +3035,7 @@
               <entry>0 = Normal notification; 1 = Problem acknowledgement; 2 = Flapping started; 3 = Flapping stopped; 4 = Flapping was
               disabled; 5 = Downtime started; 6 = Downtime ended; 7 = Downtime was cancelled; 99 = Custom notification</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3042,7 +3045,7 @@
 
               <entry>The id of the host or service this notification applies to</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -3054,7 +3057,7 @@
 
               <entry>The date/time the notification was started</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -3066,7 +3069,7 @@
 
               <entry>Microsecond portion of the time the notification was started</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK4</entry>
             </row>
@@ -3078,9 +3081,9 @@
 
               <entry>The date/time the notification ended</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3090,9 +3093,9 @@
 
               <entry>Microsecond portion of the time the notification ended</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3105,7 +3108,7 @@
               <entry>For Host Notifications: 0 = UP; 1 = DOWN; 2 = CRITICAL; For Service Notifications: 0 = OK; 1 = WARNING; 2 = CRITICAL; 3
               = UNKNOWN</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3115,9 +3118,9 @@
 
               <entry>The current plugin (text) output of the host or service when the notification was sent out (first line)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3127,9 +3130,9 @@
 
               <entry>The current plugin (text) output of the host or service when the notification was sent out (consecutive lines)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3141,7 +3144,7 @@
 
               <entry>0 = NOT escalated; 1 = Escalated</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3151,9 +3154,9 @@
 
               <entry>Number of contacts that were notified about the host or service as part of this notification.</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
@@ -3183,7 +3186,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_processevents" />
+    <anchor xml:id="dbm_processevents"/>
 
     <indexterm zone="dbm_processevents">
       <primary>Tables</primary>
@@ -3218,7 +3221,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -3230,9 +3233,9 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3245,7 +3248,7 @@
               <entry>100 = Process start; 101 = Process daemonized; 102 = Process restart; 103 = Process shutdown; 104 = Prelaunch; 105 =
               Event loop start; 106 = Event loop end</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3255,9 +3258,9 @@
 
               <entry>The date/time that the event occurred</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3267,9 +3270,9 @@
 
               <entry>The microsecond portion of the time the event occurred</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3279,9 +3282,9 @@
 
               <entry>The current process ID (PID) of the &name-icinga; daemon</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3291,9 +3294,9 @@
 
               <entry>"&name-icinga;"</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3303,9 +3306,9 @@
 
               <entry>Version of &name-icinga; that is running (e.g. "1.0")</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3315,9 +3318,9 @@
 
               <entry>Release date of &name-icinga;</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
@@ -3341,7 +3344,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_servicechecks" />
+    <anchor xml:id="dbm_servicechecks"/>
 
     <indexterm zone="dbm_servicechecks">
       <primary>Tables</primary>
@@ -3376,7 +3379,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -3388,7 +3391,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -3400,7 +3403,7 @@
 
               <entry>The id of the service this record refers to</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -3414,7 +3417,7 @@
 
               <entry>0 = Active check; 1 = Passive check</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3424,9 +3427,9 @@
 
               <entry>Number indicating the current check attempt for the service</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3436,9 +3439,9 @@
 
               <entry>Number indicating the max number of check attempts for the service</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3450,7 +3453,7 @@
 
               <entry>0 = OK 1 = WARNING; 2 = CRITICAL; 3 = UNKNOWN</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3462,7 +3465,7 @@
 
               <entry>0 = SOFT state; 1 = HARD state</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3472,7 +3475,7 @@
 
               <entry>The date/time the service check was started</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -3484,7 +3487,7 @@
 
               <entry>Microsecond portion of the time the service check was started</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK4</entry>
             </row>
@@ -3496,9 +3499,9 @@
 
               <entry>The date/time the service check ended</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3508,9 +3511,9 @@
 
               <entry>Microsecond portion of the time the service check ended</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3520,9 +3523,9 @@
 
               <entry>The id of the command that was run to perform the service check</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3532,9 +3535,9 @@
 
               <entry>The arguments passed to the command that was run to perform the service check</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3544,9 +3547,9 @@
 
               <entry>The fully expanded command line that was executed to perform the service check</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3556,9 +3559,9 @@
 
               <entry>Number of seconds before the service check command was scheduled to timeout</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3570,7 +3573,7 @@
 
               <entry>0 = Did NOT timeout 1 = Timed out</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3580,9 +3583,9 @@
 
               <entry>Number of seconds it took to execute the service check command</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3595,9 +3598,9 @@
               timestamp on the passive check result (submitted through the external command file) and the time the passive check result was
               picked up by the &name-icinga; daemon for processing</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3607,9 +3610,9 @@
 
               <entry>The return code from the service check command</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3619,9 +3622,9 @@
 
               <entry>The status output that was returned from the service check command (first line)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3631,9 +3634,9 @@
 
               <entry>The status output that was returned from the service check command (consecutive lines)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3643,9 +3646,9 @@
 
               <entry>Optional performance data that was returned from the service check command</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
@@ -3681,7 +3684,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_statehistory" />
+    <anchor xml:id="dbm_statehistory"/>
 
     <indexterm zone="dbm_statehistory">
       <primary>Tables</primary>
@@ -3715,7 +3718,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -3727,9 +3730,9 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3739,9 +3742,9 @@
 
               <entry>The date/time that the state change occurred</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3751,9 +3754,9 @@
 
               <entry>The microsecond portion of the time the state change occurred</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3763,9 +3766,9 @@
 
               <entry>The id of the host or service object this state change applies to</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3777,7 +3780,7 @@
 
               <entry>0 = No state change; 1 = State change</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3789,7 +3792,7 @@
 
               <entry>For Hosts: 0 = UP; 1 = DOWN; 2 = UNREACHABLE; For Services: 0 = OK; 1 = WARNING; 2 = CRITICAL; 3 = UNKNOWN</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3801,7 +3804,7 @@
 
               <entry>0 = SOFT state; 1 = HARD state</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3811,9 +3814,9 @@
 
               <entry>Number indicating the current check attempt for the host or service</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3823,9 +3826,9 @@
 
               <entry>Number indicating the max check attempts (as configured in &name-icinga;) for the host or service</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3838,7 +3841,7 @@
               <entry>For Hosts: -1 = unavailable; 0 = UP; 1 = DOWN; 2 = UNREACHABLE; For Services: -1 = unavailable; 0 = OK; 1 = WARNING; 2
               = CRITICAL; 3 = UNKNOWN</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3851,7 +3854,7 @@
               <entry>For Hosts: -1 = unavailable; 0 = UP; 1 = DOWN; 2 = UNREACHABLE; For Services: -1 unavailable; 0 = OK; 1 = WARNING; 2 =
               CRITICAL</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3861,9 +3864,9 @@
 
               <entry>The current plugin/status output of the host or service (first line)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -3873,9 +3876,9 @@
 
               <entry>The current plugin/status output of the host or service (consecutive lines)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
@@ -3905,7 +3908,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_systemcommands" />
+    <anchor xml:id="dbm_systemcommands"/>
 
     <indexterm zone="dbm_systemcommands">
       <primary>Tables</primary>
@@ -3941,7 +3944,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -3953,7 +3956,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -3965,7 +3968,7 @@
 
               <entry>The date/time the command was executed</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -3977,7 +3980,7 @@
 
               <entry>The microsecond portion of the time the command was executed</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -3989,9 +3992,9 @@
 
               <entry>The date/time the command finished executing</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4001,9 +4004,9 @@
 
               <entry>The microsecond portion of the time the command finished executing</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4013,9 +4016,9 @@
 
               <entry>Fully expanded command line that was executed</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4025,9 +4028,9 @@
 
               <entry>Number of seconds before the command should timeout</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4039,7 +4042,7 @@
 
               <entry>0 = Did NOT timeout; 1 = Timed out</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4049,9 +4052,9 @@
 
               <entry>Number of seconds it took to execute the command</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4061,9 +4064,9 @@
 
               <entry>Return code of the command</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4073,9 +4076,9 @@
 
               <entry>First line of text output (if available) that was returned from the command</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4085,9 +4088,9 @@
 
               <entry>Consecutive lines of text output (if available) that were returned from the command</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
@@ -4110,11 +4113,10 @@
           </tbody>
         </tgroup>
       </informaltable></para>
-
   </section>
 
-  <section xml:id="statustables">
-    <title><anchor xml:id="dbm_cu" /> Current Status Tables</title>
+  <section xml:id="dbm_cu">
+    <title>Current Status Tables</title>
 
     <indexterm zone="dbm_cu">
       <primary>IDOUtils</primary>
@@ -4160,7 +4162,6 @@
       <listitem>
         <para><link linkend="dbm_contactstatus">contactstatus</link></para>
       </listitem>
-
     </itemizedlist>
 
     <para><emphasis>Relationship Diagram</emphasis>Notes: To reduce clutter, the links to the instances table (to which all these tables are
@@ -4171,12 +4172,12 @@
 
       <mediaobject>
         <imageobject>
-          <imagedata fileref="../images/db_model_cu.png"></imagedata>
+          <imagedata fileref="../images/db_model_cu.png"/>
         </imageobject>
       </mediaobject>
     </figure>
 
-    <anchor xml:id="dbm_comments" />
+    <anchor xml:id="dbm_comments"/>
 
     <indexterm zone="dbm_comments">
       <primary>Tables</primary>
@@ -4211,7 +4212,7 @@
 
               <entry>Unique number identifying the comment record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -4223,7 +4224,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -4235,9 +4236,9 @@
 
               <entry>Date and time the comment was entered</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4247,9 +4248,9 @@
 
               <entry>Microsecond portion of comment entry time</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4261,7 +4262,7 @@
 
               <entry>1 = Host comment; 2 = Service comment</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4273,7 +4274,7 @@
 
               <entry>1 = User; 2 = Scheduled downtime; 3 = Flapping; 4 = Acknowledgement</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4283,9 +4284,9 @@
 
               <entry>The object id of the host or service this acknowledgement applies to</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4295,7 +4296,7 @@
 
               <entry>Date and time associated with the comment</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -4307,7 +4308,7 @@
 
               <entry>The comment ID internal to the &name-icinga; daemon</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -4319,9 +4320,9 @@
 
               <entry>Text field containing the name of the person who made the comment</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4331,9 +4332,9 @@
 
               <entry>Text field containing the comment</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4345,7 +4346,7 @@
 
               <entry>0 = Not persistent; 1 = Persistent</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4357,7 +4358,7 @@
 
               <entry>0 =internal (&name-icinga;); 1 = External (user)</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4369,7 +4370,7 @@
 
               <entry>0 = Doesn't expire; 1 = Expires</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4379,9 +4380,9 @@
 
               <entry>Date and time at which the comment expires.</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
@@ -4411,7 +4412,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_customvariablestatus" />
+    <anchor xml:id="dbm_customvariablestatus"/>
 
     <indexterm zone="dbm_customvariablestatus">
       <primary>Tables</primary>
@@ -4446,7 +4447,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -4458,9 +4459,9 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4470,7 +4471,7 @@
 
               <entry>The object id of the host or service this acknowledgement applies to</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -4482,9 +4483,9 @@
 
               <entry>Date and time the status of the custom variable was last updated</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4497,7 +4498,7 @@
 
               <entry>0 = Has not been modified; 1 = Has been modified</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4507,7 +4508,7 @@
 
               <entry>Text field containing the name of the custom variable</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2, NK</entry>
             </row>
@@ -4519,9 +4520,9 @@
 
               <entry>Text field containing the value of the custom variable</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
@@ -4551,7 +4552,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_hoststatus" />
+    <anchor xml:id="dbm_hoststatus"/>
 
     <indexterm zone="dbm_hoststatus">
       <primary>Tables</primary>
@@ -4585,7 +4586,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -4597,9 +4598,9 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4609,7 +4610,7 @@
 
               <entry>The object id of the host this status entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>U1</entry>
             </row>
@@ -4621,9 +4622,9 @@
 
               <entry>Date and time the status data was updated</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4633,9 +4634,9 @@
 
               <entry>Plugin output from the latest host check (first line)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4645,9 +4646,9 @@
 
               <entry>Plugin output from the latest host check (consecutive lines)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4657,9 +4658,9 @@
 
               <entry>Performance data from the latest host check</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4669,9 +4670,9 @@
 
               <entry>Optional check result source.</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4683,7 +4684,7 @@
 
               <entry>0 = UP; 1 = DOWN; 2 = UNREACHABLE</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4695,7 +4696,7 @@
 
               <entry>0 = Not checked; 1 = Checked</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4707,7 +4708,7 @@
 
               <entry>0 = Not scheduled; 1 = Scheduled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4717,9 +4718,9 @@
 
               <entry>Number indicating the current check attempt of the host. This is only interesting during soft host states</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4729,9 +4730,9 @@
 
               <entry>Number indicating how many maximum check attempts will be made to determine the hard state of the host</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4741,9 +4742,9 @@
 
               <entry>Time the host was last checked</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4754,9 +4755,9 @@
               <entry>The host is scheduled to be checked next. Will be set to the epoch if the host is not scheduled for another
               check</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4768,7 +4769,7 @@
 
               <entry>0 = Active; 1 = Passive</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4778,9 +4779,9 @@
 
               <entry>Time the host last had a hard or soft state change. Will be set to the epoch if the host has not changed state</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4790,9 +4791,9 @@
 
               <entry>The host last had a hard state change. Will be setup to the epoch if the host has not changed state</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4802,9 +4803,9 @@
 
               <entry>Time the host was last in an UP state (if ever)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4814,9 +4815,9 @@
 
               <entry>Time the host was last in a DOWN state (if ever)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4826,9 +4827,9 @@
 
               <entry>Time the host was last in an UNREACHABLE state (if ever)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4840,7 +4841,7 @@
 
               <entry>0 = SOFT state; 1 = HARD state</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4850,9 +4851,9 @@
 
               <entry>Time a notification was last sent out for the host (if ever)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4862,9 +4863,9 @@
 
               <entry>Next possible time that a notification can be sent out for the host</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4876,7 +4877,7 @@
 
               <entry>0 = Send notifications; 1 = Do not send notifications</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4888,7 +4889,7 @@
 
               <entry>0 = Notifications disabled; 1 = Notifications enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4900,7 +4901,7 @@
 
               <entry>0 = Not acknowledged; 1 = Acknowledged</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4912,7 +4913,7 @@
 
               <entry>0 = None; 1 = Normal; 2 = Sticky</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4923,9 +4924,9 @@
               <entry>Number indicating the current notification number for the current host problem. This number gets reset to 0 when the
               host recovers</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4937,7 +4938,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4949,7 +4950,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4961,7 +4962,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4973,7 +4974,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4985,7 +4986,7 @@
 
               <entry>0 = Not flapping; 1 = Flapping</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -4995,9 +4996,9 @@
 
               <entry>Number indicating the current percent state change (a measure of stability/volatility) for the host</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5008,9 +5009,9 @@
               <entry>Number of seconds that the host check was "late" in being executed. The different between the checks scheduled time and
               the time it was actually checked</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5020,9 +5021,9 @@
 
               <entry>Number of seconds it took to perform the last check of the host</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5034,7 +5035,7 @@
 
               <entry>0 = Not in scheduled dowtime downtime are currently active for this host; &gt;0 = In scheduled downtime</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5046,7 +5047,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5058,7 +5059,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5070,7 +5071,7 @@
 
               <entry>0 = Do not obsess; 1 = Obsess</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5081,9 +5082,9 @@
               <entry>Number indicating which attributes of the host have been modified during runtime. Used by the retention data
               routines</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5093,9 +5094,9 @@
 
               <entry>The current event handler command associated with the host</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5105,9 +5106,9 @@
 
               <entry>The current check command associated with the host</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5117,9 +5118,9 @@
 
               <entry>Number of seconds between normal checks of the host</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5129,9 +5130,9 @@
 
               <entry>Number of seconds between retry checks of the host</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5141,9 +5142,9 @@
 
               <entry>Unique number of the timeperiod object currently used for determining times the host can be checked</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
@@ -5179,7 +5180,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_programstatus" />
+    <anchor xml:id="dbm_programstatus"/>
 
     <indexterm zone="dbm_programstatus">
       <primary>Tables</primary>
@@ -5213,7 +5214,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -5225,7 +5226,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>U1</entry>
             </row>
@@ -5237,9 +5238,9 @@
 
               <entry>Date and time the status of the process was last updated</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5249,9 +5250,9 @@
 
               <entry>Date and time the &name-icinga; process was started</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5261,9 +5262,9 @@
 
               <entry>Date and time the &name-icinga; process as stopped (if currently not running)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5275,7 +5276,7 @@
 
               <entry>0 = Process is not running; 1 = Process is running</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5285,9 +5286,9 @@
 
               <entry>The processed ID (PID) of the &name-icinga; process</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5299,7 +5300,7 @@
 
               <entry>0 = Foreground process; 1 = Daemon</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5309,9 +5310,9 @@
 
               <entry>Date and time the &name-icinga; process last checked external commands</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5321,9 +5322,9 @@
 
               <entry>Date and time the log file was last rotated (if at all)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5335,7 +5336,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5347,7 +5348,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5359,7 +5360,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5371,7 +5372,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5383,7 +5384,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5395,7 +5396,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5407,7 +5408,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5419,7 +5420,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5431,7 +5432,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5443,7 +5444,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5455,7 +5456,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5467,7 +5468,7 @@
 
               <entry>See &name-icinga; source code for values</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5479,7 +5480,7 @@
 
               <entry>See &name-icinga; source code for values</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5489,9 +5490,9 @@
 
               <entry>Text field indicating the current global host event handler command that is being used.</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5501,9 +5502,9 @@
 
               <entry>Text field indicating the current global service event handler command that is being used</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
@@ -5527,7 +5528,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_runtimevariables" />
+    <anchor xml:id="dbm_runtimevariables"/>
 
     <indexterm zone="dbm_runtimevariables">
       <primary>Tables</primary>
@@ -5563,7 +5564,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -5575,7 +5576,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -5587,7 +5588,7 @@
 
               <entry>Text field containing the name of the variable</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -5599,9 +5600,9 @@
 
               <entry>Text field containing the value of the variable</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
@@ -5625,7 +5626,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_scheduleddowntime" />
+    <anchor xml:id="dbm_scheduleddowntime"/>
 
     <indexterm zone="dbm_scheduleddowntime">
       <primary>Tables</primary>
@@ -5660,7 +5661,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -5672,7 +5673,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -5686,7 +5687,7 @@
 
               <entry>1 = Service downtime; 2 = Host downtime</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5696,7 +5697,7 @@
 
               <entry>The object id of the host or service this downtime applies to</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -5708,7 +5709,7 @@
 
               <entry>Date and time this downtime was entered</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -5720,9 +5721,9 @@
 
               <entry>Text field containing the name of the person who created this scheduled downtime</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5732,9 +5733,9 @@
 
               <entry>Text field containing information about this scheduled downtime (as entered by the user)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5744,7 +5745,7 @@
 
               <entry>The ID number (internal to the &name-icinga; daemon) associated with this scheduled downtime entry</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK4</entry>
             </row>
@@ -5757,9 +5758,9 @@
               <entry>The internal &name-icinga; ID number (if any) of another scheduled downtime entry that this downtime is "triggered"
               (started) by. If this field is nonzero, this is a triggered downtime entry, otherwise it is not</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5772,7 +5773,7 @@
 
               <entry>0 = Flexible (not fixed) 1 = Fixed</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5783,9 +5784,9 @@
               <entry>Indicates the number of seconds that the scheduled downtime should last. This is usually only needed if this is
               "flexible" downtime, which can start at a variable time, but lasts for the specified duration</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5796,9 +5797,9 @@
               <entry>Date and time that the downtime is scheduled to start if it is "fixed" dowtime. If this is a "flexible" downtime entry,
               this is the first possible time the downtime can start</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5809,9 +5810,9 @@
               <entry>Date and time the downtime is scheduled to end if it is "fixed" downtime. If this is a "flexible" downtime entry, this
               is the last possible time the downtime can start</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5823,7 +5824,7 @@
 
               <entry>0 = Not started (inactive) 1 = Started (active)</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5833,9 +5834,9 @@
 
               <entry>Date and time the scheduled downtime was actually started</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5845,9 +5846,9 @@
 
               <entry>Microsecond portion of time the scheduled downtime was actually started</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
@@ -5867,7 +5868,7 @@
 
               <entry>instances.instance_id</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5879,7 +5880,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_servicestatus" />
+    <anchor xml:id="dbm_servicestatus"/>
 
     <indexterm zone="dbm_servicestatus">
       <primary>Tables</primary>
@@ -5913,7 +5914,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -5925,9 +5926,9 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5937,7 +5938,7 @@
 
               <entry>The id of the service this record is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>U1</entry>
             </row>
@@ -5949,9 +5950,9 @@
 
               <entry>The date/time the status record was updated</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5961,9 +5962,9 @@
 
               <entry>The text output from the most current service check (first line)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5973,9 +5974,9 @@
 
               <entry>The text output from the most current service check (consecutive lines)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5985,9 +5986,9 @@
 
               <entry>Optional performance data from the most current service check</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -5997,9 +5998,9 @@
 
               <entry>Optional check result source.</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6011,7 +6012,7 @@
 
               <entry>0 = OK; 1 = WARNING; 2 = CRITICAL; 3 = UNKNOWN</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6023,7 +6024,7 @@
 
               <entry>0 = Has NOT been checked; 1 = Has been checked</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6035,7 +6036,7 @@
 
               <entry>0 = Not scheduled; 1 = Scheduled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6045,9 +6046,9 @@
 
               <entry>The current check attempt for the service</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6057,9 +6058,9 @@
 
               <entry>The max check attempts (as configured in &name-icinga;) for the service</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6069,9 +6070,9 @@
 
               <entry>The date/time the service was last checked. Set to the epoch if the service has not been checked yet</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6081,9 +6082,9 @@
 
               <entry>The date/time the service is scheduled to be checked next</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6095,7 +6096,7 @@
 
               <entry>0 = Active; 1 = Passive</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6106,9 +6107,9 @@
               <entry>The date/time the service last changed state (if at all). This gets updated for both HARD and SOFT state
               changes</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6118,9 +6119,9 @@
 
               <entry>The date/time the service last changed HARD states (if at all)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6130,9 +6131,9 @@
 
               <entry>0 = OK 1 = WARNING; 2 = CRITICAL; 3 = UNKNOWN</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6142,9 +6143,9 @@
 
               <entry>The date/time the service was last in an OK state (if at all)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6154,9 +6155,9 @@
 
               <entry>The date/time the service was last in a WARNING state (if at all)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6166,9 +6167,9 @@
 
               <entry>The date/time the service was last in an UNKNOWN state (if at all)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6178,9 +6179,9 @@
 
               <entry>The date/time the service was last in a CRITICAL state (if at all).</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6192,7 +6193,7 @@
 
               <entry>0 = SOFT state; 1 = HARD</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6202,9 +6203,9 @@
 
               <entry>The date/time that a notification was last sent out for the current service problem (if applicable)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6215,9 +6216,9 @@
               <entry>The earliest date/time that the next notification can be sent out for the current service problem (if
               applicable)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6229,7 +6230,7 @@
 
               <entry>0 = Do not send more notifications; 1 = Keep sending notifications</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6241,7 +6242,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6253,7 +6254,7 @@
 
               <entry>0 = Not acknowledged; 1 = Acknowledged</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6265,7 +6266,7 @@
 
               <entry>0 = No acknowledgement; 1 = Normal acknowledgement; 2 = Sticky acknowledgement</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6275,9 +6276,9 @@
 
               <entry>Number indicating how many notifications have been sent out about the current service problem (if applicable)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6289,7 +6290,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6301,7 +6302,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6313,7 +6314,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6325,7 +6326,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6337,7 +6338,7 @@
 
               <entry>0 = Not flapping; 1 = Flapping</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6347,9 +6348,9 @@
 
               <entry>Number indicating the current percent state change (a measure of volatility) for the service</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6362,9 +6363,9 @@
               difference between the timestamp on the passive check (submitted via an external command) and the time &name-icinga; processed
               the check result. execution_time DOUBLE Number of seconds it took to run the last service check</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6374,9 +6375,9 @@
 
               <entry>Number of seconds it took to execute the service check</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6387,9 +6388,9 @@
               <entry>Number indicating how many periods of scheduled downtime are currently in effect for the service. A value of 0
               indicates the service is not in a period of downtime</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6402,7 +6403,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6414,7 +6415,7 @@
 
               <entry>0 = Do NOT process perfdata; 1 = Process perfdata</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6426,7 +6427,7 @@
 
               <entry>0 = Do NOT obsess; 1 = Obsess</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6438,7 +6439,7 @@
 
               <entry>See &name-icinga; source code</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6448,9 +6449,9 @@
 
               <entry>The current event handler command that is associated with the service</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6460,9 +6461,9 @@
 
               <entry>The current check command that is used to check the status of the service</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6472,9 +6473,9 @@
 
               <entry>The current normal check interval for the service (in seconds)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6484,9 +6485,9 @@
 
               <entry>The current retry check interval for the service (in seconds)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6496,9 +6497,9 @@
 
               <entry>The currently timeperiod that is used to determine when the service can be checked.</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
@@ -6534,7 +6535,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_contactstatus" />
+    <anchor xml:id="dbm_contactstatus"/>
 
     <indexterm zone="dbm_contactstatus">
       <primary>Tables</primary>
@@ -6568,7 +6569,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -6580,9 +6581,9 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6592,7 +6593,7 @@
 
               <entry>The id of the service this record is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>U1</entry>
             </row>
@@ -6604,9 +6605,9 @@
 
               <entry>The date/time the status record was updated</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6618,7 +6619,7 @@
 
               <entry>0 = Notifications disabled; 1 = Notifications enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6630,7 +6631,7 @@
 
               <entry>0 = Notifications disabled; 1 = Notifications enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6640,9 +6641,9 @@
 
               <entry>Time the last host notification was sent</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6652,9 +6653,9 @@
 
               <entry>Time the last service notification was sent</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6664,9 +6665,9 @@
 
               <entry>Default = 0</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6676,9 +6677,9 @@
 
               <entry>Default = 0</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -6688,11 +6689,10 @@
 
               <entry>Default = 0</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
-
           </tbody>
         </tgroup>
       </informaltable></para>
@@ -6714,10 +6714,9 @@
           </tbody>
         </tgroup>
       </informaltable></para>
-
   </section>
 
-  <section xml:id="configtables">
+  <section xml:id="dbm_cf">
     <title>Configuration Tables</title>
 
     <indexterm zone="dbm_cf">
@@ -6868,12 +6867,12 @@
 
       <mediaobject>
         <imageobject>
-          <imagedata fileref="../images/db_model_cf.png"></imagedata>
+          <imagedata fileref="../images/db_model_cf.png"/>
         </imageobject>
       </mediaobject>
     </figure>
 
-    <anchor xml:id="dbm_commands" />
+    <anchor xml:id="dbm_commands"/>
 
     <indexterm zone="dbm_commands">
       <primary>Tables</primary>
@@ -6907,7 +6906,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -6919,7 +6918,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -6929,9 +6928,9 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -6941,9 +6940,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -6953,17 +6952,17 @@
 
               <entry>VARCHAR(1024)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_configfiles" />
+    <anchor xml:id="dbm_configfiles"/>
 
     <indexterm zone="dbm_configfiles">
       <primary>Tables</primary>
@@ -6997,7 +6996,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -7009,7 +7008,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -7019,9 +7018,9 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -7031,9 +7030,9 @@
 
               <entry>VARCHAR(255)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -7041,7 +7040,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_configfilevariables" />
+    <anchor xml:id="dbm_configfilevariables"/>
 
     <indexterm zone="dbm_configfilevariables">
       <primary>Tables</primary>
@@ -7075,7 +7074,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -7087,9 +7086,9 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7097,11 +7096,11 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7109,11 +7108,11 @@
 
               <entry>VARCHAR(64)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7121,17 +7120,17 @@
 
               <entry>VARCHAR(1024)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_contact_addresses" />
+    <anchor xml:id="dbm_contact_addresses"/>
 
     <indexterm zone="dbm_contact_addresses">
       <primary>Tables</primary>
@@ -7165,7 +7164,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -7177,9 +7176,9 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7187,9 +7186,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -7199,9 +7198,9 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -7211,17 +7210,17 @@
 
               <entry>VARCHAR(255)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_contact_notificationcommands" />
+    <anchor xml:id="dbm_contact_notificationcommands"/>
 
     <indexterm zone="dbm_contact_notificationcommands">
       <primary>Tables</primary>
@@ -7255,7 +7254,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -7267,9 +7266,9 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7277,9 +7276,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -7289,9 +7288,9 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -7301,9 +7300,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -7313,9 +7312,9 @@
 
               <entry>VARCHAR(255)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK4</entry>
             </row>
@@ -7323,7 +7322,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_contactgroup_members" />
+    <anchor xml:id="dbm_contactgroup_members"/>
 
     <indexterm zone="dbm_contactgroup_members">
       <primary>Tables</primary>
@@ -7357,7 +7356,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -7369,9 +7368,9 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7379,9 +7378,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -7391,9 +7390,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -7401,7 +7400,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_contactgroups" />
+    <anchor xml:id="dbm_contactgroups"/>
 
     <indexterm zone="dbm_contactgroups">
       <primary>Tables</primary>
@@ -7435,7 +7434,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -7447,7 +7446,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -7457,9 +7456,9 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -7469,9 +7468,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -7481,17 +7480,17 @@
 
               <entry>VARCHAR(255)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_contactnotificationmethods" />
+    <anchor xml:id="dbm_contactnotificationmethods"/>
 
     <indexterm zone="dbm_contactnotificationmethods">
       <primary>Tables</primary>
@@ -7525,7 +7524,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -7537,7 +7536,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -7547,9 +7546,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -7559,9 +7558,9 @@
 
               <entry>TIMESTAMP</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -7571,9 +7570,9 @@
 
               <entry>INT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK4</entry>
             </row>
@@ -7583,11 +7582,11 @@
 
               <entry>TIMESTAMP</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7595,11 +7594,11 @@
 
               <entry>INT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7607,11 +7606,11 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7619,17 +7618,17 @@
 
               <entry>VARCHAR(255)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_contacts" />
+    <anchor xml:id="dbm_contacts"/>
 
     <indexterm zone="dbm_contacts">
       <primary>Tables</primary>
@@ -7663,7 +7662,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -7675,7 +7674,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -7685,9 +7684,9 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -7697,9 +7696,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -7711,9 +7710,9 @@
 
               <entry>String describing the contact</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7723,9 +7722,9 @@
 
               <entry>String containing the e-mail address of the contact</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7735,9 +7734,9 @@
 
               <entry>String containing the pager address of the contact</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7745,11 +7744,11 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7757,11 +7756,11 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7773,7 +7772,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7785,7 +7784,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7797,7 +7796,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7809,7 +7808,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7821,7 +7820,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7833,7 +7832,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7845,7 +7844,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7857,7 +7856,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7869,7 +7868,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7881,7 +7880,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7893,7 +7892,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7905,7 +7904,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7917,7 +7916,7 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7929,13 +7928,13 @@
 
               <entry>0 = Disabled; 1 = Enabled</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_customvariables" />
+    <anchor xml:id="dbm_customvariables"/>
 
     <indexterm zone="dbm_customvariables">
       <primary>Tables</primary>
@@ -7969,7 +7968,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -7981,9 +7980,9 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -7991,9 +7990,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -8003,9 +8002,9 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -8015,11 +8014,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -8029,7 +8028,7 @@
 
               <entry>String containing the name of the custom variable</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3,NK</entry>
             </row>
@@ -8041,15 +8040,15 @@
 
               <entry>String containing the value of the custom variable</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_host_contactgroups" />
+    <anchor xml:id="dbm_host_contactgroups"/>
 
     <indexterm zone="dbm_host_contactgroups">
       <primary>Tables</primary>
@@ -8083,7 +8082,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -8095,9 +8094,9 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -8105,9 +8104,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -8117,9 +8116,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -8127,7 +8126,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_host_contacts" />
+    <anchor xml:id="dbm_host_contacts"/>
 
     <indexterm zone="dbm_host_contacts">
       <primary>Tables</primary>
@@ -8161,7 +8160,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -8173,9 +8172,9 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -8183,9 +8182,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -8195,9 +8194,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -8205,7 +8204,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_hostescalation_contactgroups" />
+    <anchor xml:id="dbm_hostescalation_contactgroups"/>
 
     <indexterm zone="dbm_hostescalation_contactgroups">
       <primary>Tables</primary>
@@ -8239,7 +8238,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -8251,9 +8250,9 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -8261,9 +8260,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -8273,9 +8272,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -8283,7 +8282,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_hostescalation_contacts" />
+    <anchor xml:id="dbm_hostescalation_contacts"/>
 
     <indexterm zone="dbm_hostescalation_contacts">
       <primary>Tables</primary>
@@ -8317,7 +8316,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -8329,9 +8328,9 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -8339,9 +8338,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -8351,9 +8350,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -8361,7 +8360,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_host_parenthosts" />
+    <anchor xml:id="dbm_host_parenthosts"/>
 
     <indexterm zone="dbm_host_parenthosts">
       <primary>Tables</primary>
@@ -8395,7 +8394,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -8407,9 +8406,9 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -8417,9 +8416,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -8429,9 +8428,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -8439,7 +8438,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_hostdependencies" />
+    <anchor xml:id="dbm_hostdependencies"/>
 
     <indexterm zone="dbm_hostdependencies">
       <primary>Tables</primary>
@@ -8473,7 +8472,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -8485,7 +8484,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -8495,9 +8494,9 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -8507,9 +8506,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -8519,9 +8518,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK4</entry>
             </row>
@@ -8555,11 +8554,11 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -8601,7 +8600,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_hostescalations" />
+    <anchor xml:id="dbm_hostescalations"/>
 
     <indexterm zone="dbm_hostescalations">
       <primary>Tables</primary>
@@ -8635,7 +8634,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -8647,7 +8646,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -8657,9 +8656,9 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -8669,9 +8668,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -8681,9 +8680,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK4</entry>
             </row>
@@ -8693,9 +8692,9 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK5</entry>
             </row>
@@ -8705,9 +8704,9 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK6</entry>
             </row>
@@ -8717,11 +8716,11 @@
 
               <entry>DOUBLE</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -8729,11 +8728,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -8741,11 +8740,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -8753,17 +8752,17 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_hostgroup_members" />
+    <anchor xml:id="dbm_hostgroup_members"/>
 
     <indexterm zone="dbm_hostgroup_members">
       <primary>Tables</primary>
@@ -8797,7 +8796,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -8809,9 +8808,9 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -8819,9 +8818,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -8831,9 +8830,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -8841,7 +8840,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_hostgroups" />
+    <anchor xml:id="dbm_hostgroups"/>
 
     <indexterm zone="dbm_hostgroups">
       <primary>Tables</primary>
@@ -8873,9 +8872,9 @@
 
               <entry>SERIAL</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -8887,7 +8886,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -8897,11 +8896,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -8909,9 +8908,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -8923,15 +8922,15 @@
 
               <entry>String describing the hostgroup</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_hosts" />
+    <anchor xml:id="dbm_hosts"/>
 
     <indexterm zone="dbm_hosts">
       <primary>Tables</primary>
@@ -8965,7 +8964,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -8977,7 +8976,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -8987,9 +8986,9 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -8999,9 +8998,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -9013,9 +9012,9 @@
 
               <entry>String describing the host</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9023,11 +9022,11 @@
 
               <entry>VARCHAR(255)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9037,9 +9036,9 @@
 
               <entry>IP-address</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9049,9 +9048,9 @@
 
               <entry>IPv6-address</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9059,11 +9058,11 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9071,11 +9070,11 @@
 
               <entry>VARCHAR(255)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9083,11 +9082,11 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9095,11 +9094,11 @@
 
               <entry>VARCHAR(255)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9107,11 +9106,11 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9119,11 +9118,11 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9131,11 +9130,11 @@
 
               <entry>VARCHAR(64)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9143,11 +9142,11 @@
 
               <entry>DOUBLE</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9155,11 +9154,11 @@
 
               <entry>DOUBLE</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9167,11 +9166,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9179,11 +9178,11 @@
 
               <entry>DOUBLE</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9191,11 +9190,11 @@
 
               <entry>DOUBLE</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9203,11 +9202,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9215,11 +9214,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9227,11 +9226,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9239,11 +9238,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9251,11 +9250,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9263,11 +9262,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9275,11 +9274,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9287,11 +9286,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9299,11 +9298,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9311,11 +9310,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9323,11 +9322,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9335,11 +9334,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9347,11 +9346,11 @@
 
               <entry>DOUBLE</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9359,11 +9358,11 @@
 
               <entry>DOUBLE</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9371,11 +9370,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9383,11 +9382,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9395,11 +9394,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9407,11 +9406,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9419,11 +9418,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9431,11 +9430,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9443,11 +9442,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9455,11 +9454,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9467,11 +9466,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9479,11 +9478,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9491,11 +9490,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9503,11 +9502,11 @@
 
               <entry>VARCHAR(255)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9515,11 +9514,11 @@
 
               <entry>VARCHAR(255)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9527,11 +9526,11 @@
 
               <entry>VARCHAR(255)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9539,11 +9538,11 @@
 
               <entry>VARCHAR(255)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9551,11 +9550,11 @@
 
               <entry>VARCHAR(255)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9563,11 +9562,11 @@
 
               <entry>VARCHAR(255)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9575,11 +9574,11 @@
 
               <entry>VARCHAR(255)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9587,11 +9586,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9599,11 +9598,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9611,11 +9610,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9623,11 +9622,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9635,11 +9634,11 @@
 
               <entry>DOUBLE</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9647,11 +9646,11 @@
 
               <entry>DOUBLE</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9659,17 +9658,17 @@
 
               <entry>DOUBLE</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_service_contactgroups" />
+    <anchor xml:id="dbm_service_contactgroups"/>
 
     <indexterm zone="dbm_service_contactgroups">
       <primary>Tables</primary>
@@ -9703,7 +9702,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -9715,7 +9714,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -9725,9 +9724,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -9737,9 +9736,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -9747,7 +9746,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_service_contacts" />
+    <anchor xml:id="dbm_service_contacts"/>
 
     <indexterm zone="dbm_service_contacts">
       <primary>Tables</primary>
@@ -9781,7 +9780,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -9793,7 +9792,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -9803,9 +9802,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -9815,9 +9814,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -9825,7 +9824,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_servicedependencies" />
+    <anchor xml:id="dbm_servicedependencies"/>
 
     <indexterm zone="dbm_servicedependencies">
       <primary>Tables</primary>
@@ -9859,7 +9858,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -9871,7 +9870,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -9881,9 +9880,9 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -9893,9 +9892,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -9905,9 +9904,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK4</entry>
             </row>
@@ -9941,11 +9940,11 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -9999,7 +9998,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_serviceescalation_contactgroups" />
+    <anchor xml:id="dbm_serviceescalation_contactgroups"/>
 
     <indexterm zone="dbm_serviceescalation_contactgroups">
       <primary>Tables</primary>
@@ -10033,7 +10032,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -10045,9 +10044,9 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10055,9 +10054,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -10067,9 +10066,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -10077,7 +10076,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_serviceescalation_contacts" />
+    <anchor xml:id="dbm_serviceescalation_contacts"/>
 
     <indexterm zone="dbm_serviceescalation_contacts">
       <primary>Tables</primary>
@@ -10111,7 +10110,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -10123,9 +10122,9 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10133,9 +10132,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -10145,9 +10144,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -10155,7 +10154,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_serviceescalations" />
+    <anchor xml:id="dbm_serviceescalations"/>
 
     <indexterm zone="dbm_serviceescalations">
       <primary>Tables</primary>
@@ -10189,7 +10188,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -10201,7 +10200,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -10211,9 +10210,9 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -10223,9 +10222,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -10235,9 +10234,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK4</entry>
             </row>
@@ -10247,9 +10246,9 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK5</entry>
             </row>
@@ -10259,9 +10258,9 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK6</entry>
             </row>
@@ -10271,11 +10270,11 @@
 
               <entry>DOUBLE</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10283,11 +10282,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10295,11 +10294,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10307,11 +10306,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10319,17 +10318,17 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_servicegroup_members" />
+    <anchor xml:id="dbm_servicegroup_members"/>
 
     <indexterm zone="dbm_servicegroup_members">
       <primary>Tables</primary>
@@ -10363,7 +10362,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -10375,9 +10374,9 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10385,9 +10384,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -10397,9 +10396,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -10407,7 +10406,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_servicegroups" />
+    <anchor xml:id="dbm_servicegroups"/>
 
     <indexterm zone="dbm_servicegroups">
       <primary>Tables</primary>
@@ -10441,7 +10440,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -10453,7 +10452,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -10463,9 +10462,9 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -10475,9 +10474,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -10489,15 +10488,15 @@
 
               <entry>String describing the servicegroup</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_services" />
+    <anchor xml:id="dbm_services"/>
 
     <indexterm zone="dbm_services">
       <primary>Tables</primary>
@@ -10531,7 +10530,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -10543,7 +10542,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -10553,9 +10552,9 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -10565,11 +10564,11 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10577,9 +10576,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -10589,11 +10588,11 @@
 
               <entry>VARCHAR(255)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10601,11 +10600,11 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10613,11 +10612,11 @@
 
               <entry>VARCHAR(255)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10625,11 +10624,11 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10637,11 +10636,11 @@
 
               <entry>VARCHAR(255)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10649,11 +10648,11 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10661,11 +10660,11 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10673,11 +10672,11 @@
 
               <entry>VARCHAR(64)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10685,11 +10684,11 @@
 
               <entry>DOUBLE</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10697,11 +10696,11 @@
 
               <entry>DOUBLE</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10709,11 +10708,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10721,11 +10720,11 @@
 
               <entry>DOUBLE</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10733,11 +10732,11 @@
 
               <entry>DOUBLE</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10745,11 +10744,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10757,11 +10756,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10769,11 +10768,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10781,11 +10780,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10793,11 +10792,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10805,11 +10804,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10817,11 +10816,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10829,11 +10828,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10841,11 +10840,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10853,11 +10852,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10865,11 +10864,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10877,11 +10876,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10889,11 +10888,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10901,11 +10900,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10913,11 +10912,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10925,11 +10924,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10937,11 +10936,11 @@
 
               <entry>DOUBLE</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10949,11 +10948,11 @@
 
               <entry>DOUBLE</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10961,11 +10960,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10973,11 +10972,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10985,11 +10984,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -10997,11 +10996,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -11009,11 +11008,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -11021,11 +11020,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -11033,11 +11032,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -11045,11 +11044,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -11057,11 +11056,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -11069,11 +11068,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -11081,11 +11080,11 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -11093,11 +11092,11 @@
 
               <entry>VARCHAR(255)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -11105,11 +11104,11 @@
 
               <entry>VARCHAR(255)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -11117,11 +11116,11 @@
 
               <entry>VARCHAR(255)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -11129,11 +11128,11 @@
 
               <entry>VARCHAR(255)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -11141,17 +11140,17 @@
 
               <entry>VARCHAR(255)</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_timeperiod_timeranges" />
+    <anchor xml:id="dbm_timeperiod_timeranges"/>
 
     <indexterm zone="dbm_timeperiod_timeranges">
       <primary>Tables</primary>
@@ -11185,7 +11184,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -11197,9 +11196,9 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
 
             <row>
@@ -11207,9 +11206,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -11219,9 +11218,9 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -11231,9 +11230,9 @@
 
               <entry>INT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -11243,9 +11242,9 @@
 
               <entry>INT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK4</entry>
             </row>
@@ -11253,7 +11252,7 @@
         </tgroup>
       </informaltable></para>
 
-    <anchor xml:id="dbm_timeperiods" />
+    <anchor xml:id="dbm_timeperiods"/>
 
     <indexterm zone="dbm_timeperiods">
       <primary>Tables</primary>
@@ -11287,7 +11286,7 @@
 
               <entry>Unique number identifying the record</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>PK</entry>
             </row>
@@ -11299,7 +11298,7 @@
 
               <entry>Unique number identifying the distinct instance of &name-icinga; which this entry is associated with</entry>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK1</entry>
             </row>
@@ -11309,9 +11308,9 @@
 
               <entry>SMALLINT</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK2</entry>
             </row>
@@ -11321,9 +11320,9 @@
 
               <entry>BIGINT unsigned</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
 
               <entry>UK3</entry>
             </row>
@@ -11335,9 +11334,9 @@
 
               <entry>String describing the timeperiod</entry>
 
-              <entry></entry>
+              <entry/>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
