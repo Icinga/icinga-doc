@@ -9,7 +9,7 @@
   <title><anchor xml:id="newbie_"/>I'm a newbie to ...</title>
 
   <para>Prior to computing a "newbie" was called "novice" and it began long before you could walk. You managed that challenge and so there
-  is no reason to shy away now. The following sections contains some hints on several topics. Please read them carefully if you feel to be a
+  is no reason to shy away now. The following sections contain some hints on several topics. Please read them carefully if you feel to be a
   newbie to any of them. We will point you here if we have the feeling that you are lacking some basic knowledge ;-).</para>
 
   <section xml:id="newbie-linux">
@@ -25,11 +25,11 @@
 
     <para>Please grab a good book on &name-linux; basics from your local public library to get an overview on the file layout and frequently
     used commands. Use your browser if you don't like books but please don't ask such questions in a monitoring forum (you wouldn't ask for
-    instructions on how to find one's feet if you in a gym for the first time, would you?).<note>
+    instructions on how to find one's feet if you are in a gym for the first time, would you?).<note>
         <para>The tempt to execute commands as "root" (a.k.a. "Administrator" on &name-windows; systems) is high but please try to avoid
         that because it can leave your system unusable quite easily and there is noone asking nagging questions ("Are you sure...?"). Due to
         the permissions of this superuser you might not recognise (necessary) limitations of the user normally used to execute monitoring
-        tasks resulting in statements such "it already worked".</para>
+        tasks resulting in statements such "it already worked" (and it didn't, if you look closer).</para>
       </note></para>
 
     <indexterm zone="newbie-linux">
@@ -82,8 +82,10 @@
     variables can then be queried (and sometimes set) by managing applications." (<link
     xlink:href="http://en.wikipedia.org/wiki/SNMP">Excerpt from Wikipedia</link>).</para>
 
+    <para>The information is placed in a tree structure. Each node/leaf has a unique "OID" (object identifier).</para>
+
     <para>Using the check_snmp plugin from the <link xlink:href="&amp;url-monitoring-plugins;">Monitoring Plugins</link> package you can
-    retrieve data from managed systems. Please make sure that the target system has a running SMNP daemon which is configured to respond to
+    retrieve data from managed systems. Please make sure that the target system has a running SNMP daemon which is configured to respond to
     queries from you monitoring server. Executing something like <literal>snmpwalk -v1 -c public -On target_system system</literal> should
     be used to verify that.</para>
 
