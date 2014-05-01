@@ -1708,8 +1708,7 @@
   status , acknowledgements, downtimes, and comments (you will have to create the contents of this file outside of &name-icinga;). When
   &name-icinga; is restarted, it reads the information in the sync_retention_file and will update the host or service specified <emphasis>if
   the last_update time in the sync file is newer</emphasis> than in the state_retention_file, otherwise information will be discarded for
-  that host or service. After the sync file has been read, it will be removed. To disable, comment out the option. This option can be used
-  starting with &name-icinga; 1.0.2.</para>
+  that host or service. After the sync file has been read, it will be removed. To disable, comment out the option.</para>
 
   <para><anchor xml:id="configmain-retention_update_interval"/> <emphasis role="bold">Automatic State Retention Update
   Interval</emphasis></para>
@@ -2042,8 +2041,6 @@
                
 
               <emphasis condition="red" role="color">
-                 
-
                 <emphasis role="bold">retained_contact_host_attribute_mask=0</emphasis>
 
                  
@@ -2051,8 +2048,6 @@
 
                
             </para> <para>
-               
-
               <emphasis condition="red" role="color">
                  
 
@@ -2147,8 +2142,6 @@
     </listitem>
   </itemizedlist>
 
-  <para>This option can be used starting with &name-icinga; 1.0.2.</para>
-
   <para><anchor xml:id="configmain-syslog_local_facility"/> <emphasis role="bold">Syslog Local Facility Value</emphasis></para>
 
   <informaltable frame="none">
@@ -2174,8 +2167,7 @@
     </tgroup>
   </informaltable>
 
-  <para>If you enabled use_syslog_local_facility you can choose which local facility to use. Valid values are from 0 to 7. This option can
-  be used starting with &name-icinga; 1.0.2.</para>
+  <para>If you enabled use_syslog_local_facility you can choose which local facility to use. Valid values are from 0 to 7.</para>
 
   <para><anchor xml:id="configmain-log_notifications"/> <emphasis role="bold">Notification Logging Option</emphasis></para>
 
@@ -2460,10 +2452,6 @@
     </listitem>
   </itemizedlist>
 
-  <note>
-    <para>This option is available starting with &name-icinga; 1.0.3.</para>
-  </note>
-
   <para><anchor xml:id="configmain-log_passive_checks"/> <emphasis role="bold">Passive Check Logging Option</emphasis></para>
 
   <informaltable frame="none">
@@ -2542,10 +2530,6 @@
     </listitem>
   </itemizedlist>
 
-  <note>
-    <para>This option is available starting with &name-icinga; 1.0.3.</para>
-  </note>
-
   <para><anchor xml:id="configmain-log_long_plugin_output"/> <emphasis role="bold">Long Plugin Output Logging Option</emphasis></para>
 
   <informaltable frame="none">
@@ -2583,10 +2567,6 @@
       <para>1 = Log complete plugin output</para>
     </listitem>
   </itemizedlist>
-
-  <note>
-    <para>This option is available starting with &name-icinga; 1.0.3.</para>
-  </note>
 
   <para><anchor xml:id="configmain-global_host_event_handler"/> <emphasis role="bold">Global Host Event Handler Option</emphasis></para>
 
@@ -2707,10 +2687,6 @@
     </listitem>
   </itemizedlist>
 
-  <note>
-    <para>This option is available starting with &name-icinga; 1.0.3.</para>
-  </note>
-
   <para><anchor xml:id="configmain-stalking_notifications_for_hosts"/> <emphasis role="bold">Notifications for stalked
   hosts</emphasis></para>
 
@@ -2767,10 +2743,6 @@
       <para>1 = Notifications enabled</para>
     </listitem>
   </itemizedlist>
-
-  <note>
-    <para>This option is available starting with &name-icinga; 1.6.</para>
-  </note>
 
   <para><anchor xml:id="configmain-sleep_time"/> <emphasis role="bold">Inter-Check Sleep Time</emphasis></para>
 
@@ -3720,11 +3692,6 @@
       <para>1 = Make macros available as environment variables</para>
     </listitem>
   </itemizedlist>
-
-  <note>
-    <para>The default has changed starting with &name-icinga; 1.5. Prior to this version the directive has been enabled, now it is
-    <emphasis>disabled</emphasis>.</para>
-  </note>
 
   <para><anchor xml:id="configmain-enable_flap_detection"/> <emphasis role="bold">Flap Detection Option</emphasis></para>
 
@@ -5086,12 +5053,15 @@
 
   <para>This setting determines whether or not the embedded Perl interpreter is enabled on a program-wide basis. &name-icinga; must be
   compiled with support for embedded Perl for this option to have an effect. More information on the embedded Perl interpreter can be found
-  <link linkend="embeddedperl">here</link>.</para>
+  <link linkend="embeddedperl">here</link>.<itemizedlist>
+      <listitem>
+        <para>0 = disabled (default)</para>
+      </listitem>
 
-  <note>
-    <para>The default has changed starting with &name-icinga; 1.5. Prior to this version the directive has been enabled, now it is
-    <emphasis>disabled</emphasis>.</para>
-  </note>
+      <listitem>
+        <para>1 = enabled</para>
+      </listitem>
+    </itemizedlist></para>
 
   <para><anchor xml:id="configmain-use_embedded_perl_implicitly"/> <emphasis role="bold">Embedded Perl Implicit Use Option</emphasis></para>
 
@@ -5878,10 +5848,6 @@
     </listitem>
   </itemizedlist>
 
-  <note>
-    <para>This option is available starting with &name-icinga; 1.3.</para>
-  </note>
-
   <para><anchor xml:id="configmain-process_empty_results"/> <emphasis role="bold">Process empty performance results</emphasis></para>
 
   <informaltable frame="none">
@@ -5944,11 +5910,15 @@
 
   <para>These options determine whether the core will process empty perfdata results or not. This is needed for distributed monitoring, and
   intentionally turned on by default. If you don't require empty perfdata - saving some cpu cycles on unwanted macro calculation - you can
-  turn that off. Be careful! Values: 1 = enable, 0 = disable</para>
+  turn that off. Be careful!<itemizedlist>
+      <listitem>
+        <para>0 = disable</para>
+      </listitem>
 
-  <note>
-    <para>These options are available starting with &name-icinga; 1.4</para>
-  </note>
+      <listitem>
+        <para>1 = enable</para>
+      </listitem>
+    </itemizedlist></para>
 
   <para><anchor xml:id="configmain-max_check_result_list_items"/><emphasis role="bold">Limit number of items in check result
   list</emphasis></para>

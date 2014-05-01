@@ -36,8 +36,7 @@
   </orderedlist>
 
   <note>
-    <para>Bitte vermeiden Sie die Verwendung von Sonderzeichen in den Objektdefinitionen. In &name-icinga; &lt;= 1.5.0 gab es einen Fehler,
-    der die Ausführung von "forced reschedules" im Classic UI verhinderte, wobei als Meldung ein "not authorized" angezeigt wurde.</para>
+    <para>Bitte vermeiden Sie die Verwendung von Sonderzeichen in den Objektdefinitionen.</para>
   </note>
 
   <para><anchor xml:id="objectdefinitions-retention_notes"/><emphasis role="bold">Anmerkungen zur Aufbewahrung</emphasis> (Retention
@@ -558,15 +557,15 @@
             $HOSTADDRESS6$-<link linkend="macros">Makro</link> diese Adresse enthalten. <emphasis role="bold">Anmerkung:</emphasis> Wenn Sie
             keine Adress6-Direktive in einer Host-Definition benutzen, wird der Name des Hosts statt der Adresse benutzt. Trotzdem ein Wort
             der Warnung: wenn DNS ausfällt, werden die meisten Ihrer Service-Prüfungen fehlschlagen, weil die Plugins nicht in der Lage
-            sind, den Host-Namen aufzulösen (verfügbar ab &name-icinga; 1.3).</para></entry>
+            sind, den Host-Namen aufzulösen.</para></entry>
           </row>
 
           <row>
             <entry align="left" valign="top"><para><emphasis role="bold">display_name</emphasis>:</para></entry>
 
             <entry><para>Diese Direktive wird benutzt, um einen alternativen Namen zu definieren, der im Web-Interface für den Host
-            angezeigt wird. Wenn nicht angegeben, wird statt dessen der Wert der <emphasis>host_name</emphasis>-Direktive benutzt.
-            Anmerkung: Die CGIs bis einschließlich &name-icinga; 1.0.1 nutzen diese Option nicht.</para></entry>
+            angezeigt wird. Wenn nicht angegeben, wird statt dessen der Wert der <emphasis>host_name</emphasis>-Direktive
+            benutzt.</para></entry>
           </row>
 
           <row>
@@ -905,12 +904,12 @@
             diesen Host zu ermöglichen. Wenn Sie einen URL angeben, werden Sie einen roten "Klecks" in den CGIs sehen (wenn Sie
             Host-Informationen betrachten). Jeder gültige URL kann benutzt werden. Wenn Sie relative Pfade benutzen, wird der Basis-Pfad der
             gleiche sein, der benutzt wird, um auf die CGIs zuzugreifen (d.h. <emphasis>&url-icinga-cgi;/</emphasis>).</para> <note>
-                <para>Seit Icinga 1.0.2 ist es möglich, mehrere URLs für action|notes_url bei Host- und Service-Objektdefinitionen zu
-                anzugeben. Die Syntax ist wie folgt: <programlisting>notes_url|action_url 'ersteURL' 'zweiteURL' 'dritteURL'</programlisting>
-                <programlisting>notes_url|action_url nureineURL</programlisting>Bitte achten Sie darauf, dass mehrere URLs auch gleichzeitig
-                mehrere Icon-Bilder bedeuten. Diese sind hartkodiert, so dass z.B. action|notes.gif zu 1-action|1-notes.gif wird. Stellen
-                Sie sicher, dass diese vorhanden sind. Die letzte URL kann ohne singlequotes angegeben werden und wird dann wie eine
-                einzelne URL betrachtet und verweist auf das normale Icon (action.gif).</para>
+                <para>Es ist möglich, mehrere URLs für action|notes_url bei Host- und Service-Objektdefinitionen zu anzugeben. Die Syntax
+                ist wie folgt: <programlisting>notes_url|action_url 'ersteURL' 'zweiteURL' 'dritteURL'</programlisting> <programlisting>notes_url|action_url nureineURL</programlisting>Bitte
+                achten Sie darauf, dass mehrere URLs auch gleichzeitig mehrere Icon-Bilder bedeuten. Diese sind hartkodiert, so dass z.B.
+                action|notes.gif zu 1-action|1-notes.gif wird. Stellen Sie sicher, dass diese vorhanden sind. Die letzte URL kann ohne
+                singlequotes angegeben werden und wird dann wie eine einzelne URL betrachtet und verweist auf das normale Icon
+                (action.gif).</para>
               </note></entry>
           </row>
 
@@ -1907,12 +1906,12 @@
             diesen Service zu ermöglichen. Wenn Sie einen URL angeben, werden Sie einen roten "Klecks" in den CGIs sehen (wenn Sie
             Host-Informationen betrachten). Jeder gültige URL kann benutzt werden. Wenn Sie relative Pfade benutzen, wird der Basis-Pfad der
             gleiche sein, der benutzt wird, um auf die CGIs zuzugreifen (d.h. <emphasis>&url-icinga-cgi;/</emphasis>).</para> <note>
-                <para>Seit Icinga 1.0.2 ist es möglich, mehrere URLs für action|notes_url bei Host- und Service-Objektdefinitionen
-                anzugeben. Die Syntax ist wie folgt: <programlisting>notes_url|action_url 'ersteURL' 'zweiteURL' 'dritteURL'</programlisting>
-                <programlisting>notes_url|action_url nureineURL</programlisting>Bitte achten Sie darauf, dass mehrere Urls auch gleichzeitig
-                mehrere Icon-Bilder bedeuten. Diese sind hartkodiert, so dass z.B. action|notes.gif zu 1-action|1-notes.gif wird. Stellen
-                Sie sicher, dass diese vorhanden sind. Die letzte URL kann ohne singlequotes angegeben werden und wird dann wie eine
-                einzelne URL betrachtet und verweist auf das normale Icon (action.gif).</para>
+                <para>Es ist möglich, mehrere URLs für action|notes_url bei Host- und Service-Objektdefinitionen anzugeben. Die Syntax ist
+                wie folgt: <programlisting>notes_url|action_url 'ersteURL' 'zweiteURL' 'dritteURL'</programlisting> <programlisting>notes_url|action_url nureineURL</programlisting>Bitte
+                achten Sie darauf, dass mehrere Urls auch gleichzeitig mehrere Icon-Bilder bedeuten. Diese sind hartkodiert, so dass z.B.
+                action|notes.gif zu 1-action|1-notes.gif wird. Stellen Sie sicher, dass diese vorhanden sind. Die letzte URL kann ohne
+                singlequotes angegeben werden und wird dann wie eine einzelne URL betrachtet und verweist auf das normale Icon
+                (action.gif).</para>
               </note></entry>
           </row>
 
@@ -2076,8 +2075,8 @@
             linkend="objectdefinitions-service">Service-Definitionen</link> verwendet werden. Das Format der member-Direktive ist wie folgt
             (beachten Sie, dass ein Host-Name einem Service-Namen/einer Service-Beschreibung vorangestellt werden muss):</para>
             <para>members=&lt;host1&gt;,&lt;service1&gt;,&lt;host2&gt;,&lt;service2&gt;,...,&lt;host<emphasis>n</emphasis>&gt;,&lt;service<emphasis>n</emphasis>&gt;</para>
-            <para>Seit &name-icinga; 1.2 ist es möglich, "*" als Wildcard für alle Hosts zu benutzen. Bitte beachten Sie, dass es NICHT
-            möglich ist, Hosts oder Service über ein vorangestelltes "!" auszuschließen.</para></entry>
+            <para>Es ist möglich, "*" als Wildcard für alle Hosts zu benutzen. Bitte beachten Sie, dass es NICHT möglich ist, Hosts oder
+            Service über ein vorangestelltes "!" auszuschließen.</para></entry>
           </row>
 
           <row>
@@ -3530,8 +3529,7 @@
           <row>
             <entry align="left" valign="top"><para><emphasis role="bold">escalation_condition</emphasis>:</para></entry>
 
-            <entry><para>Diese Direktive ist ab &name-icinga; 1.0.1 verfügbar. Nähere Einzelheiten finden Sie <link
-            linkend="escalation_condition">hier</link>.</para></entry>
+            <entry><para>Nähere Einzelheiten finden Sie <link linkend="escalation_condition">hier</link>.</para></entry>
           </row>
 
           <row>
@@ -3539,8 +3537,7 @@
 
             <entry><para>Diese Direktive ist eine Zahl, die die <emphasis>erste</emphasis> WARNING-Benachrichtigung angibt, für die diese
             Eskalation gilt. Wenn Sie beispielsweise den Wert auf 3 setzen, dann wird diese Eskalation nur dann benutzt, wenn der Service
-            lang genug in einem nicht-OK-Zustand ist, damit eine dritte WARNING-Benachrichtigung versandt wird. Diese Direktive ist ab
-            &name-icinga; 1.0.2 verfügbar.</para></entry>
+            lang genug in einem nicht-OK-Zustand ist, damit eine dritte WARNING-Benachrichtigung versandt wird.</para></entry>
           </row>
 
           <row>
@@ -3549,8 +3546,7 @@
             <entry><para>Diese Direktive ist eine Zahl, die die <emphasis>letzte</emphasis> WARNING-Benachrichtigung angibt, für die diese
             Eskalation gilt. Wenn Sie beispielsweise den Wert auf 5 setzen, dann wird diese Eskalation nicht benutzt, wenn mehr als fünf
             WARNING-Benachrichtigungen für den Service versandt werden. Wenn der Wert auf Null gesetzt wird, wird dieser Eskalationseintrag
-            immer benutzt (unabhängig davon, wie viele Benachrichtigungen versandt werden). Diese Direktive ist ab &name-icinga; 1.0.2
-            verfügbar.</para></entry>
+            immer benutzt (unabhängig davon, wie viele Benachrichtigungen versandt werden).</para></entry>
           </row>
 
           <row>
@@ -3558,8 +3554,7 @@
 
             <entry><para>Diese Direktive ist eine Zahl, die die <emphasis>erste</emphasis> CRITICAL-Benachrichtigung angibt, für die diese
             Eskalation gilt. Wenn Sie beispielsweise den Wert auf 3 setzen, dann wird diese Eskalation nur dann benutzt, wenn der Service
-            lang genug in einem nicht-OK-Zustand ist, damit eine dritte CRITICAL-Benachrichtigung versandt wird. Diese Direktive ist ab
-            &name-icinga; 1.0.2 verfügbar.</para></entry>
+            lang genug in einem nicht-OK-Zustand ist, damit eine dritte CRITICAL-Benachrichtigung versandt wird.</para></entry>
           </row>
 
           <row>
@@ -3568,8 +3563,7 @@
             <entry><para>Diese Direktive ist eine Zahl, die die <emphasis>letzte</emphasis> CRITICAL-Benachrichtigung angibt, für die diese
             Eskalation gilt. Wenn Sie beispielsweise den Wert auf 5 setzen, dann wird diese Eskalation nicht benutzt, wenn mehr als fünf
             CRITICAL-Benachrichtigungen für den Service versandt werden. Wenn der Wert auf Null gesetzt wird, wird dieser Eskalationseintrag
-            immer benutzt (unabhängig davon, wie viele Benachrichtigungen versandt werden). Diese Direktive ist ab &name-icinga; 1.0.2
-            verfügbar.</para></entry>
+            immer benutzt (unabhängig davon, wie viele Benachrichtigungen versandt werden).</para></entry>
           </row>
 
           <row>
@@ -3577,8 +3571,7 @@
 
             <entry><para>Diese Direktive ist eine Zahl, die die <emphasis>erste</emphasis> UNKNOWN-Benachrichtigung angibt, für die diese
             Eskalation gilt. Wenn Sie beispielsweise den Wert auf 3 setzen, dann wird diese Eskalation nur dann benutzt, wenn der Service
-            lang genug in einem nicht-OK-Zustand ist, damit eine dritte UNKNOWN-Benachrichtigung versandt wird. Diese Direktive ist ab
-            &name-icinga; 1.0.2 verfügbar.</para></entry>
+            lang genug in einem nicht-OK-Zustand ist, damit eine dritte UNKNOWN-Benachrichtigung versandt wird.</para></entry>
           </row>
 
           <row>
@@ -3587,8 +3580,7 @@
             <entry><para>Diese Direktive ist eine Zahl, die die <emphasis>letzte</emphasis> UNKNOWN-Benachrichtigung angibt, für die diese
             Eskalation gilt. Wenn Sie beispielsweise den Wert auf 5 setzen, dann wird diese Eskalation nicht benutzt, wenn mehr als fünf
             UNKNOWN-Benachrichtigungen für den Service versandt werden. Wenn der Wert auf Null gesetzt wird, wird dieser Eskalationseintrag
-            immer benutzt (unabhängig davon, wie viele Benachrichtigungen versandt werden). Diese Direktive ist ab &name-icinga; 1.0.2
-            verfügbar.</para></entry>
+            immer benutzt (unabhängig davon, wie viele Benachrichtigungen versandt werden).</para></entry>
           </row>
         </tbody>
       </tgroup>
@@ -4074,8 +4066,7 @@
           <row>
             <entry align="left" valign="top"><para><emphasis role="bold">escalation_condition</emphasis>:</para></entry>
 
-            <entry><para>Diese Direktive ist ab &name-icinga; 1.0.1 verfügbar. Nähere Einzelheiten finden Sie <link
-            linkend="escalation_condition">hier</link>.</para></entry>
+            <entry><para>Nähere Einzelheiten finden Sie <link linkend="escalation_condition">hier</link>.</para></entry>
           </row>
 
           <row>
@@ -4083,8 +4074,7 @@
 
             <entry><para>Diese Direktive ist eine Zahl, die die <emphasis>erste</emphasis> DOWN-Benachrichtigung angibt, für die diese
             Eskalation gilt. Wenn Sie beispielsweise den Wert auf 3 setzen, dann wird diese Eskalation nur dann benutzt, wenn der Host lang
-            genug "down" ist, damit eine dritte Benachrichtigung versandt wird. Diese Direktive ist ab &name-icinga; 1.0.2
-            verfügbar.</para></entry>
+            genug "down" ist, damit eine dritte Benachrichtigung versandt wird.</para></entry>
           </row>
 
           <row>
@@ -4093,8 +4083,7 @@
             <entry><para>Diese Direktive ist eine Zahl, die die <emphasis>letzte</emphasis> DOWN-Benachrichtigung angibt, für die diese
             Eskalation gilt. Wenn Sie beispielsweise den Wert auf 5 setzen, dann wird diese Eskalation nicht benutzt, wenn mehr als fünf
             Benachrichtigungen für den Host versandt werden. Wenn der Wert auf Null gesetzt wird, wird dieser Eskalationseintrag immer
-            benutzt (unabhängig davon, wie viele Benachrichtigungen versandt werden). Diese Direktive ist ab &name-icinga; 1.0.2
-            verfügbar.</para></entry>
+            benutzt (unabhängig davon, wie viele Benachrichtigungen versandt werden).</para></entry>
           </row>
 
           <row>
@@ -4102,8 +4091,7 @@
 
             <entry><para>Diese Direktive ist eine Zahl, die die <emphasis>erste</emphasis> UNREACHABLE-Benachrichtigung angibt, für die
             diese Eskalation gilt. Wenn Sie beispielsweise den Wert auf 3 setzen, dann wird diese Eskalation nur dann benutzt, wenn der Host
-            lang genug unerreichbar ist, damit eine dritte Benachrichtigung versandt wird. Diese Direktive ist ab &name-icinga; 1.0.2
-            verfügbar.</para></entry>
+            lang genug unerreichbar ist, damit eine dritte Benachrichtigung versandt wird.</para></entry>
           </row>
 
           <row>
@@ -4112,8 +4100,7 @@
             <entry><para>Diese Direktive ist eine Zahl, die die <emphasis>letzte</emphasis> UNREACHABLE-Benachrichtigung angibt, für die
             diese Eskalation gilt. Wenn Sie beispielsweise den Wert auf 5 setzen, dann wird diese Eskalation nicht benutzt, wenn mehr als
             fünf Benachrichtigungen für den Host versandt werden. Wenn der Wert auf Null gesetzt wird, wird dieser Eskalationseintrag immer
-            benutzt (unabhängig davon, wie viele Benachrichtigungen versandt werden). Diese Direktive ist ab &name-icinga; 1.0.2
-            verfügbar.</para></entry>
+            benutzt (unabhängig davon, wie viele Benachrichtigungen versandt werden).</para></entry>
           </row>
         </tbody>
       </tgroup>
@@ -4314,12 +4301,12 @@
             Sie relative Pfade benutzen, wird der Basis-Pfad der gleiche sein, der benutzt wird, um auf die CGIs zuzugreifen (d.h.
             <emphasis>&url-icinga-cgi;/</emphasis>). Dies kann sehr nützlich sein, wenn Sie detaillierte Informationen zu diesem Host,
             Notfallkontaktmethoden usw. für anderes Support-Personal zur Verfügung stellen wollen.</para> <note>
-                <para>Seit Icinga 1.0.2 ist es möglich, mehrere URLs für action|notes_url bei Host- und Service-Objektdefinitionen
-                anzugeben. Die Syntax ist wie folgt: <programlisting>notes_url|action_url 'ersteURL' 'zweiteURL' 'dritteURL'</programlisting>
-                <programlisting>notes_url|action_url nureineURL</programlisting>Bitte achten Sie darauf, dass mehrere URLs auch gleichzeitig
-                mehrere Icon-Bilder bedeuten. Diese sind hartkodiert, so dass z.B. action|notes.gif zu 1-action|1-notes.gif wird. Stellen
-                Sie sicher, dass diese vorhanden sind. Die letzte URL kann ohne singlequotes angegeben werden und wird dann, wie eine
-                einzelne URL betrachtet und verweist auf das normale Icon (action.gif).</para>
+                <para>Es ist möglich, mehrere URLs für action|notes_url bei Host- und Service-Objektdefinitionen anzugeben. Die Syntax ist
+                wie folgt: <programlisting>notes_url|action_url 'ersteURL' 'zweiteURL' 'dritteURL'</programlisting> <programlisting>notes_url|action_url nureineURL</programlisting>Bitte
+                achten Sie darauf, dass mehrere URLs auch gleichzeitig mehrere Icon-Bilder bedeuten. Diese sind hartkodiert, so dass z.B.
+                action|notes.gif zu 1-action|1-notes.gif wird. Stellen Sie sicher, dass diese vorhanden sind. Die letzte URL kann ohne
+                singlequotes angegeben werden und wird dann, wie eine einzelne URL betrachtet und verweist auf das normale Icon
+                (action.gif).</para>
               </note></entry>
           </row>
 
@@ -4564,12 +4551,12 @@
             benutzt werden. Wenn Sie relative Pfade benutzen, wird der Basis-Pfad der gleiche sein, der benutzt wird, um auf die CGIs
             zuzugreifen (d.h. <emphasis>&url-icinga-cgi;/</emphasis>). Dies kann sehr nützlich sein, wenn Sie detaillierte Informationen zu
             diesem Host, Notfallkontaktmethoden usw. für anderes Support-Personal zur Verfügung stellen wollen.</para> <note>
-                <para>Seit Icinga 1.0.2 ist es möglich, mehrere URLs für action|notes_url bei Host- und Service-Objektdefinitionen
-                anzugeben. Die Syntax ist wie folgt: <programlisting>notes_url|action_url 'ersteURL' 'zweiteURL' 'dritteURL'</programlisting>
-                <programlisting>notes_url|action_url nureineURL</programlisting>Bitte achten Sie darauf, dass mehrere Urls auch gleichzeitig
-                mehrere Icon-Bilder bedeuten. Diese sind hartkodiert, so dass z.B. action|notes.gif zu 1-action|1-notes.gif wird. Stellen
-                Sie sicher, dass diese vorhanden sind. Die letzte URL kann ohne singlequotes angegeben werden und wird dann wie eine
-                einzelne URL betrachtet und verweist auf das normale Icon (action.gif).</para>
+                <para>Es ist möglich, mehrere URLs für action|notes_url bei Host- und Service-Objektdefinitionen anzugeben. Die Syntax ist
+                wie folgt: <programlisting>notes_url|action_url 'ersteURL' 'zweiteURL' 'dritteURL'</programlisting> <programlisting>notes_url|action_url nureineURL</programlisting>Bitte
+                achten Sie darauf, dass mehrere Urls auch gleichzeitig mehrere Icon-Bilder bedeuten. Diese sind hartkodiert, so dass z.B.
+                action|notes.gif zu 1-action|1-notes.gif wird. Stellen Sie sicher, dass diese vorhanden sind. Die letzte URL kann ohne
+                singlequotes angegeben werden und wird dann wie eine einzelne URL betrachtet und verweist auf das normale Icon
+                (action.gif).</para>
               </note></entry>
           </row>
 
@@ -4614,10 +4601,6 @@
     <para>Eine Module-Definition wird benutzt, um Informationen zu einem Modul anzugeben. Sie kann anstatt eines broker_module-Eintrags in
     der Hauptkonfigurationsdatei verwendet werden und ist deshalb flexibler (Sie können cfg_file/cfg_dir-Einträge benutzen, um sie
     einzuschließen).</para>
-
-    <note>
-      <para>Moduldefinitionen sind seit &name-icinga; 1.4 verfügbar.</para>
-    </note>
 
     <para><emphasis>Definition:</emphasis></para>
 

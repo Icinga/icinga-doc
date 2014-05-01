@@ -319,12 +319,10 @@
 
       <para><anchor xml:id="quickstart-packages_timezone-support"/><emphasis role="bold">Timezone support</emphasis></para>
 
-      <para>Starting with &name-icinga; 1.6 all dates are stored as local timestamps in the database. Before that there was a different
-      behaviour storing and retrieving dates for each database system which was difficult to handle for frontend apps. Therefore datatypes
-      have been changed for &name-mysql; from DATETIME to TIMESTAMP and for &name-oracle; from DATE to LOCAL TIMESTAMP (0). &name-postgres;
-      was already using TIMESTAMP but has been changed to TIMESTAMP WITH TIME ZONE. IDO2DB will set session timezone to UTC and store all
-      unix timestamps (which are UTC per definition) as UTC based values. Please make sure your system returns unix timestamps as real UTC
-      based values (like "date -u '+%s'").</para>
+      <para>All dates are stored as local timestamps in the database. Datatypes are TIMESTAMP for &name-mysql;, LOCAL TIMESTAMP (0) for
+      &name-oracle;, and TIMESTAMP WITH TIME ZONE for &name-postgres;. IDO2DB will set session timezone to UTC and store all unix timestamps
+      (which are UTC per definition) as UTC based values. Please make sure your system returns unix timestamps as real UTC based values
+      (like "date -u '+%s'").</para>
 
       <note>
         <para>Make sure your database session runs in the same timezone in which the existing dates have been stored (check your local
@@ -654,10 +652,6 @@
            GRANT SELECT, INSERT, UPDATE, DELETE, DROP, CREATE VIEW, INDEX, EXECUTE ON icinga.* TO 'icinga'@'localhost' IDENTIFIED BY 'icinga';
 
         quit</screen>
-
-          <note>
-            <para>Starting with &name-icinga; 1.6 the icinga user additionally needs DROP and CREATE VIEW privileges.</para>
-          </note>
 
           <para>Import database scheme for &name-mysql;:</para>
 

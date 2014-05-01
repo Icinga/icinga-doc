@@ -35,8 +35,7 @@
   </orderedlist>
 
   <note>
-    <para>Please try to avoid special characters in the object definitions. In &name-icinga; &lt;= 1.5.0 there was a bug which prevented
-    forcing reschedules from the classic ui resulting in the error message that you are not authorized.</para>
+    <para>Please try to avoid special characters in the object definitions.</para>
   </note>
 
   <para><anchor xml:id="objectdefinitions-retention_notes"/><emphasis role="bold">Retention Notes</emphasis></para>
@@ -558,7 +557,7 @@
             $HOSTADDRESS6$ <link linkend="macros">macro</link> will contain this address. </para> <note>
                 <para>If you do not specify an address6 directive in a host definition, the name of the host will be used as its address. A
                 word of caution about doing this, however - if DNS fails, most of your service checks will fail because the plugins will be
-                unable to resolve the host name (available starting with &name-icinga; 1.3).</para>
+                unable to resolve the host name.</para>
               </note></entry>
           </row>
 
@@ -2068,8 +2067,8 @@
             <emphasis>servicegroups</emphasis> directive in <link linkend="objectdefinitions-service">service definitions</link>. The format
             of the member directive is as follows (note that a host name must precede a service name/description):</para> <para>
             members=&lt;host1&gt;,&lt;service1&gt;,&lt;host2&gt;,&lt;service2&gt;,...,&lt;host<emphasis>n</emphasis>&gt;,&lt;service<emphasis>n</emphasis>&gt;</para>
-            <para>Starting with &name-icinga; 1.2 it is possible to use "*" as a wildcard for all hosts. Please note that it is NOT possible
-            to exclude neither hosts nor services using the "!" at the beginning of the host or service.</para></entry>
+            <para>It is possible to use "*" as a wildcard for all hosts. Please note that it is NOT possible to exclude neither hosts nor
+            services using the "!" at the beginning of the host or service.</para></entry>
           </row>
 
           <row>
@@ -3517,7 +3516,7 @@
           <row>
             <entry align="left" valign="top"><para><emphasis role="bold">escalation_condition</emphasis>:</para></entry>
 
-            <entry><para>This directive is completely optional (and only available starting with Icinga 1.0.1). Details can be found <link
+            <entry><para>This directive is completely optional. Details can be found <link
             linkend="escalation_condition">here</link>.</para></entry>
           </row>
 
@@ -4555,10 +4554,6 @@
 
     <para>A module definition is used to specify information about a module. It can be used instead of a broker_module entry in the main
     configuration file thus being more flexible (you can use cfg_file/cfg_dir entries to include it).</para>
-
-    <note>
-      <para>Module definitions are available starting with &name-icinga; 1.4.</para>
-    </note>
 
     <para><emphasis>Definition Format:</emphasis></para>
 
