@@ -2488,14 +2488,14 @@
         <row>
           <entry align="left" valign="top"><para>Format:</para></entry>
 
-          <entry><para><emphasis role="bold">disable_cmd_cgi_csrf_proctection=0|1</emphasis></para></entry>
+          <entry><para><emphasis role="bold">disable_cmd_cgi_csrf_protection=0|1</emphasis></para></entry>
         </row>
 
         <row>
           <entry align="left" valign="top"><para>Example:</para></entry>
 
           <entry><para><emphasis condition="red" role="color"><emphasis
-          role="bold">disable_cmd_cgi_csrf_proctection=1</emphasis></emphasis></para></entry>
+          role="bold">disable_cmd_cgi_csrf_protection=1</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -2514,6 +2514,73 @@
       <para>1 - enabled, allow external programs to submit commands</para>
     </listitem>
   </itemizedlist>
+
+  <note>
+    <para>This option is available starting with &name-icinga; 1.11</para>
+  </note>
+
+  <para><anchor xml:id="configcgi-exclude_customvar_name"/><emphasis role="bold">Exclude display of custom variable names</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">exclude_customvar_name=&lt;name1[,name2,...]&gt;</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">exclude_customvar_name=&lt;password&gt;</emphasis></emphasis></para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Custom variables are visible in the Classic UI (as of &name-icinga; 1.11). Due to the fact that some names contain sensitive
+  information it should be possible to hide it from the user. The directive "exclude_customvar_name" specifies a comma-separated list of
+  strings. Variable names containing these strings will not be displayed.</para>
+
+  <note>
+    <para>This option is available starting with &name-icinga; 1.11</para>
+  </note>
+
+  <para><anchor xml:id="configcgi-exclude_customvar_value"/><emphasis role="bold">Exclude display of custom variable
+  values</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">exclude_customvar_value=&lt;value1[,value2,...]&gt;</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">exclude_customvar_value=&lt;secret&gt;</emphasis></emphasis></para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Custom variables are visible in the Classic UI (as of &name-icinga; 1.11). Due to the fact that some values contain sensitive
+  information it should be possible to hide it from the user. The directive "exclude_customvar_value" specifies a comma-separated list of
+  strings. Variable values containing these strings will not be displayed.</para>
 
   <note>
     <para>This option is available starting with &name-icinga; 1.11</para>
@@ -2945,5 +3012,17 @@
     <primary>disable_cmd_cgi_csrf_protection=</primary>
 
     <secondary>Disable protection of cmd.cgi against csrf attacks</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-exclude_customvar_name">
+    <primary>exclude_customvar_name=</primary>
+
+    <secondary>Exclude display of custom variable name</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-exclude_customvar_value">
+    <primary>exclude_customvar_value=</primary>
+
+    <secondary>Exclude display of custom variable value</secondary>
   </indexterm>
 </section>
