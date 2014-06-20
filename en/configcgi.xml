@@ -130,6 +130,35 @@
   role="bold">http://www.myhost.com/icinga</emphasis>, this value should be <emphasis>/icinga</emphasis>. Basically, its the path portion of
   the URL that is used to access the &name-icinga; HTML pages.</para>
 
+  <para><anchor xml:id="configcgi-url_cgi_path"/> <emphasis role="bold">URL CGI Path</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">url_cgi_path=&lt;path&gt;</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">url_cgi_path=/icinga/cgi-bin</emphasis></emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This is the path portion of the URL that corresponds to the <emphasis>physical</emphasis> location of the Icinga CGI files. It is
+  evaluated by the cmd.cgi CSRF protection. This value should be changed if the CGI files are accessible under a different path than the default
+  installation path. If not set, the default location will be used (url_cgi_path=url_html_path/cgi-bin).</para>
+
   <para><anchor xml:id="configcgi-url_stylesheet_path"/> <emphasis role="bold">URL Stylesheet Path</emphasis></para>
 
   <informaltable frame="none">
@@ -156,7 +185,7 @@
   </informaltable>
 
   <para>This option allows to define an url stylesheet path other than the default. This will be useful when adding custom stylesheets in
-  another location.If not set, the default location will be used (url_stylesheets_path=url_html_path/stylesheets).</para>
+  another location. If not set, the default location will be used (url_stylesheets_path=url_html_path/stylesheets).</para>
 
   <para><anchor xml:id="configcgi-use_authentication"/> <emphasis role="bold">Authentication Usage</emphasis></para>
 
@@ -859,23 +888,23 @@
           <entry align="left" valign="top"><para>Format:</para></entry>
 
           <entry><para>
-               
+
 
               <emphasis role="bold">color_transparency_index_r=&lt;0...255&gt;</emphasis>
 
-               
+
             </para> <para>
-               
+
 
               <emphasis role="bold">color_transparency_index_g=&lt;0...255&gt;</emphasis>
 
-               
+
             </para> <para>
-               
+
 
               <emphasis role="bold">color_transparency_index_b=&lt;0...255&gt;</emphasis>
 
-               
+
             </para></entry>
         </row>
 
