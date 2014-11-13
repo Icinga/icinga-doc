@@ -678,7 +678,7 @@
         </row>
 
         <row>
-          <entry align="left" valign="top"><para>Example:</para></entry>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
           <entry><para><emphasis condition="red" role="color"><emphasis
           role="bold">authorized_for_comments_read_only=icingalook</emphasis></emphasis> </para></entry>
@@ -722,7 +722,7 @@
         </row>
 
         <row>
-          <entry align="left" valign="top"><para>Example:</para></entry>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
           <entry><para><emphasis condition="red" role="color"><emphasis
           role="bold">authorized_for_downtimes_read_only=icingalook</emphasis></emphasis> </para></entry>
@@ -2380,7 +2380,7 @@
         </row>
 
         <row>
-          <entry align="left" valign="top"><para>Example:</para></entry>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
           <entry><para><emphasis condition="red" role="color"><emphasis
           role="bold">send_ack_notifications=1</emphasis></emphasis></para></entry>
@@ -2414,7 +2414,7 @@
         </row>
 
         <row>
-          <entry align="left" valign="top"><para>Example:</para></entry>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
           <entry><para><emphasis condition="red" role="color"><emphasis
           role="bold">set_expire_ack_by_default=1</emphasis></emphasis></para></entry>
@@ -2447,7 +2447,7 @@
         </row>
 
         <row>
-          <entry align="left" valign="top"><para>Example:</para></entry>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
           <entry><para><emphasis condition="red" role="color"><emphasis
           role="bold">standalone_installation=1</emphasis></emphasis></para></entry>
@@ -2530,7 +2530,7 @@
         </row>
 
         <row>
-          <entry align="left" valign="top"><para>Example:</para></entry>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
           <entry><para><emphasis condition="red" role="color"><emphasis
           role="bold">disable_cmd_cgi_csrf_protection=1</emphasis></emphasis></para></entry>
@@ -2574,7 +2574,7 @@
         </row>
 
         <row>
-          <entry align="left" valign="top"><para>Example:</para></entry>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
           <entry><para><emphasis condition="red" role="color"><emphasis
           role="bold">exclude_customvar_name=&lt;password&gt;</emphasis></emphasis></para></entry>
@@ -2609,7 +2609,7 @@
         </row>
 
         <row>
-          <entry align="left" valign="top"><para>Example:</para></entry>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
 
           <entry><para><emphasis condition="red" role="color"><emphasis
           role="bold">exclude_customvar_value=&lt;secret&gt;</emphasis></emphasis></para></entry>
@@ -2656,6 +2656,39 @@
   dann nach Service-Beschreibung. Dies ist hilfreich, wenn die Statusdaten in status.dat nicht sortiert sind. Das kann besonders beim
   Einsatz von Icinga2 auftreten. Normalerweise ist diese Option ausgeschaltet (0), um mögliche höhere CPU-Belastungen bei großen Umgebungen
   zu vermeiden.</para>
+
+  <note>
+    <para>Diese Option ist verfügbar ab &name-icinga; 1.12</para>
+  </note>
+
+  <para><anchor xml:id="configcgi-set_sticky_acknowledgment"/><emphasis role="bold">Voreinstellung von
+  "sticky"-Bestätigungen</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">set_sticky_acknowledgment=&lt;0|1&gt;</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">set_sticky_acknowledgment=&lt;0&gt;</emphasis></emphasis></para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Diese Option kontrolliert den Anfangszustand der "Sticky Acknowledgment:"-Checkbox, wenn ein Problem bestätigt wird. Der Default ist
+  1 (Bestätigungen sind "sticky"), 0 deaktiviert "sticky"-Bestätigungen. Dies kann im CGI-Dialog überschrieben werden.</para>
 
   <note>
     <para>Diese Option ist verfügbar ab &name-icinga; 1.12</para>
@@ -3101,5 +3134,11 @@
     <primary>sort_status_data_by_default=</primary>
 
     <secondary>Statusdaten per Default sortieren</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-set_sticky_acknowledgment">
+    <primary>set_sticky_acknowledgment=</primary>
+
+    <secondary>Voreinstellung von "sticky"-Benachrichtigungen</secondary>
   </indexterm>
 </section>
