@@ -2627,6 +2627,40 @@
     <para>Diese Option ist verfügbar ab &name-icinga; 1.11</para>
   </note>
 
+  <para><anchor xml:id="configcgi-sort_status_data_by_default"/><emphasis role="bold">Statusdaten per Default sortieren</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">sort_status_data_by_default=&lt;0|1&gt;</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Beispiel:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">sort_status_data_by_default=&lt;0&gt;</emphasis></emphasis></para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Diese Option zwingt status.cgi, die Datei per Default zu sortieren. Dabei erfolgt die Sortierung aufsteigend, zuerst nach Hostnamen,
+  dann nach Service-Beschreibung. Dies ist hilfreich, wenn die Statusdaten in status.dat nicht sortiert sind. Das kann besonders beim
+  Einsatz von Icinga2 auftreten. Normalerweise ist diese Option ausgeschaltet (0), um mögliche höhere CPU-Belastungen bei großen Umgebungen
+  zu vermeiden.</para>
+
+  <note>
+    <para>Diese Option ist verfügbar ab &name-icinga; 1.12</para>
+  </note>
+
   <indexterm zone="configcgi">
     <primary>CGI-Konfiguration</primary>
 
@@ -3061,5 +3095,11 @@
     <primary>exclude_customvar_value=</primary>
 
     <secondary>Ansehen von benutzerdefinierten Variablenwerten unterdrücken</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-sort_status_data_by_default">
+    <primary>sort_status_data_by_default=</primary>
+
+    <secondary>Statusdaten per Default sortieren</secondary>
   </indexterm>
 </section>
