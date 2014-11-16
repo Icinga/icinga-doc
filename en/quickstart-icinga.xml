@@ -257,6 +257,28 @@
         <screen>#&gt; ./configure --with-httpd-conf=/etc/apache2/conf-available</screen>
       </note></para>
 
+    <para>Current/upcoming distributions (&name-redhat;/&name-centos; 7, &name-fedora; 20, &name-debian; 8/Jessie, Gentoo, etc.) support the
+    usage of systemd instead of SysVinit system.</para>
+
+    <para>&name-icinga; 1.x already got the required systemd files patched into, and the rpms natively install them. Installing from source
+    may require the following</para>
+
+    <screen>#&gt; ./configure [...] --with-systemd-unit-dir=/usr/lib/systemd/system --with-systemd-sysconfig-dir=/etc/sysconfig
+#&gt; make install-systemd</screen>
+
+    <para>Then enable the systemd service and start icinga.</para>
+
+    <screen>#&gt; systemctl enable icinga
+#&gt; systemctl start icinga</screen>
+
+    <para>Status</para>
+
+    <screen>#&gt; systemctl status icinga</screen>
+
+    <para><note>
+        There is no checkconfig/show-errors custom parameter in the systemd unit available as known from SysVinit. 
+      </note></para>
+
     <para>Compile the &name-icinga; source code. To see available options, only use "make".</para>
 
     <programlisting> #&gt; make all</programlisting>

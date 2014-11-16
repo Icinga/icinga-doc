@@ -247,6 +247,28 @@
       &name-debian; / &name-ubuntu;) dem Aufruf von configure diese Option hinzufügen müssen <screen>#&gt; ./configure --with-httpd-conf=/etc/apache2/conf-available</screen></para>
     </note>
 
+    <para>Aktuelle/kommende Distributionen (&name-redhat;/&name-centos; 7, &name-fedora; 20, &name-debian; 8/Jessie, Gentoo, etc.)
+    unterstützendie Nutzung von systemd statt des SysVinit Systems.</para>
+
+    <para>&name-icinga; 1.x enthält bereits die notwendigen Patches mit den erforderlichen systemd-Dateien und die RPMs installieren sie
+    ebenfalls. Die Source-Installation erfordert ggf. etwa folgendes</para>
+
+    <screen>#&gt; ./configure [...] --with-systemd-unit-dir=/usr/lib/systemd/system --with-systemd-sysconfig-dir=/etc/sysconfig
+#&gt; make install-systemd</screen>
+
+    <para>Dann aktivieren Sie den systemd-Service und starten Icinga</para>
+
+    <screen>#&gt; systemctl enable icinga
+#&gt; systemctl start icinga</screen>
+
+    <para>Status</para>
+
+    <screen>#&gt; systemctl status icinga</screen>
+
+    <para><note>
+        Es gibt für systemd keine Unterstützung für den "checkconfig/show-errors"-Parameter, wie es für SysVinit der Fall ist. 
+      </note></para>
+
     <para>Kompilieren Sie den &name-icinga;-Source-Code. Um mögliche Optionen zu sehen, rufen Sie lediglich "make" auf.</para>
 
     <programlisting> #&gt; make all</programlisting>
