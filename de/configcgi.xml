@@ -133,6 +133,35 @@
   aufrufen, sollte dieser Wert <emphasis>/icinga</emphasis> sein. Grundsätzlich ist es der Pfadanteil des URL, der zum Aufruf der
   &name-icinga;-HTML-Seiten benutzt wird.</para>
 
+  <para><anchor xml:id="configcgi-url_cgi_path"/> <emphasis role="bold">URL CGI Path</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">url_cgi_path=&lt;path&gt;</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">url_cgi_path=/icinga/cgi-bin</emphasis></emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Diese Option erlaubt Ihnen die Angabe einer alternativen CGI URL. Dieser Pfad wird vom cmd.cgi CSRF-Schutz ausgewertet. Diese
+  Option ist nützlich, wenn auf die CGI Dateien unter einem anderen Pfad zugegriffen wird als diese installiert worden sind.
+  Wird sie nicht gesetzt, wird der Standard-Speicherort verwendet   (url_cgi_path=url_html_path/cgi-bin).</para>
+
   <para><anchor xml:id="configcgi-url_stylesheet_path"/> <emphasis role="bold">URL Stylesheet Path</emphasis></para>
 
   <informaltable frame="none">
@@ -159,7 +188,7 @@
   </informaltable>
 
   <para>Diese Option erlaubt Ihnen die Angabe einer alternativen Stylesheet URL. Dies ist nützlich, wenn Sie benutzerdefinierte Stylesheets
-  aus einem anderen Verzeichnis hinzufügen möchten.Wird sie nicht gesetzt, wird der Standard-Speicherort verwendet
+  aus einem anderen Verzeichnis hinzufügen möchten. Wird sie nicht gesetzt, wird der Standard-Speicherort verwendet
   (url_stylesheets_path=url_html_path/stylesheets).</para>
 
   <para><anchor xml:id="configcgi-use_authentication"/><emphasis role="bold">Nutzung der Authentifizierung</emphasis></para>
@@ -873,23 +902,23 @@
           <entry align="left" valign="top"><para>Format:</para></entry>
 
           <entry><para>
-               
+
 
               <emphasis role="bold">color_transparency_index_r=&lt;0...255&gt;</emphasis>
 
-               
+
             </para> <para>
-               
+
 
               <emphasis role="bold">color_transparency_index_g=&lt;0...255&gt;</emphasis>
 
-               
+
             </para> <para>
-               
+
 
               <emphasis role="bold">color_transparency_index_b=&lt;0...255&gt;</emphasis>
 
-               
+
             </para></entry>
         </row>
 
@@ -1063,41 +1092,41 @@
           <entry align="left" valign="top"><para>Format:</para></entry>
 
           <entry><para>
-               
+
 
               <emphasis role="bold">host_unreachable_sound=&lt;sound_file&gt;</emphasis>
 
-               
+
             </para> <para>
-               
+
 
               <emphasis role="bold">host_down_sound=&lt;sound_file&gt;</emphasis>
 
-               
+
             </para> <para>
-               
+
 
               <emphasis role="bold">service_critical_sound=&lt;sound_file&gt;</emphasis>
 
-               
+
             </para> <para>
-               
+
 
               <emphasis role="bold">service_warning_sound=&lt;sound_file&gt;</emphasis>
 
-               
+
             </para> <para>
-               
+
 
               <emphasis role="bold">service_unknown_sound=&lt;sound_file&gt;</emphasis>
 
-               
+
             </para> <para>
-               
+
 
               <emphasis role="bold">normal_sound=&lt;sound_file&gt;</emphasis>
 
-               
+
             </para></entry>
         </row>
 
@@ -1105,77 +1134,77 @@
           <entry align="left" valign="top"><para>Beispiele:</para></entry>
 
           <entry><para>
-               
+
 
               <emphasis condition="red" role="color">
-                 
+
 
                 <emphasis role="bold">host_unreachable_sound=hostu.wav</emphasis>
 
-                 
+
               </emphasis>
 
-               
+
             </para> <para>
-               
+
 
               <emphasis condition="red" role="color">
-                 
+
 
                 <emphasis role="bold">host_down_sound=hostd.wav</emphasis>
 
-                 
+
               </emphasis>
 
-               
+
             </para> <para>
-               
+
 
               <emphasis condition="red" role="color">
-                 
+
 
                 <emphasis role="bold">service_critical_sound=critical.wav</emphasis>
 
-                 
+
               </emphasis>
 
-               
+
             </para> <para>
-               
+
 
               <emphasis condition="red" role="color">
-                 
+
 
                 <emphasis role="bold">service_warning_sound=warning.wav</emphasis>
 
-                 
+
               </emphasis>
 
-               
+
             </para> <para>
-               
+
 
               <emphasis condition="red" role="color">
-                 
+
 
                 <emphasis role="bold">service_unknown_sound=unknown.wav</emphasis>
 
-                 
+
               </emphasis>
 
-               
+
             </para> <para>
-               
+
 
               <emphasis condition="red" role="color">
-                 
+
 
                 <emphasis role="bold">normal_sound=noproblem.wav</emphasis>
 
-                 
+
               </emphasis>
 
-               
+
             </para></entry>
         </row>
       </tbody>
@@ -2484,7 +2513,7 @@
     <para>Diese Option ist verfügbar ab &name-icinga; 1.10</para>
   </note>
 
-  <para><anchor xml:id="configcgi-disable_cmd_cgi_csrf_proctection"/><emphasis role="bold">Deaktivieren des Schutzes von cmd.cgi gegen
+  <para><anchor xml:id="configcgi-disable_cmd_cgi_csrf_protection"/><emphasis role="bold">Deaktivieren des Schutzes von cmd.cgi gegen
   CRSF-Attacken</emphasis></para>
 
   <informaltable frame="none">
@@ -2497,14 +2526,14 @@
         <row>
           <entry align="left" valign="top"><para>Format:</para></entry>
 
-          <entry><para><emphasis role="bold">disable_cmd_cgi_csrf_proctection=0|1</emphasis></para></entry>
+          <entry><para><emphasis role="bold">disable_cmd_cgi_csrf_protection=0|1</emphasis></para></entry>
         </row>
 
         <row>
           <entry align="left" valign="top"><para>Example:</para></entry>
 
           <entry><para><emphasis condition="red" role="color"><emphasis
-          role="bold">disable_cmd_cgi_csrf_proctection=1</emphasis></emphasis></para></entry>
+          role="bold">disable_cmd_cgi_csrf_protection=1</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -2523,6 +2552,76 @@
       <para>1 - aktiviert, externen Programmen Zugriff erlauben</para>
     </listitem>
   </itemizedlist>
+
+  <note>
+    <para>Diese Option ist verfügbar ab &name-icinga; 1.11</para>
+  </note>
+
+  <para><anchor xml:id="configcgi-exclude_customvar_name"/><emphasis role="bold">Ansehen von benutzerdefinierten Variablennamen
+  unterdrücken</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">exclude_customvar_name=&lt;name1[,name2,...]|*&gt;</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">exclude_customvar_name=&lt;password&gt;</emphasis></emphasis></para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Benutzerdefinierte Variablennamen sind im Classic UI sichtbar (seit &name-icinga; 1.11). Weil einige Namen sensitive Informationen
+  enthalten, sollen diese Daten vor dem Benutzer verborgen werden. Die Direktive "exclude_customvar_name" gibt eine kommaseparierte Liste
+  von Strings an. Variablennamen, die diese Strings enthalten, werden nicht angezeigt. Die Angabe von "*" anstatt einer Liste wird alle
+  benutzerdefinierten Variablennamen unterdrücken.</para>
+
+  <note>
+    <para>Diese Option ist verfügbar ab &name-icinga; 1.11</para>
+  </note>
+
+  <para><anchor xml:id="configcgi-exclude_customvar_name"/><emphasis role="bold">Ansehen von benutzerdefinierten Variablenwerten
+  unterdrücken</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">exclude_customvar_value=&lt;value1[,value2,...]|*&gt;</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">exclude_customvar_value=&lt;secret&gt;</emphasis></emphasis></para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Benutzerdefinierte Variablenwerte sind im Classic UI sichtbar (seit &name-icinga; 1.11). Weil einige Werte sensitive Informationen
+  enthalten, sollen diese Daten vor dem Benutzer verborgen werden. Die Direktive "exclude_customvar_value" gibt eine kommaseparierte Liste
+  von Strings an. Variablenwerte, die diese Strings enthalten, werden nicht angezeigt. Die Angabe von "*" anstatt einer Liste wird alle
+  benutzerdefinierten Variablenwerte unterdrücken.</para>
 
   <note>
     <para>Diese Option ist verfügbar ab &name-icinga; 1.11</para>
@@ -2946,9 +3045,21 @@
     <secondary>Ansehen von partiellen Service-Gruppen erlauben</secondary>
   </indexterm>
 
-  <indexterm zone="configcgi-disable_cmd_cgi_csrf_proctection">
-    <primary>disable_cmd_cgi_csrf_proctection=</primary>
+  <indexterm zone="configcgi-disable_cmd_cgi_csrf_protection">
+    <primary>disable_cmd_cgi_csrf_protection=</primary>
 
     <secondary>Deaktivieren des Schutzes von cmd.cgi gegen CRSF-Attacken</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-exclude_customvar_name">
+    <primary>exclude_customvar_name=</primary>
+
+    <secondary>Ansehen von benutzerdefinierten Variablennamen unterdrücken</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-exclude_customvar_value">
+    <primary>exclude_customvar_value=</primary>
+
+    <secondary>Ansehen von benutzerdefinierten Variablenwerten unterdrücken</secondary>
   </indexterm>
 </section>

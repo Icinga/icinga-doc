@@ -130,6 +130,35 @@
   role="bold">http://www.myhost.com/icinga</emphasis>, this value should be <emphasis>/icinga</emphasis>. Basically, its the path portion of
   the URL that is used to access the &name-icinga; HTML pages.</para>
 
+  <para><anchor xml:id="configcgi-url_cgi_path"/> <emphasis role="bold">URL CGI Path</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">url_cgi_path=&lt;path&gt;</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis role="bold">url_cgi_path=/icinga/cgi-bin</emphasis></emphasis>
+          </para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>This is the path portion of the URL that corresponds to the <emphasis>physical</emphasis> location of the Icinga CGI files. It is
+  evaluated by the cmd.cgi CSRF protection. This value should be changed if the CGI files are accessible under a different path than the default
+  installation path. If not set, the default location will be used (url_cgi_path=url_html_path/cgi-bin).</para>
+
   <para><anchor xml:id="configcgi-url_stylesheet_path"/> <emphasis role="bold">URL Stylesheet Path</emphasis></para>
 
   <informaltable frame="none">
@@ -156,7 +185,7 @@
   </informaltable>
 
   <para>This option allows to define an url stylesheet path other than the default. This will be useful when adding custom stylesheets in
-  another location.If not set, the default location will be used (url_stylesheets_path=url_html_path/stylesheets).</para>
+  another location. If not set, the default location will be used (url_stylesheets_path=url_html_path/stylesheets).</para>
 
   <para><anchor xml:id="configcgi-use_authentication"/> <emphasis role="bold">Authentication Usage</emphasis></para>
 
@@ -823,23 +852,23 @@
           <entry align="left" valign="top"><para>Format:</para></entry>
 
           <entry><para>
-               
+
 
               <emphasis role="bold">color_transparency_index_r=&lt;0...255&gt;</emphasis>
 
-               
+
             </para> <para>
-               
+
 
               <emphasis role="bold">color_transparency_index_g=&lt;0...255&gt;</emphasis>
 
-               
+
             </para> <para>
-               
+
 
               <emphasis role="bold">color_transparency_index_b=&lt;0...255&gt;</emphasis>
 
-               
+
             </para></entry>
         </row>
 
@@ -2323,14 +2352,14 @@
         <row>
           <entry align="left" valign="top"><para>Format:</para></entry>
 
-          <entry><para><emphasis role="bold">disable_cmd_cgi_csrf_proctection=0|1</emphasis></para></entry>
+          <entry><para><emphasis role="bold">disable_cmd_cgi_csrf_protection=0|1</emphasis></para></entry>
         </row>
 
         <row>
           <entry align="left" valign="top"><para>Example:</para></entry>
 
           <entry><para><emphasis condition="red" role="color"><emphasis
-          role="bold">disable_cmd_cgi_csrf_proctection=1</emphasis></emphasis></para></entry>
+          role="bold">disable_cmd_cgi_csrf_protection=1</emphasis></emphasis></para></entry>
         </row>
       </tbody>
     </tgroup>
@@ -2349,6 +2378,75 @@
       <para>1 - enabled, allow external programs to submit commands</para>
     </listitem>
   </itemizedlist>
+
+  <note>
+    <para>This option is available starting with &name-icinga; 1.11</para>
+  </note>
+
+  <para><anchor xml:id="configcgi-exclude_customvar_name"/><emphasis role="bold">Exclude display of custom variable names</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">exclude_customvar_name=&lt;name1[,name2,...]|*&gt;</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">exclude_customvar_name=&lt;password&gt;</emphasis></emphasis></para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Custom variables are visible in the Classic UI (as of &name-icinga; 1.11). Due to the fact that some names contain sensitive
+  information it should be possible to hide it from the user. The directive "exclude_customvar_name" specifies a comma-separated list of
+  strings. Variable names containing these strings will not be displayed. Specifying "*" instead of a list will exclude all custom variable
+  names.</para>
+
+  <note>
+    <para>This option is available starting with &name-icinga; 1.11</para>
+  </note>
+
+  <para><anchor xml:id="configcgi-exclude_customvar_value"/><emphasis role="bold">Exclude display of custom variable
+  values</emphasis></para>
+
+  <informaltable frame="none">
+    <tgroup cols="2">
+      <colspec colname="c1" colwidth="5*"/>
+
+      <colspec colname="c2" colwidth="50*"/>
+
+      <tbody>
+        <row>
+          <entry align="left" valign="top"><para>Format:</para></entry>
+
+          <entry><para><emphasis role="bold">exclude_customvar_value=&lt;value1[,value2,...]|*&gt;</emphasis></para></entry>
+        </row>
+
+        <row>
+          <entry align="left" valign="top"><para>Example:</para></entry>
+
+          <entry><para><emphasis condition="red" role="color"><emphasis
+          role="bold">exclude_customvar_value=&lt;secret&gt;</emphasis></emphasis></para></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+
+  <para>Custom variables are visible in the Classic UI (as of &name-icinga; 1.11). Due to the fact that some values contain sensitive
+  information it should be possible to hide it from the user. The directive "exclude_customvar_value" specifies a comma-separated list of
+  strings. Variable values containing these strings will not be displayed. Specifying "*" instead of a list will exclude all custom variable
+  values.</para>
 
   <note>
     <para>This option is available starting with &name-icinga; 1.11</para>
@@ -2780,5 +2878,17 @@
     <primary>disable_cmd_cgi_csrf_protection=</primary>
 
     <secondary>Disable protection of cmd.cgi against csrf attacks</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-exclude_customvar_name">
+    <primary>exclude_customvar_name=</primary>
+
+    <secondary>Exclude display of custom variable name</secondary>
+  </indexterm>
+
+  <indexterm zone="configcgi-exclude_customvar_value">
+    <primary>exclude_customvar_value=</primary>
+
+    <secondary>Exclude display of custom variable value</secondary>
   </indexterm>
 </section>
