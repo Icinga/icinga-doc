@@ -5074,24 +5074,10 @@
   mehrere Direktiven, wenn Sie mehrere Module laden wollen. An das Modul zu übergebende Argumente werden durch ein Leerzeichen vom Pfad des
   Moduls getrennt.</para>
 
-  <para>!!! WARNUNG !!!</para>
-
-  <para>Überschreiben Sie KEINE Module, während sie von &name-icinga; genutzt werden, oder &name-icinga; wird mit einem SEGFAULT-Feuerwerk
-  abstürzen. Dies ist ein Fehler/eine Begrenzung entweder in dlopen(), dem Kernel, und/oder dem Filesystem. Und vielleicht
-  &name-icinga;...</para>
-
-  <para>Der korrekte/sichere Weg, ein Modul zu aktualisieren, ist eine der folgenden Methoden:</para>
-
-  <orderedlist>
-    <listitem>
-      <para>stoppen Sie &name-icinga;, ersetzen Sie das Modul und starten Sie &name-icinga; erneut</para>
-    </listitem>
-
-    <listitem>
-      <para>während &name-icinga; läuft... löschen Sie die originale Moduldatei, schieben Sie die neue Moduldatei an den richtigen Platz und
-      starten Sie &name-icinga; erneut</para>
-    </listitem>
-  </orderedlist>
+  <note>
+    <para>Diese Option ist veraltet seit &name-icinga; 1.13. Verwenden Sie bitte die <link
+    linkend="objectdefinitions-module">Module-Objectdefinition</link> stattdessen.</para>
+  </note>
 
   <para><anchor xml:id="configmain-debug_file"/><emphasis role="bold">Debug-Datei</emphasis> (Debug File)</para>
 

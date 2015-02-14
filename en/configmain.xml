@@ -5563,23 +5563,10 @@
   if you want to load more than one module. Arguments that should be passed to the module at startup are separated from the module path by a
   space.</para>
 
-  <para>!!! WARNING !!!</para>
-
-  <para>Do NOT overwrite modules while they are being used by &name-icinga; or &name-icinga; will crash in a fiery display of SEGFAULT
-  glory. This is a bug/limitation either in dlopen(), the kernel, and/or the filesystem. And maybe &name-icinga;...</para>
-
-  <para>The correct/safe way of updating a module is by using one of these methods:</para>
-
-  <orderedlist>
-    <listitem>
-      <para>Shutdown &name-icinga;, replace the module file, restart &name-icinga;</para>
-    </listitem>
-
-    <listitem>
-      <para>While &name-icinga; is running... delete the original module file, move the new module file into place, restart
-      &name-icinga;</para>
-    </listitem>
-  </orderedlist>
+  <note>
+    <para>This option is deprecated starting with &name-icinga; 1.13 because you must use the <link
+    linkend="objectdefinitions-module">module object definition</link> instead.</para>
+  </note>
 
   <para><anchor xml:id="configmain-debug_file"/> <emphasis role="bold">Debug File</emphasis></para>
 
