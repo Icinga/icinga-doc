@@ -114,12 +114,14 @@ müssen, den Sie überwachen wollen.
 
 Editieren Sie die Hauptkonfigurationsdatei.
 
+</code></pre> 
 #> vi /usr/local/icinga/etc/icinga.cfg
 </code></pre>
 
 Entfernen Sie das führende Hash-(\#)-Zeichen der folgenden Zeile in der
 Hauptkonfigurationsdatei:
 
+</code></pre> 
 #cfg_file=/usr/local/icinga/etc/objects/windows.cfg
 </code></pre>
 
@@ -156,6 +158,7 @@ C:\\NSClient++-Verzeichnis
 
 ​4. Registrieren Sie den NSClient++-Dienst mit dem folgenden Befehl:
 
+</code></pre> 
  nsclient++ /install
 </code></pre>
 
@@ -175,6 +178,7 @@ machen Sie folgende Änderungen:
 
 ​7. Starten Sie den NSClient++-Dienst mit dem folgenden Befehl:
 
+</code></pre> 
  nsclient++ /start
 </code></pre>
 
@@ -190,6 +194,7 @@ Windows-Rechner zu überwachen.
 
 Editieren Sie die *windows.cfg*-Datei.
 
+</code></pre> 
 #> vi /usr/local/icinga/etc/objects/windows.cfg
 </code></pre>
 
@@ -299,6 +304,7 @@ Windows-Rechner angegeben haben, dann müssen Sie die
 *check\_nt*-Befehlsdefinition anpassen, damit sie das Passwort enthält.
 Öffnen Sie die *commands.cfg*-Datei.
 
+</code></pre> 
  #> vi /usr/local/icinga/etc/objects/commands.cfg
 </code></pre>
 
@@ -329,6 +335,7 @@ beheben, bevor Sie fortfahren. Stellen Sie sicher, dass Sie Icinga nicht
 Manchmal funktioniert es nicht. Der einfachste Weg ist es, das Plugin
 als Icinga-Benutzer auf der Kommandozeile auszuführen:
 
+</code></pre> 
  $> /usr/local/icinga/libexec/check_nt -H <ip address> -p <port> -s <password> -v UPTIME
 </code></pre>
 

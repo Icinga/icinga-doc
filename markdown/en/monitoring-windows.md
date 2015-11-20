@@ -112,6 +112,7 @@ the \*first\* Windows machine you monitor.
 
 Edit the main Icinga config file.
 
+</code></pre> 
 #> vi /usr/local/icinga/etc/icinga.cfg
 </code></pre>
 
@@ -151,6 +152,7 @@ the Windows machine.
 
 ​4. Register the NSClient++ system service with the following command:
 
+</code></pre> 
  nsclient++ /install
 </code></pre>
 
@@ -170,6 +172,7 @@ make the following changes:
 
 ​7. Start the NSClient++ service with the following command:
 
+</code></pre> 
  nsclient++ /start
 </code></pre>
 
@@ -184,6 +187,7 @@ Icinga configuration files in order to monitor the new Windows machine.
 
 Open the *windows.cfg* file for editing.
 
+</code></pre> 
 #> vi /usr/local/icinga/etc/objects/windows.cfg
 </code></pre>
 
@@ -287,6 +291,7 @@ Windows machine, you'll need to modify the *check\_nt* command
 definition to include the password. Open the *commands.cfg* file for
 editing.
 
+</code></pre> 
  #> vi /usr/local/icinga/etc/objects/commands.cfg
 </code></pre>
 
@@ -329,6 +334,7 @@ Icinga until the verification process completes without any errors!
 Sometimes it won't work. The easiest way is to execute the plugin as
 Icinga user on the command line, something like
 
+</code></pre> 
  $> /usr/local/icinga/libexec/check_nt -H <ip address> -p <port> -s <password> -v UPTIME
 </code></pre>
 
@@ -349,10 +355,7 @@ result may be one of the following:
 
 [Prev](monitoring-overview.md) | [Up](ch02.md) | [Next](monitoring-linux.md)
 
-
-
-
-
+2.12. Monitoring Overview  |<=== [Index](index.md) ===>|  2.14. Monitoring Linux/Unix Machines
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

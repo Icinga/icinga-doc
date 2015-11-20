@@ -219,10 +219,7 @@ implement, so give it a try and see what you can do.
 
 [Prev](extcommands2.md) | [Up](ch07.md) | [Next](volatileservices.md)
 
-
-
-
-
+7.2. List of External Commands  |<=== [Index](index.md) ===>|  7.4. Volatile Services
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

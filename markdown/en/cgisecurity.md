@@ -56,6 +56,7 @@ is the requirement to supply a 'realm' argument. Where 'realm' in this
 case refers to the value of the 'AuthName' directive in the Apache
 configuration.
 
+</code></pre> 
  htdigest -c /usr/local/icinga/etc/.digest_pw "Icinga Access" icingaadmin
 </code></pre>
 
@@ -75,6 +76,7 @@ Alias /icinga "/usr/local/icinga/share"
 
 Then, restart the Apache service so the new settings can take effect.
 
+</code></pre> 
  /etc/init.d/httpd restart
 </code></pre>
 
@@ -111,6 +113,7 @@ Alias /icinga "/usr/local/icinga/share"
 
 Restart the Apache service so the new settings can take effect.
 
+</code></pre> 
  /etc/init.d/httpd restart
 </code></pre>
 
@@ -146,10 +149,7 @@ Alias /icinga "/usr/local/icinga/share"
 
 [Prev](security.md) | [Up](ch08.md) | [Next](tuning.md)
 
-
-
-
-
+8.1. Security Considerations  |<=== [Index](index.md) ===>|  8.3. Tuning Icinga For Maximum Performance
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

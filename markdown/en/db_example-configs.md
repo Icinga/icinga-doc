@@ -94,10 +94,7 @@ That's it! Pretty simple.
 
 [Prev](configido.md) | [Up](ch12.md) | [Next](db_model.md)
 
-
-
-
-
+12.3. Configuration of IDOUtils  |<=== [Index](index.md) ===>|  12.5. IDOUtils Database Model
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

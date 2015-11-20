@@ -403,10 +403,7 @@ projects.
 
 [Prev](networkreachability.md) | [Up](ch05.md) | [Next](notifications2.md)
 
-
-
-
-
+5.10. Determining Status and Reachability of Network Hosts  |<=== [Index](index.md) ===>|  5.12. Notifications: Examples and troubleshooting
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

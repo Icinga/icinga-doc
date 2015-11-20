@@ -58,6 +58,7 @@ vertraut sind, ist die Anforderung, ein 'Realm'-Parameter anzugeben. In
 diesem Fall bezieht sich 'realm' auf den Wert der 'AuthName'-Direktive
 in der Apache-Konfiguration.
 
+</code></pre> 
  htdigest -c /usr/local/icinga/etc/.digest_pw "Icinga Access" icingaadmin
 </code></pre>
 
@@ -65,6 +66,7 @@ Als nächstes editieren Sie die Apache-Konfigurationsdatei für Icinga
 (typischerweise /etc/httpd/conf.d/icinga.conf) mit Hilfe des folgenden
 Beispiels:
 
+</code></pre> 
  ScriptAlias /icinga/cgi-bin "/usr/local/icinga/sbin"
  <Directory "/usr/local/icinga/sbin">
  </Directory>
@@ -77,6 +79,7 @@ Beispiels:
 Danach starten Sie den Apache-Service, damit die neuen Einstellungen
 aktiv werden können.
 
+</code></pre> 
  /etc/init.d/httpd restart
 </code></pre>
 
@@ -103,6 +106,7 @@ Danach editieren Sie die Apache-Konfigurationsdatei für Icinga
 (typischerweise /etc/httpd/conf.d/icinga.conf) und fügen Sie den 'sbin'-
 und 'share'-Verzeichnissen die 'SSLRequireSSL'-Direktive hinzu.
 
+</code></pre> 
  ScriptAlias /icinga/cgi-bin "/usr/local/icinga/sbin"
  <Directory "/usr/local/icinga/sbin">
  </Directory>
@@ -115,6 +119,7 @@ und 'share'-Verzeichnissen die 'SSLRequireSSL'-Direktive hinzu.
 Danach starten Sie den Apache-Service, damit die neuen Einstellungen
 aktiv werden können.
 
+</code></pre> 
  /etc/init.d/httpd restart
 </code></pre>
 
@@ -130,6 +135,7 @@ Danach editieren Sie die Apache-Konfigurationsdatei für Icinga
 (typischerweise /etc/httpd/conf.d/icinga.conf) und fügen Sie die
 'Allow'-, 'Deny'- und 'Order'-Direktiven hinzu. Dazu folgendes Beispiel:
 
+</code></pre> 
  ScriptAlias /icinga/cgi-bin "/usr/local/icinga/sbin"
  <Directory "/usr/local/icinga/sbin">
  </Directory>

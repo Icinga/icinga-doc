@@ -254,6 +254,7 @@ from `/etc/apache2/conf.d` to
 distribution (testing versions of Debian / Ubuntu) you might have to add
 this option to the call of configure
 
+</code></pre> 
 #> ./configure --with-httpd-conf=/etc/apache2/conf-available
 </code></pre>
 
@@ -265,18 +266,21 @@ Icinga 1.x already got the required systemd files patched into, and the
 rpms natively install them. Installing from source may require the
 following
 
+</code></pre> 
 #> ./configure [...] --with-systemd-unit-dir=/usr/lib/systemd/system --with-systemd-sysconfig-dir=/etc/sysconfig
 #> make install-systemd
 </code></pre>
 
 Then enable the systemd service and start icinga.
 
+</code></pre> 
 #> systemctl enable icinga
 #> systemctl start icinga
 </code></pre>
 
 Status
 
+</code></pre> 
 #> systemctl status icinga
 </code></pre>
 
@@ -388,11 +392,13 @@ Note
 Starting with Apache 2.4 (testing versions of Debian / Ubuntu) you have
 to enable the configuration
 
+</code></pre> 
 #> a2enconf icinga
 </code></pre>
 
 Enable the CGI module as well
 
+</code></pre> 
 #> a2enmod cgi
 </code></pre>
 
@@ -450,11 +456,13 @@ the Icinga-CGIs.
 
 Check if SELinux runs in enforcing mode
 
+</code></pre> 
  #> getenforce
 </code></pre>
 
 Set SELinux in "permissive" mode
 
+</code></pre> 
  #> setenforce 0
 </code></pre>
 
@@ -550,10 +558,7 @@ Started"](ch02.md "Chapter 2. Getting Started") about "Monitoring ..."
 
 [Prev](quickstart.md) | [Up](ch02.md) | [Next](quickstart-icinga-freebsd.md)
 
-
-
-
-
+2.3. Quickstart Installation Guides  |<=== [Index](index.md) ===>|  2.5. Icinga Quickstart FreeBSD
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

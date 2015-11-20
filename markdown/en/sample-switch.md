@@ -89,10 +89,7 @@ define service{
 
 [Prev](sample-printer.md) | [Up](ch13.md) | [Next](sample-templates.md)
 
-
-
-
-
+13.10. printer.cfg  |<=== [Index](index.md) ===>|  13.12. templates.cfg
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

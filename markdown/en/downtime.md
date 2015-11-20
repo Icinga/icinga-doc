@@ -124,10 +124,7 @@ Tuesday morning.
 
 [Prev](perfdata.md) | [Up](ch07.md) | [Next](recurring_downtimes.md)
 
-
-
-
-
+7.15. Performance Data  |<=== [Index](index.md) ===>|  7.17. Recurring Downtimes
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

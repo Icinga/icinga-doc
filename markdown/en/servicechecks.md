@@ -122,10 +122,7 @@ For an explanation please take a look at
 
 [Prev](hostchecks.md) | [Up](ch05.md) | [Next](activechecks.md)
 
-
-
-
-
+5.4. Host Checks  |<=== [Index](index.md) ===>|  5.6. Active Checks
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

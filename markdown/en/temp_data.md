@@ -50,10 +50,7 @@ Please make sure that addons like check\_mk are aware of this change.
 
 [Prev](perfgraphs.md) | [Up](ch08.md) | [Next](ch09.md)
 
-
-
-
-
+8.7. Graphing Performance Info With PNP4Nagios  |<=== [Index](index.md) ===>|  Chapter 9. Integration With Other Software
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

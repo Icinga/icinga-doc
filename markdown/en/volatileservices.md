@@ -128,10 +128,7 @@ Pretty neat, huh?
 
 [Prev](eventhandlers.md) | [Up](ch07.md) | [Next](freshness.md)
 
-
-
-
-
+7.3. Event Handlers  |<=== [Index](index.md) ===>|  7.5. Service and Host Freshness Checks
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

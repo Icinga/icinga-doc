@@ -57,6 +57,7 @@ Externe Befehle, die in das [command
 file](configmain.md#configmain-command_file) geschrieben werden, haben
 das folgende Format...
 
+</code></pre> 
 </code></pre>
 
 ...wobei *Zeit* die Zeit (im *time\_t*-Format) ist, zu der die externe

@@ -77,10 +77,7 @@ local instance of Icinga.
 
 [Prev](cachedchecks.md) | [Up](ch07.md) | [Next](checkscheduling.md)
 
-
-
-
-
+7.21. Cached Checks  |<=== [Index](index.md) ===>|  7.23. Service and Host Check Scheduling
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

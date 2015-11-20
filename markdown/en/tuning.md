@@ -49,10 +49,7 @@ and services. Here are a few things to look at for optimizing Icinga...
 
 [Prev](cgisecurity.md) | [Up](ch08.md) | [Next](faststartup.md)
 
-
-
-
-
+8.2. Enhanced Classic UI Security and Authentication  |<=== [Index](index.md) ===>|  8.4. Fast Startup Options
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

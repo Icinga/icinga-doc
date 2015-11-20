@@ -86,6 +86,7 @@ Editieren Sie die PortSentry-Konfigurationsdatei (portsentry.conf) und
 definieren Sie einen Befehl für die *KILL\_RUN\_CMD*-Direktive wie
 folgt:
 
+</code></pre> 
 </code></pre>
 
 Stellen Sie sicher, *host\_name* durch den Kurznamen des Hosts zu
@@ -98,6 +99,7 @@ Erstellen Sie ein Shell-Script im
 *submit\_check\_result*. Der Inhalt des Shell-Scripts sollte ähnlich dem
 Folgenden sein...
 
+</code></pre> 
  #!/bin/sh
  # Write a command to the Icinga command file to cause
  # it to process a service check result

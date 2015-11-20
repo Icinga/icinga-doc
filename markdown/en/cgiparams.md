@@ -55,6 +55,7 @@ first impression change to the folder containing the \*.cgi modules
 (e.g. `/usr/local/icinga/sbin`), set some environment
 variables and execute one of the Classic UI modules:
 
+</code></pre> 
 
  $> ./status.cgi
 </code></pre>
@@ -69,6 +70,7 @@ Set QUERY\_STRING as needed and execute the desired Classic UI module.
 If you forgot to set the environment variables you'll receive the
 following lines:
 
+</code></pre> 
  $> ./status.cgi
  getcgivars(): Unsupported REQUEST_METHOD -> ''
 
@@ -101,6 +103,7 @@ use the resulting value for each option.
 The example shows all non-OK services which are neither in downtime nor
 acknowledged:
 
+</code></pre> 
  http://localhost/icinga/cgi-bin/status.cgi?host=all&servicestatustypes=29&serviceprops=10
 </code></pre>
 
@@ -4635,10 +4638,7 @@ trends.c
 
 [Prev](cgiauth.md) | [Up](ch06.md) | [Next](cgicmd.md)
 
-
-
-
-
+6.2. Authentication And Authorization In The Classic UI  |<=== [Index](index.md) ===>|  6.4. Executing Classic UI modules (CGIs) on the command line
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

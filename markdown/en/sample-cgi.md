@@ -875,10 +875,7 @@ date_format=us
 
 [Prev](sample-icinga.md) | [Up](ch13.md) | [Next](sample-resource.md)
 
-
-
-
-
+13.2. icinga.cfg  |<=== [Index](index.md) ===>|  13.4. resource.cfg
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

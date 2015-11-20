@@ -96,6 +96,7 @@ script with the addition of the *--enable-embedded-perl* option. If you
 want the embedded interpreter to cache internally compiled scripts, add
 the *--with-perlcache* option as well. Example:
 
+</code></pre> 
 </code></pre>
 
 Once you've rerun the configure script with the new options, make sure
@@ -104,6 +105,7 @@ to recompile Icinga.
 Packagers might use another option to specify the location of the
 `p1.pl` file:
 
+</code></pre> 
  ./configure --with-p1-file-dir=<path>
 </code></pre>
 
@@ -158,10 +160,7 @@ interpreter can be found
 
 [Prev](recurring_downtimes.md) | [Up](ch07.md) | [Next](adaptive.md)
 
-
-
-
-
+7.17. Recurring Downtimes  |<=== [Index](index.md) ===>|  7.19. Adaptive Monitoring
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

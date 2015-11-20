@@ -184,10 +184,7 @@ be found
 
 [Prev](ch11.md) | [Up](ch11.md) | [Next](epnplugins.md)
 
-
-
-
-
+Chapter 11. Development  |<=== [Index](index.md) ===>|  11.2. Developing Plugins For Use With Embedded Perl
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

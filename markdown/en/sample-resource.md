@@ -40,10 +40,7 @@ $USER1$=@PLUGINDIR@
 
 [Prev](sample-cgi.md) | [Up](ch13.md) | [Next](sample-httpd.md)
 
-
-
-
-
+13.3. cgi.cfg  |<=== [Index](index.md) ===>|  13.5. httpd.conf
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

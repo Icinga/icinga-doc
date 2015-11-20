@@ -60,6 +60,7 @@ message with a *detailed* description of your problem to the
 There are three variables affecting recursion and inheritance that are
 present in all object definitions. They are *"indicated"* as follows...
 
+</code></pre> 
 </code></pre>
 
 The first variable is *name*. Its just a "template" name that can be
@@ -92,6 +93,7 @@ object variables always take precedence over variables defined in the
 template object. Take a look at the following example of two host
 definitions (not all required variables have been supplied):
 
+</code></pre> 
  define host{
 
  define host{
@@ -103,6 +105,7 @@ having *hosttemplate1* as its template name. The definition for host
 Once Icinga processes this data, the resulting definition of host
 *bighost2* would be equivalent to this definition:
 
+</code></pre> 
  define host{
 </code></pre>
 
@@ -127,6 +130,7 @@ string values, you can do so. Read more about how to accomplish this
 Objects can inherit properties/variables from multiple levels of
 template objects. Take the following example:
 
+</code></pre> 
  define host{
 
  define host{
@@ -140,6 +144,7 @@ from the definition of host *bighost1*. Once Icinga processes this
 configuration data, the resulting host definitions are equivalent to the
 following:
 
+</code></pre> 
  define host{
 
  define host{
@@ -161,6 +166,7 @@ but it is in fact recommended that you use them. Why? Well, they can
 serve as a set of defaults for use in all other object definitions. Take
 the following example:
 
+</code></pre> 
  define host{
 
  define host{
@@ -182,6 +188,7 @@ variables. Once Icinga processes the config data in the example, the
 resulting host definitions would be equivalent to specifying the
 following:
 
+</code></pre> 
  define host{
 
  define host{
@@ -200,6 +207,7 @@ you define in your host, service, or contact definition templates will
 be inherited just like other standard variables. Take the following
 example:
 
+</code></pre> 
  define host{
 
  define host{
@@ -210,6 +218,7 @@ The host *bighost1* will inherit the custom host variables
 values, from the *generichosttemplate* definition. The effective result
 is a definition for *bighost1* that looks like this:
 
+</code></pre> 
  define host{
 </code></pre>
 
@@ -221,6 +230,7 @@ they reference. If this is the case, you can specify "**null**" (without
 quotes) as the value of the variable that you do not want to inherit.
 Take the following example:
 
+</code></pre> 
  define host{
 
  define host{
@@ -230,6 +240,7 @@ In this case, the host *bighost1* will not inherit the value of the
 *event\_handler* variable that is defined in the *generichosttemplate*.
 The resulting effective definition of *bighost1* is the following:
 
+</code></pre> 
  define host{
 </code></pre>
 
@@ -245,6 +256,7 @@ variable value with a plus sign (**+**). This features is only available
 for standard (non-custom) variables that contain string values. Take the
 following example:
 
+</code></pre> 
  define host{
 
  define host{
@@ -254,6 +266,7 @@ In this case, the host *linuxserver1* will append the value of its local
 *hostgroups* variable to that from *generichosttemplate*. The resulting
 effective definition of *linuxserver1* is the following:
 
+</code></pre> 
  define host{
 </code></pre>
 
@@ -352,6 +365,7 @@ inheritance logic.
 
 Confused? Here's an example:
 
+</code></pre> 
  define host{
 
  define hostescalation{
@@ -359,6 +373,7 @@ Confused? Here's an example:
 
 This is a much simpler equivalent to:
 
+</code></pre> 
  define hostescalation{
 </code></pre>
 
@@ -381,6 +396,7 @@ check\_command when used on a central Icinga-erver.
 
 For instance:
 
+</code></pre> 
 # On master
 define service {
 # On slave
@@ -407,6 +423,7 @@ inheriting variables/values from just a single source. You are also able
 to inherit variables/values from multiple sources for more complex
 configurations, as shown below.
 
+</code></pre> 
 # Generic host template
 define host{
 
@@ -427,6 +444,7 @@ directive, its value for the *check\_interval* variable is inherited by
 the *devweb1* host. After inheritance, the effective definition of
 *devweb1* would be as follows:
 
+</code></pre> 
 # Development web server
 define host{
 </code></pre>
@@ -442,6 +460,7 @@ can get tricky to figure out what variable/value pairs take precedence.
 
 Consider the following host definition that references three templates:
 
+</code></pre> 
  # Development web server
 </code></pre>
 
@@ -458,10 +477,7 @@ things work in complex inheritance situations like this. :-)
 
 [Prev](modified_attr.md) | [Up](ch07.md) | [Next](objecttricks.md)
 
-
-
-
-
+7.25. Modified attributes  |<=== [Index](index.md) ===>|  7.27. Time-Saving Tricks For Object Definitions
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

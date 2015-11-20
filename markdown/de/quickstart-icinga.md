@@ -289,6 +289,7 @@ Beginnend mit Apache 2.4 hat sich der Standard-Konfigurationsordner von
 von Ihrer Distribution (testing-versionen von Debian / Ubuntu) dem
 Aufruf von configure diese Option hinzufügen müssen
 
+</code></pre> 
 #> ./configure --with-httpd-conf=/etc/apache2/conf-available
 </code></pre>
 
@@ -300,18 +301,21 @@ Icinga 1.x enthält bereits die notwendigen Patches mit den
 erforderlichen systemd-Dateien und die RPMs installieren sie ebenfalls.
 Die Source-Installation erfordert ggf. etwa folgendes
 
+</code></pre> 
 #> ./configure [...] --with-systemd-unit-dir=/usr/lib/systemd/system --with-systemd-sysconfig-dir=/etc/sysconfig
 #> make install-systemd
 </code></pre>
 
 Dann aktivieren Sie den systemd-Service und starten Icinga
 
+</code></pre> 
 #> systemctl enable icinga
 #> systemctl start icinga
 </code></pre>
 
 Status
 
+</code></pre> 
 #> systemctl status icinga
 </code></pre>
 
@@ -436,11 +440,13 @@ Anmerkung
 Beginnend mit Apache 2.4 (testing-Versionen von Debian / Ubuntu) müssen
 Sie die Konfiguration aktivieren
 
+</code></pre> 
 #> a2enconf icinga
 </code></pre>
 
 Tun Sie das für das CGI-Modul
 
+</code></pre> 
 #> a2enmod cgi
 </code></pre>
 
@@ -515,11 +521,13 @@ führen, wenn Sie versuchen, die Icinga-CGIs aufzurufen.
 
 Schauen Sie, ob SELinux im Enforcing-Modus läuft.
 
+</code></pre> 
  #> getenforce
 </code></pre>
 
 Setzen Sie SELinux in den "Permissive"-Modus.
 
+</code></pre> 
  #> setenforce 0
 </code></pre>
 

@@ -180,10 +180,7 @@ unreachable states enabled for the host definitions.
 
 [Prev](oncallrotation.md) | [Up](ch07.md) | [Next](dependencies.md)
 
-
-
-
-
+7.11. On-Call Rotations  |<=== [Index](index.md) ===>|  7.13. Host and Service Dependencies
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

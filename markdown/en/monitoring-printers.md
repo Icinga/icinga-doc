@@ -110,6 +110,7 @@ the \*first\* printer you monitor.
 
 Edit the main Icinga config file.
 
+</code></pre> 
 #> vi /usr/local/icinga/etc/icinga.cfg
 </code></pre>
 
@@ -138,6 +139,7 @@ to monitor a new printer.
 
 Open the *printer.cfg* file for editing.
 
+</code></pre> 
 #> vi /usr/local/icinga/etc/objects/printer.cfg
 </code></pre>
 
@@ -200,10 +202,7 @@ Icinga until the verification process completes without any errors!
 
 [Prev](monitoring-netware.md) | [Up](ch02.md) | [Next](monitoring-routers.md)
 
-
-
-
-
+2.15. Monitoring Netware Servers  |<=== [Index](index.md) ===>|  2.17. Monitoring Routers and Switches
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

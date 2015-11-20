@@ -346,6 +346,7 @@ x\_coord,y\_coord
 
 *Beispieldefinition:*
 
+</code></pre> 
  define host{
 </code></pre>
 
@@ -921,6 +922,7 @@ url
 
 *Beispieldefinition:*
 
+</code></pre> 
  define hostgroup{
 </code></pre>
 
@@ -1181,6 +1183,7 @@ alt\_string
 
 *Beispieldefinition:*
 
+</code></pre> 
  define service{
 </code></pre>
 
@@ -1692,6 +1695,7 @@ url
 
 *Beispieldefinition:*
 
+</code></pre> 
  define servicegroup{
 </code></pre>
 
@@ -1856,6 +1860,7 @@ retain\_nonstatus\_information
 
 *Beispieldefinition:*
 
+</code></pre> 
  define contact{
 </code></pre>
 
@@ -2092,6 +2097,7 @@ contactgroups
 
 *Beispieldefinition:*
 
+</code></pre> 
  define contactgroup{
 </code></pre>
 
@@ -2168,6 +2174,7 @@ exclude
 
 *Beispiel-Definitionen:*
 
+</code></pre> 
  define timeperiod{
  define timeperiod{
  define timeperiod{
@@ -2255,6 +2262,7 @@ command\_line
 
 *Beispieldefinition:*
 
+</code></pre> 
  define command{
 </code></pre>
 
@@ -2373,6 +2381,7 @@ timeperiod\_name
 
 *Beispieldefinition:*
 
+</code></pre> 
  define servicedependency{
 </code></pre>
 
@@ -2588,6 +2597,7 @@ last\_unknown\_notification
 
 *Beispieldefinition:*
 
+</code></pre> 
  define serviceescalation{
 </code></pre>
 
@@ -2815,6 +2825,7 @@ timeperiod\_name
 
 *Beispieldefinition:*
 
+</code></pre> 
  define hostdependency{
 </code></pre>
 
@@ -2986,6 +2997,7 @@ last\_unreachable\_notification
 
 *Beispieldefinition:*
 
+</code></pre> 
  define hostescalation{
 </code></pre>
 
@@ -3187,6 +3199,7 @@ x\_coord,y\_coord
 
 *Beispieldefinition:*
 
+</code></pre> 
  define hostextinfo{
 </code></pre>
 
@@ -3381,6 +3394,7 @@ alt\_string
 
 *Beispieldefinition:*
 
+</code></pre> 
  define serviceextinfo{
 </code></pre>
 
@@ -3520,6 +3534,7 @@ neb
 
 *Beispieldefinitionen:*
 
+</code></pre> 
  define module{
 </code></pre>
 
@@ -3527,6 +3542,7 @@ Basierend auf der
 [MKLiveStatus](http://mathias-kettner.de/checkmk_livestatus.md)-Dokumentation
 könnte die module-Definition wie folgt aussehen:
 
+</code></pre> 
  define module{
 </code></pre>
 

@@ -98,10 +98,7 @@ community.
 
 [Prev](ch01.md) | [Up](ch01.md) | [Next](whatsnew.md)
 
-
-
-
-
+Chapter 1. About  |<=== [Index](index.md) ===>|  1.2. What's New in Icinga 1.13
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

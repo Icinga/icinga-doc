@@ -75,6 +75,7 @@ lesbarem Text zurückliefern, die den Status eines Typs von Messdaten
 enthält. Zum Beispiel könnte das check\_ping-Plugin eine Textzeile wie
 die folgende zurückliefern:
 
+</code></pre> 
 </code></pre>
 
 Bei dieser einfachen Art von Ausgabe ist die gesamte Textzeile in den
@@ -93,6 +94,7 @@ Paketverlusten (percent paket loss) und durchschnittlicher Umlaufzeit
 (average round trip time) erweitert wurde. Die Beispielausgabe des
 Plugins könnte wie folgt aussehen:
 
+</code></pre> 
 </code></pre>
 
 wenn Icinga dieses Plugin-Ausgabeformat sieht, wird es die Ausgabe in
@@ -149,6 +151,7 @@ Eine Beispiel-Befehlsdefinition, die Service-Prüf-Performance-Daten zur
 späteren Verarbeitung durch eine andere Applikation in eine Textdatei
 umleitet, finden Sie nachfolgend:
 
+</code></pre> 
  # ACHTUNG: diese Definition funktioniert NICHT mit PNP!
  define command{
 </code></pre>
@@ -176,6 +179,7 @@ festgelegt.
 Eine Beispiel-Dateiformatvorlage für Performance-Daten könnte wie folgt
 aussehen:
 
+</code></pre> 
  # ACHTUNG: diese Definition funktioniert NICHT mit PNP!
  service_perfdata_file_template=[SERVICEPERFDATA]\t$TIMET$\t$HOSTNAME$\t$SERVICEDESC$\t$SERVICEEXECUTIONTIME$\t$SERVICELATENCY$\t$SERVICEOUTPUT$\t$SERVICEPERFDATA$
 </code></pre>
@@ -254,6 +258,7 @@ Ab und zu fragen sich Leute, ob ihre Performance-Daten gültig sind, so
 dass wir hier einige Beispiele geben. Gezeigt werden die Informationen
 nach dem Pipe-Symbol:
 
+</code></pre> 
  'disk usage'=78%;80;90;;; # ungültig (nachfolgendes Semikolon hinter max-Wert)
 </code></pre>
 

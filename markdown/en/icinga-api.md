@@ -136,10 +136,7 @@ The following is deprecated and only kept for reference
 
 [Prev](epnplugins.md) | [Up](ch11.md) | [Next](icinga-web-api.md)
 
-
-
-
-
+11.2. Developing Plugins For Use With Embedded Perl  |<=== [Index](index.md) ===>|  11.4. The Icinga Web REST API
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

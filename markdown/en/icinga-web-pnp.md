@@ -81,6 +81,7 @@ PNP integration is made with these extensions to be upgrade safe.
 Excerpt from the `INSTALL` in
 `contrib/PNP_Integration/`
 
+</code></pre> 
 #> cat contrib/PNP_Integration/INSTALL
 
 </code></pre>
@@ -105,11 +106,13 @@ Note
 
 If you edit any \*.xml file you have to clear the cache afterwards!
 
+</code></pre> 
 #> rm -f app/cache/config/*.php
 </code></pre>
 
 or /path/to/clearcache.sh
 
+</code></pre> 
 #> /usr/local/icinga-web/bin/clearcache.sh
 </code></pre>
 
@@ -119,10 +122,7 @@ That's all, you're done!
 
 [Prev](icinga-web-introduction.md) | [Up](ch06.md) | [Next](ch07.md)
 
-
-
-
-
+6.8. Introduction to Icinga Web  |<=== [Index](index.md) ===>|  Chapter 7. Advanced Topics
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

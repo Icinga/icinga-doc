@@ -101,16 +101,14 @@ monitoring server. That's it! When the TCP wrappers on *firestorm* deny
 a connection attempt, you should be getting alerts in Icinga. The plugin
 output for the alert will look something like the following:
 
+</code></pre> 
 </code></pre>
 
 * * * * *
 
 [Prev](int-snmptrap.md) | [Up](ch09.md) | [Next](int-mklivestatus.md)
 
-
-
-
-
+9.2. SNMP Trap Integration  |<=== [Index](index.md) ===>|  9.4. MKLiveStatus Integration
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

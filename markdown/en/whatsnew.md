@@ -93,10 +93,7 @@ Docs](https://dev.icinga.org/projects/show/icinga-docs)
 
 [Prev](about.md) | [Up](ch01.md) | [Next](ch02.md)
 
-
-
-
-
+1.1. About Icinga  |<=== [Index](index.md) ===>|  Chapter 2. Getting Started
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

@@ -209,10 +209,7 @@ giving someone else more on-call duty time. :-)
 
 [Prev](escalation_condition.md) | [Up](ch07.md) | [Next](clusters.md)
 
-
-
-
-
+7.10. Escalation Condition  |<=== [Index](index.md) ===>|  7.12. Monitoring Service and Host Clusters
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

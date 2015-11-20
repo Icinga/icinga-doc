@@ -98,6 +98,7 @@ command file" schreiben.
 
 Das Format des Befehls lautet wie folgt:
 
+</code></pre> 
  [<Zeitstempel>] PROCESS_SERVICE_CHECK_RESULT;<host_name>;<svc_description>;<return_code>;<plugin_output>
 </code></pre>
 
@@ -127,6 +128,7 @@ command file" schreiben.
 
 Das Format des Befehls lautet wie folgt:
 
+</code></pre> 
  [<timestamp>] PROCESS_HOST_CHECK_RESULT;<host_name>;<host_status>;<plugin_output>
 </code></pre>
 

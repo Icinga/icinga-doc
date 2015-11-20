@@ -99,10 +99,7 @@ define command {
 
 [Prev](sample-localhost.md) | [Up](ch13.md) | [Next](sample-printer.md)
 
-
-
-
-
+13.8.  localhost.cfg  |<=== [Index](index.md) ===>|  13.10. printer.cfg
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

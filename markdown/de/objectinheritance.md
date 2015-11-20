@@ -62,6 +62,7 @@ Problems an die *icinga-users*-Mailing-List.
 Es gibt drei Variablen in allen Objektdefinitionen, die Rekursion und
 Vererbung beeinflussen. Sie sind wie folgt *"dargestellt"*:
 
+</code></pre> 
  define someobjecttype{
 </code></pre>
 
@@ -96,6 +97,7 @@ Objektvariablen immer Vorrang vor Variablen aus der Vorlage haben.
 Werfen Sie einen Blick auf das folgende Beispiel mit zwei
 Host-Definitionen (nicht alle notwendigen Variablen sind dargestellt):
 
+</code></pre> 
  define host{
  define host{
 </code></pre>
@@ -106,6 +108,7 @@ Host *bighost2* nutzt die Definition von *bighost1* als Vorlagenobjekt.
 Sobald Icinga diese Daten verarbeitet hat, wäre die resultierende
 Definition von *bighost2* äquivalent zu dieser Definition:
 
+</code></pre> 
  define host{
 </code></pre>
 
@@ -128,6 +131,7 @@ mehr darüber, wie das erreicht werden kann.
 Objekte können Eigenschaften/Variablen aus mehreren Ebenen von
 Vorlagenobjekten erben. Nehmen Sie das folgende Beispiel:
 
+</code></pre> 
  define host{
  define host{
  define host{
@@ -139,6 +143,7 @@ Definition von Host *bighost1* erbt. Sobald Icinga diese
 Konfigurationsdaten verarbeitet, sind die resultierenden Host-Definition
 äquivalent zu den folgenden:
 
+</code></pre> 
  define host{
  define host{
  define host{
@@ -158,6 +163,7 @@ als Vorlagen zu nutzen, aber es ist tatsächlich empfohlen, dies zu tun.
 Warum? Nun, sie können als ein Satz von Defaults für alle anderen
 Objektdefinitionen dienen. Nehmen Sie das folgende Beispiel:
 
+</code></pre> 
  define host{
  define host{
  define host{
@@ -177,6 +183,7 @@ die gleichen Eigenschaften haben, bis auf die *host\_name*- und
 verarbeitet, wären die resultierenden Host-Definitionen äquivalent zu
 folgenden:
 
+</code></pre> 
  define host{
  define host{
 </code></pre>
@@ -194,6 +201,7 @@ die Sie in Ihren Host-, Service- oder Kontaktdefinitionen definieren,
 wird wie jede andere Standardvariable vererbt. Nehmen Sie das folgende
 Beispiel:
 
+</code></pre> 
  define host{
  define host{
 </code></pre>
@@ -203,6 +211,7 @@ Der Host *bighost1* wird die eigenen Host-Variablen *\_customvar1* und
 zusammen mit den entsprechenden Werten. Die daraus resultierende
 Definition für *bighost1* sieht wie folgt aus:
 
+</code></pre> 
  define host{
 </code></pre>
 
@@ -214,6 +223,7 @@ Vorlagen erben. Wenn das der Fall ist, können Sie "**null**" (ohne
 Anführungszeichen) als den Wert der Variable, die Sie nicht erben
 möchten. Nehmen Sie das folgende Beispiel:
 
+</code></pre> 
  define host{
  define host{
 </code></pre>
@@ -223,6 +233,7 @@ In diesem Fall wird der Host *bighost1* nicht den Wert der
 *generichosttemplate*-Vorlage definiert ist. Die resultierende
 Definition von *bighost1* sieht wie folgt aus:
 
+</code></pre> 
  define host{
 </code></pre>
 
@@ -239,6 +250,7 @@ Diese "additive Vererbung" kann durch Voranstellen eines Pluszeichens
 ist nur für Standard-Variablen verfügbar, die Zeichenketten-Werte
 enthalten. Nehmen Sie das folgende Beispiel:
 
+</code></pre> 
  define host{
  define host{
 </code></pre>
@@ -247,6 +259,7 @@ In diesem Fall wird der *linuxserver1* den Wert der lokalen
 *hostgroups*-Variablen dem der *generichosttemplate*-Vorlage hinzufügen.
 Die resultierende Definition von *linuxserver1* sieht wie folgt aus:
 
+</code></pre> 
  define host{
 </code></pre>
 
@@ -348,12 +361,14 @@ Vererbungslogik benutzt.
 
 Verwirrt? Hier ein Beispiel:
 
+</code></pre> 
  define host{
  define hostescalation{
 </code></pre>
 
 Das ist ein viel einfacheres Äquivalent zu:
 
+</code></pre> 
  define hostescalation{
 </code></pre>
 
@@ -378,6 +393,7 @@ eingesetzt wird.
 
 Zum Beispiel:
 
+</code></pre> 
 # On master
 define service {
 # On slave
@@ -405,6 +421,7 @@ Variablen/Werte von einer einzelnen Quelle erben. Sie können für
 komplexere Konfigurationen auch Variablen/Werte von mehreren Quellen
 erben, wie unten gezeigt.
 
+</code></pre> 
  # Generic host template
  define host{
  # Development web server template
@@ -423,6 +440,7 @@ angegebene Vorlage ist, wird der Wert für die *check\_interval*-Variable
 durch den *devweb1*-Host vererbt. Nach der Vererbung sieht die
 Definition von *devweb1* wie folgt aus:
 
+</code></pre> 
  # Development web server
  define host{
 </code></pre>
@@ -440,6 +458,7 @@ Variablen/Werte-Paare Vorrang haben.
 Betrachten Sie die folgende Host-Definition, die drei Vorlagen
 referenziert:
 
+</code></pre> 
  # Development web server
  define host{
 </code></pre>

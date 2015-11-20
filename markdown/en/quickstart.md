@@ -97,10 +97,7 @@ docs a bit to work for your particular case.
 
 [Prev](newbie.md) | [Up](ch02.md) | [Next](quickstart-icinga.md)
 
-
-
-
-
+2.2. I'm a newbie to ...  |<=== [Index](index.md) ===>|  2.4. Icinga Quickstart
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

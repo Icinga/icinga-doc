@@ -99,10 +99,7 @@ If notifications don't seem to work there are several things to check:
 
 [Prev](notifications.md) | [Up](ch05.md) | [Next](ch06.md)
 
-
-
-
-
+5.11. Notifications  |<=== [Index](index.md) ===>|  Chapter 6. User Interfaces
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

@@ -37,6 +37,7 @@ variables:
 If you forgot to set the environment variables you'll receive the
 following lines:
 
+</code></pre> 
  $> ./status.cgi
  getcgivars(): Unsupported REQUEST_METHOD -> ''
 
@@ -64,36 +65,42 @@ REQUEST\_METHOD is set to 'GET'.
 
 Tactical overview
 
+</code></pre> 
  $> set QUERY_STRING='jsonoutput'
  $> ./tac.cgi
 </code></pre>
 
 All hosts in DOWN state
 
+</code></pre> 
  $> set QUERY_STRING='jsonoutput&style=hostdetail&hoststatustypes=4'
  $> ./status.cgi
 </code></pre>
 
 All hosts in DOWN state being unacknowledged *and* not in a downtime
 
+</code></pre> 
  $> set QUERY_STRING='jsonoutput&style=hostdetail&hoststatustypes=4&hostprops=10'
  $> ./status.cgi
 </code></pre>
 
 All service in non-OK state
 
+</code></pre> 
  $> set QUERY_STRING='jsonoutput&style=detail&servicestatustypes=28'
  $> ./status.cgi
 </code></pre>
 
 All services being in CRITICAL state and being passive checks
 
+</code></pre> 
  $> set QUERY_STRING='jsonoutput&style=detail&servicestatustypes=28&serviceprops=65536'
  $> ./status.cgi
 </code></pre>
 
 Comments for all objects
 
+</code></pre> 
  $> set QUERY_STRING='jsonoutput&type=3'
  $> ./extinfo.cgi
 </code></pre>
@@ -101,12 +108,14 @@ Comments for all objects
 Trends for router\_02 specifying a custom timeperiod using unix
 timestamps
 
+</code></pre> 
  $> set QUERY_STRING='jsonoutput&host=router_02&timeperiod=custom&t1=130748400&t2=1307570400'
  $> ./extinfo.cgi
 </code></pre>
 
 Trends for router\_02 specifying a custom timeperiod using date and time
 
+</code></pre> 
  $> set QUERY_STRING='jsonoutput&host=router_02&timeperiod=custom\
  &sday=6&smon=6&syear=2011&shour=0&smin=0&ssec=0\
  &eday=7&emon=6&eyear=2011&ehour=0&emin=0&esec=0'
@@ -119,10 +128,7 @@ Trends for router\_02 specifying a custom timeperiod using date and time
 
 [Prev](cgiparams.md) | [Up](ch06.md) | [Next](icinga-web-scratch.md)
 
-
-
-
-
+6.3. Information On Classic UI parameters  |<=== [Index](index.md) ===>|  6.5. Installation of the Icinga Web Frontend
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

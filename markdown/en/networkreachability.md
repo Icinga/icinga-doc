@@ -121,10 +121,7 @@ the *host\_notification\_options* directive in your
 
 [Prev](timeperiods.md) | [Up](ch05.md) | [Next](notifications.md)
 
-
-
-
-
+5.9. Time Periods  |<=== [Index](index.md) ===>|  5.11. Notifications
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

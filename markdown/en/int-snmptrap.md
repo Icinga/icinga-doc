@@ -31,10 +31,7 @@ Yep, that's all.
 
 [Prev](integration.md) | [Up](ch09.md) | [Next](int-tcpwrappers.md)
 
-
-
-
-
+9.1. Integration Overview  |<=== [Index](index.md) ===>|  9.3. TCP Wrapper Integration
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

@@ -27,10 +27,7 @@ Alias @htmurl@ "@datadir@/"
 
 [Prev](sample-resource.md) | [Up](ch13.md) | [Next](sample-commands.md)
 
-
-
-
-
+13.4. resource.cfg  |<=== [Index](index.md) ===>|  13.6. commands.cfg
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

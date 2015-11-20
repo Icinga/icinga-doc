@@ -73,6 +73,7 @@ text that indicates the status of some type of measurable data. For
 example, the check\_ping plugin might return a line of text like the
 following:
 
+</code></pre> 
 </code></pre>
 
 With this simple type of output, the entire line of text is available in
@@ -89,6 +90,7 @@ example and assume that it has been enhanced to return percent packet
 loss and average round trip time as performance data metrics. Sample
 output from the plugin might look like this:
 
+</code></pre> 
 </code></pre>
 
 When Icinga sees this plugin output format it will split the output into
@@ -255,6 +257,7 @@ performance data into graphs.
 Every now and then people are curious if their performance data is valid
 so we'll give some examples showing the data following the pipe symbol:
 
+</code></pre> 
  'disk usage'=78%;80;90;;; # invalid (trailing semicolon after max value)
 </code></pre>
 
@@ -275,10 +278,7 @@ to graph your performance data.
 
 [Prev](stalking.md) | [Up](ch07.md) | [Next](downtime.md)
 
-
-
-
-
+7.14. State Stalking  |<=== [Index](index.md) ===>|  7.16. Scheduled Downtime
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

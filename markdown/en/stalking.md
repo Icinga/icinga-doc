@@ -204,10 +204,7 @@ you need and want it.
 
 [Prev](dependencies.md) | [Up](ch07.md) | [Next](perfdata.md)
 
-
-
-
-
+7.13. Host and Service Dependencies  |<=== [Index](index.md) ===>|  7.15. Performance Data
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

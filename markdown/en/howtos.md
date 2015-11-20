@@ -84,10 +84,7 @@ various aspects, amongst others:
 
 [Prev](icinga_packages.md) | [Up](ch02.md) | [Next](upgrading.md)
 
-
-
-
-
+2.8. Icinga Packages for Linux Distributions  |<=== [Index](index.md) ===>|  2.10. Upgrading (to) Icinga
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

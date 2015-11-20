@@ -109,6 +109,7 @@ but it is recommended to use portupgrade or portmaster instead:
 
 Please update your ports before doing so.
 
+</code></pre> 
  #> cd /usr/ports/devel/libtool/ && make all install clean
  #> cd /usr/ports/graphics/jpeg && make all install clean
  #> cd /usr/ports/graphics/png && make all install clean
@@ -122,6 +123,7 @@ Note
 discussed here, however the lead is *\# cd /usr/ports/www/apache22 &&
 make clean && make*.
 
+</code></pre> 
  #> cd /usr/ports/devel/libltdl && make all install clean <-- unless installed already
 </code></pre>
 
@@ -135,12 +137,14 @@ make clean && make*.
 
 Become the root user.
 
+</code></pre> 
  $> su -l
 </code></pre>
 
 Create a new *icinga* user account without a password and without the
 ability to log-in (set no password when asked):
 
+</code></pre> 
  #> adduser -D -w no -s nologin
 </code></pre>
 
@@ -148,12 +152,14 @@ For sending commands from the classic web interface to Icinga, you'll
 need to create a new group icinga-cmd and add the webuser (www) and the
 Icingauser to this group:
 
+</code></pre> 
 </code></pre>
 
 **Download Icinga and the plugins**
 
 Change to your local source directory i.e. \~/src
 
+</code></pre> 
  #> mkdir ~/src
  #> cd ~/src
 </code></pre>
@@ -169,6 +175,7 @@ Plugins](https://www.monitoring-plugins.org).
 Extract the Icinga source code tarball (or change directory to the GIT
 snapshot)
 
+</code></pre> 
  #> cd icinga-1.13
 </code></pre>
 
@@ -182,6 +189,7 @@ This absolute path is meant if we use the description
 Run the Icinga configure script. You will get help by using the --help
 flag.
 
+</code></pre> 
  #> ./configure --with-command-group=icinga-cmd \
 </code></pre>
 
@@ -199,6 +207,7 @@ Note
 You should include `CFLAGS=..."` like specified above.
 Otherwise you might get the following lines in `icinga.log`:
 
+</code></pre> 
  Error: Module ‘/usr/local/icinga/lib/idomod.so’ is using an old or unspecified version
  of the event broker API. Module will be unloaded.
  Event broker module ‘/usr/local/icinga/lib/idomod.so’ deinitialized successfully.
@@ -209,6 +218,7 @@ More details on this error can be found
 
 **With SSL-encryption:**
 
+</code></pre> 
  #> ./configure --with-command-group=icinga-cmd \
 </code></pre>
 
@@ -216,12 +226,14 @@ Compile the Icinga source code. There is a separate option for IDOUtils
 (*make idoutils*) if you just want to recompile this module. To see
 possible option just call "make".
 
+</code></pre> 
  #> gmake all
 </code></pre>
 
 Install binaries, init script, sample config files, some eventhandlers,
 and set permissions on the external command directory.
 
+</code></pre> 
  #> make install
  #> make install-init
  #> make install-config
@@ -230,6 +242,7 @@ and set permissions on the external command directory.
 
 or shorter
 
+</code></pre> 
  #> make fullinstall
  #> make install-config
 </code></pre>
@@ -263,6 +276,7 @@ abstraction layer so Icinga-API doesn't have to be installed anymore.
 
 Sample configuration files have been installed using
 
+</code></pre> 
  #> gmake install-config
 </code></pre>
 
@@ -274,9 +288,11 @@ your favourite editor and change the email address associated with the
 *icingaadmin* contact definition to the address you'd like to use for
 receiving alerts.
 
+</code></pre> 
  #> vi /usr/local/icinga/etc/objects/contacts.cfg
 </code></pre>
 
+</code></pre> 
  #> cd /usr/local/icinga/etc
  #> mv idomod.cfg-sample idomod.cfg
  #> mv ido2db.cfg-sample ido2db.cfg
@@ -340,6 +356,7 @@ edit the main config file
 Icinga ships with the Classic Web Interface ("the CGIs") which can be
 installed via
 
+</code></pre> 
  #> cd /path/to/icinga-src
  #> make cgis
  #> make install-cgis
@@ -371,6 +388,7 @@ to
  $(INSTALL) -m 644 sample-config/httpd.conf $(DESTDIR)$(HTTPD_CONF)/icinga.conf
 </code></pre>
 
+</code></pre> 
  #> make install-webconf
 </code></pre>
 
@@ -386,17 +404,20 @@ following step. The password is *icingaadmin*.
 Create an *icingaadmin* account for logging into the Icinga classic web
 interface. If you want to change it later, use the same command.
 
+</code></pre> 
  #> htpasswd -c /usr/local/icinga/etc/htpasswd.users icingaadmin
 </code></pre>
 
 If you want to change it later or want to add another user, use the
 following command:
 
+</code></pre> 
  #> htpasswd /usr/local/icinga/etc/htpasswd.users <USERNAME>
 </code></pre>
 
 Reload/Restart Apache to make the new settings take effect.
 
+</code></pre> 
  #> /usr/local/etc/rc.d/apache22 reload
 </code></pre>
 
@@ -404,12 +425,14 @@ Reload/Restart Apache to make the new settings take effect.
 
 Extract the plugins source code tarball.
 
+</code></pre> 
  #> tar xvzf nagios-plugins-2.1.tar.gz
 </code></pre>
 
 Compile and install the plugins by changing install directory to
 /usr/local/icinga
 
+</code></pre> 
  #> ./configure --prefix=/usr/local/icinga --with-cgiurl=/icinga/cgi-bin \
 </code></pre>
 
@@ -423,6 +446,7 @@ have to copy some things manually later on.
 
 Compile and install the Perl plugin:
 
+</code></pre> 
  #> cd /usr/ports/net-mgmt/p5-Nagios-Plugin
  #> make all install clean
 </code></pre>
@@ -433,11 +457,13 @@ IDOUtils has to be started before Icinga
 
 **Starting IDOUtils**
 
+</code></pre> 
  #> /usr/local/etc/rc.d/ido2db start
 </code></pre>
 
 **Stopping IDOUtils**
 
+</code></pre> 
  #> /usr/local/etc/rc.d/ido2db stop
 </code></pre>
 
@@ -447,16 +473,19 @@ Add Icinga to the list of system services and have it automatically
 start when the system boots (make sure you have installed the init
 script before).
 
+</code></pre> 
  #> echo icinga_enable=\"YES\" >> /etc/rc.conf
 </code></pre>
 
 Verify the sample Icinga configuration files.
 
+</code></pre> 
  #> /usr/local/icinga/bin/icinga -v /usr/local/icinga/etc/icinga.cfg
 </code></pre>
 
 If there are no errors, start Icinga.
 
+</code></pre> 
  #> /usr/local/etc/rc.d/icinga start
 </code></pre>
 
@@ -466,11 +495,13 @@ You should now be able to access the Icinga classic web interface at the
 URL below. You'll be prompted for the username ( *icingaadmin*) and
 password you specified earlier.
 
+</code></pre> 
  http://localhost/icinga/
 </code></pre>
 
 or
 
+</code></pre> 
  http://yourdomain.com/icinga/
 </code></pre>
 
@@ -484,6 +515,7 @@ Make sure your system's firewall rules are configured to allow access to
 the web server if you want to access the Icinga classic interface
 remotely.
 
+</code></pre> 
  #> TCP port 80
 </code></pre>
 
@@ -522,10 +554,7 @@ make install NAGIOSUSER=icinga NAGIOSGROUP=icinga \
 
 [Prev](quickstart-idoutils.md) | [Up](ch02.md) | [Next](icinga_packages.md)
 
-
-
-
-
+2.6. Icinga with IDOUtils Quickstart  |<=== [Index](index.md) ===>|  2.8. Icinga Packages for Linux Distributions
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

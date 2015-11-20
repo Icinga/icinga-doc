@@ -16,6 +16,7 @@ Konfiguration Fehler enthält.
 Um Ihre Konfiguration zu überprüfen, starten Sie Icinga mit der
 **-v**-Option wie folgt:
 
+</code></pre> 
  #> /usr/local/icinga/bin/icinga -v /usr/local/icinga/etc/icinga.cfg
 </code></pre>
 

@@ -39,10 +39,7 @@ assume that you have installed Icinga in /usr/local/icinga.
 
 [Prev](int-tcpwrappers.md) | [Up](ch09.md) | [Next](reporting.md)
 
-
-
-
-
+9.3. TCP Wrapper Integration  |<=== [Index](index.md) ===>|  9.5. Installation of the Icinga Reporting with JasperReports Server
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

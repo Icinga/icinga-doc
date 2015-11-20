@@ -223,10 +223,7 @@ logic can be found
 
 [Prev](macrolist.md) | [Up](ch05.md) | [Next](servicechecks.md)
 
-
-
-
-
+5.3. Standard Macros in Icinga  |<=== [Index](index.md) ===>|  5.5. Service Checks
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

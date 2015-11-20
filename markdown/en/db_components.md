@@ -138,10 +138,7 @@ databases.
 
 [Prev](db_intro.md) | [Up](ch12.md) | [Next](configido.md)
 
-
-
-
-
+12.1. Introduction  |<=== [Index](index.md) ===>|  12.3. Configuration of IDOUtils
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

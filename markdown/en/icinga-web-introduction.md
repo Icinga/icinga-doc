@@ -440,10 +440,7 @@ line you can issue the command via the "Tasks" menu.
 
 [Prev](icinga-web-config.md) | [Up](ch06.md) | [Next](icinga-web-pnp.md)
 
-
-
-
-
+6.7. Configuration Overview of Icinga Web  |<=== [Index](index.md) ===>|  6.9. Integration of PNP4Nagios into Icinga Web
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

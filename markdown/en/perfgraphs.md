@@ -233,10 +233,7 @@ checked either actively or passively. Useful for understanding:
 
 [Prev](icingastats.md) | [Up](ch08.md) | [Next](temp_data.md)
 
-
-
-
-
+8.6. Using The Icingastats Utility  |<=== [Index](index.md) ===>|  8.8. Temporary Data
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

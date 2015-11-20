@@ -109,10 +109,7 @@ define service{
 
 [Prev](sample-timeperiods.md) | [Up](ch13.md) | [Next](ix01.md)
 
-
-
-
-
+13.13. timeperiods.cfg  |<=== [Index](index.md) ===>|  Index
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

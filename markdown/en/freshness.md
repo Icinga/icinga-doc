@@ -117,6 +117,7 @@ already there) and someone will probably get notified of the problem.
 Sometimes you might find messages like the following in
 `icinga.log`:
 
+</code></pre> 
  Check results for service x on host y are stale by 0d 0h 0m 10s (threshold=0d 0h 10m 0s).
  Forcing an immediate check of the service...
 </code></pre>
@@ -151,10 +152,7 @@ the initial service check (and state + output) must happen).
 
 [Prev](volatileservices.md) | [Up](ch07.md) | [Next](distributed.md)
 
-
-
-
-
+7.4. Volatile Services  |<=== [Index](index.md) ===>|  7.6. Distributed Monitoring
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

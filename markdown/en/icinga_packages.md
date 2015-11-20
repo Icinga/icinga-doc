@@ -45,10 +45,7 @@ Web](https://wiki.icinga.org/display/howtos/Setting+up+Icinga+Web).
 
 [Prev](quickstart-idoutils-freebsd.md) | [Up](ch02.md) | [Next](howtos.md)
 
-
-
-
-
+2.7. Icinga and IDOUtils Quickstart on FreeBSD  |<=== [Index](index.md) ===>|  2.9. Links to other published Howtos
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

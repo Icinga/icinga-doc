@@ -80,6 +80,7 @@ Die PNP-Integration wurde mit diesen Extensions upgrade-sicher gemacht.
 Ausschnitt aus `INSTALL` in
 `contrib/PNP_Integration/`
 
+</code></pre> 
 #> cat contrib/PNP_Integration/INSTALL
 
 </code></pre>

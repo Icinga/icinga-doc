@@ -354,6 +354,7 @@ x\_coord,y\_coord
 
 *Example Definition:*
 
+</code></pre> 
  define host{
 </code></pre>
 
@@ -927,6 +928,7 @@ url
 
 *Example Definition:*
 
+</code></pre> 
  define hostgroup{
 </code></pre>
 
@@ -1185,6 +1187,7 @@ alt\_string
 
 *Example Definition:*
 
+</code></pre> 
  define service{
 </code></pre>
 
@@ -1680,6 +1683,7 @@ url
 
 *Example Definition:*
 
+</code></pre> 
  define servicegroup{
 </code></pre>
 
@@ -1842,6 +1846,7 @@ retain\_nonstatus\_information
 
 *Example Definition:*
 
+</code></pre> 
  define contact{
 </code></pre>
 
@@ -2062,6 +2067,7 @@ contactgroups
 
 *Example Definition:*
 
+</code></pre> 
  define contactgroup{
 </code></pre>
 
@@ -2139,6 +2145,7 @@ exclude
 
 *Example Definitions:*
 
+</code></pre> 
  define timeperiod{
 
  define timeperiod{
@@ -2230,6 +2237,7 @@ command\_line
 
 *Example Definition:*
 
+</code></pre> 
  define command{
 </code></pre>
 
@@ -2350,6 +2358,7 @@ timeperiod\_name
 
 *Example Definition:*
 
+</code></pre> 
  define servicedependency{
 </code></pre>
 
@@ -2560,6 +2569,7 @@ last\_unknown\_notification
 
 *Example Definition:*
 
+</code></pre> 
  define serviceescalation{
 </code></pre>
 
@@ -2784,6 +2794,7 @@ timeperiod\_name
 
 *Example Definition:*
 
+</code></pre> 
  define hostdependency{
 </code></pre>
 
@@ -2949,6 +2960,7 @@ last\_unreachable\_notification
 
 *Example Definition:*
 
+</code></pre> 
  define hostescalation{
 </code></pre>
 
@@ -3144,6 +3156,7 @@ x\_coord,y\_coord
 
 *Example Definition:*
 
+</code></pre> 
  define hostextinfo{
 </code></pre>
 
@@ -3314,6 +3327,7 @@ alt\_string
 
 *Example Definition:*
 
+</code></pre> 
  define serviceextinfo{
 </code></pre>
 
@@ -3422,6 +3436,7 @@ neb
 
 *Example Definitions:*
 
+</code></pre> 
  define module{
 </code></pre>
 
@@ -3429,6 +3444,7 @@ Based on the
 [MKLiveStatus](http://mathias-kettner.de/checkmk_livestatus.md)
 documentation the module definition would look like this:
 
+</code></pre> 
  define module{
 </code></pre>
 
@@ -3470,10 +3486,7 @@ with Icinga 1.4.
 
 [Prev](configobject.md) | [Up](ch03.md) | [Next](customobjectvars.md)
 
-
-
-
-
+3.3. Object Configuration Overview  |<=== [Index](index.md) ===>|  3.5. Custom Object Variables
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

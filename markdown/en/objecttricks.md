@@ -65,6 +65,7 @@ called *SOMESERVICE* on hosts *HOST1* through *HOSTN*. All the instances
 of the *SOMESERVICE* service would be identical (i.e. have the same
 check command, max check attempts, notification period, etc.).
 
+</code></pre> 
 </code></pre>
 
 **All Hosts In Multiple Hostgroups:**
@@ -79,6 +80,7 @@ all hosts that are members of hostgroups *HOSTGROUP1* through
 identical (i.e. have the same check command, max check attempts,
 notification period, etc.).
 
+</code></pre> 
 </code></pre>
 
 **All Hosts:**
@@ -91,6 +93,7 @@ configuration files. All the instances of the *SOMESERVICE* service
 would be identical (i.e. have the same check command, max check
 attempts, notification period, etc.).
 
+</code></pre> 
 </code></pre>
 
 **Excluding Hosts:**
@@ -100,6 +103,7 @@ hostgroups, but would like to exclude some hosts from the definition,
 this can be accomplished by preceding the host or hostgroup with a !
 symbol.
 
+</code></pre> 
 </code></pre>
 
 **Service Escalation Definitions**
@@ -115,6 +119,7 @@ definition below would create a service escalation for services called
 service escalation would be identical (i.e. have the same contact
 groups, notification interval, etc.).
 
+</code></pre> 
 </code></pre>
 
 **All Hosts In Multiple Hostgroups:**
@@ -128,6 +133,7 @@ through *HOSTGROUPN*. All the instances of the service escalation would
 be identical (i.e. have the same contact groups, notification interval,
 etc.).
 
+</code></pre> 
 </code></pre>
 
 **All Hosts:**
@@ -141,6 +147,7 @@ your configuration files. All the instances of the service escalation
 would be identical (i.e. have the same contact groups, notification
 interval, etc.).
 
+</code></pre> 
 </code></pre>
 
 **Excluding Hosts:**
@@ -150,6 +157,7 @@ numerous hosts or hostgroups, but would like to exclude some hosts from
 the definition, this can be accomplished by preceding the host or
 hostgroup with a ! symbol.
 
+</code></pre> 
 </code></pre>
 
 **All Services On Same Host:**
@@ -167,6 +175,7 @@ wildcard in both the *host\_name* and *service\_description* directives.
 Doing so would create a service escalation for **all services** that
 you've defined in your configuration files.
 
+</code></pre> 
 </code></pre>
 
 **Multiple Services On Same Host:**
@@ -180,6 +189,7 @@ services *SERVICE1* through *SERVICEN* on host *HOST1*. All the
 instances of the service escalation would be identical (i.e. have the
 same contact groups, notification interval, etc.).
 
+</code></pre> 
 </code></pre>
 
 **All Services In Multiple Servicegroups:**
@@ -192,6 +202,7 @@ services that are members of servicegroups *SERVICEGROUP1* through
 identical (i.e. have the same contact groups, notification interval,
 etc.).
 
+</code></pre> 
 </code></pre>
 
 **Service Dependency Definitions**
@@ -208,6 +219,7 @@ hosts, you can specify multiple hosts in the *host\_name* and or
 service dependencies would be identical except for the host names (i.e.
 have the same notification failure criteria, etc.).
 
+</code></pre> 
 </code></pre>
 
 **All Hosts In Multiple Hostgroups:**
@@ -224,6 +236,7 @@ single service dependency definitions! All the instances of the service
 dependency would be identical except for the host names (i.e. have the
 same notification failure criteria, etc.).
 
+</code></pre> 
 </code></pre>
 
 **All Services On A Host:**
@@ -236,6 +249,7 @@ services** on host *HOST1*. All the instances of the service
 dependencies would be identical (i.e. have the same notification failure
 criteria, etc.).
 
+</code></pre> 
 </code></pre>
 
 **Multiple Services On A Host:**
@@ -245,6 +259,7 @@ assigned to a particular host, you can specify more than one service
 description in the *service\_description* and/or
 *dependent\_service\_description* directives as follows:
 
+</code></pre> 
 </code></pre>
 
 **All Services In Multiple Servicegroups:**
@@ -253,6 +268,7 @@ If you want to create service dependencies for all services that belong
 to one or more servicegroups, you can use the *servicegroup\_name*
 and/or *dependent\_servicegroup\_name* directive as follows:
 
+</code></pre> 
 </code></pre>
 
 **Same Host Dependencies:**
@@ -267,6 +283,7 @@ least the following four services associated with them: *SERVICE1*,
 *SERVICE2* on *HOST1*. Similiarly, *SERVICE3* and *SERVICE4* on *HOST2*
 will be dependent on both *SERVICE1* and *SERVICE2* on *HOST2*.
 
+</code></pre> 
 </code></pre>
 
 **Same Host Dependencies With Servicegroups:**
@@ -280,6 +297,7 @@ service associated with them: *SERVICE1*. In this example, all services
 belonging to *SERVICEGROUP1* and *SERVICEGROUP2* will be dependent on
 *SERVICE1* on the same host running the dependent service.
 
+</code></pre> 
 </code></pre>
 
 **Host Escalation Definitions**
@@ -294,6 +312,7 @@ directive. The definition below would create a host escalation for hosts
 be identical (i.e. have the same contact groups, notification interval,
 etc.).
 
+</code></pre> 
 </code></pre>
 
 **All Hosts In Multiple Hostgroups:**
@@ -305,6 +324,7 @@ members of hostgroups *HOSTGROUP1* through *HOSTGROUPN*. All the
 instances of the host escalation would be identical (i.e. have the same
 contact groups, notification interval, etc.).
 
+</code></pre> 
 </code></pre>
 
 **All Hosts:**
@@ -316,6 +336,7 @@ escalation for **all hosts** that are defined in your configuration
 files. All the instances of the host escalation would be identical (i.e.
 have the same contact groups, notification interval, etc.).
 
+</code></pre> 
 </code></pre>
 
 **Excluding Hosts:**
@@ -325,6 +346,7 @@ hostgroups, but would like to exclude some hosts from the definition,
 this can be accomplished by preceding the host or hostgroup with a !
 symbol.
 
+</code></pre> 
 </code></pre>
 
 **Host Dependency Definitions**
@@ -341,6 +363,7 @@ above, hosts *HOST3*, *HOST4* and *HOST5* would be dependent upon both
 identical except for the host names (i.e. have the same notification
 failure criteria, etc.).
 
+</code></pre> 
 </code></pre>
 
 **All Hosts In Multiple Hostgroups:**
@@ -353,6 +376,7 @@ hosts in hostgroups *HOSTGROUP1* and *HOSTGROUP2*. All the instances of
 the host dependencies would be identical except for host names (i.e.
 have the same notification failure criteria, etc.).
 
+</code></pre> 
 </code></pre>
 
 **Hostgroups**
@@ -365,16 +389,14 @@ your configuration files as members, you can use a wildcard in the
 called *HOSTGROUP1* that has all **all hosts** that are defined in your
 configuration files as members.
 
+</code></pre> 
 </code></pre>
 
 * * * * *
 
 [Prev](objectinheritance.md) | [Up](ch07.md) | [Next](ch08.md)
 
-
-
-
-
+7.26. Object Inheritance  |<=== [Index](index.md) ===>|  Chapter 8. Security and Performance Tuning
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

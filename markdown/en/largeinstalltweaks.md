@@ -34,10 +34,7 @@ way the Icinga daemon operates:
 
 [Prev](faststartup.md) | [Up](ch08.md) | [Next](icingastats.md)
 
-
-
-
-
+8.4. Fast Startup Options  |<=== [Index](index.md) ===>|  8.6. Using The Icingastats Utility
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

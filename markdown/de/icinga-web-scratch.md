@@ -297,6 +297,7 @@ Wo können Sie nachsehen?
 API/IDOUtils-Einstellungen geändert) werden nicht aktualisiert?
 
 
+</code></pre> 
  /usr/local/icinga-web/bin/clearcache.sh
 </code></pre>
 
@@ -321,6 +322,7 @@ IDOUtils-Datenbank wird nicht gefüllt?
 
 **Testing the Web (stellen Sie sicher, dass PHPUnit installiert ist):**
 
+</code></pre> 
  $> make test
 </code></pre>
 

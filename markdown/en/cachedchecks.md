@@ -195,10 +195,7 @@ statistics. Rinse and repeat as necessary.
 
 [Prev](dependencychecks.md) | [Up](ch07.md) | [Next](passivestatetranslation.md)
 
-
-
-
-
+7.20. Predictive Dependency Checks  |<=== [Index](index.md) ===>|  7.22. Passive Host State Translation
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

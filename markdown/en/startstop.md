@@ -89,10 +89,7 @@ at the scheduling queue (-S) is described there as well.
 
 [Prev](verifyconfig.md) | [Up](ch04.md) | [Next](ch05.md)
 
-
-
-
-
+4.1. Verifying Your Configuration  |<=== [Index](index.md) ===>|  Chapter 5. The Basics
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

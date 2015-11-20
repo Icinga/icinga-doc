@@ -54,6 +54,7 @@ Ordner mit den \*.cgi Dateien (z.B.
 `/usr/local/icinga/sbin`), setzen Sie einige
 Umgebungsvariablen und führen Sie eines der Module aus.
 
+</code></pre> 
 
  $> ./status.cgi
 </code></pre>
@@ -68,6 +69,7 @@ Setzen Sie QUERY\_STRING wie erforderlich und führen Sie das Modul aus.
 Falls Sie eine Umgebungsvariable vergessen haben, werden Sie folgende
 Zeilen sehen:
 
+</code></pre> 
  $> ./status.cgi
  getcgivars(): Unsupported REQUEST_METHOD -> ''
 
@@ -101,6 +103,7 @@ Option ein.
 Das Beispiel zeigt alle Services im nicht-OK-Zustand, die weder in einer
 Ausfallzeit (downtime) sind noch bestätigt (acknowledged) wurden:
 
+</code></pre> 
  http://localhost/icinga/cgi-bin/status.cgi?host=all&servicestatustypes=29&serviceprops=10
 </code></pre>
 

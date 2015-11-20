@@ -122,10 +122,7 @@ Documentation for the CGI configuration file can be found
 
 [Prev](ch03.md) | [Up](ch03.md) | [Next](configmain.md)
 
-
-
-
-
+Chapter 3. Configuring Icinga  |<=== [Index](index.md) ===>|  3.2. Main Configuration File Options
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

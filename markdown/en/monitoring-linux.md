@@ -71,10 +71,7 @@ usage, etc. on a remote host.
 
 [Prev](monitoring-windows.md) | [Up](ch02.md) | [Next](monitoring-netware.md)
 
-
-
-
-
+2.13. Monitoring Windows Machines  |<=== [Index](index.md) ===>|  2.15. Monitoring Netware Servers
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

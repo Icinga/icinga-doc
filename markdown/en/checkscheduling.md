@@ -437,10 +437,7 @@ in a later beta release...
 
 [Prev](passivestatetranslation.md) | [Up](ch07.md) | [Next](cgiincludes.md)
 
-
-
-
-
+7.22. Passive Host State Translation  |<=== [Index](index.md) ===>|  7.24. Custom CGI Headers and Footers (Classic UI)
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

@@ -58,6 +58,7 @@ the username should match the short name of a
 [contact](objectdefinitions.md#objectdefinitions-contact) that has
 been defined.
 
+</code></pre> 
  htpasswd /usr/local/icinga/etc/htpasswd.users <username>
 </code></pre>
 
@@ -254,10 +255,7 @@ inherit all rights you assign to this user!
 
 [Prev](cgis.md) | [Up](ch06.md) | [Next](cgiparams.md)
 
-
-
-
-
+6.1. Icinga Classic UI: Information On The Modules  |<=== [Index](index.md) ===>|  6.3. Information On Classic UI parameters
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

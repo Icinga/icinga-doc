@@ -97,21 +97,25 @@ Please download the archive from
 you have an issue fixed in the current developer version then please
 take your clone from the icinga-web.git to get the freshest branch:
 
+</code></pre> 
  #> git clone git://git.icinga.org/icinga-web.git
 </code></pre>
 
 Unpack your tarball:
 
+</code></pre> 
  #> tar xzvf icinga-web-1.13.tar.gz
 </code></pre>
 
 Then change to the directory:
 
+</code></pre> 
  #> cd icinga-web-1.13
 </code></pre>
 
 Icinga Web provides several configure options e.g.
 
+</code></pre> 
 </code></pre>
 
 ![[Note]](../images/note.png)
@@ -124,6 +128,7 @@ distribution used.
 
 Please use:
 
+</code></pre> 
  #> ./configure --help
 </code></pre>
 
@@ -139,6 +144,7 @@ Using no options the installer expects the Icinga API to be found at
 Per default the Icinga Web will be updated to
 `/usr/local/icinga-web` using:
 
+</code></pre> 
  #> ./configure
  #> make upgrade
 </code></pre>
@@ -149,11 +155,13 @@ Note
 
 After changing any configs you need to clear the config cache!
 
+</code></pre> 
  #> rm -rf app/cache/config/*.php
 </code></pre>
 
 or /path/to/clearcache.sh
 
+</code></pre> 
  #> /usr/local/icinga-web/bin/clearcache.sh
 </code></pre>
 
@@ -209,10 +217,7 @@ That's all.
 
 [Prev](icinga-web-scratch.md) | [Up](ch06.md) | [Next](icinga-web-config.md)
 
-
-
-
-
+6.5. Installation of the Icinga Web Frontend  |<=== [Index](index.md) ===>|  6.7. Configuration Overview of Icinga Web
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

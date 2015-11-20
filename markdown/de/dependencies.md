@@ -73,6 +73,7 @@ Prüfausführung.
 In diesem Beispiel würde die Abhängigkeitsdefinition für *Service F* auf
 *Host C* wie folgt aussehen:
 
+</code></pre> 
  define servicedependency{
  define servicedependency{
  define servicedependency{
@@ -81,6 +82,7 @@ In diesem Beispiel würde die Abhängigkeitsdefinition für *Service F* auf
 Die anderen im obigen Bild gezeigten Abhängigkeitsdefinitionen würden
 wie folgt definiert:
 
+</code></pre> 
  define servicedependency{
  define servicedependency{
  define servicedependency{
@@ -188,6 +190,7 @@ Service F als den *abhängigen* Service und Service A als den
 Sie können alternativ die Abhängigkeitsdefinition der Services D und F
 verändern, die dann wie folgt aussehen:
 
+</code></pre> 
  define servicedependency{
 </code></pre>
 
@@ -233,6 +236,7 @@ Benachrichtigungen abhängig von anderen Hosts.
 Im obigen Beispiel würden die Abhängigkeitsdefinitionen für *Host C* wie
 folgt aussehen:
 
+</code></pre> 
  define hostdependency{
  define hostdependency{
 </code></pre>

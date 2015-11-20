@@ -94,6 +94,7 @@ starten Sie einfach das configure-Script zusätzlich mit der
 Perl-Interpreter intern kompilierte Scripts in einem Cache ablegen soll,
 dann nutzen Sie die *--with-perlcache* -Option. Beispiel:
 
+</code></pre> 
 </code></pre>
 
 Sobald Sie das configure-Script mit den neuen Optionen ausgeführt haben,
@@ -102,6 +103,7 @@ müssen Sie Icinga erneut kompilieren.
 Paket-Bauer können eine andere Option nutzen, um das Verzeichnis der
 `p1.pl` Datei anzugeben:
 
+</code></pre> 
  ./configure --with-p1-file-dir=<path>
 </code></pre>
 
@@ -119,12 +121,14 @@ Einträge hinzu...
 Um Icinga mitzuteilen, den Perl-Interpreter für ein bestimmtes Script zu
 nutzen, fügen Sie dem Perl-Script diese Zeile hinzu:
 
+</code></pre> 
  # icinga: +epn
 </code></pre>
 
 Um Icinga mitzuteilen, den Perl-Interpreter für ein bestimmtes Script
 NICHT zu nutzen, fügen Sie dem Perl-Script diese Zeile hinzu:
 
+</code></pre> 
  # icinga: -epn
 </code></pre>
 

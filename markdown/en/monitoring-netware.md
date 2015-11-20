@@ -42,10 +42,7 @@ on the Novell site!
 
 [Prev](monitoring-linux.md) | [Up](ch02.md) | [Next](monitoring-printers.md)
 
-
-
-
-
+2.14. Monitoring Linux/Unix Machines  |<=== [Index](index.md) ===>|  2.16. Monitoring Network Printers
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

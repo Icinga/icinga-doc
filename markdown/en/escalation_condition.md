@@ -66,10 +66,7 @@ or the Service 'linux.SSH' is WARNING or CRITICAL.
 
 [Prev](escalations.md) | [Up](ch07.md) | [Next](oncallrotation.md)
 
-
-
-
-
+7.9. Notification Escalations  |<=== [Index](index.md) ===>|  7.11. On-Call Rotations
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

@@ -256,10 +256,7 @@ More information on the notification logic can be found
 
 [Prev](clusters.md) | [Up](ch07.md) | [Next](stalking.md)
 
-
-
-
-
+7.12. Monitoring Service and Host Clusters  |<=== [Index](index.md) ===>|  7.14. State Stalking
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

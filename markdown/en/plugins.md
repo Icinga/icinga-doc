@@ -162,6 +162,7 @@ present).
 Switch to the Icinga user as defined in `icinga.cfg` unless
 already done and clear the environment
 
+</code></pre> 
  #> env -i
 </code></pre>
 
@@ -198,11 +199,13 @@ Example of `/etc/sysconfig/icinga`
 After you logged in these variables are not set but doing so is pretty
 easy
 
+</code></pre> 
  $> . /etc/sysconfig/icinga
 </code></pre>
 
 Please verify the settings
 
+</code></pre> 
  $> echo $ORACLE_HOME
  $> echo $LD_LIBRARY_PATH
  $> echo $PATH
@@ -215,6 +218,7 @@ them using '`-h`' or '`--help`' on the command line. For
 example, if you want to know how the check\_http plugin works or what
 options it accepts, you should try executing the following command:
 
+</code></pre> 
  $> ./check_http --help
 </code></pre>
 
@@ -477,10 +481,7 @@ how to go about creating your own custom plugins
 
 [Prev](ch05.md) | [Up](ch05.md) | [Next](macros.md)
 
-
-
-
-
+Chapter 5. The Basics  |<=== [Index](index.md) ===>|  5.2. Understanding Macros and How They Work
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

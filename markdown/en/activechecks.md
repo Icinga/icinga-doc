@@ -66,10 +66,7 @@ in order to ensure Icinga has the most accurate status information.
 
 [Prev](servicechecks.md) | [Up](ch05.md) | [Next](passivechecks.md)
 
-
-
-
-
+5.5. Service Checks  |<=== [Index](index.md) ===>|  5.7. Passive Checks
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

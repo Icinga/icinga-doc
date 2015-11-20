@@ -64,6 +64,7 @@ Damit die TCP-Wrapper einen Alarm an den Überwachungs-Host senden,
 sobald ein Verbindungsversuch verweigert wird, müssen Sie eine Zeile
 hinzufügen, die der folgenden ähnlich ist.
 
+</code></pre> 
  ALL: ALL: RFC931: twist (/usr/local/icinga/libexec/eventhandlers/handle_tcp_wrapper %h %d) &
 </code></pre>
 
@@ -102,6 +103,7 @@ auf *firestorm* einen Verbindungsversuch verweigern, dann sollten Sie
 Alarme in Icinga erhalten. Die Plugin-Ausgabe für den Alarm könnte wie
 folgt aussehen:
 
+</code></pre> 
  Denied sshd2-sdn-ar-002mnminnP321.dialsprint.net
 </code></pre>
 

@@ -172,6 +172,7 @@ Wechseln Sie zum Icinga-Benutzer, der in `icinga.cfg`
 definiert ist, falls noch nicht geschehen, und bereinigen Sie die
 Umgebung
 
+</code></pre> 
  #> env -i
 </code></pre>
 
@@ -212,11 +213,13 @@ Beispiel für `/etc/sysconfig/icinga`
 Nachdem Sie sich angemeldet haben, sind diese Variablen noch nicht
 verfügbar, aber das ist ziemlich einfach
 
+</code></pre> 
  $> . /etc/sysconfig/icinga
 </code></pre>
 
 Bitte überprüfen Sie die Einstellungen
 
+</code></pre> 
  $> echo $ORACLE_HOME
  $> echo $LD_LIBRARY_PATH
  $> echo $PATH
@@ -230,6 +233,7 @@ werden. Wenn Sie z.B. wissen möchten, wie das Plugins check\_http
 arbeitet bzw. welche Optionen es akzeptiert, sollten Sie folgenden
 Befehl ausprobieren:
 
+</code></pre> 
  $> ./check_http --help
 </code></pre>
 

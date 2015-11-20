@@ -153,10 +153,7 @@ perform:
 
 [Prev](configmain.md) | [Up](ch03.md) | [Next](objectdefinitions.md)
 
-
-
-
-
+3.2. Main Configuration File Options  |<=== [Index](index.md) ===>|  3.4. Object Definitions
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

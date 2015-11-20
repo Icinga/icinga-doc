@@ -89,10 +89,7 @@ and more documentation can be found at
 
 [Prev](ch10.md) | [Up](ch10.md) | [Next](nrpe.md)
 
-
-
-
-
+Chapter 10. Additional software  |<=== [Index](index.md) ===>|  10.2. NRPE
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

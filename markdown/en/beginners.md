@@ -227,10 +227,7 @@ Status Map
 
 [Prev](ch02.md) | [Up](ch02.md) | [Next](newbie.md)
 
-
-
-
-
+Chapter 2. Getting Started  |<=== [Index](index.md) ===>|  2.2. I'm a newbie to ...
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

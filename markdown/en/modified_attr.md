@@ -56,10 +56,12 @@ commands to the command file.
 
 The above command will modify several attributes on "Host1":
 
+</code></pre> 
 </code></pre>
 
 **Excerpt from include/common.h**
 
+</code></pre> 
 /************************MODIFIED ATTRIBUTES *************************/
 </code></pre>
 
@@ -67,10 +69,7 @@ The above command will modify several attributes on "Host1":
 
 [Prev](cgiincludes.md) | [Up](ch07.md) | [Next](objectinheritance.md)
 
-
-
-
-
+7.24. Custom CGI Headers and Footers (Classic UI)  |<=== [Index](index.md) ===>|  7.26. Object Inheritance
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

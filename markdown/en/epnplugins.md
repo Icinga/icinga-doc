@@ -88,10 +88,7 @@ Perl interpreter.
 
 [Prev](pluginapi.md) | [Up](ch11.md) | [Next](icinga-api.md)
 
-
-
-
-
+11.1. Icinga Plugin API  |<=== [Index](index.md) ===>|  11.3. No Icinga API to install anymore
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

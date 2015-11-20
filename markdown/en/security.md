@@ -69,10 +69,7 @@ implementing a Icinga-based monitoring solution...
 
 [Prev](ch08.md) | [Up](ch08.md) | [Next](cgisecurity.md)
 
-
-
-
-
+Chapter 8. Security and Performance Tuning  |<=== [Index](index.md) ===>|  8.2. Enhanced Classic UI Security and Authentication
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

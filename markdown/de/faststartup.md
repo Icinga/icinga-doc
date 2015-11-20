@@ -64,6 +64,7 @@ Ein Beispiel für die Ausgabe (gekürzt, um nur relevante Teile zu zeigen)
 sehen Sie nachfolgend. In diesem Beispiel nutzen wir eine
 Icinga-Konfigurations mit 25 Host und etwas mehr als 10.000 Services.
 
+</code></pre> 
  #> /usr/local/icinga/bin/icinga -s /usr/local/icinga/etc/icinga.cfg
 Icinga 1.13
 Copyright (c) 1999-2007 Ethan Galstad (http://www.nagios.org/)
@@ -118,6 +119,7 @@ Sie müssen die **-p**-Kommandozeilenoption zusammen mit der **-v** oder
 stellt sicher, dass Ihre Konfiguration überprüft wird, bevor die
 precached-Datei erstellt wird.
 
+</code></pre> 
 </code></pre>
 
 Die precached-Konfigurationsdatei wird wahrscheinlich um einiges größer
@@ -130,6 +132,7 @@ Sobald die precached-Objektkonfigurationdatei erstellt wurde, können Sie
 Icinga starten und mit der **-u**-Kommandozeilenoption angeben, dass
 diese Datei statt Ihrer Konfigurationsdatei(en) benutzt werden soll.
 
+</code></pre> 
 </code></pre>
 
 ![](../images/important.gif) Wenn Sie Ihre Konfigurationsdateien ändern,
@@ -161,6 +164,7 @@ Icinga gemailt haben, ein wenig Code liefern könnten. :-)
 Wenn Sie die Prüfung auf zirkuläre Pfade überspringen möchten, wenn Sie
 Icinga starten, dann fügen Sie die **-x**-Option wie folgt hinzu:
 
+</code></pre> 
 </code></pre>
 
 ![](../images/important.gif) Es ist von äußerster Wichtigkeit, dass Sie
@@ -177,6 +181,7 @@ zirkuläre Pfade nutzen wollen.
 ​1. Überprüfen Sie Ihre Konfiguration und legen Sie die precache-Datei
 mit den folgenden Befehlen an:
 
+</code></pre> 
  #> /usr/local/icinga/bin/icinga -vp /usr/local/icinga/etc/icinga.cfg
 </code></pre>
 
@@ -185,6 +190,7 @@ mit den folgenden Befehlen an:
 ​3. Starten Sie Icinga wie folgt, um die precached-Konfigurationsdatei
 zu nutzen und auf Prüfung auf zirkuläre Pfade zu überspringen:
 
+</code></pre> 
  #> /usr/local/icinga/bin/icinga -uxd /usr/local/icinga/etc/icinga.cfg
 </code></pre>
 

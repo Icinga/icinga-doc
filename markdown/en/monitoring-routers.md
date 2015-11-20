@@ -102,6 +102,7 @@ the \*first\* switch you monitor.
 
 Edit the main Icinga config file.
 
+</code></pre> 
 #> vi /usr/local/icinga/etc/icinga.cfg
 </code></pre>
 
@@ -130,6 +131,7 @@ to monitor a new router/switch.
 
 Open the *switch.cfg* file for editing.
 
+</code></pre> 
 #> vi /usr/local/icinga/etc/objects/switch.cfg
 </code></pre>
 
@@ -201,10 +203,7 @@ Icinga until the verification process completes without any errors!
 
 [Prev](monitoring-printers.md) | [Up](ch02.md) | [Next](monitoring-publicservices.md)
 
-
-
-
-
+2.16. Monitoring Network Printers  |<=== [Index](index.md) ===>|  2.18. Monitoring Publicly Available Services
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

@@ -54,6 +54,7 @@ definitions that applies to it, the contact group(s) specified in either
 the host group or service definition will be used for the notification.
 Look at the example below:
 
+</code></pre> 
  define serviceescalation{
 
  define serviceescalation{
@@ -76,6 +77,7 @@ those with lower notification number ranges) should also be included in
 anyone who gets notified of a problem *continues* to get notified as the
 problem is escalated. Example:
 
+</code></pre> 
  define serviceescalation{
 
  define serviceescalation{
@@ -97,6 +99,7 @@ are also included in the "higher" escalation definition.
 Notification escalation definitions can have notification ranges that
 overlap. Take the following example:
 
+</code></pre> 
  define serviceescalation{
 
  define serviceescalation{
@@ -112,6 +115,7 @@ In the example above:
 Recovery notifications are slightly different than problem notifications
 when it comes to escalations. Take the following example:
 
+</code></pre> 
  define serviceescalation{
 
  define serviceescalation{
@@ -132,6 +136,7 @@ out for a particular host or service by using the
 *notification\_interval* option of the hostgroup or service escalation
 definition. Example:
 
+</code></pre> 
  define serviceescalation{
 
  define serviceescalation{
@@ -153,6 +158,7 @@ definitions overlap. In any case where there are multiple valid
 escalation definitions for a particular notification, Icinga will choose
 the smallest notification interval. Take the following example:
 
+</code></pre> 
  define serviceescalation{
 
  define serviceescalation{
@@ -169,6 +175,7 @@ the first valid notification during that escalation definition. All
 subsequent notifications for the hostgroup or service will be
 suppressed. Take this example:
 
+</code></pre> 
 define serviceescalation{
 
  define serviceescalation{
@@ -224,10 +231,7 @@ escalation can be used when the host or service is in any state.
 
 [Prev](flapping.md) | [Up](ch07.md) | [Next](escalation_condition.md)
 
-
-
-
-
+7.8. Detection and Handling of State Flapping  |<=== [Index](index.md) ===>|  7.10. Escalation Condition
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

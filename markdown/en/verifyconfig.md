@@ -12,6 +12,7 @@ files because in case of an error Icinga will not be (re)started.
 In order to verify your configuration, run Icinga using the **-v**
 command line option:
 
+</code></pre> 
  #> /usr/local/icinga/bin/icinga -v /usr/local/icinga/etc/icinga.cfg
 </code></pre>
 
@@ -36,6 +37,7 @@ not requirements.
 
 Instead of specifying the paths to binary and config file you can issue
 
+</code></pre> 
  #> /etc/init.d/icinga checkconfig
 </code></pre>
 
@@ -45,6 +47,7 @@ automatically.
 
 Using
 
+</code></pre> 
  #> /etc/init.d/icinga show-errors
 </code></pre>
 
@@ -59,10 +62,7 @@ Icinga”](startstop.md "4.2. Starting and Stopping Icinga").
 
 [Prev](ch04.md) | [Up](ch04.md) | [Next](startstop.md)
 
-
-
-
-
+Chapter 4. Running Icinga  |<=== [Index](index.md) ===>|  4.2. Starting and Stopping Icinga
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

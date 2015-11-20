@@ -69,6 +69,7 @@ Service namens *SOMESERVICE* auf den Hosts *HOST1* bis *HOSTN* erzeugen.
 Jede Instanz des *SOMESERVICE*-Service wäre identisch (d.h. hätte den
 gleichen Prüfbefehl, Benachrichtigungsperiode, usw.).
 
+</code></pre> 
  define service{
 </code></pre>
 
@@ -85,6 +86,7 @@ auf allen Hosts anlegen, die Mitglied von Hostgruppe *HOSTGROUP1* bis
 identisch (d.h. hätten den gleichen Prüfbefehl,
 Benachrichtigungsperiode, usw.).
 
+</code></pre> 
  define service{
 </code></pre>
 
@@ -98,6 +100,7 @@ erzeugen, die in Ihren Konfigurationsdateien definiert sind. Alle
 Instanzen des *SOMESERVICE*-Service wären identisch (d.h. hätten den
 gleichen Prüfbefehl, Benachrichtigungsperiode, usw.).
 
+</code></pre> 
  define service{
 </code></pre>
 
@@ -108,6 +111,7 @@ Hosts von dieser Definition ausnehmen möchten, kann dies durch das
 Voranstellen eines Ausrufezeichens (!) vor dem Host oder der Hostgruppe
 geschehen.
 
+</code></pre> 
  define service{
 </code></pre>
 
@@ -125,6 +129,7 @@ Service-Eskalation für Services namens *SOMESERVICE* auf den Hosts
 wären identisch (d.h. hätten den gleichen Prüfbefehl,
 Benachrichtigungsperiode, usw.).
 
+</code></pre> 
  define serviceescalation{
 </code></pre>
 
@@ -139,6 +144,7 @@ anlegen, die Mitglied von Hostgruppe *HOSTGROUP1* bis *HOSTGROUPN* sind.
 Alle Instanzen des *SOMESERVICE*-Service wären identisch (d.h. hätten
 den gleichen Prüfbefehl, Benachrichtigungsperiode, usw.).
 
+</code></pre> 
  define serviceescalation{
 </code></pre>
 
@@ -154,6 +160,7 @@ Konfigurationsdateien definiert sind. Alle Instanzen des
 *SOMESERVICE*-Service wären identisch (d.h. hätten den gleichen
 Prüfbefehl, Benachrichtigungsperiode, usw.).
 
+</code></pre> 
  define serviceescalation{
 </code></pre>
 
@@ -164,6 +171,7 @@ Hosts anlegen, aber einige Hosts von dieser Definition ausnehmen
 möchten, kann dies durch das Voranstellen eines Ausrufezeichens (!) vor
 dem Host oder der Hostgruppe geschehen.
 
+</code></pre> 
  define serviceescalation{
 </code></pre>
 
@@ -184,6 +192,7 @@ sowohl bei der *host\_name*- als auch bei der
 Service-Eskalation für **alle Services** anlegen, die Sie in Ihren
 Konfigurationsdateien definiert haben.
 
+</code></pre> 
  define serviceescalation{
 </code></pre>
 
@@ -199,6 +208,7 @@ Host *HOST1* erzeugen. Alle Instanzen der Service-Eskalation wären
 identisch (d.h. hätten die gleichen Kontaktgruppe,
 Benachrichtigungsintervall, usw.).
 
+</code></pre> 
  define serviceescalation{
 </code></pre>
 
@@ -214,6 +224,7 @@ Services anlegen, die Mitglied der Servicegruppen *SERVICEGROUP1* bis
 identisch (d.h. hätten die gleichen Kontaktgruppe,
 Benachrichtigungsintervall, usw.).
 
+</code></pre> 
  define serviceescalation{
 </code></pre>
 
@@ -232,6 +243,7 @@ Instanzen der Service-Abhängigkeiten wären identisch bis auf die
 Host-Namen (d.h. hätten die gleichen Fehlerbenachrichtigungs-Kriterien
 usw.).
 
+</code></pre> 
  define servicedependency{
 </code></pre>
 
@@ -250,6 +262,7 @@ Instanzen der Service-Abhängigkeiten wären identisch bis auf die
 Host-Namen (d.h. hätten die gleichen Fehlerbenachrichtigungs-Kriterien
 usw.).
 
+</code></pre> 
  define servicedependency{
 </code></pre>
 
@@ -264,6 +277,7 @@ Services** auf Host *HOST1*. Alle Instanzen der Service-Abhängigkeiten
 wären identisch (d.h. hätten die gleichen
 Fehlerbenachrichtigungs-Kriterien usw.).
 
+</code></pre> 
  define servicedependency{
 </code></pre>
 
@@ -274,6 +288,7 @@ Hosts erstellen möchten, können Sie mehr als eine Service-Beschreibung
 in den *service\_description*- und/oder
 *dependent\_service\_description*-Direktiven wie folgt angeben:
 
+</code></pre> 
  define servicedependency{
 </code></pre>
 
@@ -284,6 +299,7 @@ einer oder mehreren Servicegruppen zugeordnet sind, können Sie die
 *servicegroup\_name*- und/oder
 *dependent\_servicegroup\_name*-Direktiven wie folgt benutzen:
 
+</code></pre> 
  define servicedependency{
 </code></pre>
 
@@ -299,6 +315,7 @@ sind *SERVICE3* und *SERVICE4* auf *HOST1* abhängig von *SERVICE1* und
 *SERVICE2* auf *HOST1*. Ähnlich sind *SERVICE3* und *SERVICE4* auf
 *HOST2* abhängig von *SERVICE1* und *SERVICE2* auf *HOST2*.
 
+</code></pre> 
  define servicedependency{
 </code></pre>
 
@@ -314,6 +331,7 @@ ist: *SERVICE1*. In diesem Beispiel sind alle Service aus den
 Servicegruppen *SERVICEGROUP1* und *SERVICEGROUP2* abhängig von
 *SERVICE1*, der auf dem gleichen Host läuft wie der abhängige Service.
 
+</code></pre> 
 </code></pre>
 
 **Host-Eskalationsdefinitionen**
@@ -328,6 +346,7 @@ Host-Eskalation für die Hosts *HOST1* bis *HOSTN* anlegen. Alle
 Instanzen der Host-Eskalation wären identisch (d.h. hätten die gleichen
 Kontaktgruppen, Benachrichtigungsintervalle usw.).
 
+</code></pre> 
  define hostescalation{
 </code></pre>
 
@@ -341,6 +360,7 @@ Host-Eskalation für alle Hosts anlegen, die Mitglieder der Hostgruppen
 wären identisch (d.h. hätten die gleichen Kontaktgruppen,
 Benachrichtigungsintervalle usw.).
 
+</code></pre> 
  define hostescalation{
 </code></pre>
 
@@ -354,6 +374,7 @@ Ihren Konfigurationsdateien definiert sind. Alle Instanzen der
 Host-Eskalation wären identisch (d.h. hätten die gleichen
 Kontaktgruppen, Benachrichtigungsintervalle usw.).
 
+</code></pre> 
  define hostescalation{
 </code></pre>
 
@@ -364,6 +385,7 @@ Hostgruppen erstellen, aber einige Hosts von der Definition ausschließen
 möchten, kann dies durch das Voranstellen eines Ausrufezeichens (!) vor
 dem Host oder der Hostgruppe geschehen.
 
+</code></pre> 
  define hostescalation{
 </code></pre>
 
@@ -382,6 +404,7 @@ Alle Instanzen der Host-Abhängigkeiten wären identisch bis auf die
 Host-Namen (d.h. sie hätten die gleichen
 Fehlerbenachrichtigungs-Kriterien, usw.).
 
+</code></pre> 
  define hostdependency{
 </code></pre>
 
@@ -396,6 +419,7 @@ und *HOSTGROUP2*. Alle Instanzen der Host-Abhängigkeiten wären identisch
 bis auf die Host-Namen (d.h. sie hätten die gleichen
 Fehlerbenachrichtigungs-Kriterien, usw.).
 
+</code></pre> 
  define hostdependency{
 </code></pre>
 
@@ -409,6 +433,7 @@ Platzhalter in der *members*-Direktive benutzen. Die folgende Definition
 würde eine Hostgruppe namens *HOSTGROUP1* erstellen, die **alle Hosts**
 aus Ihren Konfigurationsdateien als Mitglieder enthält.
 
+</code></pre> 
  define hostgroup{
 </code></pre>
 

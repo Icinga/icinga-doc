@@ -166,10 +166,7 @@ Please avoid [crossposting](http://en.wikipedia.org/wiki/Crossposting)
 
 [Prev](beginners.md) | [Up](ch02.md) | [Next](quickstart.md)
 
-
-
-
-
+2.1. Advice for beginners  |<=== [Index](index.md) ===>|  2.3. Quickstart Installation Guides
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

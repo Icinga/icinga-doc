@@ -35,6 +35,7 @@ Icinga process, run the *icingastats* utility with the **-c** command
 line argument to specify your main configuration file location like
 such:
 
+</code></pre> 
 [icinga@monitoring ~]# /usr/local/icinga/bin/icingastats -c /usr/local/icinga/etc/icinga.cfg
 
 Icinga Stats 1.13
@@ -81,10 +82,7 @@ graphs for Icinga performance statistics can be found
 
 [Prev](largeinstalltweaks.md) | [Up](ch08.md) | [Next](perfgraphs.md)
 
-
-
-
-
+8.5. Large Installation Tweaks  |<=== [Index](index.md) ===>|  8.7. Graphing Performance Info With PNP4Nagios
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

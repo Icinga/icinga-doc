@@ -168,6 +168,7 @@ Service wird viermal geprüft, bevor angenommen wird, dass es ein
 richtiges Problem gibt). Eine gekürzte Service-Definition könnte wie
 folgt aussehen...
 
+</code></pre> 
  define service{
 </code></pre>
 
@@ -176,12 +177,14 @@ diesen Eventhandler als Befehlsfolge definieren. Eine Beispieldefinition
 für *restart-httpd* sehen Sie nachfolgend. Beachten Sie die Makros in
 sind wichtig!
 
+</code></pre> 
  define command{
 </code></pre>
 
 Lassen Sie uns nun das Eventhandler-Script schreiben (das ist das
 */usr/local/icinga/libexec/eventhandlers/restart-httpd*-Script).
 
+</code></pre> 
 #!/bin/sh
 #
 # Eventhandler-Script für den Restart des Web-Servers auf der lokalen Maschine

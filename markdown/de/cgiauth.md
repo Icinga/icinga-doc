@@ -62,6 +62,7 @@ den meisten Fällen sollte der Benutzername mit dem Kurznamen eines
 [Kontakts](objectdefinitions.md#objectdefinitions-contact)
 übereinstimmen, den Sie definiert haben.
 
+</code></pre> 
  htpasswd /usr/local/icinga/etc/htpasswd.users <username>
 </code></pre>
 

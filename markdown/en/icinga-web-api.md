@@ -224,10 +224,7 @@ This would return the same result as the GET request shown before.
 
 [Prev](icinga-api.md) | [Up](ch11.md) | [Next](ch12.md)
 
-
-
-
-
+11.3. No Icinga API to install anymore  |<=== [Index](index.md) ===>|  Chapter 12. IDOUtils
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

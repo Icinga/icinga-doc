@@ -109,6 +109,7 @@ Um die Services als einen Cluster zu überwachen, müssen Sie einen neuen
 Service-Cluster-Prüfbefehl konfigurieren. Lassen Sie uns annehmen, dass
 Sie einen Befehl namens *check\_service\_cluster* wie folgt definieren:
 
+</code></pre> 
  define command{
 </code></pre>
 
@@ -122,6 +123,7 @@ nicht-OK-Zustand ist. Wenn jedes der einzelnen Service-Mitglieder des
 Clusters OK sind, wird auch die Cluster-Prüfung einen OK-Status
 zurückliefern.
 
+</code></pre> 
  define service{
 </code></pre>
 
@@ -152,6 +154,7 @@ eingerichtet)...
 Wie auch immer, lassen Sie uns annehmen, dass Sie einen
 *check\_host\_cluster*-Befehl wie folgt definiert haben:
 
+</code></pre> 
  define command{
 </code></pre>
 
@@ -161,6 +164,7 @@ soll, wenn einer der Host im Cluster nicht UP ist bzw. einen
 CRITICAL-Alarm, wenn zwei oder mehr Hosts nicht UP sind, dann sollte der
 Service, um das Host-Cluster zu überwachen, ungefähr so aussehen:
 
+</code></pre> 
  define service{
 </code></pre>
 

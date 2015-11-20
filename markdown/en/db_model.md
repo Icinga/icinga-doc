@@ -8877,10 +8877,7 @@ String describing the timeperiod
 
 [Prev](db_example-configs.md) | [Up](ch12.md) | [Next](db_changes.md)
 
-
-
-
-
+12.4. Example Configurations  |<=== [Index](index.md) ===>|  12.6. Database changes/alterations
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

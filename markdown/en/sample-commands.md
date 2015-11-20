@@ -166,10 +166,7 @@ define command{
 
 [Prev](sample-httpd.md) | [Up](ch13.md) | [Next](sample-contacts.md)
 
-
-
-
-
+13.5. httpd.conf  |<=== [Index](index.md) ===>|  13.7. commands.cfg
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

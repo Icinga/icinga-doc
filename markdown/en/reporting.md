@@ -140,10 +140,7 @@ Verify that the reports are available and working.
 
 [Prev](int-mklivestatus.md) | [Up](ch09.md) | [Next](ch10.md)
 
-
-
-
-
+9.4. MKLiveStatus Integration  |<=== [Index](index.md) ===>|  Chapter 10. Additional software
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

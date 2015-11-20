@@ -231,10 +231,7 @@ and/or service definitions to do so.
 
 [Prev](redundancy.md) | [Up](ch07.md) | [Next](escalations.md)
 
-
-
-
-
+7.7. Redundant and Failover Network Monitoring  |<=== [Index](index.md) ===>|  7.9. Notification Escalations
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

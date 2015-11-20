@@ -110,10 +110,7 @@ define service{
 
 [Prev](sample-contacts.md) | [Up](ch13.md) | [Next](sample-notifications.md)
 
-
-
-
-
+13.7. commands.cfg  |<=== [Index](index.md) ===>|  13.9. notifications.cfg
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

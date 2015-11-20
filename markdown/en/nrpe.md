@@ -484,10 +484,7 @@ You might as well get help using one of the mailing lists or forums
 
 [Prev](addons.md) | [Up](ch10.md) | [Next](nsca.md)
 
-
-
-
-
+10.1. Icinga Addons  |<=== [Index](index.md) ===>|  10.3. NSCA
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

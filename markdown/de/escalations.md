@@ -53,6 +53,7 @@ auf sie zutrifft, dann wird die Benachrichtigung an die Kontaktgruppe(n)
 verschickt, die in der Hostgroup- oder Service-Definition angegeben
 wurde(n). Lassen Sie uns das untenstehende Beispiel betrachten:
 
+</code></pre> 
  define serviceescalation{
  define serviceescalation{
 </code></pre>
@@ -76,6 +77,7 @@ sollen. Das sollte passieren, um sicherzustellen, dass jeder, der über
 ein Problem informiert wird, *weiterhin* informiert wird, wenn ein
 Problem eskaliert. Beispiel:
 
+</code></pre> 
  define serviceescalation{
  define serviceescalation{
 </code></pre>
@@ -98,6 +100,7 @@ Benachrichtigungs-Eskalationsdefinitionen können
 Benachrichtigungs-Bereiche haben, die überlappen. Nehmen Sie das
 folgende Beispiel:
 
+</code></pre> 
  define serviceescalation{
  define serviceescalation{
 </code></pre>
@@ -113,6 +116,7 @@ Erholungsbenachrichtigungen unterscheiden sich geringfügig von
 Problembenachrichtigungen, wenn es um Eskalationen geht. Nehmen Sie das
 folgende Beispiel:
 
+</code></pre> 
  define serviceescalation{
  define serviceescalation{
 </code></pre>
@@ -132,6 +136,7 @@ einen bestimmten Host oder Service versandt werden, mit der
 *notification\_interval*-Option in der Hostgroup- oder
 Service-Eskalations-Definition ändern. Beispiel:
 
+</code></pre> 
  define serviceescalation{
  define serviceescalation{
 </code></pre>
@@ -154,6 +159,7 @@ jedem Fall, wenn es mehrere gültige Eskalationsdefinitionen für eine
 bestimmte Benachrichtigung gibt, wird Icinga das kleinste
 Benachrichtigungs-Intervall wählen. Nehmen Sie das folgende Beispiel:
 
+</code></pre> 
  define serviceescalation{
  define serviceescalation{
 </code></pre>
@@ -171,6 +177,7 @@ Eskalationsdefinition versendet. Alle folgenden Benachrichtigungen für
 die Hostgruppe oder den Service werden unterdrückt. Nehmen Sie dieses
 Beispiel:
 
+</code></pre> 
  define serviceescalation{
  define serviceescalation{
  define serviceescalation{

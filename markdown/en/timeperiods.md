@@ -139,10 +139,7 @@ definition.
 
 [Prev](statetypes.md) | [Up](ch05.md) | [Next](networkreachability.md)
 
-
-
-
-
+5.8. State Types  |<=== [Index](index.md) ===>|  5.10. Determining Status and Reachability of Network Hosts
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

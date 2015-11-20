@@ -47,10 +47,7 @@ define contactgroup{
 
 [Prev](sample-commands.md) | [Up](ch13.md) | [Next](sample-localhost.md)
 
-
-
-
-
+13.6. commands.cfg  |<=== [Index](index.md) ===>|  13.8.  localhost.cfg
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

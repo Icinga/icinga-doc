@@ -39,10 +39,7 @@ which are available for Icinga.
 
 [Prev](upgrading_idoutils.md) | [Up](ch02.md) | [Next](monitoring-windows.md)
 
-
-
-
-
+2.11. Upgrading IDOUtils Database  |<=== [Index](index.md) ===>|  2.13. Monitoring Windows Machines
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

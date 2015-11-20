@@ -85,6 +85,7 @@ folgendes tut...
 Nachfolgend, wie die Definition für den Service aussehen könnte (einige
 benötigte Optionen fehlen...)
 
+</code></pre> 
  define service{
 </code></pre>
 
@@ -98,6 +99,7 @@ herrscht, usw.). Das *no-backup-report*-Kommando wird nur ausgeführt,
 wenn die Ergebnisse des Service als abgestanden angesehen werden. Die
 Definition des *no-backup-report*-Kommandos könnte wie folgt aussehen...
 
+</code></pre> 
  define command{
 </code></pre>
 
@@ -112,6 +114,7 @@ ist) und wahrscheinlich wird jemand über das Problem informiert.
 
 Manchmal finden Sie vielleicht Meldungen wie die folgende in icinga.log:
 
+</code></pre> 
  Check results for service x on host y are stale by 0d 0h 0m 10s (threshold=0d 0h 10m 0s).
  Forcing an immediate check of the service...
 </code></pre>

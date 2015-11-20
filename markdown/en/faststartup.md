@@ -64,6 +64,7 @@ An example of the output (abbreviated to only show relevant portions) is
 shown below. For this example, we're using an Icinga config that has 25
 hosts defined and just over 10,000 services.
 
+</code></pre> 
  #> /usr/local/icinga/bin/icinga -s /usr/local/icinga/etc/icinga.cfg
 
 Icinga 1.13
@@ -122,6 +123,7 @@ You must use the **-p** command line option along with either the **-v**
 or **-s** command line options, as shown below. This ensures that your
 configuration is verified before the precached file is created.
 
+</code></pre> 
 </code></pre>
 
 The size of your precached config file will most likely be significantly
@@ -134,6 +136,7 @@ Once the precached object configuration file have been created, you can
 start Icinga and tell it to use the precached config file instead of
 your object config file(s) by using the **-u** command line option.
 
+</code></pre> 
 </code></pre>
 
 ![](../images/important.gif) If you modify your configuration files, you
@@ -165,6 +168,7 @@ code back. :-)
 If you want to skip the circular path check when Icinga starts, you can
 add the -x command line option like this:
 
+</code></pre> 
 </code></pre>
 
 ![](../images/important.gif) It is of utmost importance that you verify
@@ -180,6 +184,7 @@ pre-caching your configuration and skipping circular path checks.
 ​1. Verify your configuration and create the precache file with the
 following command:
 
+</code></pre> 
 </code></pre>
 
 ​2. Stop Icinga if it is currently running.
@@ -187,6 +192,7 @@ following command:
 ​3. Start Icinga like so to use the precached config file and skip
 circular path checks:
 
+</code></pre> 
 </code></pre>
 
 ​4. When you modify your original configuration files in the future and
@@ -204,10 +210,7 @@ configuration files.
 
 [Prev](tuning.md) | [Up](ch08.md) | [Next](largeinstalltweaks.md)
 
-
-
-
-
+8.3. Tuning Icinga For Maximum Performance  |<=== [Index](index.md) ===>|  8.5. Large Installation Tweaks
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

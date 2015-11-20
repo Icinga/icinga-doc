@@ -166,6 +166,7 @@ from `/etc/apache2/conf.d` to
 just move the file(s), enable the configuration(s) and reload the web
 server:
 
+</code></pre> 
 #> mv /etc/apache2/conf.d/icinga*.conf /etc/apache2/conf-available
 #> a2enconf icinga icinga-web
 #> service apache2 reload
@@ -181,6 +182,7 @@ Icinga Web.
 
 You have to enable the CGI module as well
 
+</code></pre> 
 #> a2emod cgi
 </code></pre>
 
@@ -196,11 +198,13 @@ If you are upgrading from Nagios 3.0.x you might need to install PHP:
 
 *Debian / Ubuntu*
 
+</code></pre> 
  #> apt-get install php5 libapache2-mod-php5
 </code></pre>
 
 *Fedora / RedHat*
 
+</code></pre> 
  #> yum install php mod_php
 </code></pre>
 
@@ -229,34 +233,40 @@ note that
 Become the icinga user. Debian/Ubuntu users might use
 `sudo -s icinga`.
 
+</code></pre> 
  $ su -l nagios
 </code></pre>
 
 Get the latest Icinga version from
 [https://www.icinga.org/](http://www.icinga.org/download/)
 
+</code></pre> 
  #> wget https://github.com/Icinga/icinga-core/releases/download/v1.13/icinga-1.13.tar.gz
 </code></pre>
 
 Extract the tarball and change to the directory just created
 
+</code></pre> 
  #> tar xzf icinga-1.13.tar.gz
 </code></pre>
 
 Start the Icinga-configure-script with the options you used the last
 time with Nagios. You'll find the call in the file config.log. Example:
 
+</code></pre> 
  #> ./configure --with-command-group=nagcmd
 </code></pre>
 
 Compile the Icinga source code.
 
+</code></pre> 
  #> make all
 </code></pre>
 
 Install the programs, documentation, classic web interface and the init
 script. Your existing config files will not be overwritten.
 
+</code></pre> 
  #> make install
  #> make install-cgis
  #> make install-init
@@ -264,6 +274,7 @@ script. Your existing config files will not be overwritten.
 
 or simply
 
+</code></pre> 
  #> make fullinstall
 </code></pre>
 
@@ -296,6 +307,7 @@ location. If you are unsure about the path then please have a look at
 Verify your configuration files, correct errors (if any) and start
 Icinga.
 
+</code></pre> 
  #> /usr/local/icinga/bin/icinga -v /usr/local/icinga/etc/icinga.cfg
  #> /etc/init.d/icinga start
 </code></pre>
@@ -354,10 +366,7 @@ so you can revert back if you encounter problems.
 
 [Prev](howtos.md) | [Up](ch02.md) | [Next](upgrading_idoutils.md)
 
-
-
-
-
+2.9. Links to other published Howtos  |<=== [Index](index.md) ===>|  2.11. Upgrading IDOUtils Database
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

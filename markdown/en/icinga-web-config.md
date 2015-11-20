@@ -304,10 +304,7 @@ Wiki.](https://dev.icinga.org/projects/icinga-development/wiki/)
 
 [Prev](upgrading_icingaweb.md) | [Up](ch06.md) | [Next](icinga-web-introduction.md)
 
-
-
-
-
+6.6. Upgrading Icinga Web and Icinga Web Database  |<=== [Index](index.md) ===>|  6.8. Introduction to Icinga Web
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

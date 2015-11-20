@@ -383,10 +383,7 @@ monitoring](distributed.md "7.6. Distributed Monitoring")" as well.
 
 [Prev](nrpe.md) | [Up](ch10.md) | [Next](ch11.md)
 
-
-
-
-
+10.2. NRPE  |<=== [Index](index.md) ===>|  Chapter 11. Development
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

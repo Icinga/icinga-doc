@@ -71,10 +71,7 @@ Please have a look at the section "CHANGES" in the
 
 [Prev](upgrading.md) | [Up](ch02.md) | [Next](monitoring-overview.md)
 
-
-
-
-
+2.10. Upgrading (to) Icinga  |<=== [Index](index.md)    ===>|  2.12. Monitoring Overview
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

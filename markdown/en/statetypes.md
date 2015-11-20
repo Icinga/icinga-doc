@@ -254,10 +254,7 @@ Service stabilizes in an OK state.
 
 [Prev](passivechecks.md) | [Up](ch05.md) | [Next](timeperiods.md)
 
-
-
-
-
+5.7. Passive Checks  |<=== [Index](index.md) ===>|  5.9. Time Periods
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

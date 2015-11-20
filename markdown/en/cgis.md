@@ -436,10 +436,7 @@ version of Icinga.
 
 [Prev](ch06.md) | [Up](ch06.md) | [Next](cgiauth.md)
 
-
-
-
-
+Chapter 6. User Interfaces  |<=== [Index](index.md) ===>|  6.2. Authentication And Authorization In The Classic UI
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

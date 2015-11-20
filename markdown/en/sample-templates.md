@@ -80,10 +80,7 @@ define service{
 
 [Prev](sample-switch.md) | [Up](ch13.md) | [Next](sample-timeperiods.md)
 
-
-
-
-
+13.11. switch.cfg  |<=== [Index](index.md) ===>|  13.13. timeperiods.cfg
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

@@ -151,10 +151,7 @@ standard host, service, or contact variables.
 
 [Prev](objectdefinitions.md) | [Up](ch03.md) | [Next](configcgi.md)
 
-
-
-
-
+3.4. Object Definitions  |<=== [Index](index.md) ===>|  3.6. CGI Configuration File Options
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

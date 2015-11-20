@@ -55,6 +55,7 @@ Let's try an example. Assuming we are using a host definition and a
 the expanded/final command line to be executed for the host's check
 command would look like this:
 
+</code></pre> 
 $> /usr/local/icinga/libexec/check_ping -H 192.168.1.2 -w 100.0,25% -c 200.0,50%
 </code></pre>
 
@@ -88,6 +89,7 @@ earlier and a *check\_ping* command defined like this:
 the expanded/final command line to be executed for the service's check
 command would look like this:
 
+</code></pre> 
 $> /usr/local/icinga/libexec/check_ping -H 192.168.1.2 -w 200.0,25% -c 400.0,50%
 </code></pre>
 
@@ -157,11 +159,13 @@ be used.
 
 Examples of on-demand host and service macros follow:
 
+</code></pre> 
 </code></pre>
 
 On-demand macros are also available for hostgroup, servicegroup,
 contact, and contactgroup macros. For example:
 
+</code></pre> 
 </code></pre>
 
 ### 5.2.6. On-Demand Group Macros
@@ -183,11 +187,13 @@ you specify is used to separate macro values for each group member.
 For example, the following macro will return a comma-separated list of
 host state ids for hosts that are members of the *hg1* hostgroup:
 
+</code></pre> 
  $HOSTSTATEID:hg1:,$
 </code></pre>
 
 This macro definition will return something that looks like this:
 
+</code></pre> 
  0,2,1,1,0,0,2
 </code></pre>
 
@@ -258,10 +264,7 @@ chart of when they can be used, can be found
 
 [Prev](plugins.md) | [Up](ch05.md) | [Next](macrolist.md)
 
-
-
-
-
+5.1. Icinga Plugins  |<=== [Index](index.md) ===>|  5.3. Standard Macros in Icinga
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

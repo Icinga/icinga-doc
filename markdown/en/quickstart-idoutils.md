@@ -243,15 +243,18 @@ package manager to get the new name:
 
 Become the root user.
 
+</code></pre> 
  $> su -l
 </code></pre>
 
 Create a new *Icinga* user account and give it a password.
 
+</code></pre> 
 </code></pre>
 
 On some distributions you'll need to add the group in a single step:
 
+</code></pre> 
  #> /usr/sbin/groupadd icinga
 </code></pre>
 
@@ -259,6 +262,7 @@ For sending commands from the classic web interface to Icinga, you'll
 need to create a new group icinga-cmd. Add the webuser and the
 Icingauser to this group:
 
+</code></pre> 
  #> /usr/sbin/groupadd icinga-cmd
  #> /usr/sbin/usermod -a -G icinga-cmd icinga
  #> /usr/sbin/usermod -a -G icinga-cmd www-data
@@ -284,6 +288,7 @@ icingcmd instead of icinga-cmd.
 
 Change to your local source directory i.e. /usr/src
 
+</code></pre> 
  #> cd /usr/src
 </code></pre>
 
@@ -295,6 +300,7 @@ Website](http://www.icinga.org/). Don't forget to download the
 
 Extract the Icinga source code tarball
 
+</code></pre> 
  #> cd icinga-1.13
 </code></pre>
 
@@ -315,6 +321,7 @@ Note
 Starting with Icinga 1.9 the default has changed so the IDOUtils will be
 compiled automatically unless disabled explicitly.
 
+</code></pre> 
  #> ./configure --with-command-group=icinga-cmd
 </code></pre>
 
@@ -328,6 +335,7 @@ Starting with Apache 2.4 the web configuration folder changed from
 distribution (testing versions of Debian / Ubuntu ) you might have to
 add this option to the call of configure
 
+</code></pre> 
 #> ./configure --with-httpd-conf=/etc/apache2/conf-available
 </code></pre>
 
@@ -341,6 +349,7 @@ Important
 Compiling on Solaris might fail upon unresolved library dependencies on
 gethostbyname. In that case run this before running configure:
 
+</code></pre> 
  #> export LIBS=-lsocket -lnsl
 </code></pre>
 
@@ -362,12 +371,14 @@ Compile the Icinga source code. There is also an extra option for
 IDOUtils (*make idoutils*) if you need to recompile only this module. To
 see available options, only use "make".
 
+</code></pre> 
  #> make all
 </code></pre>
 
 Install binaries, init script, sample config files, some eventhandlers,
 and set permissions on the external command directory.
 
+</code></pre> 
  #> make install
  #> make install-init
  #> make install-config
@@ -377,6 +388,7 @@ and set permissions on the external command directory.
 
 or shorter
 
+</code></pre> 
  #> make fullinstall
  #> make install-config
 </code></pre>
@@ -419,9 +431,11 @@ your favourite editor and change the email address associated with the
 *icingaadmin* contact definition to the address you'd like to use for
 receiving alerts.
 
+</code></pre> 
  #> vi /usr/local/icinga/etc/objects/contacts.cfg
 </code></pre>
 
+</code></pre> 
  #> cd /usr/local/icinga/etc/
  #> mv idomod.cfg-sample idomod.cfg
  #> mv ido2db.cfg-sample ido2db.cfg
@@ -515,6 +529,7 @@ might use `/etc/init.d/mysqld start` (or
 Icinga ships with the classic web interface ("the CGIs") which can be
 installed via
 
+</code></pre> 
  #> make cgis
  #> make install-cgis
  #> make install-html
@@ -527,6 +542,7 @@ Interface](icinga-web-scratch.md "6.5. Installation of the Icinga Web Frontend"
 Install the Icinga classic web config file in the Apache conf.d
 directory.
 
+</code></pre> 
  #> make install-webconf
 </code></pre>
 
@@ -546,18 +562,21 @@ Note
 Starting with Apache 2.4 (testing versions of Debian / Ubuntu) you have
 to enable the configuration
 
+</code></pre> 
 #> a2enconf icinga
 </code></pre>
 
 Create an *icingaadmin* account for logging into the Icinga classic web
 need it later.
 
+</code></pre> 
  #> htpasswd -c /usr/local/icinga/etc/htpasswd.users icingaadmin
 </code></pre>
 
 To change the password of an existing user or to add a new user, take
 this command:
 
+</code></pre> 
  #> htpasswd /usr/local/icinga/etc/htpasswd.users <USERNAME>
 </code></pre>
 
@@ -580,11 +599,13 @@ Reload/Restart Apache to make the new settings take effect.
 
 Extract the plugins source code tarball.
 
+</code></pre> 
 </code></pre>
 
 Compile and install the plugins by changing install directory to
 `/usr/local/icinga`
 
+</code></pre> 
  #> ./configure --prefix=/usr/local/icinga \
 </code></pre>
 
@@ -597,11 +618,13 @@ the Icinga-CGIs.
 
 Check if SELinux runs in enforcing mode
 
+</code></pre> 
  #> getenforce
 </code></pre>
 
 Set SELinux in "permissive" mode
 
+</code></pre> 
  #> setenforce 0
 </code></pre>
 
@@ -649,6 +672,7 @@ IDOUtils must be started and running *before* Icinga is started.
 
 Verify the sample Icinga configuration files.
 
+</code></pre> 
 </code></pre>
 
 If there are no errors, start Icinga.
@@ -673,11 +697,13 @@ You should now be able to access the Icinga classic web interface at the
 URL below. You'll be prompted for the username ( *icingaadmin* ) and
 password you specified earlier.
 
+</code></pre> 
  http://localhost/icinga/
 </code></pre>
 
 or
 
+</code></pre> 
 </code></pre>
 
 Click on the "Service Detail" navbar link to see details of what's being
@@ -690,6 +716,7 @@ Make sure your system's firewall rules are configured to allow access to
 the web server if you want to access the Icinga classic interface
 remotely.
 
+</code></pre> 
  #> iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
 </code></pre>
 
@@ -710,10 +737,7 @@ Started"](ch02.md "Chapter 2. Getting Started") about "Monitoring ..."
 
 [Prev](quickstart-icinga-freebsd.md) | [Up](ch02.md) | [Next](quickstart-idoutils-freebsd.md)
 
-
-
-
-
+2.5. Icinga Quickstart FreeBSD  |<=== [Index](index.md) ===>|  2.7. Icinga and IDOUtils Quickstart on FreeBSD
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

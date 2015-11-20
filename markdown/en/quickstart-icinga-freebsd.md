@@ -355,10 +355,7 @@ Started"](ch02.md "Chapter 2. Getting Started") about "Monitoring ..."
 
 [Prev](quickstart-icinga.md) | [Up](ch02.md) | [Next](quickstart-idoutils.md)
 
-
-
-
-
+2.4. Icinga Quickstart  |<=== [Index](index.md) ===>|  2.6. Icinga with IDOUtils Quickstart
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

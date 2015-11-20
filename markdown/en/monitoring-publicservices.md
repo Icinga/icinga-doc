@@ -201,10 +201,7 @@ Icinga until the verification process completes without any errors!
 
 [Prev](monitoring-routers.md) | [Up](ch02.md) | [Next](ch03.md)
 
-
-
-
-
+2.17. Monitoring Routers and Switches  |<=== [Index](index.md) ===>|  Chapter 3. Configuring Icinga
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

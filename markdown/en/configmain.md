@@ -3146,10 +3146,7 @@ These options are available starting with Icinga 1.8
 
 [Prev](config.md) | [Up](ch03.md) | [Next](configobject.md)
 
-
-
-
-
+3.1. Configuration Overview  |<=== [Index](index.md) ===>|  3.3. Object Configuration Overview
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

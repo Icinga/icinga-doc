@@ -57,10 +57,12 @@ Befehle an das Command-File übergeben werden.
 
 Das o.g. Kommando wird verschiedene Attribute von "Host1" ändern:
 
+</code></pre> 
 </code></pre>
 
 **Auszug aus include/common.h**
 
+</code></pre> 
 /************************MODIFIED ATTRIBUTES *************************/
 </code></pre>
 

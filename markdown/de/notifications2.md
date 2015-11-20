@@ -78,6 +78,7 @@ verwenden. Bei den anderen (notwendigen) nehmen wir an, dass sie mit
 Hilfe eines Templates definiert wurden. Wir zeigen Ihnen auch, worauf
 Sie achten sollten:
 
+</code></pre> 
  define service {
 
  define service {

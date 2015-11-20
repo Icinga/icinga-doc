@@ -139,6 +139,7 @@ Beginnend mit Apache 2.4 hat sich der Standard-Konfigurationsordner von
 wollen, dann verschieben Sie einfach die Datei(en), aktivieren die
 Konfiguration(en) und starten den Web-Server neu
 
+</code></pre> 
 #> mv /etc/apache2/conf.d/icinga*.conf /etc/apache2/conf-available
 #> a2enconf icinga icinga-web
 #> service apache2 reload
@@ -154,6 +155,7 @@ haben.
 
 Außerdem ist das CGI-Modul zu aktivieren
 
+</code></pre> 
 #> a2enmod cgi
 </code></pre>
 

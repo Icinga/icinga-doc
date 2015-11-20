@@ -63,10 +63,7 @@ Note
 
 [Prev](embeddedperl.md) | [Up](ch07.md) | [Next](dependencychecks.md)
 
-
-
-
-
+7.18. Using The Embedded Perl Interpreter  |<=== [Index](index.md) ===>|  7.20. Predictive Dependency Checks
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

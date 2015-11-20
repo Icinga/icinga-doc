@@ -96,6 +96,7 @@ command file.
 
 The format of the command is as follows:
 
+</code></pre> 
  [<timestamp>] PROCESS_SERVICE_CHECK_RESULT;<host_name>;<svc_description>;<return_code>;<plugin_output>
 </code></pre>
 
@@ -130,6 +131,7 @@ command file.
 
 The format of the command is as follows:
 
+</code></pre> 
  [<timestamp>] PROCESS_HOST_CHECK_RESULT;<host_name>;<host_status>;<plugin_output>
 </code></pre>
 
@@ -198,10 +200,7 @@ More information on the NSCA addon can be found
 
 [Prev](activechecks.md) | [Up](ch05.md) | [Next](statetypes.md)
 
-
-
-
-
+5.6. Active Checks  |<=== [Index](index.md) ===>|  5.8. State Types
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

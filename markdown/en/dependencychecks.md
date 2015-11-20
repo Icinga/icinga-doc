@@ -90,10 +90,7 @@ found [here](cachedchecks.md "7.21. Cached Checks").
 
 [Prev](adaptive.md) | [Up](ch07.md) | [Next](cachedchecks.md)
 
-
-
-
-
+7.19. Adaptive Monitoring  |<=== [Index](index.md) ===>|  7.21. Cached Checks
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

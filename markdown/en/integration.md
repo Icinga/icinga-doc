@@ -53,10 +53,7 @@ with external applications:
 
 [Prev](ch09.md) | [Up](ch09.md) | [Next](int-snmptrap.md)
 
-
-
-
-
+Chapter 9. Integration With Other Software  |<=== [Index](index.md) ===>|  9.2. SNMP Trap Integration
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

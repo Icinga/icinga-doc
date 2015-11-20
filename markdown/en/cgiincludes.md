@@ -58,10 +58,7 @@ and a global footer if you wish. Whatever you want. Really.
 
 [Prev](checkscheduling.md) | [Up](ch07.md) | [Next](modified_attr.md)
 
-
-
-
-
+7.23. Service and Host Check Scheduling  |<=== [Index](index.md) ===>|  7.25. Modified attributes
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

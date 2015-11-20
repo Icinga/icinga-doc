@@ -55,6 +55,7 @@ External commands that are written to the [command
 file](configmain.md#configmain-command_file) have the following
 format...
 
+</code></pre> 
 </code></pre>
 
 ...where *time* is the time (in *time\_t* format) that the external
@@ -73,10 +74,7 @@ development section.
 
 [Prev](ch07.md) | [Up](ch07.md) | [Next](extcommands2.md)
 
-
-
-
-
+Chapter 7. Advanced Topics  |<=== [Index](index.md) ===>|  7.2. List of External Commands
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

@@ -58,6 +58,7 @@ folgt definiert sind:
 die erweiterte/endgültige auszuführende Befehlszeile für die
 Host-Prüfung würde so aussehen:
 
+</code></pre> 
 $> /usr/local/icinga/libexec/check_ping -H 192.168.1.2 -w 100.0,25% -c 200.0,50%
 </code></pre>
 
@@ -93,6 +94,7 @@ angegebene Host-Definiton und einen wie folgt definierten
 die erweiterte/endgültige auszuführende Befehlszeile für die
 Service-Prüfung würde so aussehen:
 
+</code></pre> 
 $> /usr/local/icinga/libexec/check_ping -H 192.168.1.2 -w 200.0,25% -c 400.0,50%
 </code></pre>
 
@@ -163,11 +165,13 @@ Name des Hosts benutzt, der mit dem Service verbunden ist.
 
 Beispiele für On-Demand-Host- und Service-Makros folgen:
 
+</code></pre> 
 </code></pre>
 
 On-Demand-Makros gibt es auch für hostgroup-, servicegroup-, contact-
 und contactgroup-Makros. Zum Beispiel:
 
+</code></pre> 
 </code></pre>
 
 ### 5.2.6. On-Demand-Gruppen-Makros
@@ -190,11 +194,13 @@ der einzelnen Gruppenmitglieder von einander zu trennen.
 Das folgende Makro wird beispielsweise eine komma-separierte Liste von
 Host-Status-IDs zurückliefern, die Mitglieder der *hg1*-Hostgruppe sind:
 
+</code></pre> 
  $HOSTSTATEID:hg1:,$
 </code></pre>
 
 Diese Makrodefinition wird etwas zurückliefern, was etwa so aussieht:
 
+</code></pre> 
  0,2,1,1,0,0,2
 </code></pre>
 

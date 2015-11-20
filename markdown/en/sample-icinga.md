@@ -1282,10 +1282,7 @@ max_debug_file_size=100000000
 
 [Prev](sample-config.md) | [Up](ch13.md) | [Next](sample-cgi.md)
 
-
-
-
-
+13.1. Sample configuration files and definitions  |<=== [Index](index.md) ===>|  13.3. cgi.cfg
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

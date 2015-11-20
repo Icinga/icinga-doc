@@ -36,6 +36,7 @@ Icinga-Prozesses zu erhalten, starten Sie das *icingastats*-Utility mit
 dem **-c**-Kommandozeilenargument, um die Position Ihrer
 Hauptkonfigurationsdatei wie folgt anzugeben:
 
+</code></pre> 
 [icinga@monitoring ~]# /usr/local/icinga/bin/icingastats -c /usr/local/icinga/etc/nagios.cfg
 Icinga Stats 1.13
 Copyright (c) 2009 Nagios Core Development Team and Community Contributors

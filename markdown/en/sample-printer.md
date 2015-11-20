@@ -69,10 +69,7 @@ define service{
 
 [Prev](sample-notifications.md) | [Up](ch13.md) | [Next](sample-switch.md)
 
-
-
-
-
+13.9. notifications.cfg  |<=== [Index](index.md) ===>|  13.11. switch.cfg
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

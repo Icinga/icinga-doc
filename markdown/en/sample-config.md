@@ -32,10 +32,7 @@ so they are located here for reference.
 
 [Prev](ch13.md) | [Up](ch13.md) | [Next](sample-icinga.md)
 
-
-
-
-
+Chapter 13. Icinga Samples  |<=== [Index](index.md) ===>|  13.2. icinga.cfg
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

@@ -4580,10 +4580,7 @@ option is enabled, as they are quite CPU-intensive to calculate.
 
 [Prev](macros.md) | [Up](ch05.md) | [Next](hostchecks.md)
 
-
-
-
-
+5.2. Understanding Macros and How They Work  |<=== [Index](index.md) ===>|  5.4. Host Checks
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

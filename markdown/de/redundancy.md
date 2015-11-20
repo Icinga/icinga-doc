@@ -139,6 +139,7 @@ Wir müssen kurz innehalten und beschreiben, wie die Befehlsdefinitionen
 für die Eventhandler auf dem Slave-Host aussehen. Hier ist ein
 Beispiel...
 
+</code></pre> 
  define command{
  }
  define command{
@@ -157,6 +158,7 @@ Eventhandler-Scripte aussehen...
 
 Host-Eventhandler (handle-master-host-event):
 
+</code></pre> 
  #!/bin/sh
  # Only take action on hard host states...
  case "$2" in
@@ -167,6 +169,7 @@ Host-Eventhandler (handle-master-host-event):
 
 Service-Eventhandler (handle-master-proc-event):
 
+</code></pre> 
  #!/bin/sh
  # Only take action on hard service states...
  case "$2" in

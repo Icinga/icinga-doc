@@ -262,6 +262,7 @@ Sie sollten `CFLAGS=..."` wie oben angegeben benutzen.
 Anderenfalls finden Sie ggf. später folgende Zeilen in
 `icinga.log`:
 
+</code></pre> 
  Error: Module ‘/usr/local/icinga/lib/idomod.so’ is using an old or unspecified version of the event broker API. Module will
  be unloaded.
  Event broker module ‘/usr/local/icinga/lib/idomod.so’ deinitialized successfully.
@@ -413,6 +414,7 @@ müssen Sie den Datenbank-Server-Prozess starten, bevor Sie eine
 Datenbank anlegen können. Im Falle von MySQL benutzen Sie
 `/usr/local/etc/rc.d/mysql-server start`.
 
+</code></pre> 
  # mysql -u root -p
 
  mysql> CREATE DATABASE icinga;

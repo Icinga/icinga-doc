@@ -38,6 +38,7 @@ Umgebungsvariablen setzen:
 Wenn Sie vergessen, die Umgebungsvariablen zu setzen, dann bekommen Sie
 beim Aufruf die folgenden Zeilen:
 
+</code></pre> 
  $> ./status.cgi
  getcgivars(): Unsupported REQUEST_METHOD -> ''
 
@@ -65,12 +66,14 @@ nichts anderes angegeben ist, gilt `REQUEST_METHOD='GET'`.
 
 Taktischer Überblick
 
+</code></pre> 
  $> set QUERY_STRING='jsonoutput'
  $> ./tac.cgi
 </code></pre>
 
 Alle Hosts im Zustand DOWN
 
+</code></pre> 
  $> set QUERY_STRING='jsonoutput&style=hostdetail&hoststatustypes=4'
  $> ./status.cgi
 </code></pre>
@@ -78,36 +81,42 @@ Alle Hosts im Zustand DOWN
 Alle Hosts im Zustand DOWN, die "unacknowledged" *und* nicht in einer
 Downtime sind
 
+</code></pre> 
  $> set QUERY_STRING='jsonoutput&style=hostdetail&hoststatustypes=4&hostprops=10'
  $> ./status.cgi
 </code></pre>
 
 Alle Services in einem nicht-OK-Zustand
 
+</code></pre> 
  $> set QUERY_STRING='jsonoutput&style=detail&servicestatustypes=28'
  $> ./status.cgi
 </code></pre>
 
 Alle passiven Services im Zustand CRITICAL
 
+</code></pre> 
  $> set QUERY_STRING='jsonoutput&style=detail&servicestatustypes=28&serviceprops=65536'
  $> ./status.cgi
 </code></pre>
 
 Kommentare für alle Objekte
 
+</code></pre> 
  $> set QUERY_STRING='jsonoutput&type=3'
  $> ./extinfo.cgi
 </code></pre>
 
 Trends für router\_02, Zeitangaben durch Unix-Timestamps
 
+</code></pre> 
  $> set QUERY_STRING='jsonoutput&host=router_02&timeperiod=custom&t1=130748400&t2=1307570400'
  $> ./extinfo.cgi
 </code></pre>
 
 Trends für router\_02, Zeitangaben durch Datum und Uhrzeit
 
+</code></pre> 
  $> set QUERY_STRING='jsonoutput&host=router_02&timeperiod=custom\
  &sday=6&smon=6&syear=2011&shour=0&smin=0&ssec=0\
  &eday=7&emon=6&eyear=2011&ehour=0&emin=0&esec=0'

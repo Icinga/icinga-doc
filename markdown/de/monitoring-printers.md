@@ -111,6 +111,7 @@ müssen, den Sie überwachen wollen.
 
 Editieren Sie die Hauptkonfigurationsdatei.
 
+</code></pre> 
  vi /usr/local/icinga/etc/icinga.cfg
 </code></pre>
 
@@ -139,6 +140,7 @@ neuen Drucker zu überwachen.
 
 Öffnen Sie die *printer.cfg*-Datei.
 
+</code></pre> 
  vi /usr/local/icinga/etc/objects/printer.cfg
 </code></pre>
 

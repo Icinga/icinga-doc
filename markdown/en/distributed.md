@@ -341,10 +341,7 @@ hosts (similiar to what is described above for services).
 
 [Prev](freshness.md) | [Up](ch07.md) | [Next](redundancy.md)
 
-
-
-
-
+7.5. Service and Host Freshness Checks  |<=== [Index](index.md) ===>|  7.7. Redundant and Failover Network Monitoring
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

@@ -336,6 +336,7 @@ Beginnend mit Apache 2.4 hat sich der Standard-Konfigurationsordner von
 von Ihrer Distribution (testing-Versionen von Debian / Ubuntu) dem
 Aufruf von configure diese Option hinzufügen müssen
 
+</code></pre> 
 #> ./configure --with-httpd-conf=/etc/apache2/conf-available
 </code></pre>
 
@@ -488,6 +489,7 @@ Unter normalen Umständen gibt es im
 module-Definition, so dass Sie keine Änderungen an der
 Hauptkonfigurationsdatei vornehmen müssen.
 
+</code></pre> 
  define module{
 </code></pre>
 
@@ -583,12 +585,14 @@ Anmerkung
 Beginnend mit Apache 2.4 (testing-Versionen von Debian / Ubuntu) müssen
 Sie die Konfiguration aktivieren
 
+</code></pre> 
 #> a2enconf icinga
 </code></pre>
 
 Legen Sie ein *icingaadmin*-Konto an, um sich am klassischen
 Web-Interface anmelden zu können. Merken Sie sich das Passwort, das Sie
 
+</code></pre> 
  #> htpasswd -c /usr/local/icinga/etc/htpasswd.users icingaadmin
 </code></pre>
 
@@ -627,6 +631,7 @@ Web-Authentifizierungsinformationen nicht kompromittiert werden.
 
 Entpacken Sie die Plugins-Quellcode-Archivdatei.
 
+</code></pre> 
  #> cd /usr/src
  #> tar xzf nagios-plugins-2.1.tar.gz
  #> cd nagios-plugins-2.1
@@ -634,6 +639,7 @@ Entpacken Sie die Plugins-Quellcode-Archivdatei.
 
 Kompilieren und installieren Sie die Plugins.
 
+</code></pre> 
  #> ./configure --prefix=/usr/local/icinga --with-cgiurl=/icinga/cgi-bin \
  #> make
  #> make install
@@ -648,11 +654,13 @@ führen, wenn Sie versuchen, die Icinga-CGIs aufzurufen.
 
 Schauen Sie, ob SELinux im Enforcing-Modus läuft.
 
+</code></pre> 
  #> getenforce
 </code></pre>
 
 Setzen Sie SELinux in den "Permissive"-Modus.
 
+</code></pre> 
  #> setenforce 0
 </code></pre>
 
@@ -766,6 +774,7 @@ Sie sollten nun auf das klassische Icinga-Web-Interface zugreifen
 können. Sie werden nach dem Benutzernamen (*icingaadmin*) und Passwort
 gefragt, das Sie vorhin angegeben haben.
 
+</code></pre> 
  http://localhost/icinga/
 </code></pre>
 

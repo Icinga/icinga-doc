@@ -104,6 +104,7 @@ Sie überwachen wollen.
 
 Editieren Sie die Hauptkonfigurationsdatei.
 
+</code></pre> 
 #> vi /usr/local/icinga/etc/icinga.cfg
 </code></pre>
 
@@ -133,6 +134,7 @@ neuen Router/Switch zu überwachen.
 
 Öffnen Sie die *switch.cfg*-Datei.
 
+</code></pre> 
 #> vi /usr/local/icinga/etc/objects/switch.cfg
 </code></pre>
 

@@ -295,6 +295,7 @@ Where to look?
 
 Use /path/to/clearcache.sh
 
+</code></pre> 
 #> /usr/local/icinga-web/bin/clearcache.sh
 </code></pre>
 
@@ -319,6 +320,7 @@ IDOUtils DB does not get filled with data?
 
 **Testing the Web (make sure PHPUnit is installed):**
 
+</code></pre> 
  $> make test
 </code></pre>
 
@@ -361,10 +363,7 @@ If you have any updates on that please do not hesitate to report back!
 
 [Prev](cgicmd.md) | [Up](ch06.md) | [Next](upgrading_icingaweb.md)
 
-
-
-
-
+6.4. Executing Classic UI modules (CGIs) on the command line  |<=== [Index](index.md)    ===>|  6.6. Upgrading Icinga Web and Icinga Web Database
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

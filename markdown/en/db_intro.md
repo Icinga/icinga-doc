@@ -100,10 +100,7 @@ IDOUtils](quickstart-idoutils.md "2.6. Icinga with IDOUtils Quickstart")
 
 [Prev](ch12.md) | [Up](ch12.md) | [Next](db_components.md)
 
-
-
-
-
+Chapter 12. IDOUtils  |<=== [Index](index.md) ===>|  12.2. Components
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

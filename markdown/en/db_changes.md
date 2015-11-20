@@ -32,10 +32,7 @@ instructions.
 
 [Prev](db_model.md) | [Up](ch12.md) | [Next](ch13.md)
 
-
-
-
-
+12.5. IDOUtils Database Model  |<=== [Index](index.md) ===>|  Chapter 13. Icinga Samples
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

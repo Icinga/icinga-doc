@@ -141,6 +141,7 @@ We need to stop for a minute and describe what the command definitions
 for the event handlers on the slave host look like. Here is an
 example...
 
+</code></pre> 
  define command{
 
  define command{
@@ -159,6 +160,7 @@ like...
 
 Host Event Handler (handle-master-host-event):
 
+</code></pre> 
 #!/bin/sh
 
 # Only take action on hard host states...
@@ -170,6 +172,7 @@ exit 0
 
 Service Event Handler (handle-master-proc-event):
 
+</code></pre> 
 #!/bin/sh
 
 # Only take action on hard service states...
@@ -348,10 +351,7 @@ That's pretty much it as far as setup goes.
 
 [Prev](distributed.md) | [Up](ch07.md) | [Next](flapping.md)
 
-
-
-
-
+7.6. Distributed Monitoring  |<=== [Index](index.md) ===>|  7.8. Detection and Handling of State Flapping
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

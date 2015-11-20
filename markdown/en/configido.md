@@ -872,10 +872,7 @@ Possible values are:
 
 [Prev](db_components.md) | [Up](ch12.md) | [Next](db_example-configs.md)
 
-
-
-
-
+12.2. Components  |<=== [Index](index.md) ===>|  12.4. Example Configurations
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

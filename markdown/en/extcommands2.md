@@ -1418,10 +1418,7 @@ program-wide basis.
 
 [Prev](extcommands.md) | [Up](ch07.md) | [Next](eventhandlers.md)
 
-
-
-
-
+7.1. External Commands  |<=== [Index](index.md) ===>|  7.3. Event Handlers
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org
