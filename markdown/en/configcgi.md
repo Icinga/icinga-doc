@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-3.6. CGI Configuration File Options
-
-[Prev](customobjectvars.md) 
-
-Chapter 3. Configuring Icinga
-
- [Next](ch04.md)
+[Prev](customobjectvars.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](ch04.md)
 
 * * * * *
 
@@ -18,13 +10,8 @@ Chapter 3. Configuring Icinga
 When creating and/or editing configuration files, keep the following in
 mind:
 
-1.  Lines that start with a '\#' character are taken to be comments and
-    are not processed
 
-2.  Variables names must begin at the start of the line - no white space
-    is allowed before the name
 
-3.  Variable names are case-sensitive
 
 **Sample Configuration**
 
@@ -151,9 +138,7 @@ just to be on the safe side. More information on how to setup
 authentication and configure authorisation for the CGIs can be found
 [here](cgiauth.md "6.2. Authentication And Authorization In The Classic UI").
 
--   0 = Don't use authentication functionality
 
--   1 = Use authentication and authorisation functionality (default)
 
 **Use Client Certificates**
 
@@ -166,20 +151,14 @@ Example:
 **use\_ssl\_authentication=0**
 
 This option controls whether the value of the web server environment
-variable `REMOTE_USER`{.literal} or `SSL_CLIENT_S_DN_CN`{.literal} will
+variable `REMOTE_USER` or `SSL_CLIENT_S_DN_CN` will
 be used. The name of the directive is a bit misleading because unless
 you set up the use of client certificates the value has to be set to
 zero (0). Setting the value to one (1) requires
-"`SSLUserName   SSL_CLIENT_S_DN_CN`{.literal}" and several other options
 in your web server config. Please consult your web server configuration
 documentation for details.
 
--   0 = Use web server environment variable `REMOTE_USER`{.literal} to
-    get the user logged in. Don't use client certificates (default)
 
--   1 = Use web server environment variable
-    `SSL_CLIENT_S_DN_CN`{.literal} to get the user logged in. Use client
-    certificates
 
 **Default User Name**
 
@@ -225,7 +204,7 @@ variable. More information on how to setup authentication and configure
 authorisation for the CGIs can be found
 [here](cgiauth.md "6.2. Authentication And Authorization In The Classic UI").
 You can alternatively specify
-`authorized_contactgroup_for_system_information`{.literal} to authorise
+`authorized_contactgroup_for_system_information` to authorise
 a contactgroup instead of a contact.
 
 **System/Process Command Access**
@@ -249,7 +228,7 @@ variable. More information on how to setup authentication and configure
 authorisation for the CGIs can be found
 [here](cgiauth.md "6.2. Authentication And Authorization In The Classic UI").
 You can alternatively specify
-`authorized_contactgroup_for_system_commands`{.literal} to authorise a
+`authorized_contactgroup_for_system_commands` to authorise a
 contactgroup instead of a contact.
 
 **Configuration Information Access**
@@ -270,7 +249,7 @@ groups, time periods, and commands. More information on how to setup
 authentication and configure authorisation for the CGIs can be found
 [here](cgiauth.md "6.2. Authentication And Authorization In The Classic UI").
 You can alternatively specify
-`authorized_contactgroup_for_configuration_information`{.literal} to
+`authorized_contactgroup_for_configuration_information` to
 authorise a contactgroup instead of a contact.
 
 **Global Host Information Access**
@@ -294,7 +273,7 @@ variable. More information on how to setup authentication and configure
 authorisation for the CGIs can be found
 [here](cgiauth.md "6.2. Authentication And Authorization In The Classic UI").
 You can alternatively specify
-`authorized_contactgroup_for_all_hosts`{.literal} to authorise a
+`authorized_contactgroup_for_all_hosts` to authorise a
 contactgroup instead of a contact.
 
 **Global Host Command Access**
@@ -320,7 +299,7 @@ variable. More information on how to setup authentication and configure
 authorisation for the CGIs can be found
 [here](cgiauth.md "6.2. Authentication And Authorization In The Classic UI").
 You can alternatively specify
-`authorized_contactgroup_for_all_host_commands`{.literal} to authorise a
+`authorized_contactgroup_for_all_host_commands` to authorise a
 contactgroup instead of a contact.
 
 **Global Service Information Access**
@@ -344,7 +323,7 @@ variable. More information on how to setup authentication and configure
 authorisation for the CGIs can be found
 [here](cgiauth.md "6.2. Authentication And Authorization In The Classic UI").
 You can alternatively specify
-`authorized_contactgroup_for_all_services`{.literal} to authorise a
+`authorized_contactgroup_for_all_services` to authorise a
 contactgroup instead of a contact.
 
 **Global Service Command Access**
@@ -369,7 +348,7 @@ variable. More information on how to setup authentication and configure
 authorisation for the CGIs can be found
 [here](cgiauth.md "6.2. Authentication And Authorization In The Classic UI").
 You can alternatively specify
-`authorized_contactgroup_for_all_service_commands`{.literal} to
+`authorized_contactgroup_for_all_service_commands` to
 authorise a contactgroup instead of a contact.
 
 **Show All Services A Host Is Authorized For**
@@ -410,7 +389,7 @@ variable. More information on how to setup authentication and configure
 authorisation for the CGIs can be found
 [here](cgiauth.md "6.2. Authentication And Authorization In The Classic UI").
 You can alternatively specify
-`authorized_contactgroup_for_read_only`{.literal} to authorise a
+`authorized_contactgroup_for_read_only` to authorise a
 contactgroup instead of a contact.
 
 **Read-Only For Comments**
@@ -482,9 +461,7 @@ when submitting comments, acknowledgements, and scheduled downtime from
 the web interface. If this option is enabled, users will be unable to
 change the author name associated with the command request.
 
--   0 = Allow users to change author names when submitting commands
 
--   1 = Prevent users from changing author names (default)
 
 **Default Expiring Disabled Notifications Duration**
 
@@ -519,9 +496,7 @@ This option allows you to specify the length of status information in
 output of status.cgi. If you set the value to 1 it shows the full plugin
 output instead of the first line only. Default value is 0.
 
--   0 = Display only the first line of plugin output (default)
 
--   1 = Display the complete plugin output
 
 **Statusmap CGI Background Image**
 
@@ -789,9 +764,7 @@ comment" to acknowledge problem hosts or services. It can be used to
 reinstate the behaviour of Nagios 2. Default is "0" to be compatible
 with Nagios 3.
 
--   0 = Leave check box "persistent comment" unchecked (default)
 
--   1 = Set check box "persistent comment"
 
 **Set field separator for CSV export**
 
@@ -839,9 +812,7 @@ Note
 This option only works if the option "log\_initial\_states" in
 icinga.cfg is set to 1.
 
--   0 = Don't show initial states in showlog.cgi (default)
 
--   1 = Show initial states in showlog.cgi
 
 **Show current states**
 
@@ -863,9 +834,7 @@ Note
 This option only works if the option "log\_current\_states" in
 icinga.cfg is set to 1.
 
--   0 = Don't show current states in showlog.cgi (default)
 
--   1 = Show current states in showlog.cgi
 
 **Show object type in tab title**
 
@@ -882,20 +851,14 @@ extinfo.cgi when they refer to a single host, service, or group.
 
 They will then read:
 
--   [Host]
 
--   {HostGroup}
 
--   ServiceDesc @ Host
 
--   (ServiceGroup)
 
 These are easier to read and find if you use (many) tabs in your
 browser.
 
--   0 = Don't show object type in tab title
 
--   1 = Show object type in tab title (default)
 
 **Show service state and notification number**
 
@@ -920,13 +883,8 @@ and are "not yet officially" considered in trouble.
 Relevant values from include/statusdata.h (look them up \*there\* if you
 want to be \*really\* sure):
 
-~~~~ {.programlisting}
- #define    SERVICE_PENDING     1
- #define    SERVICE_OK          2
- #define    SERVICE_WARNING     4
- #define    SERVICE_UNKNOWN     8
- #define    SERVICE_CRITICAL   16
-~~~~
+<pre><code>
+</code></pre>
 
 You'll likely want to use add\_notif\_num\_hard=0 (default) or
 add\_notif\_num\_hard=28 (warn+crit+unknown).
@@ -999,17 +957,10 @@ Example:
 This is the rotation method that you would like Icinga to use for your
 CGI log file. Values are as follows:
 
--   n = None (do not rotate the log)
 
--   h = Hourly (rotate the log at top of the hour)
 
--   d = Daily (rotate the log at midnight each day - this is the
-    default)
 
--   w = Weekly (rotate the log at midnight on Saturday)
 
--   m = Monthly (rotate the log at midnight on the last day of the
-    month)
 
 **CGI Log Archive Path**
 
@@ -1062,7 +1013,7 @@ important tactical and monitor performance information so you can always
 be informed of issues.
 
 If you want to keep the old minimalistic look, the new CGI top view can
-be disabled with the directive: `show_tac_header=0`{.literal}
+be disabled with the directive: `show_tac_header=0`
 
 The layout for the display of entries for each type is "X / Y / Z"
 where:
@@ -1078,15 +1029,10 @@ of all the services or hosts related to the respective entry.
 
 Colouring for these entries has the following logical flow:
 
-~~~~ {.programlisting}
- 1+ / *  / *  = Full colour, full saturation
- 0  / 1+ / *  = Full colour but desaturated, rim coloured
- 0  / 0  / 1+ = Rim coloured, text coloured and bold
- 0  / 0  / *  = Grey
-  
-~~~~
+<pre><code>
+</code></pre>
 
-These colours are located in `html/stylesheets/tacheader.css`{.filename}
+These colours are located in `html/stylesheets/tacheader.css`
 for easy customisation. For example, if your setup is distributed and
 primarily depends upon passive checks then you may prefer to make
 passive check issues stand out with the same colouring as active checks.
@@ -1161,7 +1107,7 @@ Example:
 By default (meaning the directive is not present or disabled), a user
 only sees a hostgroup and the hosts within it if they are an authorised
 contact for *all* of the hosts of the group. The behaviour can be
-changed using the directive `show_partial_hostgroups=1`{.code}.
+changed using the directive `show_partial_hostgroups=1`.
 
 When enabled, the hostgroups overview will show a partial listing of
 hosts that the user is an authorised contact for within each hostgroup.
@@ -1235,11 +1181,8 @@ Example:
 This option allows you to specify if the extended host information cgi
 will show child hosts for the selected host.
 
--   0 = disabled (default)
 
--   1 = only show immediate child host(s)
 
--   2 = show immediate and subsequent child host(s)
 
 ![[Important]](../images/important.png)
 
@@ -1268,7 +1211,7 @@ Example:
 This option is a comma-delimited list of all usernames that can view a
 command in config command expander as Icinga would execute it. To
 resolve all MACROS it is necessary to allow read access to the web
-server for `resource.cfg`{.filename} as well.
+server for `resource.cfg` as well.
 
 Alternatively you can specify contactgroups, too.
 
@@ -1413,7 +1356,7 @@ By default (meaning the directive is not present or disabled), a user
 only sees a servicegroup and the hosts and services within it if she is
 an authorised contact for all of the hosts and services of the group.
 The behaviour can be changed using the directive
-`show_partial_servicegroups=1`{.literal}. When enabled, the
+`show_partial_servicegroups=1`. When enabled, the
 servicegroups overview will show a partial listing of hosts and services
 that the user is an authorised contact for within each servicegroup. It
 will also add the string "(Partial Servicegroups Enabled)" to the top of
@@ -1437,9 +1380,7 @@ directly will be rejected to protect against CSRF attacks (Cross-Site
 Request Forgery). Enable (=1) this option only if you need this
 functionality.
 
--   0 - disabled, protect against CSRF attacks (default)
 
--   1 - enabled, allow external programs to submit commands
 
 ![[Note]](../images/note.png)
 
@@ -1540,10 +1481,12 @@ This option is available starting with Icinga 1.12
 
 * * * * *
 
-  -------------------------------- -------------------- ----------------------------
-  [Prev](customobjectvars.md)    [Up](ch03.md)       [Next](ch04.md)
-  3.5. Custom Object Variables     [Home](index.md)    Chapter 4. Running Icinga
-  -------------------------------- -------------------- ----------------------------
+[Prev](customobjectvars.md) | [Up](ch03.md) | [Next](ch04.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

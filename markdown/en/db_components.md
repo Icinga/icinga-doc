@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-12.2. Components
-
-[Prev](db_intro.md) 
-
-Chapter 12. IDOUtils
-
- [Next](configido.md)
+[Prev](db_intro.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](configido.md)
 
 * * * * *
 
@@ -27,13 +19,9 @@ Chapter 12. IDOUtils
 
 There are four main components that make up the IDO utilities:
 
-1.  IDOMOD Event Broker Module
 
-2.  LOG2IDO Utility
 
-3.  FILE2SOCK Utility
 
-4.  IDO2DB Daemon
 
 Each component is described in more detail on the following pages.
 
@@ -148,10 +136,12 @@ databases.
 
 * * * * *
 
-  ------------------------ -------------------- ----------------------------------
-  [Prev](db_intro.md)    [Up](ch12.md)       [Next](configido.md)
-  12.1. Introduction       [Home](index.md)    12.3. Configuration of IDOUtils
-  ------------------------ -------------------- ----------------------------------
+[Prev](db_intro.md) | [Up](ch12.md) | [Next](configido.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

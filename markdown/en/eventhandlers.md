@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.3. Event Handlers
-
-[Prev](extcommands2.md) 
-
-Chapter 7. Advanced Topics
-
- [Next](volatileservices.md)
+[Prev](extcommands2.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](volatileservices.md)
 
 * * * * *
 
@@ -45,15 +37,10 @@ An obvious use for event handlers is the ability for Icinga to
 proactively fix problems before anyone is notified. Some other uses for
 event handlers include:
 
--   Restarting a failed service
 
--   Entering a trouble ticket into a helpdesk system
 
--   Logging event information to a database
 
--   Cycling power on a host\*
 
--   etc.
 
 \* Cycling power on a host that is experiencing problems with an
 auomated script should not be implemented lightly. Consider the
@@ -64,11 +51,8 @@ consequences of this carefully before implementing automatic reboots.
 
 Event handlers are executed when a service or host:
 
--   Is in a SOFT problem state
 
--   Initially goes into a HARD problem state
 
--   Initially recovers from a SOFT or HARD problem state
 
 SOFT and HARD states are described in detail
 [here](statetypes.md "5.8. State Types") .
@@ -78,13 +62,9 @@ SOFT and HARD states are described in detail
 There are different types of optional event handlers that you can define
 to handle host and state changes:
 
--   Global host event handler
 
--   Global service event handler
 
--   Host-specific event handlers
 
--   Service-specific event handlers
 
 Global host and service event handlers are run for *every* host or
 service state change that occurs, immediately prior to any host- or
@@ -184,104 +164,45 @@ value of 4 or greater (i.e. the service is checked 4 times before it is
 considered to have a real problem). An abbreviated example service
 definition might look like this...
 
-~~~~ {.programlisting}
+<pre><code>
  define service{
-        host_name               somehost
-        service_description     HTTP
-        max_check_attempts      4
-        event_handler           restart-httpd
-        ...
-        }
-~~~~
+</code></pre>
 
 Once the service has been defined with an event handler, we must define
 that event handler as a command. An example command definition for
 *restart-httpd* is shown below. Notice the macros in the command line
-that I am passing to the event handler script - these are important!
 
-~~~~ {.programlisting}
+<pre><code>
  define command{
-        command_name    restart-httpd
-        command_line    /usr/local/icinga/libexec/eventhandlers/restart-httpd  $SERVICESTATE$ $SERVICESTATETYPE$ $SERVICEATTEMPT$
-        }
-~~~~
+</code></pre>
 
 Now, let's actually write the event handler script (this is the
 */usr/local/icinga/libexec/eventhandlers/restart-httpd* script).
 
-~~~~ {.programlisting}
+<pre><code>
 #!/bin/sh
 #
 # Event handler script for restarting the web server on the local machine
 #
 # Note: This script will only restart the web server if the service is
-#       retried 3 times (in a "soft" state) or if the web service somehow
-#       manages to fall into a "hard" error state.
 #
 
 
 # What state is the HTTP service in?
 case "$1" in
 OK)
-        # The service just came back up, so don't do anything...
-        ;;
 WARNING)
-        # We don't really care about warning states, since the service is probably still running...
-        ;;
 UNKNOWN)
-        # We don't know what might be causing an unknown error, so don't do anything...
-        ;;
 CRITICAL)
-        # Aha!  The HTTP service appears to have a problem - perhaps we should restart the server...
 
-        # Is this a "soft" or a "hard" state?
-        case "$2" in
-                
-        # We're in a "soft" state, meaning that Icinga is in the middle of retrying the
-        # check before it turns into a "hard" state and contacts get notified...
-        SOFT)
-                        
-                # What check attempt are we on?  We don't want to restart the web server on the first
-                # check, because it may just be a fluke!
-                case "$3" in
-                                
-                # Wait until the check has been tried 3 times before restarting the web server.
-                # If the check fails on the 4th time (after we restart the web server), the state
-                # type will turn to "hard" and contacts will be notified of the problem.
-                # Hopefully this will restart the web server successfully, so the 4th check will
-                # result in a "soft" recovery.  If that happens no one gets notified because we
-                # fixed the problem!
-                3)
-                        echo -n "Restarting HTTP service (3rd soft critical state)..."
-                        # Call the init script to restart the HTTPD server
-                        /etc/rc.d/init.d/httpd restart
-                        ;;
-                        esac
-                ;;
-                                
-        # The HTTP service somehow managed to turn into a hard error without getting fixed.
-        # It should have been restarted by the code above, but for some reason it didn't.
-        # Let's give it one last try, shall we?  
-        # Note: Contacts have already been notified of a problem with the service at this
-        # point (unless you disabled notifications for this service)
-        HARD)
-                echo -n "Restarting HTTP service..."
-                # Call the init script to restart the HTTPD server
-                /etc/rc.d/init.d/httpd restart
-                ;;
-        esac
-        ;;
 esac
 exit 0
-~~~~
+</code></pre>
 
 The sample script provided above will attempt to restart the web server
 on the local machine in two different instances:
 
--   After the service has been rechecked for the 3rd time and is in a
-    SOFT CRITICAL state
 
--   After the service first goes into a HARD CRITICAL state
 
 The script should theoretically restart and web server and fix the
 problem before the service goes into a HARD problem state, but we
@@ -296,10 +217,12 @@ implement, so give it a try and see what you can do.
 
 * * * * *
 
-  --------------------------------- -------------------- --------------------------------
-  [Prev](extcommands2.md)         [Up](ch07.md)       [Next](volatileservices.md)
-  7.2. List of External Commands    [Home](index.md)    7.4. Volatile Services
-  --------------------------------- -------------------- --------------------------------
+[Prev](extcommands2.md) | [Up](ch07.md) | [Next](volatileservices.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

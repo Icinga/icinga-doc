@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-6.1. Icinga Classic UI: Information On The Modules
-
-[Prev](ch06.md) 
-
-Chapter 6. User Interfaces
-
- [Next](cgiauth.md)
+[Prev](ch06.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](cgiauth.md)
 
 * * * * *
 
@@ -84,16 +76,8 @@ host).
 
 **Authorization Requirements:**
 
--   If you are [*authorized for all
-    hosts*](configcgi-authorized_for_all_hosts) you can view all hosts
-    **and** all services.
 
--   If you are [*authorized for all
-    services*](configcgi-authorized_for_all_services) you can view all
-    services.
 
--   If you are an *authenticated contact* you can view all hosts and
-    services for which you are a contact.
 
 **Status Map module**
 
@@ -117,11 +101,7 @@ directive to specify a layout algorithm that should be used.
 
 **Authorization Requirements:**
 
--   If you are [*authorized for all
-    hosts*](configcgi-authorized_for_all_hosts) you can view all hosts.
 
--   If you are an *authenticated contact* you can view hosts for which
-    you are a contact.
 
 ![[Note]](../images/note.png)
 
@@ -153,16 +133,8 @@ to alert you of problems.
 
 **Authorization Requirements:**
 
--   If you are [*authorized for all
-    hosts*](configcgi-authorized_for_all_hosts) you can view all hosts
-    **and** all services.
 
--   If you are [*authorized for all
-    services*](configcgi-authorized_for_all_services) you can view all
-    services.
 
--   If you are an *authenticated contact* you can view all hosts and
-    services for which you are a contact.
 
 **Network Outages module**
 
@@ -182,11 +154,7 @@ outage they are causing.
 
 **Authorization Requirements:**
 
--   If you are [*authorized for all
-    hosts*](configcgi-authorized_for_all_hosts) you can view all hosts.
 
--   If you are an *authenticated contact* you can view hosts for which
-    you are a contact.
 
 **Configuration module**
 
@@ -204,9 +172,6 @@ have defined in your [object configuration file(s)](configobject).
 
 **Authorization Requirements:**
 
--   You must be [*authorized for configuration
-    information*](configcgi-authorized_for_configuration_information) in
-    order to any kind of configuration information.
 
 **Command module**
 
@@ -227,31 +192,14 @@ commands.
 
 **Authorization Requirements:**
 
--   You must be [*authorized for system
-    commands*](configcgi-authorized_for_system_commands) in order to
-    issue commands that affect the Icinga process (restarts, shutdowns,
-    mode changes, etc.).
 
--   If you are [*authorized for all host
-    commands*](configcgi-authorized_for_all_host_commands) you can issue
-    commands for all hosts **and** services.
 
--   If you are [*authorized for all service
-    commands*](configcgi-authorized_for_all_service_commands) you can
-    issue commands for all services.
 
--   If you are an *authenticated contact* you can issue commands for all
-    hosts and services for which you are a contact.
 
 ![[Note]](../images/note.png)
 
 Note
 
--   If you have chosen not to [use
-    authentication](configcgi-use_authentication) with the modules, this
-    module will *not* allow anyone to issue commands to Icinga. This is
-    done for your own protection. We would suggest removing this module
-    altogether if you decide not to use authentication with the modules.
 
 **Extended Information module**
 
@@ -273,7 +221,6 @@ This Classic UI module allows you to view Icinga process information,
 host and service state statistics, host and service comments, and more.
 It also serves as a launching point for sending commands to Icinga via
 the [command module](cgis.md#cgis-cmd_cgi). Although this module has
-several arguments, you would be better to leave them alone - they are
 likely to change between different releases of Icinga. You can access
 this module by clicking on the 'Network Health' and 'Process
 Information' links on the side navigation bar, or by clicking on a host
@@ -282,20 +229,9 @@ module](cgis.md#cgis-status_cgi).
 
 **Authorization Requirements:**
 
--   You must be [*authorized for system
-    information*](configcgi-authorized_for_system_information) in order
-    to view Icinga process information.
 
--   If you are [*authorized for all
-    hosts*](configcgi-authorized_for_all_hosts) you can view extended
-    information for all hosts **and** services.
 
--   If you are [*authorized for all
-    services*](configcgi-authorized_for_all_services) you can view
-    extended information for all services.
 
--   If you are an *authenticated contact* you can view extended
-    information for all hosts and services for which you are a contact.
 
 **Event Log module**
 
@@ -314,9 +250,6 @@ navigational links near the top of the page.
 
 **Authorization Requirements:**
 
--   You must be [*authorized for system
-    information*](configcgi-authorized_for_system_information) in order
-    to view the log file.
 
 **Alert History module**
 
@@ -341,16 +274,8 @@ navigational links near the top of the page.
 
 **Authorization Requirements:**
 
--   If you are [*authorized for all
-    hosts*](configcgi-authorized_for_all_hosts) you can view history
-    information for all hosts **and** all services.
 
--   If you are [*authorized for all
-    services*](configcgi-authorized_for_all_services) you can view
-    history information for all services.
 
--   If you are an *authenticated contact* you can view history
-    information for all services and hosts for which you are a contact.
 
 **Notifications module**
 
@@ -375,16 +300,8 @@ links near the top of the page.
 
 **Authorization Requirements:**
 
--   If you are [*authorized for all
-    hosts*](configcgi-authorized_for_all_hosts) you can view
-    notifications for all hosts **and** all services.
 
--   If you are [*authorized for all
-    services*](configcgi-authorized_for_all_services) you can view
-    notifications for all services.
 
--   If you are an *authenticated contact* you can view notifications for
-    all services and hosts for which you are a contact.
 
 **Trends module**
 
@@ -407,16 +324,8 @@ create the trends image.
 
 **Authorization Requirements:**
 
--   If you are [*authorized for all
-    hosts*](configcgi-authorized_for_all_hosts) you can view trends for
-    all hosts **and** all services.
 
--   If you are [*authorized for all
-    services*](configcgi-authorized_for_all_services) you can view
-    trends for all services.
 
--   If you are an *authenticated contact* you can view trends for all
-    services and hosts for which you are a contact.
 
 **Availability Reporting module**
 
@@ -439,16 +348,8 @@ directive.
 
 **Authorization Requirements:**
 
--   If you are [*authorized for all
-    hosts*](configcgi-authorized_for_all_hosts) you can view
-    availability data for all hosts **and** all services.
 
--   If you are [*authorized for all
-    services*](configcgi-authorized_for_all_services) you can view
-    availability data for all services.
 
--   If you are an *authenticated contact* you can view availability data
-    for all services and hosts for which you are a contact.
 
 **Alert Histogram module**
 
@@ -471,16 +372,8 @@ create the histogram image.
 
 **Authorization Requirements:**
 
--   If you are [*authorized for all
-    hosts*](configcgi-authorized_for_all_hosts) you can view histograms
-    for all hosts **and** all services.
 
--   If you are [*authorized for all
-    services*](configcgi-authorized_for_all_services) you can view
-    histograms for all services.
 
--   If you are an *authenticated contact* you can view histograms for
-    all services and hosts for which you are a contact.
 
 **Alert Summary module**
 
@@ -497,124 +390,56 @@ service alert data, including alert totals, top alert producers, etc.
 
 **Authorization Requirements:**
 
--   If you are [*authorized for all
-    hosts*](configcgi-authorized_for_all_hosts) you can view summary
-    information for all hosts **and** all services.
 
--   If you are [*authorized for all
-    services*](configcgi-authorized_for_all_services) you can view
-    summary information for all services.
 
--   If you are an *authenticated contact* you can view summary
-    information for all services and hosts for which you are a contact.
 
 **Changes in the Classic UI**
 
 These changes appeared over time so they might not be available in your
 version of Icinga.
 
--   The appearance of the "General" section on the left side of the
-    screen has changed once more
 
-    **General module**
 
-    ![](../images/cgi-general.png)
 
-    File Name:
 
-    **general.cgi**
 
-    Clicking on the appropriate flag you are still able to access the
-    documentation in the specified language.
 
-    ![[Note]](../images/note.png)
 
-    Note
 
-    There is no option to change the language of the Classic UI modules.
-    This requires changes in the source code.
 
-    Now you can search again for hosts without clicking on several
-    items.
 
--   The classical interface refreshes in regular intervals. Sometimes
-    this might be undesirable, i.e. when you are looking at a specific
-    object. In this case you can turn of the automatic refresh clicking
-    on [pause] next to "Updated every 90 seconds" in the upper left of
-    the status frame. Clicking on [continue] restarts the refresh.
 
-    **Pause module**
 
-    ![](../images/cgi-pause.png)
 
-    File Name:
 
-    **pause.cgi**
 
-    **Continue module**
 
-    ![](../images/cgi-continue.png)
 
-    File Name:
 
-    **continue.cgi**
 
--   The "Host Detail" and "Service Detail" pages were enhanced to submit
-    commands for more than one object. Now you can select one or more
-    objects using the check boxes next to the objects. Activating the
-    check box next to "Status information" selects all services for that
-    host.
 
-    **Statusinfo module**
 
-    ![](../images/cgi-statusinfo.png)
 
-    File Name:
 
-    **statusinfo.cgi**
 
-    **Commands module**
 
-    ![](../images/cgi-commands.png)
 
-    File Name:
 
-    **commands.cgi**
 
-    Clicking on "Select command" shows a drop down list of available
-    commands. After selecting an action you can press "Submit" to submit
-    the command for the selected objects.
 
--   "Export to CSV" has been added to several pages.
 
--   The cells of the extinfo.cgi table have been given names. Using SSI
-    fragments you can include JavaScript code to access the data of
-    these cells.
 
-    Example code has been provided to use data from the cell
-    "comment\_data" to create a link (Thanks to Oliver Graf).
 
-    common-header.ssi:
 
-    ~~~~ {.programlisting}
-    <script type='text/javascript'>
-    function urlify() {
-        var comments=document.getElementsByName('comment_data');
-        var neu="";
-        for (i=0; i<=comments.length; i++) {
-            comments[i].innerHTML = comments[i].innerHTML.replace(/\bRT#(\d+)\b/g,"<a href='https://YOUR-SERVER/Ticket/Display.md?id=$1'>RT#$1</a>");
-        }
-    }
-    window.onload=urlify;
-    </script>
-    ~~~~
 
 * * * * *
 
-  ----------------------------- -------------------- ----------------------------------------------------------
-  [Prev](ch06.md)             [Up](ch06.md)       [Next](cgiauth.md)
-  Chapter 6. User Interfaces    [Home](index.md)    6.2. Authentication And Authorization In The Classic UI
-  ----------------------------- -------------------- ----------------------------------------------------------
+[Prev](ch06.md) | [Up](ch06.md) | [Next](cgiauth.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

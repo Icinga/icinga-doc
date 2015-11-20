@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.7. Redundant and Failover Network Monitoring
-
-[Prev](distributed.md) 
-
-Chapter 7. Advanced Topics
-
- [Next](flapping.md)
+[Prev](distributed.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](flapping.md)
 
 * * * * *
 
@@ -19,10 +11,8 @@ Chapter 7. Advanced Topics
 
 7.7.3. [Sample Scripts](redundancy.md#samplescripts)
 
-7.7.4. [Scenario 1 - Redundant
 Monitoring](redundancy.md#redundantmonitoring)
 
-7.7.5. [Scenario 2 - Failover
 Monitoring](redundancy.md#failovermonitoring)
 
 ### 7.7.1. Introduction
@@ -48,19 +38,9 @@ understand, and even more difficult to implement properly.
 Before you can even think about implementing redundancy with Icinga, you
 need to be familiar with the following...
 
--   Implementing [event
-    handlers](eventhandlers.md "7.3. Event Handlers") for hosts and
-    services
 
--   Issuing [external
-    commands](extcommands.md "7.1. External Commands") to Icinga via
-    shell scripts
 
--   Executing plugins on remote hosts using either the [NRPE
-    addon](addons.md#addons-nrpe) or some other method
 
--   Checking the status of the Icinga process with the *check\_nagios*
-    plugin
 
 ### 7.7.3. Sample Scripts
 
@@ -68,7 +48,6 @@ All of the sample scripts that we use in this documentation can be found
 in the *eventhandlers/* subdirectory of the Icinga distribution. You'll
 probably need to modify them to work on your system...
 
-### 7.7.4. Scenario 1 - Redundant Monitoring
 
 7.7.4.1.
 [Introduction](redundancy.md#redundantmonitoring-introduction)
@@ -115,10 +94,7 @@ sending out notifications to contacts about problems. We want the
 "slave" host running Icinga to take over the job of notifying contacts
 about problems if:
 
-1.  The "master" host that runs Icinga is down or..
 
-2.  The Icinga process on the "master" host stops running for some
-    reason
 
 #### 7.7.4.3. Network Layout Diagram
 
@@ -151,21 +127,8 @@ services on all hosts shown in the diagram above. The slave host (host
 E) should be setup to monitor the same services and hosts, with the
 following additions in the configuration file...
 
--   The host definition for host A (in the host E configuration file)
-    should have a host [event
-    handler](eventhandlers.md "7.3. Event Handlers") defined. Lets say
-    the name of the host event handler is handle-master-host-event.
 
--   The configuration file on host E should have a service defined to
-    check the status of the Icinga process on host A. Lets assume that
-    you define this service check to run the *check\_nagios* plugin on
-    host A. This can be done by using one of the methods described in
-    **this FAQ** (update this!).
 
--   The service definition for the Icinga process check on host A should
-    have an [event handler](eventhandlers.md "7.3. Event Handlers")
-    defined. Lets say the name of the service event handler is
-    handle-master-proc-event.
 
 It is important to note that host A (the master host) has no knowledge
 of host E (the slave host). In this scenario it simply doesn't need to.
@@ -178,17 +141,11 @@ We need to stop for a minute and describe what the command definitions
 for the event handlers on the slave host look like. Here is an
 example...
 
-~~~~ {.screen}
  define command{
-     command_name handle-master-host-event
-     command_line /usr/local/icinga/libexec/eventhandlers/handle-master-host-event $HOSTSTATE$ $HOSTSTATETYPE$
- } 
 
  define command{
-     command_name handle-master-proc-event 
-     command_line /usr/local/icinga/libexec/eventhandlers/handle-master-proc-event $SERVICESTATE$ $SERVICESTATETYPE$
  }
-~~~~
+</code></pre>
 
 This assumes that you have placed the event handler scripts in the
 */usr/local/icinga/libexec/eventhandlers* directory. You may place them
@@ -202,68 +159,25 @@ like...
 
 Host Event Handler (handle-master-host-event):
 
-~~~~ {.screen}
 #!/bin/sh
 
 # Only take action on hard host states...
 case "$2" in
 HARD)
-        case "$1" in
-        DOWN)
-                # The master host has gone down!
-                # We should now become the master host and take
-                # over the responsibilities of monitoring the 
-                # network, so enable notifications...
-                /usr/local/icinga/libexec/eventhandlers/enable_notifications
-                ;;
-        UP)
-                # The master host has recovered!
-                # We should go back to being the slave host and
-                # let the master host do the monitoring, so 
-                # disable notifications...
-                /usr/local/icinga/libexec/eventhandlers/disable_notifications
-                ;;
-        esac
-        ;;
 esac
 exit 0
-~~~~
+</code></pre>
 
 Service Event Handler (handle-master-proc-event):
 
-~~~~ {.screen}
 #!/bin/sh
 
 # Only take action on hard service states...
 case "$2" in
 HARD)
-        case "$1" in
-        CRITICAL)
-                # The master Icinga process is not running!
-                # We should now become the master host and
-                # take over the responsibility of monitoring
-                # the network, so enable notifications...
-                /usr/local/icinga/libexec/eventhandlers/enable_notifications
-                ;;
-        WARNING)
-        UNKNOWN)
-                # The master Icinga process may or may not
-                # be running.. We won't do anything here, but
-                # to be on the safe side you may decide you 
-                # want the slave host to become the master in
-                # these situations...
-                ;;
-        OK)
-                # The master Icinga process running again!
-                # We should go back to being the slave host, 
-                # so disable notifications...
-                /usr/local/icinga/libexec/eventhandlers/disable_notifications
-                ;;
-        esac
-        ;;
 esac
 exit 0
-~~~~
+</code></pre>
 
 #### 7.7.4.8. What This Does For Us
 
@@ -274,11 +188,7 @@ process on the master host (host A) is still running.
 The Icinga process on the slave host (host E) becomes the master host
 when...
 
--   The master host (host A) goes down and the
-    *handle-master-host-event* host event handler is executed.
 
--   The Icinga process on the master host (host A) stops running and the
-    *handle-master-proc-event* service event handler is executed.
 
 When the Icinga process on the slave host (host E) has notifications
 enabled, it will be able to send out notifications about any service or
@@ -288,11 +198,7 @@ problems!
 
 The Icinga process on host E returns to being the slave host when...
 
--   Host A recovers and the *handle-master-host-event* host event
-    handler is executed.
 
--   The Icinga process on host A recovers and the
-    *handle-master-proc-event* service event handler is executed.
 
 When the Icinga process on host E has notifications disabled, it will
 not send out notifications about any service or host problems or
@@ -306,42 +212,19 @@ Redundancy in Icinga is by no means perfect. One of the more obvious
 problems is the lag time between the master host failing and the slave
 host taking over. This is affected by the following...
 
--   The time between a failure of the master host and the first time the
-    slave host detects a problem
 
--   The time needed to verify that the master host really does have a
-    problem (using service or host check retries on the slave host)
 
--   The time between the execution of the event handler and the next
-    time that Icinga checks for external commands
 
 You can minimize this lag by...
 
--   Ensuring that the Icinga process on host E (re)checks one or more
-    services at a high frequency. This is done by using the
-    *check\_interval* and *retry\_interval* arguments in each service
-    definition.
 
--   Ensuring that the number of host rechecks for host A (on host E)
-    allow for fast detection of host problems. This is done by using the
-    *max\_check\_attempts* argument in the host definition.
 
--   Increase the frequency of [external
-    command](extcommands.md "7.1. External Commands") checks on host
-    E. This is done by modifying the
-    [command\_check\_interval](configmain.md#configmain-command_check_interval)
-    option in the main configuration file.
 
 When Icinga recovers on the host A, there is also some lag time before
 host E returns to being a slave host. This is affected by the
 following...
 
--   The time between a recovery of host A and the time the Icinga
-    process on host E detects the recovery
 
--   The time between the execution of the event handler on host B and
-    the next time the Icinga process on host E checks for external
-    commands
 
 The exact lag times between the transfer of monitoring responsibilities
 will vary depending on how many services you have defined, the interval
@@ -353,7 +236,6 @@ its definitely better than nothing.
 Here is one thing you should be aware of... If host A goes down, host E
 will have notifications enabled and take over the responsibilities of
 notifying contacts of problems. When host A recovers, host E will have
-notifications disabled. If - when host A recovers - the Icinga process
 on host A does not start up properly, there will be a period of time
 when neither host is notifying contacts of problems! Fortunately, the
 service check logic in Icinga accounts for this. The next time the
@@ -368,7 +250,6 @@ the frequency of service checks (on host E) of the Icinga process on
 host A. The rest is up to pure chance, but the total "blackout" time
 shouldn't be too bad.
 
-### 7.7.5. Scenario 2 - Failover Monitoring
 
 7.7.5.1. [Introduction](redundancy.md#failovermonitoring-introduction)
 
@@ -387,7 +268,6 @@ Issues](redundancy.md#failovermonitoring-additionalissues)
 
 Failover monitoring is similiar to, but slightly different than
 redundant monitoring (as discussed above in [scenario
-1](redundancy.md#redundantmonitoring "7.7.4. Scenario 1 - Redundant Monitoring")).
 
 #### 7.7.5.2. Goals
 
@@ -398,7 +278,6 @@ goes down), the Icinga process on the slave host starts monitoring
 everything.
 
 While the method described in [scenario
-1](redundancy.md#redundantmonitoring "7.7.4. Scenario 1 - Redundant Monitoring")
 will allow you to continue receive notifications if the master
 monitoring hosts goes down, it does have some pitfalls. The biggest
 problem is that the slave host is monitoring the same hosts and servers
@@ -440,7 +319,6 @@ everything twice.
 
 Also of note, you *don't* need to define host and service handlers as
 mentioned in [scenario
-1](redundancy.md#redundantmonitoring "7.7.4. Scenario 1 - Redundant Monitoring")
 because things are handled differently.
 
 #### 7.7.5.5. Additional Issues
@@ -468,10 +346,12 @@ That's pretty much it as far as setup goes.
 
 * * * * *
 
-  ------------------------------ -------------------- ------------------------------------------------
-  [Prev](distributed.md)       [Up](ch07.md)       [Next](flapping.md)
-  7.6. Distributed Monitoring    [Home](index.md)    7.8. Detection and Handling of State Flapping
-  ------------------------------ -------------------- ------------------------------------------------
+[Prev](distributed.md) | [Up](ch07.md) | [Next](flapping.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

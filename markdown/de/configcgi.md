@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-3.6. Optionen CGI-Konfigurationsdatei
-
-[Zurück](customobjectvars.md) 
-
-Kapitel 3. Icinga konfigurieren
-
- [Weiter](ch04.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -18,13 +10,8 @@ Kapitel 3. Icinga konfigurieren
 Wenn Sie Konfigurationsdateien erstellen oder anpassen, beachten Sie
 bitte folgendes:
 
-1.  Zeilen, die mit einem '\#'-Zeichen beginnen, werden als Kommentar
-    betrachtet und nicht verarbeitet
 
-2.  Variablennamen müssen am Zeilenanfang beginnen - "white space" sind
-    vor dem Namen NICHT erlaubt
 
-3.  Variablennamen sind abhängig von Groß- und Kleinschreibung
 
 **Beispielkonfiguration**
 
@@ -152,10 +139,7 @@ Authentifizierung und der Konfiguration von Autorisierung für die CGIs
 finden Sie
 [hier](cgiauth.md "6.2. Authentifizierung und Autorisierung im Classic UI").
 
--   0 = die Authentifizierungsfunktionalität nicht nutzen
 
--   1 = die Authentifizierungs- und Autorisierungsfunktionalität nutzen
-    (Default)
 
 **Nutzung von Client-Zertifikaten**
 
@@ -168,20 +152,16 @@ Beispiel:
 **use\_ssl\_authentication=0**
 
 Diese Option kontrolliert, ob der Inhalt der
-Web-Server-Umgebungsvariable `REMOTE_USER`{.literal} oder
-`SSL_CLIENT_S_DN_CN`{.literal} benutzt wird. Der Name der Direktive ist
+Web-Server-Umgebungsvariable `REMOTE_USER` oder
+`SSL_CLIENT_S_DN_CN` benutzt wird. Der Name der Direktive ist
 ein wenig irreführend, denn solange Sie keine Client-Zertifikate
 einsetzen, muss der Wert auf Null (0) gesetzt werden. Das Setzen des
 Wertes auf Eins (1) erfordert
-"`SSLUserName SSL_CLIENT_S_DN_CN`{.literal}" und verschiedene andere
+"`SSLUserName SSL_CLIENT_S_DN_CN`" und verschiedene andere
 Optionen in Ihrer Web-Server-Konfiguration. Bitte lesen Sie die
 Web-Server-Dokumentation für weitere Einzelheiten..
 
--   0 = Die Web-Server-Umgebungsvariable `REMOTE_USER`{.literal}
-    verwenden. Keine Client-Zertifikate benutzen (Default)
 
--   1 = Die Web-Server-Umgebungsvariable `SSL_CLIENT_S_DN_CN`{.literal}
-    verwenden. Client-Zertifikate benutzen
 
 **Standard-Benutzername**
 
@@ -233,7 +213,7 @@ Autorisierung für die CGIs konfiguriert, finden Sie
 Anmerkung
 
 Ab Icinga 1.5.0 können Sie alternativ
-`authorized_contactgroup_for_system_information`{.literal} angeben, um
+`authorized_contactgroup_for_system_information` angeben, um
 statt eines contact eine contactgroup zu autorisieren.
 
 **Zugang zu System/Prozessbefehlen**
@@ -262,7 +242,7 @@ Autorisierung für die CGIs konfiguriert, finden Sie
 Anmerkung
 
 Ab Icinga 1.5.0 können Sie alternativ
-`authorized_contactgroup_for_system_commands`{.literal} angeben, um
+`authorized_contactgroup_for_system_commands` angeben, um
 statt eines contact eine contactgroup zu autorisieren.
 
 **Zugang zu Konfigurationsinformationen**
@@ -289,7 +269,7 @@ für die CGIs konfiguriert, finden Sie
 Anmerkung
 
 Ab Icinga 1.5.0 können Sie alternativ
-`authorized_contactgroup_for_configartion_information`{.literal}
+`authorized_contactgroup_for_configartion_information`
 angeben, um statt eines contact eine contactgroup zu autorisieren.
 
 **Global Host Information Access**
@@ -319,7 +299,7 @@ Autorisierung für die CGIs konfiguriert, finden Sie
 Anmerkung
 
 Ab Icinga 1.5.0 können Sie alternativ
-`authorized_contactgroup_for_all_hosts`{.literal} angeben, um statt
+`authorized_contactgroup_for_all_hosts` angeben, um statt
 eines contact eine contactgroup zu autorisieren.
 
 **Zugang zu globalen Host-Befehlen**
@@ -351,7 +331,7 @@ Autorisierung für die CGIs konfiguriert, finden Sie
 Anmerkung
 
 Ab Icinga 1.5.0 können Sie alternativ
-`authorized_contactgroup_for_all_host_commands`{.literal} angeben, um
+`authorized_contactgroup_for_all_host_commands` angeben, um
 statt eines contact eine contactgroup zu autorisieren.
 
 **Zugang zu globalen Service-Informationen**
@@ -381,7 +361,7 @@ Autorisierung für die CGIs konfiguriert, finden Sie
 Anmerkung
 
 Ab Icinga 1.5.0 können Sie alternativ
-`authorized_contactgroup_for_all_services`{.literal} angeben, um statt
+`authorized_contactgroup_for_all_services` angeben, um statt
 eines contact eine contactgroup zu autorisieren.
 
 **Zugang zu globalen Service-Befehlen**
@@ -412,7 +392,7 @@ Autorisierung für die CGIs konfiguriert, finden Sie
 Anmerkung
 
 Ab Icinga 1.5.0 können Sie alternativ
-`authorized_contactgroup_for_all_service_commands`{.literal} angeben, um
+`authorized_contactgroup_for_all_service_commands` angeben, um
 statt eines contact eine contactgroup zu autorisieren.
 
 **Zeige alle Services für einen berechtigten Host**
@@ -461,7 +441,7 @@ Autorisierung für die CGIs konfiguriert, finden Sie
 Anmerkung
 
 Ab Icinga 1.5.0 können Sie alternativ
-`authorized_contactgroup_for_read_only`{.literal} angeben, um statt
+`authorized_contactgroup_for_read_only` angeben, um statt
 eines contact eine contactgroup zu autorisieren.
 
 **Read-Only für Kommentare**
@@ -539,10 +519,7 @@ Ausfallzeiten über das Web-Interface eingeben. Wenn diese Option
 aktiviert ist, können Benutzer nicht mit der Befehlsanfrage verbundene
 Autorennamen ändern.
 
--   0 = Benutzern erlauben, den Autorennamen bei der Erteilung von
-    Befehlen zu ändern
 
--   1 = Benutzer daran hindern, den Autorennamen zu ändern (default)
 
 **Standard- Verfallsdauer für global deaktivierte Benachrichtigungen**
 
@@ -577,9 +554,7 @@ Plugins festzulegen, die in der status.cgi angezeigt werden. Wenn Sie
 den Wert auf 1 setzen, dann wird die komplette Ausgabe angezeigt, sonst
 nur die erste Zeile.
 
--   0 = Nur die erste Zeile der Plugin-Ausgabe anzeigen (default)
 
--   1 = Die komplette Plugin-Ausgabe anzeigen
 
 ![[Anmerkung]](../images/note.png)
 
@@ -856,9 +831,7 @@ Bestätigung von Problem-Hosts oder -Services aktiviert ist. Sie kann
 benutzt werden, um das Verhalten von Nagios 2 wiederherzustellen.
 Default ist "0", um kompatibel mit Nagios 3 zu sein.
 
--   0 = Check-Box "persistent comment" deaktiviert lassen (Default)
 
--   1 = Check-Box "persistent comment" aktivieren
 
 **Feldtrennzeichen für CSV-Export setzen**
 
@@ -906,9 +879,7 @@ Anmerkung
 Diese Option hat nur Auswirkungen, wenn die Option
 "log\_initial\_states" in der icinga.cfg gesetzt wurde.
 
--   0 = initiale Zustände in showlog.cgi nicht anzeigen (Default)
 
--   1 = initiale Zustände in showlog.cgi anzeigen
 
 **Aktuellen Status anzeigen**
 
@@ -930,9 +901,7 @@ Anmerkung
 Diese Option hat nur Auswirkungen, wenn die Option
 "log\_current\_states" in der icinga.cfg gesetzt wurde.
 
--   0 = aktuelle Zustände in showlog.cgi nicht anzeigen
 
--   1 = aktuelle Zustände in showlog.cgi anzeigen (Default)
 
 **Objekttyp in Tab-Titel anzeigen**
 
@@ -947,20 +916,14 @@ Beispiel:
 Durch Aktivieren dieser Option ändern sich die Titel der Reiter im
 Browser, um den jeweiligen Objekttyp anzuzeigen. Sie zeigen dann:
 
--   [Host]
 
--   {Hostgruppe}
 
--   Service-Beschreibung @ Host
 
--   (Servicegruppe)
 
 Diese sind einfache zu lesen (und zu finden), wenn Sie (viele) Reiter in
 Ihrem Browser anzeigen.
 
--   0 = Objekttyp im Reiter nicht anzeigen
 
--   1 = Objekttyp im Reiter anzeigen (Default)
 
 **Service-Zustand und Benachrichtigungsnummer anzeigen**
 
@@ -986,13 +949,8 @@ Schwierigkeiten" sind.
 Relevante Werte aus include/statusdata.h (sehen Sie \*dort\* nach, um
 \*wirklich\* sicher zu sein):
 
-~~~~ {.programlisting}
- #define    SERVICE_PENDING     1
- #define    SERVICE_OK          2
- #define    SERVICE_WARNING     4
- #define    SERVICE_UNKNOWN     8
- #define    SERVICE_CRITICAL   16
-~~~~
+<pre><code>
+</code></pre>
 
 Sie werden wahrscheinlich add\_notif\_num\_hard=0 (Default) oder
 add\_notif\_num\_hard=28 (warn+crit+unknown) setzen.
@@ -1065,19 +1023,10 @@ Beispiel:
 Dies ist die Rotationsmethode, die Icinga für Ihre CGI-Protokolldatei
 nutzen soll. Die Werte sind wie folgt:
 
--   n = niemals ("none" - die Protokolldatei wird nie rotieren)
 
--   h = stündlich ("hourly" - die Protokolldatei jede volle Stunde
-    rotieren)
 
--   d = täglich ("daily" - die Protokolldatei jeden Tag um Mitternacht
-    rotieren - Default)
 
--   w = wöchentlich ("weekly" - die Protokolldatei jeden Samstag um
-    Mitternacht rotieren)
 
--   m = monatlich ("monthly" - die Protokolldatei am letzten Tag des
-    Monats um Mitternacht rotieren)
 
 **CGI-Protokollarchiv-Pfad** (CGI Log Archiv Path)
 
@@ -1134,7 +1083,7 @@ aktuelle Situation informiert sind.
 
 Wenn Sie die alte minimalistische Ansicht beibehalten möchte, dann kann
 der neue Header durch folgenden Eintrag deaktiviert werden:
-`show_tac_header=0`{.literal}
+`show_tac_header=0`
 
 Das Layout der Anzeige für die Einträge jedes Typs lautet "X / Y / Z",
 wobei:
@@ -1150,15 +1099,10 @@ mit allen Hosts bzw. Services mit der o.g. Eigenschaft.
 
 Die Farbgebung dieser Einträge richtet sich nach folgendem Schema:
 
-~~~~ {.programlisting}
- 1+ / *  / *  = Vollfarbe
- 0  / 1+ / *  = Farbe abgeschwächt, Rand Vollfarbe
- 0  / 0  / 1+ = Rand Vollfarbe, Text fett und farbig
- 0  / 0  / *  = Grau
-  
-~~~~
+<pre><code>
+</code></pre>
 
-Diese Farben sind in `html/stylesheets/tacheader.css`{.filename}
+Diese Farben sind in `html/stylesheets/tacheader.css`
 abgelegt, damit sie einfach angepasst werden können. Wenn Sie z.B. eine
 verteilte Umgebung haben und primär passive Prüfungen einsetzen, dann
 möchten Sie ggf., dass passive Prüfungen farblich wie aktive Prüfungen
@@ -1237,7 +1181,7 @@ Per Default (gleichbedeutend mit einer nicht vorhandenen oder
 deaktivierten Direktive) sieht ein Benutzer eine Hostgruppe und deren
 Hosts nur, wenn er ein autorisierter Kontakt für *alle* Hosts der
 jeweiligen Gruppe ist. Das Verhalten kann mit der Direktive
-`show_partial_hostgroups=1`{.code} geändert werden.
+`show_partial_hostgroups=1` geändert werden.
 
 Wenn sie aktiviert ist, wird der Hostgruppen-Überblick auch
 unvollständige Hostgruppen aufführen, bei denen lediglich die Hosts
@@ -1316,11 +1260,8 @@ Beispiel:
 Mit dieser Option wird festgelegt, ob Child-Host(s) für den ausgewählten
 Host im Hostextinfo-CGI angezeigt werden.
 
--   0 = deaktiviert (Default)
 
--   1 = nur direkte Child-Hosts anzeigen
 
--   2 = direkte und darunter liegende Child-Hosts anzeigen
 
 ![[Wichtig]](../images/important.png)
 
@@ -1349,7 +1290,7 @@ Beispiel:
 Diese Option ist eine kommaseparierte Liste von Benutzern, die im
 "Config Command Expander" den Befehl so sehen, wie er von Icinga
 ausgeführt würde. Damit alle MACROS aufgelöst werden können, benötigt
-der Web-Server zusätzlich Lesezugriff auf `resource.cfg`{.filename}.
+der Web-Server zusätzlich Lesezugriff auf `resource.cfg`.
 
 Alternativ können Sie auch Kontaktgruppen angeben.
 
@@ -1498,7 +1439,7 @@ Als Standard (d.h., wenn die Direktive nicht gesetzt oder deaktiviert
 ist) kann ein Benutzer eine Service-Gruppe und die darin enthaltenen
 Hosts bzw. Service nur dann sehen, wenn er ein autorisierter Kontakt für
 alle Hosts und Services der Gruppe ist. Dieses Verhalten kann mit der
-Direktive `show_partial_servicegroups=1`{.literal} geändert werden. Wenn
+Direktive `show_partial_servicegroups=1` geändert werden. Wenn
 sie aktiviert ist, wird die Service-Gruppen-Übersicht für alle
 Service-Gruppen eine partielle Auflistung von Hosts und Services zeigen,
 bei denen der Benutzer als autorisierter Kontakt eingetragen ist. Sie
@@ -1508,10 +1449,7 @@ Direktive gesetzt ist oder nicht. Allerdings werden Service-Gruppen
 nicht extra gekennzeichnet, bei denen nur eine partielle Auflistung
 gezeigt wird.
 
--   0 - deaktiviert, Benutzer sieht nur vollständige Service-Gruppen
-    (Standard)
 
--   1 - aktiviert, Benutzer sieht auch partielle Service-Gruppen
 
 ![[Anmerkung]](../images/note.png)
 
@@ -1536,9 +1474,7 @@ sollen CRSF-Attacken (Cross-Site Request Forgery) verhindert werden.
 Aktivieren Sie diese Option nur, wenn Sie diese Funktionalität
 benötigen.
 
--   0 - deaktiviert, gegen CSRF-Attacken schützen (default)
 
--   1 - aktiviert, externen Programmen Zugriff erlauben
 
 ![[Anmerkung]](../images/note.png)
 
@@ -1616,10 +1552,6 @@ Diese Option ist verfügbar ab Icinga 1.12
 
 * * * * *
 
-  ---------------------------------------- -------------------------- -------------------------------------------
-  [Zurück](customobjectvars.md)          [Nach oben](ch03.md)      [Weiter](ch04.md)
-  3.5. Maßgeschneiderte Objektvariablen    [Zum Anfang](index.md)    Kapitel 4. Icinga starten/stoppen/prüfen
-  ---------------------------------------- -------------------------- -------------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

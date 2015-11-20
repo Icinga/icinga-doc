@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.23. Service and Host Check Scheduling
-
-[Prev](passivestatetranslation.md) 
-
-Chapter 7. Advanced Topics
-
- [Next](cgiincludes.md)
+[Prev](passivestatetranslation.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](cgiincludes.md)
 
 * * * * *
 
@@ -62,23 +54,16 @@ definition](objectdefinitions.md#objectdefinitions-service) contains
 three options that determine when and how each specific service check is
 scheduled and executed. Those three options are:
 
--   *check\_interval*
 
--   *retry\_interval*
 
--   *check\_period*
 
 There are also four configuration options in the [main configuration
 file](configmain.md "3.2. Main Configuration File Options") that
 affect service checks. These include:
 
--   [*service\_inter\_check\_delay\_method*](configmain.md#configmain-service_inter_check_delay_method)
 
--   [*service\_interleave\_factor*](configmain.md#configmain-service_interleave_factor)
 
--   [*max\_concurrent\_checks*](configmain.md#configmain-max_concurrent_checks)
 
--   [*check\_result\_reaper\_frequency*](configmain.md#configmain-check_result_reaper_frequency)
 
 ![[Note]](../images/note.png)
 
@@ -234,16 +219,8 @@ completed. So how does one determine a reasonable value for the
 
 First off, you need to know the following things...
 
--   The inter-check delay that Icinga uses to initially schedule service
-    checks (use the **-s** command line argument to check this)
 
--   The frequency (in seconds) of reaper events, as specified by the
-    [check\_result\_reaper\_frequency](configmain.md#configmain-check_result_reaper_frequency)
-    variable in the main config file.
 
--   A general idea of the average time that service checks actually take
-    to execute (most plugins timeout after 10 seconds, so the average is
-    probably going to be lower)
 
 Next, use the following calculation to determine a reasonable value for
 the maximum number of concurrent checks that are allowed...
@@ -355,7 +332,6 @@ the host until either (a) the maximum number of host checks (specified
 by the *max\_attempts* option in the host definition) is reached or (b)
 a host check results in an OK state.
 
-Also of note - when Icinga is check the status of a host, it holds off
 on doing anything else (executing new service checks, processing other
 service check results, etc). This can slow things down a bit and cause
 pending service checks to be delayed for a while, but it is necessary to
@@ -376,7 +352,6 @@ processing of service checks.
 
 The scheduling of service checks, their execution, and the processing of
 their results can be a bit difficult to understand, so let's look at a
-simple example. Look at the diagram below - we'll refer to it as we
 explain how things are done.
 
 ![](../images/checktiming.png)
@@ -409,7 +384,6 @@ in an OK status, so the next check at time **E** is scheduled after the
 originally scheduled check time by a length of time specified by the
 *check\_interval* option. Note that the service is *not* rescheduled
 based off the time that it was actually executed! There is one exception
-to this (isn't there always?) - if the time that the service check is
 actually executed (point **B**) occurs after the next service check time
 (point **E**), Icinga will compensate by adjusting the next check time.
 This is done to ensure that Icinga doesn't go nuts trying to keep up
@@ -461,10 +435,12 @@ in a later beta release...
 
 * * * * *
 
-  --------------------------------------- -------------------- ----------------------------------------------------
-  [Prev](passivestatetranslation.md)    [Up](ch07.md)       [Next](cgiincludes.md)
-  7.22. Passive Host State Translation    [Home](index.md)    7.24. Custom CGI Headers and Footers (Classic UI)
-  --------------------------------------- -------------------- ----------------------------------------------------
+[Prev](passivestatetranslation.md) | [Up](ch07.md) | [Next](cgiincludes.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

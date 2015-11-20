@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.4. Volatile Services
-
-[Prev](eventhandlers.md) 
-
-Chapter 7. Advanced Topics
-
- [Next](freshness.md)
+[Prev](eventhandlers.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](freshness.md)
 
 * * * * *
 
@@ -42,11 +34,7 @@ useful when used properly...
 
 Volatile services are useful for monitoring...
 
--   Things that automatically reset themselves to an "OK" state each
-    time they are checked
 
--   Events such as security alerts which require attention every time
-    there is a problem (and not just the first time)
 
 ### 7.4.3. What's So Special About Volatile Services?
 
@@ -55,19 +43,11 @@ Volatile services differ from "normal" services in three important ways.
 [hard](statetypes.md "5.8. State Types") non-OK state, and the check
 returns a non-OK state (i.e. no state change has occurred)...
 
--   The non-OK service state is logged
 
--   Contacts are notified about the problem (if that's [what should be
-    done](notifications.md "5.11. Notifications")).
 
-    ![[Note]](../images/note.png)
 
-    Note
 
-    Notification intervals are ignored for volatile services.
 
--   The [event handler](eventhandlers.md "7.3. Event Handlers") for
-    the service is run (if one has been defined)
 
 These events normally only occur for services when they are in a non-OK
 state and a hard state change has just occurred. In other words, they
@@ -97,31 +77,18 @@ the following...
 
 ### 7.4.5. Icinga Configuration:
 
--   Create a service definition called *Port Scans* and associate it
-    with the host that PortSentry is running on.
 
--   Set the *max\_check\_attempts* directive in the service definition
-    to 1. This will tell Icinga to immediate force the service into a
-    [hard state](statetypes.md "5.8. State Types") when a non-OK state
-    is reported.
 
--   Set the *active\_checks\_enabled* directive in the service
-    definition to 0. This prevents Icinga from actively checking the
-    service.
 
--   Set the *passive\_checks\_enabled* directive in the service
-    definition to 1. This enables passive checks for the service.
 
--   Set this *is\_volatile* directive in the service definition to 1.
 
 ### 7.4.6. PortSentry Configuration:
 
 Edit your PortSentry configuration file (portsentry.conf) and define a
 command for the *KILL\_RUN\_CMD* directive as follows:
 
-~~~~ {.programlisting}
- KILL_RUN_CMD="/usr/local/Icinga/libexec/eventhandlers/submit_check_result host_name 'Port Scans' 2 'Port scan from host $TARGET$ on port $PORT$.  Host has been firewalled.'"
-~~~~
+<pre><code>
+</code></pre>
 
 Make sure to replace *host\_name* with the short name of the host that
 the service is associated with.
@@ -132,49 +99,39 @@ Create a shell script in the */usr/local/icinga/libexec/eventhandlers*
 directory named *submit\_check\_result*. The contents of the shell
 script should be something similiar to the following...
 
-~~~~ {.programlisting}
+<pre><code>
 #!/bin/sh
 
 # Write a command to the Icinga command file to cause
 # it to process a service check result
- 
 echocmd="/bin/echo"
- 
 CommandFile="/usr/local/icinga/var/rw/nagios.cmd"
 
 # get the current date/time in seconds since UNIX epoch
 datetime=`date +%s`
- 
 # create the command line to add to the command file
 cmdline="[$datetime] PROCESS_SERVICE_CHECK_RESULT;$1;$2;$3;$4"
- 
 # append the command to the end of the command file
 `$echocmd $cmdline >> $CommandFile`
-~~~~
+</code></pre>
 
 What will happen when PortSentry detects a port scan on the machine in
 the future?
 
--   PortSentry will firewall the host (this is a function of the
-    PortSentry software)
 
--   PortSentry will execute the *submit\_check\_result* shell script and
-    send a passive check result to Icinga
 
--   Icinga will read the external command file and see the passive
-    service check submitted by PortSentry
 
--   Icinga will put the *Port Scans* service in a hard CRITICAL state
-    and send notifications to contacts
 
 Pretty neat, huh?
 
 * * * * *
 
-  ----------------------------- -------------------- -----------------------------------------
-  [Prev](eventhandlers.md)    [Up](ch07.md)       [Next](freshness.md)
-  7.3. Event Handlers           [Home](index.md)    7.5. Service and Host Freshness Checks
-  ----------------------------- -------------------- -----------------------------------------
+[Prev](eventhandlers.md) | [Up](ch07.md) | [Next](freshness.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

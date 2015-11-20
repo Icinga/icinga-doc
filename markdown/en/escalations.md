@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.9. Notification Escalations
-
-[Prev](flapping.md) 
-
-Chapter 7. Advanced Topics
-
- [Next](escalation_condition.md)
+[Prev](flapping.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](escalation_condition.md)
 
 * * * * *
 
@@ -62,25 +54,10 @@ definitions that applies to it, the contact group(s) specified in either
 the host group or service definition will be used for the notification.
 Look at the example below:
 
-~~~~ {.screen}
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      3
-        last_notification       5
-        notification_interval   90
-        contact_groups          nt-admins,managers
-        }
 
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      6
-        last_notification       10
-        notification_interval   60
-        contact_groups          nt-admins,managers,everyone
-        }
-~~~~
+</code></pre>
 
 Notice that there are "holes" in the notification escalation
 definitions. In particular, notifications 1 and 2 are not handled by the
@@ -99,25 +76,10 @@ those with lower notification number ranges) should also be included in
 anyone who gets notified of a problem *continues* to get notified as the
 problem is escalated. Example:
 
-~~~~ {.screen}
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      3
-        last_notification       5
-        notification_interval   90
-        contact_groups          nt-admins,managers
-        }
 
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      6
-        last_notification       0
-        notification_interval   60
-        contact_groups          nt-admins,managers,everyone
-        }
-~~~~
+</code></pre>
 
 The first (or "lowest") escalation level includes both the *nt-admins*
 and *managers* contact groups. The last (or "highest") escalation level
@@ -126,7 +88,6 @@ Notice that the *nt-admins* contact group is included in both escalation
 definitions. This is done so that they continue to get paged if there
 are still problems after the first two service notifications are sent
 out. The *managers* contact group first appears in the "lower"
-escalation definition - they are first notified when the third problem
 notification gets sent out. We want the *managers* group to continue to
 be notified if the problem continues past five notifications, so they
 are also included in the "higher" escalation definition.
@@ -136,61 +97,25 @@ are also included in the "higher" escalation definition.
 Notification escalation definitions can have notification ranges that
 overlap. Take the following example:
 
-~~~~ {.screen}
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      3
-        last_notification       5
-        notification_interval   20
-        contact_groups          nt-admins,managers
-        }
 
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      4
-        last_notification       0
-        notification_interval   30
-        contact_groups          on-call-support
-        }
-~~~~
+</code></pre>
 
 In the example above:
 
--   The *nt-admins* and *managers* contact groups get notified on the
-    third notification
 
--   All three contact groups get notified on the fourth and fifth
-    notifications
 
--   Only the *on-call-support* contact group gets notified on the sixth
-    (or higher) notification
 
 ### 7.9.5. Recovery Notifications
 
 Recovery notifications are slightly different than problem notifications
 when it comes to escalations. Take the following example:
 
-~~~~ {.screen}
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      3
-        last_notification       5
-        notification_interval   20
-        contact_groups          nt-admins,managers
-        }
 
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      4
-        last_notification       0
-        notification_interval   30
-        contact_groups          on-call-support
-        }
-~~~~
+</code></pre>
 
 If, after three problem notifications, a recovery notification is sent
 out for the service, who gets notified? The recovery is actually the
@@ -207,25 +132,10 @@ out for a particular host or service by using the
 *notification\_interval* option of the hostgroup or service escalation
 definition. Example:
 
-~~~~ {.screen}
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      3
-        last_notification       5
-        notification_interval   45
-        contact_groups          nt-admins,managers
-        }
 
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      6
-        last_notification       0
-        notification_interval   60
-        contact_groups          nt-admins,managers,everyone
-        }
-~~~~
+</code></pre>
 
 In this example we see that the default notification interval for the
 services is 240 minutes (this is the value in the service definition).
@@ -243,25 +153,10 @@ definitions overlap. In any case where there are multiple valid
 escalation definitions for a particular notification, Icinga will choose
 the smallest notification interval. Take the following example:
 
-~~~~ {.screen}
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      3
-        last_notification       5
-        notification_interval   45
-        contact_groups          nt-admins,managers
-        }
 
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      4
-        last_notification       0
-        notification_interval   60
-        contact_groups          nt-admins,managers,everyone
-        }
-~~~~
+</code></pre>
 
 We see that the two escalation definitions overlap on the 4th and 5th
 notifications. For these notifications, Icinga will use a notification
@@ -274,34 +169,11 @@ the first valid notification during that escalation definition. All
 subsequent notifications for the hostgroup or service will be
 suppressed. Take this example:
 
-~~~~ {.screen}
 define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      3
-        last_notification       5
-        notification_interval   45
-        contact_groups          nt-admins,managers
-        }
 
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      4
-        last_notification       6
-        notification_interval   0
-        contact_groups          nt-admins,managers,everyone
-        }
-        
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      7
-        last_notification       0
-        notification_interval   30
-        contact_groups          nt-admins,managers
-        }
-~~~~
+</code></pre>
 
 In the example above, the maximum number of problem notifications that
 could be sent out about the service would be four. This is because the
@@ -350,10 +222,12 @@ escalation can be used when the host or service is in any state.
 
 * * * * *
 
-  ------------------------------------------------ -------------------- ------------------------------------
-  [Prev](flapping.md)                            [Up](ch07.md)       [Next](escalation_condition.md)
-  7.8. Detection and Handling of State Flapping    [Home](index.md)    7.10. Escalation Condition
-  ------------------------------------------------ -------------------- ------------------------------------
+[Prev](flapping.md) | [Up](ch07.md) | [Next](escalation_condition.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

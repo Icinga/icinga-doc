@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-8.7. Grafische Darstellung von Performance-Informationen mit PNP4Nagios
-
-[Zurück](icingastats.md) 
-
-Kapitel 8. Sicherheit und Leistungsoptimierung
-
- [Weiter](temp_data.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -45,12 +37,8 @@ Das [icingastats](icingastats.md)-Utility erlaubt Ihnen zusammen mit
 Icinga-Performance-Statistiken über eine bestimmten Zeitraum grafisch
 darzustellen. Das ist wichtig, weil es Ihnen helfen kann
 
--   dass Icinga effizient arbeitet
 
--   um Problembereiche im Überwachungsprozess zu lokalisieren
 
--   um die Einflüsse von Änderungen in Ihrer Icinga-Konfiguration zu
-    beobachten
 
 ### 8.7.2. Voraussetzungen
 
@@ -67,111 +55,32 @@ erstellt. Es kann als aktive Service-Prüfung aufgerufen werden oder über
 die crontab und liefert die Daten dann als passive Prüfergebnisse. Trotz
 des Namens funktioniert das Plugin auch mit Icinga.
 
--   Nach dem Herunterladen des Plugins und Ablegen im Plugin-Verzeichnis
-    (z.B. `/usr/local/icinga/libexec`{.filename}, falls Sie die
-    Schnellstartanleitung benutzt haben) müssen Sie die Werte im
-    Konfigurationsabschnitt des Scripts anpassen.
 
-    -   Am **wichtig**sten ist
-        "`EXEC=`{.literal}`/path/to/icingastats`{.filename}" (z.B.
-        `/usr/local/icinga/bin/icingastats`{.filename}), das auf das
-        `icingastats`{.filename}-Binary zeigen muss.
 
-    -   Abhängig von Ihren Bedürfnissen möchten Sie ggf. den Wert für
-        `CUMULATE`{.literal} von "AVG" auf "MIN" oder "MAX" ändern: Die
-        Einstellung von `TIMEFRAME`{.literal} beeinflusst die
-        Zeitperiode, die für die Ausgabe von kumulierten Werten benutzt
-        wird
 
-    -   Das Ändern der Werte von `PASSIVE_EMERGENCY_HOST`{.literal} und
-        `PASSIVE_EMERGENCY_SERVICE`{.literal} sollte nicht notwendig
-        sein, weil diese Werte als Parameter an das Script übergeben
-        werden.
 
--   Sie können das Plugin mit aktiven oder passiven Prüfungen aufrufen
 
-    -   Aktiv
 
-        Stellen Sie sicher, dass Ihre Objektkonfigurationsdateien eine
-        passende Service-Definition enthalten, wie z.B.
 
-        ~~~~ {.programlisting}
-         define service{
-            host_name               <the Icinga server>
-            service_description     icingastats # (oder etwas Passendes)
-            check_command           check_stats
-            check_interval          1
-            retry_interval          1
-            ...
-         }
-        ~~~~
 
-        und eine Command-Definition
 
-        ~~~~ {.programlisting}
-         define command{
-            command_name            check_stats
-            command_line            $USER1$/check_nagiostats
-          }
-        ~~~~
 
-        Vergessen Sie nicht den Neustart von Icinga nach diesen
-        Änderungen.
 
-    -   Passiv
 
-        Stellen Sie sicher, dass Ihre Objektkonfigurationsdateien eine
-        passende Service-Definition enthalten, wie z.B.
 
-        ~~~~ {.programlisting}
-         define service{
-            host_name               <the Icinga server>
-            service_description     icingastats # (oder etwas Passendes)
-            active_checks_enabled   0
-            check_command           check_stats!3!Frische-Schwellwert ueberschritten
-            check_freshness         1
-            freshness_threshold     180         # Pruefintervall + x Sekunden
-            ...
-         }
-        ~~~~
 
-        und eine Command-Definition
 
-        ~~~~ {.programlisting}
-         define command{
-            command_name            check_stats
-            command_line            $USER1$/check_dummy $ARG1$ $ARG2$
-         }
-        ~~~~
 
-        Vergessen Sie nicht den Neustart von Icinga nach dieser
-        Änderung.
 
-        Fügen Sie eine Zeile zur crontab des Icinga-Benutzers hinzu, die
-        das `icingastats`{.filename}-Binary aufruft und die Ergebnisse
-        an die Command-Pipe weiterleitet
 
-        ~~~~ {.programlisting}
-         * * * * * /usr/local/icinga/libexec/check_nagiostats --passive <host> icingastats >> /usr/local/icinga/var/rw/icinga.cmd
-        ~~~~
 
-        Auf diese Weise werden die Werte in regelmäßigen Intervallen
-        aktualisiert.
 
--   Legen Sie einen logischen Link im (Benutzer) templates-Verzeichnis
-    von PNP4Nagios an
 
-    ~~~~ {.programlisting}
-     $> ln -s ../templates.dist/nagiostats.php check_stats.php
-    ~~~~
 
-    Stellen Sie sicher, dass *check\_stats* (ohne die Endung .php) zu
-    dem Wert passt, den Sie als ersten Parameter im check\_command
-    angegeben haben
 
 **Beispiel-Graphen**
 
-Wir werden beschreiben, was die durch `check_nagiostats`{.filename}
+Wir werden beschreiben, was die durch `check_nagiostats`
 erzeugten Graphen bedeuten und wofür sie benutzt werden können...
 
 ### 8.7.3. Durchschnittliche Host-/Service-Prüfungslatenz
@@ -187,26 +96,16 @@ Dieser Graph zeigt die durchschnittlichen Latenzzeiten von Hosts und
 Services über die Zeit gesehen, getrennt nach aktiven und passiven
 Prüfungen. Das ist nützlich zum Verständnis von:
 
--   [Host-Prüfungen](hostchecks.md "5.4. Host-Prüfungen (Host checks)")
 
--   [Service-Prüfungen](servicechecks.md "5.5. Service-Prüfungen (Service Checks)")
 
--   [Aktiven
-    Prüfungen](activechecks.md "5.6. Aktive Prüfungen (Active Checks)")
 
--   [Passiven
-    Prüfungen](passivechecks.md "5.7. Passive Prüfungen (Passive Checks)")
 
--   [Performance-Tuning](tuning.md "8.3. Icinga für maximale Leistung optimieren")
 
 Durchgehend hohe Latenzen können ein Hinweis darauf sein, dass eine oder
 mehrere der folgenden Variablen angepasst werden sollten:
 
--   [max\_concurrent\_checks](configmain.md#configmain-max_concurrent_checks)
 
--   [check\_result\_reaper\_frequency](configmain.md#configmain-check_result_reaper_frequency)
 
--   [max\_check\_result\_reaper\_time](configmain.md#configmain-max_check_result_reaper_time)
 
 ### 8.7.4. Service-Statistiken
 
@@ -221,17 +120,9 @@ mit der durchschnittlichen Zahl von geprüften Services an, die aktiv
 bzw. passiv in der von Ihnen angegebenen Zeitperiode geprüft wurden. Das
 ist nützlich zum Verständnis von:
 
--   [Service-Prüfungen](servicechecks.md "5.5. Service-Prüfungen (Service Checks)")
 
--   [Vorausschauenden Service-Abhängigkeitsprüfungen (predictive service
-    dependency
-    checks)](dependencychecks.md "7.20. Vorausschauende Abhängigkeitsprüfungen")
 
--   [Zwischengespeicherten Prüfungen (cached
-    checks)](cachedchecks.md "7.21. Zwischengespeicherte Prüfungen")
 
--   [Flattererkennung (flap
-    detection)](flapping.md "7.8. Erkennung und Behandlung von Status-Flattern")
 
 ### 8.7.5. Host-Statistiken
 
@@ -246,17 +137,9 @@ mit der durchschnittlichen Zahl von geprüften Hosts an, die aktiv bzw.
 passiv in der von Ihnen angegebenen Zeitperiode geprüft wurden. Das ist
 nützlich zum Verständnis von:
 
--   [Host-Prüfungen](hostchecks.md "5.4. Host-Prüfungen (Host checks)")
 
--   [Vorausschauenden Host-Abhängigkeitsprüfungen (predictive host
-    dependency
-    checks)](dependencychecks.md "7.20. Vorausschauende Abhängigkeitsprüfungen")
 
--   [Zwischengespeicherten Prüfungen (cached
-    checks)](cachedchecks.md "7.21. Zwischengespeicherte Prüfungen")
 
--   [Flattererkennung (flap
-    detection)](flapping.md "7.8. Erkennung und Behandlung von Status-Flattern")
 
 ### 8.7.6. Durchschnittliche Ausführungszeiten
 
@@ -270,11 +153,8 @@ Dieser Graph zeigt die durchschnittlichen Ausführungszeit von Host- und
 Service-Prüfungen über die Zeit gesehen. Das ist nützlich zum
 Verständnis von:
 
--   [Host-Prüfungen](hostchecks.md "5.4. Host-Prüfungen (Host checks)")
 
--   [Service-Prüfungen](servicechecks.md "5.5. Service-Prüfungen (Service Checks)")
 
--   [Performance-Tuning](tuning.md "8.3. Icinga für maximale Leistung optimieren")
 
 ![[Anmerkung]](../images/note.png)
 
@@ -283,8 +163,8 @@ Anmerkung
 Um ehrlich zu sein: Wir haben die Graphen ein wenig verändert, bezogen
 auf die Farben. Gelb ist teilweise schwierig vom Hintergrund zu
 unterscheiden so dass wir einige Zeilen in der PNP4Nagios-Template-Datei
-`template.dist/nagiostats.php`{.filename} von `$i=0;`{.code} in
-`$i=1;`{.code} geändert haben.
+`template.dist/nagiostats.php` von `$i=0;` in
+`$i=1;` geändert haben.
 
 **Zusätzliche Graphen**
 
@@ -308,13 +188,8 @@ externen Befehlen verarbeiten (wie z.B. im Falle einer verteilten
 Überwachung von externen Befehlen kann nützlich sein für das Verständnis
 der Auswirkung von:
 
--   [Passiven
-    Prüfungen](passivechecks.md "5.7. Passive Prüfungen (Passive Checks)")
 
--   [Verteilter
-    Überwachung](distributed.md "7.6. Verteilte Überwachung")
 
--   [Redundante/Failover-Überwachung](redundancy.md "7.7. Redundante und Failover-Netzwerk-Überwachung")
 
 ### 8.7.8. Puffer für externe Befehle (external command buffers)
 
@@ -352,12 +227,7 @@ Dieser Graph zeigt, wie viele zwischengespeicherte Host- und
 Service-Prüfungen über die Zeit aufgetreten sind. Das ist nützlich zum
 Verständnis von:
 
--   [Zwischengespeicherten Prüfungen (cached
-    checks)](cachedchecks.md "7.21. Zwischengespeicherte Prüfungen")
 
--   [Vorausschauenden Host- und Service-Abhängigkeitsprüfungen
-    (predictive host and service dependency
-    checks)](dependencychecks.md "7.20. Vorausschauende Abhängigkeitsprüfungen")
 
 ### 8.7.10. Durchschnittliche Zustandswechsel
 
@@ -372,15 +242,9 @@ Dieser Graph zeigt den durchschnittlichen prozentualen Zustandswechsel
 nach Hosts und Service, die zuletzt aktiv oder passiv geprüft wurden.
 Das ist nützlich zum Verständnis von:
 
--   [Flattererkennung (flap
-    detection)](flapping.md "7.8. Erkennung und Behandlung von Status-Flattern")
 
 * * * * *
 
-  ---------------------------------------- -------------------------- ---------------------------
-  [Zurück](icingastats.md)               [Nach oben](ch08.md)      [Weiter](temp_data.md)
-  8.6. Nutzung des Icingastats-Utilitys    [Zum Anfang](index.md)    8.8. Temporäre Daten
-  ---------------------------------------- -------------------------- ---------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

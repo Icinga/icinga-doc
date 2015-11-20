@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-2.14. Linux/Unix-Rechner überwachen
-
-[Zurück](monitoring-windows.md) 
-
-Kapitel 2. Los geht's
-
- [Weiter](monitoring-netware.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -22,17 +14,11 @@ Kapitel 2. Los geht's
 Dieses Dokument beschreibt, wie Sie "private" Dienste und Attribute auf
 Linux/UNIX-Servern überwachen, wie z.B.:
 
--   CPU-Auslastung
 
--   Speichernutzung
 
--   Plattenbelegung
 
--   angemeldete Benutzer
 
--   laufende Prozesse
 
--   etc.
 
 Öffentlich nutzbare Dienste, die von Linux-Servern zur Verfügung
 gestellt werden (HTTP, FTP, SSH, SMTP, etc.), können einfach mit Hilfe
@@ -79,10 +65,6 @@ Speichernutzung auf einem entfernten Host überwachen wollen.
 
 * * * * *
 
-  ------------------------------------- -------------------------- ------------------------------------
-  [Zurück](monitoring-windows.md)     [Nach oben](ch02.md)      [Weiter](monitoring-netware.md)
-  2.13. Windows-Maschinen überwachen    [Zum Anfang](index.md)    2.15. Netware-Server überwachen
-  ------------------------------------- -------------------------- ------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

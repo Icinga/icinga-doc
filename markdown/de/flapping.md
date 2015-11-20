@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.8. Erkennung und Behandlung von Status-Flattern
-
-[Zurück](redundancy.md) 
-
-Kapitel 7. Fortgeschrittene Themen
-
- [Weiter](escalations.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -55,18 +47,9 @@ entschied er sich für das, was er für eine sinnvolle Lösung hielt...
 Sobald Icinga den Zustand eines Hosts oder Services prüft, wird es
 prüfen, ob dafür Flattern begonnen oder geendet hat. Es tut dies durch:
 
--   speichern der Ergebnisse der letzten 21 Prüfungen des Hosts oder
-    Service [1]
 
--   analysieren der historischen Prüfergebnisse und feststellen, wo
-    Statusänderungen/-übergänge auftreten
 
--   benutzen der Statusübergänge, um einen Statuswechsel-Prozentsatz
-    (ein Maß für die Änderung) für den Statuswechsel des Hosts oder
-    Service festzulegen
 
--   vergleichen des Statuswechsel-Prozentwertes gegen die
-    Flatter-Schwellwerte (hoch und niedrig)
 
 Ein Host oder Service wird angesehen, mit dem Flatter *begonnen* zu
 haben, wenn der Prozentsatz das erste Mal einen *hohen*
@@ -132,13 +115,7 @@ gewichtete Prozentwert 31% ist...
 Der errechnete Prozentwert für den Service (31%) wird dann gegen die
 Flatter-Schwellwerte verglichen, um zu sehen, was passiert:
 
--   wenn der Service bisher *nicht* flatterte und 31% *gleich oder
-    größer* als der hohe Flatter-Schwellwert ist, nimmt Icinga an, dass
-    der Service gerade angefangen hat zu flattern.
 
--   wenn der Service *bereits* flatterte und 31% *unter* dem niedrigen
-    Flatter-Schwellwert liegt, nimmt Icinga an, dass der Service gerade
-    aufgehört hat zu flattern.
 
 wenn keine der beiden Bedingungen zutrifft, dann macht die
 Flatter-Erkennungslogik nichts weiteres mit dem Service, da er entweder
@@ -158,13 +135,7 @@ Host-Flatter-Erkennung arbeitet in einer ähnlichen Weise wie die
 Service-Flatter-Erkennung, mit einem wichtigen Unterschied: Icinga wird
 versuchen zu prüfen, ob ein Host flattert, wenn:
 
--   der Host geprüft wird (aktiv oder passiv)
 
--   manchmal, wenn ein Service geprüft wird, der mit dem Host verbunden
-    ist. Genauer gesagt, wenn wenigstens *x* der Zeit vergangen ist,
-    seit die letzte Flatter-Erkennung durchgeführt wurde, wobei *x* dem
-    Durchschnittsintervall aller Services entspricht, die mit dem Host
-    verbunden sind.
 
 Warum wird das gemacht? Bei Services wissen wir, dass die minimale Zeit
 zwischen zwei aufeinander folgenden Flatter-Erkennungsroutinen gleich
@@ -239,45 +210,22 @@ Service-Zustände in der Flatter-Erkennung benutzt.
 Wenn bei einem Service- oder Host das erste Mal Flattern erkannt wird,
 wird Icinga:
 
-1.  eine Meldung protokollieren, dass der Service oder Host flattert
 
-2.  einen nicht-permanenten Kommentar zum Host oder Service hinzufügen,
-    dass er flattert
 
-3.  eine "flapping start"-Benachrichtigung für den Host oder Service an
-    die betreffenden Kontakte versenden
 
-4.  andere Benachrichtigungen für den Service oder Host unterdrücken
-    (das ist einer der Filter in der
-    [Benachrichtigungslogik](notifications.md "5.11. Benachrichtigungen"))
 
 Wenn ein Service oder Host aufhört zu flattern, wird Icinga:
 
-1.  eine Meldung protokollieren, dass der Service oder Host nicht mehr
-    flattert
 
-2.  den Kommentar löschen, der zum Service oder Host hinzugefügt wurde,
-    als dieser anfing zu flattern
 
-3.  eine "flapping stop"-Benachrichtigung für den Host oder Service an
-    die betreffenden Kontakte versenden
 
-4.  die Blockade von Benachrichtigungen für den Service oder Host
-    entfernen (Benachrichtigungen sind nach wie vor an die normale
-    [Benachrichtigungslogik](notifications.md "5.11. Benachrichtigungen")
-    gebunden)
 
 ### 7.8.9. Aktivieren der Flatter-Erkennung
 
 Um die Flatter-Erkennungsmöglichkeiten in Icinga zu aktivieren, müssen
 Sie folgendes tun:
 
--   setzen Sie die
-    [enable\_flap\_detection](configmain.md#configmain-enable_flap_detection)-Direktive
-    auf 1.
 
--   setzen Sie die *flap\_detection\_enabled*-Direktive in Ihren Host-
-    und Service-Definitionen auf 1.
 
 Wenn Sie die Flatter-Erkennung auf einer globalen Ebene deaktivieren
 wollen, setzen Sie die
@@ -290,10 +238,6 @@ in den Host- oder Service-Definitionen, um das zu tun.
 
 * * * * *
 
-  ---------------------------------------------------- -------------------------- -------------------------------------
-  [Zurück](redundancy.md)                            [Nach oben](ch07.md)      [Weiter](escalations.md)
-  7.7. Redundante und Failover-Netzwerk-Überwachung    [Zum Anfang](index.md)    7.9. Benachrichtigungseskalationen
-  ---------------------------------------------------- -------------------------- -------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-2.16. Monitoring Network Printers
-
-[Prev](monitoring-netware.md) 
-
-Chapter 2. Getting Started
-
- [Next](monitoring-routers.md)
+[Prev](monitoring-netware.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](monitoring-routers.md)
 
 * * * * *
 
@@ -42,23 +34,14 @@ distribution) allows you to monitor the status of JetDirect-capable
 printers which have SNMP enabled. The plugin is capable of detecting the
 following printer states:
 
--   Paper Jam
 
--   Out of Paper
 
--   Printer Offline
 
--   Intervention Required
 
--   Toner Low
 
--   Insufficient Memory
 
--   Open Door
 
--   Output Tray is Full
 
--   and more...
 
 ![[Note]](../images/note.png)
 
@@ -101,24 +84,15 @@ Guide](quickstart-icinga.md "2.4. Icinga Quickstart") for details.
 There are several steps you'll need to follow in order to monitor a new
 network printer. They are:
 
-1.  Perform first-time prerequisites
 
-2.  Create new host and service definitions for monitoring the printer
 
-3.  Restart the Icinga daemon
 
 ### 2.16.4. What's Already Done For You
 
 To make your life a bit easier, a few configuration tasks have already
 been done for you:
 
--   A *check\_hpjd* command definition has been added to the
-    *commands.cfg* file. This allows you to use the *check\_hpjd* plugin
-    to monitor network printers.
 
--   A printer host template (called *generic-printer*) has already been
-    created in the *templates.cfg* file. This allows you to add new
-    printer host definitions in a simple manner.
 
 The above-mentioned config files can be found in the
 */usr/local/icinga/etc/objects/* directory. You can modify the
@@ -136,16 +110,15 @@ the \*first\* printer you monitor.
 
 Edit the main Icinga config file.
 
-~~~~ {.screen}
 #> vi /usr/local/icinga/etc/icinga.cfg
-~~~~
+</code></pre>
 
 Remove the leading hash (\#) sign from the following line in the main
 configuration file:
 
-~~~~ {.programlisting}
+<pre><code>
  #cfg_file=/usr/local/icinga/etc/objects/printer.cfg
-~~~~
+</code></pre>
 
 Save the file and exit.
 
@@ -165,9 +138,8 @@ to monitor a new printer.
 
 Open the *printer.cfg* file for editing.
 
-~~~~ {.screen}
 #> vi /usr/local/icinga/etc/objects/printer.cfg
-~~~~
+</code></pre>
 
 Add a new [host](objectdefinitions.md#objectdefinitions-host)
 definition for the networked printer that you're going to monitor. If
@@ -175,15 +147,9 @@ this is the \*first\* printer you're monitoring, you can simply modify
 the sample host definition in *printer.cfg*. Change the *host\_name*,
 *alias*, and *address* fields to appropriate values for the printer.
 
-~~~~ {.programlisting}
+<pre><code>
  define host{
-        use             generic-printer ; Inherit default values from a template
-        host_name       hplj2605dn      ; The name we're giving to this printer
-        alias           HP LaserJet 2605dn      ; A longer name associated with the printer
-        address         192.168.1.30            ; IP address of the printer
-        hostgroups      allhosts                ; Host groups this printer is associated with
-        }
-~~~~
+</code></pre>
 
 Now you can add some service definitions (to the same configuration
 file) to monitor different aspects of the printer. If this is the
@@ -203,31 +169,17 @@ The service uses the *check\_hpjd* plugin to check the status of the
 printer every 10 minutes by default. The SNMP community string used to
 query the printer is "public" in this example.
 
-~~~~ {.programlisting}
+<pre><code>
  define service{
-        use                   generic-service   ; Inherit values from a template
-        host_name             hplj2605dn        ; The name of the host the service is associated with
-        service_description   Printer Status    ; The service description
-        check_command         check_hpjd!-C public    ; The command used to monitor the service
-        check_interval        10      ; Check the service every 10 minutes under normal conditions
-        retry_interval        1       ; Re-check every minute until its final/hard state is determined
-        }
-~~~~
+</code></pre>
 
 Add the following service definition to ping the printer every 10
 minutes by default. This is useful for monitoring RTA, packet loss, and
 general network connectivity.
 
-~~~~ {.programlisting}
+<pre><code>
  define service{
-        use                     generic-service
-        host_name               hplj2605dn
-        service_description     PING
-        check_command           check_ping!3000.0,80%!5000.0,100%
-        check_interval          10
-        retry_interval          1
-        }
-~~~~
+</code></pre>
 
 Save the file.
 
@@ -246,10 +198,12 @@ Icinga until the verification process completes without any errors!
 
 * * * * *
 
-  ----------------------------------- -------------------- ----------------------------------------
-  [Prev](monitoring-netware.md)     [Up](ch02.md)       [Next](monitoring-routers.md)
-  2.15. Monitoring Netware Servers    [Home](index.md)    2.17. Monitoring Routers and Switches
-  ----------------------------------- -------------------- ----------------------------------------
+[Prev](monitoring-netware.md) | [Up](ch02.md) | [Next](monitoring-routers.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

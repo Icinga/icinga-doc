@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-5.6. Active Checks
-
-[Prev](servicechecks.md) 
-
-Chapter 5. The Basics
-
- [Next](passivechecks.md)
+[Prev](servicechecks.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](passivechecks.md)
 
 * * * * *
 
@@ -28,9 +20,7 @@ active checks here. Active checks are the most common method for
 monitoring hosts and services. The main features of actives checks as as
 follows:
 
--   Active checks are initiated by the Icinga process
 
--   Active checks are run on a regularly scheduled basis
 
 ![](../images/activechecks.png)
 
@@ -51,10 +41,7 @@ More information on how plugins work can be found
 
 Active check are executed:
 
--   At regular intervals, as defined by the *check\_interval* and
-    *retry\_interval* options in your host and service definitions
 
--   On-demand as needed
 
 Regularly scheduled checks occur at intervals equaling either the
 *check\_interval* or the *retry\_interval* in your host or service
@@ -77,10 +64,12 @@ in order to ensure Icinga has the most accurate status information.
 
 * * * * *
 
-  ----------------------------- -------------------- -----------------------------
-  [Prev](servicechecks.md)    [Up](ch05.md)       [Next](passivechecks.md)
-  5.5. Service Checks           [Home](index.md)    5.7. Passive Checks
-  ----------------------------- -------------------- -----------------------------
+[Prev](servicechecks.md) | [Up](ch05.md) | [Next](passivechecks.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

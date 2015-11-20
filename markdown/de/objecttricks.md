@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.27. Zeitsparende Tricks für Objektdefinitionen
-
-[Zurück](objectinheritance.md) 
-
-Kapitel 7. Fortgeschrittene Themen
-
- [Weiter](ch08.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -28,17 +20,11 @@ Objekttyp, der diese Möglichkeiten unterstützt, separat behandeln. Für
 den Anfang sind die Objekttypen, die diese zeitsparende Möglichkeit
 unterstützen, wie folgt:
 
--   [Services](objecttricks.md#objecttricks-service)
 
--   [Service-Eskalationen](objecttricks.md#objecttricks-serviceescalation)
 
--   [Service-Abhängigkeiten](objecttricks.md#objecttricks-servicedependency)
 
--   [Host-Eskalationen](objecttricks.md#objecttricks-hostescalation)
 
--   [Host-Abhängigkeiten](objecttricks.md#objecttricks-hostdependency)
 
--   [Hostgruppen](objecttricks.md#objecttricks-hostgroup)
 
 Objekttypen, die nicht oben aufgeführt sind (z.B. Zeitfenster, Befehle
 usw.), unterstützen nicht die Möglichkeiten, die wir beschreiben werden.
@@ -62,15 +48,14 @@ Hostgruppen-Namen, Service-Namen und Servicegruppen-Namen).
 Anmerkung
 
 Seien Sie vorsichtig bei der Aktivierung der Übereinstimmung von
-regulären Ausdrücken - es kann sein, dass Sie Ihre Konfigurationsdatei
 ändern müssen, weil vielleicht einige der Direktiven als reguläre
 Ausdrücke interpretiert werden, bei denen Sie das nicht möchten!
 Probleme sollten offensichtlich werden, sobald Sie Ihre Konfiguration
 überprüfen.
 
 Wenn Sie beabsichtigen reguläre Ausdrücke zu nutzen
-(`use_regexp_matching=1`{.code}), dann stellen Sie sicher, dass Sie die
-man-Page (`man regex`{.code}) gelesen und verstanden haben.
+(`use_regexp_matching=1`), dann stellen Sie sicher, dass Sie die
+man-Page (`man regex`) gelesen und verstanden haben.
 
 **Service-Definitionen**
 
@@ -84,13 +69,8 @@ Service namens *SOMESERVICE* auf den Hosts *HOST1* bis *HOSTN* erzeugen.
 Jede Instanz des *SOMESERVICE*-Service wäre identisch (d.h. hätte den
 gleichen Prüfbefehl, Benachrichtigungsperiode, usw.).
 
-~~~~ {.screen}
  define service{
-        host_name              HOST1,HOST2,HOST3,...,HOSTN
-        service_description    SOMESERVICE
-        weitere Service-Direktiven ...
-        }
-~~~~
+</code></pre>
 
 **Alle Hosts in mehreren Hostgruppen:**
 
@@ -105,13 +85,8 @@ auf allen Hosts anlegen, die Mitglied von Hostgruppe *HOSTGROUP1* bis
 identisch (d.h. hätten den gleichen Prüfbefehl,
 Benachrichtigungsperiode, usw.).
 
-~~~~ {.screen}
  define service{
-        hostgroup_name         HOSTGROUP1,HOSTGROUP2,...,HOSTGROUPN
-        service_description    SOMESERVICE
-        weitere Service-Direktiven ...
-        }
-~~~~
+</code></pre>
 
 **Alle Hosts:**
 
@@ -123,13 +98,8 @@ erzeugen, die in Ihren Konfigurationsdateien definiert sind. Alle
 Instanzen des *SOMESERVICE*-Service wären identisch (d.h. hätten den
 gleichen Prüfbefehl, Benachrichtigungsperiode, usw.).
 
-~~~~ {.screen}
  define service{
-        host_name              *
-        service_description    SOMESERVICE
-        weitere Service-Direktiven ...
-        }
-~~~~
+</code></pre>
 
 **Hosts ausschließen:**
 
@@ -138,14 +108,8 @@ Hosts von dieser Definition ausnehmen möchten, kann dies durch das
 Voranstellen eines Ausrufezeichens (!) vor dem Host oder der Hostgruppe
 geschehen.
 
-~~~~ {.screen}
  define service{
-        host_name              HOST1,HOST2,!HOST3,!HOST4,...,HOSTN
-        hostgroup_name         HOSTGROUP1,HOSTGROUP2,!HOSTGROUP3,!HOSTGROUP4,...,HOSTGROUPN
-        service_description    SOMESERVICE
-        weitere Service-Direktiven ...
-        }
-~~~~
+</code></pre>
 
 **Service-Eskalationsdefinitionen**
 
@@ -161,13 +125,8 @@ Service-Eskalation für Services namens *SOMESERVICE* auf den Hosts
 wären identisch (d.h. hätten den gleichen Prüfbefehl,
 Benachrichtigungsperiode, usw.).
 
-~~~~ {.screen}
  define serviceescalation{
-        host_name              HOST1,HOST2,HOST3,...,HOSTN
-        service_description    SOMESERVICE
-        weitere Eskalations-Direktiven ...
-        }
-~~~~
+</code></pre>
 
 **Alle Hosts in mehreren Hostgruppen:**
 
@@ -180,13 +139,8 @@ anlegen, die Mitglied von Hostgruppe *HOSTGROUP1* bis *HOSTGROUPN* sind.
 Alle Instanzen des *SOMESERVICE*-Service wären identisch (d.h. hätten
 den gleichen Prüfbefehl, Benachrichtigungsperiode, usw.).
 
-~~~~ {.screen}
  define serviceescalation{
-        hostgroup_name                 HOSTGROUP1,HOSTGROUP2,...,HOSTGROUPN
-        service_description    SOMESERVICE
-        weitere Eskalations-Direktiven ...
-        }
-~~~~
+</code></pre>
 
 **Alle Hosts:**
 
@@ -200,13 +154,8 @@ Konfigurationsdateien definiert sind. Alle Instanzen des
 *SOMESERVICE*-Service wären identisch (d.h. hätten den gleichen
 Prüfbefehl, Benachrichtigungsperiode, usw.).
 
-~~~~ {.screen}
  define serviceescalation{
-        host_name              *
-        service_description    SOMESERVICE
-        weitere Eskalations-Direktiven ...
-        }
-~~~~
+</code></pre>
 
 **Hosts ausschließen:**
 
@@ -215,14 +164,8 @@ Hosts anlegen, aber einige Hosts von dieser Definition ausnehmen
 möchten, kann dies durch das Voranstellen eines Ausrufezeichens (!) vor
 dem Host oder der Hostgruppe geschehen.
 
-~~~~ {.screen}
  define serviceescalation{
-        host_name              HOST1,HOST2,!HOST3,!HOST4,...,HOSTN
-        hostgroup_name         HOSTGROUP1,HOSTGROUP2,!HOSTGROUP3,!HOSTGROUP4,...,HOSTGROUPN
-        service_description    SOMESERVICE
-        weitere Eskalations-Direktiven ...
-        }
-~~~~
+</code></pre>
 
 **Alle Services auf dem gleichen Host:**
 
@@ -241,13 +184,8 @@ sowohl bei der *host\_name*- als auch bei der
 Service-Eskalation für **alle Services** anlegen, die Sie in Ihren
 Konfigurationsdateien definiert haben.
 
-~~~~ {.screen}
  define serviceescalation{
-        host_name              HOST1
-        service_description    *
-        weitere Eskalations-Direktiven ...
-        }
-~~~~
+</code></pre>
 
 **Mehrere Services auf dem gleichen Host:**
 
@@ -261,13 +199,8 @@ Host *HOST1* erzeugen. Alle Instanzen der Service-Eskalation wären
 identisch (d.h. hätten die gleichen Kontaktgruppe,
 Benachrichtigungsintervall, usw.).
 
-~~~~ {.screen}
  define serviceescalation{
-        host_name              HOST1
-        service_description    SERVICE1,SERVICE2,...,SERVICEN
-        weitere Eskalations-Direktiven ...
-        }
-~~~~
+</code></pre>
 
 **Alle Services in mehreren Servicegruppen:**
 
@@ -281,12 +214,8 @@ Services anlegen, die Mitglied der Servicegruppen *SERVICEGROUP1* bis
 identisch (d.h. hätten die gleichen Kontaktgruppe,
 Benachrichtigungsintervall, usw.).
 
-~~~~ {.screen}
  define serviceescalation{
-        servicegroup_name      SERVICEGROUP1,SERVICEGROUP2,...,SERVICEGROUPN
-        weitere Eskalations-Direktiven ...
-        }
-~~~~
+</code></pre>
 
 **Service-Abhängigkeitsdefinitionen**
 
@@ -303,15 +232,8 @@ Instanzen der Service-Abhängigkeiten wären identisch bis auf die
 Host-Namen (d.h. hätten die gleichen Fehlerbenachrichtigungs-Kriterien
 usw.).
 
-~~~~ {.screen}
  define servicedependency{
-        host_name                      HOST1,HOST2
-        service_description            SERVICE1
-        dependent_host_name            HOST3,HOST4
-        dependent_service_description  SERVICE2
-        weitere Abhängigkeits-Direktiven ...
-        }
-~~~~
+</code></pre>
 
 **Alle Hosts in mehreren Hostgruppen:**
 
@@ -328,15 +250,8 @@ Instanzen der Service-Abhängigkeiten wären identisch bis auf die
 Host-Namen (d.h. hätten die gleichen Fehlerbenachrichtigungs-Kriterien
 usw.).
 
-~~~~ {.screen}
  define servicedependency{
-        hostgroup_name                 HOSTGROUP1,HOSTGROUP2
-        service_description            SERVICE1
-        dependent_hostgroup_name       HOSTGROUP3,HOSTGROUP4
-        dependent_service_description  SERVICE2
-        weitere Abhängigkeits-Direktiven ...
-        }
-~~~~
+</code></pre>
 
 **Alle Services auf einem Host:**
 
@@ -349,15 +264,8 @@ Services** auf Host *HOST1*. Alle Instanzen der Service-Abhängigkeiten
 wären identisch (d.h. hätten die gleichen
 Fehlerbenachrichtigungs-Kriterien usw.).
 
-~~~~ {.screen}
  define servicedependency{
-        host_name                      HOST1
-        service_description            *
-        dependent_host_name            HOST2
-        dependent_service_description  *
-        weitere Abhängigkeits-Direktiven ...
-        }
-~~~~
+</code></pre>
 
 **Mehrere Services auf einem Host:**
 
@@ -366,15 +274,8 @@ Hosts erstellen möchten, können Sie mehr als eine Service-Beschreibung
 in den *service\_description*- und/oder
 *dependent\_service\_description*-Direktiven wie folgt angeben:
 
-~~~~ {.screen}
  define servicedependency{
-        host_name                      HOST1
-        service_description            SERVICE1,SERVICE2,...,SERVICEN
-        dependent_host_name            HOST2
-        dependent_service_description  SERVICE1,SERVICE2,...,SERVICEN
-        weitere Abhängigkeits-Direktiven ...
-        }
-~~~~
+</code></pre>
 
 **Alle Services in mehreren Servicegruppen:**
 
@@ -383,13 +284,8 @@ einer oder mehreren Servicegruppen zugeordnet sind, können Sie die
 *servicegroup\_name*- und/oder
 *dependent\_servicegroup\_name*-Direktiven wie folgt benutzen:
 
-~~~~ {.screen}
  define servicedependency{
-        servicegroup_name              SERVICEGROUP1,SERVICEGROUP2,...,SERVICEGROUPN
-        dependent_servicegroup_name    SERVICEGROUP3,SERVICEGROUP4,...SERVICEGROUPN
-        weitere Abhängigkeits-Direktiven ...
-        }
-~~~~
+</code></pre>
 
 **Abhängigkeiten des gleichen Hosts:**
 
@@ -403,14 +299,8 @@ sind *SERVICE3* und *SERVICE4* auf *HOST1* abhängig von *SERVICE1* und
 *SERVICE2* auf *HOST1*. Ähnlich sind *SERVICE3* und *SERVICE4* auf
 *HOST2* abhängig von *SERVICE1* und *SERVICE2* auf *HOST2*.
 
-~~~~ {.screen}
  define servicedependency{
-        host_name                      HOST1,HOST2
-        service_description            SERVICE1,SERVICE2
-        dependent_service_description  SERVICE3,SERVICE4
-        weitere Abhängigkeits-Direktiven ...
-        }
-~~~~
+</code></pre>
 
 **Abhängigkeiten des gleichen Hosts mit Servicegruppen:**
 
@@ -424,13 +314,7 @@ ist: *SERVICE1*. In diesem Beispiel sind alle Service aus den
 Servicegruppen *SERVICEGROUP1* und *SERVICEGROUP2* abhängig von
 *SERVICE1*, der auf dem gleichen Host läuft wie der abhängige Service.
 
-~~~~ {.screen}
- define  servicedependency{
-         service_description            SERVICE1
-         dependent_servicegroup_name    SERVICEGROUP1,SERVICEGROUP2
-         other dependency directives ...
-         }
-~~~~
+</code></pre>
 
 **Host-Eskalationsdefinitionen**
 
@@ -444,12 +328,8 @@ Host-Eskalation für die Hosts *HOST1* bis *HOSTN* anlegen. Alle
 Instanzen der Host-Eskalation wären identisch (d.h. hätten die gleichen
 Kontaktgruppen, Benachrichtigungsintervalle usw.).
 
-~~~~ {.screen}
  define hostescalation{
-        host_name              HOST1,HOST2,HOST3,...,HOSTN
-        weitere Eskalations-Direktiven ...
-        }
-~~~~
+</code></pre>
 
 **Alle Hosts in mehreren Hostgruppen:**
 
@@ -461,12 +341,8 @@ Host-Eskalation für alle Hosts anlegen, die Mitglieder der Hostgruppen
 wären identisch (d.h. hätten die gleichen Kontaktgruppen,
 Benachrichtigungsintervalle usw.).
 
-~~~~ {.screen}
  define hostescalation{
-        hostgroup_name                 HOSTGROUP1,HOSTGROUP2,...,HOSTGROUPN
-        weitere Eskalations-Direktiven ...
-        }
-~~~~
+</code></pre>
 
 **Alle Hosts:**
 
@@ -478,12 +354,8 @@ Ihren Konfigurationsdateien definiert sind. Alle Instanzen der
 Host-Eskalation wären identisch (d.h. hätten die gleichen
 Kontaktgruppen, Benachrichtigungsintervalle usw.).
 
-~~~~ {.screen}
  define hostescalation{
-        host_name              *
-        weitere Eskalations-Direktiven ...
-        }
-~~~~
+</code></pre>
 
 **Hosts ausschließen:**
 
@@ -492,13 +364,8 @@ Hostgruppen erstellen, aber einige Hosts von der Definition ausschließen
 möchten, kann dies durch das Voranstellen eines Ausrufezeichens (!) vor
 dem Host oder der Hostgruppe geschehen.
 
-~~~~ {.screen}
  define hostescalation{
-        host_name              HOST1,HOST2,!HOST3,!HOST4,...,HOSTN
-        hostgroup_name                 HOSTGROUP1,HOSTGROUP2,!HOSTGROUP3,!HOSTGROUP4,...,HOSTGROUPN
-        weitere Eskalations-Direktiven ...
-        }
-~~~~
+</code></pre>
 
 **Host-Abhängigkeitsdefinitionen**
 
@@ -515,13 +382,8 @@ Alle Instanzen der Host-Abhängigkeiten wären identisch bis auf die
 Host-Namen (d.h. sie hätten die gleichen
 Fehlerbenachrichtigungs-Kriterien, usw.).
 
-~~~~ {.screen}
  define hostdependency{
-        host_name              HOST1,HOST2
-        dependent_host_name    HOST3,HOST4,HOST5
-        weitere Abhängigkeits-Direktiven ...
-        }
-~~~~
+</code></pre>
 
 **Alle Hosts in mehreren Hostgruppen:**
 
@@ -534,13 +396,8 @@ und *HOSTGROUP2*. Alle Instanzen der Host-Abhängigkeiten wären identisch
 bis auf die Host-Namen (d.h. sie hätten die gleichen
 Fehlerbenachrichtigungs-Kriterien, usw.).
 
-~~~~ {.screen}
  define hostdependency{
-        hostgroup_name                         HOSTGROUP1,HOSTGROUP2
-        dependent_hostgroup_name       HOSTGROUP3,HOSTGROUP4
-        weitere Abhängigkeits-Direktiven ...
-        }
-~~~~
+</code></pre>
 
 **Hostgruppen**
 
@@ -552,20 +409,11 @@ Platzhalter in der *members*-Direktive benutzen. Die folgende Definition
 würde eine Hostgruppe namens *HOSTGROUP1* erstellen, die **alle Hosts**
 aus Ihren Konfigurationsdateien als Mitglieder enthält.
 
-~~~~ {.screen}
  define hostgroup{
-        hostgroup_name            HOSTGROUP1
-        members                        *
-        weitere Hostgruppen-Direktiven ...
-        }
-~~~~
+</code></pre>
 
 * * * * *
 
-  ----------------------------------- -------------------------- -------------------------------------------------
-  [Zurück](objectinheritance.md)    [Nach oben](ch07.md)      [Weiter](ch08.md)
-  7.26. Objektvererbung               [Zum Anfang](index.md)    Kapitel 8. Sicherheit und Leistungsoptimierung
-  ----------------------------------- -------------------------- -------------------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

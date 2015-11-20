@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-2.13. Windows-Maschinen überwachen
-
-[Zurück](monitoring-overview.md) 
-
-Kapitel 2. Los geht's
-
- [Weiter](monitoring-linux.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -40,17 +32,11 @@ Windows-Agenten](monitoring-windows.md#installwindowsagent)
 Dieses Dokument beschreibt, wie Sie "private" Dienste und Attribute von
 Windows-Rechnern überwachen können, wie z.B.:
 
--   Speicherbelegung
 
--   CPU-Auslastung
 
--   Plattenbelegung
 
--   Zustände von Diensten
 
--   laufende Prozesse
 
--   etc.
 
 Öffentlich nutzbare Dienste, die von Windows-Rechnern zur Verfügung
 gestellt werden (HTTP, FTP, POP3, etc.), können einfach mit Hilfe der
@@ -91,7 +77,6 @@ gefolgt sind.
 
 Andere Windows-Agenten (wie
 [NC\_Net](http://sourceforge.net/projects/nc-net)) können statt
-NSClient++ genutzt werden, wenn Sie möchten - vorausgesetzt, Sie passen
 die Befehls- und Service-Definitionen usw. entsprechend an. Aus Gründen
 der Einfachheit werden wir nur das NSClient++-Addon in diesen
 Anweisungen berücksichtigen.
@@ -101,27 +86,16 @@ Anweisungen berücksichtigen.
 Es gibt einige Schritte, die Sie durchführen müssen, um einen neuen
 Windows-Rechner zu überwachen. Das sind:
 
-1.  erfüllen Sie einmalige Voraussetzungen
 
-2.  installieren Sie einen Überwachungsagenten auf dem Windows-Rechner
 
-3.  erstellen Sie neue Host- und Service-Definitione zur Überwachung des
-    Windows-Rechners
 
-4.  starten Sie den Icinga-Daemon neu
 
 ### 2.13.4. Was bereits für Sie vorbereitet wurde
 
 Um Ihnen das Leben ein wenig zu erleichtern, wurden bereits ein paar
 Konfigurationsaufgaben für Sie erledigt:
 
--   Eine *check\_nt*-Befehlsdefinition ist in der *commands.cfg*-Datei
-    vorhanden. Das erlaubt Ihnen die Nutzung des *check\_nt*-Plugins zur
-    Überwachung von Windows-Diensten.
 
--   Eine Host-Vorlage für Windows-Server (namens *windows-server*) wurde
-    bereits in der *templates.cfg*-Datei erstellt. Das erlaubt es Ihnen,
-    Windows-Host-Definitionen auf einfache Weise hinzuzufügen.
 
 Die o.g. Konfigurationsdateien finden Sie im
 */usr/local/icinga/etc/objects/*-Verzeichnis. Sie können diese und
@@ -140,16 +114,14 @@ müssen, den Sie überwachen wollen.
 
 Editieren Sie die Hauptkonfigurationsdatei.
 
-~~~~ {.screen}
 #> vi /usr/local/icinga/etc/icinga.cfg
-~~~~
+</code></pre>
 
 Entfernen Sie das führende Hash-(\#)-Zeichen der folgenden Zeile in der
 Hauptkonfigurationsdatei:
 
-~~~~ {.screen}
 #cfg_file=/usr/local/icinga/etc/objects/windows.cfg
-~~~~
+</code></pre>
 
 Speichern Sie die Datei und verlassen den Editor.
 
@@ -184,9 +156,8 @@ C:\\NSClient++-Verzeichnis
 
 ​4. Registrieren Sie den NSClient++-Dienst mit dem folgenden Befehl:
 
-~~~~ {.screen}
  nsclient++ /install
-~~~~
+</code></pre>
 
 ​5. Öffnen Sie die Dienste-Applikation und stellen Sie sicher, dass der
 NSClient++-Dienst mit dem Desktop kommunizieren darf (Reiter "Anmelden",
@@ -198,26 +169,14 @@ gesetzt). Setzen Sie ggf. das Häkchen.
 ​6. Editieren Sie die NSC.INI-Datei (im C:\\NSClient++-Verzeichnis) und
 machen Sie folgende Änderungen:
 
--   entfernen Sie die Kommentarzeichen (;) im [modules]-Abschnitt, außer
-    für CheckWMI.dll und RemoteConfiguration.dll
 
--   definieren Sie optional ein Passwort für Clients, indem Sie die
-    'password'-Option im [Settings]-Abschnitt setzen.
 
--   entfernen Sie das Kommentarzeichen (;) vor der
-    'allowed\_hosts'-Option im [Settings]-Abschnitt. Fügen Sie die
-    IP-Adresse des Icinga-Servers ein, mit ip.add.ress/Bits einen
-    Bereich oder lassen Sie diese Angabe leer, so dass sich alle Hosts
-    verbinden können.
 
--   entfernen Sie ggf. das Kommentarzeichen vor der 'port'-Option im
-    [NSClient]-Abschnitt und setzen Sie den Wert auf '12489' (Standard).
 
 ​7. Starten Sie den NSClient++-Dienst mit dem folgenden Befehl:
 
-~~~~ {.screen}
  nsclient++ /start
-~~~~
+</code></pre>
 
 ​8. Geschafft! Der Windows-Rechner kann nun der
 Icinga-Überwachungskonfiguration hinzugefügt werden...
@@ -231,9 +190,8 @@ Windows-Rechner zu überwachen.
 
 Editieren Sie die *windows.cfg*-Datei.
 
-~~~~ {.screen}
 #> vi /usr/local/icinga/etc/objects/windows.cfg
-~~~~
+</code></pre>
 
 Fügen Sie eine neue
 [Host](objectdefinitions.md#objectdefinitions-host)-Definition für den
@@ -243,15 +201,9 @@ einfach die Beispiel-Definitionen in der *windows.cfg*-Datei anpassen.
 Ändern Sie die *host\_name*-, *alias*- und *address*-Felder auf die
 entsprechenden Werte des Windows-Rechners.
 
-~~~~ {.programlisting}
+<pre><code>
  define host{
-        ; Standard-Werte von einer Windows-Server-Vorlage erben
-        use             windows-server  ; diese Zeile nicht löschen!
-        host_name       winserver
-        alias           My Windows Server
-        address         192.168.1.2
-        }
-~~~~
+</code></pre>
 
 Gut. Nun können Sie (in der gleichen Konfigurationsdatei) einige
 Service-Definitionen hinzufügen, um Icinga mitzuteilen, welche Dinge auf
@@ -274,94 +226,59 @@ Addons aktualisieren möchten, weil Sie sehen können, welche
 Windows-Rechner noch auf die neueste Version des NSClient++-Addon
 aktualisiert werden muss.
 
-~~~~ {.programlisting}
+<pre><code>
  define service{
-        use                     generic-service
-        host_name               winserver
-        service_description     NSClient++ Version
-        check_command           check_nt!CLIENTVERSION
-        }
-~~~~
+</code></pre>
 
 Fügen Sie die folgende Service-Definition hinzu, um die Laufzeit des
 Windows-Servers zu überwachen.
 
-~~~~ {.programlisting}
+<pre><code>
  define service{
-        use                     generic-service
-        host_name               winserver
-        service_description     Uptime
-        check_command           check_nt!UPTIME
-        }
-~~~~
+</code></pre>
 
 Fügen Sie die folgende Service-Definition hinzu, um die CPU-Belastung
 des Windows-Servers zu überwachen und einen CRITICAL-Alarm zu erzeugen,
 wenn die 5-Minuten-Belastung mindestens 90% beträgt oder einen
 WARNING-Alarm, wenn die 5-Minuten-Belastung mindestens 80% beträgt.
 
-~~~~ {.programlisting}
+<pre><code>
  define service{
-        use                     generic-service
-        host_name               winserver
-        service_description     CPU Load
-        check_command           check_nt!CPULOAD!-l 5,80,90
-        }
-~~~~
+</code></pre>
 
 Fügen Sie die folgende Service-Definition hinzu, um die Speicherbelegung
 des Windows-Servers zu überwachen und einen CRITICAL-Alarm zu erzeugen,
 wenn die Belegung mindestens 90% beträgt oder einen WARNING-Alarm, wenn
 die Belegung mindestens 80% beträgt.
 
-~~~~ {.programlisting}
+<pre><code>
  define service{
-        use                     generic-service
-        host_name               winserver
-        service_description     Memory Usage
-        check_command           check_nt!MEMUSE!-w 80 -c 90
-        }
-~~~~
+</code></pre>
 
 Fügen Sie die folgende Service-Definition hinzu, um die Plattenbelegung
 von Laufwerk C: des Windows-Servers zu überwachen und einen
 CRITICAL-Alarm zu erzeugen, wenn die Belegung mindestens 90% beträgt
 oder einen WARNING-Alarm, wenn die Belegung mindestens 80% beträgt.
 
-~~~~ {.programlisting}
+<pre><code>
  define service{
-        use                     generic-service
-        host_name               winserver
-        service_description     C:\ Drive Space
-        check_command           check_nt!USEDDISKSPACE!-l c -w 80 -c 90
-        }
-~~~~
+</code></pre>
 
 Fügen Sie die folgende Service-Definition hinzu, um den W3SVC-Dienst des
 Windows-Servers zu überwachen und einen CRITICAL-Alarm zu erzeugen, wenn
 der Dienst gestoppt ist.
 
-~~~~ {.programlisting}
+<pre><code>
  define service{
-        use                     generic-service
-        host_name               winserver
-        service_description     W3SVC
-        check_command           check_nt!SERVICESTATE!-d SHOWALL -l W3SVC
-        }
-~~~~
+</code></pre>
 
 Fügen Sie die folgende Service-Definition hinzu, um den
 Explorer.exe-Prozess des Windows-Servers zu überwachen und einen
 CRITICAL-Alarm zu erzeugen, wenn der Prozess nicht läuft.
 
-~~~~ {.programlisting}
+<pre><code>
  define service{
-        use                     generic-service
-        host_name               winserver
-        service_description     Explorer
-        check_command           check_nt!PROCSTATE!-d SHOWALL -l Explorer.exe
-        }
-~~~~
+</code></pre>
 
 ![[Anmerkung]](../images/note.png)
 
@@ -382,20 +299,16 @@ Windows-Rechner angegeben haben, dann müssen Sie die
 *check\_nt*-Befehlsdefinition anpassen, damit sie das Passwort enthält.
 Öffnen Sie die *commands.cfg*-Datei.
 
-~~~~ {.screen}
  #> vi /usr/local/icinga/etc/objects/commands.cfg
-~~~~
+</code></pre>
 
 Ändern Sie die Definition des *check\_nt*-Befehls, damit sie das "-s
 \<PASSWORD\>"-Argument enthält (wobei PASSWORD das Passwort ist, das Sie
 auf dem Windows-Rechner angegeben haben):
 
-~~~~ {.programlisting}
+<pre><code>
  define command{
-        command_name    check_nt
-        command_line    $USER1$/check_nt -H $HOSTADDRESS$ -p 12489 -s PASSWORD -v $ARG1$ $ARG2$
-        }
-~~~~
+</code></pre>
 
 Speichern Sie die Datei
 
@@ -416,38 +329,24 @@ beheben, bevor Sie fortfahren. Stellen Sie sicher, dass Sie Icinga nicht
 Manchmal funktioniert es nicht. Der einfachste Weg ist es, das Plugin
 als Icinga-Benutzer auf der Kommandozeile auszuführen:
 
-~~~~ {.screen}
  $> /usr/local/icinga/libexec/check_nt -H <ip address> -p <port> -s <password> -v UPTIME
-~~~~
+</code></pre>
 
 \<ip address\> ist die Adresse des Windows-Rechners, \<port\> und
-\<password\> die Werte aus `nsc.ini`{.filename}. Bitte beachten Sie,
+\<password\> die Werte aus `nsc.ini`. Bitte beachten Sie,
 dass ein leeres Passwort ggf. als "" (zwei Anführungszeichen) anzugeben
 ist. Das Ergebnis könnte eins der folgenden sein:
 
--   CRITICAL: Socket timeout after 10 seconds
 
-    -   Eine Firewall blockiert auf dem Windows-Rechner, auf dem
-        Icinga-Server oder dazwischen.
 
-    -   Der NSClient++-Dienst läuft nicht
 
-    -   Der angegebene Port ist falsch
 
--   could not fetch information from server
 
-    -   Der angegebene Port ist falsch (ältere NSClient-Versionen)
 
--   NSCLIENT: wrong password
 
-    -   Die Lösung bleibt dem Leser überlassen
 
 * * * * *
 
-  ------------------------------------- -------------------------- --------------------------------------
-  [Zurück](monitoring-overview.md)    [Nach oben](ch02.md)      [Weiter](monitoring-linux.md)
-  2.12. Monitoring-Überblick            [Zum Anfang](index.md)    2.14. Linux/Unix-Rechner überwachen
-  ------------------------------------- -------------------------- --------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-6.4. Ausführen von Classic UI-Modulen (CGIs) auf der Kommandozeile
-
-[Zurück](cgiparams.md) 
-
-Kapitel 6. Die Benutzeroberflächen
-
- [Weiter](icinga-web-scratch.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -34,37 +26,18 @@ können Sie die Classic UI-Module auf der Kommandozeile aufrufen.
 Bevor Sie die Module tatsächlich aufrufen können, müssen Sie drei
 Umgebungsvariablen setzen:
 
--   REMOTE\_USER
 
-    Diese Variable enthält einen Benutzer, der berechtigt ist, die
-    Informationen abzurufen. In den meisten Fällen wird dies
-    "icingaadmin" sein (`set REMOTE_USER='icingaadmin')`{.literal}
 
--   REQUEST\_METHOD
 
-    `set REQUEST_METHOD='GET'`{.literal}. Mögliche Werte sind "GET",
-    "POST" und "HEAD"
 
--   QUERY\_STRING
 
-    Anstatt Argumente über die Kommandozeile an die Module zu übergeben,
-    müssen Sie die Variable "QUERY\_STRING" mit den entsprechenden
-    Werten füllen.
 
-    ![[Anmerkung]](../images/note.png)
 
-    Anmerkung
 
-    Die meisten Leute finden es schwierig, HTML-Ausgaben zu lesen, so
-    dass es eine gute Idee ist, der Variable QUERY\_STRING "jsonoutput"
-    oder "csvoutput" hinzuzufügen
-    ` (QUERY_STRING='jsonoutput' bzw. QUERY_STRING='jsonoutput')`{.code}
-    .
 
 Wenn Sie vergessen, die Umgebungsvariablen zu setzen, dann bekommen Sie
 beim Aufruf die folgenden Zeilen:
 
-~~~~ {.screen}
  $> ./status.cgi
  getcgivars(): Unsupported REQUEST_METHOD -> ''
 
@@ -77,7 +50,7 @@ beim Aufruf die folgenden Zeilen:
  note: if you've enabled authentication in the CGIs, you must set the
  "REMOTE_USER" environment variable to be the name of the user you're
  "authenticated" as.
-~~~~
+</code></pre>
 
 ### 6.4.3. Beispiele
 
@@ -86,77 +59,65 @@ beim Aufruf die folgenden Zeilen:
 Anmerkung
 
 Die Module werden aus dem Ordner aufgerufen, in dem sich die
-\*.cgi-Dateien befinden (z.B. `/usr/local/icinga/sbin`{.filename}). Dies
+\*.cgi-Dateien befinden (z.B. `/usr/local/icinga/sbin`). Dies
 ist nicht notwendig, sondern dient lediglich der Einfachheit. Solange
-nichts anderes angegeben ist, gilt `REQUEST_METHOD='GET'`{.literal}.
+nichts anderes angegeben ist, gilt `REQUEST_METHOD='GET'`.
 
 Taktischer Überblick
 
-~~~~ {.screen}
  $> set QUERY_STRING='jsonoutput'
  $> ./tac.cgi
-~~~~
+</code></pre>
 
 Alle Hosts im Zustand DOWN
 
-~~~~ {.screen}
  $> set QUERY_STRING='jsonoutput&style=hostdetail&hoststatustypes=4'
  $> ./status.cgi
-~~~~
+</code></pre>
 
 Alle Hosts im Zustand DOWN, die "unacknowledged" *und* nicht in einer
 Downtime sind
 
-~~~~ {.screen}
  $> set QUERY_STRING='jsonoutput&style=hostdetail&hoststatustypes=4&hostprops=10'
  $> ./status.cgi
-~~~~
+</code></pre>
 
 Alle Services in einem nicht-OK-Zustand
 
-~~~~ {.screen}
  $> set QUERY_STRING='jsonoutput&style=detail&servicestatustypes=28'
  $> ./status.cgi
-~~~~
+</code></pre>
 
 Alle passiven Services im Zustand CRITICAL
 
-~~~~ {.screen}
  $> set QUERY_STRING='jsonoutput&style=detail&servicestatustypes=28&serviceprops=65536'
  $> ./status.cgi
-~~~~
+</code></pre>
 
 Kommentare für alle Objekte
 
-~~~~ {.screen}
  $> set QUERY_STRING='jsonoutput&type=3'
  $> ./extinfo.cgi
-~~~~
+</code></pre>
 
 Trends für router\_02, Zeitangaben durch Unix-Timestamps
 
-~~~~ {.screen}
  $> set QUERY_STRING='jsonoutput&host=router_02&timeperiod=custom&t1=130748400&t2=1307570400'
  $> ./extinfo.cgi
-~~~~
+</code></pre>
 
 Trends für router\_02, Zeitangaben durch Datum und Uhrzeit
 
-~~~~ {.screen}
  $> set QUERY_STRING='jsonoutput&host=router_02&timeperiod=custom\
  &sday=6&smon=6&syear=2011&shour=0&smin=0&ssec=0\
  &eday=7&emon=6&eyear=2011&ehour=0&emin=0&esec=0'
  $> ./extinfo.cgi
-~~~~
+</code></pre>
 
 (wird fortgesetzt)
 
 * * * * *
 
-  -------------------------------------------------------- -------------------------- --------------------------------------------
-  [Zurück](cgiparams.md)                                 [Nach oben](ch06.md)      [Weiter](icinga-web-scratch.md)
-  6.3. Informationen zu den Classic UI-Modul-Parametern    [Zum Anfang](index.md)    6.5. Installation des Icinga Web Frontend
-  -------------------------------------------------------- -------------------------- --------------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

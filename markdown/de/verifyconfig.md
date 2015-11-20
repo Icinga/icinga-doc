@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-4.1. Überprüfen Ihrer Icinga-Konfiguration
-
-[Zurück](ch04.md) 
-
-Kapitel 4. Icinga starten/stoppen/prüfen
-
- [Weiter](startstop.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -24,9 +16,8 @@ Konfiguration Fehler enthält.
 Um Ihre Konfiguration zu überprüfen, starten Sie Icinga mit der
 **-v**-Option wie folgt:
 
-~~~~ {.screen}
  #> /usr/local/icinga/bin/icinga -v /usr/local/icinga/etc/icinga.cfg
-~~~~
+</code></pre>
 
 Wenn Sie vergessen haben, kritische Daten einzugeben oder Dinge
 fehlkonfiguriert haben, spuckt Icinga eine Warnung oder eine
@@ -45,9 +36,9 @@ Erfordernisse für den Betrieb.
 Anstatt die Pfade für das Binary und die Konfigurationsdatei anzugeben
 können Sie auch den folgenden Befehl eingeben:
 
-~~~~ {.programlisting}
+<pre><code>
  #> /etc/init.d/icinga checkconfig
-~~~~
+</code></pre>
 
 Die Ausführung ergibt einen Return-Code ungleich Null, wenn Ihre
 Konfiguration Fehler enthält. Das kann sinnvoll sein, wenn Sie Icinga
@@ -55,9 +46,9 @@ automatisch erneut starten wollen..
 
 Wenn Sie stattdessen den folgenden Befehl eingeben
 
-~~~~ {.programlisting}
+<pre><code>
  #> /etc/init.d/icinga show-errors
-~~~~
+</code></pre>
 
 dann wird eine Datei mit den gefundenen Fehlern erstellt. Falls es
 Fehler gibt, wird der Inhalt der Datei angezeigt.
@@ -68,10 +59,6 @@ bereinigt haben, können Sie [Icinga
 
 * * * * *
 
-  ------------------------------------------- -------------------------- ----------------------------------
-  [Zurück](ch04.md)                         [Nach oben](ch04.md)      [Weiter](startstop.md)
-  Kapitel 4. Icinga starten/stoppen/prüfen    [Zum Anfang](index.md)    4.2. Icinga starten und stoppen
-  ------------------------------------------- -------------------------- ----------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

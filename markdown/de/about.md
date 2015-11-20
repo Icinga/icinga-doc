@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-1.1. Über Icinga
-
-[Zurück](ch01.md) 
-
-Kapitel 1. Über
-
- [Weiter](whatsnew.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -36,42 +28,16 @@ Unix-Derivaten ebenfalls funktionieren.
 
 Einige der vielen Features von Icinga umfassen:
 
--   Überwachen von Netzwerkdiensten (SMTP, POP3, HTTP, NNTP, PING, etc.)
 
--   Überwachen von Host-Ressourcen (Prozessorauslastung, Diskbelegung,
-    usw.)
 
--   Einfaches Plugin-Design, das es Benutzern erlaubt, schnell eigene
-    Service-Prüfungen zu entwickeln
 
--   Parallel laufende Service-Prüfungen
 
--   Die Möglichkeit, Netzwerk-Host-Hierarchien mit Hilfe von
-    "Eltern"-Hosts zu definieren, um die Erkennung von Hosts zu
-    erlauben, die "down" sind und die Unterscheidung zwischen Hosts, die
-    "down" bzw. unerreichbar sind
 
--   Benachrichtigung von Kontakten, wenn Service- oder Host-Probleme
-    auftreten bzw. gelöst werden (über e-Mail, Pager oder
-    benutzerdefinierte Methoden)
 
--   Die Möglichkeit, Routinen zur Ereignisbehandlung (Eventhandler) zu
-    definieren, die bei Host- oder Service-Ereignissen ablaufen, um
-    proaktive Problemlösungen zu erlauben
 
--   Automatische Rotation von Protokolldateien
 
--   Unterstützung, um redundante Überwachungs-Hosts zu implementieren
 
--   Optionales Classic-Web-Interface, um den aktuellen Netzwerkstatus,
-    Benachrichtigungs- und Problemverläufe, Protokolldateien usw.
-    anzusehen
 
--   Optionales neues Icinga-Web-Interface basierend auf Icinga Core,
-    IDOUtils, API, das eine moderne, rundum erneuerte Web 2.0 Oberfläche
-    mit Multilanguage-Support bietet, um den aktuellen Status und
-    historische Informationen zur Verfügung zu stellen. Es werden Cronks
-    und Filter bereitgestellt und es können Reports erstellt werden
 
 ### 1.1.2. Systemvoraussetzungen
 
@@ -84,14 +50,8 @@ Sie *müssen* nicht eins der Web-Interfaces benutzen, die in Icinga
 enthalten sind. Wenn Sie sich allerdings entscheiden, sie zu benutzen,
 muss zusätzlich die folgende Software installiert sein...
 
-1.  Ein Web-Server (vorzugsweise [Apache](http://www.apache.org))
 
-2.  Thomas Boutells [gd library](http://www.boutell.com/gd) Version
-    1.6.3 oder höher (wird benötigt von den
-    [statusmap](cgis.md#cgis-statusmap_cgi)- und
-    [trends](cgis.md#cgis-trends_cgi)-CGIs)
 
-3.  PHP
 
 ### 1.1.3. Lizenzierung
 
@@ -134,10 +94,6 @@ Inhaber sein.
 
 * * * * *
 
-  ---------------------- -------------------------- ---------------------------------
-  [Zurück](ch01.md)    [Nach oben](ch01.md)      [Weiter](whatsnew.md)
-  Kapitel 1. Über        [Zum Anfang](index.md)    1.2. What's New in Icinga 1.13
-  ---------------------- -------------------------- ---------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

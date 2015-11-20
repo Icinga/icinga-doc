@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.8. Detection and Handling of State Flapping
-
-[Prev](redundancy.md) 
-
-Chapter 7. Advanced Topics
-
- [Next](escalations.md)
+[Prev](redundancy.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](escalations.md)
 
 * * * * *
 
@@ -53,16 +45,9 @@ settle with what seemed to him to be a reasonable solution...
 Whenever Icinga checks the status of a host or service, it will check to
 see if it has started or stopped flapping. It does this by:
 
--   Storing the results of the last 21 checks of the host or service [1]
 
--   Analyzing the historical check results and determine where state
-    changes/transitions occur
 
--   Using the state transitions to determine a percent state change
-    value (a measure of change) for the host or service
 
--   Comparing the percent state change value against low and high
-    flapping thresholds
 
 A host or service is determined to have *started* flapping when its
 percent state change first exceeds a *high* flapping threshold.
@@ -126,13 +111,7 @@ the weighted percent of state change turned out to be 31%...
 The calculated percent state change for the service (31%) will then be
 compared against flapping thresholds to see what should happen:
 
--   If the service was *not* previously flapping and 31% is *equal to or
-    greater than* the high flap threshold, Icinga considers the service
-    to have just started flapping.
 
--   If the service *was* previously flapping and 31% is *less than* the
-    low flap threshold, Icinga considers the service to have just
-    stopped flapping.
 
 If neither of those two conditions are met, the flap detection logic
 won't do anything else with the service, since it is either not
@@ -152,12 +131,7 @@ Host flap detection works in a similiar manner to service flap
 detection, with one important difference: Icinga will attempt to check
 to see if a host is flapping whenever:
 
--   The host is checked (actively or passively)
 
--   Sometimes when a service associated with that host is checked. More
-    specifically, when at least *x* amount of time has passed since the
-    flap detection was last performed, where *x* is equal to the average
-    check interval of all services associated with the host.
 
 Why is this done? With services we know that the minimum amount of time
 between consecutive flap detection routines is going to be equal to the
@@ -228,44 +202,22 @@ service states are used in flap detection.
 
 When a service or host is first detected as flapping, Icinga will:
 
-1.  Log a message indicating that the service or host is flapping.
 
-2.  Add a non-persistent comment to the host or service indicating that
-    it is flapping.
 
-3.  Send a "flapping start" notification for the host or service to
-    appropriate contacts.
 
-4.  Suppress other notifications for the service or host (this is one of
-    the filters in the [notification
-    logic](notifications.md "5.11. Notifications")).
 
 When a service or host stops flapping, Icinga will:
 
-1.  Log a message indicating that the service or host has stopped
-    flapping.
 
-2.  Delete the comment that was originally added to the service or host
-    when it started flapping.
 
-3.  Send a "flapping stop" notification for the host or service to
-    appropriate contacts.
 
-4.  Remove the block on notifications for the service or host
-    (notifications will still be bound to the normal [notification
-    logic](notifications.md "5.11. Notifications")).
 
 ### 7.8.9. Enabling Flap Detection
 
 In order to enable the flap detection features in Icinga, you'll need
 to:
 
--   Set
-    [enable\_flap\_detection](configmain.md#configmain-enable_flap_detection)
-    directive is set to 1.
 
--   Set the *flap\_detection\_enabled* directive in your host and
-    service definitions is set to 1.
 
 If you want to disable flap detection on a global basis, set the
 [enable\_flap\_detection](configmain.md#configmain-enable_flap_detection)
@@ -277,10 +229,12 @@ and/or service definitions to do so.
 
 * * * * *
 
-  ------------------------------------------------- -------------------- --------------------------------
-  [Prev](redundancy.md)                           [Up](ch07.md)       [Next](escalations.md)
-  7.7. Redundant and Failover Network Monitoring    [Home](index.md)    7.9. Notification Escalations
-  ------------------------------------------------- -------------------- --------------------------------
+[Prev](redundancy.md) | [Up](ch07.md) | [Next](escalations.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

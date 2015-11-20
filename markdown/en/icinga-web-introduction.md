@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-6.8. Introduction to Icinga Web
-
-[Prev](icinga-web-config.md) 
-
-Chapter 6. User Interfaces
-
- [Next](icinga-web-pnp.md)
+[Prev](icinga-web-config.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](icinga-web-pnp.md)
 
 * * * * *
 
@@ -88,11 +80,8 @@ opens a new tab in the main view showing the selected state only. Next
 to that, the number and state of the Icinga instances is shown. In the
 remaining space general process information is provided, just as
 
--   Hosts|Services (active/passive)
 
--   Host|Service execution time (min/avg/max)
 
--   Host|Services latency (min/avg/max)
 
 **Figure 6.6. Icinga Web status cronk**
 
@@ -102,47 +91,24 @@ remaining space general process information is provided, just as
 
 *Left menu*
 
--   In the left (also hideable) menu you can select among different
-    widgets (we call them "cronks"). You can either doubleclick on each
-    cronk or drag it with the cursor into the main view. The categories
-    are separated into
 
-    **Figure 6.7. Icinga Web data cronks**
 
-    ![Icinga Web data cronks](../images/icinga-web-cronks1.png)
 
-    \
 
--   "Tactical Overview" keeps general charts and customized ones (custom
-    variables)
 
-    **Figure 6.8. Icinga Web tactical overview cronks**
 
-    ![Icinga Web tactical overview
-    cronks](../images/icinga-web-cronks2.png)
 
-    \
 
--   "Reporting" enables to create reports
 
-    **Figure 6.9. Icinga Web reporting cronk**
 
-    ![Icinga Web reporting cronk](../images/icinga-web-cronks3.png)
 
-    \
 
--   "Misc" contains several useful cronks, just as iframes for external
-    websites or the 1,2,3 columns for main view and links to the
-    documentation.
 
-    **Figure 6.10. Icinga Web misc cronks**
 
-    ![Icinga Web misc cronks](../images/icinga-web-cronks4.png)
 
-    \
 
 Within the settings menu, you can switch back to the old view with the
-bigger icons. Within `userpreferences.xml`{.filename} config file you
+bigger icons. Within `userpreferences.xml` config file you
 may set a global default value.
 
 **Figure 6.11. Icinga Web Cronk Menu Style Change**
@@ -285,13 +251,9 @@ more, like sending commands).
 
 \
 
--   Manual Refresh
 
--   Settings
 
-    Enable/Disable Auto-Refresh
 
-    Get this \<item\> by url
 
 **Figure 6.24. Icinga Web cronk bar**
 
@@ -299,9 +261,7 @@ more, like sending commands).
 
 \
 
--   Filter
 
-    Modify/Remove
 
 *Commands*
 
@@ -415,13 +375,9 @@ Doubleclick a user to open a new inlay window which lets you edit very
 detailed options. The same options apply when adding a new user. You can
 modify the size by dragging the cursor in the corners.
 
--   General information
 
--   Change password (and optional AuthKey for API)
 
--   Permissions e.g. which group membership
 
--   Principals for special roles
 
 **Figure 6.35. Icinga Web edit user**
 
@@ -482,10 +438,12 @@ line you can issue the command via the "Tasks" menu.
 
 * * * * *
 
-  -------------------------------------------- -------------------- -------------------------------------------------
-  [Prev](icinga-web-config.md)               [Up](ch06.md)       [Next](icinga-web-pnp.md)
-  6.7. Configuration Overview of Icinga Web    [Home](index.md)    6.9. Integration of PNP4Nagios into Icinga Web
-  -------------------------------------------- -------------------- -------------------------------------------------
+[Prev](icinga-web-config.md) | [Up](ch06.md) | [Next](icinga-web-pnp.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.16. Scheduled Downtime
-
-[Prev](perfdata.md) 
-
-Chapter 7. Advanced Topics
-
- [Next](recurring_downtimes.md)
+[Prev](perfdata.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](recurring_downtimes.md)
 
 * * * * *
 
@@ -116,20 +108,10 @@ times as long as you had originally planned...
 
 Let's take the following scenario:
 
-1.  You schedule downtime for host A from 7:30pm-9:30pm on a Monday
 
-2.  You bring the server down about 7:45pm Monday evening to start a
-    hard drive upgrade
 
-3.  After wasting an hour and a half battling with SCSI errors and
-    driver incompatibilities, you finally get the machine to boot up
 
-4.  At 9:15 you realize that one of your partitions is either hosed or
-    doesn't seem to exist anywhere on the drive
 
-5.  Knowing you're in for a long night, you go back and schedule
-    additional downtime for host A from 9:20pm Monday evening to 1:30am
-    Tuesday Morning.
 
 If you schedule overlapping periods of downtime for a host or service
 (in this case the periods were 7:40pm-9:30pm and 9:20pm-1:30am), Icinga
@@ -140,10 +122,12 @@ Tuesday morning.
 
 * * * * *
 
-  ------------------------- -------------------- -----------------------------------
-  [Prev](perfdata.md)     [Up](ch07.md)       [Next](recurring_downtimes.md)
-  7.15. Performance Data    [Home](index.md)    7.17. Recurring Downtimes
-  ------------------------- -------------------- -----------------------------------
+[Prev](perfdata.md) | [Up](ch07.md) | [Next](recurring_downtimes.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

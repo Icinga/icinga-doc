@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-5.5. Service-Prüfungen (Service Checks)
-
-[Zurück](hostchecks.md) 
-
-Kapitel 5. Die Grundlagen
-
- [Weiter](activechecks.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -44,13 +36,7 @@ beschrieben...
 
 Services werden durch den Icinga-Daemon geprüft
 
--   in regelmäßigen Intervallen, wie sie durch die *check\_interval* und
-    *retry\_interval*-Optionen in Ihren
-    [Service-Definitionen](objectdefinitions.md#objectdefinitions-service)
-    festgelegt sind.
 
--   nach Bedarf bei [vorausschauende
-    Host-Abhängigkeitsprüfungen](dependencychecks.md "7.20. Vorausschauende Abhängigkeitsprüfungen").
 
 Prüfungen nach Bedarf werden als Teil der [vorausschauenden
 Service-Abhängigkeitsprüfung](dependencychecks.md "7.20. Vorausschauende Abhängigkeitsprüfungen")s-Logik
@@ -104,13 +90,9 @@ kann.
 Services, die geprüft werden, können in einem von vier unterschiedlichen
 Zuständen sein
 
--   OK
 
--   WARNING
 
--   UNKNOWN
 
--   CRITICAL
 
 ### 5.5.6. Service-Statusermittlung
 
@@ -150,10 +132,6 @@ freshness"](freshness.md#stale "7.5.5. "Check results ... are stale. Forcing an 
 
 * * * * *
 
-  ------------------------------------ -------------------------- ----------------------------------------
-  [Zurück](hostchecks.md)            [Nach oben](ch05.md)      [Weiter](activechecks.md)
-  5.4. Host-Prüfungen (Host checks)    [Zum Anfang](index.md)    5.6. Aktive Prüfungen (Active Checks)
-  ------------------------------------ -------------------------- ----------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-2.3. Quickstart Installation Guides
-
-[Prev](newbie.md) 
-
-Chapter 2. Getting Started
-
- [Next](quickstart-icinga.md)
+[Prev](newbie.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](quickstart-icinga.md)
 
 * * * * *
 
@@ -88,17 +80,9 @@ installed when you use this setup. There are [separate
 instructions](icinga-web-scratch.md "6.5. Installation of the Icinga Web Frontend")
 on how to do this after you installed Icinga and IDOUtils.
 
--   See: [Quickstart guide for
-    Linux](quickstart-icinga.md "2.4. Icinga Quickstart")
 
--   See: [Quickstart guide for
-    FreeBSD](quickstart-icinga-freebsd.md "2.5. Icinga Quickstart FreeBSD")
 
--   See: [Quickstart guide including
-    IDOUtils](quickstart-idoutils.md "2.6. Icinga with IDOUtils Quickstart")
 
--   See: [Quickstart guide including IDOUtils on
-    FreeBSD](quickstart-idoutils-freebsd.md "2.7. Icinga and IDOUtils Quickstart on FreeBSD")
 
 If you are installing Icinga on an operating system or Linux
 distribution that isn't listed above, read [Quickstart guide for
@@ -111,10 +95,12 @@ docs a bit to work for your particular case.
 
 * * * * *
 
-  --------------------------- -------------------- ---------------------------------
-  [Prev](newbie.md)         [Up](ch02.md)       [Next](quickstart-icinga.md)
-  2.2. I'm a newbie to ...    [Home](index.md)    2.4. Icinga Quickstart
-  --------------------------- -------------------- ---------------------------------
+[Prev](newbie.md) | [Up](ch02.md) | [Next](quickstart-icinga.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.9. Benachrichtigungseskalationen
-
-[Zurück](flapping.md) 
-
-Kapitel 7. Fortgeschrittene Themen
-
- [Weiter](escalation_condition.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -61,24 +53,9 @@ auf sie zutrifft, dann wird die Benachrichtigung an die Kontaktgruppe(n)
 verschickt, die in der Hostgroup- oder Service-Definition angegeben
 wurde(n). Lassen Sie uns das untenstehende Beispiel betrachten:
 
-~~~~ {.screen}
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      3
-        last_notification       5
-        notification_interval   90
-        contact_groups          nt-admins,managers
-        }
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      6
-        last_notification       10
-        notification_interval   60
-        contact_groups          nt-admins,managers,everyone
-        }
-~~~~
+</code></pre>
 
 Beachten Sie, dass es "Lücken" in den
 Benachrichtigungs-Eskalationsdefinitionen gibt. Im Besonderen werden
@@ -99,24 +76,9 @@ sollen. Das sollte passieren, um sicherzustellen, dass jeder, der über
 ein Problem informiert wird, *weiterhin* informiert wird, wenn ein
 Problem eskaliert. Beispiel:
 
-~~~~ {.screen}
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      3
-        last_notification       5
-        notification_interval   90
-        contact_groups          nt-admins,managers
-        }
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      6
-        last_notification       0
-        notification_interval   60
-        contact_groups          nt-admins,managers,everyone
-        }
-~~~~
+</code></pre>
 
 Die erste (oder "niedrigste") Eskalationsstufe umfasst die *nt-admins*
 und die *managers*-Kontaktgruppe. Die letzte (oder "höchste") umfasst
@@ -125,7 +87,6 @@ dass die *nt-admins*-Kontaktgruppe in beiden Eskalationsdefinitionen
 enthalten ist. Dies passiert, damit sie weiterhin per Pager informiert
 werden, falls noch Probleme existieren, nachdem die ersten beiden
 Service-Benachrichtigungen versandt wurden. Die *managers*-Kontaktgruppe
-erscheint zuerst in der "niedrigen" Eskalationsdefinition - sie wird das
 erste Mal benachrichtigt, wenn die dritte Benachrichtigung versandt
 wird. Wir möchten, dass die *managers*-Gruppe weiterhin informiert wird,
 wenn das Problem nach der fünften Benachrichtigung noch existiert, also
@@ -137,35 +98,14 @@ Benachrichtigungs-Eskalationsdefinitionen können
 Benachrichtigungs-Bereiche haben, die überlappen. Nehmen Sie das
 folgende Beispiel:
 
-~~~~ {.screen}
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      3
-        last_notification       5
-        notification_interval   20
-        contact_groups          nt-admins,managers
-        }
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      4
-        last_notification       0
-        notification_interval   30
-        contact_groups          on-call-support
-        }
-~~~~
+</code></pre>
 
 Im obigen Beispiel:
 
--   die *nt-admins*- und *managers*-Kontaktgruppen werden bei der
-    dritten Benachrichtung informiert
 
--   alle drei Kontaktgruppen werden bei der vierten und fünften
-    Benachrichtigung informiert
 
--   nur die *on-call-support*-Kontaktgruppe wird bei der sechsten (und
-    höheren) Benachrichtigung informiert
 
 ### 7.9.5. Erholungsbenachrichtigungen
 
@@ -173,24 +113,9 @@ Erholungsbenachrichtigungen unterscheiden sich geringfügig von
 Problembenachrichtigungen, wenn es um Eskalationen geht. Nehmen Sie das
 folgende Beispiel:
 
-~~~~ {.screen}
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      3
-        last_notification       5
-        notification_interval   20
-        contact_groups          nt-admins,managers
-        }
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      4
-        last_notification       0
-        notification_interval   30
-        contact_groups          on-call-support
-        }
-~~~~
+</code></pre>
 
 Falls nach drei Problembenachrichtigungen eine Erholungsbenachrichtigung
 für den Service versandt wird: wer wird informiert? Die Erholung ist
@@ -207,24 +132,9 @@ einen bestimmten Host oder Service versandt werden, mit der
 *notification\_interval*-Option in der Hostgroup- oder
 Service-Eskalations-Definition ändern. Beispiel:
 
-~~~~ {.screen}
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      3
-        last_notification       5
-        notification_interval   45
-        contact_groups          nt-admins,managers
-        }
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      6
-        last_notification       0
-        notification_interval   60
-        contact_groups          nt-admins,managers,everyone
-        }
-~~~~
+</code></pre>
 
 In diesem Beispiel sehen wir, dass das
 Default-Benachrichtigungsintervall für den Service auf 240 Minuten
@@ -244,24 +154,9 @@ jedem Fall, wenn es mehrere gültige Eskalationsdefinitionen für eine
 bestimmte Benachrichtigung gibt, wird Icinga das kleinste
 Benachrichtigungs-Intervall wählen. Nehmen Sie das folgende Beispiel:
 
-~~~~ {.screen}
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      3
-        last_notification       5
-        notification_interval   45
-        contact_groups          nt-admins,managers
-        }
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      4
-        last_notification       0
-        notification_interval   60
-        contact_groups          nt-admins,managers,everyone
-        }
-~~~~
+</code></pre>
 
 Wir sehen, dass die beiden Eskalationsdefinitionen bei der vierten und
 fünften Benachrichtigung überlappen. Bei diesen Benachrichtigungen wird
@@ -276,32 +171,10 @@ Eskalationsdefinition versendet. Alle folgenden Benachrichtigungen für
 die Hostgruppe oder den Service werden unterdrückt. Nehmen Sie dieses
 Beispiel:
 
-~~~~ {.screen}
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      3
-        last_notification       5
-        notification_interval   45
-        contact_groups          nt-admins,managers
-        }
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      4
-        last_notification       6
-        notification_interval   0
-        contact_groups          nt-admins,managers,everyone
-        }
  define serviceescalation{
-        host_name               webserver
-        service_description     HTTP
-        first_notification      7
-        last_notification       0
-        notification_interval   30
-        contact_groups          nt-admins,managers
-        }
-~~~~
+</code></pre>
 
 In dem obigen Beispiel werden maximal vier Problembenachrichtigungen zu
 diesem Service versandt. Das ist so, weil das Benachrichtigungsintervall
@@ -349,10 +222,6 @@ in jedem Status der Hosts oder Services benutzt.
 
 * * * * *
 
-  ---------------------------------------------------- -------------------------- --------------------------------------
-  [Zurück](flapping.md)                              [Nach oben](ch07.md)      [Weiter](escalation_condition.md)
-  7.8. Erkennung und Behandlung von Status-Flattern    [Zum Anfang](index.md)    7.10. Eskalations-Bedingung
-  ---------------------------------------------------- -------------------------- --------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

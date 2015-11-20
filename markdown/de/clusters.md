@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.12. Service- und Host-Gruppen überwachen
-
-[Zurück](oncallrotation.md) 
-
-Kapitel 7. Fortgeschrittene Themen
-
- [Weiter](dependencies.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -60,9 +52,7 @@ Es gibt mehrere Wege, wie Sie eventuell Service- oder Host-Gruppen
 glauben, dass sie die Einfachste ist. Service- oder Host-Cluster
 überwachen umfasst zwei Dinge:
 
--   überwachen einzelner Cluster-Elemente
 
--   überwachen des Clusters als eine gesamte Einheit
 
 Das Überwachen von einzelnen Host- oder Service-Cluster-Elementen ist
 einfacher als Sie denken. Eigentlich tun Sie es wahrscheinlich schon.
@@ -119,12 +109,8 @@ Um die Services als einen Cluster zu überwachen, müssen Sie einen neuen
 Service-Cluster-Prüfbefehl konfigurieren. Lassen Sie uns annehmen, dass
 Sie einen Befehl namens *check\_service\_cluster* wie folgt definieren:
 
-~~~~ {.screen}
  define command{
-        command_name    check_service_cluster
-        command_line    /usr/local/icinga/libexec/check_cluster --service -l $ARG1$ -w $ARG2$ -c $ARG3$ -d $ARG4$ 
-        }
-~~~~
+</code></pre>
 
 Nun müssen Sie den "Cluster"-Service erstellen und den
 *check\_service\_cluster*-Befehl benutzen, den Sie gerade als
@@ -136,13 +122,8 @@ nicht-OK-Zustand ist. Wenn jedes der einzelnen Service-Mitglieder des
 Clusters OK sind, wird auch die Cluster-Prüfung einen OK-Status
 zurückliefern.
 
-~~~~ {.screen}
  define service{
-        ...
-        check_command   check_service_cluster!"DNS Cluster"!0!1!$SERVICESTATEID:host1:DNS Service$,$SERVICESTATEID:host2:DNS Service$,$SERVICESTATEID:host3:DNS Service$
-        ...
-        }
-~~~~
+</code></pre>
 
 Es ist wichtig anzumerken, dass wir eine Komma-separierte Liste von
 *on-demand*
@@ -171,12 +152,8 @@ eingerichtet)...
 Wie auch immer, lassen Sie uns annehmen, dass Sie einen
 *check\_host\_cluster*-Befehl wie folgt definiert haben:
 
-~~~~ {.screen}
  define command{
-        command_name    check_host_cluster
-        command_line    /usr/local/icinga/libexec/check_cluster --host -l $ARG1$ -w $ARG2$ -c $ARG3$ -d $ARG4$ 
-        }
-~~~~
+</code></pre>
 
 Sagen wir, dass Sie drei Hosts ("host1", "host2" und "host3" genannt) in
 Ihrem Host-Cluster haben. Wenn Icinga einen WARNING-Alarm generieren
@@ -184,13 +161,8 @@ soll, wenn einer der Host im Cluster nicht UP ist bzw. einen
 CRITICAL-Alarm, wenn zwei oder mehr Hosts nicht UP sind, dann sollte der
 Service, um das Host-Cluster zu überwachen, ungefähr so aussehen:
 
-~~~~ {.screen}
  define service{
-        ...
-        check_command   check_host_cluster!"Super Host Cluster"!0!1!$HOSTSTATEID:host1$,$HOSTSTATEID:host2$,$HOSTSTATEID:host3$
-        ...
-        }
-~~~~
+</code></pre>
 
 Es ist wichtig anzumerken, dass wir eine Komma-separierte Liste von
 *on-demand*
@@ -213,10 +185,6 @@ UNREACHABLE-Zustände bei den Host-Definitionen aktiviert lassen.
 
 * * * * *
 
-  -------------------------------- -------------------------- -----------------------------------------
-  [Zurück](oncallrotation.md)    [Nach oben](ch07.md)      [Weiter](dependencies.md)
-  7.11. Bereitschafts-Rotation     [Zum Anfang](index.md)    7.13. Host- und Service-Abhängigkeiten
-  -------------------------------- -------------------------- -----------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

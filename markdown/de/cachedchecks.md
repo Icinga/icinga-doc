@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.21. Zwischengespeicherte Prüfungen
-
-[Zurück](dependencychecks.md) 
-
-Kapitel 7. Fortgeschrittene Themen
-
- [Weiter](passivestatetranslation.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -49,23 +41,15 @@ zwischengespeicherte Prüfungen genutzt werden können.
 
 Zur Erinnerung: Host-Prüfungen nach Bedarf treten auf...
 
--   wenn ein mit einem Host verbundener Service den Status wechselt
 
--   wenn nötig als Teil der
-    [Host-Erreichbarkeit](networkreachability.md "5.10. Ermitteln des Zustands und der Erreichbarkeit von Netzwerk-Hosts")s-Logik
 
--   wenn nötig für [vorausschauende
-    Host-Abhängigkeitsprüfungen](dependencychecks.md "7.20. Vorausschauende Abhängigkeitsprüfungen")
 
 und Service-Prüfungen nach Bedarf treten auf...
 
--   wenn nötig für [vorausschauende
-    Service-Abhängigkeitsprüfungen](dependencychecks.md "7.20. Vorausschauende Abhängigkeitsprüfungen")
 
 ![](../images/note.gif) Hinweis: Solange Sie keinen Gebrauch von
 Service-Abhängigkeiten machen, wird Icinga nicht in der Lage sein,
 zwischengespeicherte Prüfungen zur Leistungssteigerung von
-Service-Prüfungen zu nutzen. Keine Bange - das ist normal.
 Zwischengespeicherte Host-Prüfungen sorgen für große
 Leistungssteigerungen und jeder sollte dort einen Vorteil sehen.
 
@@ -149,26 +133,15 @@ Die folgenden Variablen legen die Zeitfenster fest, in denen ein
 vorangegangenes Prüfergebnis als ein zwischengespeichertes Prüfergebnis
 genutzt werden kann:
 
--   Die
-    [cached\_host\_check\_horizon](configmain.md#configmain-cached_host_check_horizon)-Variable
-    kontrolliert zwischengespeicherte Host-Prüfungen.
 
--   Die
-    [cached\_service\_check\_horizon](configmain.md#configmain-cached_service_check_horizon)-Variable
-    kontrolliert zwischengespeicherte Service-Prüfungen.
 
 ### 7.21.6. Zwischenspeichereffektivität optimieren
 
 Um den größten Nutzen aus zwischengespeicherten Prüfungen zu ziehen,
 sollten Sie:
 
--   regelmäßige Host-Prüfungen einplanen
 
--   z.B. PNP4Nagios benutzen, um grafische Auswertungen von 1) Prüfungen
-    nach Bedarf und 2) zwischengespeicherten Prüfungen zu erstellen
 
--   die cached-check-horizon-Variable Ihren Anforderungen entsprechend
-    anpassen
 
 Sie können regelmäßige Prüfungen für Ihre Hosts durch einen größeren
 Wert als 0 in der *check\_interval*-Option in Ihren
@@ -196,15 +169,8 @@ Sie oben.
 
 Bei der Testumgebung, aus der dieser Graph stammt, gab es...
 
--   insgesamt 110 Hosts, die alle in regelmäßigen Abständen geprüft
-    wurden
 
--   ein durchschnittliches (regelmäßig geplantes) Host-Prüfintervall von
-    30 Minuten
 
--   ein
-    [cached\_host\_check\_horizon](configmain.md#configmain-cached_host_check_horizon)
-    von 15 Sekunden
 
 Das Diagramm zeigt, wie viele regelmäßig geplante Host-Prüfungen im
 Vergleich zu zwischengespeicherten Host-Prüfungen erfolgt sind. In
@@ -241,10 +207,6 @@ erforderlich.
 
 * * * * *
 
-  ----------------------------------------------- -------------------------- -----------------------------------------
-  [Zurück](dependencychecks.md)                 [Nach oben](ch07.md)      [Weiter](passivestatetranslation.md)
-  7.20. Vorausschauende Abhängigkeitsprüfungen    [Zum Anfang](index.md)    7.22. Passive Host-Zustandsübersetzung
-  ----------------------------------------------- -------------------------- -----------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

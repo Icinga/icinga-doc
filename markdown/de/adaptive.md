@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.19. Adaptive Überwachung
-
-[Zurück](embeddedperl.md) 
-
-Kapitel 7. Fortgeschrittene Themen
-
- [Weiter](dependencychecks.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -34,35 +26,23 @@ nette Dinge.
 Die folgenden Service-Prüfattribute können während der Laufzeit
 verändert werden:
 
--   Prüfbefehl (und Befehlsparameter)
 
--   Prüfintervall
 
--   max. Prüfversuche
 
--   Prüfzeitfenster
 
--   Eventhandler-Befehl (und Befehlsparameter)
 
 Die folgenden Host-Prüfattribute können während der Laufzeit verändert
 werden:
 
--   Prüfbefehl (und Befehlsparameter)
 
--   Prüfintervall
 
--   max. Prüfversuche
 
--   Prüfzeitfenster
 
--   Eventhandler-Befehl (und Befehlsparameter)
 
 Die folgenden globalen Attribute können während der Laufzeit verändert
 werden:
 
--   Globaler Host-Eventhandler-Befehl (und Befehlsparameter)
 
--   Globaler Service-Eventhandler-Befehl (und Befehlsparameter)
 
 ### 7.19.3. Externe Befehle für adaptive Überwachung
 
@@ -76,26 +56,10 @@ Befehle"](extcommands2.md "7.2. Liste der externen Befehle").
 
 ![](../images/note.gif) Anmerkungen:
 
--   Bei der Änderung von Prüfbefehlen, Prüfzeitfenstern oder
-    Eventhandler-Befehlen ist es wichtig anzumerken, dass die neuen
-    Werte für diese Optionen vor dem Neustart von Icinga definiert
-    werden müssen. Jede Anfrage, die einen Befehl oder ein Zeitfenster
-    auf einen Wert ändert, der beim Start nicht definiert war, wird
-    ignoriert.
 
--   Sie können Befehlsparameter zusammen mit dem tatsächlichen
-    Befehlsnamen angeben - trennen Sie einfach die einzelnen Parameter
-    vom Befehlsnamen (und voneinander) durch Ausrufezeichen (!). Mehr
-    Informationen, wie Parameter in Befehlsdefinitionen während der
-    Laufzeit verarbeitet werden, finden Sie in der Dokumentation zu
-    [Makros](macros.md "5.2. Makros verstehen und wie sie arbeiten").
 
 * * * * *
 
-  ------------------------------------------------ -------------------------- -----------------------------------------------
-  [Zurück](embeddedperl.md)                      [Nach oben](ch07.md)      [Weiter](dependencychecks.md)
-  7.18. Benutzen des Embedded Perl Interpreters    [Zum Anfang](index.md)    7.20. Vorausschauende Abhängigkeitsprüfungen
-  ------------------------------------------------ -------------------------- -----------------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

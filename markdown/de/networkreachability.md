@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-5.10. Ermitteln des Zustands und der Erreichbarkeit von Netzwerk-Hosts
-
-[Zurück](timeperiods.md) 
-
-Kapitel 5. Die Grundlagen
-
- [Weiter](notifications.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -38,7 +30,6 @@ Angenommen es ist ein technisches Problem, dann werden Sie nach dem
 Problem suchen. Vielleicht ist der PC des Benutzers ausgeschaltet oder
 das Netzwerkkabel ist gezogen oder der zentrale Router Ihres Unternehmen
 nimmt gerade eine Auszeit. Was immer das Problem sein mag, eines ist
-sehr sicher - das Internet ist nicht down. Es ist lediglich nicht für
 den Benutzer erreichbar.
 
 Icinga ist in der Lage festzustellen, ob die Hosts, die Sie überwachen,
@@ -61,7 +52,6 @@ auf dem *Icinga*-Host.
 
 Um Icinga in die Lage zu versetzen, zwischen DOWN und
 UNREACHABLE-Zuständen der überwachten Hosts zu unterscheiden, müssen Sie
-Icinga mitteilen, wie diese Hosts miteinander verbunden sind - vom
 Standpunkt des Icinga-Daemons aus gesehen. Um dies zu tun verfolgen Sie
 den Weg, den ein Datenpaket vom Icinga-Daemon zu jedem einzelnen Host
 nehmen würde. Jeder Switch, Router und Server, den das Paket trifft oder
@@ -79,47 +69,18 @@ erlaubt Ihnen, das zu tun. Hier nun, wie die (verkürzten)
 Host-Definitionen mit Eltern/Kind-Beziehung für dieses Beispiel aussehen
 würden:
 
-~~~~ {.programlisting}
+<pre><code>
  define host{
-        host_name               Icinga   ; <-- der lokale Host hat keine Eltern - es ist der am weitesten oben stehende Host
-        }
  define host{
-        host_name       Switch1
-        parents         Icinga
-        }
  define host{
-        host_name       Web
-        parents         Switch1
-        }
  define host{
-        host_name       FTP
-        parents         Switch1
-        }
  define host{
-        host_name       Router1
-        parents         Switch1
-        }
  define host{
-        host_name       Switch2
-        parents         Router1
-        }
  define host{
-        host_name       Wkstn1
-        parents         Switch2
-        }
  define host{
-        host_name       HPLJ2605
-        parents         Switch2
-        }
  define host{
-        host_name       Router2
-        parents         Router1
-        }
  define host{
-        host_name       somewebsite.com
-        parents         Router2
-        }
-~~~~
+</code></pre>
 
 ### 5.10.4. Erreichbarkeits-Logik in Aktion
 
@@ -146,7 +107,6 @@ blockiert ist.
 Icinga wird feststellen, dass alle Hosts "unterhalb" *Router1* alle in
 einem UNREACHABLE Status sind, weil Icinga sie nicht erreichen kann.
 *Router1* ist DOWN und blockiert den Weg zu diesen anderen Hosts. Diese
-Hosts können wunderbar funktionieren oder offline sein - Icinga weiß es
 nicht, weil es sie nicht erreichen kann. Deshalb wird Icinga sie als
 UNREACHABLE ansehen anstatt DOWN.
 
@@ -170,10 +130,6 @@ ausschließen.
 
 * * * * *
 
-  ----------------------------- -------------------------- -------------------------------
-  [Zurück](timeperiods.md)    [Nach oben](ch05.md)      [Weiter](notifications.md)
-  5.9. Zeitfenster              [Zum Anfang](index.md)    5.11. Benachrichtigungen
-  ----------------------------- -------------------------- -------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

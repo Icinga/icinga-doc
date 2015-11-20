@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-3.2. Main Configuration File Options
-
-[Prev](config.md) 
-
-Chapter 3. Configuring Icinga
-
- [Next](configobject.md)
+[Prev](config.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](configobject.md)
 
 * * * * *
 
@@ -18,13 +10,8 @@ Chapter 3. Configuring Icinga
 When creating and/or editing configuration files, keep the following in
 mind:
 
-1.  Lines that start with a '\#' character are taken to be comments and
-    are not processed
 
-2.  Variables names must begin at the start of the line - no white space
-    is allowed before the name
 
-3.  Variable names are case-sensitive
 
 **Sample Configuration File**
 
@@ -43,387 +30,141 @@ the */usr/local/icinga/etc/* directory.
 
 **Configuration File Variables**
 
--   [Log file](configmain.md#configmain-log_file)
 
--   [Object configuration file](configmain.md#configmain-cfg_file)
 
--   [Object configuration directory](configmain.md#configmain-cfg_dir)
 
--   [Object cache file](configmain.md#configmain-object_cache_file)
 
--   [Precached object
-    file](configmain.md#configmain-precached_object_file)
 
--   [Resource file](configmain.md#configmain-resource_file)
 
--   [Temp file](configmain.md#configmain-temp_file)
 
--   [Temp path](configmain.md#configmain-temp_path)
 
--   [Status file](configmain.md#configmain-status_file)
 
--   [Status file update
-    interval](configmain.md#configmain-status_update_interval)
 
--   [Icinga user](configmain.md#configmain-icinga_user)
 
--   [Icinga group](configmain.md#configmain-icinga_group)
 
--   [Notifications
-    option](configmain.md#configmain-enable_notifications)
 
--   [Service check execution
-    option](configmain.md#configmain-execute_service_checks)
 
--   [Passive service check acceptance
-    option](configmain.md#configmain-accept_passive_service_checks)
 
--   [Host check execution
-    option](configmain.md#configmain-execute_host_checks)
 
--   [Passive host check acceptance
-    option](configmain.md#configmain-accept_passive_host_checks)
 
--   [Event handler
-    option](configmain.md#configmain-enable_event_handlers)
 
--   [Log rotation
-    method](configmain.md#configmain-log_rotation_method)
 
--   [Log archive path](configmain.md#configmain-log_archive_path)
 
--   [Logging options for
-    daemon](configmain.md#configmain-use_daemon_log)
 
--   [External command check
-    option](configmain.md#configmain-check_external_commands)
 
--   [External command check
-    interval](configmain.md#configmain-command_check_interval)
 
--   [External command file](configmain.md#configmain-command_file)
 
--   [External command buffer slots
-    option](configmain.md#configmain-external_command_buffer_slots)
 
--   [Lock file](configmain.md#configmain-lock_file)
 
--   [State retention
-    option](configmain.md#configmain-retain_state_information)
 
--   [State retention
-    file](configmain.md#configmain-state_retention_file)
 
--   [Sync retention
-    file](configmain.md#configmain-sync_retention_file)
 
--   [Automatic state retention update
-    interval](configmain.md#configmain-retention_update_interval)
 
--   [Use retained program state
-    option](configmain.md#configmain-use_retained_program_state)
 
--   [Dump retained host service states to
-    neb](configmain.md#configmain-dump_retained_host_service_states_to_neb)
 
--   [Use retained scheduling info
-    option](configmain.md#configmain-use_retained_scheduling_info)
 
--   [Retained host/service attribute
-    masks](configmain.md#configmain-retained_host_attribute_mask)
 
--   [Retained process attribute
-    masks](configmain.md#configmain-retained_process_host_attribute_mask)
 
--   [Retained contact attribute
-    masks](configmain.md#configmain-retained_contact_host_attribute_mask)
 
--   [Syslog logging option](configmain.md#configmain-use_syslog)
 
--   [Syslog local facility logging
-    option](configmain.md#configmain-use_syslog_local_facility)
 
--   [Syslog local facility logging
-    value](configmain.md#configmain-syslog_local_facility)
 
--   [Notification logging
-    option](configmain.md#configmain-log_notifications)
 
--   [Service check retry logging
-    option](configmain.md#configmain-log_service_retries)
 
--   [Host retry logging
-    option](configmain.md#configmain-log_host_retries)
 
--   [Event handler logging
-    option](configmain.md#configmain-log_event_handlers)
 
--   [Initial state logging
-    option](configmain.md#configmain-log_initial_states)
 
--   [External command logging
-    option](configmain.md#configmain-log_external_commands)
 
--   [External commands user logging
-    option](configmain.md#configmain-log_external_commands_user)
 
--   [Passive check logging
-    option](configmain.md#configmain-log_passive_checks)
 
--   [Current state logging
-    option](configmain.md#configmain-log_current_states)
 
--   [Long plugin output logging
-    option](configmain.md#configmain-log_long_plugin_output)
 
--   [Global host event
-    handler](configmain.md#configmain-global_host_event_handler)
 
--   [Global service event
-    handler](configmain.md#configmain-global_service_event_handler)
 
--   [Stalking event handlers for
-    hosts](configmain.md#configmain-stalking_event_handlers_for_hosts)
 
--   [Stalking event handlers for
-    services](configmain.md#configmain-stalking_event_handlers_for_services)
 
--   [Notifications for stalked
-    hosts](configmain.md#configmain-stalking_notifications_for_hosts)
 
--   [Notifications for stalked
-    services](configmain.md#configmain-stalking_notifications_for_services)
 
--   [Inter-check sleep time](configmain.md#configmain-sleep_time)
 
--   [Service inter-check delay
-    method](configmain.md#configmain-service_inter_check_delay_method)
 
--   [Maximum service check
-    spread](configmain.md#configmain-max_service_check_spread)
 
--   [Service interleave
-    factor](configmain.md#configmain-service_interleave_factor)
 
--   [Maximum concurrent service
-    checks](configmain.md#configmain-max_concurrent_checks)
 
--   [Check result reaper
-    frequency](configmain.md#configmain-check_result_reaper_frequency)
 
--   [Maximum check result reaper
-    time](configmain.md#configmain-max_check_result_reaper_time)
 
--   [Check result path](configmain.md#configmain-check_result_path)
 
--   [Maximum check result file
-    age](configmain.md#configmain-max_check_result_file_age)
 
--   [Host inter-check delay
-    method](configmain.md#configmain-host_inter_check_delay_method)
 
--   [Maximum host check
-    spread](configmain.md#configmain-max_host_check_spread)
 
--   [Timing interval length](configmain.md#configmain-interval_length)
 
--   [Auto-rescheduling
-    option](configmain.md#configmain-auto_reschedule_checks)
 
--   [Auto-rescheduling
-    interval](configmain.md#configmain-auto_rescheduling_interval)
 
--   [Auto-rescheduling
-    window](configmain.md#configmain-auto_rescheduling_window)
 
--   [Aggressive host checking
-    option](configmain.md#configmain-use_aggressive_host_checking)
 
--   [Translate passive host checks
-    option](configmain.md#configmain-translate_passive_host_checks)
 
--   [Passive host checks are SOFT
-    option](configmain.md#configmain-passive_host_checks_are_soft)
 
--   [Predictive host dependency checks
-    option](configmain.md#configmain-enable_predictive_host_dependency_checks)
 
--   [Predictive service dependency checks
-    option](configmain.md#configmain-enable_predictive_service_dependency_checks)
 
--   [Cached host check
-    horizon](configmain.md#configmain-cached_host_check_horizon)
 
--   [Cached service check
-    horizon](configmain.md#configmain-cached_service_check_horizon)
 
--   [Large installation tweaks
-    option](configmain.md#configmain-use_large_installation_tweaks)
 
--   [Flap detection
-    option](configmain.md#configmain-enable_flap_detection)
 
--   [Low service flap
-    threshold](configmain.md#configmain-low_service_flap_threshold)
 
--   [High service flap
-    threshold](configmain.md#configmain-high_service_flap_threshold)
 
--   [Low host flap
-    threshold](configmain.md#configmain-low_host_flap_threshold)
 
--   [High host flap
-    threshold](configmain.md#configmain-high_host_flap_threshold)
 
--   [Soft state dependencies
-    option](configmain.md#configmain-soft_state_dependencies)
 
--   [Time change threshold
-    option](configmain.md#configmain-time_change_threshold)
 
--   [Service check
-    timeout](configmain.md#configmain-service_check_timeout)
 
--   [Service check timeout
-    state](configmain.md#configmain-service_check_timeout_state)
 
--   [Host check timeout](configmain.md#configmain-host_check_timeout)
 
--   [Event handler
-    timeout](configmain.md#configmain-event_handler_timeout)
 
--   [Notification
-    timeout](configmain.md#configmain-notification_timeout)
 
--   [Obsessive compulsive service processor
-    timeout](configmain.md#configmain-ocsp_timeout)
 
--   [Obsessive compulsive host processor
-    timeout](configmain.md#configmain-ochp_timeout)
 
--   [Performance data processor command
-    timeout](configmain.md#configmain-perfdata_timeout)
 
--   [Obsess over services
-    option](configmain.md#configmain-obsess_over_services)
 
--   [Obsessive compulsive service processor
-    command](configmain.md#configmain-ocsp_command)
 
--   [Obsess over hosts
-    option](configmain.md#configmain-obsess_over_hosts)
 
--   [Obsessive compulsive host processor
-    command](configmain.md#configmain-ochp_command)
 
--   [Performance data processing
-    option](configmain.md#configmain-process_performance_data)
 
--   [Host performance data processing
-    command](configmain.md#configmain-host_perfdata_command)
 
--   [Service performance data processing
-    command](configmain.md#configmain-service_perfdata_command)
 
--   [Host performance data
-    file](configmain.md#configmain-host_perfdata_file)
 
--   [Service performance data
-    file](configmain.md#configmain-service_perfdata_file)
 
--   [Host performance data file
-    template](configmain.md#configmain-host_perfdata_file_template)
 
--   [Service performance data file
-    template](configmain.md#configmain-service_perfdata_file_template)
 
--   [Host performance data file
-    mode](configmain.md#configmain-host_perfdata_file_mode)
 
--   [Service performance data file
-    mode](configmain.md#configmain-service_perfdata_file_mode)
 
--   [Host performance data file processing
-    interval](configmain.md#configmain-host_perfdata_file_processing_interval)
 
--   [Service performance data file processing
-    interval](configmain.md#configmain-service_perfdata_file_processing_interval)
 
--   [Host performance data file processing
-    command](configmain.md#configmain-host_perfdata_file_processing_command)
 
--   [Service performance data file processing
-    command](configmain.md#configmain-service_perfdata_file_processing_command)
 
--   [Orphaned service check
-    option](configmain.md#configmain-check_for_orphaned_services)
 
--   [Orphaned host check
-    option](configmain.md#configmain-check_for_orphaned_hosts)
 
--   [Service freshness checking
-    option](configmain.md#configmain-check_service_freshness)
 
--   [Service freshness check
-    interval](configmain.md#configmain-service_freshness_check_interval)
 
--   [Host freshness checking
-    option](configmain.md#configmain-check_host_freshness)
 
--   [Host freshness check
-    interval](configmain.md#configmain-host_freshness_check_interval)
 
--   [P1.PL File Location](configmain.md#configmain-p1_file_location)
 
--   [Embedded Perl interpreter
-    option](configmain.md#configmain-enable_embedded_perl)
 
--   [Embedded Perl implicit use
-    option](configmain.md#configmain-use_embedded_perl_implicitly)
 
--   [Date format](configmain.md#configmain-date_format)
 
--   [Illegal object name
-    characters](configmain.md#configmain-illegal_object_name_chars)
 
--   [Illegal macro output
-    characters](configmain.md#configmain-illegal_macro_output_chars)
 
--   [Keep unknown
-    macros](configmain.md#configmain-keep_unknown_macros)
 
--   [Regular expression matching
-    option](configmain.md#configmain-use_regexp_matching)
 
--   [True regular expression matching
-    option](configmain.md#configmain-use_true_regexp_matching)
 
--   [Administrator email
-    address](configmain.md#configmain-admin_email)
 
--   [Administrator pager](configmain.md#configmain-admin_pager)
 
--   [Daemon Core Dumps](configmain.md#configmain-daemon_dumps_core)
 
--   [Debug file](configmain.md#configmain-debug_file)
 
--   [Debug level](configmain.md#configmain-debug_level)
 
--   [Debug verbosity](configmain.md#configmain-debug_verbosity)
 
--   [Maximum debug file size
-    option](configmain.md#configmain-max_debug_file_size)
 
--   [Event profiling](configmain.md#configmain-event_profiling)
 
--   [Allow empty hostgroup
-    assignment](configmain.md#configmain-allow_empty_hostgroup_assignment)
 
--   [Process empty host performance
-    results](configmain.md#configmain-process_empty_results)
 
--   [Process empty service performance
-    results](configmain.md#configmain-process_empty_results)
 
 Below you will find descriptions of each main Icinga configuration file
 option...
@@ -471,8 +212,8 @@ configuration information into several files and specify multiple
 
 Note
 
-Using `cfg_file=.../foo/bar.cfg`{.filename} for a file in the same
-directory which is specified in a `cfg_dir=.../foo`{.filename} directive
+Using `cfg_file=.../foo/bar.cfg` for a file in the same
+directory which is specified in a `cfg_dir=.../foo` directive
 will result in the file being processed twice and lead to config
 verification errors.
 
@@ -500,8 +241,8 @@ statements to have all config files in each directory processed.
 
 Note
 
-Using `cfg_file=.../foo/bar.cfg`{.filename} for a file in the same
-directory which is specified in a `cfg_dir=.../foo`{.filename} directive
+Using `cfg_file=.../foo/bar.cfg` for a file in the same
+directory which is specified in a `cfg_dir=.../foo` directive
 will result in the file being processed twice and lead to config
 verification errors.
 
@@ -560,7 +301,6 @@ passwords, and items commonly used in command definitions (like
 directory paths). The CGIs will *not* attempt to read resource files, so
 you can set restrictive permissions (600 or 660) on them to protect
 sensitive information. You can include multiple resource files by adding
-multiple resource\_file statements to the main config file - Icinga will
 process them all. See the sample resource.cfg file in the
 *sample-config/* subdirectory of the Icinga distribution for an example
 of how to define \$USERn\$ macros.
@@ -690,9 +430,7 @@ web interface.
 
 Values are as follows:
 
--   0 = Disable notifications
 
--   1 = Enable notifications (default)
 
 **Service Check Execution Option**
 
@@ -738,9 +476,7 @@ web interface.
 
 Values are as follows:
 
--   0 = Don't execute service checks
 
--   1 = Execute service checks (default)
 
 **Passive Service Check Acceptance Option**
 
@@ -777,9 +513,7 @@ web interface.
 
 Values are as follows:
 
--   0 = Don't accept passive service checks
 
--   1 = Accept passive service checks (default)
 
 **Host Check Execution Option**
 
@@ -824,9 +558,7 @@ web interface.
 
 Values are as follows:
 
--   0 = Don't execute host checks
 
--   1 = Execute host checks (default)
 
 **Passive Host Check Acceptance Option**
 
@@ -863,9 +595,7 @@ web interface.
 
 Values are as follows:
 
--   0 = Don't accept passive host checks
 
--   1 = Accept passive host checks (default)
 
 **Event Handler Option**
 
@@ -902,9 +632,7 @@ web interface.
 
 Values are as follows:
 
--   0 = Disable event handlers
 
--   1 = Enable event handlers (default)
 
 **Log Rotation Method**
 
@@ -919,16 +647,10 @@ Example:
 This is the rotation method that you would like Icinga to use for your
 log file. Values are as follows:
 
--   n = None (don't rotate the log - this is the default)
 
--   h = Hourly (rotate the log at the top of each hour)
 
--   d = Daily (rotate the log at midnight each day)
 
--   w = Weekly (rotate the log at midnight on Saturday)
 
--   m = Monthly (rotate the log at midnight on the last day of the
-    month)
 
 **Log Archive Path**
 
@@ -957,9 +679,7 @@ Example:
 This option determines if the log daemon writes to the log file (usually
 icinga.log).
 
--   0 = logging disabled
 
--   1 = logging enabled (default)
 
 **External Command Check Option**
 
@@ -980,9 +700,7 @@ Nagstamon and NagiosQL also use this file to issue commands to Icinga.
 More information on external commands can be found
 [here](extcommands.md "7.1. External Commands").
 
--   0 = Don't check external commands
 
--   1 = Check external commands (default)
 
 **External Command Check Interval**
 
@@ -1099,9 +817,7 @@ variable. When enabled, Icinga will save all state information for hosts
 and service before it shuts down (or restarts) and will read in
 previously saved state information when it starts up again.
 
--   0 = Don't retain state information
 
--   1 = Retain state information (default)
 
 **State Retention File**
 
@@ -1184,9 +900,7 @@ options. If you do not have [state
 retention](configmain.md#configmain-retain_state_information) enabled,
 this option has no effect.
 
--   0 = Don't use retained program state
 
--   1 = Use retained program state (default)
 
 **Dump Retained Host Service States To Neb**
 
@@ -1203,9 +917,7 @@ states based on the values saved in the [retention
 file](configmain.md#configmain-state_retention_file) to the neb
 modules. If you don't want that, use at your own risk and disable it.
 
--   0 = Don't dump status informations to neb (default in 1.10+)
 
--   1 = Dump status informations to neb
 
 **Use Retained Scheduling Info Option**
 
@@ -1224,9 +936,7 @@ would recommend disabling this option when you first restart Icinga, as
 it can adversely skew the spread of initial checks. Otherwise you will
 probably want to leave it enabled.
 
--   0 = Don't use retained scheduling info
 
--   1 = Use retained scheduling info (default)
 
 **Retained Host and Service Attribute Masks**
 
@@ -1313,9 +1023,7 @@ Example:
 This variable determines whether messages are logged to the syslog
 facility on your local host. Values are as follows:
 
--   0 = Don't use syslog facility
 
--   1 = Use syslog facility
 
 **Local Syslog Facility Option**
 
@@ -1330,9 +1038,7 @@ Example:
 If you enabled use\_syslog you can set Icinga to use a local facility
 instead of the default. Values are as follows:
 
--   0 = Don't use syslog local facility
 
--   1 = Use syslog local facility
 
 **Syslog Local Facility Value**
 
@@ -1362,9 +1068,7 @@ logged. If you have a lot of contacts or regular service failures your
 log file will grow relatively quickly. Use this option to keep contact
 notifications from being logged.
 
--   0 = Don't log notifications
 
--   1 = Log notifications
 
 **Service Check Retry Logging Option**
 
@@ -1384,9 +1088,7 @@ considered to be in "soft" states. Logging service check retries is
 mostly useful when attempting to debug Icinga or test out service [event
 handlers](eventhandlers.md "7.3. Event Handlers").
 
--   0 = Don't log service check retries
 
--   1 = Log service check retries
 
 **Host Check Retry Logging Option**
 
@@ -1403,9 +1105,7 @@ Logging host check retries is mostly useful when attempting to debug
 Icinga or test out host [event
 handlers](eventhandlers.md "7.3. Event Handlers").
 
--   0 = Don't log host check retries
 
--   1 = Log host check retries
 
 **Event Handler Logging Option**
 
@@ -1423,9 +1123,7 @@ handlers are optional commands that can be run whenever a service or
 hosts changes state. Logging event handlers is most useful when
 debugging Icinga or first trying out your event handler scripts.
 
--   0 = Don't log event handlers
 
--   1 = Log event handlers
 
 **Initial States Logging Option**
 
@@ -1444,9 +1142,7 @@ there is a problem on the first check. Enabling this option is useful if
 you are using an application that scans the log file to determine
 long-term state statistics for services and hosts.
 
--   0 = Don't log initial states (default)
 
--   1 = Log initial states
 
 **External Command Logging Option**
 
@@ -1474,9 +1170,7 @@ checks, use the
 [log\_passive\_checks](configmain.md#configmain-log_passive_checks)
 option.
 
--   0 = Don't log external commands
 
--   1 = Log external commands (default)
 
 **External Commands User Logging Option**
 
@@ -1502,9 +1196,7 @@ This option is deprecated starting with Icinga 1.4 because you can use
 the directive [use\_logging](configcgi.md#configcgi-use_logging) to
 enable logging of CGI commands.
 
--   0 = Don't log user name using external commands (default)
 
--   1 = Log user name using external commands
 
 **Passive Check Logging Option**
 
@@ -1525,9 +1217,7 @@ environment](distributed.md "7.6. Distributed Monitoring") or plan on
 handling a large number of passive checks on a regular basis, you may
 wish to disable this option so your log file doesn't get too large.
 
--   0 = Don't log passive checks
 
--   1 = Log passive checks (default)
 
 **Current State Logging Option**
 
@@ -1544,9 +1234,7 @@ states of hosts and services after a log rotation. If you set the value
 of log\_current\_states to 0 the current states will not be written to
 the main log file after a log rotation.
 
--   0 = Don't log current host and service states
 
--   1 = Log current host and service states (default)
 
 **Long Plugin Output Logging Option**
 
@@ -1563,9 +1251,7 @@ output of a plugin (not only the first line). If you set the value of
 log\_long\_plugin\_output to 1 the complete plugin output will be
 logged.
 
--   0 = Only log the first line of plugin output (default)
 
--   1 = Log complete plugin output
 
 **Global Host Event Handler Option**
 
@@ -1627,9 +1313,7 @@ These options allow you to specify whether or not Icinga executes event
 handlers for stalked hosts or services, respectively. This way it is
 possible to forward status information changes to external systems.
 
--   0 = Event handler disabled (default)
 
--   1 = Event handler enabled
 
 **Notifications for stalked hosts**
 
@@ -1655,9 +1339,7 @@ Note
 Unless there are no stalking\_options defined on a host/service, the
 global definitions above won't affect anything.
 
--   0 = Notifications disabled (default)
 
--   1 = Notifications enabled
 
 **Inter-Check Sleep Time**
 
@@ -1697,15 +1379,9 @@ check scheduling can be found
 [here](checkscheduling.md#serviceintercheckdelay "7.23.4. Inter-Check Delay").
 Values are as follows:
 
--   n = Don't use any delay - schedule all service checks to run
-    immediately (i.e. at the same time!)
 
--   d = Use a "dumb" delay of 1 second between service checks
 
--   s = Use a "smart" delay calculation to spread service checks out
-    evenly (default)
 
--   x.xx = Use a user-supplied inter-check delay of x.xx seconds
 
 **Maximum Service Check Spread**
 
@@ -1753,11 +1429,7 @@ out as they begin to appear. More information on how interleaving works
 can be found
 [here](checkscheduling.md#serviceinterleaving "7.23.5. Service Interleaving").
 
--   *x* = A number greater than or equal to 1 that specifies the
-    interleave factor to use. An interleave factor of 1 is equivalent to
-    not interleaving the service checks.
 
--   s = Use a "smart" interleave factor calculation (default)
 
 **Maximum Concurrent Service Checks**
 
@@ -1858,7 +1530,6 @@ consider check result files found in the
 directory to be valid. Check result files that are older that this
 threshold will be deleted by Icinga and the check results they contain
 will not be processed. By using a value of zero (0) with this option,
-Icinga will process all check result files - even if they're older than
 your hardware :-).
 
 **Host Inter-Check Delay Method**
@@ -1882,15 +1553,9 @@ time. More information on how to estimate how the inter-check delay
 affects host check scheduling can be found
 [here](checkscheduling.md#hostintercheckdelay). Values are as follows:
 
--   n = Don't use any delay - schedule all host checks to run
-    immediately (i.e. at the same time!)
 
--   d = Use a "dumb" delay of 1 second between host checks
 
--   s = Use a "smart" delay calculation to spread host checks out evenly
-    (default)
 
--   x.xx = Use a user-supplied inter-check delay of x.xx seconds
 
 **Maximum Host Check Spread**
 
@@ -1950,8 +1615,6 @@ server, as it will attempt to keep the time between consecutive checks
 consistent, at the expense of executing checks on a more rigid schedule.
 
 **WARNING:** THIS IS AN EXPERIMENTAL FEATURE AND MAY BE REMOVED IN
-FUTURE VERSIONS. ENABLING THIS OPTION CAN DEGRADE PERFORMANCE - RATHER
-THAN INCREASE IT - IF USED IMPROPERLY!
 
 **Auto-Rescheduling Interval**
 
@@ -1970,7 +1633,6 @@ option is enabled. Default is 30 seconds.
 
 **WARNING:** THIS IS AN EXPERIMENTAL FEATURE AND MAY BE REMOVED IN
 FUTURE VERSIONS. ENABLING THE AUTO-RESCHEDULING OPTION CAN DEGRADE
-PERFORMANCE - RATHER THAN INCREASE IT - IF USED IMPROPERLY!
 
 **Auto-Rescheduling Window**
 
@@ -1991,7 +1653,6 @@ option is enabled. Default is 180 seconds (3 minutes).
 
 **WARNING:** THIS IS AN EXPERIMENTAL FEATURE AND MAY BE REMOVED IN
 FUTURE VERSIONS. ENABLING THE AUTO-RESCHEDULING OPTION CAN DEGRADE
-PERFORMANCE - RATHER THAN INCREASE IT - IF USED IMPROPERLY!
 
 **Aggressive Host Checking Option**
 
@@ -2011,9 +1672,7 @@ improve reliability a bit. Unless you have problems with Icinga not
 recognizing that a host recovered, we would suggest **not** enabling
 this option.
 
--   0 = Don't use aggressive host checking (default)
 
--   1 = Use aggressive host checking
 
 **Translate Passive Host Checks Option**
 
@@ -2032,9 +1691,7 @@ in distributed and failover monitoring installations. More information
 on passive check state translation can be found
 [here](passivestatetranslation.md "7.22. Passive Host State Translation").
 
--   0 = Disable check translation (default)
 
--   1 = Enable check translation
 
 **Passive Host Checks Are SOFT Option**
 
@@ -2052,9 +1709,7 @@ states. By default, a passive host check result will put a host into a
 [HARD state type](statetypes.md "5.8. State Types"). You can change
 this behavior by enabling this option.
 
--   0 = Passive host checks are HARD (default)
 
--   1 = Passive host checks are SOFT
 
 **Predictive Host Dependency Checks Option**
 
@@ -2074,9 +1729,7 @@ ensure that the dependency logic is as accurate as possible. More
 information on how predictive checks work can be found
 [here](dependencychecks.md "7.20. Predictive Dependency Checks").
 
--   0 = Disable predictive checks
 
--   1 = Enable predictive checks (default)
 
 **Predictive Service Dependency Checks Option**
 
@@ -2096,9 +1749,7 @@ ensure that the dependency logic is as accurate as possible. More
 information on how predictive checks work can be found
 [here](dependencychecks.md "7.20. Predictive Dependency Checks").
 
--   0 = Disable predictive checks
 
--   1 = Enable predictive checks (default)
 
 **Cached Host Check Horizon**
 
@@ -2158,9 +1809,7 @@ of benefit from doing so. More information on what optimizations are
 taken when you enable this option can be found
 [here](largeinstalltweaks.md "8.5. Large Installation Tweaks").
 
--   0 = Don't use tweaks (default)
 
--   1 = Use tweaks
 
 **Child Process Memory Option**
 
@@ -2180,9 +1829,7 @@ option is enabled, it will not. By defining this option in your
 configuration file, you are able to override things to get the behavior
 you want.
 
--   0 = Don't free memory
 
--   1 = Free memory
 
 **Child Processes Fork Twice**
 
@@ -2202,9 +1849,7 @@ option is enabled, it will only fork() once. By defining this option in
 your configuration file, you are able to override things to get the
 behavior you want.
 
--   0 = Fork() just once
 
--   1 = Fork() twice
 
 **Environment Macros Option**
 
@@ -2224,9 +1869,7 @@ problematic because it takes additional memory and (more importantly)
 CPU to compute the values of all macros and make them available to the
 environment.
 
--   0 = Don't make macros available as environment variables (default)
 
--   1 = Make macros available as environment variables
 
 **Flap Detection Option**
 
@@ -2266,9 +1909,7 @@ is enabled), you'll have to use the appropriate [external
 command](extcommands.md "7.1. External Commands") or change it via the
 web interface.
 
--   0 = Don't enable flap detection (default)
 
--   1 = Enable flap detection
 
 **Low Service Flap Threshold**
 
@@ -2348,9 +1989,7 @@ checking dependencies. If you want it to use the latest state
 (regardless of whether its a soft or hard [state
 type](statetypes.md "5.8. State Types")), enable this option.
 
--   0 = Don't use soft state dependencies (default)
 
--   1 = Use soft state dependencies
 
 **Time Change Threshold**
 
@@ -2398,7 +2037,6 @@ Example:
 **service\_check\_timeout\_state=u**
 
 This setting determines the state Icinga will report when a service
-check times out - that is does not respond within
 service\_check\_timeout seconds. This can be useful if a machine is
 running at too high a load and you do not want to consider a failed
 service check to be critical. The default was changed to
@@ -2534,15 +2172,12 @@ Example:
 
 This value determines whether or not Icinga will "obsess" over service
 checks results and run the [obsessive compulsive service processor
-command](configmain.md#configmain-ocsp_command) you define. We know -
 funny name, but it was all Ethan could think of. This option is useful
 for performing [distributed
 monitoring](distributed.md "7.6. Distributed Monitoring"). If you're
 not doing distributed monitoring, don't enable this option.
 
--   0 = Don't obsess over services (default)
 
--   1 = Obsess over services
 
 **Obsessive Compulsive Service Processor Command**
 
@@ -2586,15 +2221,12 @@ Example:
 
 This value determines whether or not Icinga will "obsess" over host
 checks results and run the [obsessive compulsive host processor
-command](configmain.md#configmain-ochp_command) you define. We know -
 funny name, but it was all Ethan could think of. This option is useful
 for performing [distributed
 monitoring](distributed.md "7.6. Distributed Monitoring"). If you're
 not doing distributed monitoring, don't enable this option.
 
--   0 = Don't obsess over hosts (default)
 
--   1 = Obsess over hosts
 
 **Obsessive Compulsive Host Processor Command**
 
@@ -2639,9 +2271,7 @@ This value determines whether or not Icinga will process host and
 service check [performance
 data](perfdata.md "7.15. Performance Data").
 
--   0 = Don't process performance data (default)
 
--   1 = Process performance data
 
 **Host Performance Data Processing Command**
 
@@ -2786,12 +2416,8 @@ file](configmain.md#configmain-host_perfdata_file) is opened. Unless
 the file is a named pipe you'll probably want to use the default mode of
 append.
 
--   a = Open file in append mode (default)
 
--   w = Open file in write mode
 
--   p = Open in non-blocking read/write mode (useful when writing to
-    pipes)
 
 **Service Performance Data File Mode**
 
@@ -2808,12 +2434,8 @@ file](configmain.md#configmain-service_perfdata_file) is opened.
 Unless the file is a named pipe you'll probably want to use the default
 mode of append.
 
--   a = Open file in append mode (default)
 
--   w = Open file in write mode
 
--   p = Open in non-blocking read/write mode (useful when writing to
-    pipes)
 
 **Host Performance Data File Processing Interval**
 
@@ -2907,7 +2529,6 @@ have been removed from the event queue, but have not had any results
 reported in a long time. Since no results have come back in for the
 service, it is not rescheduled in the event queue. This can cause
 service checks to stop being executed. Normally it is very rare for this
-to happen - it might happen if an external user or process killed off
 the process that was being used to execute a service check. If this
 option is enabled and Icinga finds that results for a particular service
 check have not come back, it will log an error message and reschedule
@@ -2915,9 +2536,7 @@ the service check. If you start seeing service checks that never seem to
 get rescheduled, enable this option and see if you notice any log
 messages about orphaned services.
 
--   0 = Don't check for orphaned service checks
 
--   1 = Check for orphaned service checks (default)
 
 **Orphaned Host Check Option**
 
@@ -2935,7 +2554,6 @@ have been removed from the event queue, but have not had any results
 reported in a long time. Since no results have come back in for the
 host, it is not rescheduled in the event queue. This can cause host
 checks to stop being executed. Normally it is very rare for this to
-happen - it might happen if an external user or process killed off the
 process that was being used to execute a host check. If this option is
 enabled and Icinga finds that results for a particular host check have
 not come back, it will log an error message and reschedule the host
@@ -2943,9 +2561,7 @@ check. If you start seeing host checks that never seem to get
 rescheduled, enable this option and see if you notice any log messages
 about orphaned hosts.
 
--   0 = Don't check for orphaned host checks
 
--   1 = Check for orphaned host checks (default)
 
 **Service Freshness Checking Option**
 
@@ -2964,9 +2580,7 @@ checks](passivechecks.md "5.7. Passive Checks") are received in a
 timely manner. More information on freshness checking can be found
 [here](freshness.md "7.5. Service and Host Freshness Checks").
 
--   0 = Don't check service freshness
 
--   1 = Check service freshness (default)
 
 **Service Freshness Check Interval**
 
@@ -3003,9 +2617,7 @@ checks](passivechecks.md "5.7. Passive Checks") are received in a
 timely manner. More information on freshness checking can be found
 [here](freshness.md "7.5. Service and Host Freshness Checks").
 
--   0 = Don't check host freshness (default)
 
--   1 = Check host freshness
 
 **Host Freshness Check Interval**
 
@@ -3067,9 +2679,7 @@ for embedded Perl for this option to have an effect. More information on
 the embedded Perl interpreter can be found
 [here](embeddedperl.md "7.18. Using The Embedded Perl Interpreter").
 
--   0 = disabled (default)
 
--   1 = enabled
 
 **Embedded Perl Implicit Use Option**
 
@@ -3172,7 +2782,7 @@ Note
 Depending on your OS it might be necessary to add a colon before the
 timezone to work as expected
 
-`use_timezone=:US/Mountain`{.literal}
+`use_timezone=:US/Mountain`
 
 **Illegal Object Name Characters**
 
@@ -3251,9 +2861,7 @@ will be processed as regular expressions. More information on how this
 works can be found
 [here](objecttricks.md "7.27. Time-Saving Tricks For Object Definitions").
 
--   0 = Don't use regular expression matching (default)
 
--   1 = Use regular expression matching
 
 **True Regular Expression Matching Option**
 
@@ -3273,13 +2881,10 @@ regular expressions. If this option is disabled (the default),
 directives will only be treated as regular expressions if they contain
 **\***, **?**, **\$**, **+**, or **\\.**(POSIX ERE). If this option is
 enabled, all appropriate directives will be treated as regular
-expression - be careful when enabling this! More information on how this
 works can be found
 [here](objecttricks.md "7.27. Time-Saving Tricks For Object Definitions").
 
--   0 = Don't use true regular expression matching (default)
 
--   1 = Use true regular expression matching
 
 **Administrator Email Address**
 
@@ -3328,9 +2933,7 @@ form to allow this, but it may be useful for debugging purposes.
 Enabling this option doesn't guarantee that a core file will be
 produced, but that's just life.
 
--   0 = Don't allow core dumps (default)
 
--   1 = Allow core dumps
 
 **Event Broker Options**
 
@@ -3348,12 +2951,8 @@ option. When in doubt, either broker nothing (if not using event broker
 modules) or broker everything (if using event broker modules). Possible
 values are shown below.
 
--   0 = Broker nothing
 
--   -1 = Broker everything
 
--   \# = See BROKER\_\* definitions in source code (include/broker.h)
-    for other values that can be OR'ed together
 
 **Event Broker Modules**
 
@@ -3412,33 +3011,19 @@ This option determines what type of information Icinga should write to
 the [debug\_file](configmain.md#configmain-debug_file). This value is
 a logical OR of the values below.
 
--   -1 = Log everything
 
--   0 = Log nothing (default)
 
--   1 = Function enter/exit information
 
--   2 = Config information
 
--   4 = Process information
 
--   8 = Scheduled event information
 
--   16 = Host/service check information
 
--   32 = Notification information
 
--   64 = Event broker information
 
--   128 = External commands
 
--   256 = Commands
 
--   512 = Scheduled downtime
 
--   1024 = Comments
 
--   2048 = Macros
 
 **Debug Verbosity**
 
@@ -3453,11 +3038,8 @@ Example:
 This option determines how much debugging information Icinga should
 write to the [debug\_file](configmain.md#configmain-debug_file).
 
--   0 = Basic information
 
--   1 = More detailed information (default)
 
--   2 = Highly detailed information
 
 **Maximum Debug File Size**
 
@@ -3511,19 +3093,8 @@ them.
 
 Enabling this option can be useful when:
 
--   Configuration files or pre-cached object files are distributed
-    across many Icinga pollers.
 
--   Automation is used to generate an Icinga configuration file tree.
 
--   There is one set of services, service dependencies, or host
-    dependencies maintained by administrators for which users may add
-    hosts through host group membership for convenience (e.g. a suite of
-    checks associated with a remote monitoring agent) but for which
-    there is no guarantee that users will use the services associated
-    with the host group or that the hosts will exists (e.g. a remote
-    agent that is being deprecated over time or hosts that are being
-    decommissioned).
 
 **Process empty performance results**
 
@@ -3542,12 +3113,9 @@ Example:
 These options determine whether the core will process empty perfdata
 results or not. This is needed for distributed monitoring, and
 intentionally turned on by default. If you don't require empty perfdata
-- saving some cpu cycles on unwanted macro calculation - you can turn
 that off. Be careful!
 
--   0 = disable
 
--   1 = enable
 
 **Limit number of items in check result list**
 
@@ -3576,10 +3144,12 @@ These options are available starting with Icinga 1.8
 
 * * * * *
 
-  ------------------------------ -------------------- -------------------------------------
-  [Prev](config.md)            [Up](ch03.md)       [Next](configobject.md)
-  3.1. Configuration Overview    [Home](index.md)    3.3. Object Configuration Overview
-  ------------------------------ -------------------- -------------------------------------
+[Prev](config.md) | [Up](ch03.md) | [Next](configobject.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

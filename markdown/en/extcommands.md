@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.1. External Commands
-
-[Prev](ch07.md) 
-
-Chapter 7. Advanced Topics
-
- [Next](extcommands2.md)
+[Prev](ch07.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](extcommands2.md)
 
 * * * * *
 
@@ -41,32 +33,13 @@ which is periodically processed by the Icinga daemon.
 In order to have Icinga process external commands, make sure you do the
 following:
 
--   Enable external command checking with the
-    [check\_external\_commands](configmain.md#configmain-check_external_commands)
-    option.
 
--   Set the frequency of command checks with the
-    [command\_check\_interval](configmain.md#configmain-command_check_interval)
-    option.
 
--   Specify the location of the command file with the
-    [command\_file](configmain.md#configmain-command_file) option.
 
--   Setup proper permissions on the directory containing the external
-    command file, as described in the [quickstart
-    guide](quickstart.md "2.3. Quickstart Installation Guides").
 
 ### 7.1.3. When Does Icinga Check For External Commands?
 
--   At regular intervals specified by the
-    [command\_check\_interval](configmain.md#configmain-command_check_interval)
-    option in the main configuration file
 
--   Immediately after [event
-    handlers](eventhandlers.md "7.3. Event Handlers") are executed.
-    This is in addtion to the regular cycle of external command checks
-    and is done to provide immediate action if an event handler submits
-    commands to Icinga.
 
 ### 7.1.4. Using External Commands
 
@@ -82,9 +55,7 @@ External commands that are written to the [command
 file](configmain.md#configmain-command_file) have the following
 format...
 
-~~~~ {.screen}
-[time]  command_id; command_arguments
-~~~~
+</code></pre>
 
 ...where *time* is the time (in *time\_t* format) that the external
 application submitted the external command to the command file. The
@@ -100,10 +71,12 @@ development section.
 
 * * * * *
 
-  ----------------------------- -------------------- ---------------------------------
-  [Prev](ch07.md)             [Up](ch07.md)       [Next](extcommands2.md)
-  Chapter 7. Advanced Topics    [Home](index.md)    7.2. List of External Commands
-  ----------------------------- -------------------- ---------------------------------
+[Prev](ch07.md) | [Up](ch07.md) | [Next](extcommands2.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

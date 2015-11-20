@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.19. Adaptive Monitoring
-
-[Prev](embeddedperl.md) 
-
-Chapter 7. Advanced Topics
-
- [Next](dependencychecks.md)
+[Prev](embeddedperl.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](dependencychecks.md)
 
 * * * * *
 
@@ -32,33 +24,21 @@ allow you to do some neat things.
 
 The following service check attributes can be changed during runtime:
 
--   Check command (and command arguments)
 
--   Check interval
 
--   Max check attempts
 
--   Check timeperiod
 
--   Event handler command (and command arguments)
 
 The following host check attributes can be changed during runtime:
 
--   Check command (and command arguments)
 
--   Check interval
 
--   Max check attempts
 
--   Check timeperiod
 
--   Event handler command (and command arguments)
 
 The following global attributes can be changed during runtime:
 
--   Global host event handler command (and command arguments)
 
--   Global service event handler command (and command arguments)
 
 ### 7.19.3. External Commands For Adaptive Monitoring
 
@@ -77,25 +57,16 @@ commands](extcommands2.md "7.2. List of External Commands").
 
 Note
 
--   When changing check commands, check timeperiods, or event handler
-    commands, it is important to note that the new values for these
-    options must have been defined before Icinga was started. Any
-    request to change a command or timeperiod to one which had not been
-    defined when Icinga was started is ignored.
 
--   You can specify command arguments along with the actual command name
-    - just separate individual arguments from the command name (and from
-    each other) using bang (!) characters. More information on how
-    arguments in command definitions are processed during runtime can be
-    found in the documentation on
-    [macros](macros.md "5.2. Understanding Macros and How They Work").
 
 * * * * *
 
-  -------------------------------------------- -------------------- -------------------------------------
-  [Prev](embeddedperl.md)                    [Up](ch07.md)       [Next](dependencychecks.md)
-  7.18. Using The Embedded Perl Interpreter    [Home](index.md)    7.20. Predictive Dependency Checks
-  -------------------------------------------- -------------------- -------------------------------------
+[Prev](embeddedperl.md) | [Up](ch07.md) | [Next](dependencychecks.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

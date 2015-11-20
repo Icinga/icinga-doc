@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-4.1. Verifying Your Configuration
-
-[Prev](ch04.md) 
-
-Chapter 4. Running Icinga
-
- [Next](startstop.md)
+[Prev](ch04.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](startstop.md)
 
 * * * * *
 
@@ -20,9 +12,8 @@ files because in case of an error Icinga will not be (re)started.
 In order to verify your configuration, run Icinga using the **-v**
 command line option:
 
-~~~~ {.screen}
  #> /usr/local/icinga/bin/icinga -v /usr/local/icinga/etc/icinga.cfg
-~~~~
+</code></pre>
 
 If you've forgotten to enter some critical data or misconfigured things,
 Icinga will show a warning or error message that should point you to the
@@ -45,9 +36,8 @@ not requirements.
 
 Instead of specifying the paths to binary and config file you can issue
 
-~~~~ {.screen}
  #> /etc/init.d/icinga checkconfig
-~~~~
+</code></pre>
 
 which results in just a non-zero return code if your config contains any
 errors. This might be useful if you want to restart Icinga
@@ -55,9 +45,8 @@ automatically.
 
 Using
 
-~~~~ {.screen}
  #> /etc/init.d/icinga show-errors
-~~~~
+</code></pre>
 
 the command will create a file containing the errors found. If there are
 any the contents of the file is shown.
@@ -68,10 +57,12 @@ Icinga”](startstop.md "4.2. Starting and Stopping Icinga").
 
 * * * * *
 
-  ---------------------------- -------------------- ------------------------------------
-  [Prev](ch04.md)            [Up](ch04.md)       [Next](startstop.md)
-  Chapter 4. Running Icinga    [Home](index.md)    4.2. Starting and Stopping Icinga
-  ---------------------------- -------------------- ------------------------------------
+[Prev](ch04.md) | [Up](ch04.md) | [Next](startstop.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

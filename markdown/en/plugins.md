@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-5.1. Icinga Plugins
-
-[Prev](ch05.md) 
-
-Chapter 5. The Basics
-
- [Next](macros.md)
+[Prev](ch05.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](macros.md)
 
 * * * * *
 
@@ -84,7 +76,6 @@ monitoring network traffic statistics, data error rates, room
 temperature, CPU voltage, fan speed, processor load, disk space, or the
 ability of your super-fantastic toaster to properly brown your bread in
 the morning... Icinga doesn't understand the specifics of what's being
-monitored - it just tracks changes in the *state* of those resources.
 Only the plugins themselves know exactly what they're monitoring and how
 to perform the actual checks.
 
@@ -93,15 +84,10 @@ to perform the actual checks.
 There are plugins currently available to monitor many different kinds of
 devices and services, including:
 
--   HTTP, POP3, IMAP, FTP, SSH, DHCP
 
--   CPU Load, Disk Usage, Memory Usage, Current Users
 
--   Unix/Linux, Windows, and Netware Servers
 
--   Routers and Switches
 
--   etc.
 
 ### 5.1.5. Obtaining Plugins
 
@@ -109,14 +95,8 @@ Plugins are not distributed with Icinga, but you can download the
 official Nagios plugins and many additional plugins created and
 maintained by Nagios and Icinga users from the following locations:
 
--   Monitoring Plugins Project:
-    [https://www.monitoring-plugins.org](https://www.monitoring-plugins.org)
 
--   Monitoring Plugins Downloads Page:
-    [https://www.monitoring-plugins.org/download.md](https://www.monitoring-plugins.org/download.md)
 
--   Icinga Exchange:
-    [https://exchange.icinga.org](https://exchange.icinga.org)
 
 After downloading you have to install the plugin(s). Please check the
 accompanied documentation on how to do that. It may contain important
@@ -125,11 +105,11 @@ modules and on how to install the plugin together with hints for your
 distribution.
 
 Sometimes you have to compile the plugin preparing the compile process
-using "`./configure`{.code}" with or without options. Please check the
-file `config.log`{.filename} for errors regarding missing (devel)
+using "`./configure`" with or without options. Please check the
+file `config.log` for errors regarding missing (devel)
 packages before issuing the actual compile command (mostly "make" or
 "make all"). In most cases the plugin is copied to the plugins directory
-(i.e. `/usr/local/icinga/libexec`{.filename}) during "make install".
+(i.e. `/usr/local/icinga/libexec`) during "make install".
 
 Sometimes you have to alter the plugin to reflect your environment (i.e.
 path to "utils.pm", ...). You may create a logical link pointing to the
@@ -137,17 +117,17 @@ plugin directory instead so you don't have to change the plugin to
 circumvent this issue easing plugin updates later on doing something
 like
 
-~~~~ {.programlisting}
+<pre><code>
  $> mkdir /usr/local/nagios
  $> ln -s /usr/local/icinga/libexec /usr/local/nagios/libexec
-~~~~
+</code></pre>
 
 ![[Note]](../images/note.png)
 
 Note
 
 Using packages the path to the plugins directory might be different
-(e.g. `/usr/lib/plugins`{.filename}) so please change that accordingly.
+(e.g. `/usr/lib/plugins`) so please change that accordingly.
 
 ### 5.1.6. Switch to the Icinga user
 
@@ -156,7 +136,7 @@ Using packages the path to the plugins directory might be different
 Important
 
 Always execute the plugin using the Icinga user (specified using the
-directive icinga\_user in `icinga.cfg`{.filename}) because some plugins
+directive icinga\_user in `icinga.cfg`) because some plugins
 will create temporary files. If you're testing plugins with another user
 then the Icinga user may not have the permissions to overwrite existing
 files later on. Using another user you will not be able to find out if
@@ -164,9 +144,9 @@ the Icinga user is allowed to access several files (e.g. shared
 libraries) at all.
 
 When testing it don't call the plugin using relative paths (i.e
-`./check_test_plugin`{.filename}). Always use absolute paths because
+`./check_test_plugin`). Always use absolute paths because
 that's the way Icinga does it (i.e.
-`/usr/local/icinga/libexec/check_test_plugin`{.filename}).
+`/usr/local/icinga/libexec/check_test_plugin`).
 
 Please note that the Icinga *user* has a different environment than the
 Icinga *process*. Using the first the logins script have been executed
@@ -176,16 +156,14 @@ it will run when executed by the process. Furthermore the process will
 not use a shell per default but execute calls to popen/execvp instead
 depending on the command (popen in case the command line contains meta
 characters meaningful to the shell like
-`!$^&*()~[]\|{};<>?'"`{.literal}, execvp if no meta characters are
+`!$^&*()~[]\|{};<>?'"`, execvp if no meta characters are
 present).
 
-Switch to the Icinga user as defined in `icinga.cfg`{.filename} unless
+Switch to the Icinga user as defined in `icinga.cfg` unless
 already done and clear the environment
 
-~~~~ {.screen}
- #> su - icinga
  #> env -i
-~~~~
+</code></pre>
 
 If you are logged in now then skip to "Extending the environment"
 
@@ -193,72 +171,52 @@ Due to security awareness of the packager / sys admin this might fail
 because the account is not allowed to login. Please ask your sys admin
 to change that temporarily or do one of the following
 
--   get the current shell from `/etc/passwd`{.filename} and change it by
-    issuing something similar to
 
-    ~~~~ {.screen}
-     #> OLD_SHELL=`grep icinga /etc/passwd | sed 's/.*://'`
-     #> usermod -s /bin/sh icinga
-    ~~~~
 
-    execute the command(s) after switching to the Icinga user and
-    clearing the environment as described above
 
-    don't forget to restore the shell setting after testing and leaving
-    the session
 
-    ~~~~ {.screen}
-     #> usermod -s $OLD_SHELL icinga
-    ~~~~
 
--   execute the command using "sudo -u icinga"
 
-    ~~~~ {.screen}
-     #> sudo -u icinga /usr/local/icinga/libexec/sample-plugin.pl ...
-    ~~~~
 
 ### 5.1.7. Extending the environment
 
 Several checks (like check\_oracle\_health) depend on various
-environment variables to be set. Don't put these in `.bashrc`{.filename}
+environment variables to be set. Don't put these in `.bashrc`
 or similar user dependent files but choose a central location. The
-default init script sources the file `/etc/sysconfig/icinga`{.filename}
+default init script sources the file `/etc/sysconfig/icinga`
 so that would be an ideal place. Don't use the init script itself
 because your changes might be lost during updates.
 
-Example of `/etc/sysconfig/icinga`{.filename}
+Example of `/etc/sysconfig/icinga`
 
-~~~~ {.programlisting}
+<pre><code>
  export ORACLE_HOME=/usr/lib/oracle/11.2/client64
  export LD_LIBRARY_PATH=$ORACLE_HOME/lib
  export PATH=$PATH:$ORACLE_HOME
-~~~~
+</code></pre>
 
 After you logged in these variables are not set but doing so is pretty
 easy
 
-~~~~ {.screen}
  $> . /etc/sysconfig/icinga
-~~~~
+</code></pre>
 
 Please verify the settings
 
-~~~~ {.screen}
  $> echo $ORACLE_HOME
  $> echo $LD_LIBRARY_PATH
  $> echo $PATH
-~~~~
+</code></pre>
 
 ### 5.1.8. How Do I Use Plugin X?
 
 Nearly all plugins will display basic usage information when you execute
-them using '`-h`{.code}' or '`--help`{.code}' on the command line. For
+them using '`-h`' or '`--help`' on the command line. For
 example, if you want to know how the check\_http plugin works or what
 options it accepts, you should try executing the following command:
 
-~~~~ {.screen}
  $> ./check_http --help
-~~~~
+</code></pre>
 
 ### 5.1.9. Integrating a new plugin
 
@@ -269,40 +227,25 @@ works then you can integrate it into Icinga.
 
 Let's imagine you used the following call on the command line
 
-~~~~ {.programlisting}
+<pre><code>
  $> /usr/local/icinga/libexec/sample-plugin.pl -H 192.168.1.2 -a argument1 -p parameter -n 5
-~~~~
+</code></pre>
 
 The command definition has to contain two directives
 
--   command\_name: this is a short name identifying the command, let's
-    use *check\_sample*
 
--   command\_line: here you define the command to execute. You can
-    specify the command you executed on the command line but that would
-    be very inflexible. Normally the plugin directory
-    (/usr/local/icinga/libexec) remains the same so we can use a
-    [\$USERn\$](macrolist.md#macrolist-user) variable which is defined
-    in `resource.cfg`{.filename}. The IP-address changes from host to
-    host. There is a macro called
-    [\$HOSTADDRESS\$](macrolist.md#macrolist-hostaddress) which we can
-    use for that purpose. The value of the arguments may vary so these
-    should be flexible, too. This may lead to the following definition:
 
-~~~~ {.programlisting}
+<pre><code>
  define command{
-    command_name check_sample
-    command_line $USER1$/sample-plugin.pl -H $HOSTADDRESS$ -a $ARG1$ -p $ARG2$ -n $ARG3$
-    }
-~~~~
+</code></pre>
 
 Then we have to define the check\_command directive which is part of the
 host/service definition starting with the short name followed by the
 arguments separated by exclamation marks (!):
 
-~~~~ {.programlisting}
+<pre><code>
  check_command check_sample!argument1!parameter!5
-~~~~
+</code></pre>
 
 As you can see the IP-address is not specified because it is taken from
 the host definition.
@@ -310,94 +253,56 @@ the host definition.
 Putting it all together in reverse order shows how Icinga will process
 the information:
 
-~~~~ {.programlisting}
+<pre><code>
  check_command check_sample!argument1!parameter!5
-                                |         |     +-------------------------------------+
-                                |         +---------------------------------+         |
-                                +---------------------------------+         |         |
-                                                                  |         |         |
- Host macro ----------------------------------------+             |         |         |
-                                                    |             |         |         |
- User macro --------+                               |             |         |         |
-                    |                               |             |         |         |
- command_line      $USER1$/sample-plugin.pl -H $HOSTADDRESS$ -a $ARG1$ -p $ARG2$ -n $ARG3$
 
 results in:
 
  /usr/local/icinga/libexec/sample-plugin.pl -H 192.168.1.2 -a argument1 -p parameter -n 5
-~~~~
+</code></pre>
 
 In addition to the
 [macros](macros.md "5.2. Understanding Macros and How They Work")
 already mentioned there are a lot of others making life easier. Please
 note:
 
--   All Icinga macros use all upper case and are enclosed in dollar
-    signs (\$)
 
--   Most macros are only valid for some types of commands. If you try to
-    use a macro for a type of command for which it is not valid you'll
-    get a dollar sign (\$) instead of the expected value
 
--   The [\$USERn\$](macrolist.md#macrolist-user) macros can be used to
-    "hide" sensitive information like passwords because these values are
-    not shown in the web interface. Additionally they can be used to
-    specify special characters which otherwise may lead to problems. One
-    example would be `USER99=;`{.literal}. This way you can use a
-    semicolon which otherwise would be treated as start of a comment
-    within your definitions
 
--   Native non-english speaking persons should note that
-    [\$HOSTADDRESS\$](macrolist.md#macrolist-hostaddress) is written
-    with a double "D"
 
 **NRPE and "dont\_blame\_nrpe=1"**
 
 Using NRPE with arguments requires some attention. Given that you have
 enabled argument processing on the remote server in
-`nrpe.cfg`{.filename} using "dont\_blame\_nrpe=1" (or
-"allow\_arguments=1" in `nsc.ini`{.filename}) you can pass parameters
+`nrpe.cfg` using "dont\_blame\_nrpe=1" (or
+"allow\_arguments=1" in `nsc.ini`) you can pass parameters
 from the Icinga server to the remote machine. Let us assume some
 definitions
 
 On the Icinga server
 
-~~~~ {.programlisting}
+<pre><code>
  define command{
-    command_name check_nrpe
-    command_line $USER1$/check_nrpe -H $HOSTADDRESS$ -c $ARG1$ -a $ARG2$
-    }
 
  define service{
-    ...
-    check_command check_nrpe!check_process!cupsd
-~~~~
+</code></pre>
 
 on the remote server in the NRPE config file
 
-~~~~ {.programlisting}
+<pre><code>
 ...
 command[check_process]=your_plugin "$ARG1$"
-~~~~
+</code></pre>
 
 The Icinga process will resolve the definitions as follows
 
-~~~~ {.programlisting}
+<pre><code>
  check_command check_nrpe!check_process!cupsd
-                                |         |
-                                |         +---------------------------+
-                                +---------------------------+         |
-                                                            |         |
- Host macro ----------------------------------+             |         |
-                                              |             |         |
- User macro --------+                         |             |         |
-                    |                         |             |         |
- command_line      $USER1$/check_nrpe -H $HOSTADDRESS$ -c $ARG1$ -a $ARG2$
 
 results in:
 
  /usr/local/icinga/libexec/check_nrpe -H 192.168.1.2 -c check_process -a cupsd
-~~~~
+</code></pre>
 
 On the remote machine the NRPE process receives a call providing two
 parameters: "check\_process" and "cupsd". The first is stripped to
@@ -414,26 +319,25 @@ server!
 ### 5.1.10. Raw command line
 
 The classic UI allows to inspect the raw command line including values
-from `resource.cfg`{.filename}. Clicking on "ACTIVE" next to "Check
+from `resource.cfg`. Clicking on "ACTIVE" next to "Check
 type" within host/service check details will give access to this
 information. If you don't have defined a check yet choose "View Config"
 from the main menu on the left, then "Command expansion". Please note
 that the user has to be permitted explicitly using the directive
 [authorized\_for\_full\_command\_resolution](configcgi.md#configcgi-authorized_for_full_command_resolution)
-in `cgi.cfg`{.filename} to see the values of variables from
-`resource.cfg`{.filename}. The user running the web server must have
+in `cgi.cfg` to see the values of variables from
+`resource.cfg`. The user running the web server must have
 read access on this file, too.
 
 If you intend to log the raw command line then change some directives in
-`icinga.cfg`{.filename} to the following values
+`icinga.cfg` to the following values
 
-~~~~ {.programlisting}
- #  16 = Host/service checks
+<pre><code>
  # 256 = Commands
  debug_level=272
  debug_verbosity=2
  max_debug_file_size=1000000000
-~~~~
+</code></pre>
 
 ### 5.1.11. Threshold and ranges
 
@@ -453,24 +357,15 @@ and critical thresholds.
 
 This is the generalised format for ranges:
 
-`[@]start:end`{.code}
+`[@]start:end`
 
 Notes:
 
-1.  start = end if :end is not specified
 
-2.  start and ":" is not required if start=0
 
-3.  if range is of format "start:" and end is not specified, assume end
-    is infinity
 
-4.  to specify negative infinity, use "\~"
 
-5.  alert is raised if metric is outside start and end range (inclusive
-    of endpoints)
 
-6.  if range starts with "@", then alert if inside this range (inclusive
-    of endpoints)
 
 ![[Note]](../images/note.png)
 
@@ -564,30 +459,13 @@ resolve any errors before issuing "/etc/init.d/icinga restart". Wait
 until the object is checked and look at the status details. There might
 be errors.
 
--   "...resulted in a return code of 127" / "out of bounds"
 
-    This means the plugin was not found at the specified location or
-    that a file called from within the plugin was not found. If you use
-    \$USERn\$ macros calling the plugin then make sure that the macro
-    really points to the location where the plugin is (is the macro
-    defined in resource.cfg?). Notification commands often call a mail
-    program. Make sure that the path to the mail program is correct.
 
--   "...resulted in a return code of 126"
 
-    Mostly this indicates a permissions problem. The process might not
-    be able to access / execute the plugin and/or other related files.
 
--   "...resulted in a return code of 13".
 
-    Mostly this indicates a permissions problem. The user might not be
-    able to access / execute the plugin and/or other related files. This
-    might happen if you tested a plugin as root which creates temporary
-    files. The Icinga user is not allowed to overwrite these files.
 
--   "(null)"
 
-    The internal call to execvp didn't return anything.
 
 ### 5.1.13. Plugin API
 
@@ -597,10 +475,12 @@ how to go about creating your own custom plugins
 
 * * * * *
 
-  ------------------------ -------------------- ----------------------------------------------
-  [Prev](ch05.md)        [Up](ch05.md)       [Next](macros.md)
-  Chapter 5. The Basics    [Home](index.md)    5.2. Understanding Macros and How They Work
-  ------------------------ -------------------- ----------------------------------------------
+[Prev](ch05.md) | [Up](ch05.md) | [Next](macros.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

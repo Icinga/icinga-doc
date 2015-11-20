@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-9.2. SNMP Trap Integration
-
-[Prev](integration.md) 
-
-Chapter 9. Integration With Other Software
-
- [Next](int-tcpwrappers.md)
+[Prev](integration.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](int-tcpwrappers.md)
 
 * * * * *
 
@@ -37,10 +29,12 @@ Yep, that's all.
 
 * * * * *
 
-  ---------------------------- -------------------- -------------------------------
-  [Prev](integration.md)     [Up](ch09.md)       [Next](int-tcpwrappers.md)
-  9.1. Integration Overview    [Home](index.md)    9.3. TCP Wrapper Integration
-  ---------------------------- -------------------- -------------------------------
+[Prev](integration.md) | [Up](ch09.md) | [Next](int-tcpwrappers.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

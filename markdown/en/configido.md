@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-12.3. Configuration of IDOUtils
-
-[Prev](db_components.md) 
-
-Chapter 12. IDOUtils
-
- [Next](db_example-configs.md)
+[Prev](db_components.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](db_example-configs.md)
 
 * * * * *
 
@@ -41,7 +33,7 @@ options](configido.md#configido-ido2db_options "12.3.2. IDO2DB config options")
 **Core**
 
 The configuration starts with setting up the directive "broker\_options"
-in `icinga.cfg`{.filename}. In most cases this value is already present
+in `icinga.cfg`. In most cases this value is already present
 in the file but may have to be activated (by removing the leading hash
 sign).
 
@@ -55,21 +47,17 @@ Keep in mind that this setting affects **all** event broker modules!
 
 Enable the idomod event broker module. Please note that under normal
 circumstances the following module definition is already present in the
-`modules`{.filename} subdirectory so there is no need to edit the main
+`modules` subdirectory so there is no need to edit the main
 config file.
 
 If not the definition of the broker module can be done using a [module
 definition](objectdefinitions.md#objectdefinitions-module) similar to
 the following:
 
-~~~~ {.programlisting}
+<pre><code>
  define module {
-    module_name   ido_mod
-    path          /usr/local/icinga/lib/idomod.so
-    module_type   neb
-    args          config_file=/usr/local/icinga/etc/idomod.cfg
  }
-~~~~
+</code></pre>
 
 **idomod.cfg**
 
@@ -84,221 +72,72 @@ to take a look at the following lines:
 
 **Some hints on performance and troubleshooting**
 
--   *Buffer*
 
-    Increasing the buffer size will help in case of a slow ido2db daemon
-    or RDBMS on the other side, dropping out. But keep in mind that
-    setting this value too high will cause more load on core handling
-    live and cached data in sync. For performance reasons, it is a good
-    idea to put the buffer into a ramdisk reducing file I/O. If using a
-    virtual environment, do not put it on the same volume as the
-    checkresults / logs are located. Side by side to
-    `status.dat`{.filename} will fit probably.
 
-    ~~~~ {.programlisting}
-     output_buffer_items=
-     buffer_file=
-    ~~~~
 
--   *Reconnect*
 
-    It may happen that a slow ido2db daemon or RDBMS will disconnect the
-    client after timing out on insert/update/delete. The output buffer
-    will then being filled while waiting for a reconnect. In order to
-    allow faster reconnect, you can decrease the default value of
-    reconnecting. But keep in mind, that too less and large values can
-    create performance issues. Play around a bit yourself.
 
-    ~~~~ {.programlisting}
-     reconnect_interval=15
-     reconnect_warning_interval=15
-    ~~~~
 
-    *Data Processing Options*
 
-    Decide what you need. Do you want to keep historical data or is it
-    just a status database containing only current data?
 
-    -   Normal operation
 
-        -   drop \*TIMED\_EVENT\_DATA (default)
 
-    -   Icinga Web requirements
 
-        -   drop \*TIMED\_EVENT\_DATA
 
-        -   drop \*CHECK\_DATA
 
-        -   keep \*LOG\_DATA
 
-        -   keep \*STATUS\_DATA
 
-        -   keep \*STATE\_HISTORY
 
-        -   Config tables
 
-    -   Only status data
 
-        -   drop \*CHECK\_DATA
 
-        -   drop \*TIMED\_EVENT\_DATA
 
-        -   drop \*LOG\_DATA
 
-    -   Historical data
 
-        -   watch \*LOG\_DATA
 
-        -   watch \*CHECK\_DATA
 
-            -   archive older, static data into separated tables
 
-            -   use the housekeeping cycles in `ido2db.cfg`{.filename}
 
-    -   Only performance data
 
-        -   drop \*LOG\_DATA
 
-        -   keep \*CHECK\_DATA
 
-    Use the [calculator by
-    Consol](http://labs.consol.de/nagios/ndo-data-processing-options) to
-    calculate the correct value in an easy way.
 
-    Have a look at the
-    ["data\_processing\_options"](configido.md#configido-data_processing_options)
-    directive for details.
 
--   *Config Output Options*
 
-    This determines what happens on start/restart/reload of the Core,
-    dumping the configuration (main and object, to be separated in the
-    data processing options). Keep in mind that a reload is just a
-    SIGHUP restart, not dropping memory and values. Internally IDOMOD
-    will handle this the same way fetching the data from the NEB API.
 
-    Using Icinga Web, the default is currently "2" (retained config
-    data), which requires to have retention data to be enabled (by
-    default) and at least being able to read the data once (so start,
-    and reload then, dumping the configs at this stage). This won't take
-    as long as the original config dump because the config is already
-    compiled/assembled into its respective resulting object data.
 
-    Taking the original configs, this will add a hook to the core config
-    parser and add each single directive to IDOMOD too, acquiring cpu
-    cycles and generating much data upon (re)start. Icinga Web can be
-    set to use that data too.
 
-    Within the database itself, the icinga\_hosts and icinga\_services
-    table defines the config\_type column, where
 
-    -   config\_type=1 \<==\> config\_output\_options=2 (retained)
 
-    -   config\_type=0 \<==\> config\_output\_options=1 (original)
 
-    config\_type itself can be used for Icinga Web config as XML
-    attribute.
 
-    See
-    ["config\_output\_options"](configido.md#configido-config_output_options)
-    for details.
 
--   *Debug*
 
-    Keep in mind that writing a debug file may slow down the module
-    processing data. But it will help in order to analyze what data runs
-    from the core through idomod onto the socket against ido2db.
 
 **ido2db.cfg**
 
--   *table trimming options*
 
-    By default timed events are not processed, because the remaining
-    data would be rather useless. The rest can be set to be cleaned, and
-    holding only the current data, defined by the max age.
 
-    It might be a good idea to reduce this especially for logentries
-    because this table can grow very fast.
 
-    **Please keep in mind:** If you change the instance\_name in
-    `idomod.cfg`{.filename} the historical data will stay within the
-    database. The housekeeping process will only catch columns targetted
-    against the current active instance\_id (which will be read from
-    IDOMOD and DB on ido2db startup).
 
-    ~~~~ {.programlisting}
-     ## TABLE TRIMMING OPTIONS
-     # Several database tables containing Icinga event data can become quite large
-     # over time.  Most admins will want to trim these tables and keep only a
-     # certain amount of data in them.  The options below are used to specify the
-     # age (in MINUTES) that data should be allowd to remain in various tables
-     # before it is deleted.  Using a value of zero (0) for any value means that
-     # that particular table should NOT be automatically trimmed.
-     #
-     # Remember: There are no optimized settings, it depends on your rdbm install,
-     # number/checkinterval of host/service-checks and your desired time of data
-     # savings - historical vs live-data. Please keep in mind that low delete
-     # intervals may interfere with insert/update data from Icinga.
 
-     # ***DEFAULT***
 
-     # Keep system commands for 1 day
-     max_systemcommands_age=1440
 
-     # Keep service checks for 1 day
-     max_servicechecks_age=1440
 
-     # Keep host checks for 1 day
-     max_hostchecks_age=1440
 
-     # Keep event handlers for 1 week
-     max_eventhandlers_age=10080
 
-     # Keep external commands for 1 week
-     max_externalcommands_age=10080
 
-     # Keep logentries for 31 days
-     max_logentries_age=44640
 
-     # Keep acknowledgements for 31 days
-     max_acknowledgements_age=44640
 
-     # Keep notifications for 31 days
-     max_notifications_age=44640
 
-     # Keep contactnotifications for 31 days
-     max_contactnotifications_age=44640
 
-     # Keep contactnotificationmethods for 31 days
-     max_contactnotificationmethods_age=44640
-    ~~~~
 
--   *db trim interval*
 
-    This option can be used to adjust the overall trimming interval (the
-    time between the dates when the table trimming delete queries are
-    actually run against the database). This value has been increased
-    from 60 to 3600 seconds in Icinga 1.4 in order to only run that
-    every hour (and not to stress the database every minute for
-    performance reasons).
 
-    Please keep in mind that the table trimming options go hand in hand
-    with that value, so setting e.g. max\_logentries\_age to 30 minutes
-    will also require the trimming interval to be set to less than
-    30\*60 seconds.
 
-    ~~~~ {.programlisting}
-     trim_db_interval=3600
-    ~~~~
 
--   *use transactions*
 
-    This option can be used to disable the database transactions.
-    Default value is '1' (enabled).
 
-    ~~~~ {.programlisting}
-     use_transactions=1|0
-    ~~~~
 
 ### 12.3.1. IDOMOD config options
 
@@ -331,11 +170,8 @@ should use for data output.
 
 Possible values are:
 
--   file = standard text file
 
--   tcpsocket = TCP socket
 
--   unixsocket = UNIX domain socket (default)
 
 **Output**
 
@@ -510,7 +346,7 @@ Do not mess with this option unless you know what you're doing!!!
 
 This option determines what data the IDO NEB module will process.
 
-Read the source code (`module/idoutils/include/idomod.h`{.filename}) and
+Read the source code (`module/idoutils/include/idomod.h`) and
 look for "IDOMOD\_PROCESS\_" to determine what values to use here.
 
 Values from source code should be OR'ed to get the value to use here. A
@@ -518,44 +354,14 @@ value of -1 will cause all data to be processed.
 
 Basically you have to calculate from the following values
 
-~~~~ {.programlisting}
- #define IDOMOD_PROCESS_PROCESS_DATA                   1
- #define IDOMOD_PROCESS_TIMED_EVENT_DATA               2
- #define IDOMOD_PROCESS_LOG_DATA                       4
- #define IDOMOD_PROCESS_SYSTEM_COMMAND_DATA            8
- #define IDOMOD_PROCESS_EVENT_HANDLER_DATA             16
- #define IDOMOD_PROCESS_NOTIFICATION_DATA              32
- #define IDOMOD_PROCESS_SERVICE_CHECK_DATA             64
- #define IDOMOD_PROCESS_HOST_CHECK_DATA                128
- #define IDOMOD_PROCESS_COMMENT_DATA                   256
- #define IDOMOD_PROCESS_DOWNTIME_DATA                  512
- #define IDOMOD_PROCESS_FLAPPING_DATA                  1024
- #define IDOMOD_PROCESS_PROGRAM_STATUS_DATA            2048
- #define IDOMOD_PROCESS_HOST_STATUS_DATA               4096
- #define IDOMOD_PROCESS_SERVICE_STATUS_DATA            8192
- #define IDOMOD_PROCESS_ADAPTIVE_PROGRAM_DATA          16384
- #define IDOMOD_PROCESS_ADAPTIVE_HOST_DATA             32768
- #define IDOMOD_PROCESS_ADAPTIVE_SERVICE_DATA          65536
- #define IDOMOD_PROCESS_EXTERNAL_COMMAND_DATA          131072
- #define IDOMOD_PROCESS_OBJECT_CONFIG_DATA             262144
- #define IDOMOD_PROCESS_MAIN_CONFIG_DATA               524288
- #define IDOMOD_PROCESS_AGGREGATED_STATUS_DATA         1048576
- #define IDOMOD_PROCESS_RETENTION_DATA                 2097152
- #define IDOMOD_PROCESS_ACKNOWLEDGEMENT_DATA           4194304
- #define IDOMOD_PROCESS_STATECHANGE_DATA               8388608
- #define IDOMOD_PROCESS_CONTACT_STATUS_DATA            16777216
- #define IDOMOD_PROCESS_ADAPTIVE_CONTACT_DATA          33554432
+<pre><code>
  #
- #define IDOMOD_PROCESS_EVERYTHING                     67108863
  #
  # You may use the Online Calculator by Gerhard Lausser:
  # http://labs.consol.de/nagios/ndo-data-processing-options/
  # (please note that there is a checkbox for everything!)
  #
  # The default setting will remove everything not used by default.
- #       TIMED_EVENT_DATA        (-2)
- #       SERVICE_CHECK_DATA      (-64)
- #       HOST_CHECK_DATA         (-128)
  #
  # 67108863-(2+64+128) = 67108863-194 = 67108669
 
@@ -565,8 +371,7 @@ Basically you have to calculate from the following values
  #
  #data_processing_options=4061953
  #
- # You may have to experiment in your environment and find the best value yourself! 
-~~~~
+</code></pre>
 
 **Config output options**
 
@@ -584,13 +389,9 @@ preferred value, doing a restart after initial startup.
 
 Possible values are:
 
--   0 = Don't dump any configuration information
 
--   1 = Dump only original config (from config files)
 
--   2 = Dump config only after retained information has been restored
 
--   3 = Dump both original and retained configuration
 
 **Debug level**
 
@@ -608,13 +409,9 @@ information.
 
 Possible values are:
 
--   -1 = Everything
 
--   0 = Nothing
 
--   1 = Process info
 
--   2 = SQL queries
 
 **Debug verbosity**
 
@@ -630,11 +427,8 @@ This option determines how verbose the debug log output will be.
 
 Possible values are:
 
--   0 = Brief output
 
--   1 = More detailed
 
--   2 = Very detailed
 
 **Debug file name**
 
@@ -685,9 +479,7 @@ option is disabled.
 
 Possible values are:
 
--   0 = disabled (default)
 
--   1 = enabled
 
 ### 12.3.2. IDO2DB config options
 
@@ -825,11 +617,8 @@ to. Supported databases are MySQL, PostgreSQL, and Oracle
 
 Possible values are:
 
--   mysql (uses libdbi)
 
--   pgsql (uses libdbi)
 
--   oracle (uses ocilib)
 
 **Database host**
 
@@ -869,11 +658,8 @@ This option specifies the port that the DB server is running on.
 
 Common values are:
 
--   3306 (default MySQL port)
 
--   5432 (default PostgreSQL port)
 
--   1521 (default Oracle port)
 
 **MySQL:**The port used to remotely connect to the MySQL database server
 over TCP. Use "0" (zero) to accept the default socket.
@@ -882,7 +668,7 @@ over TCP. Use "0" (zero) to accept the default socket.
 ﬁle name extension for Unix-domain connections.
 
 **Oracle:**ocilib will ignore this, you have to modify your
-`tnsnames.ora`{.filename}.
+`tnsnames.ora`.
 
 **Database socket**
 
@@ -920,12 +706,10 @@ This option specifies the name of the database that should be used.
 
 Note
 
-Oracle with ocilib requires `tnsnames.ora`{.filename} filled with host,
+Oracle with ocilib requires `tnsnames.ora` filled with host,
 port and database information. Then you can use one of the following:
 
--   //DBSERVER/SID
 
--   SID
 
 **Database prefix**
 
@@ -980,13 +764,9 @@ information.
 
 Possible values are:
 
--   -1 = Everything
 
--   0 = Nothing
 
--   1 = Process info
 
--   2 = SQL queries
 
 **Debug verbosity**
 
@@ -1002,11 +782,8 @@ This option determines how verbose the debug log out will be.
 
 Possible values are:
 
--   0 = Brief output
 
--   1 = More detailed
 
--   2 = Very detailed
 
 **Debug file name**
 
@@ -1052,9 +829,7 @@ default unix timestamp.
 
 Possible values are:
 
--   0 = disabled (unix timestamp)
 
--   1 = enabled (human readable timestamp)
 
 **OCI errors to syslog**
 
@@ -1088,22 +863,19 @@ privilege, select rights to v\$session and v\$process are recommended.
 
 Possible values are:
 
--   0 = pseudo level TRACE OFF
 
--   1 = standard SQL trace, no wait events, or bind variables
 
--   4 = bind variables only
 
--   8 = wait events only
 
--   12 = bind variables and wait events
 
 * * * * *
 
-  ----------------------------- -------------------- ----------------------------------
-  [Prev](db_components.md)    [Up](ch12.md)       [Next](db_example-configs.md)
-  12.2. Components              [Home](index.md)    12.4. Example Configurations
-  ----------------------------- -------------------- ----------------------------------
+[Prev](db_components.md) | [Up](ch12.md) | [Next](db_example-configs.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

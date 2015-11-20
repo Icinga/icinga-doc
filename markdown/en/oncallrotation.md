@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.11. On-Call Rotations
-
-[Prev](escalation_condition.md) 
-
-Chapter 7. Advanced Topics
-
- [Next](clusters.md)
+[Prev](escalation_condition.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](clusters.md)
 
 * * * * *
 
@@ -54,7 +46,6 @@ should work the majority of the time.
 
 ### 7.11.2. Scenario 1: Holidays and Weekends
 
-Two admins - John and Bob - are responsible for responding to Icinga
 alerts. John receives all notifications for weekdays (with 24 hour
 days), excluding holidays; Bob handles notifications during the weekends
 and holidays. Lucky Bob. Here's how you can define this type of rotation
@@ -63,82 +54,39 @@ using timeperiods...
 First, define 3 timeperiods that contains time ranges for holidays,
 weekdays, and weekends:
 
-~~~~ {.programlisting}
+<pre><code>
  define timeperiod{
-        name                    weekdays
-        timeperiod_name         weekdays
-        monday                  00:00-24:00
-        tuesday                 00:00-24:00
-        wednesday               00:00-24:00
-        thursday                00:00-24:00
-        friday                  00:00-24:00
-        }
-        
  define timeperiod{
-        name                    weekends
-        timeperiod_name         weekends
-        saturday                00:00-24:00
-        sunday                  00:00-24:00
-        }
 
  define timeperiod{
-        name                    holidays
-        timeperiod_name         holidays
-        january 1               00:00-24:00     ; New Year's Day
-        2008-03-23              00:00-24:00     ; Easter (2008)
-        2009-04-12              00:00-24:00     ; Easter (2009)
-        monday -1 may           00:00-24:00     ; Memorial Day (Last Monday in May)
-        july 4                  00:00-24:00     ; Independence Day
-        monday 1 september      00:00-24:00     ; Labor Day (1st Monday in September)
-        thursday 4 november     00:00-24:00     ; Thanksgiving (4th Thursday in November)
-        december 25             00:00-24:00     ; Christmas
-        december 31             17:00-24:00     ; New Year's Eve (5pm onwards)
-        }
-~~~~
+</code></pre>
 
 Next, define a timeperiod for John's on-call times that include
 weekdays, but excludes the dates/times defined in the holidays
 timeperiod above:
 
-~~~~ {.programlisting}
+<pre><code>
  define timeperiod{
-        timeperiod_name         john-oncall
-        use                     weekdays        ; Include weekdays
-        exclude                 holidays        ; Exclude holiday dates/times defined elsewhere
-        }
-~~~~
+</code></pre>
 
 You can now reference this timeperiod in John's contact definition:
 
-~~~~ {.programlisting}
+<pre><code>
  define contact{
-        contact_name                    john
-        ...
-        host_notification_period        john-oncall
-        service_notification_period     john-oncall
-        }
-~~~~
+</code></pre>
 
 Define a new timeperiod for Bob's on-call times that include weekends
 and the dates/times defined in the holidays timeperiod above:
 
-~~~~ {.programlisting}
+<pre><code>
  define timeperiod{
-        timeperiod_name         bob-oncall
-        use                     weekends,holidays       ; Include weekend and holiday date/times defined elsewhere
-        }
-~~~~
+</code></pre>
 
 You can now reference this timeperiod in Bob's contact definition:
 
-~~~~ {.programlisting}
+<pre><code>
  define contact{
-        contact_name                    bob
-        ...
-        host_notification_period        bob-oncall
-        service_notification_period     bob-oncall
-        }
-~~~~
+</code></pre>
 
 ### 7.11.3. Scenario 2: Alternating Days
 
@@ -149,44 +97,28 @@ Define a timeperiod for when John should receive notifications. Assuming
 today's date is August 1st, 2007 and John is handling notifications
 starting today, the definition would look like this:
 
-~~~~ {.programlisting}
+<pre><code>
  define timeperiod{
-        timeperiod_name         john-oncall
-        2007-08-01 / 2          00:00-24:00     ; Every two days, starting August 1st, 2007
-        } 
-~~~~
+</code></pre>
 
 Now define a timeperiod for when Bob should receive notifications. Bob
 gets notifications on the days that John doesn't, so his first on-call
 day starts tomorrow (August 2nd, 2007).
 
-~~~~ {.programlisting}
+<pre><code>
  define timeperiod{
-        timeperiod_name         bob-oncall
-        2007-08-02 / 2          00:00-24:00     ; Every two days, starting August 2nd, 2007
-        }
-~~~~
+</code></pre>
 
 Now you need to reference these timeperiod definitions in the contact
 definitions for John and Bob:
 
-~~~~ {.programlisting}
+<pre><code>
  define contact{
-        contact_name                    john
-        ...
-        host_notification_period        john-oncall
-        service_notification_period     john-oncall
-        }
-~~~~
+</code></pre>
 
-~~~~ {.programlisting}
+<pre><code>
  define contact{
-        contact_name                    bob
-        ...
-        host_notification_period        bob-oncall
-        service_notification_period     bob-oncall
-        }
-~~~~
+</code></pre>
 
 ### 7.11.4. Scenario 3: Alternating Weeks
 
@@ -200,56 +132,28 @@ today's date is Sunday, July 29th, 2007 and John is handling
 notifications this week (starting today), the definition would look like
 this:
 
-~~~~ {.programlisting}
+<pre><code>
  define timeperiod{
-        timeperiod_name         john-oncall
-        2007-07-29 / 14 00:00-24:00     ; Every 14 days (two weeks), starting Sunday, July 29th, 2007
-        2007-07-30 / 14 00:00-24:00     ; Every other Monday starting July 30th, 2007
-        2007-07-31 / 14 00:00-24:00     ; Every other Tuesday starting July 31st, 2007
-        2007-08-01 / 14 00:00-24:00     ; Every other Wednesday starting August 1st, 2007
-        2007-08-02 / 14 00:00-24:00     ; Every other Thursday starting August 2nd, 2007
-        2007-08-03 / 14 00:00-24:00     ; Every other Friday starting August 3rd, 2007
-        2007-08-04 / 14 00:00-24:00     ; Every other Saturday starting August 4th, 2007
-        }
-~~~~
+</code></pre>
 
 Now define a timeperiod for when Bob should receive notifications. Bob
 gets notifications on the weeks that John doesn't, so his first on-call
 day starts next Sunday (August 5th, 2007).
 
-~~~~ {.programlisting}
+<pre><code>
  define timeperiod{
-        timeperiod_name         bob-oncall
-        2007-08-05 / 14 00:00-24:00     ; Every 14 days (two weeks), starting Sunday, August 5th, 2007
-        2007-08-06 / 14 00:00-24:00     ; Every other Monday starting August 6th, 2007
-        2007-08-07 / 14 00:00-24:00     ; Every other Tuesday starting August 7th, 2007
-        2007-08-08 / 14 00:00-24:00     ; Every other Wednesday starting August 8th, 2007
-        2007-08-09 / 14 00:00-24:00     ; Every other Thursday starting August 9th, 2007
-        2007-08-10 / 14 00:00-24:00     ; Every other Friday starting August 10th, 2007
-        2007-08-11 / 14 00:00-24:00     ; Every other Saturday starting August 11th, 2007
-        }
-~~~~
+</code></pre>
 
 Now you need to reference these timeperiod definitions in the contact
 definitions for John and Bob:
 
-~~~~ {.programlisting}
+<pre><code>
  define contact{
-        contact_name                    john
-        ...
-        host_notification_period        john-oncall
-        service_notification_period     john-oncall
-        }
-~~~~
+</code></pre>
 
-~~~~ {.programlisting}
+<pre><code>
  define contact{
-        contact_name                    bob
-        ...
-        host_notification_period        bob-oncall
-        service_notification_period     bob-oncall
-        }
-~~~~
+</code></pre>
 
 ### 7.11.5. Scenario 4: Vacation Days
 
@@ -261,65 +165,35 @@ out of the office.
 First, define a timeperiod that contains time ranges for John's vacation
 days and days off:
 
-~~~~ {.programlisting}
+<pre><code>
  define timeperiod{
-        name                    john-out-of-office
-        timeperiod_name         john-out-of-office
-        day 15                  00:00-24:00     ; 15th day of each month
-        day -1                  00:00-24:00     ; Last day of each month (28th, 29th, 30th, or 31st)
-        day -2                  00:00-24:00     ; 2nd to last day of each month (27th, 28th, 29th, or 30th)
-        january 2               00:00-24:00     ; January 2nd each year
-        june 1 - july 5         00:00-24:00     ; Yearly camping trip (June 1st - July 5th)
-        2007-11-01 - 2007-11-10 00:00-24:00     ; Vacation to the US Virgin Islands (November 1st-10th, 2007)
-        }
-~~~~
+</code></pre>
 
 Next, define a timeperiod for John's on-call times that excludes the
 dates/times defined in the timeperiod above:
 
-~~~~ {.programlisting}
+<pre><code>
  define timeperiod{
-        timeperiod_name         john-oncall
-        monday                  00:00-24:00
-        tuesday                 00:00-24:00
-        wednesday               00:00-24:00
-        thursday                00:00-24:00
-        friday                  00:00-24:00
-        exclude                 john-out-of-office      ; Exclude dates/times John is out
-        }
-~~~~
+</code></pre>
 
 You can now reference this timeperiod in John's contact definition:
 
-~~~~ {.programlisting}
+<pre><code>
  define contact{
-        contact_name                    john
-        ...
-        host_notification_period        john-oncall
-        service_notification_period     john-oncall
-        }
-~~~~
+</code></pre>
 
 Define a new timeperiod for Bob's on-call times that include the
 dates/times that John is out of the office:
 
-~~~~ {.programlisting}
+<pre><code>
  define timeperiod{
-        timeperiod_name          bob-oncall
-        use                     john-out-of-office      ; Include holiday date/times that John is out
-        }
-~~~~
+</code></pre>
 
 You can now reference this timeperiod in Bob's contact definition:
 
-~~~~ {.programlisting}
+<pre><code>
  define contact{
-        contact_name                    bob
-        ...
-        host_notification_period        bob-oncall
-        service_notification_period     bob-oncall
-        }
-~~~~
+</code></pre>
 
 ### 7.11.6. Other Scenarios
 
@@ -333,10 +207,12 @@ giving someone else more on-call duty time. :-)
 
 * * * * *
 
-  ------------------------------------ -------------------- ---------------------------------------------
-  [Prev](escalation_condition.md)    [Up](ch07.md)       [Next](clusters.md)
-  7.10. Escalation Condition           [Home](index.md)    7.12. Monitoring Service and Host Clusters
-  ------------------------------------ -------------------- ---------------------------------------------
+[Prev](escalation_condition.md) | [Up](ch07.md) | [Next](clusters.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

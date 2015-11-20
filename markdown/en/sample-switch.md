@@ -1,24 +1,14 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-13.11. switch.cfg
-
-[Prev](sample-printer.md) 
-
-Chapter 13. Icinga Samples
-
- [Next](sample-templates.md)
+[Prev](sample-printer.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](sample-templates.md)
 
 * * * * *
 
 13.11. switch.cfg
 -----------------
 
-~~~~ {.programlisting}
+<pre><code>
 ###############################################################################
-# SWITCH.CFG - SAMPLE CONFIG FILE FOR MONITORING A SWITCH
 #
 # NOTES: This config file assumes that you are using the sample configuration
-#    files that get installed with the Icinga quickstart guide.
 #
 ###############################################################################
 
@@ -36,12 +26,6 @@ Chapter 13. Icinga Samples
 # Define the switch that we'll be monitoring
 
 define host{
-   use      generic-switch      ; Inherit default values from a template
-   host_name   linksys-srw224p      ; The name we're giving to this switch
-   alias      Linksys SRW224P Switch   ; A longer name associated with the switch
-   address      192.168.1.253      ; IP address of the switch
-   hostgroups   switches      ; Host groups this switch is associated with
-   }
 
 
 
@@ -57,9 +41,6 @@ define host{
 # Create a new hostgroup for switches
 
 define hostgroup{
-   hostgroup_name   switches      ; The name of the hostgroup
-   alias      Network Switches   ; Long name of the group
-   }
 
 
 
@@ -75,45 +56,23 @@ define hostgroup{
 # Create a service to PING to switch
 
 define service{
-   use         generic-service   ; Inherit values from a template
-   host_name      linksys-srw224p   ; The name of the host the service is associated with
-   service_description   PING      ; The service description
-   check_command      check_ping!200.0,20%!600.0,60%   ; The command used to monitor the service
-   normal_check_interval   5      ; Check the service every 5 minutes under normal conditions
-   retry_check_interval   1      ; Re-check the service every minute until its final/hard state is determined
-   }
 
 
 # Monitor uptime via SNMP
 
 define service{
-   use         generic-service   ; Inherit values from a template
-   host_name      linksys-srw224p
-   service_description   Uptime   
-   check_command      check_snmp!-C public -o sysUpTime.0
-   }
 
 
 
 # Monitor Port 1 status via SNMP
 
 define service{
-   use         generic-service   ; Inherit values from a template
-   host_name      linksys-srw224p
-   service_description   Port 1 Link Status
-   check_command      check_snmp!-C public -o ifOperStatus.1 -r 1 -m RFC1213-MIB
-   }
 
 
 
 # Monitor bandwidth via MRTG logs
 
 define service{
-   use         generic-service   ; Inherit values from a template
-   host_name      linksys-srw224p
-   service_description   Port 1 Bandwidth Usage
-   check_command      check_local_mrtgtraf!/var/lib/mrtg/192.168.1.253_1.log!AVG!1000000,1000000!5000000,5000000!10
-   }
 
 
 
@@ -124,14 +83,16 @@ define service{
 
 
 
-~~~~
+</code></pre>
 
 * * * * *
 
-  ------------------------------ -------------------- --------------------------------
-  [Prev](sample-printer.md)    [Up](ch13.md)       [Next](sample-templates.md)
-  13.10. printer.cfg             [Home](index.md)    13.12. templates.cfg
-  ------------------------------ -------------------- --------------------------------
+[Prev](sample-printer.md) | [Up](ch13.md) | [Next](sample-templates.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

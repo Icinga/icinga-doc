@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-10.1. Icinga Addons
-
-[Prev](ch10.md) 
-
-Chapter 10. Additional software
-
- [Next](nrpe.md)
+[Prev](ch10.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](nrpe.md)
 
 * * * * *
 
@@ -23,50 +15,24 @@ Icinga with other applications.
 
 Addons are available for:
 
--   Managing the config files through a web interface
 
-    -   [NConf](http://www.nconf.org),
-        [NagiosQL](http://www.nagiosql.org),
-        [LConf](http://www.netways.de/nc/en/de/produkte/icinga/addons/lconf),
-        [Lilac](http://sourceforge.net/projects/lilac--reloaded/), ...
 
--   Monitoring remote hosts (\*NIX, Windows, etc.)
 
-    -   [NRPE](nrpe.md "10.2. NRPE"),
-        [check\_mk](http://mathias-kettner.de/check_mk.md), ...
 
-    -   [NSClient++](http://www.nsclient.org), ...
 
--   Submitting passive checks from remote hosts
 
-    -   [NSCA-ng](http://www.nsca-ng.org/) (a replacement for
-        [NSCA](nsca.md "10.3. NSCA")),
-        [check\_mk](http://mathias-kettner.de/check_mk.md), ...
 
-    -   [NSClient++](http://www.nsclient.org)
 
--   Simplifying/extending the notification logic
 
-    -   [Business Process Addon](http://bp-addon.monitoringexchange.org)
-        ...
 
--   Visualizing the information
 
-    -   [PNP4Nagios](http://docs.pnp4nagios.org/pnp-0.6/start) (view
-        performance data)
 
-    -   [NagVis](http://www.nagvis.org) (objects on "maps")
 
--   Alternative web interfaces
 
-    -   [Thruk](http://www.thruk.org),
-        [MultiSite](http://mathias-kettner.de/checkmk_multisite.md)
 
--   ...and much more
 
 You can find many addons for Icinga by visiting:
 
--   [https://exchange.icinga.org](https://exchange.icinga.org)
 
 First we'll give a brief introduction to a few of the addons that Ethan
 Galstad developed for Nagios...
@@ -80,7 +46,6 @@ NRPE is an addon that allows you to execute
 hosts. This is useful if you need to monitor local resources/attributes
 like disk usage, CPU load, memory usage, etc. on a remote host. Similiar
 functionality can be accomplished by using the *check\_by\_ssh* plugin,
-although it can impose a higher CPU load on the monitoring machine -
 especially if you are monitoring hundreds or thousands of hosts.
 
 The NRPE addon can be found at
@@ -122,10 +87,12 @@ and more documentation can be found at
 
 * * * * *
 
-  ---------------------------------- -------------------- --------------------
-  [Prev](ch10.md)                  [Up](ch10.md)       [Next](nrpe.md)
-  Chapter 10. Additional software    [Home](index.md)    10.2. NRPE
-  ---------------------------------- -------------------- --------------------
+[Prev](ch10.md) | [Up](ch10.md) | [Next](nrpe.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

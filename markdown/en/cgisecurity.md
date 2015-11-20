@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-8.2. Enhanced Classic UI Security and Authentication
-
-[Prev](security.md) 
-
-Chapter 8. Security and Performance Tuning
-
- [Next](tuning.md)
+[Prev](security.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](tuning.md)
 
 * * * * *
 
@@ -45,30 +37,8 @@ server in your network and you shall be rewarded.
 
 ### 8.2.2. Additional Techniques
 
--   **Stronger Authentication using Digest Authentication** . If you
-    have followed the [quickstart
-    guides](quickstart.md "2.3. Quickstart Installation Guides"),
-    chances are that you are using Apache's [Basic
-    Authentication](http://httpd.apache.org/docs/2.2/mod/mod_auth_basic).
-    Basic Authentication will send your username and password in "clear
-    text" with every http request. Consider using a more secure method
-    of authentication such as [Digest
-    Authentication](http://httpd.apache.org/docs/2.2/mod/mod_auth_digest)
-    which creates a MD5 Hash of your username and password to send with
-    each request.
 
--   **Forcing TLS/SSL for all Web Communication** . Apache provides
-    [TLS/SSL](http://en.wikipedia.org/wiki/Transport_Layer_Security)
-    through the [mod\_ssl](http://httpd.apache.org/docs/2.2/mod/mod_ssl)
-    module. TLS/SSL provides a secure tunnel between the client and
-    server that prevents eavesdropping and tampering using strong
-    publickey/privatekey cryptography.
 
--   **Locking Down Apache Using Access Controls** . Consider locking
-    down access to the Icinga box to your IP address, IP address range,
-    or IP subnet. If you require access outside your network you could
-    use VPN or SSH Tunnels. This is a easy and strong to limit access to
-    HTTP/HTTPS on your system.
 
 ### 8.2.3. Implementing Digest Authentication
 
@@ -86,46 +56,27 @@ is the requirement to supply a 'realm' argument. Where 'realm' in this
 case refers to the value of the 'AuthName' directive in the Apache
 configuration.
 
-~~~~ {.screen}
  htdigest -c /usr/local/icinga/etc/.digest_pw "Icinga Access" icingaadmin
-~~~~
+</code></pre>
 
 Next, edit the Apache configuration file for Icinga (typically
 /etc/httpd/conf.d/icinga.conf) using the following example.
 
-~~~~ {.programlisting}
-## BEGIN APACHE CONFIG SNIPPET - ICINGA.CONF
+<pre><code>
 ScriptAlias /icinga/cgi-bin "/usr/local/icinga/sbin"
 <Directory "/usr/local/icinga/sbin">
-   Options ExecCGI
-   AllowOverride None
-   Order allow,deny
-   Allow from all
-   AuthType Digest
-   AuthName "Icinga Access"
-   AuthDigestFile /usr/local/icinga/etc/.digest_pw
-   Require valid-user
 </Directory>
 
 Alias /icinga "/usr/local/icinga/share"
 <Directory "/usr/local/icinga/share">
-   Options None
-   AllowOverride None
-   Order allow,deny
-   Allow from all
-   AuthType Digest
-   AuthName "Icinga Access"
-   AuthDigestFile /usr/local/icinga/etc/.digest_pw
-   Require valid-user
 </Directory>
 ## END APACHE CONFIG SNIPPETS
-~~~~
+</code></pre>
 
 Then, restart the Apache service so the new settings can take effect.
 
-~~~~ {.screen}
  /etc/init.d/httpd restart
-~~~~
+</code></pre>
 
 ### 8.2.4. Implementing Forced TLS/SSL
 
@@ -147,29 +98,21 @@ Next, edit the Apache configuration file for Icinga (typically
 /etc/httpd/conf.d/icinga.conf) by adding the 'SSLRequireSSL' directive
 to both the 'sbin' and 'share' directories.
 
-~~~~ {.programlisting}
-## BEGIN APACHE CONFIG SNIPPET - ICINGA.CONF
+<pre><code>
 ScriptAlias /icinga/cgi-bin "/usr/local/icinga/sbin"
 <Directory "/usr/local/icinga/sbin">
-   ...
-   SSLRequireSSL
-   ...
 </Directory>
 
 Alias /icinga "/usr/local/icinga/share"
 <Directory "/usr/local/icinga/share">
-   ...
-   SSLRequireSSL
-   ...
 </Directory>
 ## END APACHE CONFIG SNIPPETS
-~~~~
+</code></pre>
 
 Restart the Apache service so the new settings can take effect.
 
-~~~~ {.screen}
  /etc/init.d/httpd restart
-~~~~
+</code></pre>
 
 ### 8.2.5. Implementing IP subnet lockdown
 
@@ -181,63 +124,32 @@ Edit the Apache configuration file for Icinga (typically
 /etc/httpd/conf.d/icinga.conf) by using the 'Allow', 'Deny', and 'Order'
 directives using the following as an example.
 
-~~~~ {.programlisting}
-## BEGIN APACHE CONFIG SNIPPET - ICINGA.CONF
+<pre><code>
 ScriptAlias /icinga/cgi-bin "/usr/local/icinga/sbin"
 <Directory "/usr/local/icinga/sbin">
-   ...
-   AllowOverride None
-   Order deny,allow
-   Deny from all
-   Allow from 127.0.0.1 10.0.0.25               # Allow single IP addresses
-   Allow from 10.0.0.0/255.255.255.0            # Allow network/netmask pair
-   Allow from 10.0.0.0/24                       # Allow network/nnn CIDR spec
-   ...
 </Directory>
 
 Alias /icinga "/usr/local/icinga/share"
 <Directory "/usr/local/icinga/share">
-   ...
-   AllowOverride None
-   Order deny,allow
-   Deny from all
-   Allow from 127.0.0.1 10.0.0.25               # Allow single IP addresses
-   Allow from 10.0.0.0/255.255.255.0            # Allow network/netmask pair
-   Allow from 10.0.0.0/24                       # Allow network/nnn CIDR spec
-   ...
 </Directory>
 ## END APACHE CONFIG SNIPPET
-~~~~
+</code></pre>
 
 ### 8.2.6. Important Notes
 
--   **Digest Authentication sends data in the clear but not your
-    username and password** .
 
--   **Digest Authentication is not as universally supported as Basic
-    Authentication** .
 
--   **TLS/SSL has potential for "man-in-the-middle attacks"** . MITM
-    attacks are vulnerable if an attacker is able to insert itself
-    between the server and client such as in a Phishing attack, ISP
-    monitoring, or corporate LAN firewall certificate resigning. So read
-    up on certificate verification!
 
--   **Apache access controls only protect the HTTP/HTTPS protocols** .
-    Look into
-    [IPtables](http://www.netfilter.org/projects/iptables/index) for
-    strong system wide firewall control.
 
--   **Most importantly, Security is a moving target so stay informed and
-    do research** ! Perhaps by listening to a Podcast such as "[Security
-    Now!](http://www.grc.com/securitynow.htm)".
 
 * * * * *
 
-  ------------------------------- -------------------- ---------------------------------------------
-  [Prev](security.md)           [Up](ch08.md)       [Next](tuning.md)
-  8.1. Security Considerations    [Home](index.md)    8.3. Tuning Icinga For Maximum Performance
-  ------------------------------- -------------------- ---------------------------------------------
+[Prev](security.md) | [Up](ch08.md) | [Next](tuning.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

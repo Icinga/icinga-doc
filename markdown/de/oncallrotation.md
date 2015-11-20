@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.11. Bereitschafts-Rotation
-
-[Zurück](escalation_condition.md) 
-
-Kapitel 7. Fortgeschrittene Themen
-
- [Weiter](clusters.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -57,87 +49,44 @@ Aufteilung zu bringen, die für die meiste Zeit funktionieren wird.
 
 ### 7.11.2. Szenario 1: Urlaub und Wochenenden
 
-Zwei Admins - John und Bob - sind verantwortlich für die Bearbeitung von
 Icinga-Alarmen. John erhält alle Benachrichtigungen an Wochentagen (und
-Nächten) - außer im Urlaub - und Bob erhält Benachrichtigungen während
 der Wochenenden und Urlaube. Glücklicher Bob. Hier nun, wie Sie diese
 Art der Rotation mit Zeitfenstern definieren...
 
 Definieren Sie zuerst ein Zeitfenster, das Bereiche für Urlaube enthält:
 
-~~~~ {.screen}
  define timeperiod{
-        name                    holidays
-        timeperiod_name         holidays
-        january 1               00:00-24:00     ; Neujahr
-        2008-03-23              00:00-24:00     ; Ostern (2008)
-        2009-04-12              00:00-24:00     ; Ostern (2009)
-        monday -1 may           00:00-24:00     ; Memorial Day (Letzter Montag im Mai)
-        july 4                  00:00-24:00     ; Unabhaengigkeitstag
-        monday 1 september      00:00-24:00     ; Labour Day (1. Montag im September)
-        thursday 4 november     00:00-24:00     ; Thanksgiving (4. Donnerstag im November)
-        december 25             00:00-24:00     ; Weihnachten
-        december 31             17:00-24:00     ; Silvester (ab 17:00 Uhr)
-        }
-~~~~
+</code></pre>
 
 Als nächstes definieren Sie ein Zeitfenster für Johns
 Bereitschaftszeiten, das die Wochentage und Nächte während der Woche
 enthält, aber die Daten/Zeiten im Urlaubs-Zeitfenster ausschließt:
 
-~~~~ {.screen}
  define timeperiod{
-        timeperiod_name john-oncall
-        monday          00:00-24:00
-        tuesday         00:00-24:00
-        wednesday       00:00-24:00
-        thursday        00:00-24:00
-        friday          00:00-24:00
-        exclude         holidays                ; Exclude holiday dates/times defined elsewhere
-        }
-~~~~
+</code></pre>
 
 Sie können nun dieses Zeitfenster in Johns Kontaktdefinition
 referenzieren:
 
-~~~~ {.screen}
  define contact{
-        contact_name                    john
-        ...
-        host_notification_period        john-oncall
-        service_notification_period     john-oncall
-        }
-~~~~
+</code></pre>
 
 Definieren Sie ein neues Zeitfenster für Bobs Bereitschaftszeiten, das
 die Wochenenden und die Daten/Zeiten der o.g. holiday-Zeitfenster
 enthält:
 
-~~~~ {.screen}
  define timeperiod{
-        timeperiod_name bob-oncall
-        friday          00:00-24:00
-        saturday        00:00-24:00
-        use             holidays        ; Also include holiday date/times defined elsewhere
-        }
-~~~~
+</code></pre>
 
 Sie können nun auf dieses Zeitfenster in Bobs Kontaktdefinition
 referenzieren:
 
-~~~~ {.screen}
  define contact{
-        contact_name                    bob
-        ...
-        host_notification_period        bob-oncall
-        service_notification_period     bob-oncall
-        }
-~~~~
+</code></pre>
 
 ### 7.11.3. Szenario 2: Abwechselnde Tage
 
 In diesem Szenario wechseln sich John und Bob täglich mit der
-Bearbeitung von Alarmen ab - unabhängig davon, ob es sich um
 Wochenenden, Wochentage oder Urlaub handelt.
 
 Definieren Sie ein Zeitfenster, wann John Benachrichtigungen erhalten
@@ -145,44 +94,24 @@ soll. Angenommen, der heutige Tage ist der 1. August 2009 und John
 beginnt heute mit der Bearbeitung von Benachrichtigungen, dann würde die
 Definition wie folgt aussehen:
 
-~~~~ {.screen}
  define timeperiod{
-        timeperiod_name                 john-oncall
-        2009-08-01 / 2                  00:00-24:00     ; Alle zwei Tage, beginnend am 1. August 2009
-        }
-~~~~
+</code></pre>
 
 Nun definieren Sie ein Zeitfenster, wann Bob Benachrichtigungen erhalten
 soll. Bob erhält Benachrichtigungen an den Tagen, an denen John keine
 erhält, also beginnt seine erste Bereitschaft morgen (2. August 2009).
 
-~~~~ {.screen}
  define timeperiod{
-        timeperiod_name                 bob-oncall
-        2009-08-02 / 2                  00:00-24:00     ; Alle zwei Tage, beginnend am 2. August 2009
-        }
-~~~~
+</code></pre>
 
 Nun müssen Sie diese Zeitfenster-Definitionen in den Kontaktdefinitionen
 von John und Bob referenzieren.
 
-~~~~ {.screen}
  define contact{
-        contact_name                    john
-        ...
-        host_notification_period        john-oncall
-        service_notification_period     john-oncall
-        }
-~~~~
+</code></pre>
 
-~~~~ {.screen}
  define contact{
-        contact_name                    bob
-        ...
-        host_notification_period        bob-oncall
-        service_notification_period     bob-oncall
-        }
-~~~~
+</code></pre>
 
 ### 7.11.4. Szenario 3: Abwechselnde Wochen
 
@@ -196,57 +125,25 @@ soll. Angenommen, heute ist Montag, der 27. Juli 2009 und John
 bearbeitet Benachrichtigungen in dieser Woche (beginnend mit heute),
 würde die Definition wie folgt aussehen:
 
-~~~~ {.screen}
  define timeperiod{
-        timeperiod_name john-oncall
-        2009-07-27 / 14 00:00-24:00     ; alle 14 days (zwei Wochen), beginnend am 27. Juli 2009
-        2009-07-28 / 14 00:00-24:00     ; jeden zweiten Dienstag, beginnend am 28. Juli 2009
-        2009-07-29 / 14 00:00-24:00     ; jeden zweiten Mittwoch, beginnend am 29. Juli 2009
-        2009-07-30 / 14 00:00-24:00     ; jeden zweiten Donnerstag, beginnend am 30. Juli 2009
-        2009-07-31 / 14 00:00-24:00     ; jeden zweiten Freitag, beginnend am 31. Juli 2009
-        2009-08-01 / 14 00:00-24:00     ; jeden zweiten Samstag, beginnend am 1. August 2009
-        2009-08-02 / 14 00:00-24:00     ; jeden zweiten Sonntag, beginnend am 2. August 2009
-        }
-~~~~
+</code></pre>
 
 Nun definieren Sie ein Zeitfenster, wann Bob Benachrichtigungen erhalten
 soll. Bob erhält Benachrichtigungen in den Wochen, in denen John keine
 bekommt, also startet seine erste Bereitschaft am nächsten Montag (3.
 August 2009).
 
-~~~~ {.screen}
  define timeperiod{
-        timeperiod_name bob-oncall
-        2007-08-03 / 14 00:00-24:00     ; Every 14 days (two weeks), starting Monday, August 3th, 2009
-        2007-08-04 / 14 00:00-24:00     ; Every other Monday starting August 4th, 2009
-        2007-08-05 / 14 00:00-24:00     ; Every other Tuesday starting August 5th, 2009
-        2007-08-06 / 14 00:00-24:00     ; Every other Wednesday starting August 6th, 2009
-        2007-08-07 / 14 00:00-24:00     ; Every other Thursday starting August 7th, 2009
-        2007-08-08 / 14 00:00-24:00     ; Every other Friday starting August 8th, 2009
-        2007-08-09 / 14 00:00-24:00     ; Every other Saturday starting August 9th, 2009
-        }
-~~~~
+</code></pre>
 
 Nun müssen Sie diese Zeitfenster-Definitionen in den Kontaktdefinitionen
 von John und Bob referenzieren.
 
-~~~~ {.screen}
  define contact{
-        contact_name                    john
-        ...
-        host_notification_period        john-oncall
-        service_notification_period     john-oncall
-        }
-~~~~
+</code></pre>
 
-~~~~ {.screen}
  define contact{
-        contact_name                    bob
-        ...
-        host_notification_period        bob-oncall
-        service_notification_period     bob-oncall
-        }
-~~~~
+</code></pre>
 
 ### 7.11.5. Szenario 4: Urlaubstage
 
@@ -259,68 +156,33 @@ ist.
 Definieren Sie zuerst ein Zeitfenster, das die Bereiche für Johns
 Urlaubstage und freie Tage enthält:
 
-~~~~ {.screen}
  define timeperiod{
-        name                    john-out-of-office
-        timeperiod_name         john-out-of-office
-        day 15                  00:00-24:00             ; 15. Tag jeden Monats
-        day -1                  00:00-24:00             ; Letzter Tag jeden Monats (28., 29., 30., oder 31.)
-        day -2                  00:00-24:00             ; Vorletzter Tag jeden Monats (27., 28., 29., oder 30.)
-        january 2               00:00-24:00             ; 2. Januar jeden Jahres
-        june 1 - july 5         00:00-24:00             ; Jaehrlicher Camping-Trip (1. Juni - 5. Juli)
-        2009-11-01 - 2009-11-10 00:00-24:00             ; Urlaub auf den Virgin Islands (1.-10. November 2009)
-        }
-~~~~
+</code></pre>
 
 Als nächstes definieren Sie ein Zeitfenster für Johns
 Bereitschaftszeiten, das die Daten/Zeiten im o.g. Zeitfenster
 ausschließt:
 
-~~~~ {.screen}
  define timeperiod{
-        timeperiod_name         john-oncall
-        monday                  00:00-24:00
-        tuesday                 00:00-24:00
-        wednesday               00:00-24:00
-        thursday                00:00-24:00
-        friday                  00:00-24:00
-        exclude                 john-out-of-office      ; Exclude dates/times John is out
-        }
-~~~~
+</code></pre>
 
 Sie können nun dieses Zeitfenster in Johns Kontaktdefinition
 referenzieren:
 
-~~~~ {.screen}
  define contact{
-        contact_name                    john
-        ...
-        host_notification_period        john-oncall
-        service_notification_period     john-oncall
-        }
-~~~~
+</code></pre>
 
 Definieren Sie ein neues Zeitfenster für Bobs Bereitschaftszeiten, das
 die Zeiten von Johns Abwesenheiten enthält:
 
-~~~~ {.screen}
  define timeperiod{
-        timeperiod_name                  bob-oncall
-        use                             john-out-of-office      ; Include holiday date/times that John is out
-        }
-~~~~
+</code></pre>
 
 Sie können nun dieses Zeitfenster in Bobs Kontaktdefinition
 referenzieren:
 
-~~~~ {.screen}
  define contact{
-        contact_name                    bob
-        ...
-        host_notification_period        bob-oncall
-        service_notification_period     bob-oncall
-        }
-~~~~
+</code></pre>
 
 ### 7.11.6. Andere Szenarien
 
@@ -336,10 +198,6 @@ anderem mehr Bereitschaftszeit zu geben. :-)
 
 * * * * *
 
-  -------------------------------------- -------------------------- ---------------------------------------------
-  [Zurück](escalation_condition.md)    [Nach oben](ch07.md)      [Weiter](clusters.md)
-  7.10. Eskalations-Bedingung            [Zum Anfang](index.md)    7.12. Service- und Host-Gruppen überwachen
-  -------------------------------------- -------------------------- ---------------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.24. Custom CGI Headers and Footers (Classic UI)
-
-[Prev](checkscheduling.md) 
-
-Chapter 7. Advanced Topics
-
- [Next](modified_attr.md)
+[Prev](checkscheduling.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](modified_attr.md)
 
 * * * * *
 
@@ -56,18 +48,7 @@ before the closing \</BODY\> tag.
 
 There are two types of customer headers and footers:
 
--   Global headers/footers. These files should be named
-    *common-header.ssi* and *common-footer.ssi*, respectively. If these
-    files exist, they will be included in the output of all Classic UI
-    modules.
 
--   CGI-specific headers/footers. These files should be named in the
-    format *CGINAME-header.ssi* and *CGINAME-footer.ssi*, where
-    *CGINAME* is the physical name of the Classic UI module without the
-    .cgi extension. For example, the header and footer files for the
-    [alert summary Classic UI module](cgis.md#cgis-summary_cgi)
-    (summary.cgi) would be named *summary-header.ssi* and
-    *summary-footer.ssi*, respectively.
 
 You are not required to use any custom headers or footers. You can use
 only a global header if you wish. You can use only CGI-specific headers
@@ -75,10 +56,12 @@ and a global footer if you wish. Whatever you want. Really.
 
 * * * * *
 
-  ------------------------------------------ -------------------- -----------------------------
-  [Prev](checkscheduling.md)               [Up](ch07.md)       [Next](modified_attr.md)
-  7.23. Service and Host Check Scheduling    [Home](index.md)    7.25. Modified attributes
-  ------------------------------------------ -------------------- -----------------------------
+[Prev](checkscheduling.md) | [Up](ch07.md) | [Next](modified_attr.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

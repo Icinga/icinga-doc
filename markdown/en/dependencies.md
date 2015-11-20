@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.13. Host and Service Dependencies
-
-[Prev](clusters.md) 
-
-Chapter 7. Advanced Topics
-
- [Next](stalking.md)
+[Prev](clusters.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](stalking.md)
 
 * * * * *
 
@@ -45,20 +37,10 @@ dependencies.
 
 There are a few things you should know about service dependencies:
 
-1.  A service can be dependent on one or more other services
 
-2.  A service can be dependent on services which are not associated with
-    the same host
 
-3.  Service dependencies are not inherited (unless specifically
-    configured to)
 
-4.  Service dependencies can be used to cause service check execution
-    and service notifications to be suppressed under different
-    circumstances (OK, WARNING, UNKNOWN, and/or CRITICAL states)
 
-5.  Service dependencies might only be valid during specific
-    [timeperiods](timeperiods.md "5.9. Time Periods")
 
 ### 7.13.3. Defining Service Dependencies
 
@@ -86,66 +68,24 @@ services for notifications and check execution.
 In this example, the dependency definitions for *Service F* on *Host C*
 would be defined as follows:
 
-~~~~ {.programlisting}
+<pre><code>
  define servicedependency{
-        host_name                       Host B
-        service_description             Service D
-        dependent_host_name             Host C
-        dependent_service_description   Service F
-        execution_failure_criteria      o
-        notification_failure_criteria   w,u
-        }
 
  define servicedependency{
-        host_name                       Host B
-        service_description             Service E
-        dependent_host_name             Host C
-        dependent_service_description   Service F
-        execution_failure_criteria      n
-        notification_failure_criteria   w,u,c
-        }
 
  define servicedependency{
-        host_name                       Host B
-        service_description             Service C
-        dependent_host_name             Host C
-        dependent_service_description   Service F
-        execution_failure_criteria      w
-        notification_failure_criteria   c
-        }
-~~~~
+</code></pre>
 
 The other dependency definitions shown in the image above would be
 defined as follows:
 
-~~~~ {.programlisting}
+<pre><code>
  define servicedependency{
-        host_name                       Host A
-        service_description             Service A
-        dependent_host_name             Host B
-        dependent_service_description   Service D
-        execution_failure_criteria      u
-        notification_failure_criteria   n
-        }
 
  define servicedependency{
-        host_name                       Host A
-        service_description             Service B
-        dependent_host_name             Host B
-        dependent_service_description   Service E
-        execution_failure_criteria      w,u
-        notification_failure_criteria   c
-        }
 
  define servicedependency{
-        host_name                       Host B
-        service_description             Service C
-        dependent_host_name             Host B
-        dependent_service_description   Service E
-        execution_failure_criteria      n
-        notification_failure_criteria   w,u,c
-        }
-~~~~
+</code></pre>
 
 ### 7.13.5. How Service Dependencies Are Tested
 
@@ -155,23 +95,9 @@ doesn't have any dependencies, the check is executed or the notification
 is sent out as it normally would be. If the service *does* have one or
 more dependencies, Icinga will check each dependency entry as follows:
 
-1.  Icinga gets the current
-    status^[\*](dependencies.md#dependencies-hard_dependencies)^ of
-    the service that is being *depended upon*.
 
-2.  Icinga compares the current status of the service that is being
-    *depended upon* against either the execution or notification failure
-    options in the dependency definition (whichever one is relevant at
-    the time).
 
-3.  If the current status of the service that is being *depended upon*
-    matches one of the failure options, the dependency is said to have
-    failed and Icinga will break out of the dependency check loop.
 
-4.  If the current state of the service that is being *depended upon*
-    does not match any of the failure options for the dependency entry,
-    the dependency is said to have passed and Icinga will go on and
-    check the next dependency entry.
 
 This cycle continues until either all dependencies for the service have
 been checked or until one dependency check fails.
@@ -254,17 +180,9 @@ service and service A as being the *master* service (i.e. the service
 *that is being dependend on*). You could alternatively modify the
 dependency definition for services D and F to look like this:
 
-~~~~ {.programlisting}
+<pre><code>
  define servicedependency{
-        host_name                       Host B
-        service_description             Service D
-        dependent_host_name             Host C
-        dependent_service_description   Service F
-        execution_failure_criteria      o
-        notification_failure_criteria   n
-        inherits_parent         1
-        }
-~~~~
+</code></pre>
 
 Since the *inherits\_parent* directive is enabled, the dependency
 between services A and D will be tested when the dependency between
@@ -297,17 +215,9 @@ reachability](networkreachability.md "5.10. Determining Status and Reachability
 
 Here are the basics about host dependencies:
 
-1.  A host can be dependent on one or more other host
 
-2.  Host dependencies are not inherited (unless specifically configured
-    to)
 
-3.  Host dependencies can be used to cause host check execution and host
-    notifications to be suppressed under different circumstances (UP,
-    DOWN, and/or UNREACHABLE states)
 
-4.  Host dependencies might only be valid during specific
-    [timeperiods](timeperiods.md "5.9. Time Periods")
 
 ### 7.13.10. Example Host Dependencies
 
@@ -320,19 +230,11 @@ for notifications.
 In the example above, the dependency definitions for *Host C* would be
 defined as follows:
 
-~~~~ {.programlisting}
+<pre><code>
  define hostdependency{
-        host_name                       Host A
-        dependent_host_name             Host C
-        notification_failure_criteria   d
-        }
 
  define hostdependency{
-        host_name                       Host B
-        dependent_host_name             Host C
-        notification_failure_criteria   d,u
-        }
-~~~~
+</code></pre>
 
 As with service dependencies, host dependencies are not inherited. In
 the example image you can see that Host C does not inherit the host
@@ -352,10 +254,12 @@ More information on the notification logic can be found
 
 * * * * *
 
-  --------------------------------------------- -------------------- ------------------------
-  [Prev](clusters.md)                         [Up](ch07.md)       [Next](stalking.md)
-  7.12. Monitoring Service and Host Clusters    [Home](index.md)    7.14. State Stalking
-  --------------------------------------------- -------------------- ------------------------
+[Prev](clusters.md) | [Up](ch07.md) | [Next](stalking.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

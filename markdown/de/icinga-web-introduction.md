@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-6.8. Einführung in Icinga Web
-
-[Zurück](upgrading_icingaweb.md) 
-
-Kapitel 6. Die Benutzeroberflächen
-
- [Weiter](icinga-web-pnp.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -89,11 +81,8 @@ anzeigt. Daneben finden Sie die Anzahl und den Zustand der
 Icinga-Instanzen. Der verbleibende Platz wird für die Anzeige
 allgemeiner Informationen benutzt, das sind:
 
--   Hosts|Services (aktiv/passiv)
 
--   Host|Service Ausführungszeit (min/avg/max)
 
--   Host|Services Latenzzeit (min/avg/max)
 
 **Abbildung 6.6. Icinga Web Status-Cronk**
 
@@ -109,47 +98,25 @@ erleichtern werden. Sie können entweder einen Cronk doppelklicken oder
 diesen mit dem Mauszeiger in die zentrale Tab-Leiste ziehen. Die
 Kategorien sind wie folgt aufgeteilt:
 
--   "Data", um Status-, historische und Konfigurationsdaten zu erhalten.
-    In Icinga 1.6 gibt es zwei neue Cronks: eins für Informationen über
-    Instanzen und eins für die "Tackle View"
 
-    **Abbildung 6.7. Icinga Web Data-Cronks**
 
-    ![Icinga Web Data-Cronks](../images/icinga-web-cronks1.png)
 
-    \
 
--   "Tactical Overview" bietet generelle Charts und eigene angepasste an
-    (Custom Variables)
 
-    **Abbildung 6.8. Icinga Web Tactical Overview-Cronks**
 
-    ![Icinga Web Tactical
-    Overview-Cronks](../images/icinga-web-cronks2.png)
 
-    \
 
--   "Reporting" bietet Auswertungen
 
-    **Abbildung 6.9. Icinga Web Reporting-Cronks**
 
-    ![Icinga Web Reporting-Cronks](../images/icinga-web-cronks3.png)
 
-    \
 
--   "Misc" enthält verschiedene nützliche Cronks, wie iframe für externe
-    Webseiten oder 1,2,3-Spaltenansichten sowie Links auf die englische
-    bzw. deutsche Dokumentation
 
-    **Abbildung 6.10. Icinga Web "Misc"-Cronks**
 
-    ![Icinga Web "Misc"-Cronks](../images/icinga-web-cronks4.png)
 
-    \
 
 Sie können im Settings-Menü auch zur alten Ansicht mit den größeren
 Icons wechseln. In der Konfigurationsdatei
-`userpreferences.xml`{.filename} können Sie einen globalen Defaultwert
+`userpreferences.xml` können Sie einen globalen Defaultwert
 setzen.
 
 **Abbildung 6.11. Icinga Web Cronk Menü Umschalter**
@@ -299,15 +266,10 @@ bieten zusätzliche Items, wie etwas das Senden von Kommandos).
 
 \
 
--   Refresh
 
-    Manuelle Aktualisierung der Anzeige
 
--   Settings
 
-    (De)aktivieren der automatischen Aktualisierung
 
-    Get this \<item\> by url
 
 **Abbildung 6.24. Icinga Web Cronk-Leiste**
 
@@ -315,9 +277,7 @@ bieten zusätzliche Items, wie etwas das Senden von Kommandos).
 
 \
 
--   Filter
 
-    Modify/Remove
 
 *Commands*
 
@@ -441,13 +401,9 @@ stehen zur Verfügung, wenn Sie einen neuen Benutzer anlegen. Sie können
 die Größe des Fensters mittels Mauszeigerbewegung an den Ecken
 beeinflussen.
 
--   General information
 
--   Change password (and optional AuthKey for API)
 
--   Permissions; z.B. zu welcher Gruppen zugehörig
 
--   Principals für spezielle Rollen
 
 **Abbildung 6.35. Icinga Web Benutzer editieren**
 
@@ -524,10 +480,6 @@ ausführen.
 
 * * * * *
 
-  -------------------------------------------------------------- -------------------------- -------------------------------------------------------------
-  [Zurück](upgrading_icingaweb.md)                             [Nach oben](ch06.md)      [Weiter](icinga-web-pnp.md)
-  6.7. Aktualisierung von Icinga Web und Icinga Web Datenbank    [Zum Anfang](index.md)    6.9. Integration von PNP4Nagios in das Icinga Web Frontend
-  -------------------------------------------------------------- -------------------------- -------------------------------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

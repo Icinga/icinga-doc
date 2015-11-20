@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.6. Distributed Monitoring
-
-[Prev](freshness.md) 
-
-Chapter 7. Advanced Topics
-
- [Next](redundancy.md)
+[Prev](freshness.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](redundancy.md)
 
 * * * * *
 
@@ -74,7 +66,6 @@ types of servers...
 
 The function of a *distributed server* is to actively perform checks all
 the services you define for a "cluster" of hosts. We use the term
-"cluster" loosely - it basically just mean an arbitrary group of hosts
 on your network. Depending on your network layout, you may have several
 cluters at one physical location, or each cluster may be separated by a
 WAN, its own firewall, etc. The important thing to remember to that for
@@ -132,29 +123,12 @@ all be handled by the central server.
 
 Key configuration changes:
 
--   Only those services and hosts which are being monitored directly by
-    the distributed server are defined in the [object configuration
-    file](configobject.md "3.3. Object Configuration Overview").
 
-    ![[Note]](../images/note.png)
 
-    Note
 
-    Although "obsess\_over\_service" is enabled per default in the
-    object definition it may have been *dis*abled via a template so make
-    please sure to *en*able it where you need it.
 
--   The distributed server has its
-    [enable\_notifications](configmain.md#configmain-enable_notifications)
-    directive set to 0. This will prevent any notifications from being
-    sent out by the server.
 
--   The distributed server is configured to [obsess over
-    services](configmain.md#configmain-obsess_over_services).
 
--   The distributed server has an [ocsp
-    command](configmain.md#configmain-ocsp_command) defined (as
-    described below).
 
 In order to make everything come together and work properly, we want the
 distributed server to report the results of *all* service checks to
@@ -178,54 +152,30 @@ this:
 The command definition for the *submit\_check\_result* command looks
 something like this:
 
-~~~~ {.programlisting}
+<pre><code>
  define command{
-      command_name    submit_check_result 
-      command_line    /usr/local/icinga/libexec/eventhandlers/submit_check_result $HOSTNAME$ '$SERVICEDESC$' $SERVICESTATE$ '$SERVICEOUTPUT$'
- } 
-~~~~
+</code></pre>
 
 The *submit\_check\_result* shell scripts looks something like this
 (replace *central\_server* with the IP address of the central server):
 
-~~~~ {.programlisting}
+<pre><code>
 #!/bin/sh
 
 # Arguments:
-#  $1 = host_name (Short name of host that the service is
-#       associated with)
-#  $2 = svc_description (Description of the service)
-#  $3 = state_string (A string representing the status of
-#       the given service - "OK", "WARNING", "CRITICAL"
-#       or "UNKNOWN")
-#  $4 = plugin_output (A text string that should be used
-#       as the plugin output for the service checks)
 #
 
 # Convert the state string to the corresponding return code
 return_code=-1
 
 case "$3" in
-    OK)
-        return_code=0
-        ;;
-    WARNING)
-        return_code=1
-        ;;
-    CRITICAL)
-        return_code=2
-        ;;
-    UNKNOWN)
-        return_code=-1
-        ;;
 esac
 
 # pipe the service check info into the send_nsca program, which
 # in turn transmits the data to the nsca daemon on the central
 # monitoring server
 
-/bin/printf "%s\t%s\t%s\t%s\n" "$1" "$2" "$return_code" "$4" | /usr/local/icinga/bin/send_nsca -H  central_server -c /usr/local/icinga/etc/send_nsca.cfg
-~~~~
+</code></pre>
 
 The script above assumes that you have the send\_nsca program and it
 configuration file (send\_nsca.cfg) located in the
@@ -238,31 +188,10 @@ happens with the distributed server and how it sends service check
 results to Icinga (the steps outlined below correspond to the numbers in
 the reference diagram above):
 
-1.  After the distributed server finishes executing a service check, it
-    executes the command you defined by the
-    [ocsp\_command](configmain.md#configmain-ocsp_command) variable.
-    In our example, this is the
-    */usr/local/icinga/libexec/eventhandlers/submit\_check\_result*
-    script. Note that the definition for the *submit\_check\_result*
-    command passed four pieces of information to the script: the name of
-    the host the service is associated with, the service description,
-    the return code from the service check, and the plugin output from
-    the service check.
 
-2.  The *submit\_check\_result* script pipes the service check
-    information (host name, description, return code, and output) to the
-    *send\_nsca* client program.
 
-3.  The *send\_nsca* program transmits the service check information to
-    the *nsca* daemon on the central monitoring server.
 
-4.  The *nsca* daemon on the central server takes the service check
-    information and writes it to the external command file for later
-    pickup by Icinga.
 
-5.  The Icinga process on the central server reads the external command
-    file and processes the passive service check information that
-    originated from the distributed monitoring server.
 
 ### 7.6.8. Central Server Configuration
 
@@ -271,44 +200,15 @@ so let's turn to the central server. For all intents and purposes, the
 central is configured as you would normally configure a standalone
 server. It is setup as follows:
 
--   The central server has the web interface installed (optional, but
-    recommended)
 
--   The central server has its
-    [enable\_notifications](configmain.md#configmain-enable_notifications)
-    directive set to 1. This will enable notifications. (optional, but
-    recommended)
 
--   The central server has [active service
-    checks](configmain.md#configmain-execute_service_checks) disabled
-    (optional, but recommended - see notes below)
 
--   The central server has [external command
-    checks](configmain.md#configmain-check_external_commands) enabled
-    (required)
 
--   The central server has [passive service
-    checks](configmain.md#configmain-accept_passive_service_checks)
-    enabled (required)
 
 There are three other very important things that you need to keep in
 mind when configuring the central server:
 
--   The central server must have service definitions for *all services*
-    that are being monitored by all the distributed servers. Icinga will
-    ignore passive check results if they do not correspond to a service
-    that has been defined.
 
--   If you're only using the central server to process services whose
-    results are going to be provided by distributed hosts, you can
-    simply disable all active service checks on a program-wide basis by
-    setting the
-    [execute\_service\_checks](configmain.md#configmain-execute_service_checks)
-    directive to 0. If you're using the central server to actively
-    monitor a few services on its own (without the aid of distributed
-    servers), the *active\_checks\_enabled* option of the definitions
-    for service being monitored by distributed servers should be set to
-    0. This will prevent Icinga from actively checking those services.
 
 It is important that you either disable all service checks on a
 program-wide basis or disable the *enable\_active\_checks* option in the
@@ -352,17 +252,8 @@ So how do you do this? On the central monitoring server you need to
 configure services that are being monitoring by distributed servers as
 follows...
 
--   The *check\_freshness* option in the service definitions should be
-    set to 1. This enables "freshness" checking for the services.
 
--   The *freshness\_threshold* option in the service definitions should
-    be set to a value (in seconds) which reflects how "fresh" the
-    results for the services (provided by the distributed servers)
-    should be.
 
--   The *check\_command* option in the service definitions should
-    reflect valid commands that can be used to actively check the
-    service from the central monitoring server.
 
 Icinga periodically checks the "freshness" of the results for all
 services that have freshness checking enabled. The
@@ -396,12 +287,9 @@ example... Let's assume you define a command called 'service-is-stale'
 and use that command name in the *check\_command* option of your
 services. Here's what the definition would look like...
 
-~~~~ {.programlisting}
- define command{ 
-     command_name service-is-stale 
-     command_line /usr/local/icinga/libexec/check_dummy 2 "CRITICAL: Service results are stale"
+<pre><code>
  }
-~~~~
+</code></pre>
 
 When Icinga detects that the service results are stale and runs the
 **service-is-stale** command, the *check\_dummy* plugin is executed and
@@ -435,23 +323,11 @@ inaccurate view of host states.
 If you do want to send passive host checks to a central server in your
 distributed monitoring setup, make sure:
 
--   The central server has [passive host
-    checks](configmain.md#configmain-accept_passive_host_checks)
-    enabled (required)
 
--   The distributed server is configured to [obsess over
-    hosts](configmain.md#configmain-obsess_over_hosts).
 
-    ![[Note]](../images/note.png)
 
-    Note
 
-    Although "obsess\_over\_host" is enabled per default in the object
-    definition it may have been *dis*abled via a template so make please
-    sure to *en*able it where you need it.
 
--   The distributed server has an [ochp
-    command](configmain.md#configmain-ochp_command) defined.
 
 The ochp command, which is used for processing host check results, works
 in a similiar manner to the ocsp command, which is used for processing
@@ -463,10 +339,12 @@ hosts (similiar to what is described above for services).
 
 * * * * *
 
-  ----------------------------------------- -------------------- -------------------------------------------------
-  [Prev](freshness.md)                    [Up](ch07.md)       [Next](redundancy.md)
-  7.5. Service and Host Freshness Checks    [Home](index.md)    7.7. Redundant and Failover Network Monitoring
-  ----------------------------------------- -------------------- -------------------------------------------------
+[Prev](freshness.md) | [Up](ch07.md) | [Next](redundancy.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

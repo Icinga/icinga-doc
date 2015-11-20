@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.22. Passive Host-Zustandsübersetzung
-
-[Zurück](cachedchecks.md) 
-
-Kapitel 7. Fortgeschrittene Themen
-
- [Weiter](checkscheduling.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -36,26 +28,16 @@ verschiedenen Icinga-Instanzen sicherzustellen.
 Das folgende Bild zeigt eine vereinfachte Sicht für ein
 Failover-Überwachungsaufbau.
 
--   *Icinga-A* ist der primäre Überwachungsserver, der aktiv alle
-    Switches und Router überwacht.
 
--   *Icinga-B* und *Icinga-C* sind Backup-Überwachungsserver, die
-    passive Prüfergebnisse von *Icinga-A* erhalten.
 
--   Sowohl *Router-C* als auch *Router-D* sind fehlerhaft und daher
-    offline.
 
 ![](../images/passivehosttranslation.png)
 
 In welchem Status sind *Router-C* und *Router-D* gerade? Die Antwort
 hängt davon ab, welche Icinga-Instanz Sie fragen.
 
--   *Icinga-A* sieht *Router-D* als DOWN und *Router-C* als UNREACHABLE
 
--   *Icinga-B* sollte *Router-C* als DOWN und *Router-D* als UNREACHABLE
-    sehen
 
--   *Icinga-C* sollte beide Router als DOWN sehen.
 
 Jede Icinga-Instanz hat eine unterschiedliche Sicht des Netzwerks. Die
 Backup-Überwachungsserver sollten nicht blind passive Host-Zustände vom
@@ -92,10 +74,6 @@ für die lokale Instanz übersetzen.
 
 * * * * *
 
-  --------------------------------------- -------------------------- ------------------------------------------
-  [Zurück](cachedchecks.md)             [Nach oben](ch07.md)      [Weiter](checkscheduling.md)
-  7.21. Zwischengespeicherte Prüfungen    [Zum Anfang](index.md)    7.23. Service- und Host-Prüfungsplanung
-  --------------------------------------- -------------------------- ------------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

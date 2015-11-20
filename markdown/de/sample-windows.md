@@ -1,24 +1,14 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-13.14. windows.cfg
-
-[Zurück](sample-timeperiods.md) 
-
-Kapitel 13. Icinga Beispieldateien
-
- [Weiter](ix01.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
 13.14. windows.cfg
 ------------------
 
-~~~~ {.programlisting}
+<pre><code>
 ###############################################################################
-# WINDOWS.CFG - SAMPLE CONFIG FILE FOR MONITORING A WINDOWS MACHINE
 #
 # NOTES: This config file assumes that you are using the sample configuration
-#    files that get installed with the Icinga quickstart guide.
 #
 ###############################################################################
 
@@ -37,11 +27,6 @@ Kapitel 13. Icinga Beispieldateien
 # Change the host_name, alias, and address to fit your situation
 
 define host{
-   use      windows-server   ; Inherit default values from a template
-   host_name   winserver   ; The name we're giving to this host
-   alias      My Windows Server   ; A longer name associated with the host
-   address      192.168.1.2   ; IP address of the host
-   }
 
 
 
@@ -59,9 +44,6 @@ define host{
 # All hosts that use the windows-server template will automatically be a member of this group
 
 define hostgroup{
-   hostgroup_name   windows-servers   ; The name of the hostgroup
-   alias      Windows Servers   ; Long name of the group
-   }
 
 
 
@@ -79,11 +61,6 @@ define hostgroup{
 # Change the host_name to match the name of the host you defined above
 
 define service{
-   use         generic-service
-   host_name      winserver
-   service_description   NSClient++ Version
-   check_command      check_nt!CLIENTVERSION
-   }
 
 
 
@@ -91,11 +68,6 @@ define service{
 # Change the host_name to match the name of the host you defined above
 
 define service{
-   use         generic-service
-   host_name      winserver
-   service_description   Uptime
-   check_command      check_nt!UPTIME
-   }
 
 
 
@@ -103,11 +75,6 @@ define service{
 # Change the host_name to match the name of the host you defined above
 
 define service{
-   use         generic-service
-   host_name      winserver
-   service_description   CPU Load
-   check_command      check_nt!CPULOAD!-l 5,80,90
-   }
 
 
 
@@ -115,11 +82,6 @@ define service{
 # Change the host_name to match the name of the host you defined above
 
 define service{
-   use         generic-service
-   host_name      winserver
-   service_description   Memory Usage
-   check_command      check_nt!MEMUSE!-w 80 -c 90
-   }
 
 
 
@@ -127,11 +89,6 @@ define service{
 # Change the host_name to match the name of the host you defined above
 
 define service{
-   use         generic-service
-   host_name      winserver
-   service_description   C:\ Drive Space
-   check_command      check_nt!USEDDISKSPACE!-l c -w 80 -c 90
-   }
 
 
 
@@ -139,11 +96,6 @@ define service{
 # Change the host_name to match the name of the host you defined above
 
 define service{
-   use         generic-service
-   host_name      winserver
-   service_description   W3SVC
-   check_command      check_nt!SERVICESTATE!-d SHOWALL -l W3SVC
-   }
 
 
 
@@ -151,19 +103,10 @@ define service{
 # Change the host_name to match the name of the host you defined above
 
 define service{
-   use         generic-service
-   host_name      winserver
-   service_description   Explorer
-   check_command      check_nt!PROCSTATE!-d SHOWALL -l Explorer.exe
-   }
-~~~~
+</code></pre>
 
 * * * * *
 
-  ------------------------------------ -------------------------- -----------------------
-  [Zurück](sample-timeperiods.md)    [Nach oben](ch13.md)      [Weiter](ix01.md)
-  13.13. timeperiods.cfg               [Zum Anfang](index.md)    Stichwortverzeichnis
-  ------------------------------------ -------------------------- -----------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

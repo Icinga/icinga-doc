@@ -1,29 +1,16 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-13.4. resource.cfg
-
-[Prev](sample-cgi.md) 
-
-Chapter 13. Icinga Samples
-
- [Next](sample-httpd.md)
+[Prev](sample-cgi.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](sample-httpd.md)
 
 * * * * *
 
 13.4. resource.cfg
 ------------------
 
-~~~~ {.programlisting}
+<pre><code>
 ###########################################################################
 #
-# RESOURCE.CFG - Sample Resource File for Icinga
 #
 # You can define $USERx$ macros in this file, which can in turn be used
-# in command definitions in your host config file(s).  $USERx$ macros are
-# useful for storing sensitive information such as usernames, passwords, 
 # snmp communities, etc.
-# They are also handy for specifying the path to plugins and  event
-# handlers - if you decide to move the plugins or event handlers to
 # a different directory in the future, you can just update one or two
 # $USERx$ macros, instead of modifying a lot of command definitions.
 #
@@ -47,14 +34,16 @@ $USER1$=@PLUGINDIR@
 # Store some usernames and passwords (hidden from the CGIs)
 #$USER3$=someuser
 #$USER4$=somepassword
-~~~~
+</code></pre>
 
 * * * * *
 
-  -------------------------- -------------------- ----------------------------
-  [Prev](sample-cgi.md)    [Up](ch13.md)       [Next](sample-httpd.md)
-  13.3. cgi.cfg              [Home](index.md)    13.5. httpd.conf
-  -------------------------- -------------------- ----------------------------
+[Prev](sample-cgi.md) | [Up](ch13.md) | [Next](sample-httpd.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

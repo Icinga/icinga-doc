@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-6.3. Information On Classic UI parameters
-
-[Prev](cgiauth.md) 
-
-Chapter 6. User Interfaces
-
- [Next](cgicmd.md)
+[Prev](cgiauth.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](cgicmd.md)
 
 * * * * *
 
@@ -60,16 +52,12 @@ progress).
 Instead of using your browser you may want to run the Classic UI modules
 on the command line and process the results with other tools. For a
 first impression change to the folder containing the \*.cgi modules
-(e.g. `/usr/local/icinga/sbin`{.filename}), set some environment
+(e.g. `/usr/local/icinga/sbin`), set some environment
 variables and execute one of the Classic UI modules:
 
-~~~~ {.screen}
- $> export REMOTE_USER=icingaadmin   # or choose the appropriate user
- $> export REQUEST_METHOD='GET'      # if you enter queries
- $> export QUERY_STRING='host=all'   # see the tables below 
 
  $> ./status.cgi
-~~~~
+</code></pre>
 
 Depending on the number of hosts this may return a lot of lines
 containing HTML code in between which most people will find hard to read
@@ -81,7 +69,6 @@ Set QUERY\_STRING as needed and execute the desired Classic UI module.
 If you forgot to set the environment variables you'll receive the
 following lines:
 
-~~~~ {.screen}
  $> ./status.cgi
  getcgivars(): Unsupported REQUEST_METHOD -> ''
 
@@ -94,14 +81,14 @@ following lines:
  note: if you've enabled authentication in the CGIs, you must set the
  "REMOTE_USER" environment variable to be the name of the user you're
  "authenticated" as.
-~~~~
+</code></pre>
 
 You will find some examples
 [here](cgicmd.md "6.4. Executing Classic UI modules (CGIs) on the command line").
 
 ### 6.3.3. Properties / Statustypes
 
-You can use `status.cgi`{.filename} to show objects with one or more
+You can use `status.cgi` to show objects with one or more
 statustype (hoststatustype / servicestatustype) and with certain
 properties (hostprops / serviceprops). Each statustype / property is
 identified by a number (shown
@@ -114,9 +101,8 @@ use the resulting value for each option.
 The example shows all non-OK services which are neither in downtime nor
 acknowledged:
 
-~~~~ {.screen}
  http://localhost/icinga/cgi-bin/status.cgi?host=all&servicestatustypes=29&serviceprops=10
-~~~~
+</code></pre>
 
 "29" includes PENDING services (not being checked since start up) as
 well.
@@ -3442,7 +3428,6 @@ cmd\_mod=2
 
 Command type
 
-0 - 169, 999
 
 cmd\_typ=160
 
@@ -3731,7 +3716,6 @@ A boolean OR of the states specified in include/cgiutils.c
 
 The state the hosts should be in
 
-1 - 7
 
 hoststates=3 (hosts in problem state)
 
@@ -3741,7 +3725,6 @@ A boolean OR of the states: 1=DOWN; 2=UNREACHABLE; 4=UP
 
 The state the host should be in
 
-1 - 15
 
 hoststatustypes=12 (hosts in problem state)
 
@@ -4154,7 +4137,6 @@ A boolean OR of the states: 8=Warning; 16=Unknown; 32=Critical; 64=OK
 
 State the services should be in
 
-1 - 31
 
 servicestatustype=28 (services in problem state)
 
@@ -4561,324 +4543,102 @@ trends.c
 
 **Excerpt from include/cgiutils.h**
 
-~~~~ {.programlisting}
-/****************** HOST AND SERVICE FILTER PROPERTIES  *******************/
+<pre><code>
 
-#define HOST_SCHEDULED_DOWNTIME         1
-#define HOST_NO_SCHEDULED_DOWNTIME      2
-#define HOST_STATE_ACKNOWLEDGED         4
-#define HOST_STATE_UNACKNOWLEDGED       8
-#define HOST_CHECKS_DISABLED            16
-#define HOST_CHECKS_ENABLED             32
-#define HOST_EVENT_HANDLER_DISABLED     64
-#define HOST_EVENT_HANDLER_ENABLED      128
-#define HOST_FLAP_DETECTION_DISABLED    256
-#define HOST_FLAP_DETECTION_ENABLED     512
-#define HOST_IS_FLAPPING                1024
-#define HOST_IS_NOT_FLAPPING            2048
-#define HOST_NOTIFICATIONS_DISABLED     4096
-#define HOST_NOTIFICATIONS_ENABLED      8192
-#define HOST_PASSIVE_CHECKS_DISABLED    16384
-#define HOST_PASSIVE_CHECKS_ENABLED     32768
-#define HOST_MODIFIED_ATTRIBUTES        65536
-#define HOST_NO_MODIFIED_ATTRIBUTES     131072
-#define HOST_HARD_STATE                 262144
-#define HOST_SOFT_STATE                 524288
-#define HOST_STATE_HANDLED              1048576
-#define HOST_NOT_ALL_CHECKS_DISABLED    2097152
 
-#define SERVICE_SCHEDULED_DOWNTIME      1
-#define SERVICE_NO_SCHEDULED_DOWNTIME   2
-#define SERVICE_STATE_ACKNOWLEDGED      4
-#define SERVICE_STATE_UNACKNOWLEDGED    8
-#define SERVICE_CHECKS_DISABLED         16
-#define SERVICE_CHECKS_ENABLED          32
-#define SERVICE_EVENT_HANDLER_DISABLED  64
-#define SERVICE_EVENT_HANDLER_ENABLED   128
-#define SERVICE_FLAP_DETECTION_ENABLED  256
 #define SERVICE_FLAP_DETECTION_DISABLED 512
-#define SERVICE_IS_FLAPPING             1024
-#define SERVICE_IS_NOT_FLAPPING         2048
-#define SERVICE_NOTIFICATIONS_DISABLED  4096
-#define SERVICE_NOTIFICATIONS_ENABLED   8192
 #define SERVICE_PASSIVE_CHECKS_DISABLED 16384
-#define SERVICE_PASSIVE_CHECKS_ENABLED  32768
-#define SERVICE_MODIFIED_ATTRIBUTES     65536
-#define SERVICE_NO_MODIFIED_ATTRIBUTES  131072
-#define SERVICE_HARD_STATE              262144
-#define SERVICE_SOFT_STATE              524288
-#define SERVICE_STATE_HANDLED           1048576
 #define SERVICE_NOT_ALL_CHECKS_DISABLED 2097152
-~~~~
+</code></pre>
 
 ### 6.3.8. Host and Service Status Types
 
 **Excerpt from include/statusdata.h**
 
-~~~~ {.programlisting}
+<pre><code>
 /*************************** SERVICE STATES ***************************/
-#define SERVICE_PENDING  1
-#define SERVICE_OK       2
-#define SERVICE_WARNING  4
-#define SERVICE_UNKNOWN  8
 #define SERVICE_CRITICAL 16
 
 /**************************** HOST STATES ****************************/
-#define HOST_PENDING     1
-#define HOST_UP          2
-#define HOST_DOWN        4
 #define HOST_UNREACHABLE 8
-~~~~
+</code></pre>
 
 ### 6.3.9. Commands
 
 **Excerpt from include/common.h**
 
-~~~~ {.programlisting}
+<pre><code>
 /***************************** COMMANDS *********************************/
 
-#define CMD_NONE                                           0
 
-#define CMD_ADD_HOST_COMMENT                               1
-#define CMD_DEL_HOST_COMMENT                               2
-#define CMD_ADD_SVC_COMMENT                                3
-#define CMD_DEL_SVC_COMMENT                                4
 
-#define CMD_ENABLE_SVC_CHECK                               5
-#define CMD_DISABLE_SVC_CHECK                              6
-#define CMD_SCHEDULE_SVC_CHECK                             7
 
-#define CMD_DELAY_SVC_NOTIFICATION                         9
-#define CMD_DELAY_HOST_NOTIFICATION                        10
-#define CMD_DISABLE_NOTIFICATIONS                          11
-#define CMD_ENABLE_NOTIFICATIONS                           12
 
-#define CMD_RESTART_PROCESS                                13
-#define CMD_SHUTDOWN_PROCESS                               14
 
-#define CMD_ENABLE_HOST_SVC_CHECKS                         15
-#define CMD_DISABLE_HOST_SVC_CHECKS                        16
-#define CMD_SCHEDULE_HOST_SVC_CHECKS                       17
 
-#define CMD_DEL_ALL_HOST_COMMENTS                          20
-#define CMD_DEL_ALL_SVC_COMMENTS                           21
 
-#define CMD_ENABLE_SVC_NOTIFICATIONS                       22
-#define CMD_DISABLE_SVC_NOTIFICATIONS                      23
-#define CMD_ENABLE_HOST_NOTIFICATIONS                      24
-#define CMD_DISABLE_HOST_NOTIFICATIONS                     25
-#define CMD_ENABLE_ALL_NOTIFICATIONS_BEYOND_HOST           26
-#define CMD_DISABLE_ALL_NOTIFICATIONS_BEYOND_HOST          27
-#define CMD_ENABLE_HOST_SVC_NOTIFICATIONS                  28
-#define CMD_DISABLE_HOST_SVC_NOTIFICATIONS                 29
 
-#define CMD_PROCESS_SERVICE_CHECK_RESULT                   30
 
-#define CMD_SAVE_STATE_INFORMATION                         31
-#define CMD_READ_STATE_INFORMATION                         32
 
-#define CMD_ACKNOWLEDGE_HOST_PROBLEM                       33
-#define CMD_ACKNOWLEDGE_SVC_PROBLEM                        34
 
-#define CMD_START_EXECUTING_SVC_CHECKS                     35
-#define CMD_STOP_EXECUTING_SVC_CHECKS                      36
-#define CMD_START_ACCEPTING_PASSIVE_SVC_CHECKS             37
-#define CMD_STOP_ACCEPTING_PASSIVE_SVC_CHECKS              38
-#define CMD_ENABLE_PASSIVE_SVC_CHECKS                      39
-#define CMD_DISABLE_PASSIVE_SVC_CHECKS                     40
 
-#define CMD_ENABLE_EVENT_HANDLERS                          41
-#define CMD_DISABLE_EVENT_HANDLERS                         42
-#define CMD_ENABLE_HOST_EVENT_HANDLER                      43
-#define CMD_DISABLE_HOST_EVENT_HANDLER                     44
-#define CMD_ENABLE_SVC_EVENT_HANDLER                       45
-#define CMD_DISABLE_SVC_EVENT_HANDLER                      46
 
-#define CMD_ENABLE_HOST_CHECK                              47
-#define CMD_DISABLE_HOST_CHECK                             48
 
-#define CMD_START_OBSESSING_OVER_SVC_CHECKS                49
-#define CMD_STOP_OBSESSING_OVER_SVC_CHECKS                 50
 
-#define CMD_REMOVE_HOST_ACKNOWLEDGEMENT                    51
-#define CMD_REMOVE_SVC_ACKNOWLEDGEMENT                     52
 
-#define CMD_SCHEDULE_FORCED_HOST_SVC_CHECKS                53
-#define CMD_SCHEDULE_FORCED_SVC_CHECK                      54
 
-#define CMD_SCHEDULE_HOST_DOWNTIME                         55
-#define CMD_SCHEDULE_SVC_DOWNTIME                          56
 
-#define CMD_ENABLE_HOST_FLAP_DETECTION                     57
-#define CMD_DISABLE_HOST_FLAP_DETECTION                    58
-#define CMD_ENABLE_SVC_FLAP_DETECTION                      59
-#define CMD_DISABLE_SVC_FLAP_DETECTION                     60
-#define CMD_ENABLE_FLAP_DETECTION                          61
-#define CMD_DISABLE_FLAP_DETECTION                         62
 
-#define CMD_ENABLE_HOSTGROUP_SVC_NOTIFICATIONS             63
-#define CMD_DISABLE_HOSTGROUP_SVC_NOTIFICATIONS            64
-#define CMD_ENABLE_HOSTGROUP_HOST_NOTIFICATIONS            65
-#define CMD_DISABLE_HOSTGROUP_HOST_NOTIFICATIONS           66
 
-#define CMD_ENABLE_HOSTGROUP_SVC_CHECKS                    67
-#define CMD_DISABLE_HOSTGROUP_SVC_CHECKS                   68
 
-#define CMD_CANCEL_HOST_DOWNTIME                           69 /* not internally implemented */
-#define CMD_CANCEL_SVC_DOWNTIME                            70 /* not internally implemented */
-#define CMD_CANCEL_ACTIVE_HOST_DOWNTIME                    71 /* old - no longer used */
-#define CMD_CANCEL_PENDING_HOST_DOWNTIME                   72 /* old - no longer used */
-#define CMD_CANCEL_ACTIVE_SVC_DOWNTIME                     73 /* old - no longer used */
-#define CMD_CANCEL_PENDING_SVC_DOWNTIME                    74 /* old - no longer used */
-#define CMD_CANCEL_ACTIVE_HOST_SVC_DOWNTIME                75 /* unimplemented */
-#define CMD_CANCEL_PENDING_HOST_SVC_DOWNTIME               76 /* unimplemented */
 
-#define CMD_FLUSH_PENDING_COMMANDS                         77
 
-#define CMD_DEL_HOST_DOWNTIME                              78
-#define CMD_DEL_SVC_DOWNTIME                               79
 
-#define CMD_ENABLE_FAILURE_PREDICTION                      80
-#define CMD_DISABLE_FAILURE_PREDICTION                     81
 
-#define CMD_ENABLE_PERFORMANCE_DATA                        82
-#define CMD_DISABLE_PERFORMANCE_DATA                       83
 
-#define CMD_SCHEDULE_HOSTGROUP_HOST_DOWNTIME               84
-#define CMD_SCHEDULE_HOSTGROUP_SVC_DOWNTIME                85
-#define CMD_SCHEDULE_HOST_SVC_DOWNTIME                     86
 
-#define CMD_PROCESS_HOST_CHECK_RESULT                      87
 
-#define CMD_START_EXECUTING_HOST_CHECKS                    88
-#define CMD_STOP_EXECUTING_HOST_CHECKS                     89
-#define CMD_START_ACCEPTING_PASSIVE_HOST_CHECKS            90
-#define CMD_STOP_ACCEPTING_PASSIVE_HOST_CHECKS             91
-#define CMD_ENABLE_PASSIVE_HOST_CHECKS                     92
-#define CMD_DISABLE_PASSIVE_HOST_CHECKS                    93
-#define CMD_START_OBSESSING_OVER_HOST_CHECKS               94
-#define CMD_STOP_OBSESSING_OVER_HOST_CHECKS                95
 
-#define CMD_SCHEDULE_HOST_CHECK                            96
-#define CMD_SCHEDULE_FORCED_HOST_CHECK                     98
 
-#define CMD_START_OBSESSING_OVER_SVC                       99
-#define CMD_STOP_OBSESSING_OVER_SVC                        100
-#define CMD_START_OBSESSING_OVER_HOST                      101
-#define CMD_STOP_OBSESSING_OVER_HOST                       102
 
-#define CMD_ENABLE_HOSTGROUP_HOST_CHECKS                   103
-#define CMD_DISABLE_HOSTGROUP_HOST_CHECKS                  104
-#define CMD_ENABLE_HOSTGROUP_PASSIVE_SVC_CHECKS            105
-#define CMD_DISABLE_HOSTGROUP_PASSIVE_SVC_CHECKS           106
-#define CMD_ENABLE_HOSTGROUP_PASSIVE_HOST_CHECKS           107
-#define CMD_DISABLE_HOSTGROUP_PASSIVE_HOST_CHECKS          108
 
-#define CMD_ENABLE_SERVICEGROUP_SVC_NOTIFICATIONS          109
-#define CMD_DISABLE_SERVICEGROUP_SVC_NOTIFICATIONS         110
-#define CMD_ENABLE_SERVICEGROUP_HOST_NOTIFICATIONS         111
-#define CMD_DISABLE_SERVICEGROUP_HOST_NOTIFICATIONS        112
 
-#define CMD_ENABLE_SERVICEGROUP_SVC_CHECKS                 113
-#define CMD_DISABLE_SERVICEGROUP_SVC_CHECKS                114
-#define CMD_ENABLE_SERVICEGROUP_HOST_CHECKS                115
-#define CMD_DISABLE_SERVICEGROUP_HOST_CHECKS               116
 
-#define CMD_ENABLE_SERVICEGROUP_PASSIVE_SVC_CHECKS         117
-#define CMD_DISABLE_SERVICEGROUP_PASSIVE_SVC_CHECKS        118
-#define CMD_ENABLE_SERVICEGROUP_PASSIVE_HOST_CHECKS        119
-#define CMD_DISABLE_SERVICEGROUP_PASSIVE_HOST_CHECKS       120
 
-#define CMD_SCHEDULE_SERVICEGROUP_HOST_DOWNTIME            121
-#define CMD_SCHEDULE_SERVICEGROUP_SVC_DOWNTIME             122
 
-#define CMD_CHANGE_GLOBAL_HOST_EVENT_HANDLER               123
-#define CMD_CHANGE_GLOBAL_SVC_EVENT_HANDLER                124
-#define CMD_CHANGE_HOST_EVENT_HANDLER                      125
-#define CMD_CHANGE_SVC_EVENT_HANDLER                       126
 
-#define CMD_CHANGE_HOST_CHECK_COMMAND                      127
-#define CMD_CHANGE_SVC_CHECK_COMMAND                       128
 
-#define CMD_CHANGE_NORMAL_HOST_CHECK_INTERVAL              129
-#define CMD_CHANGE_NORMAL_SVC_CHECK_INTERVAL               130
-#define CMD_CHANGE_RETRY_SVC_CHECK_INTERVAL                131
 
-#define CMD_CHANGE_MAX_HOST_CHECK_ATTEMPTS                 132
-#define CMD_CHANGE_MAX_SVC_CHECK_ATTEMPTS                  133
 
 #define CMD_SCHEDULE_AND_PROPAGATE_TRIGGERED_HOST_DOWNTIME 134
 
-#define CMD_ENABLE_HOST_AND_CHILD_NOTIFICATIONS            135
-#define CMD_DISABLE_HOST_AND_CHILD_NOTIFICATIONS           136
 
-#define CMD_SCHEDULE_AND_PROPAGATE_HOST_DOWNTIME           137
 
-#define CMD_ENABLE_SERVICE_FRESHNESS_CHECKS                138
-#define CMD_DISABLE_SERVICE_FRESHNESS_CHECKS               139
-#define CMD_ENABLE_HOST_FRESHNESS_CHECKS                   140
-#define CMD_DISABLE_HOST_FRESHNESS_CHECKS                  141
 
-#define CMD_SET_HOST_NOTIFICATION_NUMBER                   142
-#define CMD_SET_SVC_NOTIFICATION_NUMBER                    143
 
-#define CMD_CHANGE_HOST_CHECK_TIMEPERIOD                   144  
-#define CMD_CHANGE_SVC_CHECK_TIMEPERIOD                    145
 
-#define CMD_PROCESS_FILE                                   146
 
-#define CMD_CHANGE_CUSTOM_HOST_VAR                         147
-#define CMD_CHANGE_CUSTOM_SVC_VAR                          148
-#define CMD_CHANGE_CUSTOM_CONTACT_VAR                      149
 
-#define CMD_ENABLE_CONTACT_HOST_NOTIFICATIONS              150
-#define CMD_DISABLE_CONTACT_HOST_NOTIFICATIONS             151
-#define CMD_ENABLE_CONTACT_SVC_NOTIFICATIONS               152
-#define CMD_DISABLE_CONTACT_SVC_NOTIFICATIONS              153
 
-#define CMD_ENABLE_CONTACTGROUP_HOST_NOTIFICATIONS         154
-#define CMD_DISABLE_CONTACTGROUP_HOST_NOTIFICATIONS        155
-#define CMD_ENABLE_CONTACTGROUP_SVC_NOTIFICATIONS          156
-#define CMD_DISABLE_CONTACTGROUP_SVC_NOTIFICATIONS         157
 
-#define CMD_CHANGE_RETRY_HOST_CHECK_INTERVAL               158
 
-#define CMD_SEND_CUSTOM_HOST_NOTIFICATION                  159
-#define CMD_SEND_CUSTOM_SVC_NOTIFICATION                   160
 
-#define CMD_CHANGE_HOST_NOTIFICATION_TIMEPERIOD            161
-#define CMD_CHANGE_SVC_NOTIFICATION_TIMEPERIOD             162
-#define CMD_CHANGE_CONTACT_HOST_NOTIFICATION_TIMEPERIOD    163
-#define CMD_CHANGE_CONTACT_SVC_NOTIFICATION_TIMEPERIOD     164
 
-#define CMD_CHANGE_HOST_MODATTR                            165
-#define CMD_CHANGE_SVC_MODATTR                             166
-#define CMD_CHANGE_CONTACT_MODATTR                         167
-#define CMD_CHANGE_CONTACT_MODHATTR                        168
-#define CMD_CHANGE_CONTACT_MODSATTR                        169
 
-#define CMD_SYNC_STATE_INFORMATION                         170
 
-#define CMD_DEL_DOWNTIME_BY_HOST_NAME                      171
-#define CMD_DEL_DOWNTIME_BY_HOSTGROUP_NAME                 172
-#define CMD_DEL_DOWNTIME_BY_START_TIME_COMMENT             173
 
-#define CMD_ACKNOWLEDGE_HOST_PROBLEM_EXPIRE                174
-#define CMD_ACKNOWLEDGE_SVC_PROBLEM_EXPIRE                 175
 
-#define CMD_DISABLE_NOTIFICATIONS_EXPIRE_TIME              176
 
-#define CMD_CUSTOM_COMMAND                                 999
-#define CMD_INTERNAL_CHANGE_HOST_CHECK_RETRY_INTERVAL     1001
-#define CMD_INTERNAL_CHANGE_SVC_CHECK_RETRY_INTERVAL      1002
-~~~~
+</code></pre>
 
 * * * * *
 
-  ---------------------------------------------------------- -------------------- ---------------------------------------------------------------
-  [Prev](cgiauth.md)                                       [Up](ch06.md)       [Next](cgicmd.md)
-  6.2. Authentication And Authorization In The Classic UI    [Home](index.md)    6.4. Executing Classic UI modules (CGIs) on the command line
-  ---------------------------------------------------------- -------------------- ---------------------------------------------------------------
+[Prev](cgiauth.md) | [Up](ch06.md) | [Next](cgicmd.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

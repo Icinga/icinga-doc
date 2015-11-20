@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-3.4. Objektdefinitionen
-
-[Zurück](configobject.md) 
-
-Kapitel 3. Icinga konfigurieren
-
- [Weiter](customobjectvars.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -72,14 +64,8 @@ Anmerkung
 Wenn Sie Konfigurationsdateien anlegen und/oder editieren, dann behalten
 Sie das Folgende im Hinterkopf:
 
-1.  Zeilen, die mit einem '\#'-Zeichen beginnen, werden als Kommentare
-    angesehen und nicht verarbeitet
 
-2.  Direktivennamen sind "case-sensitive", die Beachtung von Groß- und
-    Kleinschreibung ist wichtig!
 
-3.  Zeichen nach einem Semikolon (;) in Konfigurationszeilen werden als
-    Kommentar angesehen und deshalb nicht verarbeitet
 
 ![[Anmerkung]](../images/note.png)
 
@@ -360,25 +346,8 @@ x\_coord,y\_coord
 
 *Beispieldefinition:*
 
-~~~~ {.screen}
  define host{
-        host_name                       bogus-router
-        alias                           Bogus Router #1
-        address                         192.168.1.254
-        parents                         server-backbone
-        check_command                   check-host-alive
-        check_interval                  5
-        retry_interval                  1
-        max_check_attempts              5
-        check_period                    24x7
-        process_perf_data               0
-        retain_nonstatus_information    0
-        contact_groups                  router-admins
-        notification_interval           30
-        notification_period             24x7
-        notification_options            d,u,r
-        }
-~~~~
+</code></pre>
 
 *Beschreibung der Direktiven:*
 
@@ -733,7 +702,6 @@ unerreichbar ist. Solange Sie nicht die
 [interval\_length](configmain.md#configmain-interval_length)-Direktive
 auf einen anderen als den Standardwert von 60 verändert haben, bedeutet
 diese Zahl Minuten. Wenn Sie diesen Wert auf 0 setzen, wird Icinga die
-Kontakte *nicht* erneut über Probleme dieses Hosts informieren - nur
 eine Problembenachrichtigung wird versandt. Fließkommazahlen sind
 erlaubt. Default: 30.
 
@@ -839,13 +807,13 @@ Anmerkung
 Es ist möglich, mehrere URLs für action|notes\_url bei Host- und
 Service-Objektdefinitionen zu anzugeben. Die Syntax ist wie folgt:
 
-~~~~ {.programlisting}
+<pre><code>
 notes_url|action_url 'ersteURL' 'zweiteURL' 'dritteURL'
-~~~~
+</code></pre>
 
-~~~~ {.programlisting}
+<pre><code>
 notes_url|action_url nureineURL
-~~~~
+</code></pre>
 
 Bitte achten Sie darauf, dass mehrere URLs auch gleichzeitig mehrere
 Icon-Bilder bedeuten. Diese sind hartkodiert, so dass z.B.
@@ -953,13 +921,8 @@ url
 
 *Beispieldefinition:*
 
-~~~~ {.screen}
  define hostgroup{
-        hostgroup_name          novell-servers
-        alias                   Novell Servers
-        members                 netware1,netware2,netware3,netware4
-        }
-~~~~
+</code></pre>
 
 *Beschreibung der Direktiven:*
 
@@ -1218,21 +1181,8 @@ alt\_string
 
 *Beispieldefinition:*
 
-~~~~ {.screen}
  define service{
-        host_name               linux-server
-        service_description     check-disk-sda1
-        check_command           check-disk!/dev/sda1
-        max_check_attempts      5
-        check_interval          5
-        retry_interval          3
-        check_period            24x7
-        notification_interval   30
-        notification_period     24x7
-        notification_options    w,c,r
-        contact_groups          linux-admins
-        }
-~~~~
+</code></pre>
 
 *Beschreibung der Direktiven:*
 
@@ -1533,7 +1483,6 @@ nicht-OK-Zustand ist. Solange Sie nicht die
 [interval\_length](configmain.md#configmain-interval_length)-Direktive
 auf einen anderen als den Standardwert von 60 verändert haben, bedeutet
 diese Zahl Minuten. Wenn Sie diesen Wert auf 0 setzen, wird Icinga die
-Kontakte *nicht* erneut über Probleme dieses Service informieren - nur
 eine Problembenachrichtigung wird versandt. Fließkommazahlen sind
 erlaubt. Default: 30.
 
@@ -1662,13 +1611,13 @@ Anmerkung
 Es ist möglich, mehrere URLs für action|notes\_url bei Host- und
 Service-Objektdefinitionen anzugeben. Die Syntax ist wie folgt:
 
-~~~~ {.programlisting}
+<pre><code>
 notes_url|action_url 'ersteURL' 'zweiteURL' 'dritteURL'
-~~~~
+</code></pre>
 
-~~~~ {.programlisting}
+<pre><code>
 notes_url|action_url nureineURL
-~~~~
+</code></pre>
 
 Bitte achten Sie darauf, dass mehrere Urls auch gleichzeitig mehrere
 Icon-Bilder bedeuten. Diese sind hartkodiert, so dass z.B.
@@ -1743,13 +1692,8 @@ url
 
 *Beispieldefinition:*
 
-~~~~ {.screen}
  define servicegroup{
-        servicegroup_name       dbservices
-        alias                   Database Services
-        members                 ms1,SQL Server,ms1,SQL Server Agent,ms1,SQL DTC
-        }
-~~~~
+</code></pre>
 
 *Beschreibung der Direktiven:*
 
@@ -1912,25 +1856,8 @@ retain\_nonstatus\_information
 
 *Beispieldefinition:*
 
-~~~~ {.screen}
  define contact{
-        contact_name                    jdoe
-        alias                           John Doe
-        host_notifications_enabled      1
-        service_notifications_enabled   1
-        service_notification_period     24x7
-        host_notification_period        24x7
-        service_notification_options    w,u,c,r
-        host_notification_options       d,u,r
-        service_notification_commands   notify-by-email
-        host_notification_commands      host-notify-by-email
-        email                           jdoe@localhost.localdomain
-        pager                           555-5555@pagergateway.localhost.localdomain
-        address1                        xxxxx.xyyy@icq.com
-        address2                        555-555-5555
-        can_submit_commands             1
-        }
-~~~~
+</code></pre>
 
 *Beschreibung der Direktiven:*
 
@@ -2093,7 +2020,6 @@ diesen Wert enthalten.
 **addressx**:
 
 Adress-Direktiven werden benutzt, um zusätzliche "Adressen" für den
-Kontakt zu definieren. Diese Adressen können alles sein -
 Mobiltelefonnummern, Instant-Messaging-Adressen usw. Abhängig von Ihren
 Benachrichtigungsbefehlen kann sie benutzt werden, um einen Alarm an den
 Kontakt zu versenden. Bis zu sechs Adressen können mit Hilfe dieser
@@ -2166,13 +2092,8 @@ contactgroups
 
 *Beispieldefinition:*
 
-~~~~ {.screen}
  define contactgroup{
-        contactgroup_name       novell-admins
-        alias                   Novell Administrators
-        members                 jdoe,rtobert,tzach
-        }
-~~~~
+</code></pre>
 
 *Beschreibung der Direktiven:*
 
@@ -2247,53 +2168,11 @@ exclude
 
 *Beispiel-Definitionen:*
 
-~~~~ {.screen}
  define timeperiod{
-        timeperiod_name         nonworkhours
-        alias                   Non-Work Hours
-        sunday                  00:00-24:00                     ; jeder Sonntag jeder Woche
-        monday                  00:00-09:00,17:00-24:00         ; jeder Montag jeder Woche
-        tuesday                 00:00-09:00,17:00-24:00         ; jeder Dienstag jeder Woche
-        wednesday               00:00-09:00,17:00-24:00         ; jeder Mittwoch jeder Woche
-        thursday                00:00-09:00,17:00-24:00         ; jeder Donnerstag jeder Woche
-        friday                  00:00-09:00,17:00-24:00         ; jeder Freitag jeder Woche
-        saturday                00:00-24:00                     ; jeder Samstag jeder Woche
-        }
  define timeperiod{
-        timeperiod_name         misc-single-days
-        alias                   Misc Single Days
-        1999-01-28              00:00-24:00             ; 28. Januar 1999
-        monday 3                00:00-24:00             ; 3. Montag im Monat
-        day 2                   00:00-24:00             ; 2. Tag im Monat
-        february 10             00:00-24:00             ; 10. Februar im Jahr
-        february -1             00:00-24:00             ; letzter Tag im Februar
-        friday -2               00:00-24:00             ; vorletzer Freitag im Monat
-        thursday -1 november    00:00-24:00             ; letzter Donnerstag im November
-        }
  define timeperiod{
-        timeperiod_name         misc-date-ranges
-        alias                   Misc Date Ranges
-        2007-01-01 - 2008-02-01         00:00-24:00             ; 1. Januar 2007 bis zum 1. Februar 2008
-        monday 3 - thursday 4           00:00-24:00             ; 3. Montag bis 4. Donnerstag
-        day 1 - 15                      00:00-24:00             ; 1. bis 15. Tag
-        day 20 - -1                     00:00-24:00             ; 20. Tag bis Monatsende
-        july 10 - 15                    00:00-24:00             ; 10. - 15. Juli
-        april 10 - may 15               00:00-24:00             ; 10. April bis zum 15. Mai
-        tuesday 1 april - friday 2 may  00:00-24:00             ; 1. Dienstag im April
-                                                                ; bis zum 2. Freitag im Mai
-        }
  define timeperiod{
-        timeperiod_name         misc-skip-ranges
-        alias                   Misc Skip Ranges
-        2007-01-01 - 2008-02-01 / 3             00:00-24:00     ; jeder dritte Tag vom 1. Januar 2008 bis zum 1. Februar 2008
-        2008-04-01 / 7                          00:00-24:00     ; jeder 7. Tag ab dem 1. April 2008 (ohne Endedatum)
-        monday 3 - thursday 4 / 2               00:00-24:00     ; jeder zweite Tag vom 3. Montag bis zum 4. Donnerstag des Monats
-        day 1 - 15 / 5                          00:00-24:00     ; jeder 5. Tag vom 1. bis zum 15. Tag des Monats
-        july 10 - 15 / 2                        00:00-24:00     ; jeder zweite Tag vom 10. Juli bis zum 15.Juli
-        tuesday 1 april - friday 2 may / 6      00:00-24:00     ; jeder sechste Tag vom 1. Dienstag im April 
-                                                                ; bis zum 2. Freitag im Mai
-        }
-~~~~
+</code></pre>
 
 *Beschreibung der Direktiven:*
 
@@ -2376,12 +2255,8 @@ command\_line
 
 *Beispieldefinition:*
 
-~~~~ {.screen}
  define command{
-        command_name    check_pop
-        command_line    /usr/local/icinga/libexec/check_pop -H $HOSTADDRESS$    
-        }
-~~~~
+</code></pre>
 
 *Beschreibung der Direktiven:*
 
@@ -2498,16 +2373,8 @@ timeperiod\_name
 
 *Beispieldefinition:*
 
-~~~~ {.screen}
  define servicedependency{
-        host_name                       WWW1
-        service_description             Apache Web Server
-        dependent_host_name             WWW1
-        dependent_service_description   Main Web Site
-        execution_failure_criteria      n
-        notification_failure_criteria   w,u,c
-        }
-~~~~
+</code></pre>
 
 *Beschreibung der Direktiven:*
 
@@ -2721,16 +2588,8 @@ last\_unknown\_notification
 
 *Beispieldefinition:*
 
-~~~~ {.screen}
  define serviceescalation{
-        host_name               nt-3
-        service_description     Processor Load
-        first_notification      4
-        last_notification       0
-        notification_interval   30
-        contact_groups          all-nt-admins,themanagers
-        }
-~~~~
+</code></pre>
 
 *Beschreibung der Direktiven:*
 
@@ -2956,13 +2815,8 @@ timeperiod\_name
 
 *Beispieldefinition:*
 
-~~~~ {.screen}
  define hostdependency{
-        host_name                       WWW1
-        dependent_host_name             DBASE1
-        notification_failure_criteria   d,u
-        }
-~~~~
+</code></pre>
 
 *Beschreibung der Direktiven:*
 
@@ -3132,15 +2986,8 @@ last\_unreachable\_notification
 
 *Beispieldefinition:*
 
-~~~~ {.screen}
  define hostescalation{
-        host_name               router-34
-        first_notification      5
-        last_notification       8
-        notification_interval   60
-        contact_groups          all-router-admins
-        }
-~~~~
+</code></pre>
 
 *Beschreibung der Direktiven:*
 
@@ -3340,18 +3187,8 @@ x\_coord,y\_coord
 
 *Beispieldefinition:*
 
-~~~~ {.screen}
  define hostextinfo{
-        host_name       netware1
-        notes           This is the primary Netware file server
-        notes_url       http://webserver.localhost.localdomain/hostinfo.pl?host=netware1
-        icon_image      novell40.png 
-        icon_image_alt  IntranetWare 4.11
-        statusmap_image novell40.gd2
-        2d_coords       100,250
-        3d_coords       100.0,50.0,75.0
-        }
-~~~~
+</code></pre>
 
 *Variablenbeschreibungen:*
 
@@ -3412,13 +3249,13 @@ Anmerkung
 Es ist möglich, mehrere URLs für action|notes\_url bei Host- und
 Service-Objektdefinitionen anzugeben. Die Syntax ist wie folgt:
 
-~~~~ {.programlisting}
+<pre><code>
 notes_url|action_url 'ersteURL' 'zweiteURL' 'dritteURL'
-~~~~
+</code></pre>
 
-~~~~ {.programlisting}
+<pre><code>
 notes_url|action_url nureineURL
-~~~~
+</code></pre>
 
 Bitte achten Sie darauf, dass mehrere URLs auch gleichzeitig mehrere
 Icon-Bilder bedeuten. Diese sind hartkodiert, so dass z.B.
@@ -3544,16 +3381,8 @@ alt\_string
 
 *Beispieldefinition:*
 
-~~~~ {.screen}
  define serviceextinfo{
-        host_name               linux2
-        service_description     Log Anomalies
-        notes                   Security-related log anomalies on secondary Linux server
-        notes_url               http://webserver.localhost.localdomain/serviceinfo.pl?host=linux2&service=Log+Anomalies
-        icon_image              security.png 
-        icon_image_alt          Security-Related Alerts
-        }
-~~~~
+</code></pre>
 
 *Variablenbeschreibungen:*
 
@@ -3621,13 +3450,13 @@ Anmerkung
 Es ist möglich, mehrere URLs für action|notes\_url bei Host- und
 Service-Objektdefinitionen anzugeben. Die Syntax ist wie folgt:
 
-~~~~ {.programlisting}
+<pre><code>
 notes_url|action_url 'ersteURL' 'zweiteURL' 'dritteURL'
-~~~~
+</code></pre>
 
-~~~~ {.programlisting}
+<pre><code>
 notes_url|action_url nureineURL
-~~~~
+</code></pre>
 
 Bitte achten Sie darauf, dass mehrere Urls auch gleichzeitig mehrere
 Icon-Bilder bedeuten. Diese sind hartkodiert, so dass z.B.
@@ -3691,27 +3520,15 @@ neb
 
 *Beispieldefinitionen:*
 
-~~~~ {.screen}
  define module{
-        module_name    ido_mod
-        path           /usr/local/icinga/lib/idomod.so
-        module_type    neb
-        args           config_file=/usr/local/icinga/etc/idomod.cfg
-        }
-~~~~
+</code></pre>
 
 Basierend auf der
 [MKLiveStatus](http://mathias-kettner.de/checkmk_livestatus.md)-Dokumentation
 könnte die module-Definition wie folgt aussehen:
 
-~~~~ {.screen}
  define module{
-        module_name    mklivestatus
-        path           /usr/local/lib/mk-livestatus/livestatus.o
-        module_type    neb
-        args           /var/lib/nagios/rw/live
-        }
-~~~~
+</code></pre>
 
 *Beschreibung der Direktiven:*
 
@@ -3752,10 +3569,6 @@ ausgiebig mit Icinga 1.4 getestet.
 
 * * * * *
 
-  ------------------------------------- -------------------------- ----------------------------------------
-  [Zurück](configobject.md)           [Nach oben](ch03.md)      [Weiter](customobjectvars.md)
-  3.3. Überblick Objektkonfiguration    [Zum Anfang](index.md)    3.5. Maßgeschneiderte Objektvariablen
-  ------------------------------------- -------------------------- ----------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

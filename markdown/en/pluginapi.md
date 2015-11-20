@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-11.1. Icinga Plugin API
-
-[Prev](ch11.md) 
-
-Chapter 11. Development
-
- [Next](epnplugins.md)
+[Prev](ch11.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](epnplugins.md)
 
 * * * * *
 
@@ -35,25 +27,18 @@ Restrictions](pluginapi.md#outputlengthrestrictions)
 If you're looking at writing your own plugins for Icinga, please make
 sure to visit these other resources:
 
--   The official [Monitoring Plugins project
-    website](https://www.monitoring-plugins.org)
 
--   The official [Monitoring Plugins development
-    guidelines](https://www.monitoring-plugins.org/doc/guidelines.md)
 
 ### 11.1.2. Plugin Overview
 
 Scripts and executables must do two things (at a minimum) in order to
 function as Icinga plugins:
 
--   Exit with one of several possible return values
 
--   Return at least one line of text output to STDOUT
 
 The inner workings of your plugin are unimportant to Icinga. Your plugin
 could check the status of a TCP port, run a database query, check disk
 free space, or do whatever else it needs to check something. The details
-will depend on what needs to be checked - that's up to you.
 
 ### 11.1.3. Return Code
 
@@ -131,94 +116,39 @@ long text output (shown in blue) are also optional.
 
 Let's see some examples of possible plugin output...
 
--   **Case 1: One line of output (text only)**
 
-    Assume we have a plugin that returns one line of output that looks
-    like this:
 
-    DISK OK - free space: / 3326 MB (56%); If this plugin was used to
-    perform a service check, the entire line of output will be stored in
-    the [\$SERVICEOUTPUT\$](macrolist.md#macrolist-serviceoutput)
-    macro.
 
--   **Case 2: One line of output (text and perfdata)**
 
-    A plugin can return optional performance data for use by external
-    applications. To do this, the performance data must be separated
-    from the text output with a pipe (|) symbol like such:
 
-    DISK OK - free space: / 3326 MB (56%); | /=2643MB;5948;5958;0;5968
 
-    If this plugin was used to perform a service check, the red portion
-    of output (left of the pipe separator) will be stored in the
-    [\$SERVICEOUTPUT\$](macrolist.md#macrolist-serviceoutput) macro
-    and the  orange portion of output (right of the pipe separator) will
-    be stored in the
-    [\$SERVICEPERFDATA\$](macrolist.md#macrolist-serviceperfdata)
-    macro.
 
--   **Case 3: Multiple lines of output (text and perfdata)**
 
-    A plugin optionally returns multiple lines of both text output and
-    perfdata, like such:
 
-    DISK OK - free space: / 3326 MB (56%);
 
-     | /=2643MB;5948;5958;0;5968
 
-    / 15272 MB (77%);
 
-    /boot 68 MB (69%);
 
-    /home 69357 MB (27%);
 
-    /var/log 819 MB (84%); | /boot=68MB;88;93;0;98
 
-    /home=69357MB;253404;253409;0;253414
 
-    /var/log=818MB;970;975;0;980
 
-    If this plugin was used to perform a service check, the red portion
-    of first line of output (left of the pipe separator) will be stored
-    in the [\$SERVICEOUTPUT\$](macrolist.md#macrolist-serviceoutput)
-    macro. The orange portions of the first and subsequent lines are
-    concatenated (with spaces) are stored in the
-    [\$SERVICEPERFDATA\$](macrolist.md#macrolist-serviceperfdata)
-    macro. The blue portions of the 2nd - 5th lines of output will be
-    concatenated (with escaped newlines) and stored in the
-    [\$LONGSERVICEOUTPUT\$](macrolist.md#macrolist-longserviceoutput)
-    macro.
 
-    The final contents of each macro are listed below:
 
-    **Macro**
 
-    **Value**
 
-    \$SERVICEOUTPUT\$
 
-    DISK OK - free space: / 3326 MB (56%);
 
-    \$SERVICEPERFDATA\$
 
-    /=2643MB;5948;5958;0;5968 /boot=68MB;88;93;0;98 /home=69357MB;253404;253409;0;253414 /var/log=818MB;970;975;0;980
 
-    \$LONGSERVICEOUTPUT\$
 
-    / 15272 MB (77%);\\n/boot 68 MB (69%);\\n/var/log 819 MB (84%);
 
 With regards to multiple lines of output, you have the following options
 for returning performance data:
 
--   You can choose to return no performance data whatsoever
 
--   You can return performance data on the first line only
 
--   You can return performance data only in subsequent lines (after the
-    first)
 
--   You can return performance data in both the first line and
-    subsequent lines (as shown above)
 
 ### 11.1.6. Plugin Output Length Restrictions
 
@@ -252,10 +182,12 @@ be found
 
 * * * * *
 
-  -------------------------- -------------------- ------------------------------------------------------
-  [Prev](ch11.md)          [Up](ch11.md)       [Next](epnplugins.md)
-  Chapter 11. Development    [Home](index.md)    11.2. Developing Plugins For Use With Embedded Perl
-  -------------------------- -------------------- ------------------------------------------------------
+[Prev](ch11.md) | [Up](ch11.md) | [Next](epnplugins.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

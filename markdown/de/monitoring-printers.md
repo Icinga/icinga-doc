@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-2.16. Netzwerk-Drucker überwachen
-
-[Zurück](monitoring-netware.md) 
-
-Kapitel 2. Los geht's
-
- [Weiter](monitoring-routers.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -42,23 +34,14 @@ erlaubt Ihnen die Überwachung des Zustands von JetDirect-fähigen
 Druckern, auf denen SNMP aktiviert ist. Das Plugin kann die folgenden
 Druckerzustände erkennen:
 
--   Papierstau
 
--   Kein Papier mehr
 
--   Drucker Offline
 
--   Benutzereingriff erforderlich
 
--   Tonerstand niedrig
 
--   Speicher unzureichend
 
--   Klappe offen
 
--   Ausgabefach voll
 
--   und weitere...
 
 ![](../images/note.gif) Anmerkung: Diese Anweisungen gehen davon aus,
 dass Sie Icinga anhand der
@@ -101,25 +84,15 @@ Sie in der
 Es gibt einige Schritte, die Sie durchführen müssen, um einen neuen
 Netzwerkdrucker zu überwachen. Das sind:
 
-1.  erfüllen Sie einmalige Voraussetzungen
 
-2.  erstellen Sie neue Host- und Service-Definitionen zur Überwachung
-    des Druckers
 
-3.  starten Sie den Icinga-Daemon neu
 
 ### 2.16.4. Was bereits für Sie vorbereitet wurde
 
 Um Ihnen das Leben ein wenig zu erleichtern, wurden bereits ein paar
 Konfigurationsaufgaben für Sie erledigt:
 
--   Eine *check\_hpjd*-Befehlsdefinition ist in der *commands.cfg*-Datei
-    vorhanden. Das erlaubt Ihnen die Nutzung des *check\_hpjd*-Plugins
-    zur Überwachung von Netzwerkdruckern.
 
--   Eine Host-Vorlage für Drucker (namens *generic-printer*) wurde
-    bereits in der *templates.cfg*-Datei erstellt. Das erlaubt es Ihnen,
-    Drucker-Host-Definitionen auf einfache Weise hinzuzufügen.
 
 Die o.g. Konfigurationsdateien finden Sie im
 */usr/local/icinga/etc/objects/*-Verzeichnis. Sie können diese und
@@ -138,16 +111,15 @@ müssen, den Sie überwachen wollen.
 
 Editieren Sie die Hauptkonfigurationsdatei.
 
-~~~~ {.screen}
  vi /usr/local/icinga/etc/icinga.cfg
-~~~~
+</code></pre>
 
 Entfernen Sie das führende Hash-(\#)-Zeichen der folgenden Zeile in der
 Hauptkonfigurationsdatei:
 
-~~~~ {.programlisting}
+<pre><code>
  #cfg_file=/usr/local/icinga/etc/objects/printer.cfg
-~~~~
+</code></pre>
 
 Speichern Sie die Datei und verlassen den Editor.
 
@@ -167,9 +139,8 @@ neuen Drucker zu überwachen.
 
 Öffnen Sie die *printer.cfg*-Datei.
 
-~~~~ {.screen}
  vi /usr/local/icinga/etc/objects/printer.cfg
-~~~~
+</code></pre>
 
 Fügen Sie eine neue
 [Host](objectdefinitions.md#objectdefinitions-host)-Definition für den
@@ -179,15 +150,9 @@ einfach die Beispiel-Definitionen in der *printer.cfg*-Datei anpassen.
 Ändern Sie die *host\_name*-, *alias*- und *address*-Felder auf die
 entsprechenden Werte des Netzwerkdruckers.
 
-~~~~ {.programlisting}
+<pre><code>
  define host{
-        use             generic-printer   ; Inherit default values from a template
-        host_name       hplj2605dn        ; The name we're giving to this printer
-        alias           HP LaserJet 2605dn      ; A longer name associated with the printer
-        address         192.168.1.30      ; IP address of the printer
-        hostgroups      allhosts          ; Host groups this printer is associated with
-        }
-~~~~
+</code></pre>
 
 Nun können Sie (in der gleichen Konfigurationsdatei) einige
 Service-Definitionen hinzufügen, um Icinga mitzuteilen, welche Dinge auf
@@ -205,31 +170,17 @@ Druckers zu prüfen. Der Service benutzt das *check\_hpjd*-Plugin, um den
 Drucker alle zehn Minuten zu prüfen. Der Wert für die SNMP-Community
 lautet in diesem Beispiel "public".
 
-~~~~ {.programlisting}
+<pre><code>
  define service{
-        use                   generic-service   ; Inherit values from a template
-        host_name             hplj2605dn        ; The name of the host the service is associated with
-        service_description   Printer Status    ; The service description
-        check_command         check_hpjd!-C public    ; The command used to monitor the service
-        check_interval        10                ; Check the service every 10 minutes under normal conditions
-        retry_interval        1                 ; Re-check every minute until its final/hard state is determined
-        }
-~~~~
+</code></pre>
 
 Fügen Sie die folgende Service-Definition hinzu, um alle zehn Minuten
 einen Ping an den Drucker zu senden. Das ist nützlich, um die generelle
 Netzwerkverbindung und Werte für RTA und Paketverlust zu überwachen.
 
-~~~~ {.programlisting}
+<pre><code>
  define service{
-        use                     generic-service
-        host_name               hplj2605dn
-        service_description     PING
-        check_command           check_ping!3000.0,80%!5000.0,100%
-        check_interval          10
-        retry_interval          1
-        }
-~~~~
+</code></pre>
 
 Speichern Sie die Datei.
 
@@ -249,10 +200,6 @@ beheben, bevor Sie fortfahren. Stellen Sie sicher, dass Sie Icinga nicht
 
 * * * * *
 
-  ------------------------------------ -------------------------- ---------------------------------------
-  [Zurück](monitoring-netware.md)    [Nach oben](ch02.md)      [Weiter](monitoring-routers.md)
-  2.15. Netware-Server überwachen      [Zum Anfang](index.md)    2.17. Router und Switches überwachen
-  ------------------------------------ -------------------------- ---------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

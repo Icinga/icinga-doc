@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.23. Service- und Host-Prüfungsplanung
-
-[Zurück](passivestatetranslation.md) 
-
-Kapitel 7. Fortgeschrittene Themen
-
- [Weiter](cgiincludes.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -63,23 +55,16 @@ enthält jede
 drei Optionen, die festlegen, wann und wie jede einzelne Service-Prüfung
 geplant und ausgeführt wird Diese drei Optionen sind:
 
--   *check\_interval*
 
--   *retry\_interval*
 
--   *check\_period*
 
 Es gibt außerdem vier Konfigurationsoptionen in der
 [Hauptkonfigurationsdatei](configmain.md "3.2. Optionen der Hauptkonfigurationsdatei"),
 die Service-Prüfungen beeinflussen. Dies sind:
 
--   [*service\_inter\_check\_delay\_method*](configmain.md#configmain-service_inter_check_delay_method)
 
--   [*service\_interleave\_factor*](configmain.md#configmain-service_interleave_factor)
 
--   [*max\_concurrent\_checks*](configmain.md#configmain-max_concurrent_checks)
 
--   [*check\_result\_reaper\_frequency*](configmain.md#configmain-check_result_reaper_frequency)
 
 ![[Anmerkung]](../images/note.png)
 
@@ -248,18 +233,8 @@ festlegen?
 
 Zuerst müssen Sie einige Dinge wissen...
 
--   die inter-check-Verzögerung, die Icinga benutzt, um die initialen
-    Service-Prüfungen einzuplanen (nutzen Sie die Option **-s**, um den
-    Wert zu kontrollieren)
 
--   die Häufigkeit (in Sekunden) von "reaper events", wie sie in der
-    [check\_result\_reaper\_frequency](configmain.md#configmain-check_result_reaper_frequency)-Variable
-    in der Hauptkonfigurationsdatei angegeben ist
 
--   eine Vorstellung der durchschnittlichen Zeit, die Service-Prüfungen
-    wirklich zur Ausführung benötigen (die meisten Plugins haben einen
-    Timeout von 10 Sekunden, so dass der Durchschnitt wahrscheinlich
-    niedriger liegt)
 
 Dann benutzen Sie die folgende Berechnung, um einen geeigneten Wert für
 die maximale Zahl von gleichzeitig erlaubten Prüfungen zu errechnen...
@@ -389,7 +364,6 @@ Prüfergebnis-Ernteereignisse.
 Die Planung von Service-Prüfungen, ihre Ausführung und die Verarbeitung
 ihrer Ergebnisse können ein bisschen schwierig zu verstehen sein,
 deshalb schauen wir uns ein einfaches Beispiel an. Betrachten wir das
-folgende Diagramm - wir werden uns darauf beziehen, während wir die
 Dinge erklären.
 
 ![](../images/checktiming.png)
@@ -428,7 +402,6 @@ geplant wird, mit einem zeitlichen Abstand, der in der
 *check\_interval*-Option angegeben ist. Beachten Sie, dass der Service
 *nicht* erneut eingeplant wird basierend auf der Zeit, zu der er
 tatsächlich ausgeführt wird! Es gibt eine Ausnahme (es gibt immer eine,
-oder?) - falls die Zeit, zu der die Service-Prüfung tatsächlich
 ausgeführt wird (Punkt **B**) nach der nächsten Service-Prüfzeit liegt
 (Punkt **E**), wird Icinga das durch das Anpassen der nächsten Prüfzeit
 ausgleichen. Das wird gemacht, damit Icinga nicht verrückt wird beim
@@ -485,10 +458,6 @@ Informationen in einer der nächsten Ausgaben...
 
 * * * * *
 
-  ----------------------------------------- -------------------------- --------------------------------------------------------
-  [Zurück](passivestatetranslation.md)    [Nach oben](ch07.md)      [Weiter](cgiincludes.md)
-  7.22. Passive Host-Zustandsübersetzung    [Zum Anfang](index.md)    7.24. Angepasste Classic UI-Modul-Kopf- und Fußzeilen
-  ----------------------------------------- -------------------------- --------------------------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

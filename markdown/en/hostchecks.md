@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-5.4. Host Checks
-
-[Prev](macrolist.md) 
-
-Chapter 5. The Basics
-
- [Next](servicechecks.md)
+[Prev](macrolist.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](servicechecks.md)
 
 * * * * *
 
@@ -38,18 +30,9 @@ The basic workings of host checks are described here...
 
 Hosts are checked by the Icinga daemon:
 
--   At regular intervals, as defined by the *check\_interval* and
-    *retry\_interval* options in your [host
-    definitions](objectdefinitions.md#objectdefinitions-host).
 
--   On-demand when a service associated with the host changes state.
 
--   On-demand as needed as part of the [host
-    reachability](networkreachability.md "5.10. Determining Status and Reachability of Network Hosts")
-    logic.
 
--   On-demand as needed for [predictive host dependency
-    checks](dependencychecks.md "7.20. Predictive Dependency Checks").
 
 Regularly scheduled host checks are optional. If you set the
 *check\_interval* option in your host definition to zero (0), Icinga
@@ -140,11 +123,8 @@ that you always use a value greater than 1 for the
 
 Hosts that are checked can be in one of three different states:
 
--   UP
 
--   DOWN
 
--   UNREACHABLE
 
 ### 5.4.7. Host State Determination
 
@@ -241,10 +221,12 @@ logic can be found
 
 * * * * *
 
-  --------------------------------- -------------------- -----------------------------
-  [Prev](macrolist.md)            [Up](ch05.md)       [Next](servicechecks.md)
-  5.3. Standard Macros in Icinga    [Home](index.md)    5.5. Service Checks
-  --------------------------------- -------------------- -----------------------------
+[Prev](macrolist.md) | [Up](ch05.md) | [Next](servicechecks.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

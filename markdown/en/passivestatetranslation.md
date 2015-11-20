@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.22. Passive Host State Translation
-
-[Prev](cachedchecks.md) 
-
-Chapter 7. Advanced Topics
-
- [Next](checkscheduling.md)
+[Prev](cachedchecks.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](checkscheduling.md)
 
 * * * * *
 
@@ -36,24 +28,14 @@ The image below shows a simplified view of a failover monitoring setup.
 
 ![](../images/passivehosttranslation.png)
 
--   *Icinga-A* is the primary monitoring server, and is actively
-    monitoring all switches and routers.
 
--   *Icinga-B* and *Icinga-C* are backup monitoring servers, and are
-    receiving passive check results from *Icinga-A*
 
--   Both *Router-C* and *Router-D* have suffered failures and are
-    offline.
 
 What states are *Router-C* and *Router-D* currently in? The answer
 depends on which Icinga instance you ask.
 
--   *Icinga-A* sees *Router-D* as DOWN and *Router-C* as UNREACHABLE
 
--   *Icinga-B* should see *Router-C* as DOWN and *Router-D* as
-    UNREACHABLE
 
--   *Icinga-C* should see both routers as being DOWN.
 
 Each Icinga instance has a different view of the network. The backup
 monitoring servers should not blindly accept passive host states from
@@ -93,10 +75,12 @@ local instance of Icinga.
 
 * * * * *
 
-  ---------------------------- -------------------- ------------------------------------------
-  [Prev](cachedchecks.md)    [Up](ch07.md)       [Next](checkscheduling.md)
-  7.21. Cached Checks          [Home](index.md)    7.23. Service and Host Check Scheduling
-  ---------------------------- -------------------- ------------------------------------------
+[Prev](cachedchecks.md) | [Up](ch07.md) | [Next](checkscheduling.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

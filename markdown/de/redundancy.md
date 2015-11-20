@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.7. Redundante und Failover-Netzwerk-Überwachung
-
-[Zurück](distributed.md) 
-
-Kapitel 7. Fortgeschrittene Themen
-
- [Weiter](flapping.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -19,10 +11,8 @@ Kapitel 7. Fortgeschrittene Themen
 
 7.7.3. [Beispielscripts](redundancy.md#samplescripts)
 
-7.7.4. [Scenario 1 - Redundante
 Üverwachung](redundancy.md#redundantmonitoring)
 
-7.7.5. [Scenario 2 - Failover
 Überwachung](redundancy.md#failovermonitoring)
 
 ### 7.7.1. Einführung
@@ -45,19 +35,9 @@ schwieriger, es zu implementieren.
 Bevor Sie überhaupt daran denken können, Redundanz mit Icinga zu
 implementieren, müssen Sie mit folgenden Dingen vertraut werden...
 
--   Implementieren von
-    [Eventhandlern](eventhandlers.md "7.3. Eventhandler") für Hosts
-    und Services
 
--   Erteilen von [externen
-    Befehlen](extcommands.md "7.1. Externe Befehle") an Icinga über
-    Shell-Scripts
 
--   Ausführen von Plugins auf entfernten Hosts mit Hilfe des [NRPE
-    Addons](addons.md#addons-nrpe) oder einer anderen Methode
 
--   Überprüfen des Zustands des Icinga-Prozesses mit dem *check\_nagios*
-    Plugin
 
 ### 7.7.3. Beispielscripts
 
@@ -66,7 +46,6 @@ finden Sie im *eventhandlers/*-Unterverzeichnis der Icinga-Distribution.
 Vielleicht müssen Sie sie modifizieren, damit sie auf Ihrem System
 funktionieren...
 
-### 7.7.4. Scenario 1 - Redundante Üverwachung
 
 7.7.4.1. [Einführung](redundancy.md#redundantmonitoring-introduction)
 
@@ -112,10 +91,7 @@ und Services auf dem Netzwerk. Unter normalen Umständen wird nur der
 "Master"-Host Benachrichtigungen an Kontakte versenden. Wir wollen, dass
 der "Slave"-Host die Benachrichtigung von Kontakten übernimmt, wenn:
 
-1.  der "Master"-Host, auf dem Icinga läuft, "down" ist oder...
 
-2.  der Icinga-Prozess auf dem "Master"-Host aus irgendeinem Grund
-    stoppt
 
 #### 7.7.4.3. Netzwork-Layout-Diagramm
 
@@ -148,22 +124,8 @@ haben, dass er alle Services auf den gezeigten Hosts des Diagramms
 Services überwachen, mit folgenden Zusätzen in der
 Konfigurationsdatei...
 
--   Die Host-Definition für Host A (in der Host-Konfigurationsdatei von
-    Host E) sollte einen
-    Host-[Eventhandler](eventhandlers.md "7.3. Eventhandler")
-    enthalten. Der Name für den Host-Eventhandler lautet
-    handle-master-host-event.
 
--   Die Konfigurationsdatei auf Host E enthält einen Service, der den
-    Status des Icinga-Prozesses auf Host A prüft. Lassen Sie uns
-    annehmen, dass diese Prüfung das *check\_nagios*-Plugin auf Host A
-    aufruft. Das kann durch eine der in den **FAQ** beschriebenen
-    Methoden erfolgen.
 
--   Die Service-Definition für den Icinga-Prozess auf Host A sollte
-    einen [Eventhandler](eventhandlers.md "7.3. Eventhandler")-Eintrag
-    enthalten. Als Namen für diese Service-Eventhandler wählen wir
-    handle-master-proc-event.
 
 Es ist wichtig anzumerken, dass Host A (der Master-Host) keine Ahnung
 von Host E (dem Slave-Host) hat. In diesem Szenario besteht ganz einfach
@@ -177,16 +139,11 @@ Wir müssen kurz innehalten und beschreiben, wie die Befehlsdefinitionen
 für die Eventhandler auf dem Slave-Host aussehen. Hier ist ein
 Beispiel...
 
-~~~~ {.screen}
  define command{
-    command_name handle-master-host-event
-    command_line /usr/local/icinga/libexec/eventhandlers/handle-master-host-event $HOSTSTATE$ $HOSTSTATETYPE$
  }
  define command{
-    command_name handle-master-proc-event
-    command_line /usr/local/icinga/libexec/eventhandlers/handle-master-proc-event $SERVICESTATE$ $SERVICESTATETYPE$
  }
-~~~~
+</code></pre>
 
 Dies setzt voraus, dass Sie die Eventhandler-Scripte im Verzeichnis
 */usr/local/icinga/libexec/eventhandlers* abgelegt haben. Sie können sie
@@ -200,66 +157,23 @@ Eventhandler-Scripte aussehen...
 
 Host-Eventhandler (handle-master-host-event):
 
-~~~~ {.screen}
  #!/bin/sh
  # Only take action on hard host states...
  case "$2" in
  HARD)
-        case "$1" in
-        DOWN)
-                # The master host has gone down!
-                # We should now become the master host and take
-                # over the responsibilities of monitoring the 
-                # network, so enable notifications...
-                /usr/local/icinga/libexec/eventhandlers/enable_notifications
-                ;;
-        UP)
-                # The master host has recovered!
-                # We should go back to being the slave host and
-                # let the master host do the monitoring, so 
-                # disable notifications...
-                /usr/local/icinga/libexec/eventhandlers/disable_notifications
-                ;;
-        esac
-        ;;
  esac
  exit 0
-~~~~
+</code></pre>
 
 Service-Eventhandler (handle-master-proc-event):
 
-~~~~ {.screen}
  #!/bin/sh
  # Only take action on hard service states...
  case "$2" in
  HARD)
-        case "$1" in
-        CRITICAL)
-                # The master Icinga process is not running!
-                # We should now become the master host and
-                # take over the responsibility of monitoring
-                # the network, so enable notifications...
-                /usr/local/icinga/libexec/eventhandlers/enable_notifications
-                ;;
-        WARNING)
-        UNKNOWN)
-                # The master Icinga process may or may not
-                # be running.. We won't do anything here, but
-                # to be on the safe side you may decide you 
-                # want the slave host to become the master in
-                # these situations...
-                ;;
-        OK)
-                # The master Icinga process running again!
-                # We should go back to being the slave host, 
-                # so disable notifications...
-                /usr/local/icinga/libexec/eventhandlers/disable_notifications
-                ;;
-        esac
-        ;;
  esac
  exit 0
-~~~~
+</code></pre>
 
 #### 7.7.4.8. Was tun sie für uns
 
@@ -271,12 +185,7 @@ läuft.
 Der Icinga-Prozess auf dem Slave-host (Host E) wird zum Master-Host,
 wenn...
 
--   der Master-Host (Host A) "down" geht und der
-    *handle-master-host-event* -Host-Eventhandler ausgeführt wird.
 
--   der Icinga-Prozess auf dem Master-Host (Host A) aufhört zu arbeiten
-    und der *handle-master-proc-event* -Service-Eventhandler ausgeführt
-    wird.
 
 Wenn bei dem Icinga-Prozess auf dem Slave-Host (Host E)
 Benachrichtigungen aktiviert sind, kann er Benachrichtigungen über
@@ -286,11 +195,7 @@ Kontakten über Host- und Service-Probleme übernommen!
 
 Der Icinga-Prozess auf Host E wird wieder zum Host-Slave, wenn...
 
--   sich Host A wieder erholt und der *handle-master-host-event*
-    -Host-Eventhandler ausgeführt wird.
 
--   sich der Icinga-Prozess auf Host A wieder erholt und den
-    *handle-master-proc-event* -Service-Eventhandler ausführt.
 
 Wenn bei dem Icinga-Prozess auf dem Slave-Host (Host E)
 Benachrichtigungen deaktiviert sind, wird er keine Benachrichtigungen
@@ -306,44 +211,19 @@ offenkundigeren Probleme ist die Verzögerung zwischen dem Ausfall von
 Host A und der Übernahme durch Host E. Das ist bedingt durch folgende
 Dinge...
 
--   die Zeit zwischen dem Ausfall des Master-Host und dem ersten Mal,
-    dass der Slave-Host ein Problem entdeckt
 
--   die Zeit, die benötigt wird, um festzustellen, dass der Master-Host
-    wirklich ein Problem hat (unter Verwendung von Host- oder
-    Service-Prüfwiederholungen auf dem Slave-Host)
 
--   die Zeit zwischen der Ausführung des Eventhandlers und der Zeit, zu
-    der Icinga das nächste Mal auf externe Befehle prüft
 
 Sie können diese Verzögerung minimieren durch...
 
--   eine hohe Frequenz von (Wiederholungs-) Prüfungen für Services auf
-    Host E. Das kann durch die *check\_interval*- und
-    *retry\_interval*-Optionen in jeder Service-Definition erreicht
-    werden.
 
--   eine Zahl der Host-Wiederholungsprüfungen für Host A (auf Host E),
-    die eine schnelle Erkennung von Host-Problemen erlaubt. Das wird
-    erreicht durch das *max\_check\_attempts*-Argument in der
-    Host-Definition.
 
--   erhöhen der Frequenz der [external
-    command](extcommands.md "7.1. Externe Befehle")-Prüfungen auf Host
-    E. Dies wird erreicht durch die Anpassung der
-    [command\_check\_interval](configmain.md#configmain-command_check_interval)-Option
-    in der Hauptkonfigurationsdatei.
 
 Wenn sich Icinga auf Host A erholt, gibt es ebenfalls eine Verzögerung,
 bevor Host E wieder zu einem Slave-Host wird. Das wird durch folgende
 Dinge beeinflusst...
 
--   die Zeit zwischen der Erholung des Master-Hosts und der Zeit, zu der
-    der Icinga-Prozess auf Host E die Erholung erkennt
 
--   die Zeit zwischen der Ausführung des Eventhandlers auf Host A und
-    der Zeit, zu der Icinga-Prozess auf Host E das nächste Mal auf
-    externe Befehle prüft
 
 Die genaue Verzögerung zwischen dem Übergang der Verantwortlichkeiten
 hängt davon ab, wieviele Services Sie definiert haben, dem Intervall, in
@@ -356,7 +236,6 @@ Eins sollten Sie beachten: Wenn Host A "down" geht, werden bei Host E
 die Benachrichtigungen aktiviert und er übernimmt die Verantwortung für
 das Informieren der Kontakte bei Problemen. Wenn sich Host A wieder
 erholt, werden bei Host E die Benachrichtigungen deaktiviert. Falls der
-Icinga-Prozess - wenn sich Host A erholt - auf Host A nicht sauber
 startet, gibt es eine Zeitspanne, während der keiner der beiden Hosts
 die Kontakte über Probleme informiert! Glücklicherweise berücksichtigt
 die Service-Prüflogik in Icinga diesen Umstand. Das nächste Mal, wenn
@@ -371,7 +250,6 @@ die Erhöhung der Frequenz von Service-Prüfungen (auf Host E) für Host A
 minimiert werden. Der Rest ist purer Zufall, aber die gesamte
 "Blackout"-Zeit sollte nicht allzu hoch sein.
 
-### 7.7.5. Scenario 2 - Failover Überwachung
 
 7.7.5.1. [Einführung](redundancy.md#failovermonitoring-introduction)
 
@@ -470,10 +348,6 @@ Das ist eigentlich alles, was das Setup betrifft.
 
 * * * * *
 
-  ----------------------------- -------------------------- ----------------------------------------------------
-  [Zurück](distributed.md)    [Nach oben](ch07.md)      [Weiter](flapping.md)
-  7.6. Verteilte Überwachung    [Zum Anfang](index.md)    7.8. Erkennung und Behandlung von Status-Flattern
-  ----------------------------- -------------------------- ----------------------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

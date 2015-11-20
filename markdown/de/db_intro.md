@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-12.1. Einleitung
-
-[Zurück](ch12.md) 
-
-Kapitel 12. IDOUtils
-
- [Weiter](components.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -45,12 +37,8 @@ durchführen.
 
 Das IDOUtils-Addon wurde entwickelt für Benutzer mit:
 
--   einer Icinga-Installation
 
--   mehrere einzelnen oder "Vanilla"-Icinga-Installationen
 
--   mehrere Icinga-Installationen in verteilten, redundanten und/oder
-    Umgebungen mit Ausfallsicherung
 
 Daten eines Icinga-Prozesses (im weiteren als "Instanz" bezeichnet)
 können entweder in der gleichen oder in verschiedenen Datenbanken wie
@@ -117,10 +105,6 @@ beschrieben.
 
 * * * * *
 
-  ----------------------- -------------------------- ----------------------------
-  [Zurück](ch12.md)     [Nach oben](ch12.md)      [Weiter](components.md)
-  Kapitel 12. IDOUtils    [Zum Anfang](index.md)    12.2. Komponenten
-  ----------------------- -------------------------- ----------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

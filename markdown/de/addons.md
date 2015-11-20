@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-10.1. Icinga Addons
-
-[Zurück](ch10.md) 
-
-Kapitel 10. weitere Software
-
- [Weiter](nrpe.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -24,54 +16,26 @@ integrieren.
 
 Addons gibt es für:
 
--   die Verwaltung der Konfigurationsdateien über ein Web-Interface
 
-    -   [NConf](http://www.nconf.org),
-        [NagiosQL](http://www.nagiosql.org),
-        [LConf](http://www.netways.de/nc/de/produkte/icinga/addons/lconf),
-        [Lilac](http://sourceforge.net/projects/lilac--reloaded/), ...
 
--   die Überwachung von entfernten Hosts (\*NIX, Windows, etc.)
 
-    -   [NRPE](nrpe.md "10.2. NRPE"),
-        [check\_mk](http://mathias-kettner.de/check_mk.md), ...
 
-    -   [NSClient++](http://www.nsclient.org), ...
 
--   die Übertragung von passiven Prüfergebnissen von entfernten Hosts
 
-    -   [NSCA-ng](http://www.nsca-ng.org/) (ein Ersatz für
-        [NSCA](nsca.md "10.3. NSCA")),
-        [check\_mk](http://mathias-kettner.de/check_mk.md), ...
 
-    -   [NSClient++](http://www.nsclient.org)
 
--   die Vereinfachung/Erweiterung der Überwachungslogik
 
-    -   [Business Process Addon](http://bp-addon.monitoringexchange.org)
-        ...
 
--   Visualisierung der Informationen
 
-    -   [PNP4Nagios](http://docs.pnp4nagios.org/de/pnp-0.6/start)
-        (Darstellung von Performance-Daten)
 
-    -   [NagVis](http://www.nagvis.org) (Objekte auf "Maps")
 
--   alternative Web-Interfaces
 
-    -   [Thruk](http://www.thruk.org),
-        [MultiSite](http://mathias-kettner.de/checkmk_multisite.md)
 
--   ... und vieles mehr
 
 Sie finden viele Addons für Icinga unter:
 
--   [https://www.icinga.org/](http://www.icinga.org//)
 
--   [SourceForge.net](http://www.sourceforge.net/)
 
--   [https://exchange.icinga.org](https://exchange.icinga.org/)
 
 Wir werden eine kurze Einführung für ein paar Addons geben, die Ethan
 Galstad für Nagios entwickelt hat...
@@ -86,7 +50,6 @@ Linux-/Unix-Hosts auszuführen. Dies ist nützlich, wenn Sie lokale
 Ressourcen/Attribute wie Plattenbelegung, CPU-Last, Speicherbelegung
 usw. auf entfernten Hosts überwachen wollen. Ähnliche Funktionalitäten
 können durch das *check\_by\_ssh*-Plugin erreicht werden, obwohl es auf
-dem Überwachungsrechner für eine höhere CPU-Belastung sorgen kann -
 besonders dann, wenn Sie hunderte oder tausende von Hosts überwachen.
 
 Das NRPE-Addon finden Sie unter
@@ -128,10 +91,6 @@ Das IDOUtils-Addon und die Dokumentation finden Sie unter
 
 * * * * *
 
-  ------------------------------- -------------------------- ----------------------
-  [Zurück](ch10.md)             [Nach oben](ch10.md)      [Weiter](nrpe.md)
-  Kapitel 10. weitere Software    [Zum Anfang](index.md)    10.2. NRPE
-  ------------------------------- -------------------------- ----------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

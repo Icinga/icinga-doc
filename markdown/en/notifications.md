@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-5.11. Notifications
-
-[Prev](networkreachability.md) 
-
-Chapter 5. The Basics
-
- [Next](notifications2.md)
+[Prev](networkreachability.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](notifications2.md)
 
 * * * * *
 
@@ -56,14 +48,7 @@ because the \<notification\_interval\> has passed since a previous
 notification was sent. Host and service notifications occur in the
 following instances...
 
--   When a hard state change occurs. More information on state types and
-    hard state changes can be found
-    [here](statetypes.md "5.8. State Types").
 
--   When a host or service remains in a hard non-OK state and the time
-    specified by the \<*notification\_interval*\> option in the host or
-    service definition has passed since the last notification was sent
-    out (for that specified host or service).
 
 ### 5.11.3. Who Gets Notified?
 
@@ -96,7 +81,6 @@ determined by the
 [enable\_notifications](configmain.md#configmain-enable_notifications)
 directive in the main config file, but may be changed during runtime
 from the web interface. If notifications are disabled on a program-wide
-basis, no host or service notifications can be sent out - period. If
 they are enabled on a program-wide basis, there are still other tests
 that must be passed...
 
@@ -385,19 +369,12 @@ do that you'll have to install any necessary software and configure
 notification commands in your config files before you can use them. Here
 are just a few possible notification methods:
 
--   Email
 
--   Pager
 
--   Phone (SMS)
 
--   WinPopup message
 
--   Yahoo, ICQ, or MSN instant message
 
--   Audio alerts
 
--   etc...
 
 Basically anything you can do from a command line can be tailored for
 use as a notification command.
@@ -410,12 +387,8 @@ notifications out (remember, email may \*not\* work if there are network
 problems). I haven't actually tried these packages myself, but others
 have reported success using them...
 
--   [Gnokii](http://www.gnokii.org/) (SMS software for contacting Nokia
-    phones via GSM network)
 
--   [QuickPage](http://www.qpage.org/) (alphanumeric pager software)
 
--   [Sendpage](http://www.sendpage.org/) (paging software)
 
 If you want to try out a non-traditional method of notification, you
 might want to mess around with audio alerts. If you want to have audio
@@ -428,10 +401,12 @@ projects.
 
 * * * * *
 
-  ------------------------------------------------------------- -------------------- ----------------------------------------------------
-  [Prev](networkreachability.md)                              [Up](ch05.md)       [Next](notifications2.md)
-  5.10. Determining Status and Reachability of Network Hosts    [Home](index.md)    5.12. Notifications: Examples and troubleshooting
-  ------------------------------------------------------------- -------------------- ----------------------------------------------------
+[Prev](networkreachability.md) | [Up](ch05.md) | [Next](notifications2.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.17. Recurring Downtimes
-
-[Prev](downtime.md) 
-
-Chapter 7. Advanced Topics
-
- [Next](embeddedperl.md)
+[Prev](downtime.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](embeddedperl.md)
 
 * * * * *
 
@@ -41,101 +33,26 @@ plan new downtimes if necessary.
 The script introduces a new format for these downtimes based on existing
 definitions taken from the status file and time periods resulting in:
 
-~~~~ {.programlisting}
+<pre><code>
  define downtime {
-    host_name           some host 
-    hostgroups          some hostgroup
-    servicegroups       some servicegroup
-    service_description some service
-    author              some author
-    comment             some comment
-    duration            30
-    downtime_period     2011-10-02 - 2011-10-10 10:00-12:00
-    fixed               0
-    propagate           1
-    register            0
 }
-~~~~
+</code></pre>
 
 Notes on the above definition:
 
--   "host\_name", "hostgroups", and "servicegroups" are mandatory and
-    mutually exclusive.
 
--   "service\_description" is optional. If not defined a downtime for a
-    host / hostgroup(s) / servicegroup(s) is/are scheduled. If defined
-    it can be a single service or "all" for all services of a single
-    host or all hosts of a hostgroup.
 
--   "duration" is optional and must be defined if a flexible downtime is
-    to be scheduled.
 
--   "fixed" is optional and will be "0" if duration is defined or if it
-    differs from start time-end time.
 
--   "propagate" is optional and defaults to "0". If set the downtime
-    will be propagated to child hosts of the host specified.
 
--   "register" may be used to deactive the definition ("0"). It will
-    have the same effect as if the definition would not exist.
 
--   "downtime\_period" is similar to the definition found in [time
-    periods](objectdefinitions.md#objectdefinitions-timeperiod)
-    meaning that any of the following should be valid:
 
-    ~~~~ {.programlisting}
-       downtime_period     2011-10-01              20:00-02:00
-       downtime_period     2011-10-10 - 2011-10-20 10:00-12:00
-       downtime_period     day 1 - 3               04:00-12:00
-       downtime_period     sunday                  00:00-24:00
-       downtime_period     monday - wednesday      20:00-22:00
-       downtime_period     monday                  00:00-09:00,17:00-24:00
-       downtime_period     1999-01-28              00:00-24:00
-       downtime_period     saturday                00:00-24:00
-       downtime_period     monday 3                00:00-24:00
-       downtime_period     day 2                   00:00-24:00
-       downtime_period     february 10             00:00-24:00
-       downtime_period     february -1             00:00-24:00
-       downtime_period     friday -2               00:00-24:00
-       downtime_period     thursday -1 november    00:00-24:00
-       downtime_period     2007-01-01 - 2008-02-01 00:00-24:00   (see note)
-       downtime_period     monday 3 - thursday 4   00:00-24:00
-       downtime_period     day 1 - 15              00:00-24:00
-       downtime_period     day 20 - -1             00:00-24:00
-       downtime_period     july 10 - 15            00:00-24:00
-       downtime_period     april 10 - may 15       00:00-24:00
-       downtime_period     tuesday 1 april - friday 2 may      00:00-24:00
-       downtime_period     2007-01-01 - 2008-02-01 / 3         00:00-24:00
-       downtime_period     2008-04-01 / 7                      00:00-24:00
-       downtime_period     monday 3 - thursday 4 / 2           00:00-24:00
-       downtime_period     day 1 - 15 / 5                      00:00-24:00
-       downtime_period     july 10 - 15 / 2                    00:00-24:00
-       downtime_period     tuesday 1 april - friday 2 may / 6  00:00-24:00
-    ~~~~
 
-    Please note that similiar to time periods multiple
-    "downtime\_period" entries per definition are possible to define
-    different times for a single object like the following:
 
-    ~~~~ {.programlisting}
-     define downtime {
-        ...
-        comment            Backup: incr on wed, full on sat
-        downtime_period    wednesday 20:00-21:00
-        downtime_period    saturday  20:00-23:30
-    }
-    ~~~~
 
-    Well, there is one drawback. This way you cannot define different
-    flexible downtimes within one definition.
 
-    ![[Note]](../images/note.png)
 
-    Note
 
-    Please note that although the downtime is running all day from
-    2007-01-01 to 2008-02-01 not a single downtime is planned but one
-    each day from 00:00 to 24:00.
 
 ### 7.17.2. Variable dates
 
@@ -224,13 +141,10 @@ December, 26th
 So now you can define a downtime for Carnival Monday using something
 like:
 
-~~~~ {.programlisting}
+<pre><code>
  define downtime {
-    ...
-    comment            Cheer up, lads
-    downtime_period    carnival_monday 09:00-17:00
  }
-~~~~
+</code></pre>
 
 ### 7.17.3. Local holidays
 
@@ -241,43 +155,31 @@ define these dates using "monday 3 february" or "monday -1 may" but you
 may want to use variables names as well. Defining these names and their
 corresponding calculations in a separate file and processing them
 enables you to do so. The default name for this file is
-`holiday.cfg`{.filename} located in `/usr/local/icinga/etc`{.filename}.
+`holiday.cfg` located in `/usr/local/icinga/etc`.
 The location can be altered using the option "-l".
 
 We only picked three dates to give you the idea how to do it:
 
-~~~~ {.programlisting}
+<pre><code>
 # example of local holiday definitions
 # please don't use local characters
 # variable names must not contain spaces
 #
-Presidents_day        day_in_week_of_month(2,1,3)
-Spring_Bank_Holiday   day_in_week_of_month(5,1,-1)
-Pentecote             date_easter(49)
-~~~~
+</code></pre>
 
 There are two "functions" available to define these flexible dates:
 
--   "day\_in\_week\_of\_month": You have to specify three parameters
 
-    -   month: 1 = january ... 12 = december
 
-    -   day: 1 = monday ... 7 = sunday
 
-    -   week: 1 .. 5 for the week within the month or -1 for last week
-        within the month
 
--   "date\_easter": The number specifies the offset from easter sunday
 
 So now you can define a downtime using something like:
 
-~~~~ {.programlisting}
+<pre><code>
  define downtime {
-    ...
-    comment            Don't shut down the cash machines
-    downtime_period    spring_bank_holiday  09:00-17:00
  }
-~~~~
+</code></pre>
 
 Please note that you have to specify the location of this file using the
 option "-l".
@@ -297,40 +199,21 @@ itself requires the Perl module "Date::Calc".
 The easiest way is to execute "/path/to/script/sched\_down.pl". Adding
 the option "-h" will output some information:
 
-~~~~ {.programlisting}
-   -c | --config=s     Icinga main config
-                       default: /usr/local/icinga/etc/icinga.cfg
-   -s | --schedule=s   schedule definitions
-                       default: /usr/local/icinga/etc/downtime.cfg
-   -l | --local=s      local holiday definitions
-                       default: /usr/local/icinga/etc/holiday.cfg
-   -m | --max_ahead=s  plan max. days ahead (default = 2)
-   -f | --forecast=s   forecast next schedules
-   -e | --examine=s    examine period and show next schedule
-                       specify date and time instead like in downtime_period
-   -t | --timestamp=s  specify deviating date/time
-                       YYYYMMDDhhmi, YYYYMMDD, or hhmi
-   -d | --debug=s      0|1|2|3 (default = 1)
-   -h | --help         display this help
+<pre><code>
 
 Note: Enabled debugging, forecasting, and/or examine will prevent that schedules
-      are sent to the command pipe (downtimes are only calculated)!
 
 Setting environment variables influences the behaviour:
 - FAKE_DATE (YYYYMMDD): date deviating from current date
-- FAKE_TIME (HHMM)    : time deviating from current time
-- DEBUG (0|1|2|3)     : disables/enables debugging information
-  0 = no debugging / cmds are sent to external command pipe!
-  Note: command line options take precedence over environment variables 
-~~~~
+</code></pre>
 
 All arguments are optional. Just to test the function of the script it
 might be helpful to use the "examine" option followed by a downtime
 period:
 
-~~~~ {.programlisting}
+<pre><code>
  /usr/local/icinga/bin/sched_down.pl -e "tuesday 20:00-21:00"
-~~~~
+</code></pre>
 
 This will return a string similar to the actual command if the downtime
 is within the planning period (default two days) which can be altered
@@ -340,43 +223,15 @@ calling the script although it might be easier to use the option "-t".
 
 There are two ways to execute the script:
 
--   As an active check
 
-    You can execute the script like a normal active check with a
-    convenient check interval
 
-    ~~~~ {.programlisting}
-     define service {
-        host_name             icinga-server
-        service_description   schedule_downtimes
-        check_command         schedule_script!-d0
-        check_interval        60
-        retry_interval        60
-        check_period          24x7
-        ...
-     }
 
-     define command {
-        command_name          schedule_script
-        command_line          $USER1$/sched_down.pl $ARG1$
-     }
-    ~~~~
 
-    ![[Caution]](../images/caution.png)
 
-    Caution
 
-    Please note that this service is only to be run on the (central)
-    Icinga server, not on any others in a distributed environment.
 
--   Via the crontab
 
-    A line in the crontab of the Icinga user executing the script every
-    full hour might look like
 
-    ~~~~ {.programlisting}
-     0 * * * * /usr/local/icinga/bin/sched_down.pl -d0
-    ~~~~
 
 Unless you get the downtimes on short notice this should be sufficient.
 The script will only plan non-existing downtimes so no harm will be done
@@ -399,14 +254,16 @@ the script adding the option "-h" to get some help.
 
 ### 7.17.7. Files
 
-You will find the perl scripts in `tools/downtimes`{.filename}.
+You will find the perl scripts in `tools/downtimes`.
 
 * * * * *
 
-  --------------------------- -------------------- --------------------------------------------
-  [Prev](downtime.md)       [Up](ch07.md)       [Next](embeddedperl.md)
-  7.16. Scheduled Downtime    [Home](index.md)    7.18. Using The Embedded Perl Interpreter
-  --------------------------- -------------------- --------------------------------------------
+[Prev](downtime.md) | [Up](ch07.md) | [Next](embeddedperl.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

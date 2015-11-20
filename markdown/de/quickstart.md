@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-2.3. Schnellstart-Installationsanleitungen
-
-[Zurück](newbie.md) 
-
-Kapitel 2. Los geht's
-
- [Weiter](quickstart-icinga.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -19,7 +11,6 @@ Diese Schnellstartanleitungen sind dazu gedacht, Ihnen einfache
 Anweisungen zu liefern, wie Sie Icinga innerhalb von 20 bis 30 Minuten
 aus dem Quellcode installieren und Ihren lokalen Rechner damit
 überwachen. Hier werden keine fortgeschrittenen Installationsoptionen
-vorgestellt - lediglich die Grundlagen, die für 95% aller Benutzer
 funktionieren, die anfangen wollen.
 
 Verweise zu Konfigurations-Tools und anderen Addons finden Sie
@@ -91,17 +82,9 @@ eingebautes Tool. Das neue Icinga Webinterface kann installiert werden,
 wenn Sie dieses Setup benutzen. Separate Anweisungen finden Sie
 [hier](icinga-web-scratch.md "6.5. Installation des Icinga Web Frontend").
 
--   [Schnellstartanleitung für
-    Linux](quickstart-icinga.md "2.4. Icinga-Schnellstart auf Linux")
 
--   [Schnellstartanleitung für
-    FreeBSD](quickstart-icinga-freebsd.md "2.5. Icinga-Schnellstart auf FreeBSD")
 
--   [Schnellstartanleitung für Icinga mit
-    IDOUtils](quickstart-idoutils.md "2.6. Icinga-Schnellstart mit IDOUtils")
 
--   [Schnellstartanleitung für Icinga mit IDOUtils für
-    FreeBSD](quickstart-idoutils.md "2.6. Icinga-Schnellstart mit IDOUtils")
 
 Wenn Sie Icinga auf einem Betriebssystem oder einer Linux-Distribution
 installieren, die oben nicht aufgeführt ist, lesen Sie die
@@ -115,10 +98,6 @@ besonderen Fall funktioniert.
 
 * * * * *
 
-  -------------------------- -------------------------- -------------------------------------
-  [Zurück](newbie.md)      [Nach oben](ch02.md)      [Weiter](quickstart-icinga.md)
-  2.2. Ich bin neu bei...    [Zum Anfang](index.md)    2.4. Icinga-Schnellstart auf Linux
-  -------------------------- -------------------------- -------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

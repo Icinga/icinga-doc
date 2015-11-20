@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.14. Status Stalking
-
-[Zurück](dependencies.md) 
-
-Kapitel 7. Fortgeschrittene Themen
-
- [Weiter](perfdata.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -220,10 +212,6 @@ nachgedacht zu haben. Auf jeden Fall ist sie da, wenn Sie sie brauchen.
 
 * * * * *
 
-  ----------------------------------------- -------------------------- --------------------------
-  [Zurück](dependencies.md)               [Nach oben](ch07.md)      [Weiter](perfdata.md)
-  7.13. Host- und Service-Abhängigkeiten    [Zum Anfang](index.md)    7.15. Performance-Daten
-  ----------------------------------------- -------------------------- --------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-5.9. Zeitfenster
-
-[Zurück](statetypes.md) 
-
-Kapitel 5. Die Grundlagen
-
- [Weiter](networkreachability.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -40,14 +32,9 @@ erlauben Ihnen zu kontrollieren, wann verschiedene Aspekte der
 Überwachungs- und Alarmierungslogik arbeiten. Zum Beispiel können Sie
 einschränken
 
--   wann regelmäßig geplante Host- und Service-Prüfungen ausgeführt
-    werden
 
--   wann Benachrichtigungen versandt werden
 
--   wann Benachrichtigungs-Eskalationen benutzt werden können
 
--   wann Abhängigkeiten gültig sind
 
 ### 5.9.2. Vorrang bei Zeitfenstern
 
@@ -59,17 +46,11 @@ Direktiven in Ihren Zeitfenster-Definitionen außer Kraft setzen. Die
 Rangfolge für verschiedene Typen von Direktiven (in absteigender
 Reihenfolge) ist wie folgt:
 
--   Kalenderdaten (2008-01-01)
 
--   angegebener Tag des Monats (January 1st)
 
--   generischer Tag des Monats (Day 15)
 
--   Offset Wochentag eines bestimmten Monats (2nd Tuesday in December)
 
--   Offset Wochentag (3rd Monday)
 
--   normaler Wochentag (Tuesday)
 
 Beispiele für verschiedene Zeitfenster-Direktiven finden Sie
 [hier](objectdefinitions.md#objectdefinitions-timeperiod).
@@ -108,14 +89,8 @@ all Ihre Hosts und Services mit einem Zeitfenster überwachen, das einen
 der "blackout"-Zeiten in einige Probleme laufen (Zeiten, die nicht
 gültig sind in der Zeitfenster-Definition):
 
-1.  der Status des Hosts oder Service wird in der blackout-Zeit
-    unverändert erscheinen.
 
-2.  Kontakte werden während der blackout-Zeit wahrscheinlich nicht
-    erneut über Host- oder Service-Probleme informiert werden.
 
-3.  falls sich ein Host oder Service während einer blackout-Zeit erholt,
-    werden Kontakte nicht umgehend über die Erholung informiert.
 
 ### 5.9.4. Wie Zeitfenster mit Kontakt-Benachrichtigungen arbeiten
 
@@ -170,10 +145,6 @@ Zeitfenster-Definition gültig sind.
 
 * * * * *
 
-  ---------------------------- -------------------------- -------------------------------------------------------------------------
-  [Zurück](statetypes.md)    [Nach oben](ch05.md)      [Weiter](networkreachability.md)
-  5.8. Statustypen             [Zum Anfang](index.md)    5.10. Ermitteln des Zustands und der Erreichbarkeit von Netzwerk-Hosts
-  ---------------------------- -------------------------- -------------------------------------------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

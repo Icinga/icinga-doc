@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.27. Time-Saving Tricks For Object Definitions
-
-[Prev](objectinheritance.md) 
-
-Chapter 7. Advanced Topics
-
- [Next](ch08.md)
+[Prev](objectinheritance.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](ch08.md)
 
 * * * * *
 
@@ -25,19 +17,11 @@ services. We'll cover each type of object that supports these features
 separately. For starters, the object types which support this
 time-saving feature are as follows:
 
--   [Services](objecttricks.md#objecttricks-service)
 
--   [Service
-    escalations](objecttricks.md#objecttricks-serviceescalation)
 
--   [Service
-    dependencies](objecttricks.md#objecttricks-servicedependency)
 
--   [Host escalations](objecttricks.md#objecttricks-hostescalation)
 
--   [Host dependencies](objecttricks.md#objecttricks-hostdependency)
 
--   [Hostgroups](objecttricks.md#objecttricks-hostgroup)
 
 Object types that are not listed above (i.e. timeperiods, commands,
 etc.) do not support the features we're about to describe.
@@ -61,14 +45,13 @@ servicegroup names).
 
 Note
 
-Be careful when enabling regular expression matching - you may have to
 change your config file, since some directives that you might not want
 to be interpreted as a regular expression just might be! Any problems
 should become evident once you verify your configuration.
 
 If you intend to use regular expressions
-(`use_regexp_matching=1`{.code}) then please make sure that you have
-read and understood the appropriate manual page (`man regex`{.code}).
+(`use_regexp_matching=1`) then please make sure that you have
+read and understood the appropriate manual page (`man regex`).
 
 **Service Definitions**
 
@@ -82,13 +65,7 @@ called *SOMESERVICE* on hosts *HOST1* through *HOSTN*. All the instances
 of the *SOMESERVICE* service would be identical (i.e. have the same
 check command, max check attempts, notification period, etc.).
 
-~~~~ {.screen}
- define  service{
-         host_name              HOST1,HOST2,HOST3,...,HOSTN
-         service_description    SOMESERVICE
-         other service directives ...
-         } 
-~~~~
+</code></pre>
 
 **All Hosts In Multiple Hostgroups:**
 
@@ -102,13 +79,7 @@ all hosts that are members of hostgroups *HOSTGROUP1* through
 identical (i.e. have the same check command, max check attempts,
 notification period, etc.).
 
-~~~~ {.screen}
- define  service{
-           hostgroup_name         HOSTGROUP1,HOSTGROUP2,...,HOSTGROUPN
-           service_description    SOMESERVICE
-           other service directives ...
-           }
-~~~~
+</code></pre>
 
 **All Hosts:**
 
@@ -120,13 +91,7 @@ configuration files. All the instances of the *SOMESERVICE* service
 would be identical (i.e. have the same check command, max check
 attempts, notification period, etc.).
 
-~~~~ {.screen}
- define  service{
-         host_name              *
-         service_description    SOMESERVICE
-         other service directives ...
-         }
-~~~~
+</code></pre>
 
 **Excluding Hosts:**
 
@@ -135,14 +100,7 @@ hostgroups, but would like to exclude some hosts from the definition,
 this can be accomplished by preceding the host or hostgroup with a !
 symbol.
 
-~~~~ {.screen}
- define  service{
-         host_name              HOST1,HOST2,!HOST3,!HOST4,...,HOSTN
-         hostgroup_name         HOSTGROUP1,HOSTGROUP2,!HOSTGROUP3,!HOSTGROUP4,...,HOSTGROUPN
-         service_description    SOMESERVICE
-         other service directives ...
-         }
-~~~~
+</code></pre>
 
 **Service Escalation Definitions**
 
@@ -157,13 +115,7 @@ definition below would create a service escalation for services called
 service escalation would be identical (i.e. have the same contact
 groups, notification interval, etc.).
 
-~~~~ {.screen}
- define  serviceescalation{
-         host_name              HOST1,HOST2,HOST3,...,HOSTN
-         service_description    SOMESERVICE
-         other escalation directives ...
-         }
-~~~~
+</code></pre>
 
 **All Hosts In Multiple Hostgroups:**
 
@@ -176,13 +128,7 @@ through *HOSTGROUPN*. All the instances of the service escalation would
 be identical (i.e. have the same contact groups, notification interval,
 etc.).
 
-~~~~ {.screen}
- define  serviceescalation{
-         hostgroup_name         HOSTGROUP1,HOSTGROUP2,...,HOSTGROUPN
-         service_description    SOMESERVICE
-         other escalation directives ...
-         }
-~~~~
+</code></pre>
 
 **All Hosts:**
 
@@ -195,13 +141,7 @@ your configuration files. All the instances of the service escalation
 would be identical (i.e. have the same contact groups, notification
 interval, etc.).
 
-~~~~ {.screen}
- define  serviceescalation{
-         host_name              *
-         service_description    SOMESERVICE
-         other escalation directives ...
-         }
-~~~~
+</code></pre>
 
 **Excluding Hosts:**
 
@@ -210,14 +150,7 @@ numerous hosts or hostgroups, but would like to exclude some hosts from
 the definition, this can be accomplished by preceding the host or
 hostgroup with a ! symbol.
 
-~~~~ {.screen}
- define  serviceescalation{
-         host_name              HOST1,HOST2,!HOST3,!HOST4,...,HOSTN
-         hostgroup_name         HOSTGROUP1,HOSTGROUP2,!HOSTGROUP3,!HOSTGROUP4,...,HOSTGROUPN
-         service_description    SOMESERVICE
-         other escalation directives ...
-         }
-~~~~
+</code></pre>
 
 **All Services On Same Host:**
 
@@ -234,13 +167,7 @@ wildcard in both the *host\_name* and *service\_description* directives.
 Doing so would create a service escalation for **all services** that
 you've defined in your configuration files.
 
-~~~~ {.screen}
- define  serviceescalation{
-         host_name              HOST1
-         service_description    *
-         other escalation directives ...
-         }
-~~~~
+</code></pre>
 
 **Multiple Services On Same Host:**
 
@@ -253,13 +180,7 @@ services *SERVICE1* through *SERVICEN* on host *HOST1*. All the
 instances of the service escalation would be identical (i.e. have the
 same contact groups, notification interval, etc.).
 
-~~~~ {.screen}
- define  serviceescalation{
-         host_name              HOST1
-         service_description    SERVICE1,SERVICE2,...,SERVICEN
-         other escalation directives ...
-         }
-~~~~
+</code></pre>
 
 **All Services In Multiple Servicegroups:**
 
@@ -271,12 +192,7 @@ services that are members of servicegroups *SERVICEGROUP1* through
 identical (i.e. have the same contact groups, notification interval,
 etc.).
 
-~~~~ {.screen}
- define  serviceescalation{
-         servicegroup_name              SERVICEGROUP1,SERVICEGROUP2,...,SERVICEGROUPN
-         other escalation directives ...
-         }
-~~~~
+</code></pre>
 
 **Service Dependency Definitions**
 
@@ -292,15 +208,7 @@ hosts, you can specify multiple hosts in the *host\_name* and or
 service dependencies would be identical except for the host names (i.e.
 have the same notification failure criteria, etc.).
 
-~~~~ {.screen}
- define  servicedependency{
-         host_name                      HOST1,HOST2
-         service_description            SERVICE1
-         dependent_host_name            HOST3,HOST4
-         dependent_service_description  SERVICE2
-         other dependency directives ...
-         }
-~~~~
+</code></pre>
 
 **All Hosts In Multiple Hostgroups:**
 
@@ -316,15 +224,7 @@ single service dependency definitions! All the instances of the service
 dependency would be identical except for the host names (i.e. have the
 same notification failure criteria, etc.).
 
-~~~~ {.screen}
- define  servicedependency{
-         hostgroup_name                 HOSTGROUP1,HOSTGROUP2
-         service_description            SERVICE1
-         dependent_hostgroup_name       HOSTGROUP3,HOSTGROUP4
-         dependent_service_description  SERVICE2
-         other dependency directives ...
-         }
-~~~~
+</code></pre>
 
 **All Services On A Host:**
 
@@ -336,15 +236,7 @@ services** on host *HOST1*. All the instances of the service
 dependencies would be identical (i.e. have the same notification failure
 criteria, etc.).
 
-~~~~ {.screen}
- define  servicedependency{
-         host_name                      HOST1
-         service_description            *
-         dependent_host_name            HOST2
-         dependent_service_description  *
-         other dependency directives ...
-         }
-~~~~
+</code></pre>
 
 **Multiple Services On A Host:**
 
@@ -353,15 +245,7 @@ assigned to a particular host, you can specify more than one service
 description in the *service\_description* and/or
 *dependent\_service\_description* directives as follows:
 
-~~~~ {.screen}
- define  servicedependency{
-         host_name                      HOST1
-         service_description            SERVICE1,SERVICE2,...,SERVICEN
-         dependent_host_name            HOST2
-         dependent_service_description  SERVICE1,SERVICE2,...,SERVICEN
-         other dependency directives ...
-         }
-~~~~
+</code></pre>
 
 **All Services In Multiple Servicegroups:**
 
@@ -369,13 +253,7 @@ If you want to create service dependencies for all services that belong
 to one or more servicegroups, you can use the *servicegroup\_name*
 and/or *dependent\_servicegroup\_name* directive as follows:
 
-~~~~ {.screen}
- define  servicedependency{
-         servicegroup_name              SERVICEGROUP1,SERVICEGROUP2,...,SERVICEGROUPN
-         dependent_servicegroup_name    SERVICEGROUP3,SERVICEGROUP4,...SERVICEGROUPN
-         other dependency directives ...
-         }
-~~~~
+</code></pre>
 
 **Same Host Dependencies:**
 
@@ -389,14 +267,7 @@ least the following four services associated with them: *SERVICE1*,
 *SERVICE2* on *HOST1*. Similiarly, *SERVICE3* and *SERVICE4* on *HOST2*
 will be dependent on both *SERVICE1* and *SERVICE2* on *HOST2*.
 
-~~~~ {.screen}
- define  servicedependency{
-         host_name                      HOST1,HOST2
-         service_description            SERVICE1,SERVICE2
-         dependent_service_description  SERVICE3,SERVICE4
-         other dependency directives ...
-         }
-~~~~
+</code></pre>
 
 **Same Host Dependencies With Servicegroups:**
 
@@ -409,13 +280,7 @@ service associated with them: *SERVICE1*. In this example, all services
 belonging to *SERVICEGROUP1* and *SERVICEGROUP2* will be dependent on
 *SERVICE1* on the same host running the dependent service.
 
-~~~~ {.screen}
- define  servicedependency{
-         service_description            SERVICE1
-         dependent_servicegroup_name    SERVICEGROUP1,SERVICEGROUP2
-         other dependency directives ...
-         }
-~~~~
+</code></pre>
 
 **Host Escalation Definitions**
 
@@ -429,12 +294,7 @@ directive. The definition below would create a host escalation for hosts
 be identical (i.e. have the same contact groups, notification interval,
 etc.).
 
-~~~~ {.screen}
- define  hostescalation{
-         host_name              HOST1,HOST2,HOST3,...,HOSTN
-         other escalation directives ...
-         }
-~~~~
+</code></pre>
 
 **All Hosts In Multiple Hostgroups:**
 
@@ -445,12 +305,7 @@ members of hostgroups *HOSTGROUP1* through *HOSTGROUPN*. All the
 instances of the host escalation would be identical (i.e. have the same
 contact groups, notification interval, etc.).
 
-~~~~ {.screen}
- define  hostescalation{
-         hostgroup_name                 HOSTGROUP1,HOSTGROUP2,...,HOSTGROUPN
-         other escalation directives ...
-         }
-~~~~
+</code></pre>
 
 **All Hosts:**
 
@@ -461,12 +316,7 @@ escalation for **all hosts** that are defined in your configuration
 files. All the instances of the host escalation would be identical (i.e.
 have the same contact groups, notification interval, etc.).
 
-~~~~ {.screen}
- define  hostescalation{
-         host_name              *
-         other escalation directives ...
-         }
-~~~~
+</code></pre>
 
 **Excluding Hosts:**
 
@@ -475,13 +325,7 @@ hostgroups, but would like to exclude some hosts from the definition,
 this can be accomplished by preceding the host or hostgroup with a !
 symbol.
 
-~~~~ {.screen}
- define  hostescalation{
-         host_name              HOST1,HOST2,!HOST3,!HOST4,...,HOSTN
-         hostgroup_name         HOSTGROUP1,HOSTGROUP2,!HOSTGROUP3,!HOSTGROUP4,...,HOSTGROUPN
-         other escalation directives ...
-         }
-~~~~
+</code></pre>
 
 **Host Dependency Definitions**
 
@@ -497,13 +341,7 @@ above, hosts *HOST3*, *HOST4* and *HOST5* would be dependent upon both
 identical except for the host names (i.e. have the same notification
 failure criteria, etc.).
 
-~~~~ {.screen}
- define  hostdependency{
-         host_name              HOST1,HOST2
-         dependent_host_name    HOST3,HOST4,HOST5
-         other dependency directives ...
-         }
-~~~~
+</code></pre>
 
 **All Hosts In Multiple Hostgroups:**
 
@@ -515,13 +353,7 @@ hosts in hostgroups *HOSTGROUP1* and *HOSTGROUP2*. All the instances of
 the host dependencies would be identical except for host names (i.e.
 have the same notification failure criteria, etc.).
 
-~~~~ {.screen}
- define  hostdependency{
-         hostgroup_name                 HOSTGROUP1,HOSTGROUP2
-         dependent_hostgroup_name       HOSTGROUP3,HOSTGROUP4
-         other dependency directives ...
-         }
-~~~~
+</code></pre>
 
 **Hostgroups**
 
@@ -533,20 +365,16 @@ your configuration files as members, you can use a wildcard in the
 called *HOSTGROUP1* that has all **all hosts** that are defined in your
 configuration files as members.
 
-~~~~ {.screen}
- define  hostgroup{
-         hostgroup_name            HOSTGROUP1
-         members                   *
-         other hostgroup directives ...
-         }
-~~~~
+</code></pre>
 
 * * * * *
 
-  --------------------------------- -------------------- ---------------------------------------------
-  [Prev](objectinheritance.md)    [Up](ch07.md)       [Next](ch08.md)
-  7.26. Object Inheritance          [Home](index.md)    Chapter 8. Security and Performance Tuning
-  --------------------------------- -------------------- ---------------------------------------------
+[Prev](objectinheritance.md) | [Up](ch07.md) | [Next](ch08.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

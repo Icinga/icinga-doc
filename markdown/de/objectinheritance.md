@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.26. Objektvererbung
-
-[Zurück](modified_attr.md) 
-
-Kapitel 7. Fortgeschrittene Themen
-
- [Weiter](objecttricks.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -70,14 +62,8 @@ Problems an die *icinga-users*-Mailing-List.
 Es gibt drei Variablen in allen Objektdefinitionen, die Rekursion und
 Vererbung beeinflussen. Sie sind wie folgt *"dargestellt"*:
 
-~~~~ {.screen}
  define someobjecttype{
-        object-specific variables ...
-        name           template_name
-        use            name_of_template_to_use
-        register      [0/1]
-        }
-~~~~
+</code></pre>
 
 Die erste Variable heißt *name*. Das ist lediglich ein "Vorlagen"-Name
 (template name), auf den in anderen Objektdefinitonen verwiesen wird, so
@@ -110,20 +96,9 @@ Objektvariablen immer Vorrang vor Variablen aus der Vorlage haben.
 Werfen Sie einen Blick auf das folgende Beispiel mit zwei
 Host-Definitionen (nicht alle notwendigen Variablen sind dargestellt):
 
-~~~~ {.screen}
  define host{
-        host_name               bighost1
-        check_command           check-host-alive
-        notification_options    d,u,r
-        max_check_attempts      5
-        name                    hosttemplate1
-        }
  define host{
-        host_name               bighost2
-        max_check_attempts      3
-        use                     hosttemplate1
-        }
-~~~~
+</code></pre>
 
 Sie werden bemerken, dass die Definiton für den Host *bighost1* mit
 Hilfe der Vorlage *hosttemplate1* definiert wurde. Die Definition für
@@ -131,14 +106,8 @@ Host *bighost2* nutzt die Definition von *bighost1* als Vorlagenobjekt.
 Sobald Icinga diese Daten verarbeitet hat, wäre die resultierende
 Definition von *bighost2* äquivalent zu dieser Definition:
 
-~~~~ {.screen}
  define host{
-        host_name               bighost2
-        check_command           check-host-alive
-        notification_options    d,u,r
-        max_check_attempts      3
-        }
-~~~~
+</code></pre>
 
 Sie sehen, dass die *check\_command*- und
 *notification\_options*-Variablen vom Vorlagenobjekt geerbt wurden (wo
@@ -159,25 +128,10 @@ mehr darüber, wie das erreicht werden kann.
 Objekte können Eigenschaften/Variablen aus mehreren Ebenen von
 Vorlagenobjekten erben. Nehmen Sie das folgende Beispiel:
 
-~~~~ {.screen}
  define host{
-        host_name               bighost1
-        check_command           check-host-alive
-        notification_options    d,u,r
-        max_check_attempts      5
-        name                    hosttemplate1
-        }
  define host{
-        host_name               bighost2
-        max_check_attempts      3
-        use                     hosttemplate1
-        name                    hosttemplate2
-        }
  define host{
-        host_name               bighost3
-        use                     hosttemplate2
-        }
-~~~~
+</code></pre>
 
 Sie werden bemerken, dass die Definition von Host *bighost3* Variablen
 von der Definition von *bighost2* erbt, die wiederum Variablen von der
@@ -185,26 +139,10 @@ Definition von Host *bighost1* erbt. Sobald Icinga diese
 Konfigurationsdaten verarbeitet, sind die resultierenden Host-Definition
 äquivalent zu den folgenden:
 
-~~~~ {.screen}
  define host{
-        host_name               bighost1
-        check_command           check-host-alive
-        notification_options    d,u,r
-        max_check_attempts      5
-        }
  define host{
-        host_name               bighost2
-        check_command           check-host-alive
-        notification_options    d,u,r
-        max_check_attempts      3
-        }
  define host{
-        host_name               bighost3
-        check_command           check-host-alive
-        notification_options    d,u,r
-        max_check_attempts      3
-        }
-~~~~
+</code></pre>
 
 Es gibt keine eingebaute Beschränkung, wie "tief" Vererbung gehen kann,
 aber Sie sollten sich vielleicht selbst auf ein paar Ebenen beschränken,
@@ -220,25 +158,10 @@ als Vorlagen zu nutzen, aber es ist tatsächlich empfohlen, dies zu tun.
 Warum? Nun, sie können als ein Satz von Defaults für alle anderen
 Objektdefinitionen dienen. Nehmen Sie das folgende Beispiel:
 
-~~~~ {.screen}
  define host{
-        check_command           check-host-alive
-        notification_options    d,u,r
-        max_check_attempts      5
-        name                    generichosttemplate
-        register                0
-        }
  define host{
-        host_name               bighost1
-        address                 192.168.1.3
-        use                     generichosttemplate
-        }
  define host{
-        host_name               bighost2
-        address                 192.168.1.4
-        use                     generichosttemplate
-        }
-~~~~
+</code></pre>
 
 Beachten Sie, dass die erste Host-Definition unvollständig ist, weil die
 erforderliche *host\_name*-Variable fehlt. Wir müssen keinen Host-Namen
@@ -254,22 +177,9 @@ die gleichen Eigenschaften haben, bis auf die *host\_name*- und
 verarbeitet, wären die resultierenden Host-Definitionen äquivalent zu
 folgenden:
 
-~~~~ {.screen}
  define host{
-        host_name               bighost1
-        address                 192.168.1.3
-        check_command           check-host-alive
-        notification_options    d,u,r
-        max_check_attempts      5
-        }
  define host{
-        host_name               bighost2
-        address                 192.168.1.4
-        check_command           check-host-alive
-        notification_options    d,u,r
-        max_check_attempts      5
-        }
-~~~~
+</code></pre>
 
 Die Nutzung einer Vorlagendefinition für Default-Werte erspart Ihnen
 mindestens eine Menge Tipparbeit. Es spart Ihnen auch eine Menge
@@ -284,33 +194,17 @@ die Sie in Ihren Host-, Service- oder Kontaktdefinitionen definieren,
 wird wie jede andere Standardvariable vererbt. Nehmen Sie das folgende
 Beispiel:
 
-~~~~ {.screen}
  define host{
-        _customvar1             somevalue  ; <-- Custom host variable
-        _snmp_community         public  ; <-- Custom host variable
-        name                    generichosttemplate
-        register                0
-        }
  define host{
-        host_name               bighost1
-        address                 192.168.1.3
-        use                     generichosttemplate
-        }
-~~~~
+</code></pre>
 
 Der Host *bighost1* wird die eigenen Host-Variablen *\_customvar1* und
 *\_snmp\_community* von der *generichosttemplate*-Definition erben,
 zusammen mit den entsprechenden Werten. Die daraus resultierende
 Definition für *bighost1* sieht wie folgt aus:
 
-~~~~ {.screen}
  define host{
-        host_name               bighost1
-        address                 192.168.1.3
-        _customvar1             somevalue
-        _snmp_community         public
-        }
-~~~~
+</code></pre>
 
 ### 7.26.7. Vererbung für Zeichenketten-Werte aufheben
 
@@ -320,31 +214,17 @@ Vorlagen erben. Wenn das der Fall ist, können Sie "**null**" (ohne
 Anführungszeichen) als den Wert der Variable, die Sie nicht erben
 möchten. Nehmen Sie das folgende Beispiel:
 
-~~~~ {.screen}
  define host{
-        event_handler           my-event-handler-command
-        name                    generichosttemplate
-        register                0
-        }
  define host{
-        host_name               bighost1
-        address                 192.168.1.3
-        event_handler           null
-        use                     generichosttemplate
-        }
-~~~~
+</code></pre>
 
 In diesem Fall wird der Host *bighost1* nicht den Wert der
 *event\_handler*-Variable erben, die in der
 *generichosttemplate*-Vorlage definiert ist. Die resultierende
 Definition von *bighost1* sieht wie folgt aus:
 
-~~~~ {.screen}
  define host{
-        host_name               bighost1
-        address                 192.168.1.3
-        }
-~~~~
+</code></pre>
 
 ### 7.26.8. additive Vererbung von Zeichenketten-Werten
 
@@ -359,29 +239,16 @@ Diese "additive Vererbung" kann durch Voranstellen eines Pluszeichens
 ist nur für Standard-Variablen verfügbar, die Zeichenketten-Werte
 enthalten. Nehmen Sie das folgende Beispiel:
 
-~~~~ {.screen}
  define host{
-        hostgroups              all-servers
-        name                    generichosttemplate
-        register                0
-        }
  define host{
-        host_name               linuxserver1
-        hostgroups              +linux-servers,web-servers
-        use                     generichosttemplate
-        }
-~~~~
+</code></pre>
 
 In diesem Fall wird der *linuxserver1* den Wert der lokalen
 *hostgroups*-Variablen dem der *generichosttemplate*-Vorlage hinzufügen.
 Die resultierende Definition von *linuxserver1* sieht wie folgt aus:
 
-~~~~ {.screen}
  define host{
-        host_name               linuxserver1
-        hostgroups              all-servers,linux-servers,web-servers
-        }
-~~~~
+</code></pre>
 
 ### 7.26.9. Implizite Vererbung
 
@@ -481,28 +348,14 @@ Vererbungslogik benutzt.
 
 Verwirrt? Hier ein Beispiel:
 
-~~~~ {.screen}
  define host{
-        name            linux-server
-        contact_groups  linux-admins
-        ...
-        }
  define hostescalation{
-        host_name               linux-server
-        contact_groups  +management
-        ...
-        }
-~~~~
+</code></pre>
 
 Das ist ein viel einfacheres Äquivalent zu:
 
-~~~~ {.screen}
  define hostescalation{
-        host_name               linux-server
-        contact_groups  linux-admins,management
-        ...
-    }
-~~~~
+</code></pre>
 
 ### 7.26.11. Wichtige Werte (important values)
 
@@ -525,30 +378,13 @@ eingesetzt wird.
 
 Zum Beispiel:
 
-~~~~ {.screen}
 # On master
 define service {
-        name                   service-distributed
-        register               0
-        active_checks_enabled  0
-        check_freshness        1
-        check_command          !set_to_stale
-        }
 # On slave
 define service {
-        name                   service-distributed
-        register               0
-        active_checks_enabled  1
-        }
 # Service definition, used by master and slave
 define service {
-        host_name              host1
-        service_description    serviceA
-        check_command          check_http...
-        use                    service-distributed
-        ...
-        }
-~~~~
+</code></pre>
 
 ![[Anmerkung]](../images/note.png)
 
@@ -559,10 +395,8 @@ Werten möglich ist. Das bedeutet, dass Sie nicht das check\_command von
 einer Vorlage zu einer weiteren und von dort zum Service vererben
 können.
 
-~~~~ {.programlisting}
- Template1 => Service1                <== funktioniert
- Template1 => Template2 => Service1   <== funktioniert NICHT
-~~~~
+<pre><code>
+</code></pre>
 
 ### 7.26.12. Mehrere Vererbungsquellen
 
@@ -571,30 +405,13 @@ Variablen/Werte von einer einzelnen Quelle erben. Sie können für
 komplexere Konfigurationen auch Variablen/Werte von mehreren Quellen
 erben, wie unten gezeigt.
 
-~~~~ {.screen}
  # Generic host template
  define host{
-        name                    generic-host
-        active_checks_enabled   1
-        check_interval          10
-        ...
-        register                0
-        }
  # Development web server template
  define host{
-        name                    development-server
-        check_interval          15
-        notification_options    d,u,r
-        ...
-        register                0
-        }
  # Development web server
  define host{
-        use                     generic-host,development-server
-        host_name               devweb1
-        ...
-        }
-~~~~
+</code></pre>
 
 ![](../images/multiple-templates1.png)
 
@@ -606,16 +423,9 @@ angegebene Vorlage ist, wird der Wert für die *check\_interval*-Variable
 durch den *devweb1*-Host vererbt. Nach der Vererbung sieht die
 Definition von *devweb1* wie folgt aus:
 
-~~~~ {.screen}
  # Development web server
  define host{
-        host_name               devweb1
-        active_checks_enabled   1
-        check_interval          10
-        notification_options    d,u,r
-        ...
-        }
-~~~~
+</code></pre>
 
 ### 7.26.13. Vorrang bei mehreren Vererbungsquellen
 
@@ -630,13 +440,9 @@ Variablen/Werte-Paare Vorrang haben.
 Betrachten Sie die folgende Host-Definition, die drei Vorlagen
 referenziert:
 
-~~~~ {.screen}
  # Development web server
  define host{
-        use  1,  4,  8
-        host_name devweb1 ...
- } 
-~~~~
+</code></pre>
 
 Wenn einige dieser referenzierten Vorlagen selbst Variablen/Werte von
 ein oder mehreren Vorlagen erben, werden die Vorrangregeln auf der
@@ -650,10 +456,6 @@ die Dinge in komplexen Vererbungssituationen wie dieser funktionieren.
 
 * * * * *
 
-  ------------------------------- -------------------------- ---------------------------------------------------
-  [Zurück](modified_attr.md)    [Nach oben](ch07.md)      [Weiter](objecttricks.md)
-  7.25. Modifizierte Attribute    [Zum Anfang](index.md)    7.27. Zeitsparende Tricks für Objektdefinitionen
-  ------------------------------- -------------------------- ---------------------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

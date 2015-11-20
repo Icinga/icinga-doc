@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-3.5. Maßgeschneiderte Objektvariablen
-
-[Zurück](objectdefinitions.md) 
-
-Kapitel 3. Icinga konfigurieren
-
- [Weiter](configcgi.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -36,7 +28,6 @@ weniger generisch und mehr infrastrukturspezifisch wird. Icinga war dazu
 gedacht, flexibel zu sein, was bedeutet, dass die Dinge in einer
 generischen Art und Weise geplant waren. Host-Definitionen in Icinga zum
 Beispiel haben eine generische "address"-Variable, die alles von einer
-IP-Adresse bis zu menschlich-lesbaren Wegbeschreibungen enthalten kann -
 was immer für die Umgebung des Benutzers angemessen ist.
 
 Trotzdem muss es eine Methode für Administratoren geben, in ihrer
@@ -54,19 +45,9 @@ Service-Prüfungen zu benutzen.
 Es gibt ein paar wichtige Dinge, die Sie bei maßgeschneiderten Variablen
 beachten sollten:
 
--   maßgeschneiderte Variablennamen müssen mit einem Unterstrich (\_)
-    beginnen, um einen Namenskonflikt mit Standardvariablen zu
-    verhindern
 
--   maßgeschneiderten Variablennamen werden vor der Benutzung in
-    Großbuchstaben umgewandelt
 
--   maßgeschneiderten Variablen werden von Objektvorlagen wie normale
-    Variablen [geerbt](objectinheritance.md "7.26. Objektvererbung")
 
--   Scripts können sich mit [Makros und
-    Umgebungsvariablen](macros.md "5.2. Makros verstehen und wie sie arbeiten")
-    auf die Werte von maßgeschneiderten Variablen beziehen
 
 ![[Wichtig]](../images/important.png)
 
@@ -77,7 +58,6 @@ der Überprüfungsphase (icinga -v icinga.cfg) noch während des
 Icinga-Startprozesses, so dass das Platzieren in Host-Namen,
 Service-Beschreibungen oder verschiedenen anderen Stellen der
 Objektdefinition während der Überprüfung zu einer Fehlermeldung ähnlich
-"`<object>       contains one or more illegal characters.`{.literal}"
 führt. Das Ändern der Direktive "illegal\_object\_name\_chars" wird
 *nicht* das Problem lösen.
 
@@ -86,27 +66,11 @@ führt. Das Ändern der Direktive "illegal\_object\_name\_chars" wird
 Hier ein Beispiel, wie maßgeschneiderte Variablen in verschiedenen Arten
 von Objektdefinitionen definiert werden können:
 
-~~~~ {.programlisting}
+<pre><code>
  define host{
-        host_name       linuxserver
-        _mac_address    00:06:5B:A6:AD:AA       ; <-- Custom MAC_ADDRESS variable
-        _rack_number    R32                     ; <-- Custom RACK_NUMBER variable
-        ...
-        }
  define service{
-        host_name       linuxserver
-        description     Memory Usage
-        _SNMP_community public                  ; <-- Custom SNMP_COMMUNITY variable
-        _TechContact    Jane Doe                ; <-- Custom TECHCONTACT variable
-        ....
-        }
  define contact{
-        contact_name    john
-        _AIM_username   john16                  ; <-- Custom AIM_USERNAME variable
-        _YahooID        john32                  ; <-- Custom YAHOOID variable
-        ...
-        }
-~~~~
+</code></pre>
 
 ### 3.5.4. maßgeschneiderte Variablen als Makros
 
@@ -186,10 +150,6 @@ Service- oder Kontaktvariablen
 
 * * * * *
 
-  ----------------------------------- -------------------------- ----------------------------------------
-  [Zurück](objectdefinitions.md)    [Nach oben](ch03.md)      [Weiter](configcgi.md)
-  3.4. Objektdefinitionen             [Zum Anfang](index.md)    3.6. Optionen CGI-Konfigurationsdatei
-  ----------------------------------- -------------------------- ----------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

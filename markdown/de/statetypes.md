@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-5.8. Statustypen
-
-[Zurück](passivechecks.md) 
-
-Kapitel 5. Die Grundlagen
-
- [Weiter](timeperiods.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -29,9 +21,7 @@ Host-Prüfungswiederholungen](statetypes.md#checkretries)
 Der aktuelle Status von überwachten Services und Host wird durch zwei
 Komponenten ermittelt:
 
--   den Status des Service oder Host (d.h. OK, WARNING, UP, DOWN, etc.)
 
--   den *Typ* des Zustands, in dem der Service oder Host ist
 
 Es gibt zwei Statustypen in Icinga: SOFT- und HARD-Zustände. Diese
 Statustypen sind ein wichtiger Teil der Überwachungslogik, da sie zur
@@ -57,21 +47,12 @@ besteht, ist wichtig zum Verstehen, wie Statustypen arbeiten.
 
 Soft-Zustände treten in den folgenden Situationen auf...
 
--   wenn ein Host- oder Service-Prüfungsergebnis in einem nicht-OK oder
-    nicht-UP-Status resultiert und die Service-Prüfung noch nicht so oft
-    (erneut) durchgeführt wurde, wie es in der
-    *max\_check\_attempts*-Direktive der Service- oder Host-Definition
-    angegeben wurde. Das wird als Soft-Error bezeichnet.
 
--   wenn sich ein Service oder Host von einem Soft-Error erholt. Das
-    wird als Soft-Recovery angesehen.
 
 Die folgenden Dinge passieren, wenn bei Hosts oder Services
 SOFT-Zustandsänderungen auftreten:
 
--   der SOFT-Status wird protokolliert.
 
--   Eventhandler werden zur Behandlung von SOFT-Zuständen ausgeführt
 
 SOFT-Zustände werden nur protokolliert, wenn Sie die
 [log\_service\_retries](configmain.md#configmain-log_service_retries)-
@@ -95,37 +76,16 @@ Sie [hier](eventhandlers.md "7.3. Eventhandler").
 Hard-Zustände treten für Hosts und Services in den folgenden Situationen
 auf...
 
--   wenn ein Host- oder Service-Prüfungsergebnis in einem nicht-OK oder
-    nicht-UP-Status resultiert und die Prüfung bereits so oft (erneut)
-    durchgeführt wurde, wie es in der *max\_check\_attempts*-Direktive
-    der Service- oder Host-Definition angegeben wurde. Das wird als
-    Hard-Error bezeichnet.
 
--   wenn ein Host oder Service von einem Hard-Error-Zustand in einen
-    anderen Fehlerzustand wechselt (z.B. von WARNING nach CRITICAL).
 
--   wenn eine Service-Prüfung in einem nicht-OK-Status resultiert und
-    der zugehörige Host entweder DOWN oder UNREACHABLE ist.
 
--   wenn ein Host oder Service sich von einem Hard-Error-Zustand erholt.
-    Dies wird als Hard-Recovery angesehen.
 
--   wenn eine [passive
-    Host-Prüfung](passivechecks.md "5.7. Passive Prüfungen (Passive Checks)")
-    empfangen wird. Passive Host-Prüfungen werden als HARD angesehen,
-    wenn nicht die
-    [passive\_host\_checks\_are\_soft](configmain.md#configmain-passive_host_checks_are_soft)-Option
-    aktiviert ist.
 
 Die folgenden Dinge passieren, wenn bei Hosts oder Services
 HARD-Zustandsänderungen auftreten:
 
--   der HARD-Status wird protokolliert.
 
--   Eventhandler werden zur Behandlung von HARD-Zuständen ausgeführt.
 
--   Kontakte werden über das Host- oder Service-Problem bzw. die
-    Erholung informiert.
 
 Die [\$HOSTSTATETYPE\$](macrolist.md#macrolist-hoststatetype) oder
 [\$SERVICESTATETYPE\$](macrolist.md#macrolist-servicestatetype)-Makros
@@ -299,10 +259,6 @@ Service stabilisiert sind zu einem OK-Status.
 
 * * * * *
 
-  ------------------------------------------ -------------------------- -----------------------------
-  [Zurück](passivechecks.md)               [Nach oben](ch05.md)      [Weiter](timeperiods.md)
-  5.7. Passive Prüfungen (Passive Checks)    [Zum Anfang](index.md)    5.9. Zeitfenster
-  ------------------------------------------ -------------------------- -----------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

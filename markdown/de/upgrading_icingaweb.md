@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-6.7. Aktualisierung von Icinga Web und Icinga Web Datenbank
-
-[Zurück](icinga-web-config.md) 
-
-Kapitel 6. Die Benutzeroberflächen
-
- [Weiter](icinga-web-introduction.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -39,9 +31,9 @@ erstellt haben, so werden diese während der Aktualisierung nicht
 dann können Sie auf diese Weise schnell Ihre alte Icinga Web-Version
 wiederherstellen.
 
-Bitte denken Sie daran, dass `configure`{.code} mit den gleichen
+Bitte denken Sie daran, dass `configure` mit den gleichen
 Optionen wie bei der vorherigen Installation aufzurufen ist! Die
-verwendeten Optionen sehen Sie im `config.log.`{.code}
+verwendeten Optionen sehen Sie im `config.log.`
 
 ![[Anmerkung]](../images/note.png)
 
@@ -53,16 +45,16 @@ Seit 1.9 ist der Tackle-Cronk in Icinga Web veraltet.
 
 Anmerkung
 
-Mit 1.9 wurde die Datei `.htaccess`{.filename} enfernt und alle Rewrite
+Mit 1.9 wurde die Datei `.htaccess` enfernt und alle Rewrite
 Regeln in die Apacheconfiguration übernommen.
 
 Bitte aktualisieren Sie ihre Apache Konfiguration
-`icinga-web.conf`{.code} (`etc/conf.d/icinga-web.conf`{.code} im Quell
-Tarball) oder führen Sie `make install-apache-config`{.code} aus.
+`icinga-web.conf` (`etc/conf.d/icinga-web.conf` im Quell
+Tarball) oder führen Sie `make install-apache-config` aus.
 
 Beim Update einer vorhandenen Installation sollten die
-`.htaccess`{.code} Dateien in `/usr/local/icinga-web/pub/`{.code} und
-`/usr/local/icinga-web/pub/soap/`{.code} (oder wo Sie Icinga Web
+`.htaccess` Dateien in `/usr/local/icinga-web/pub/` und
+`/usr/local/icinga-web/pub/soap/` (oder wo Sie Icinga Web
 installiert haben) entfernt werden.
 
 ![[Anmerkung]](../images/note.png)
@@ -76,14 +68,9 @@ kann meinen neu installierten Cronk nicht sehen" oder "nach einem Update
 kann ich nicht auf das Reporting-Cronk zugreifen", dann ist die Lösung
 recht einfach
 
--   Löschen Sie den xml-Cache
 
--   Zurücksetzen des Applikationszustands des Benutzers (rechte obere
-    Ecke -\> Preferences)
 
--   Abmelden und neu anmelden (rechte obere Ecke)
 
-    ![](../images/icinga-web-user-prefs-logout.png)
 
 ![[Anmerkung]](../images/note.png)
 
@@ -92,22 +79,9 @@ Anmerkung
 Bitte beachten Sie, dass es einige wesentliche Änderungen mit Icinga 1.5
 gab, die ggf. zusätzliche Aktionen erfordern könnten:
 
--   Die `*.site.xml`{.filename}-Datei für lokale
-    Konfigurationsanpassungen wurden entfernt, Konfigurationen werden
-    nun unter `etc/conf.d/`{.filename} abgelegt (oder dem Pfad, der
-    während der Installation mit --with-conf-dir (--with-conf-folder bis
-    Icinga 1.6.x) angegeben wurde)
 
--   Das Log-Verzeichnis befindet sich nun unter `log/`{.filename} (oder
-    dem Pfad, der während der Installation mit --with-log-folder
-    angegeben wurde)
 
--   Die Icinga-API wurde entfernt und nun wird Doctrine für alle
-    Datenbank-Transaktionen benutzt (`icinga-io.xml`{.filename} ist nun
-    `databases.xml`{.filename})
 
--   Befehle werden nun durch den internen Console-Handler versandt (weil
-    die Icinga-API entfernt wurde)
 
 Falls Sie Icinga-Web \<= 1.4x benutzen, dann empfehlen wir eine
 Neuinstallation anstatt einer Aktualisierung. Es ist besser, Ihre alten
@@ -130,44 +104,26 @@ herunter. Falls Sie ein Problem haben, das in der aktuellen
 Entwicklerversion behoben ist, dann klonen Sie den aktuellsten git-
 Branch mit :
 
-~~~~ {.programlisting}
+<pre><code>
  #> git clone git://git.icinga.org/icinga-web.git
-~~~~
+</code></pre>
 
 Entpacken Sie das Archiv (tarball):
 
-~~~~ {.programlisting}
+<pre><code>
  #> tar xzvf icinga-web-1.13.tar.gz
-~~~~
+</code></pre>
 
 Wechseln Sie in das Verzeichnis
 
-~~~~ {.programlisting}
+<pre><code>
  #> cd icinga-web-1.13
-~~~~
+</code></pre>
 
 Icinga Web bietet diverse Konfigurationsoptionen an:
 
-~~~~ {.programlisting}
- #> ./configure 
-                --prefix=/usr/local/icinga-web 
-                --with-web-user=www-data 
-                --with-web-group=www-data 
-                --with-web-path=/icinga-web 
-                --with-web-apache-path=/etc/apache2/conf.d 
-                --with-db-type=mysql 
-                --with-db-host=localhost 
-                --with-db-port=3306 
-                --with-db-name=icinga_web 
-                --with-db-user=icinga_web 
-                --with-db-pass=icinga_web 
-                --with-icinga-api=/usr/local/icinga/share/icinga-api 
-                --with-api-type=APICON API type (default CONNECTION_IDO)
-                --with-api-subtype=TYPE DB driver or network connection
-                --with-api-host=HOST Host to connect (DB or other) (default localhost)
-                --with-api-port=PORT Port for connection (default 3306)
-                --with-api-socket=PATH Path to socket (default none)
-~~~~
+<pre><code>
+</code></pre>
 
 ![[Anmerkung]](../images/note.png)
 
@@ -180,9 +136,9 @@ Distribution.
 
 Alle configure- Optionen sehen Sie mit:
 
-~~~~ {.programlisting}
+<pre><code>
  #> ./configure --help
-~~~~
+</code></pre>
 
 ![[Anmerkung]](../images/note.png)
 
@@ -194,10 +150,10 @@ Installer die Icinga API unter /usr/local/icinga/share/icinga-api.
 Die Aktualisierung von Icinga Web unter /usr/local/icinga-web erfolgt
 mit:
 
-~~~~ {.programlisting}
+<pre><code>
  #> ./configure
  #> make upgrade
-~~~~
+</code></pre>
 
 ![[Anmerkung]](../images/note.png)
 
@@ -205,15 +161,15 @@ Anmerkung
 
 Bitte denken Sie daran den Cache zu leeren!
 
-~~~~ {.programlisting}
+<pre><code>
  #> rm -rf app/cache/config/*.php
-~~~~
+</code></pre>
 
 oder /path/to/clearcache.sh
 
-~~~~ {.programlisting}
+<pre><code>
  #> /usr/local/icinga-web/bin/clearcache.sh
-~~~~
+</code></pre>
 
 Das war's, Sie können sich nun an Ihrem aktualisierten Icinga Web
 anmelden.
@@ -244,11 +200,11 @@ unbrauchbar sind.
 
 Die Update-Dateien finden Sie zusammen mit den
 Datenbank-Installationsdateien in
-`/path/to/icinga-web/etc/schema/updates`{.code}
+`/path/to/icinga-web/etc/schema/updates`
 
 Die Syntax ist wie folgt
 
-`<rdbm>_<alteVersion>_to_<neueVersion>.sql`{.literal}
+`<rdbm>_<alteVersion>_to_<neueVersion>.sql`
 
 wobei \<rdbm\> mysql, pgsql oder oracle sein kann und \<neueVersion\>
 zeigt auf die Version, auf die Sie aktualisieren wollen.
@@ -262,42 +218,17 @@ und der aktuellen noch andere Versionen liegen, dann sollten Sie
 beachten, dass Sie auch die dazwischen liegenden Updates inkrementell
 installieren müssen!
 
-1.  Sichern Sie Ihre aktuelle Datenbank vor der Aktualisierung!
 
-2.  Prüfen Sie die laufende Icinga Web Datenbank- Version und die
-    Zielversion. Prüfen Sie, ob zwischen diesen beiden Versionen noch
-    andere Versionen liegen und aktualisieren Sie ggf. schrittweise.
 
-3.  Führen Sie die Aktualisierung(en) mit einem Benutzer durch, der über
-    die notwendigen Berechtigungen verfügt.
 
--   **MySQL**
 
-    ~~~~ {.programlisting}
-     $ mysql -u root -p icinga_web < /path/to/icinga-web/etc/schema/updates/mysql_<alteVersion>_to_<neueVersion>.sql
-    ~~~~
 
-    **Postgresql**
 
-    ~~~~ {.programlisting}
-     #> su - postgres
-     $ psql -U icinga_web -d icinga_web < /path/to/icinga-web/etc/schema/updates/pgsql_<alteVersion>_to_<neueVersion>.sql
-    ~~~~
 
--   **Oracle**
 
-    ~~~~ {.programlisting}
-     #> su - oracle
-     $ sqlplus dbuser/dbpass
-     SQL> @oracle_<alteVersion>_to_<neueVersion>.sql
-    ~~~~
 
 * * * * *
 
-  ------------------------------------------ -------------------------- -----------------------------------------
-  [Zurück](icinga-web-config.md)           [Nach oben](ch06.md)      [Weiter](icinga-web-introduction.md)
-  6.6. Konfigurationsübersicht Icinga Web    [Zum Anfang](index.md)    6.8. Einführung in Icinga Web
-  ------------------------------------------ -------------------------- -----------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

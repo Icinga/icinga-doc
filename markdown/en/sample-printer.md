@@ -1,24 +1,14 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-13.10. printer.cfg
-
-[Prev](sample-notifications.md) 
-
-Chapter 13. Icinga Samples
-
- [Next](sample-switch.md)
+[Prev](sample-notifications.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](sample-switch.md)
 
 * * * * *
 
 13.10. printer.cfg
 ------------------
 
-~~~~ {.programlisting}
+<pre><code>
 ###############################################################################
-# PRINTER.CFG - SAMPLE CONFIG FILE FOR MONITORING A NETWORK PRINTER
 #
 # NOTES: This config file assumes that you are using the sample configuration
-#    files that get installed with the Icinga quickstart guide.
 #
 ###############################################################################
 
@@ -37,12 +27,6 @@ Chapter 13. Icinga Samples
 # Change the host_name, alias, and address to fit your situation
 
 define host{
-   use      generic-printer      ; Inherit default values from a template
-   host_name   hplj2605dn      ; The name we're giving to this printer
-   alias      HP LaserJet 2605dn   ; A longer name associated with the printer
-   address      192.168.1.30      ; IP address of the printer
-   hostgroups   network-printers    ; Host groups this printer is associated with
-   }
 
 
 
@@ -58,9 +42,6 @@ define host{
 # A hostgroup for network printers
 
 define hostgroup{
-   hostgroup_name   network-printers   ; The name of the hostgroup
-   alias      Network Printers   ; Long name of the group
-   }
 
 
 
@@ -78,33 +59,20 @@ define hostgroup{
 # If the printer has an SNMP community string other than "public", change the check_command directive to reflect that
 
 define service{
-   use         generic-service      ; Inherit values from a template
-   host_name      hplj2605dn      ; The name of the host the service is associated with
-   service_description   Printer Status      ; The service description
-   check_command      check_hpjd!-C public   ; The command used to monitor the service
-   normal_check_interval   10   ; Check the service every 10 minutes under normal conditions
-   retry_check_interval   1   ; Re-check the service every minute until its final/hard state is determined
-   }
 
 
-# Create a service for "pinging" the printer occassionally.  Useful for monitoring RTA, packet loss, etc.
 
 define service{
-   use         generic-service
-   host_name      hplj2605dn
-   service_description   PING
-   check_command      check_ping!3000.0,80%!5000.0,100%
-   normal_check_interval   10
-   retry_check_interval   1
-   }
-~~~~
+</code></pre>
 
 * * * * *
 
-  ------------------------------------ -------------------- -----------------------------
-  [Prev](sample-notifications.md)    [Up](ch13.md)       [Next](sample-switch.md)
-  13.9. notifications.cfg              [Home](index.md)    13.11. switch.cfg
-  ------------------------------------ -------------------- -----------------------------
+[Prev](sample-notifications.md) | [Up](ch13.md) | [Next](sample-switch.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

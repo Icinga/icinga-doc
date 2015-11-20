@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.14. State Stalking
-
-[Prev](dependencies.md) 
-
-Chapter 7. Advanced Topics
-
- [Next](perfdata.md)
+[Prev](dependencies.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](perfdata.md)
 
 * * * * *
 
@@ -210,10 +202,12 @@ you need and want it.
 
 * * * * *
 
-  -------------------------------------- -------------------- -------------------------
-  [Prev](dependencies.md)              [Up](ch07.md)       [Next](perfdata.md)
-  7.13. Host and Service Dependencies    [Home](index.md)    7.15. Performance Data
-  -------------------------------------- -------------------- -------------------------
+[Prev](dependencies.md) | [Up](ch07.md) | [Next](perfdata.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

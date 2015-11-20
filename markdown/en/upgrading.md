@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-2.10. Upgrading (to) Icinga
-
-[Prev](howtos.md) 
-
-Chapter 2. Getting Started
-
- [Next](upgrading_idoutils.md)
+[Prev](howtos.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](upgrading_idoutils.md)
 
 * * * * *
 
@@ -30,9 +22,9 @@ Installation](upgrading.md#upgradefromrpm)
 Note
 
 Starting with 1.8, you will find newly added config options in version
-diffed config files in `sample-config/updates/`{.filename} as well as
-`module/idoutils/config/updates`{.filename}, e.g.
-`cgi.cfg_added_1.7_to_1.8.cfg`{.filename}.
+diffed config files in `sample-config/updates/` as well as
+`module/idoutils/config/updates`, e.g.
+`cgi.cfg_added_1.7_to_1.8.cfg`.
 
 On the core, unknown macros are not left on the output anymore, logging
 a warning instead. Either fix your config (i.e. wrong macros, escape
@@ -45,7 +37,7 @@ anymore. Due to that change, the host configuration attributes
 "vrml\_image" and "3dcoords" have been deprecated on the Core as well.
 
 Please have a look at the section "CHANGES" in the
-`changelog`{.filename} as well.
+`changelog` as well.
 
 ![[Note]](../images/note.png)
 
@@ -69,8 +61,8 @@ as well.
 
 Note
 
-Starting with 1.9, the directive `event_profiling_enabled`{.literal} in
-`icinga.cfg`{.filename} is deprecated.
+Starting with 1.9, the directive `event_profiling_enabled` in
+`icinga.cfg` is deprecated.
 
 ### 2.10.1. Upgrading from previous Icinga Releases
 
@@ -94,24 +86,23 @@ configs. If anything goes wrong you can restore your old setup rather
 easy.
 
 Regular updates of Icinga are possible just by re-installing Icinga.
-Please keep in mind that `configure`{.code} requires the same parameters
-as before - look it up in `config.log`{.filename} and store that in a
+Please keep in mind that `configure` requires the same parameters
 safe location.
 
 Become the icinga user. Debian/Ubuntu users might use
-`sudo -s icinga`{.code}.
+`sudo -s icinga`.
 
-~~~~ {.programlisting}
+<pre><code>
  $> su -l icinga
-~~~~
+</code></pre>
 
 Get the latest Icinga version from
 [https://www.icinga.org/](http://www.icinga.org/) and extract it. Then
 run configure like you did with the old version.
 
-~~~~ {.programlisting}
+<pre><code>
  #> ./configure --with-command-group=icinga-cmd
-~~~~
+</code></pre>
 
 ![[Note]](../images/note.png)
 
@@ -120,34 +111,31 @@ Note
 Starting with Icinga 1.9 the default has changed so you might have to
 disable the compilation of IDOUtils explicitly.
 
-~~~~ {.programlisting}
+<pre><code>
  #> ./configure --with-command-group=icinga-cmd --disable-idoutils
-~~~~
+</code></pre>
 
 Compile the source.
 
-~~~~ {.programlisting}
+<pre><code>
  #> make all
-~~~~
+</code></pre>
 
-Please make sure that you don't overwrite your configs - always make a
-backup! Don't use `make install-config`{.code} and/or
-`make install-webconf`{.code} and/or
-`make     install-webconf-auth`{.code}if you want to manually diff the
+backup! Don't use `make install-config` and/or
+`make install-webconf` and/or
 config files.
 
-~~~~ {.programlisting}
+<pre><code>
  #> make install install-base install-cgis install-html install-init \
-    install-commandmode install-idoutils
-~~~~
+</code></pre>
 
 or decide what you want to upgrade by just typing 'make' which shows all
 available options. Check your config and restart Icinga.
 
-~~~~ {.programlisting}
+<pre><code>
  #> /etc/init.d/icinga checkconfig
  #> /etc/init.d/icinga restart
-~~~~
+</code></pre>
 
 That's it!
 
@@ -162,43 +150,39 @@ logfile names beginning with a capital **"I"** like in
 If you experience this problem then please use the following script to
 fix the file names
 
-~~~~ {.programlisting}
+<pre><code>
  #> cd /usr/local/icinga/var/archives
 
  for oldfilename in `find ./ -name "Icinga-*"`
  do
-   newfilename=`echo $oldfilename | sed -e 's/Icinga/icinga/g'`
-   mv $oldfilename $newfilename
  done
-~~~~
+</code></pre>
 
 **Upgrading to Apache 2.4**
 
 Starting with Apache 2.4 the default web configuration folder changed
-from `/etc/apache2/conf.d`{.filename} to
-`/etc/apache2/conf-available`{.filename}. If you want to migrate then
+from `/etc/apache2/conf.d` to
+`/etc/apache2/conf-available`. If you want to migrate then
 just move the file(s), enable the configuration(s) and reload the web
 server:
 
-~~~~ {.screen}
 #> mv /etc/apache2/conf.d/icinga*.conf /etc/apache2/conf-available
 #> a2enconf icinga icinga-web
 #> service apache2 reload
-~~~~
+</code></pre>
 
 ![[Note]](../images/note.png)
 
 Note
 
-Following `a2enconf`{.literal} you have to specify the configuration.
+Following `a2enconf` you have to specify the configuration.
 The example assumes that you have installed both Icinga Classic UI and
 Icinga Web.
 
 You have to enable the CGI module as well
 
-~~~~ {.screen}
 #> a2emod cgi
-~~~~
+</code></pre>
 
 ### 2.10.2. Upgrading from Nagios 3.x Releases
 
@@ -212,24 +196,22 @@ If you are upgrading from Nagios 3.0.x you might need to install PHP:
 
 *Debian / Ubuntu*
 
-~~~~ {.screen}
  #> apt-get install php5 libapache2-mod-php5
-~~~~
+</code></pre>
 
 *Fedora / RedHat*
 
-~~~~ {.screen}
  #> yum install php mod_php
-~~~~
+</code></pre>
 
 *openSuSE / SLES*
 
 Use Yast to install the packages *php5* and *apache2-mod\_php5* or use
 zypper
 
-~~~~ {.programlisting}
+<pre><code>
  #> zypper install php5 apache2-mod_php5
-~~~~
+</code></pre>
 
 Make sure you have a good backup of your existing Nagios installation
 and configuration files. If anything goes wrong or doesn't work, this
@@ -239,142 +221,89 @@ Please install Icinga according to the [quickstart
 guide](quickstart.md "2.3. Quickstart Installation Guides"). Please
 note that
 
--   the default prefix has changed to "/usr/local/icinga"
 
--   the environment macros start with ICINGA\_
 
-    PNP4Nagios is aware of that since 0.6rc1 (2009.09.20) but the macros
-    are needed in "sync" mode only.
 
-    check\_multi includes support since v0.21 (2010.06.03), but you have
-    to rerun the installation using
-    '`configure         --with-nagios_name=icinga`{.code}' so that
-    check\_multi contains the correct values. You can use the option
-    "-s" instead to set certain values.
 
--   the configuration file names of the (enhanced) IDOUtils are named
-    `idomod.cfg/ido2db.cfg`{.filename} instead of
-    `ndomod.cfg/ndo2db.cfg`{.filename}
 
 Become the icinga user. Debian/Ubuntu users might use
-`sudo -s icinga`{.code}.
+`sudo -s icinga`.
 
-~~~~ {.screen}
  $ su -l nagios
-~~~~
+</code></pre>
 
 Get the latest Icinga version from
 [https://www.icinga.org/](http://www.icinga.org/download/)
 
-~~~~ {.screen}
  #> wget https://github.com/Icinga/icinga-core/releases/download/v1.13/icinga-1.13.tar.gz
-~~~~
+</code></pre>
 
 Extract the tarball and change to the directory just created
 
-~~~~ {.screen}
  #> tar xzf icinga-1.13.tar.gz
- #> cd icinga-1.13 
-~~~~
+</code></pre>
 
 Start the Icinga-configure-script with the options you used the last
 time with Nagios. You'll find the call in the file config.log. Example:
 
-~~~~ {.screen}
  #> ./configure --with-command-group=nagcmd
-~~~~
+</code></pre>
 
 Compile the Icinga source code.
 
-~~~~ {.screen}
  #> make all
-~~~~
+</code></pre>
 
 Install the programs, documentation, classic web interface and the init
 script. Your existing config files will not be overwritten.
 
-~~~~ {.screen}
- #> make cgis 
  #> make install
  #> make install-cgis
  #> make install-init
-~~~~
+</code></pre>
 
 or simply
 
-~~~~ {.screen}
  #> make fullinstall
-~~~~
+</code></pre>
 
 ![[Important]](../images/important.png)
 
 Important
 
-Not till Icinga 1.5.0 `make install-config`{.literal} is NOT included in
-`make fullinstall`{.literal} anymore to avoid accidental overwriting of
+Not till Icinga 1.5.0 `make install-config` is NOT included in
+`make fullinstall` anymore to avoid accidental overwriting of
 your config files.
 
-Instead of using "`make install-config`{.code}" copy your configuration
-files from `<Nagios-path>/etc/`{.filename} to
-`<Icinga-path>/etc/`{.filename}. Before starting Icinga you have to
+Instead of using "`make install-config`" copy your configuration
+files from `<Nagios-path>/etc/` to
+`<Icinga-path>/etc/`. Before starting Icinga you have to
 alter some things:
 
--   The filename of the main config file has changed from
-    `nagios.cfg`{.filename} to `icinga.cfg`{.filename}.
-    ` #> mv nagios.cfg icinga.cfg`{.literal} should be sufficient to
-    change that
 
--   You have to edit the main config file (`icinga.cfg`{.filename}) to
-    change the directives named "nagios\_user" and "nagios\_group" to
-    "icinga\_user" and "icinga\_group" respectively. Depending on the
-    paths you're using you may have to change them as well.
 
-    ~~~~ {.programlisting}
-     #> sed -i 's/nagios/icinga/g' ./icinga.cfg/
-    ~~~~
 
--   You have to edit the CGI config file (`cgi.cfg`{.filename}) to
-    change the paths you're using.
 
-    ~~~~ {.programlisting}
-     #> sed -i 's/nagios/icinga/g' ./cgi.cfg/
-    ~~~~
 
 Copy other relevant files from your Nagios installation to the new
 location. If you are unsure about the path then please have a look at
-`nagios.cfg`{.filename} and/or `icinga.cfg`{.filename}.
+`nagios.cfg` and/or `icinga.cfg`.
 
--   `retention.dat`{.filename} (it contains certain status information,
-    comments and other "sticky" stuff)
 
--   `nagios.log`{.filename} (rename it to `icinga.log`{.filename})
 
--   `archives/nagios-<date>.log`{.filename} files (Icinga is able to
-    process both nagios-\<date\>.log and icinga-\<date\>.log files so
-    you don't have to rename the files)
 
--   You don't have to copy `status.dat`{.filename} and/or
-    `objects.cache`{.filename} because these files are recreated during
-    startup. Please recreate `objects.precache`{.filename} before
-    startup [if
-    applicable](configmain.md#configmain-precached_object_file)
-    instead of copying it
 
 Verify your configuration files, correct errors (if any) and start
 Icinga.
 
-~~~~ {.screen}
  #> /usr/local/icinga/bin/icinga -v /usr/local/icinga/etc/icinga.cfg
  #> /etc/init.d/icinga start
-~~~~
+</code></pre>
 
-That's it - you're done!
 
 Please keep in mind that
 
--   the URL has changed to http://localhost/icinga/ (for the classic UI)
 
--   the name of the admin user has changed to icingaadmin
 
 ### 2.10.3. Upgrading from Nagios 2.x Releases
 
@@ -383,41 +312,12 @@ The upgrade is essentially the same as what is described above for
 upgrading from Nagios 3.x releases. You will, however, have to change
 your configuration files a bit so they work with Icinga 1.13:
 
--   The old *service\_reaper\_frequency* variable in the main config
-    file has been renamed to
-    [check\_result\_reaper\_frequency](configmain.md#configmain-check_result_reaper_frequency).
 
--   The old *\$NOTIFICATIONNUMBER\$* macro has been deprecated in favour
-    of new
-    [\$HOSTNOTIFICATIONNUMBER\$](macrolist.md#macrolist-hostnotificationnumber)
-    and
-    [\$SERVICENOTIFICATIONNUMBER\$](macrolist.md#macrolist-servicenotificationnumber)
-    macros.
 
--   The old *parallelize* directive in service definitions is now
-    deprecated and no longer used, as all service checks are run in
-    parallel.
 
--   The old *aggregate\_status\_updates* option has been removed. All
-    status file updates are now aggregated at a minimum interval of 1
-    second.
 
--   Extended host and extended service definitions have been deprecated.
-    They are still read and processed by Icinga, but it is recommended
-    that you move the directives found in these definitions to your host
-    and service definitions, respectively.
 
--   The old *downtime\_file* file variable in the main config file is no
-    longer supported, as scheduled downtime entries are now saved in the
-    [retention file](configmain.md#configmain-state_retention_file).
-    To preserve existing downtime entries, stop Nagios 2.x and append
-    the contents of your old downtime file to the retention file.
 
--   The old *comment\_file* file variable in the main config file is no
-    longer supported, as comments are now saved in the [retention
-    file](configmain.md#configmain-state_retention_file). To preserve
-    existing comments, stop Nagios 2.x and append the contents of your
-    old comment file to the retention file.
 
 Also make sure to read the "[What's
 New](whatsnew.md "1.2. What's New in Icinga 1.13")" section of the
@@ -432,36 +332,18 @@ installation of Nagios and you would like to transition to installing
 Icinga from the official source code distribution, here's the basic
 process you should follow:
 
-1.  Backup your existing Nagios installation
 
-    -   Configuration files
 
-        -   Main config file (usually `nagios.cfg`{.filename})
 
-        -   Resource config file (usually `resource.cfg`{.filename})
 
-        -   CGI config file (usually `cgi.cfg`{.filename})
 
-        -   All your object definition files
 
-    -   Retention file (usually `retention.dat`{.filename})
 
-    -   Current Nagios log file (usually `nagios.log`{.filename})
 
-    -   Archived Nagios log files (usually
-        `nagios-<date>.log`{.filename})
 
-2.  Uninstall the original RPM or APT package
 
-3.  Install Icinga from source by following the [quickstart
-    guide](quickstart.md "2.3. Quickstart Installation Guides")
 
-4.  Restore your original Nagios configuration files, retention file,
-    and log files
 
-5.  [Verify](verifyconfig.md "4.1. Verifying Your Configuration") your
-    configuration and
-    [start](startstop.md "4.2. Starting and Stopping Icinga") Icinga
 
 Note that different RPMs or APT packages may install Icinga in different
 ways and in different locations. Make sure you've backed up all your
@@ -470,10 +352,12 @@ so you can revert back if you encounter problems.
 
 * * * * *
 
-  --------------------------------------- -------------------- ------------------------------------
-  [Prev](howtos.md)                     [Up](ch02.md)       [Next](upgrading_idoutils.md)
-  2.9. Links to other published Howtos    [Home](index.md)    2.11. Upgrading IDOUtils Database
-  --------------------------------------- -------------------- ------------------------------------
+[Prev](howtos.md) | [Up](ch02.md) | [Next](upgrading_idoutils.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

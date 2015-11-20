@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.13. Host- und Service-Abhängigkeiten
-
-[Zurück](clusters.md) 
-
-Kapitel 7. Fortgeschrittene Themen
-
- [Weiter](stalking.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -48,21 +40,10 @@ den Unterschieden zwischen Host- und Service-Abhängigkeiten.
 Es gibt ein paar Dinge, die Sie über Service-Abhängigkeiten wissen
 sollten:
 
-1.  ein Service kann von einem oder mehreren Services abhängig sein
 
-2.  ein Service kann von Services abhängig sein, die nicht mit dem
-    gleichen Host verbunden sind
 
-3.  Service-Abhängigkeiten werden nicht vererbt (solange es nicht
-    explizit konfiguriert wurde)
 
-4.  Service-Abhängigkeiten können benutzt werden, um Service-Prüfungen
-    auszuführen und Service-Benachrichtigungen können unter
-    verschiedenen Umständen unterdrückt werden (OK, WARNING, UNKNOWN
-    und/oder CRITICAL-Zustände)
 
-5.  Service-Abhängigkeiten sind ggf. nur während bestimmter
-    [Zeitfenster](timeperiods.md "5.9. Zeitfenster") gültig
 
 ### 7.13.3. Service-Abhängigkeiten definieren
 
@@ -92,62 +73,18 @@ Prüfausführung.
 In diesem Beispiel würde die Abhängigkeitsdefinition für *Service F* auf
 *Host C* wie folgt aussehen:
 
-~~~~ {.screen}
  define servicedependency{
-        host_name                       Host B
-        service_description             Service D
-        dependent_host_name             Host C
-        dependent_service_description   Service F
-        execution_failure_criteria      o
-        notification_failure_criteria   w,u
-        }
  define servicedependency{
-        host_name                       Host B
-        service_description             Service E
-        dependent_host_name             Host C
-        dependent_service_description   Service F
-        execution_failure_criteria      n
-        notification_failure_criteria   w,u,c
-        }
  define servicedependency{
-        host_name                       Host B
-        service_description             Service C
-        dependent_host_name             Host C
-        dependent_service_description   Service F
-        execution_failure_criteria      w
-        notification_failure_criteria   c
-        }
-~~~~
+</code></pre>
 
 Die anderen im obigen Bild gezeigten Abhängigkeitsdefinitionen würden
 wie folgt definiert:
 
-~~~~ {.screen}
  define servicedependency{
-        host_name                       Host A
-        service_description             Service A
-        dependent_host_name             Host B
-        dependent_service_description   Service D
-        execution_failure_criteria      u
-        notification_failure_criteria   n
-        }
  define servicedependency{
-        host_name                       Host A
-        service_description             Service B
-        dependent_host_name             Host B
-        dependent_service_description   Service E
-        execution_failure_criteria      w,u
-        notification_failure_criteria   c
-        }
  define servicedependency{
-        host_name                       Host B
-        service_description             Service C
-        dependent_host_name             Host B
-        dependent_service_description   Service E
-        execution_failure_criteria      n
-        notification_failure_criteria   w,u,c
-        }
-~~~~
+</code></pre>
 
 ### 7.13.5. Wie Service-Abhängigkeiten getestet werden
 
@@ -158,24 +95,9 @@ ausgeführt oder die Benachrichtigung versandt, wie es sein sollte. Falls
 der Service ein oder mehrere Abhängigkeiten *hat*, wird Icinga jeden
 Abhängigkeitseintrag wie folgt prüfen:
 
-1.  Icinga erhält den aktuellen
-    Status^[\*](dependencies.md#dependencies-hard_dependencies)^ des
-    Services, von dem der Eintrag *abhängig* ist.
 
-2.  Icinga vergleicht den Status des Services, von dem der Eintrag
-    *abhängig* ist, gegen die Ausführungs- oder
-    Benachrichtigungsfehleroptionen in der Abhängigkeitsdefinition (je
-    nachdem, welche zu dieser Zeit relevant ist).
 
-3.  wenn der aktuelle Status des Services, von dem der Eintrag
-    *abhängig* ist, mit einer der Fehleroptionen übereinstimmt, dann
-    wird die Abhängigkeit als fehlerhaft angesehen und Icinga verlässt
-    die Abhängigkeits-Prüfschleife.
 
-4.  wenn der aktuelle Status des Services, von dem der Eintrag
-    *abhängig* ist, nicht mit einer der Fehleroptionen übereinstimmt,
-    dann wird die Abhängigkeit als korrekt durchlaufen angesehen und
-    Icinga wird fortfahren und den nächsten Abhängigkeitseintrag prüfen.
 
 Dieser Ablauf wird ausgeführt, bis entweder alle Abhängigkeiten für
 diesen Service geprüft wurden oder eine Abhängigkeitsprüfung
@@ -266,17 +188,8 @@ Service F als den *abhängigen* Service und Service A als den
 Sie können alternativ die Abhängigkeitsdefinition der Services D und F
 verändern, die dann wie folgt aussehen:
 
-~~~~ {.screen}
  define servicedependency{
-        host_name                       Host B
-        service_description             Service D
-        dependent_host_name             Host C
-        dependent_service_description   Service F
-        execution_failure_criteria      o
-        notification_failure_criteria   n
-        inherits_parent                 1
-        }
-~~~~
+</code></pre>
 
 Weil die *inherits\_parent*-Direktive aktiviert ist, werden die
 Abhängigkeiten zwischen den Services A und D getestet, wenn die
@@ -305,17 +218,9 @@ Eltern/Kind-Beziehungen arbeiten, finden Sie in der Dokumentation zur
 
 Hier die Grundlagen zu Host-Abhängigkeiten:
 
-1.  ein Host kann von einem oder mehreren Hosts abhängig sein
 
-2.  Host-Abhängigkeiten werden nicht vererbt (solange es nicht explizit
-    konfiguriert wurde)
 
-3.  Host-Abhängigkeiten können genutzt werden, um Host-Prüfungen
-    auszuführen und Host-Benachrichtigungen unter bestimmten Umständen
-    zu unterdrücken (UP, DOWN- und/oder UNREACHABLE-Zustände)
 
-4.  Host-Abhängigkeiten sind ggf. nur während bestimmter
-    [Zeitfenster](timeperiods.md "5.9. Zeitfenster") gültig
 
 ### 7.13.10. Beispiel Host-Abhängigkeiten
 
@@ -328,18 +233,9 @@ Benachrichtigungen abhängig von anderen Hosts.
 Im obigen Beispiel würden die Abhängigkeitsdefinitionen für *Host C* wie
 folgt aussehen:
 
-~~~~ {.screen}
  define hostdependency{
-        host_name                       Host A
-        dependent_host_name             Host C
-        notification_failure_criteria   d
-        }
  define hostdependency{
-        host_name                       Host B
-        dependent_host_name             Host C
-        notification_failure_criteria   d,u
-        }
-~~~~
+</code></pre>
 
 Wie bei Service-Abhängigkeiten werden Host-Abhängigkeiten nicht vererbt.
 Im Beispielbild sehen Sie, dass Host C nicht die Host-Abhängigkeiten von
@@ -362,10 +258,6 @@ würde. Mehr Informationen über die Benachrichtigungslogik finden Sie
 
 * * * * *
 
-  --------------------------------------------- -------------------------- --------------------------
-  [Zurück](clusters.md)                       [Nach oben](ch07.md)      [Weiter](stalking.md)
-  7.12. Service- und Host-Gruppen überwachen    [Zum Anfang](index.md)    7.14. Status Stalking
-  --------------------------------------------- -------------------------- --------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

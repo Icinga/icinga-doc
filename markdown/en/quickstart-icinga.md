@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-2.4. Icinga Quickstart
-
-[Prev](quickstart.md) 
-
-Chapter 2. Getting Started
-
- [Next](quickstart-icinga-freebsd.md)
+[Prev](quickstart.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](quickstart-icinga-freebsd.md)
 
 * * * * *
 
@@ -62,11 +54,8 @@ Please keep in mind that the upstream packages might be outdated so
 using backport packages is a way to get a recent version. Please take a
 look at wiki articles for detailed descriptions:
 
--   [Debian](https://wiki.icinga.org/display/howtos/Setting+up+Icinga+with+IDOUtils+on+Debian)
 
--   [Ubuntu](https://wiki.icinga.org/display/howtos/Setting+up+Icinga+with+IDOUtils+on+Ubuntu)
 
--   [RHEL/CentOS](https://wiki.icinga.org/display/howtos/Setting+up+Icinga+with+IDOUtils+on+RHEL)
 
 If you are planning to install from source then please use the official
 release tarball.
@@ -82,7 +71,6 @@ This guide is intended to provide you with simple instructions on how to
 install Icinga from source (code) and have it monitoring your local
 machine within 20 minutes.
 
-No advanced installation options are discussed here - just the basics
 that will work for most of the users who want to get started.
 
 This guide will give you examples for currently three different Linux
@@ -113,15 +101,8 @@ instead!
 
 If you follow these instructions, here's what you'll end up with:
 
--   Icinga and the plugins will be installed underneath
-    /usr/local/icinga
 
--   Icinga will be configured to monitor a few aspects of your local
-    system (CPU load, disk usage, etc.)
 
--   The Icinga classic web interface will be accessible at
-    `http://localhost/icinga/`{.uri} or
-    `http://yourdomain.com/icinga`{.uri}
 
 ### 2.4.2. Prerequisites
 
@@ -131,13 +112,9 @@ to your machine.
 Make sure you've installed the following packages on your system before
 continuing.
 
--   [Apache](http://www.apache.org)
 
--   GCC compiler
 
--   C/C++ development libraries
 
--   [GD](http://www.boutell.com/gd/) development libraries
 
 **Optional**
 
@@ -149,7 +126,7 @@ require a recompile of the plugins.
 ### 2.4.3. Install packages
 
 You can install these packages by running the following commands (as
-root or using `sudo`{.filename}).
+root or using `sudo`).
 
 ![[Note]](../images/note.png)
 
@@ -160,98 +137,57 @@ releases of the same distribution so if you get a message that one of
 the packages cannot be found then please use the search option of your
 package manager to get the new name:
 
--   `yum search <package name>`{.code} (*Fedora/RHEL/CentOS*)
 
--   `apt-cache search <package name>`{.code} (*Debian/Ubuntu*)
 
--   `zypper search <package name>`{.code} (*openSuSE/SLES*)
 
--   *Fedora/RHEL/CentOS*
 
-    ~~~~ {.programlisting}
-     #> yum install httpd gcc glibc glibc-common gd gd-devel
-     #> yum install libjpeg libjpeg-devel libpng libpng-devel
-     #> yum install net-snmp net-snmp-devel net-snmp-utils
-    ~~~~
 
-    ![[Note]](../images/note.png)
 
-    Note
 
-    You may have to use libjpeg-turbo and libjpeg-turbo-devel instead
 
--   *Debian/Ubuntu*
 
-    ~~~~ {.programlisting}
-     #> apt-get install apache2 build-essential libgd2-xpm-dev
-     #> apt-get install libjpeg62 libjpeg62-dev libpng12 libpng12-dev
-     #> apt-get install snmp libsnmp5-dev
-    ~~~~
 
-    ![[Note]](../images/note.png)
 
-    Note
 
-    The numbers \<62/12\> might differ, depending on your distribution
 
-    ![[Note]](../images/note.png)
 
-    Note
 
-    Starting with Debian 6.0 / Ubuntu 10.10 the package is called
-    libpng-12-0, the name of the dev-package hasn't changed.
 
--   *openSuSE/SLES*
 
-    Please use YaST to install at least the packages gd, gd-devel,
-    libjpeg, libjpeg-devel, libpng, libpng-devel and, optionally,
-    net-snmp, net-snmp-devel and perl-Net-SNMP.
 
-    Using zypper should work as well:
 
-    ~~~~ {.programlisting}
-     #> zypper install gd gd-devel libjpeg libjpeg-devel libpng libpng-devel
-     #> zypper install net-snmp net-snmp-devel perl-Net-SNMP
-    ~~~~
 
-    ![[Note]](../images/note.png)
 
-    Note
 
-    Depending on the software selection during the installation of the
-    OS you may need to install additional packages (i.e. apache2, gcc).
-    The devel packages might be placed on the SDK DVDs.
 
 ### 2.4.4. Create Account Information
 
 Become the root user.
 
-~~~~ {.programlisting}
+<pre><code>
  $> su -l
-~~~~
+</code></pre>
 
 Create a new *icinga* user account and give it a password:
 
-~~~~ {.programlisting}
- #> /usr/sbin/useradd -m icinga 
- #> passwd icinga  
-~~~~
+<pre><code>
+</code></pre>
 
 On some distributions you'll need to add the group in a single step:
 
-~~~~ {.programlisting}
+<pre><code>
  #> /usr/sbin/groupadd icinga
-~~~~
+</code></pre>
 
 For sending commands from the classic web interface to Icinga, you'll
 need to create a new group icinga-cmd. Add the webuser and the Icinga
 user to this group:
 
-~~~~ {.programlisting}
+<pre><code>
  #> /usr/sbin/groupadd icinga-cmd
  #> /usr/sbin/usermod -a -G icinga-cmd icinga
  #> /usr/sbin/usermod -a -G icinga-cmd www-data
-~~~~
+</code></pre>
 
 (or www, wwwrun, apache, depending on the distribution)
 
@@ -273,9 +209,9 @@ icingcmd instead of icinga-cmd.
 
 Change to your local source directory i.e. /usr/src
 
-~~~~ {.programlisting}
+<pre><code>
  #> cd /usr/src
-~~~~
+</code></pre>
 
 Get the current source from the [Icinga
 Website](http://www.icinga.org/).
@@ -288,11 +224,11 @@ Plugins](https://www.monitoring-plugins.org/).
 Extract the Icinga source code tarball (or change directory to the GIT
 snapshot)
 
-~~~~ {.programlisting}
+<pre><code>
  #> cd /usr/src/
  #> tar xvzf icinga-1.13.tar.gz
  #> cd icinga-1.13
-~~~~
+</code></pre>
 
 Run the Icinga configure script. You will get help by using the --help
 flag.
@@ -304,23 +240,22 @@ Note
 Starting with Icinga 1.9 the default has changed so you have to disable
 the compilation of IDOUtils explicitly.
 
-~~~~ {.programlisting}
+<pre><code>
  #> ./configure --with-command-group=icinga-cmd --disable-idoutils
-~~~~
+</code></pre>
 
 ![[Note]](../images/note.png)
 
 Note
 
 Starting with Apache 2.4 the default web configuration folder changed
-from `/etc/apache2/conf.d`{.filename} to
-`/etc/apache2/conf-available`{.filename} so depending on your
+from `/etc/apache2/conf.d` to
+`/etc/apache2/conf-available` so depending on your
 distribution (testing versions of Debian / Ubuntu) you might have to add
 this option to the call of configure
 
-~~~~ {.screen}
 #> ./configure --with-httpd-conf=/etc/apache2/conf-available
-~~~~
+</code></pre>
 
 Current/upcoming distributions (RedHat/CentOS 7, Fedora 20, Debian
 8/Jessie, Gentoo, etc.) support the usage of systemd instead of SysVinit
@@ -330,23 +265,20 @@ Icinga 1.x already got the required systemd files patched into, and the
 rpms natively install them. Installing from source may require the
 following
 
-~~~~ {.screen}
 #> ./configure [...] --with-systemd-unit-dir=/usr/lib/systemd/system --with-systemd-sysconfig-dir=/etc/sysconfig
 #> make install-systemd
-~~~~
+</code></pre>
 
 Then enable the systemd service and start icinga.
 
-~~~~ {.screen}
 #> systemctl enable icinga
 #> systemctl start icinga
-~~~~
+</code></pre>
 
 Status
 
-~~~~ {.screen}
 #> systemctl status icinga
-~~~~
+</code></pre>
 
 ![[Note]](../images/note.png)
 
@@ -358,53 +290,52 @@ available as known from SysVinit.
 Compile the Icinga source code. To see available options, only use
 "make".
 
-~~~~ {.programlisting}
+<pre><code>
  #> make all
-~~~~
+</code></pre>
 
 Install binaries, init script, sample config files, some eventhandlers,
 and set permissions on the external command directory.
 
-~~~~ {.programlisting}
+<pre><code>
  #> make install
  #> make install-init
  #> make install-config
  #> make install-eventhandlers
  #> make install-commandmode
-~~~~
+</code></pre>
 
 or shorter
 
-~~~~ {.programlisting}
+<pre><code>
  #> make fullinstall
  #> make install-config
-~~~~
+</code></pre>
 
 ![[Note]](../images/note.png)
 
 Note
 
-`make install-config`{.literal} is NOT included in
-`make fullinstall `{.literal}anymore to avoid accidently overwriting of
+`make install-config` is NOT included in
+`make fullinstall `anymore to avoid accidently overwriting of
 your config files.
 
 ![[Note]](../images/note.png)
 
 Note
 
-`make install-eventhandlers`{.literal} will install some event handler
+`make install-eventhandlers` will install some event handler
 routines. To prevent undesired behaviour it is only included when you
-use `make fullinstall`{.literal}.
+use `make fullinstall`.
 
-Don't start Icinga yet - there's still more that needs to be done...
 
 ### 2.4.7. Customise Configuration
 
 Sample configuration files have been installed by using
 
-~~~~ {.programlisting}
+<pre><code>
  #> make install-config
-~~~~
+</code></pre>
 
 into /usr/local/icinga/etc/. You'll need to make just one change before
 you proceed...
@@ -414,39 +345,39 @@ your favourite editor and change the email address associated with the
 *icingaadmin* contact definition to the address you'd like to use for
 receiving alerts.
 
-~~~~ {.programlisting}
+<pre><code>
  #> vi /usr/local/icinga/etc/objects/contacts.cfg
-~~~~
+</code></pre>
 
 ### 2.4.8. Configure the Classic Web Interface
 
 Icinga ships with the Classic Web Interface ("the CGIs") which can be
 installed via
 
-~~~~ {.programlisting}
+<pre><code>
  #> make cgis
  #> make install-cgis
  #> make install-html
-~~~~
+</code></pre>
 
 If you are interested in the new Icinga Web, please refer to [Install
 Icinga Web
 Interface](icinga-web-scratch.md "6.5. Installation of the Icinga Web Frontend").
 
 Install the Icinga Classic web config file in the Apache
-`conf.d`{.filename} directory (`conf-available`{.filename} starting with
+`conf.d` directory (`conf-available` starting with
 Apache 2.4).
 
-~~~~ {.programlisting}
+<pre><code>
  #> make install-webconf
-~~~~
+</code></pre>
 
 ![[Note]](../images/note.png)
 
 Note
 
 Starting with Icinga 1.9 the command 'make install-webconf-auth'
-additionally installs the file `htpasswd.users`{.filename} which
+additionally installs the file `htpasswd.users` which
 contains credentials for the user *icingaadmin* so you can skip the
 following step. The password is *icingaadmin*.
 
@@ -457,30 +388,27 @@ Note
 Starting with Apache 2.4 (testing versions of Debian / Ubuntu) you have
 to enable the configuration
 
-~~~~ {.screen}
 #> a2enconf icinga
-~~~~
+</code></pre>
 
 Enable the CGI module as well
 
-~~~~ {.screen}
 #> a2enmod cgi
-~~~~
+</code></pre>
 
 Create an *icingaadmin* account for logging into the Icinga classic web
 interface. If you want to change it later, use the same command.
-Remember the password you assign to this account - you'll need it later.
 
-~~~~ {.programlisting}
+<pre><code>
  #> htpasswd -c /usr/local/icinga/etc/htpasswd.users icingaadmin
-~~~~
+</code></pre>
 
 If you want to change it later or want to add another user, use the
 following command:
 
-~~~~ {.programlisting}
+<pre><code>
  #> htpasswd /usr/local/icinga/etc/htpasswd.users <USERNAME>
-~~~~
+</code></pre>
 
 ![[Note]](../images/note.png)
 
@@ -491,38 +419,27 @@ Depending on your distribution/Apache-version you may have to use
 
 Reload/Restart Apache to make the new settings take effect.
 
--   *Fedora/RHEL/CentOS*
 
-    ~~~~ {.programlisting}
-     #> service httpd restart
-    ~~~~
 
--   *Debian/Ubuntu/openSuSE*
 
-    ~~~~ {.programlisting}
-     #> /etc/init.d/apache2 reload
-    ~~~~
 
 ### 2.4.9. Compile and Install the Monitoring Plugins
 
 Extract the plugins source code tarball.
 
-~~~~ {.programlisting}
+<pre><code>
  #> cd /usr/src
  #> tar xvzf nagios-plugins-2.1.tar.gz
- #> cd nagios-plugins-2.1 
-~~~~
+</code></pre>
 
 Compile and install the plugins by changing install directory to
 /usr/local/icinga
 
-~~~~ {.programlisting}
+<pre><code>
  #> ./configure \
-    --prefix=/usr/local/icinga --with-cgiurl=/icinga/cgi-bin \
-    --with-nagios-user=icinga --with-nagios-group=icinga
  #> make
  #> make install
-~~~~
+</code></pre>
 
 ### 2.4.10. Adjusting the SELinux settings
 
@@ -533,15 +450,13 @@ the Icinga-CGIs.
 
 Check if SELinux runs in enforcing mode
 
-~~~~ {.screen}
  #> getenforce
-~~~~
+</code></pre>
 
 Set SELinux in "permissive" mode
 
-~~~~ {.screen}
  #> setenforce 0
-~~~~
+</code></pre>
 
 To make this change permanent you have to adjust this setting in
 */etc/selinux/config* and restart the system.
@@ -549,22 +464,22 @@ To make this change permanent you have to adjust this setting in
 Instead of deactivating SELinux or setting it into permissive mode you
 can use the following commands to run the CGIs in enforcing/targeted
 mode. The *semanage* command will automatically add entries to
-`/etc/selinux/targeted/contexts/files/file_contexts.local`{.filename}.
+`/etc/selinux/targeted/contexts/files/file_contexts.local`.
 
-~~~~ {.programlisting}
+<pre><code>
  #> semanage fcontext -a -t httpd_sys_script_exec_t '/usr/local/icinga/sbin(/.*)?'
  #> semanage fcontext -a -t httpd_sys_content_t '/usr/local/icinga/share(/.*)?'
  #> semanage fcontext -a -t httpd_sys_rw_content_t '/usr/local/icinga/var(/.*)?'
-~~~~
+</code></pre>
 
 Once you have defined the necessary contexts you have to apply the
 settings:
 
-~~~~ {.programlisting}
+<pre><code>
  #> chcon -R /usr/local/icinga/sbin
  #> chcon -R /usr/local/icinga/share
  #> chcon -R /usr/local/icinga/var/rw
-~~~~
+</code></pre>
 
 For details please take a look at
 [http://www.linuxquestions.org/questions/blog/sag47-492023/selinux-and-icinga-34926/](http://www.linuxquestions.org/questions/blog/sag47-492023/selinux-and-icinga-34926/).
@@ -575,48 +490,19 @@ Add Icinga to the list of system services and have it automatically
 start when the system boots (make sure you have installed the init
 script before).
 
--   *Fedora/RHEL/CentOS/openSuSE*
 
-    ~~~~ {.programlisting}
-     #> chkconfig --add icinga 
-     #> chkconfig icinga on 
-    ~~~~
 
--   *Debian/Ubuntu*
 
-    ~~~~ {.programlisting}
-     #> update-rc.d icinga defaults
-    ~~~~
 
-    Verify the sample Icinga configuration files.
 
-    ~~~~ {.programlisting}
-     #> /usr/local/icinga/bin/icinga -v /usr/local/icinga/etc/icinga.cfg
-    ~~~~
 
-    Instead of specifying the paths to binary and config file you can
-    issue
 
-    ~~~~ {.programlisting}
-     #> /etc/init.d/icinga show-errors
-    ~~~~
 
-    which results in an OK message if everything is fine or several
-    lines which show the location of the error(s).
 
-    If there are no errors, start Icinga.
 
--   *Fedora/RHEL/CentOS/Ubuntu*
 
-    ~~~~ {.programlisting}
-     #> service icinga start
-    ~~~~
 
--   *Debian/openSuSE*
 
-    ~~~~ {.programlisting}
-     #> /etc/init.d/icinga start
-    ~~~~
 
 ### 2.4.12. Login to the Classic Web Interface
 
@@ -624,15 +510,15 @@ You should now be able to access the Icinga classic web interface at the
 URL below. You'll be prompted for the username ( *icingaadmin*) and
 password you specified earlier.
 
-~~~~ {.programlisting}
+<pre><code>
  http://localhost/icinga/
-~~~~
+</code></pre>
 
 or
 
-~~~~ {.programlisting}
+<pre><code>
  http://yourdomain.com/icinga/
-~~~~
+</code></pre>
 
 Click on the "Service Detail" navbar link to see details of what's being
 monitored on your local machine. It will take a few minutes for Icinga
@@ -644,9 +530,9 @@ Make sure your system's firewall rules are configured to allow access to
 the web server if you want to access the Icinga classic interface
 remotely.
 
-~~~~ {.programlisting}
+<pre><code>
  #> iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
-~~~~
+</code></pre>
 
 Setting up your mail transfer agent (MTA) like exim, sendmail or postfix
 to allow Icinga sending notification emails won't be explained here.
@@ -662,10 +548,12 @@ Started"](ch02.md "Chapter 2. Getting Started") about "Monitoring ..."
 
 * * * * *
 
-  -------------------------------------- -------------------- -----------------------------------------
-  [Prev](quickstart.md)                [Up](ch02.md)       [Next](quickstart-icinga-freebsd.md)
-  2.3. Quickstart Installation Guides    [Home](index.md)    2.5. Icinga Quickstart FreeBSD
-  -------------------------------------- -------------------- -----------------------------------------
+[Prev](quickstart.md) | [Up](ch02.md) | [Next](quickstart-icinga-freebsd.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

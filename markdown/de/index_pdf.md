@@ -1,18 +1,9 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-Icinga Version 1.13 Dokumentation
-
- 
-
- 
-
- [Weiter](ch01.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
 Copyright 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team.
 
-Teile Copyright © von Nagios/Icinga-Community-Mitgliedern - weitere
 Informationen finden Sie in der Datei THANKS in den Icinga-Core-Sourcen.
 
 Kudos an Yoann LAMY für die Erstellung des Vautour Style, den wir für
@@ -46,14 +37,6 @@ VERMARKTBARKEIT UND DER TAUGLICHKEIT FÜR EINEN BESTIMMTEN ZWECK.“
 
 2015.03.13
 
-  **Versionsgeschichte**
-  --------------------------- ------------
-  Version 1.12                2014-11-19
-  1.12 Icinga Dokumentation
-  Version 1.x                 2009-2015
-  1.x Icinga Dokumentation
-  Version 0.1                 2009-09-27
-  Erste Ausgabe
 
 * * * * *
 
@@ -62,40 +45,28 @@ VERMARKTBARKEIT UND DER TAUGLICHKEIT FÜR EINEN BESTIMMTEN ZWECK.“
 ​1. [Über](ch01.md)
 
 1.1. [Über Icinga](about.md)
-:   
 1.2. [What's New in Icinga 1.13](whatsnew.md)
-:   
 
 ​2. [Los geht's](ch02.md)
 
 2.1. [Hinweise für Neulinge](beginners.md)
-:   
 2.2. [Ich bin neu bei...](newbie.md)
-:   
 2.3. [Schnellstart-Installationsanleitungen](quickstart.md)\
 2.4. [Icinga-Schnellstart auf Linux](quickstart-icinga.md)
-:   
 2.5. [Icinga-Schnellstart auf FreeBSD](quickstart-icinga-freebsd.md)\
 2.6. [Icinga-Schnellstart mit IDOUtils](quickstart-idoutils.md)
-:   
 2.7. [Icinga-Schnellstart mit IDOUtils auf FreeBSD](quickstart-idoutils-freebsd.md)\
 2.8. [Icinga Pakete für Linux-Distributionen](icinga_packages.md)\
 2.9. [Links zu weiteren Howtos](howtos.md)\
 2.10. [Icinga aktualisieren](upgrading.md)
-:   
 2.11. [IDOUtils-Datenbank aktualisieren](upgrading_idoutils.md)\
 2.12. [Monitoring-Überblick](monitoring-overview.md)\
 2.13. [Windows-Maschinen überwachen](monitoring-windows.md)
-:   
 2.14. [Linux/Unix-Rechner überwachen](monitoring-linux.md)
-:   
 2.15. [Netware-Server überwachen](monitoring-netware.md)\
 2.16. [Netzwerk-Drucker überwachen](monitoring-printers.md)
-:   
 2.17. [Router und Switches überwachen](monitoring-routers.md)
-:   
 2.18. [Öffentlich zugängliche Dienste überwachen](monitoring-publicservices.md)
-:   
 
 ​3. [Icinga konfigurieren](ch03.md)
 
@@ -120,48 +91,29 @@ VERMARKTBARKEIT UND DER TAUGLICHKEIT FÜR EINEN BESTIMMTEN ZWECK.“
 ​5. [Die Grundlagen](ch05.md)
 
 5.1. [Icinga Plugins](plugins.md)
-:   
 5.2. [Makros verstehen und wie sie arbeiten](macros.md)
-:   
 5.3. [Standard-Makros in Icinga](macrolist.md)
-:   
 5.4. [Host-Prüfungen (Host checks)](hostchecks.md)
-:   
 5.5. [Service-Prüfungen (Service Checks)](servicechecks.md)
-:   
 5.6. [Aktive Prüfungen (Active Checks)](activechecks.md)
-:   
 5.7. [Passive Prüfungen (Passive Checks)](passivechecks.md)
-:   
 5.8. [Statustypen](statetypes.md)
-:   
 5.9. [Zeitfenster](timeperiods.md)
-:   
 5.10. [Ermitteln des Zustands und der Erreichbarkeit von Netzwerk-Hosts](networkreachability.md)
-:   
 5.11. [Benachrichtigungen](notifications.md)
-:   
 5.12. [Benachrichtigungen: Beispiele und Fehlersuche](notifications2.md)
-:   
 
 ​6. [Die Benutzeroberflächen](ch06.md)
 
 6.1. [Icinga Classic UI: Informationen über die Classic UI-Module](cgis.md)\
 6.2. [Authentifizierung und Autorisierung im Classic UI](cgiauth.md)
-:   
 6.3. [Informationen zu den Classic UI-Modul-Parametern](cgiparams.md)
-:   
 6.4. [Ausführen von Classic UI-Modulen (CGIs) auf der Kommandozeile](cgicmd.md)
-:   
 6.5. [Installation des Icinga Web Frontend](icinga-web-scratch.md)
-:   
 6.6. [Konfigurationsübersicht Icinga Web](icinga-web-config.md)
-:   
 6.7. [Aktualisierung von Icinga Web und Icinga Web Datenbank](upgrading_icingaweb.md)
-:   
 6.8. [Einführung in Icinga Web](icinga-web-introduction.md)\
 6.9. [Integration von PNP4Nagios in das Icinga Web Frontend](icinga-web-pnp.md)
-:   
 
 ​7. [Fortgeschrittene Themen](ch07.md)
 
@@ -243,33 +195,23 @@ PNP4Nagios](perfgraphs.md)
 ​9. [Integration mit anderer Software](ch09.md)
 
 9.1. [Integrationsüberblick](integration.md)
-:   
 9.2. [SNMP-Trap-Integration](int-snmptrap.md)\
 9.3. [TCP-Wrapper-Integration](int-tcpwrappers.md)
-:   
 9.4. [MKLiveStatus-Integration](int-mklivestatus.md)
-:   
 9.5. [Installation von Icinga Reporting mit JasperReports Server](reporting.md)
-:   
 
 ​10. [weitere Software](ch10.md)
 
 10.1. [Icinga Addons](addons.md)\
 10.2. [NRPE](nrpe.md)
-:   
 10.3. [NSCA](nsca.md)
-:   
 
 ​11. [Entwicklung](ch11.md)
 
 11.1. [Nagios Plugin API](pluginapi.md)
-:   
 11.2. [Entwickeln von Plugins für die Nutzung mit Embedded Perl](epnplugins.md)
-:   
 11.3. [Keine Icinga API mehr zu installieren](icinga-api.md)
-:   
 11.4. [Die Icinga Web REST API](icinga-web-api.md)
-:   
 
 ​12. [IDOUtils](ch12.md)
 
@@ -517,10 +459,6 @@ Tables](db_model.md#idp18616944)
 
 * * * * *
 
-  --- --- ----------------------
-           [Weiter](ch01.md)
-           Kapitel 1. Über
-  --- --- ----------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

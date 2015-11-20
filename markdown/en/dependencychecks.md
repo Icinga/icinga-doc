@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.20. Predictive Dependency Checks
-
-[Prev](adaptive.md) 
-
-Chapter 7. Advanced Topics
-
- [Next](cachedchecks.md)
+[Prev](adaptive.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](cachedchecks.md)
 
 * * * * *
 
@@ -82,13 +74,7 @@ overhead imposed by these checks.
 
 Enabling predictive dependency checks is easy:
 
--   Predictive host dependency checks are controlled by the
-    [enable\_predictive\_host\_dependency\_checks](configmain.md#configmain-enable_predictive_host_dependency_checks)
-    option.
 
--   Predictive service dependency checks are controlled by the
-    [enable\_predictive\_service\_dependency\_checks](configmain.md#configmain-enable_predictive_service_dependency_checks)
-    option.
 
 ### 7.20.4. Cached Checks
 
@@ -102,10 +88,12 @@ found [here](cachedchecks.md "7.21. Cached Checks").
 
 * * * * *
 
-  ---------------------------- -------------------- ----------------------------
-  [Prev](adaptive.md)        [Up](ch07.md)       [Next](cachedchecks.md)
-  7.19. Adaptive Monitoring    [Home](index.md)    7.21. Cached Checks
-  ---------------------------- -------------------- ----------------------------
+[Prev](adaptive.md) | [Up](ch07.md) | [Next](cachedchecks.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

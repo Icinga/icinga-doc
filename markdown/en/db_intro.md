@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-12.1. Introduction
-
-[Prev](ch12.md) 
-
-Chapter 12. IDOUtils
-
- [Next](db_components.md)
+[Prev](ch12.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](db_components.md)
 
 * * * * *
 
@@ -42,12 +34,8 @@ user interest and even more user who are interested in testing.
 
 The IDOUtils addon was designed to work for users who have:
 
--   Single Icinga installations
 
--   Multiple standalone or "vanilla" Icinga installations
 
--   Multiple Icinga installations in distributed, redundant, and/or fail
-    over environments
 
 Data from each Icinga process (hereafter referred to as "instances") can
 be stored either in the same database or different databases than data
@@ -110,10 +98,12 @@ IDOUtils](quickstart-idoutils.md "2.6. Icinga with IDOUtils Quickstart")
 
 * * * * *
 
-  ----------------------- -------------------- -----------------------------
-  [Prev](ch12.md)       [Up](ch12.md)       [Next](db_components.md)
-  Chapter 12. IDOUtils    [Home](index.md)    12.2. Components
-  ----------------------- -------------------- -----------------------------
+[Prev](ch12.md) | [Up](ch12.md) | [Next](db_components.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

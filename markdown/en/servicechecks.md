@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-5.5. Service Checks
-
-[Prev](hostchecks.md) 
-
-Chapter 5. The Basics
-
- [Next](activechecks.md)
+[Prev](hostchecks.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](activechecks.md)
 
 * * * * *
 
@@ -41,12 +33,7 @@ The basic workings of service checks are described here...
 
 Services are checked by the Icinga daemon:
 
--   At regular intervals, as defined by the *check\_interval* and
-    *retry\_interval* options in your [service
-    definitions](objectdefinitions.md#objectdefinitions-service).
 
--   On-demand as needed for [predictive service dependency
-    checks](dependencychecks.md "7.20. Predictive Dependency Checks").
 
 On-demand checks are performed as part of the [predictive service
 dependency
@@ -96,13 +83,9 @@ service check.
 
 Services that are checked can be in one of four different states:
 
--   OK
 
--   WARNING
 
--   UNKNOWN
 
--   CRITICAL
 
 ### 5.5.7. Service State Determination
 
@@ -137,10 +120,12 @@ For an explanation please take a look at
 
 * * * * *
 
-  -------------------------- -------------------- ----------------------------
-  [Prev](hostchecks.md)    [Up](ch05.md)       [Next](activechecks.md)
-  5.4. Host Checks           [Home](index.md)    5.6. Active Checks
-  -------------------------- -------------------- ----------------------------
+[Prev](hostchecks.md) | [Up](ch05.md) | [Next](activechecks.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

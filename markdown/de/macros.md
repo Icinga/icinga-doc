@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-5.2. Makros verstehen und wie sie arbeiten
-
-[Zurück](plugins.md) 
-
-Kapitel 5. Die Grundlagen
-
- [Weiter](macrolist.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -15,7 +7,6 @@ Kapitel 5. Die Grundlagen
 
 5.2.1. [Makros](macros.md#introduction)
 
-5.2.2. [Makroersetzungen - wie Makros arbeiten](macros.md#howitworks)
 
 5.2.3. [Beispiel 1: Host-Address Makro](macros.md#hostaddressexample)
 
@@ -41,7 +32,6 @@ Fähigkeit, Makros in Befehlsdefinitionen zu benutzen. Makros erlauben
 Ihnen, Bezug auf Informationen von Hosts, Services und anderen Quellen
 zu nehmen.
 
-### 5.2.2. Makroersetzungen - wie Makros arbeiten
 
 Bevor Icinga einen Befehl ausführt, ersetzt es jedes Makro, das es in
 der Befehlsdefinition findet, durch den entsprechenden Wert. Diese
@@ -60,25 +50,16 @@ Befehl ausgeführt wird. Nehmen wir ein Beispiel. Angenommen, wir
 benutzen eine Host-Definition und einen *check\_ping*-Befehl, die wie
 folgt definiert sind:
 
-~~~~ {.programlisting}
+<pre><code>
  define host{
-        host_name       linuxbox
-        address         192.168.1.2
-        check_command   check_ping
-        ...
-        }
  define command{
-        command_name    check_ping
-        command_line    /usr/local/icinga/libexec/check_ping -H $HOSTADDRESS$ -w 100.0,25% -c 200.0,50%
-        }
-~~~~
+</code></pre>
 
 die erweiterte/endgültige auszuführende Befehlszeile für die
 Host-Prüfung würde so aussehen:
 
-~~~~ {.screen}
 $> /usr/local/icinga/libexec/check_ping -H 192.168.1.2 -w 100.0,25% -c 200.0,50%
-~~~~
+</code></pre>
 
 Ziemlich einfach, stimmt's? Die Schönheit liegt darin, dass Sie eine
 einzelne Befehlsdefinition für eine unbegrenzte Zahl von Hosts nutzen
@@ -94,14 +75,9 @@ Argumente werden in der Objektdefinition (d.h. Host oder Service)
 angegeben, indem sie durch Ausrufezeichen (!) vom Befehlsnamen getrennt
 werden:
 
-~~~~ {.programlisting}
+<pre><code>
  define service{
-        host_name               linuxbox
-        service_description     PING
-        check_command           check_ping!200.0,25%!400.0,50%
-        ...
-        }
-~~~~
+</code></pre>
 
 Im obigen Beispiel hat der Service-Check zwei Argumente (auf die mit
 [\$ARGn\$](macrolist.md#macrolist-arg)-Makros zugegriffen werden
@@ -110,19 +86,15 @@ kann). Das \$ARG1\$-Makro wird "200.0,50%" und \$ARG2\$ wird "400.0,25%"
 angegebene Host-Definiton und einen wie folgt definierten
 *check\_ping*-Befehl:
 
-~~~~ {.programlisting}
+<pre><code>
  define command{
-        command_name    check_ping
-        command_line    /usr/local/icinga/libexec/check_ping -H $HOSTADDRESS$ -w $ARG1$ -c $ARG2$
-        }
-~~~~
+</code></pre>
 
 die erweiterte/endgültige auszuführende Befehlszeile für die
 Service-Prüfung würde so aussehen:
 
-~~~~ {.screen}
 $> /usr/local/icinga/libexec/check_ping -H 192.168.1.2 -w 200.0,25% -c 400.0,50%
-~~~~
+</code></pre>
 
 ![[Tipp]](../images/tip.png)
 
@@ -145,18 +117,16 @@ benutzen diese in Ihrer Definition.
 
 Ressource File
 
-~~~~ {.programlisting}
+<pre><code>
 $USER255$=;
-~~~~
+</code></pre>
 
 Command-Definition
 
-~~~~ {.programlisting}
+<pre><code>
 define command{
-       command_name   ...
-       command_line   $USER1$/your_plugin "Ein Text mit einem Semikolon ($USER255$)"
 }
-~~~~
+</code></pre>
 
 ### 5.2.5. On-Demand-Makros
 
@@ -176,9 +146,7 @@ sie einen Bezeichner für den Host oder Service enthalten, von dem sie
 ihren Wert erhalten sollen. Hier das grundsätzliche Format von
 On-Demand-Makros:
 
--   \$*HOSTMACRONAME*:*host\_name*\$
 
--   \$*SERVICEMACRONAME*:*host\_name*:*service\_description*\$
 
 Ersetzen Sie *HOSTMACRONAME* und *SERVICEMACRONAME* durch den Namen
 eines der Standard-Host- oder Service-Makros, die
@@ -187,7 +155,6 @@ eines der Standard-Host- oder Service-Makros, die
 Beachten Sie, dass der Makroname durch einen Doppelpunkt (:) vom Host-
 oder Service-Bezeichner getrennt ist. Für On-Demand-Service-Makros
 besteht der Service-Bezeichner aus einem Host-Namen und einer
-Service-Beschreibung - sie sind ebenfalls durch einen Doppelpunkt (:)
 voneinander getrennt.
 
 ![](../images/tip.gif) Hinweis: On-Demand-Service-Makros können ein
@@ -196,21 +163,12 @@ Name des Hosts benutzt, der mit dem Service verbunden ist.
 
 Beispiele für On-Demand-Host- und Service-Makros folgen:
 
-~~~~ {.screen}
- $HOSTDOWNTIME:myhost$                        <--- On-Demand-Host-Makro
- $SERVICESTATEID:novellserver:DS Database$    <--- On-Demand-Service-Makro
- $SERVICESTATEID::CPU Load$                   <--- On-Demand-Service-Makro mit leerem Host-Namen-Feld
-~~~~
+</code></pre>
 
 On-Demand-Makros gibt es auch für hostgroup-, servicegroup-, contact-
 und contactgroup-Makros. Zum Beispiel:
 
-~~~~ {.screen}
- $CONTACTEMAIL:john$                          <--- On-Demand-Contact-Makro
- $CONTACTGROUPMEMBERS:linux-admins$           <--- On-Demand-Contactgroup-Makro
- $HOSTGROUPALIAS:linux-servers$               <--- On-Demand-Hostgroup-Makro
- $SERVICEGROUPALIAS:DNS-Cluster$              <--- On-Demand-Servicegroup-Makro
-~~~~
+</code></pre>
 
 ### 5.2.6. On-Demand-Gruppen-Makros
 
@@ -220,11 +178,8 @@ On-Demand-Makrodeklaration erhalten. Sie tun dies, indem Sie auf eine
 bestimmte Hostgruppe, Servicegruppe oder Kontaktgruppe in einem
 On-Demand-Makro verweisen und zwar wie folgt:
 
--   \$*HOSTMACRONAME*:*hostgroup\_name*:*delimiter*\$
 
--   \$*SERVICEMACRONAME*:*servicegroup\_name*:*delimiter*\$
 
--   \$*CONTACTMACRONAME*:*contactgroup\_name*:*delimiter*\$
 
 Ersetzen Sie *HOSTMACRONAME*, *SERVICEMACRONAME* und *CONTACTMACRONAME*
 durch den Namen eines der Standard-Host-, Service- oder Kontaktmakros,
@@ -235,15 +190,13 @@ der einzelnen Gruppenmitglieder von einander zu trennen.
 Das folgende Makro wird beispielsweise eine komma-separierte Liste von
 Host-Status-IDs zurückliefern, die Mitglieder der *hg1*-Hostgruppe sind:
 
-~~~~ {.screen}
  $HOSTSTATEID:hg1:,$
-~~~~
+</code></pre>
 
 Diese Makrodefinition wird etwas zurückliefern, was etwa so aussieht:
 
-~~~~ {.screen}
  0,2,1,1,0,0,2
-~~~~
+</code></pre>
 
 ### 5.2.7. Benutzervariablen-Makros
 
@@ -252,23 +205,15 @@ Jede
 die Sie in Host-, Service- oder Contact-Definitionen einsetzen, ist auch
 in Makros verfügbar. Benutzervariablen-Makros werden wie folgt benannt:
 
--   \$\_HOST*varname*\$
 
--   \$\_SERVICE*varname*\$
 
--   \$\_CONTACT*varname*\$
 
 Nehmen Sie die folgende Host-Definition mit einer "\_MACADDRESS"
 genannten Benutzervariablen...
 
-~~~~ {.programlisting}
+<pre><code>
  define host{
-        host_name       linuxbox
-        address         192.168.1.1
-        _MACADDRESS     00:01:02:03:04:05
-        ...
-        }
-~~~~
+</code></pre>
 
 Die Benutzervariable \_MACADRESS wäre in einem Makro
 \$\_HOSTMACADDRESS\$ verfügbar. Weitere Informationen zu
@@ -285,23 +230,14 @@ den Makros entfernt werden, hängt von den Einstellungen der
 ab. Die folgenden Makros werden von potenziell gefährlichen Zeichen
 bereinigt:
 
-1.  [\$HOSTOUTPUT\$](macrolist.md#macrolist-hostoutput)
 
-2.  [\$LONGHOSTOUTPUT\$](macrolist.md#macrolist-longhostoutput)
 
-3.  [\$HOSTPERFDATA\$](macrolist.md#macrolist-hostperfdata)
 
-4.  [\$HOSTACKAUTHOR\$](macrolist.md#macrolist-hostackauthor)
 
-5.  [\$HOSTACKCOMMENT\$](macrolist.md#macrolist-hostackcomment)
 
-6.  [\$SERVICEOUTPUT\$](macrolist.md#macrolist-serviceoutput)
 
-7.  [\$LONGSERVICEOUTPUT\$](macrolist.md#macrolist-longserviceoutput)
 
-8.  [\$SERVICEPERFDATA\$](macrolist.md#macrolist-serviceperfdata)
 
-9.  [\$SERVICEACKAUTHOR\$](macrolist.md#macrolist-serviceackauthor)
 
 10. [\$SERVICEACKCOMMENT\$](macrolist.md#macrolist-serviceackcomment)
 
@@ -329,10 +265,6 @@ sie eingesetzt werden können, finden Sie
 
 * * * * *
 
-  ------------------------- -------------------------- ---------------------------------
-  [Zurück](plugins.md)    [Nach oben](ch05.md)      [Weiter](macrolist.md)
-  5.1. Icinga Plugins       [Zum Anfang](index.md)    5.3. Standard-Makros in Icinga
-  ------------------------- -------------------------- ---------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

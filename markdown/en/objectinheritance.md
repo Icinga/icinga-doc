@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.26. Object Inheritance
-
-[Prev](modified_attr.md) 
-
-Chapter 7. Advanced Topics
-
- [Next](objecttricks.md)
+[Prev](modified_attr.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](objecttricks.md)
 
 * * * * *
 
@@ -68,14 +60,7 @@ message with a *detailed* description of your problem to the
 There are three variables affecting recursion and inheritance that are
 present in all object definitions. They are *"indicated"* as follows...
 
-~~~~ {.screen}
- define  someobjecttype{
-        object-specific variables ...
-        name            template_name
-        use             name_of_template_to_use
-        register        [0/1]
-        }
-~~~~
+</code></pre>
 
 The first variable is *name*. Its just a "template" name that can be
 referenced in other object definitions so they can inherit the objects
@@ -107,23 +92,10 @@ object variables always take precedence over variables defined in the
 template object. Take a look at the following example of two host
 definitions (not all required variables have been supplied):
 
-~~~~ {.screen}
  define host{
-        host_name               bighost1
-        check_command           check-host-alive
-        notification_options    d,u,r
-        max_check_attempts      5
-                
-        name                    hosttemplate1
-        }
 
  define host{
-        host_name               bighost2
-        max_check_attempts      3
-                
-        use                     hosttemplate1
-        }
-~~~~
+</code></pre>
 
 You'll note that the definition for host *bighost1* has been defined as
 having *hosttemplate1* as its template name. The definition for host
@@ -131,14 +103,8 @@ having *hosttemplate1* as its template name. The definition for host
 Once Icinga processes this data, the resulting definition of host
 *bighost2* would be equivalent to this definition:
 
-~~~~ {.screen}
  define host{
-        host_name               bighost2
-        check_command           check-host-alive
-        notification_options    d,u,r
-        max_check_attempts      3
-        }
-~~~~
+</code></pre>
 
 You can see that the *check\_command* and *notification\_options*
 variables were inherited from the template object (where host *bighost1*
@@ -161,31 +127,12 @@ string values, you can do so. Read more about how to accomplish this
 Objects can inherit properties/variables from multiple levels of
 template objects. Take the following example:
 
-~~~~ {.screen}
  define host{
-        host_name               bighost1
-        check_command           check-host-alive
-        notification_options    d,u,r
-        max_check_attempts      5
-                
-        name                    hosttemplate1
-        }
 
  define host{
-        host_name               bighost2
-        max_check_attempts      3
-                
-        use                     hosttemplate1
-                
-        name                    hosttemplate2
-        }
 
  define host{
-        host_name               bighost3
-                
-        use                     hosttemplate2
-        }
-~~~~
+</code></pre>
 
 You'll notice that the definition of host *bighost3* inherits variables
 from the definition of host *bighost2*, which in turn inherits variables
@@ -193,28 +140,12 @@ from the definition of host *bighost1*. Once Icinga processes this
 configuration data, the resulting host definitions are equivalent to the
 following:
 
-~~~~ {.screen}
  define host{
-        host_name               bighost1
-        check_command           check-host-alive
-        notification_options    d,u,r
-        max_check_attempts      5
-        }
 
  define host{
-        host_name               bighost2
-        check_command           check-host-alive
-        notification_options    d,u,r
-        max_check_attempts      3
-        }
 
  define host{
-        host_name               bighost3
-        check_command           check-host-alive
-        notification_options    d,u,r
-        max_check_attempts      3
-        }
-~~~~
+</code></pre>
 
 There is no inherent limit on how "deep" inheritance can go, but you'll
 probably want to limit yourself to at most a few levels in order to
@@ -230,31 +161,12 @@ but it is in fact recommended that you use them. Why? Well, they can
 serve as a set of defaults for use in all other object definitions. Take
 the following example:
 
-~~~~ {.screen}
  define host{
-        check_command           check-host-alive
-        notification_options    d,u,r
-        max_check_attempts      5
-                
-        name                    generichosttemplate
-                
-        register                0
-        }
 
  define host{
-        host_name               bighost1
-        address                 192.168.1.3
-                
-        use                     generichosthosttemplate
-        }
 
  define host{
-        host_name               bighost2
-        address                 192.168.1.4
-                
-        use                     generichosthosttemplate
-        }
-~~~~
+</code></pre>
 
 Notice that the first host definition is incomplete because it is
 missing the required *host\_name* variable. We don't need to supply a
@@ -270,23 +182,10 @@ variables. Once Icinga processes the config data in the example, the
 resulting host definitions would be equivalent to specifying the
 following:
 
-~~~~ {.screen}
  define host{
-        host_name               bighost1
-        address                 192.168.1.3
-        check_command           check-host-alive
-        notification_options    d,u,r
-        max_check_attempts      5
-        }
 
  define host{
-        host_name               bighost2
-        address                 192.168.1.4
-        check_command           check-host-alive
-        notification_options    d,u,r
-        max_check_attempts      5
-        }
-~~~~
+</code></pre>
 
 At the very least, using a template definition for default variables
 will save you a lot of typing. It'll also save you a lot of headaches
@@ -301,37 +200,18 @@ you define in your host, service, or contact definition templates will
 be inherited just like other standard variables. Take the following
 example:
 
-~~~~ {.screen}
  define host{
-        _customvar1             somevalue  ; <-- Custom host variable
-        _snmp_community         public  ; <-- Custom host variable
-                
-        name                    generichosttemplate
-                
-        register                0
-        }
 
  define host{
-        host_name               bighost1
-        address                 192.168.1.3
-                
-        use                     generichosthosttemplate
-        }
-~~~~
+</code></pre>
 
 The host *bighost1* will inherit the custom host variables
 *\_customvar1* and *\_snmp\_community*, as well as their respective
 values, from the *generichosttemplate* definition. The effective result
 is a definition for *bighost1* that looks like this:
 
-~~~~ {.screen}
  define host{
-        host_name               bighost1
-        address                 192.168.1.3
-        _customvar1             somevalue
-        _snmp_community         public
-        }
-~~~~
+</code></pre>
 
 ### 7.26.7. Cancelling Inheritance of String Values
 
@@ -341,34 +221,17 @@ they reference. If this is the case, you can specify "**null**" (without
 quotes) as the value of the variable that you do not want to inherit.
 Take the following example:
 
-~~~~ {.screen}
  define host{
-        event_handler           my-event-handler-command
-                
-        name                    generichosttemplate
-                
-        register                0
-        }
 
  define host{
-        host_name               bighost1
-        address                 192.168.1.3
-        event_handler           null
-                
-        use                     generichosthosttemplate
-        }
-~~~~
+</code></pre>
 
 In this case, the host *bighost1* will not inherit the value of the
 *event\_handler* variable that is defined in the *generichosttemplate*.
 The resulting effective definition of *bighost1* is the following:
 
-~~~~ {.screen}
  define host{
-        host_name               bighost1
-        address                 192.168.1.3
-        }
-~~~~
+</code></pre>
 
 ### 7.26.8. Additive Inheritance of String Values
 
@@ -382,33 +245,17 @@ variable value with a plus sign (**+**). This features is only available
 for standard (non-custom) variables that contain string values. Take the
 following example:
 
-~~~~ {.screen}
  define host{
-        hostgroups              all-servers
-                
-        name                    generichosttemplate
-                
-        register                0
-        }
 
  define host{
-        host_name               linuxserver1
-        hostgroups              +linux-servers,web-servers
-                
-        use                     generichosthosttemplate
-        }
-~~~~
+</code></pre>
 
 In this case, the host *linuxserver1* will append the value of its local
 *hostgroups* variable to that from *generichosttemplate*. The resulting
 effective definition of *linuxserver1* is the following:
 
-~~~~ {.screen}
  define host{
-        host_name               linuxserver1
-        hostgroups              all-servers,linux-servers,web-servers
-        }
-~~~~
+</code></pre>
 
 ### 7.26.9. Implied Inheritance
 
@@ -505,29 +352,15 @@ inheritance logic.
 
 Confused? Here's an example:
 
-~~~~ {.screen}
  define host{
-        name            linux-server
-        contact_groups  linux-admins
-        ...
-        }
 
  define hostescalation{
-        host_name       linux-server
-        contact_groups  +management
-        ...
-        }
-~~~~
+</code></pre>
 
 This is a much simpler equivalent to:
 
-~~~~ {.screen}
  define hostescalation{
-        host_name       linux-server
-        contact_groups  linux-admins,management
-        ...
-        }
-~~~~
+</code></pre>
 
 ### 7.26.11. Important values
 
@@ -548,30 +381,13 @@ check\_command when used on a central Icinga-erver.
 
 For instance:
 
-~~~~ {.screen}
 # On master
 define service {
-        name                   service-distributed
-        register               0
-        active_checks_enabled  0
-        check_freshness        1
-        check_command          !set_to_stale
-        }
 # On slave
 define service {
-        name                   service-distributed
-        register               0
-        active_checks_enabled  1
-        }
 # Service definition, used by master and slave
 define service {
-        host_name              host1
-        service_description    serviceA
-        check_command          check_http...
-        use                    service-distributed
-        ...
-        }
-~~~~
+</code></pre>
 
 ![[Note]](../images/note.png)
 
@@ -581,10 +397,8 @@ Please note that only one level of inheritance is possible using
 important values. That means that you cannot inherit the check\_command
 from one template to another and from the latter to a service.
 
-~~~~ {.programlisting}
- Template1 => Service1                <== will work
- Template1 => Template2 => Service1   <== will NOT work
-~~~~
+<pre><code>
+</code></pre>
 
 ### 7.26.12. Multiple Inheritance Sources
 
@@ -593,32 +407,15 @@ inheriting variables/values from just a single source. You are also able
 to inherit variables/values from multiple sources for more complex
 configurations, as shown below.
 
-~~~~ {.screen}
 # Generic host template
 define host{
-        name                    generic-host
-        active_checks_enabled   1
-        check_interval          10
-        ...
-        register                0
-        }
 
 # Development web server template
 define host{
-        name                    development-server
-        check_interval          15
-        notification_options    d,u,r
-        ...
-        register                0
-        }
 
 # Development web server
 define host{
-        use                     generic-host,development-server
-        host_name               devweb1
-        ...
-        }
-~~~~
+</code></pre>
 
 ![](../images/multiple-templates1.png)
 
@@ -630,16 +427,9 @@ directive, its value for the *check\_interval* variable is inherited by
 the *devweb1* host. After inheritance, the effective definition of
 *devweb1* would be as follows:
 
-~~~~ {.screen}
 # Development web server
 define host{
-        host_name               devweb1
-        active_checks_enabled   1
-        check_interval          10
-        notification_options    d,u,r
-        ...
-        }
-~~~~
+</code></pre>
 
 ### 7.26.13. Precedence With Multiple Inheritance Sources
 
@@ -652,13 +442,8 @@ can get tricky to figure out what variable/value pairs take precedence.
 
 Consider the following host definition that references three templates:
 
-~~~~ {.screen}
  # Development web server
- define host{ 
-       use        1,  4,  8 
-       host_name  devweb1 ...
- } 
-~~~~
+</code></pre>
 
 If some of those referenced templates themselves inherit
 variables/values from one or more other templates, the precendence rules
@@ -671,10 +456,12 @@ things work in complex inheritance situations like this. :-)
 
 * * * * *
 
-  ----------------------------- -------------------- --------------------------------------------------
-  [Prev](modified_attr.md)    [Up](ch07.md)       [Next](objecttricks.md)
-  7.25. Modified attributes     [Home](index.md)    7.27. Time-Saving Tricks For Object Definitions
-  ----------------------------- -------------------- --------------------------------------------------
+[Prev](modified_attr.md) | [Up](ch07.md) | [Next](objecttricks.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

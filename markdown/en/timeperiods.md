@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-5.9. Time Periods
-
-[Prev](statetypes.md) 
-
-Chapter 5. The Basics
-
- [Next](networkreachability.md)
+[Prev](statetypes.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](networkreachability.md)
 
 * * * * *
 
@@ -37,13 +29,9 @@ Dependencies](timeperiods.md#dependenciestimeperiods)
 definitions allow you to control when various aspects of the monitoring
 and alerting logic can operate. For instance, you can restrict:
 
--   When regularly scheduled host and service checks can be performed
 
--   When notifications can be sent out
 
--   When notification escalations can be used
 
--   When dependencies are valid
 
 ### 5.9.2. Precedence in Time Periods
 
@@ -55,17 +43,11 @@ precendence levels and may override other directives in your timeperiod
 definitions. The order of precedence for different types of directives
 (in descending order) is as follows:
 
--   Calendar date (2008-01-01)
 
--   Specific month date (January 1st)
 
--   Generic month date (Day 15)
 
--   Offset weekday of specific month (2nd Tuesday in December)
 
--   Offset weekday (3rd Monday)
 
--   Normal weekday (Tuesday)
 
 Examples of different timeperiod directives can be found
 [here](objectdefinitions.md#objectdefinitions-timeperiod).
@@ -104,14 +86,8 @@ time range. If you don't do this, you can run into some problems during
 "blackout" times (times that are not valid in the timeperiod
 definition):
 
-1.  The status of the host or service will appear unchanged during the
-    blackout time.
 
-2.  Contacts will mostly likely not get re-notified of problems with a
-    host or service during blackout times.
 
-3.  If a host or service recovers during a blackout time, contacts will
-    not be immediately notified of the recovery.
 
 ### 5.9.4. How Time Periods Work With Contact Notifications
 
@@ -161,10 +137,12 @@ definition.
 
 * * * * *
 
-  -------------------------- -------------------- -------------------------------------------------------------
-  [Prev](statetypes.md)    [Up](ch05.md)       [Next](networkreachability.md)
-  5.8. State Types           [Home](index.md)    5.10. Determining Status and Reachability of Network Hosts
-  -------------------------- -------------------- -------------------------------------------------------------
+[Prev](statetypes.md) | [Up](ch05.md) | [Next](networkreachability.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

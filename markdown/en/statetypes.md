@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-5.8. State Types
-
-[Prev](passivechecks.md) 
-
-Chapter 5. The Basics
-
- [Next](timeperiods.md)
+[Prev](passivechecks.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](timeperiods.md)
 
 * * * * *
 
@@ -28,11 +20,8 @@ Chapter 5. The Basics
 The current state of monitored services and hosts is determined by two
 components:
 
--   The status of the service or host (i.e. OK, WARNING, UP, DOWN, etc.)
 
--   Tye *type* of state the service or host is in
 
-There are two state types in Icinga - SOFT states and HARD states. These
 state types are a crucial part of the monitoring logic, as they are used
 to determine when [event
 handlers](eventhandlers.md "7.3. Event Handlers") are executed and
@@ -56,20 +45,12 @@ state types work.
 
 Soft states occur in the following situations...
 
--   When a service or host check results in a non-OK or non-UP state and
-    the service check has not yet been (re)checked the number of times
-    specified by the *max\_check\_attempts* directive in the service or
-    host definition. This is called a soft error.
 
--   When a service or host recovers from a soft error. This is
-    considered a soft recovery.
 
 The following things occur when hosts or services experience SOFT state
 changes:
 
--   The SOFT state is logged.
 
--   Event handlers are executed to handle the SOFT state.
 
 SOFT states are only logged if you enabled the
 [log\_service\_retries](configmain.md#configmain-log_service_retries)
@@ -91,34 +72,16 @@ corrective action. More information on event handlers can be found
 
 Hard states occur for hosts and services in the following situations:
 
--   When a host or service check results in a non-UP or non-OK state and
-    it has been (re)checked the number of times specified by the
-    *max\_check\_attempts* option in the host or service definition.
-    This is a hard error state.
 
--   When a host or service transitions from one hard error state to
-    another error state (e.g. WARNING to CRITICAL).
 
--   When a service check results in a non-OK state and its corresponding
-    host is either DOWN or UNREACHABLE.
 
--   When a host or service recovers from a hard error state. This is
-    considered to be a hard recovery.
 
--   When a [passive host
-    check](passivechecks.md "5.7. Passive Checks") is received.
-    Passive host checks are treated as HARD unless the
-    [passive\_host\_checks\_are\_soft](configmain.md#configmain-passive_host_checks_are_soft)
-    option is enabled.
 
 The following things occur when hosts or services experience HARD state
 changes:
 
--   The HARD state is logged.
 
--   Event handlers are executed to handle the HARD state.
 
--   Contacts are notifified of the host or service problem or recovery.
 
 The [\$HOSTSTATETYPE\$](macrolist.md#macrolist-hoststatetype) or
 [\$SERVICESTATETYPE\$](macrolist.md#macrolist-servicestatetype) macros
@@ -289,10 +252,12 @@ Service stabilizes in an OK state.
 
 * * * * *
 
-  ----------------------------- -------------------- ---------------------------
-  [Prev](passivechecks.md)    [Up](ch05.md)       [Next](timeperiods.md)
-  5.7. Passive Checks           [Home](index.md)    5.9. Time Periods
-  ----------------------------- -------------------- ---------------------------
+[Prev](passivechecks.md) | [Up](ch05.md) | [Next](timeperiods.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-5.6. Aktive Prüfungen (Active Checks)
-
-[Zurück](servicechecks.md) 
-
-Kapitel 5. Die Grundlagen
-
- [Weiter](passivechecks.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -30,9 +22,7 @@ beschrieben, so dass wir uns hier auf aktive Prüfungen konzentrieren.
 Aktive Prüfungen sind die gebräuchlichste Methode zur Überwachung von
 Hosts und Services. Die Hauptmerkmale von aktiven Prüfungen sind
 
--   aktive Prüfungen werden vom Icinga-Prozess veranlasst
 
--   aktive Prüfungen laufen auf einer regelmäßig geplanten Basis
 
 ![](../images/activechecks.png)
 
@@ -54,11 +44,7 @@ Mehr Informationen, wie Plugins arbeiten, finden Sie
 
 Aktive Prüfungen werden ausgeführt
 
--   in regelmäßigen Intervallen, wie sie in den *check\_interval* und
-    *retry\_interval*-Optionen in Ihren Host- und Service-Definitionen
-    festgelegt sind
 
--   nach Bedarf
 
 Regelmäßig geplante Prüfungen erfolgen in Intervallen, die den
 Einstellungen in *check\_interval* oder *retry\_interval* in Ihren Host-
@@ -81,10 +67,6 @@ hat.
 
 * * * * *
 
-  ------------------------------------------ -------------------------- ------------------------------------------
-  [Zurück](servicechecks.md)               [Nach oben](ch05.md)      [Weiter](passivechecks.md)
-  5.5. Service-Prüfungen (Service Checks)    [Zum Anfang](index.md)    5.7. Passive Prüfungen (Passive Checks)
-  ------------------------------------------ -------------------------- ------------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

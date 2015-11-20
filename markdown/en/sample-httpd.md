@@ -1,67 +1,36 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-13.5. httpd.conf
-
-[Prev](sample-resource.md) 
-
-Chapter 13. Icinga Samples
-
- [Next](sample-commands.md)
+[Prev](sample-resource.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](sample-commands.md)
 
 * * * * *
 
 13.5. httpd.conf
 ----------------
 
-~~~~ {.programlisting}
+<pre><code>
 # SAMPLE CONFIG SNIPPETS FOR APACHE WEB SERVER
 #
 # This file contains examples of entries that need
 # to be incorporated into your Apache web server
-# configuration file.  Customize the paths, etc. as
 # needed to fit your system.
 
 ScriptAlias @cgiurl@ "@sbindir@"
 
 <Directory "@sbindir@">
-#  SSLRequireSSL
-   Options ExecCGI
-   AllowOverride None
-   Order allow,deny
-   Allow from all
-#  Order deny,allow
-#  Deny from all
-#  Allow from 127.0.0.1
-   AuthName "Icinga Access"
-   AuthType Basic
-   AuthUserFile @HTTPAUTHFILE@
-   Require valid-user
 <Directory>
 
 Alias @htmurl@ "@datadir@/"
 
 <Directory "@datadir@/">
-#  SSLRequireSSL
-   Options None
-   AllowOverride All
-   Order allow,deny
-   Allow from all
-#  Order deny,allow
-#  Deny from all
-#  Allow from 127.0.0.1
-   AuthName "Icinga Access"
-   AuthType Basic
-   AuthUserFile @HTTPAUTHFILE@
-   Require valid-user
 <Directory>
-~~~~
+</code></pre>
 
 * * * * *
 
-  ------------------------------- -------------------- -------------------------------
-  [Prev](sample-resource.md)    [Up](ch13.md)       [Next](sample-commands.md)
-  13.4. resource.cfg              [Home](index.md)    13.6. commands.cfg
-  ------------------------------- -------------------- -------------------------------
+[Prev](sample-resource.md) | [Up](ch13.md) | [Next](sample-commands.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

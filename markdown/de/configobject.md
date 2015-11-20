@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-3.3. Überblick Objektkonfiguration
-
-[Zurück](configmain.md) 
-
-Kapitel 3. Icinga konfigurieren
-
- [Weiter](objectdefinitions.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -18,25 +10,15 @@ Kapitel 3. Icinga konfigurieren
 Objekte sind alle Elemente, die an der Überwachungs- und
 Benachrichtigungslogik beteiligt sind. Objekttypen umfassen:
 
--   Services
 
--   Servicegruppen
 
--   Hosts
 
--   Hostgruppen
 
--   Kontakte
 
--   Kontaktgruppen
 
--   Befehle
 
--   Zeitfenster
 
--   Benachrichtigungseskalationen
 
--   Benachrichtigungs- und Ausführungsabhängigkeiten
 
 Mehr Informationen darüber, was Objekte sind und wie sie in Beziehung
 zueinander stehen, finden Sie nachstehend.
@@ -106,18 +88,9 @@ Einige der Hauptobjekttypen werden nachfolgend genauer erklärt...
 zentralen Objekte in der Überwachungslogik. Wichtige Attribute von Hosts
 sind:
 
--   Hosts sind normaler Weise physikalische Geräte in Ihrem Netzwerk
-    (Server, Workstations, Router, Switches, Drucker usw.).
 
--   Hosts haben eine Adresse irgendeiner Art (z.B. eine IP- oder
-    MAC-Adresse).
 
--   Hosts haben einen oder mehrere Services, die mit ihm verbunden sind.
 
--   Hosts können Eltern/Kind-Beziehungen mit anderen Hosts haben,
-    oftmals dargestellt durch reale Netzwerkverbindungen, die in der
-    [Netzwerk-Erreichbarkeits](networkreachability.md "5.10. Ermitteln des Zustands und der Erreichbarkeit von Netzwerk-Hosts")-Logik
-    benutzt wird.
 
 [**Hostgruppen**](objectdefinitions.md#objectdefinitions-hostgroup)
 sind Gruppen von einem oder mehreren Hosts. Hostgruppen können es
@@ -132,14 +105,8 @@ zu vereinfachen.
 eins der zentralen Objekte in der Überwachungslogik. Services sind mit
 Hosts verbunden und können:
 
--   Attribute eines Hosts sein (CPU-Auslastung, Plattenbelegung,
-    Laufzeit, usw.)
 
--   Services sein, die durch den Host zur Verfügung gestellt werden
-    (HTTP, POP3, FTP, SSH, usw.)
 
--   andere Dinge sein, die mit dem Host verbunden sind (DNS records,
-    usw.)
 
 [**Servicegruppen**](objectdefinitions.md#objectdefinitions-servicegroup)
 sind Gruppen von einem oder mehreren Services. Servicegruppen können es
@@ -153,11 +120,7 @@ zu vereinfachen.
 [**Kontakte**](objectdefinitions.md#objectdefinitions-contact) sind
 Leute, die am Benachrichtigungsprozess beteiligt sind:
 
--   Kontakte haben eine oder mehrere Benachrichtigungsmethoden (Handy,
-    Pager, e-Mail, Sofortnachrichten, usw.)
 
--   Kontakte erhalten Benachrichtigungen zu Hosts und Services, für die
-    sie verantwortlich sind
 
 [**Kontaktgruppen**](objectdefinitions.md#objectdefinitions-contactgroup)
 sind Gruppen von einem oder mehreren Kontakten. Kontaktgruppen können es
@@ -169,9 +132,7 @@ bestimmte Host- oder Serviceprobleme auftreten.
 [**Zeitfenster**](objectdefinitions.md#objectdefinitions-timeperiod)
 werden benutzt, um zu kontrollieren:
 
--   wann Hosts und Services überwacht werden
 
--   wann Kontakte Benachrichtigungen erhalten
 
 Informationen darüber, wie Zeitfenster arbeiten, finden Sie
 [hier](timeperiods.md "5.9. Zeitfenster").
@@ -182,22 +143,14 @@ Informationen darüber, wie Zeitfenster arbeiten, finden Sie
 benutzt, um Icinga mitzuteilen, welche Programme, Scripte usw. es
 ausführen soll:
 
--   Host- und Service-Prüfungen
 
--   Benachrichtigungen
 
--   Eventhandler
 
--   und mehr...
 
 ![](../images/objects-commands.png)
 
 * * * * *
 
-  --------------------------------------------- -------------------------- -----------------------------------
-  [Zurück](configmain.md)                     [Nach oben](ch03.md)      [Weiter](objectdefinitions.md)
-  3.2. Optionen der Hauptkonfigurationsdatei    [Zum Anfang](index.md)    3.4. Objektdefinitionen
-  --------------------------------------------- -------------------------- -----------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

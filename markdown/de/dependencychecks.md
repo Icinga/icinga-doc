@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.20. Vorausschauende Abhängigkeitsprüfungen
-
-[Zurück](adaptive.md) 
-
-Kapitel 7. Fortgeschrittene Themen
-
- [Weiter](cachedchecks.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -84,13 +76,7 @@ Prüfungen mehr als ausgleichen.
 
 Vorausschauende Abhängigkeitsprüfungen zu aktivieren ist einfach:
 
--   Vorausschauende Host-Abhängigkeitsprüfungen werden durch die
-    [enable\_predictive\_host\_dependency\_checks](configmain.md#configmain-enable_predictive_host_dependency_checks)-Option
-    kontrolliert.
 
--   Vorausschauende Service-Abhängigkeitsprüfungen werden durch die
-    [enable\_predictive\_service\_dependency\_checks](configmain.md#configmain-enable_predictive_service_dependency_checks)-Option
-    kontrolliert.
 
 ### 7.20.4. Cached Checks
 
@@ -106,10 +92,6 @@ finden Sie
 
 * * * * *
 
-  ----------------------------- -------------------------- ---------------------------------------
-  [Zurück](adaptive.md)       [Nach oben](ch07.md)      [Weiter](cachedchecks.md)
-  7.19. Adaptive Überwachung    [Zum Anfang](index.md)    7.21. Zwischengespeicherte Prüfungen
-  ----------------------------- -------------------------- ---------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

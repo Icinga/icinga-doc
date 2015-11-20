@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-3.5. Custom Object Variables
-
-[Prev](objectdefinitions.md) 
-
-Chapter 3. Configuring Icinga
-
- [Next](configcgi.md)
+[Prev](objectdefinitions.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](configcgi.md)
 
 * * * * *
 
@@ -34,7 +26,6 @@ endless. The problem is that it makes Icinga less generic and more
 infrastructure-specific. Icinga was intended to be flexible, which meant
 things needed to be designed in a generic manner. Host definitions in
 Icinga, for example, have a generic "address" variable that can contain
-anything from an IP address to human-readable driving directions -
 whatever is appropriate for the user's setup.
 
 Still, there needs to be a method for admins to store information about
@@ -51,18 +42,9 @@ checks.
 There are a few important things that you should note about custom
 variables:
 
--   Custom variable names must begin with an underscore (\_) to prevent
-    name collision with standard variables
 
--   Custom variable names are converted to all uppercase before use
 
--   Custom variables are
-    [inherited](objectinheritance.md "7.26. Object Inheritance") from
-    object templates like normal variables
 
--   Scripts can reference custom variable values with [macros and
-    environment
-    variables](macros.md "5.2. Understanding Macros and How They Work")
 
 ![[Important]](../images/important.png)
 
@@ -73,7 +55,6 @@ verification phase (icinga -v icinga.cfg) nor during the Icinga start up
 process so placing them in host names, service descriptions, and several
 other places of the object definition will lead to an error message
 during verification like
-"`<object> contains one or more illegal       characters.`{.literal}".
 Changing the directive "illegal\_object\_name\_chars" will *not* solve
 this issue.
 
@@ -82,29 +63,13 @@ this issue.
 Here's an example of how custom variables can be defined in different
 types of object definitions:
 
-~~~~ {.programlisting}
+<pre><code>
 define host{
-        host_name       linuxserver
-        _mac_address    00:06:5B:A6:AD:AA       ; <-- Custom MAC_ADDRESS variable
-        _rack_number    R32                     ; <-- Custom RACK_NUMBER variable
-        ...
-        }
 
 define service{
-        host_name       linuxserver
-        description     Memory Usage
-        _SNMP_community public                  ; <-- Custom SNMP_COMMUNITY variable
-        _TechContact    Jane Doe                ; <-- Custom TECHCONTACT variable
-        ....
-        }
 
 define contact{
-        contact_name    john
-        _AIM_username   john16                  ; <-- Custom AIM_USERNAME variable
-        _YahooID        john32                  ; <-- Custom YAHOOID variable
-        ...
-        }
-~~~~
+</code></pre>
 
 ### 3.5.4. Custom Variables As Macros
 
@@ -184,10 +149,12 @@ standard host, service, or contact variables.
 
 * * * * *
 
-  --------------------------------- -------------------- --------------------------------------
-  [Prev](objectdefinitions.md)    [Up](ch03.md)       [Next](configcgi.md)
-  3.4. Object Definitions           [Home](index.md)    3.6. CGI Configuration File Options
-  --------------------------------- -------------------- --------------------------------------
+[Prev](objectdefinitions.md) | [Up](ch03.md) | [Next](configcgi.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

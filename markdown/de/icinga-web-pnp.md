@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-6.9. Integration von PNP4Nagios in das Icinga Web Frontend
-
-[Zurück](icinga-web-introduction.md) 
-
-Kapitel 6. Die Benutzeroberflächen
-
- [Weiter](ch07.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -72,65 +64,25 @@ her.
 
 ### 6.9.1. Installieren von PNP4Nagios
 
-1.  Installieren Sie PNP4Nagios wie in der
-    PNP4Nagios-[Dokumentation](http://docs.pnp4nagios.org/de/pnp-0.6/start)
-    beschrieben.
 
-2.  Passen Sie die PNP4Nagios-Konfiguration auf Ihre
-    Icinga-Konfiguration an. Wahrscheinlich müssen Sie hier ändern:
 
-    ~~~~ {.programlisting}
-    #> vi npcd.cfg
-        user = icinga
-        group = icinga
-        log_file = /var/log/icinga/npcd.log
-        perfdata_spool_dir = /var/icinga/spool/
-        perfdata_file = /var/icinga/perfdata.dump
-    ~~~~
 
-    ~~~~ {.programlisting}
-    #> vi process_perfdata.cfg
-        LOG_FILE = /var/log/icinga/perfdata.log
-        XML_ENC = ISO-8859-1   # falls Sie Probleme mit Umlauten haben
-    ~~~~
 
-    ~~~~ {.programlisting}
-    #> vi config.php 
-        $conf['nagios_base'] = "/icinga/cgi-bin";
-    ~~~~
 
-    ![[Anmerkung]](../images/note.png)
 
-    Anmerkung
 
-    Stellen Sie sicher, dass Sie bestehende Pfade benutzen, legen Sie
-    sie an, falls notwendig, und/oder passen Sie die Angaben an Ihre
-    Distribution an.
 
-    Bitte überprüfen Sie, dass die command-Definitionen für
-    "process-host-perfdata-file" und "process-service-perfdata-file"
-    (wahrscheinlich in `etc/objects/commands.cfg`{.filename}) auf das
-    gleiche Zielverzeichnis zeigen, das in perfdata\_spool\_dir
-    angegeben wurde.
 
 ### 6.9.2. Template-Extensions
 
 Die PNP-Integration wurde mit diesen Extensions upgrade-sicher gemacht.
 
-Ausschnitt aus `INSTALL`{.filename} in
-`contrib/PNP_Integration/`{.filename}
+Ausschnitt aus `INSTALL` in
+`contrib/PNP_Integration/`
 
-~~~~ {.screen}
 #> cat contrib/PNP_Integration/INSTALL
-    ************************
-    * INSTALLATION
-    ************************
 
-    * To install this addon, simply copy both xml files under templateExtensions
-    * to your icinga-webs app/modules/Cronks/data/xml/extensions folder
-    * and clear the app/cache/CronkTemplates folder
-    * To remove it, just delete the extension files and clear the cache folder again
-~~~~
+</code></pre>
 
 *Install Script*
 
@@ -153,24 +105,20 @@ Anmerkung
 Bitte denken Sie daran, dass Sie nach dem Editieren von \*.xml-Dateien
 den Cache bereinigen müssen!
 
-~~~~ {.programlisting}
+<pre><code>
 #> rm -f app/cache/config/*.php
-~~~~
+</code></pre>
 
 oder /path/to/clearcache.sh
 
-~~~~ {.programlisting}
+<pre><code>
 #> /usr/local/icinga-web/bin/clearcache.sh
-~~~~
+</code></pre>
 
 Das war es auch schon, Sie sind fertig!
 
 * * * * *
 
-  ----------------------------------------- -------------------------- -------------------------------------
-  [Zurück](icinga-web-introduction.md)    [Nach oben](ch06.md)      [Weiter](ch07.md)
-  6.8. Einführung in Icinga Web             [Zum Anfang](index.md)    Kapitel 7. Fortgeschrittene Themen
-  ----------------------------------------- -------------------------- -------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

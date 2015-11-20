@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-2.2. Ich bin neu bei...
-
-[Zurück](beginners.md) 
-
-Kapitel 2. Los geht's
-
- [Weiter](quickstart.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -84,37 +76,13 @@ Moderne Systeme haben Sicherheitseinstellungen, die unerwünschte Mails
 empfangende Postamt anweisen müssen, die von Ihrem lokalen Postamt
 eingehenden Mails tatsächlich anzunehmen und weiterzuleiten.
 
-1.  Testen Sie, ob ein e-Mail-Programm auf Ihrem lokalen System
-    installiert ist. Führen Sie auf der Kommandozeile etwas Ähnliches
-    wie das Folgende aus:
 
-    ~~~~ {.screen}
-    echo "foo bar" | mail -s "meine erste e-Mail" ihr.name@ihre.firma
-    ~~~~
 
-    Falls Sie eine Fehlermeldung wie "Programm nicht gefunden" bekommen,
-    dann sollten Sie ein Mail-Programm installieren. Schauen Sie in der
-    Dokumentation Ihrer Distribution nach Einzelheiten (z.B.
-    `apt-get`{.filename}, `yum`{.filename}, `zypper`{.filename}, um nur
-    einige Paket-Manager zu nennen).
 
-    ![[Anmerkung]](../images/note.png)
 
-    Anmerkung
 
-    Bitte merken Sie sich die Position Ihres Mails-Programms, weil Sie
-    später überprüfen müssen, ob die Angabe in den
-    Benachrichtigungs-Skripten korrekt ist.
 
-2.  Editieren Sie Ihre lokale Mail-Konfigurationsdatei, damit der
-    Relay-Host-Eintrag (z.B. `/etc/postfix/main.cf`{.filename},
-    Direktive
-    [relayhost](http://www.postfix.org/postconf.5.md#relayhost)) auf
-    den (zentralen) Mail-Server zeigt.
 
-3.  Bitten Sie den Mail-Server-Administrator, die Einstellungen zu
-    ändern, so dass von Ihrem Server kommende Mails akzeptiert und
-    weitergeleitet werden.
 
 ### 2.2.3. SNMP
 
@@ -128,7 +96,6 @@ Plugins](&url-monitoring-plugins;)-Paket können Sie Daten von "managed"
 Systemen abrufen. Bitte stellen Sie sicher, dass auf dem Zielsystem ein
 SNMP-Dämon läuft, der konfiguriert wurde, um auf Anfragen Ihres
 Überwachungsrechners zu antworten. Führen Sie etwas wie
-`snmpwalk -v1 -c public -On target_system     system`{.literal} aus, um
 die Funktionalität zu prüfen.
 
 Sie können OIDs in einer menschlich besser lesbaren Form angeben oder
@@ -139,7 +106,6 @@ lesen, ist schneller und weniger fehleranfällig.
 
 Bitte benutzen Sie Pakete, um die benötigte Software zu installieren, wo
 immer das möglich ist. Es umgeht einige Probleme während Installation
-und Konfiguration - aber wichtiger ist - es erlaubt einfache
 Aktualisierungen. Als Monitoring-Neuling brauchen Sie sehr selten eine
 Änderung, die im allerneusten Git-Snapshot enthalten ist. "Leading edge"
 kann sehr schnell zu "bleeding edge" werden, und nachdem Sie
@@ -183,44 +149,13 @@ Fragen werden besser an anderer Stelle gestellt.
 Die Community ist bereit zu helfen, aber Sie sind der Einzige, der das
 Problem sieht, also bitte ...
 
--   liefern Sie detaillierte Informationen zu dem verwendeten
-    Betriebssystem. Die Nennung der Distribution ist nicht ausreichend.
-    Geben Sie die Version an sowie Patch-Level / Service-Pack, falls
-    zutreffend, ggf. mehrfach, falls mehrere Rechner betroffen sind.
 
--   geben Sie Version und Installationsmodus der Software an (z.B.
-    Icinga, Plugin, Addon, ...). Einige Dinge sind ggf. bereits in
-    spätere Versionen behoben, oder nur auf eine Version beschränkt.
-    Falls Sie keine Pakete benutzt haben (wir hatten erwähnt, dass Sie
-    das tun sollten, oder?), dann sind die Installationspfade ggf.
-    unterschiedlich und können zu Problemen führen. Manchmal
-    funktionieren bestimmte Kombinationen nicht (z.B. ein neues
-    Betriebssystem-Release führt andere Paketabhängigkeiten ein).
 
--   zeigen Sie Ein- und Ausgaben, falls die Ausführung eines Plugins
-    fehlschlägt (am besten Copy&Paste). Manchmal machen (fehlende)
-    Leerzeichen / spezielle Zeichen den Unterschied, so dass Prosa in
-    den meisten Fällen nicht hilft, das Problem zu beschreiben (nur die
-    Fakten bitte).
 
--   zeigen Sie relevante Konfigurationsinformationen zu dem Problem
-    (bitte verzichten Sie auf Kommentare und Leerzeilen, die die Ausgabe
-    schwer lesbar machen).
 
--   fügen Sie relevante Zeilen von Log-Dateien an (z.B. icinga.log,
-    syslog, web server log).
 
--   versuchen Sie, einen Screenshot anzufügen, wenn Sie ein Problem mit
-    einer der Benutzeroberflächen zu zeigen.
 
--   fügen Sie Informationen zum Ursprung der Software hinzu ("Ich
-    benutze das Plugin my\_plugin" hilft nicht), um anderen den Zugriff
-    auf die gleiche Version zu ermöglichen, die dann ggf. den Fehler
-    bestätigen.
 
--   fügen Sie Informationen zu den verwendeten Anweisungen hinzu. Diese
-    sind ggf. veraltet oder beziehen sich nur auf eine bestimmte Version
-    der Software.
 
 Je mehr (präzisere) Informationen Sie liefern, um so höher ist die
 Chance, dass Sie Antworten erhalten, mit denen Sie Ihr Problem lösen
@@ -239,10 +174,6 @@ Zeit die gleiche Frage an unterschiedlichen Stellen platzieren).
 
 * * * * *
 
-  ----------------------------- -------------------------- ---------------------------------------------
-  [Zurück](beginners.md)      [Nach oben](ch02.md)      [Weiter](quickstart.md)
-  2.1. Hinweise für Neulinge    [Zum Anfang](index.md)    2.3. Schnellstart-Installationsanleitungen
-  ----------------------------- -------------------------- ---------------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

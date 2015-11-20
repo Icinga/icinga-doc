@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-12.2. Komponenten
-
-[Zurück](db_intro.md) 
-
-Kapitel 12. IDOUtils
-
- [Weiter](configido.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -27,13 +19,9 @@ Kapitel 12. IDOUtils
 
 Es gibt vier Hauptkomponenten, aus denen die IDO-Utilities bestehen:
 
-1.  IDOMOD-Event-Broker-Modul
 
-2.  LOG2IDO-Utility
 
-3.  FILE2SOCK-Utility
 
-4.  IDO2DB-Daemon
 
 Jede Komponente wird auf den folgenden Seiten genauer beschrieben.
 
@@ -155,10 +143,6 @@ PostgreSQL-Datenbanken.
 
 * * * * *
 
-  -------------------------- -------------------------- -----------------------------------
-  [Zurück](db_intro.md)    [Nach oben](ch12.md)      [Weiter](configido.md)
-  12.1. Einleitung           [Zum Anfang](index.md)    12.3. Konfiguration der IDOUtils
-  -------------------------- -------------------------- -----------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

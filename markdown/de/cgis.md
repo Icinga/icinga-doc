@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-6.1. Icinga Classic UI: Informationen über die Classic UI-Module
-
-[Zurück](ch06.md) 
-
-Kapitel 6. Die Benutzeroberflächen
-
- [Weiter](cgiauth.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -76,23 +68,14 @@ Dateiname: **status.cgi**
 
 Dies ist das wichtigste mit Icinga gelieferte Classic UI-Modul. Es
 erlaubt Ihnen den aktuellen Status aller überwachten Hosts und Services
-zu sehen. Das Status-Modul kann zwei Arten von Ausgaben liefern - einen
 Status-Überblick aller Hostgruppen (oder einer bestimmten Hostgruppe)
 und eine detaillierte Anzeige aller Services (oder diese bezogen auf
 einen bestimmten Host).
 
 **Autorisierungsanforderungen:**
 
--   Wenn Sie [*für alle Hosts
-    autorisiert*](configcgi.md#configcgi-authorized_for_all_hosts)
-    sind, können Sie alle Hosts **und** alle Services ansehen.
 
--   Wenn Sie [*für alle Services
-    autorisiert*](configcgi.md#configcgi-authorized_for_all_services)
-    sind, können Sie alle Services ansehen.
 
--   Wenn Sie ein *authentifizierter Kontakt* sind, können Sie alle Hosts
-    und Services ansehen, deren Kontakt Sie sind.
 
 **Status Map Modul**
 
@@ -115,12 +98,7 @@ um einen Layout-Algorithmus zu definieren.
 
 **Autorisierungsanforderungen:**
 
--   Wenn Sie [*für alle Hosts
-    autorisiert*](configcgi.md#configcgi-authorized_for_all_hosts)
-    sind, können Sie alle Hosts **und** alle Services ansehen.
 
--   Wenn Sie ein *authentifizierter Kontakt* sind, können Sie alle
-    Services ansehen, deren Kontakt Sie sind.
 
 ![[Anmerkung]](../images/note.png)
 
@@ -152,16 +130,8 @@ möchten.
 
 **Autorisierungsanforderungen:**
 
--   Wenn Sie [*für alle Hosts
-    autorisiert*](configcgi.md#configcgi-authorized_for_all_hosts)
-    sind, können Sie alle Hosts **und** alle Services ansehen.
 
--   Wenn Sie [*für alle Services
-    autorisiert*](configcgi.md#configcgi-authorized_for_all_services)
-    sind, können Sie alle Services ansehen.
 
--   Wenn Sie ein *authentifizierter Kontakt* sind, können Sie alle Hosts
-    und Services ansehen, deren Kontakt Sie sind.
 
 **Network Outages Modul**
 
@@ -177,12 +147,7 @@ wenn Sie ein großes Netzwerk haben und schnell die Quelle des Problems
 identifizieren möchten. Hosts werden sortiert nach der Schwere des
 Ausfalls, den sie bewirken.
 
--   Wenn Sie [*für alle Hosts
-    autorisiert*](configcgi.md#configcgi-authorized_for_all_hosts)
-    sind, können Sie alle Hosts ansehen.
 
--   Wenn Sie ein *authentifizierter Kontakt* sind, können Sie alle Hosts
-    ansehen, deren Kontakt Sie sind.
 
 **Configuration Modul**
 
@@ -200,9 +165,6 @@ definiert haben.
 
 **Autorisierungsanforderungen:**
 
--   Sie müssen [*für Konfigurationsinformationen
-    autorisiert*](configcgi.md#configcgi-authorized_for_configuration_information)
-    sein, um jegliche Konfigurationsinformationen ansehen zu können.
 
 **Command-Modul**
 
@@ -221,31 +183,12 @@ erteilen.
 
 **Autorisierungsanforderungen:**
 
--   Sie müssen [*für System-Befehle
-    autorisiert*](configcgi.md#configcgi-authorized_for_system_commands)
-    sein, um Befehle zu erteilen, die den Icinga-Prozess beeinflussen
-    (Start, Stop, Modus-Wechsel, etc.).
 
--   Wenn Sie [*für alle Hosts-Befehle
-    autorisiert*](configcgi.md#configcgi-authorized_for_all_hosts)
-    sind, können Sie Befehle für alle Hosts **und** alle Services
-    erteilen.
 
--   Wenn Sie [*für alle Service-Befehle
-    autorisiert*](configcgi.md#configcgi-authorized_for_all_services)
-    sind, können Sie Befehle für alle Services erteilen.
 
--   Wenn Sie ein *authentifizierter Kontakt* sind, können Sie Befehle
-    für alle Hosts und Services erteilen, deren Kontakt Sie sind.
 
 **Anmerkungen:**
 
--   Wenn Sie sich entschieden haben, die Option
-    [use\_authentication](configcgi.md#configcgi-use_authentication)
-    für die Module nicht zu nutzen, wird dieses Modul *jedem* die
-    Möglichkeit verweigern, Befehle zu erteilen. Dies geschieht zu Ihrem
-    eigenen Schutz. Wir würden empfehlen, dieses Modul komplett zu
-    entfernen, wenn Sie die Authentifizierung für Module nicht nutzen.
 
 **Extended Information-Modul**
 
@@ -274,22 +217,9 @@ klicken oder auf einen Host- oder Service-Link in der Ausgabe des
 
 **Autorisierungsanforderungen:**
 
--   Sie müssen [*für Systeminformationen
-    autorisiert*](configcgi.md#configcgi-authorized_for_system_information)
-    sein, um Icinga-Prozess-Informationen ansehen zu können.
 
--   Wenn Sie [*für lle Hosts
-    autorisiert*](configcgi.md#configcgi-authorized_for_all_hosts)
-    sind, können Sie erweiterte Informationen für alle Hosts **und**
-    alle Services ansehen.
 
--   Wenn Sie [*für alle Services
-    autorisiert*](configcgi.md#configcgi-authorized_for_all_services)
-    sind, können Sie erweiterte Informationen für alle Services ansehen.
 
--   Wenn Sie ein *authentifizierter Kontakt* sind, können Sie erweiterte
-    Informationen für alle Hosts und Services ansehen, deren Kontakt Sie
-    sind.
 
 **Event Log-Modul**
 
@@ -307,9 +237,6 @@ Navigations-Links oben auf der Seite benutzen.
 
 **Autorisierungsanforderungen:**
 
--   Sie müssen [*für Systeminformationen
-    autorisiert*](configcgi.md#configcgi-authorized_for_system_information)
-    sein, um das Logfile ansehen zu können.
 
 **Alert History-Modul**
 
@@ -332,19 +259,8 @@ Navigations-Links oben auf der Seite benutzen.
 
 **Autorisierungsanforderungen:**
 
--   Wenn Sie [*für alle Hosts
-    autorisiert*](configcgi.md#configcgi-authorized_for_all_hosts)
-    sind, können Sie historische Informationen für alle Hosts **und**
-    alle Services ansehen.
 
--   Wenn Sie [*für alle Services
-    autorisiert*](configcgi.md#configcgi-authorized_for_all_services)
-    sind, können Sie historische Informationen für alle Services
-    ansehen.
 
--   Wenn Sie ein *authentifizierter Kontakt* sind, können Sie
-    historische Informationen für alle Hosts und Services ansehen, deren
-    Kontakt Sie sind.
 
 **Notifications-Modul**
 
@@ -368,18 +284,8 @@ Navigations-Links oben auf der Seite benutzen.
 
 **Autorisierungsanforderungen:**
 
--   Wenn Sie [*für alle Hosts
-    autorisiert*](configcgi.md#configcgi-authorized_for_all_hosts)
-    sind, können Sie Benachrichtigungen für alle Hosts **und** alle
-    Services ansehen.
 
--   Wenn Sie [*für alle Services
-    autorisiert*](configcgi.md#configcgi-authorized_for_all_services)
-    sind, können Sie Benachrichtigungen für alle Services ansehen.
 
--   Wenn Sie ein *authentifizierter Kontakt* sind, können Sie
-    Benachrichtigungen für alle Hosts und Services ansehen, deren
-    Kontakt Sie sind.
 
 **Trends-Modul**
 
@@ -401,17 +307,8 @@ die Trend-Grafiken zu erstellen.
 
 **Autorisierungsanforderungen:**
 
--   Wenn Sie [*für alle Hosts
-    autorisiert*](configcgi.md#configcgi-authorized_for_all_hosts)
-    sind, können Sie Trends für alle Hosts **und** alle Services
-    ansehen.
 
--   Wenn Sie [*für alle Services
-    autorisiert*](configcgi.md#configcgi-authorized_for_all_services)
-    sind, können Sie Trends für alle Services ansehen.
 
--   Wenn Sie ein *authentifizierter Kontakt* sind, können Sie Trends für
-    alle Hosts und Services ansehen, deren Kontakt Sie sind.
 
 **Availability Reporting-Modul**
 
@@ -433,18 +330,8 @@ angegeben wird.
 
 **Autorisierungsanforderungen:**
 
--   Wenn Sie [*für alle Hosts
-    autorisiert*](configcgi.md#configcgi-authorized_for_all_hosts)
-    sind, können Sie Verfügbarkeitsdaten für alle Hosts **und** alle
-    Services ansehen.
 
--   Wenn Sie [*für alle Services
-    autorisiert*](configcgi.md#configcgi-authorized_for_all_services)
-    sind, können Sie Verfügbarkeitsdaten für alle Services ansehen.
 
--   Wenn Sie ein *authentifizierter Kontakt* sind, können Sie
-    Verfügbarkeitsdaten für alle Hosts und Services ansehen, deren
-    Kontakt Sie sind.
 
 **Alert Histogram-Modul**
 
@@ -466,18 +353,8 @@ die Histogramm-Grafiken zu erstellen.
 
 **Autorisierungsanforderungen:**
 
--   Wenn Sie [*für alle Hosts
-    autorisiert*](configcgi.md#configcgi-authorized_for_all_hosts)
-    sind, können Sie Histogramme für alle Hosts **und** alle Services
-    ansehen.
 
--   Wenn Sie [*für alle Services
-    autorisiert*](configcgi.md#configcgi-authorized_for_all_services)
-    sind, können Sie Histogramme für alle Services ansehen.
 
--   Wenn Sie ein *authentifizierter Kontakt* sind, können Sie
-    Histogramme für alle Hosts und Services ansehen, deren Kontakt Sie
-    sind.
 
 **Alert Summary-Modul**
 
@@ -493,129 +370,50 @@ Alarm-Spitzenreiter, etc.
 
 **Autorisierungsanforderungen:**
 
--   Wenn Sie [*für alle Hosts
-    autorisiert*](configcgi.md#configcgi-authorized_for_all_hosts)
-    sind, können Sie Summary-Informationen für alle Hosts **und** alle
-    Services ansehen.
 
--   Wenn Sie [*für alle Services
-    autorisiert*](configcgi.md#configcgi-authorized_for_all_services)
-    sind, können Sie Summary-Informationen für alle Services ansehen.
 
--   Wenn Sie ein *authentifizierter Kontakt* sind, können Sie
-    Summary-Informationen für alle Hosts und Services ansehen, deren
-    Kontakt Sie sind.
 
 **Änderungen am Classic UI**
 
 Diese Änderungen sind im Laufe der Zeit eingeflossen, so dass sie ggf.
 nicht in Ihrer Version von Icinga verfügbar sind.
 
--   Das Aussehen des "General"-Abschnitts auf der linke Seite hat sich
-    erneut geändert
 
-    **General-Modul**
 
-    ![](../images/cgi-general.png)
 
-    File Name:
 
-    **general.cgi**
 
-    Beim Klick auf die entsprechende Flagge können Sie weiterhin auf die
-    Dokumentation in der dargestellten Sprache zugreifen.
 
-    ![[Anmerkung]](../images/note.png)
 
-    Anmerkung
 
-    Es gibt keine Option, um die Sprache im Classic UI zu ändern. Dafür
-    sind Anpassungen im Source-Code notwendig.
 
-    Nun können Sie wieder nach Hosts suchen, ohne weitere Dinge
-    anzuklicken.
 
--   Das klassische Interface wird in regelmäßigen Intervallen
-    aktualisiert. Manchmal ist das nicht erwünscht, z.B. wenn Sie ein
-    bestimmtes Objekt betrachten möchten. In diesem Fall können Sie die
-    automatische Aktualisierung durch Klicken auf [pause] deaktivieren
-    (direkt neben dem Text "Updated every 90 seconds" links oben im
-    Status-Fenster). Klicken auf [continue] aktiviert die Aktualisierung
-    wieder.
 
-    **Pause-Modul**
 
-    ![](../images/cgi-pause.png)
 
-    File Name:
 
-    **pause.cgi**
 
-    **Continue-Modul**
 
-    ![](../images/cgi-continue.png)
 
-    File Name:
 
-    **continue.cgi**
 
--   Die Seiten "Host Detail" und "Service Detail" wurden erweitert, so
-    dass Sie nun Befehle für mehrere Objekte gleichzeitig erteilen
-    können. Nun können Sie ein oder mehrere Objekte durch Check-Boxen
-    neben den Objekten auswählen. Durch aktivieren der Check-Box neben
-    "Status information" werden alle Services eines Hosts ausgewählt.
 
-    **Statusinfo-Modul**
 
-    ![](../images/cgi-statusinfo.png)
 
-    File Name:
 
-    **statusinfo.cgi**
 
-    **Commands-Modul**
 
-    ![](../images/cgi-commands.png)
 
-    File Name:
 
-    **commands.cgi**
 
-    Nach dem Klick auf "Select command" zeigt eine Drop-Down-Liste die
-    verfügbaren Befehle. Nach der Auswahl einer Aktion und dem
-    anschließenden Klick auf "Submit" wird der Befehl für die
-    ausgewählten Objekte ausgeführt.
 
--   "Export to CSV" wurde auf verschiedenen Seiten hinzugefügt.
 
--   Die Zellen der Tabelle in extinfo.cgi haben Namen bekommen. Mit
-    Hilfe von SSI-Fragmenten können Sie JavaScript-Code einbinden, um
-    auf die Daten dieser Zellen zuzugreifen.
 
-    Der Beispiel-Code benutzt Daten der Zelle "comment\_data", um einen
-    Link zu erzeugen (Dank an Oliver Graf).
 
-    common-header.ssi:
 
-    ~~~~ {.programlisting}
-    <script type='text/javascript'>
-    function urlify() {
-        var comments=document.getElementsByName('comment_data');
-        var neu="";
-        for (i=0; i<=comments.length; i++) {
-            comments[i].innerHTML = comments[i].innerHTML.replace(/\bRT#(\d+)\b/g,"<a href='https://YOUR-SERVER/Ticket/Display.md?id=$1'>RT#$1</a>");
-        }
-    }
-    window.onload=urlify;
-    </script>
-    ~~~~
 
 * * * * *
 
-  ------------------------------------- -------------------------- ---------------------------------------------------------
-  [Zurück](ch06.md)                   [Nach oben](ch06.md)      [Weiter](cgiauth.md)
-  Kapitel 6. Die Benutzeroberflächen    [Zum Anfang](index.md)    6.2. Authentifizierung und Autorisierung im Classic UI
-  ------------------------------------- -------------------------- ---------------------------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

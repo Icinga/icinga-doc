@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-2.14. Monitoring Linux/Unix Machines
-
-[Prev](monitoring-windows.md) 
-
-Chapter 2. Getting Started
-
- [Next](monitoring-netware.md)
+[Prev](monitoring-windows.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](monitoring-netware.md)
 
 * * * * *
 
@@ -22,17 +14,11 @@ Chapter 2. Getting Started
 This document describes how you can monitor "private" services and
 attributes of Linux/UNIX servers, such as:
 
--   CPU load
 
--   Memory usage
 
--   Disk usage
 
--   Logged in users
 
--   Running processes
 
--   etc.
 
 Publicly available services that are provided by Linux servers (HTTP,
 FTP, SSH, SMTP, etc.) can be monitored easily by following the
@@ -83,10 +69,12 @@ usage, etc. on a remote host.
 
 * * * * *
 
-  ------------------------------------ -------------------- -----------------------------------
-  [Prev](monitoring-windows.md)      [Up](ch02.md)       [Next](monitoring-netware.md)
-  2.13. Monitoring Windows Machines    [Home](index.md)    2.15. Monitoring Netware Servers
-  ------------------------------------ -------------------- -----------------------------------
+[Prev](monitoring-windows.md) | [Up](ch02.md) | [Next](monitoring-netware.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

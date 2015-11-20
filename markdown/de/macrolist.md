@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-5.3. Standard-Makros in Icinga
-
-[Zurück](macros.md) 
-
-Kapitel 5. Die Grundlagen
-
- [Weiter](hostchecks.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -32,29 +24,16 @@ Service-Benachrichtigungen, andere vielleicht nur bei Host-Prüfungen. Es
 gibt zehn Arten von Befehlen, die Icinga erkennt und unterschiedlich
 behandelt. Dies sind:
 
-1.  Service-Prüfungen
 
-2.  Service-Benachrichtigungen
 
-3.  Host-Prüfungen
 
-4.  Host-Benachrichtigungen
 
-5.  Service-[Eventhandler](eventhandlers.md "7.3. Eventhandler")
-    und/oder ein globaler Service-Eventhandler
 
-6.  Host-[Eventhandler](eventhandlers.md "7.3. Eventhandler") und/oder
-    ein globaler Host-Eventhandler
 
-7.  [OCSP](configmain.md#configmain-ocsp_command) Befehl
 
-8.  [OCHP](configmain.md#configmain-ochp_command) Befehl
 
-9.  Service-[Performance-Daten](perfdata.md "7.15. Performance-Daten")
-    Befehle
 
 10. Host-[Performance-Daten](perfdata.md "7.15. Performance-Daten")
-    Befehle
 
 Die nachfolgenden Aufstellungen enthalten alle aktuell in Icinga
 verfügbaren Makros zusammen mit einer kurzen Beschreibung und den
@@ -3837,7 +3816,6 @@ genommen.
 
 Adresse für den Kontakt, der informiert wird. Jeder Kontakt kann sechs
 verschiedene Adressen haben (zusätzlich zur e-Mail-Adresse und
-Pager-Nummer). Die Makros für diese Adressen sind \$CONTACTADDRESS1\$ -
 \$CONTACTADDRESS6\$. Dieser Wert wird aus der *addressx*-Direktive in
 der
 [contact-Definition](objectdefinitions.md#objectdefinitions-contact)
@@ -4122,14 +4100,7 @@ Dies ist ein spezielles On-Demand-Makro, das 1 oder 0 zurückliefert,
 abhängig davon, ob eine bestimmte Zeit innerhalb einer angegebenen
 Zeitperiode gültig ist. Es gibt zwei Arten, dieses Makro zu benutzen:
 
-1.  **\$ISVALIDTIME:24x7\$** wird auf "1" gesetzt, wenn die aktuelle
-    Zeit innerhalb der "24x7"-Zeitperiode gültig ist. Falls nicht, wird
-    es auf "0" gesetzt.
 
-2.  **\$ISVALIDTIME:24x7:timestamp\$** wird auf "1" gesetzt, wenn die
-    durch das "timestamp"-Argument angegebene Zeit (die im
-    time\_t-Format sein muss) innerhalb der "24x7"-Zeitperiode gültig
-    ist. Falls nicht, wird es auf "0" gesetzt.
 
 \$NEXTVALIDTIME:\$[^9^](macrolist.md#macrolist-note9)
 
@@ -4137,14 +4108,7 @@ Dies ist ein spezielles On-Demand-Makro, das die nächste gültige Zeit
 (im time\_t-Format) für eine angebene Zeitperiode zurückliefert. Es gibt
 zwei Arten, dieses Makro zu benutzen:
 
-1.  **\$NEXTVALIDTIME:24x7\$** wird die nächste gültige Zeit
-    zurückliefern - ab der aktuellen Zeit - innerhalb der
-    "24x7"-Zeitperiode.
 
-2.  **\$NEXTVALIDTIME:24x7:timestamp\$** wird die nächste gültige Zeit
-    zurückliefern - ab der durch das "timestamp"-Argument angegebenen
-    Zeit (die im time\_t-Format sein muss) - innerhalb der
-    "24x7"-Zeitperiode.
 
 Falls keine gültige Zeit innerhalb der angegebenen Zeitperiode gefunden
 werden kann, wird das Makro auf "0" gesetzt.
@@ -4316,7 +4280,6 @@ die mehr generischen Makros \$NOTIFICATIONAUTHOR\$,
 \$NOTIFICATIONAUTHORNAME\$, \$NOTIFICATIONAUTHORALIAS\$ oder
 \$NOTIFICATIONCOMMENT\$
 
-**^9^** Diese Makros sind nur als On-Demand-Makros verfügbar - d.h. Sie
 müssen ein zusätzliches Argument übergeben, um sie zu nutzen. Diese
 Makros sind nicht als Umgebungsvariablen verfügbar.
 
@@ -4327,10 +4290,6 @@ aktiviert ist, weil sie ziemlich CPU-intensiv zu berechnen sind.
 
 * * * * *
 
-  --------------------------------------------- -------------------------- ------------------------------------
-  [Zurück](macros.md)                         [Nach oben](ch05.md)      [Weiter](hostchecks.md)
-  5.2. Makros verstehen und wie sie arbeiten    [Zum Anfang](index.md)    5.4. Host-Prüfungen (Host checks)
-  --------------------------------------------- -------------------------- ------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

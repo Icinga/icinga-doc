@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-2.2. I'm a newbie to ...
-
-[Prev](beginners.md) 
-
-Chapter 2. Getting Started
-
- [Next](quickstart.md)
+[Prev](beginners.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](quickstart.md)
 
 * * * * *
 
@@ -76,34 +68,13 @@ rejecting (at best) or just ignoring unwanted mails so you have to
 instruct the receiving post office to actually accept and relay mails
 coming from your local post office.
 
-1.  Test if a mail program is installed on your local system. Execute
-    something like the following from the command line
 
-    ~~~~ {.screen}
-    echo "foo bar" | mail -s "my first mail" your.name@your.company
-    ~~~~
 
-    If you receive an error message like "program not found" you might
-    have to install a mail program. See the documentation of your
-    distribution for details (e.g. `apt-get`{.filename},
-    `yum`{.filename}, `zypper`{.filename}, just to name a few package
-    managers).
 
-    ![[Note]](../images/note.png)
 
-    Note
 
-    Be sure to remember the location of your mail program because you
-    have to verify if the location is set correctly in the notification
-    scripts.
 
-2.  Edit your local mail config file to set the relay host entry (e.g.
-    `/etc/postfix/main.cf`{.filename}, directive
-    [relayhost](http://www.postfix.org/postconf.5.md#relayhost))
-    pointing to the (central) mail server.
 
-3.  Ask the mail server administrator to change the settings to accept
-    and relay mail coming from your server.
 
 ### 2.2.3. SNMP
 
@@ -120,7 +91,7 @@ Plugins](&url-monitoring-plugins;) package you can retrieve data from
 managed systems. Please make sure that the target system has a running
 SNMP daemon which is configured to respond to queries from you
 monitoring server. Executing something like
-`snmpwalk -v1 -c public -On target_system system`{.literal} should be
+`snmpwalk -v1 -c public -On target_system system` should be
 used to verify that.
 
 You can specify OIDs in a more human readable way or using numbers only.
@@ -130,8 +101,6 @@ prone.
 ### 2.2.4. Packages
 
 Please use packages to install the necessary software wherever possible.
-It circumvents some problems during installation and configuration - but
-more important - it allows for easy updates. Being a newbie to
 monitoring you very seldomly need a feature introduced in the most
 current git snapshot. "Leading edge" can result in "bleeding edge" very
 quickly and having enough trouble getting the product up and running
@@ -173,39 +142,13 @@ placed elsewhere.
 The community is ready to help but you are the only one viewing the
 problem so please ...
 
--   give detailed information on the operating system(s) used. Naming
-    the distribution is not enough. State version and patch level /
-    service pack if applicable. Please repeat if more than one machine
-    is involved.
 
--   specify the version and installation mode of the software (e.g.
-    Icinga, plugin, addon, ...). Some issues might be fixed in later
-    versions, or be limited to a specific version. If you didn't use
-    packages (we mentioned that you should, didn't we?) the installation
-    paths might be different and result in problems. Sometimes certain
-    combinations might not work (e.g. a new os release introducing
-    different package dependencies).
 
--   show input and output if executing a plugin fails (preferably
-    copy&paste). Sometimes (missing) blanks / special characters make
-    the difference so using prose describing the problem doesn't help in
-    most cases (just the facts, please).
 
--   show relevant config information related to the problem (please omit
-    comments and empty lines making the output difficult to read).
 
--   attach relevant lines from log files (e.g. icinga.log, syslog, web
-    server log).
 
--   try to attach a screenshot if you want to show a problem with any of
-    the user interfaces.
 
--   add information on the source of the software ("I use plugin
-    my\_plugin" doesn't help) to allow others to get the same version
-    and possibly confirm that problem.
 
--   add information on the instructions you used. They might be outdated
-    or apply only to a certain version of the software.
 
 The more (precise) information you give the higher is the chance that
 you get answers enabling you to solve the problem. Otherwise you might
@@ -221,10 +164,12 @@ Please avoid [crossposting](http://en.wikipedia.org/wiki/Crossposting)
 
 * * * * *
 
-  ---------------------------- -------------------- --------------------------------------
-  [Prev](beginners.md)       [Up](ch02.md)       [Next](quickstart.md)
-  2.1. Advice for beginners    [Home](index.md)    2.3. Quickstart Installation Guides
-  ---------------------------- -------------------- --------------------------------------
+[Prev](beginners.md) | [Up](ch02.md) | [Next](quickstart.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

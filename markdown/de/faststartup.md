@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-8.4. Schnellstart-Optionen
-
-[Zurück](tuning.md) 
-
-Kapitel 8. Sicherheit und Leistungsoptimierung
-
- [Weiter](largeinstalltweaks.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -36,11 +28,8 @@ Icinga zum (Neu-)Start benötigt. Diese Beschleunigung umfasst u.a.
 Diese Techniken zu benutzen ist besonders dann sinnvoll, wenn bei Ihnen
 einer oder mehrere der folgenden Punkte zutreffen:
 
--   große Konfigurationen
 
--   komplexe Konfigurationen (massiver Einsatz von Template-Features)
 
--   Installationen, bei denen häufige Neustarts notwendig sind
 
 ### 8.4.2. Hintergrund
 
@@ -48,24 +37,14 @@ Bei jedem (erneuten) Start von Icinga müssen die Konfigurationsdateien
 verarbeitet werden, bevor die Überwachung beginnen kann. Dieser
 Konfigurationsanlaufprozess umfasst eine Reihe von Schritten:
 
--   Lesen der Konfigurationsdateien
 
--   Auflösen von Template-Definitionen
 
--   "Recombobulating" Ihrer Objekte (ein [ausgedachter] Begriff für die
-    verschiedenen Arten von Arbeiten, die auftreten)
 
--   duplizieren von Objektdefinitionen
 
--   vererben von Objekteigenschaften
 
--   sortieren Ihrer Objektdefinitionen
 
--   überprüfen der Objektbeziehungsintegrität
 
--   prüfen von zirkulären Pfaden
 
--   und mehr...
 
 Einige dieser Schritte können ziemlich zeitintensiv sein, wenn Sie große
 oder komplexe Konfigurationen haben. Gibt es einen Weg, einen dieser
@@ -75,7 +54,6 @@ Schritte zu beschleunigen? Ja!
 
 Bevor wir weitermachen, die Dinge zu beschleunigen, müssen wir sehen was
 möglich ist und ob wir uns mit der ganzen Sache beschäftigen sollten
-oder nicht. Das ist einfach - starten Sie Icinga mit der **-s** oder
 **--test-scheduling**-Option, um Zeiten und Planungsinformationen zu
 bekommen.
 
@@ -86,41 +64,19 @@ Ein Beispiel für die Ausgabe (gekürzt, um nur relevante Teile zu zeigen)
 sehen Sie nachfolgend. In diesem Beispiel nutzen wir eine
 Icinga-Konfigurations mit 25 Host und etwas mehr als 10.000 Services.
 
-~~~~ {.screen}
  #> /usr/local/icinga/bin/icinga -s /usr/local/icinga/etc/icinga.cfg
 Icinga 1.13
 Copyright (c) 1999-2007 Ethan Galstad (http://www.nagios.org/)
 Last Modified: 01-27-2007
 License: GPL
 Timing information on object configuration processing is listed
-below.  You can use this information to see if precaching your
 object configuration would be useful.
 Object Config Source: Config files (uncached)
-OBJECT CONFIG PROCESSING TIMES      (* = Potential for precache savings with -u option)
 ----------------------------------
-Read:                 0.486780 sec
-Resolve:              0.004106 sec  *
-Recomb Contactgroups: 0.000077 sec  *
-Recomb Hostgroups:    0.000172 sec  *
-Dup Services:         0.028801 sec  *
-Recomb Servicegroups: 0.010358 sec  *
-Duplicate:            5.666932 sec  *
-Inherit:              0.003770 sec  *
-Recomb Contacts:      0.030085 sec  *
-Sort:                 2.648863 sec  *
-Register:             2.654628 sec
-Free:                 0.021347 sec
-                      ============
-TOTAL:                11.555925 sec  * = 8.393170 sec (72.63%) estimated savings
 Timing information on configuration verification is listed below.
-CONFIG VERIFICATION TIMES          (* = Potential for speedup with -x option)
 ----------------------------------
 Object Relationships: 1.400807 sec
-Circular Paths:       54.676622 sec  *
-Misc:                 0.006924 sec
-                      ============
-TOTAL:                56.084353 sec  * = 54.676622 sec (97.5%) estimated savings
-~~~~
+</code></pre>
 
 Okay, lassen Sie uns ansehen was passiert ist. Wenn wir die Summen
 ansehen, dauerte es ungefähr **11,6** Sekunden, die
@@ -162,9 +118,7 @@ Sie müssen die **-p**-Kommandozeilenoption zusammen mit der **-v** oder
 stellt sicher, dass Ihre Konfiguration überprüft wird, bevor die
 precached-Datei erstellt wird.
 
-~~~~ {.screen}
- #> /usr/local/icinga/bin/icinga -pv /usr/local/icinga/etc/icinga.cfg 
-~~~~
+</code></pre>
 
 Die precached-Konfigurationsdatei wird wahrscheinlich um einiges größer
 sein als die Summe Ihrer Objektkonfigurationsdateien. Das ist normal und
@@ -176,9 +130,7 @@ Sobald die precached-Objektkonfigurationdatei erstellt wurde, können Sie
 Icinga starten und mit der **-u**-Kommandozeilenoption angeben, dass
 diese Datei statt Ihrer Konfigurationsdatei(en) benutzt werden soll.
 
-~~~~ {.screen}
- #> /usr/local/icinga/bin/icinga -ud /usr/local/icinga/etc/icinga.cfg 
-~~~~
+</code></pre>
 
 ![](../images/important.gif) Wenn Sie Ihre Konfigurationsdateien ändern,
 müssen Sie diese erneut überprüfen und die precached-Konfigurationsdatei
@@ -209,9 +161,7 @@ Icinga gemailt haben, ein wenig Code liefern könnten. :-)
 Wenn Sie die Prüfung auf zirkuläre Pfade überspringen möchten, wenn Sie
 Icinga starten, dann fügen Sie die **-x**-Option wie folgt hinzu:
 
-~~~~ {.screen}
- #> /usr/local/icinga/bin/icinga -xd /usr/local/icinga/etc/icinga.cfg 
-~~~~
+</code></pre>
 
 ![](../images/important.gif) Es ist von äußerster Wichtigkeit, dass Sie
 Ihre Konfiguration überprüfen, bevor Sie Icinga (erneut) starten, wenn
@@ -227,18 +177,16 @@ zirkuläre Pfade nutzen wollen.
 ​1. Überprüfen Sie Ihre Konfiguration und legen Sie die precache-Datei
 mit den folgenden Befehlen an:
 
-~~~~ {.screen}
  #> /usr/local/icinga/bin/icinga -vp /usr/local/icinga/etc/icinga.cfg
-~~~~
+</code></pre>
 
 ​2. Stoppen Sie Icinga, wenn es momentan läuft.
 
 ​3. Starten Sie Icinga wie folgt, um die precached-Konfigurationsdatei
 zu nutzen und auf Prüfung auf zirkuläre Pfade zu überspringen:
 
-~~~~ {.screen}
  #> /usr/local/icinga/bin/icinga -uxd /usr/local/icinga/etc/icinga.cfg
-~~~~
+</code></pre>
 
 ​4. Wenn Sie in Zukunft Ihre Konfigurationsdateien verändern und Icinga
 erneut starten müssen, damit diese Änderungen aktiv werden, dann
@@ -254,10 +202,6 @@ Konfigurationsdateien.
 
 * * * * *
 
-  ----------------------------------------------- -------------------------- ------------------------------------
-  [Zurück](tuning.md)                           [Nach oben](ch08.md)      [Weiter](largeinstalltweaks.md)
-  8.3. Icinga für maximale Leistung optimieren    [Zum Anfang](index.md)    8.5. Large Installation Tweaks
-  ----------------------------------------------- -------------------------- ------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

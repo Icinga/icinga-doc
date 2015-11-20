@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-2.8. Icinga Packages for Linux Distributions
-
-[Prev](quickstart-idoutils-freebsd.md) 
-
-Chapter 2. Getting Started
-
- [Next](howtos.md)
+[Prev](quickstart-idoutils-freebsd.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](howtos.md)
 
 * * * * *
 
@@ -51,10 +43,12 @@ Web](https://wiki.icinga.org/display/howtos/Setting+up+Icinga+Web).
 
 * * * * *
 
-  ------------------------------------------------- -------------------- ---------------------------------------
-  [Prev](quickstart-idoutils-freebsd.md)          [Up](ch02.md)       [Next](howtos.md)
-  2.7. Icinga and IDOUtils Quickstart on FreeBSD    [Home](index.md)    2.9. Links to other published Howtos
-  ------------------------------------------------- -------------------- ---------------------------------------
+[Prev](quickstart-idoutils-freebsd.md) | [Up](ch02.md) | [Next](howtos.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

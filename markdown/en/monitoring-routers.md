@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-2.17. Monitoring Routers and Switches
-
-[Prev](monitoring-printers.md) 
-
-Chapter 2. Getting Started
-
- [Next](monitoring-publicservices.md)
+[Prev](monitoring-printers.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](monitoring-publicservices.md)
 
 * * * * *
 
@@ -41,11 +33,8 @@ using SNMP to query status information.
 We'll describe how you can monitor the following things on managed
 switches, hubs, and routers:
 
--   Packet loss, round trip average
 
--   SNMP status information
 
--   Bandwidth / traffic rate
 
 ![[Note]](../images/note.png)
 
@@ -67,7 +56,6 @@ for reference.
 
 ![](../images/monitoring-routers.png)
 
-Monitoring switches and routers can either be easy or more involved -
 depending on what equipment you have and what you want to monitor. As
 they are critical infrastructure components, you'll no doubt want to
 monitor them in at least some basic manner.
@@ -88,25 +76,15 @@ recompile/reinstall the Icinga plugins.
 There are several steps you'll need to follow in order to monitor a new
 router or switch. They are:
 
-1.  Perform first-time prerequisites
 
-2.  Create new host and service definitions for monitoring the device
 
-3.  Restart the Icinga daemon
 
 ### 2.17.4. What's Already Done For You
 
 To make your life a bit easier, a few configuration tasks have already
 been done for you:
 
--   Two command definitions (*check\_snmp* and *check\_local\_mrtgtraf*)
-    have been added to the *commands.cfg* file. These allows you to use
-    the *check\_snmp* and *check\_mrtgtraf* plugins to monitor network
-    routers.
 
--   A switch host template (called *generic-switch*) has already been
-    created in the *templates.cfg* file. This allows you to add new
-    router/switch host definitions in a simple manner.
 
 The above-mentioned config files can be found in the
 */usr/local/icinga/etc/objects/* directory. You can modify the
@@ -124,16 +102,15 @@ the \*first\* switch you monitor.
 
 Edit the main Icinga config file.
 
-~~~~ {.screen}
 #> vi /usr/local/icinga/etc/icinga.cfg
-~~~~
+</code></pre>
 
 Remove the leading hash (\#) sign from the following line in the main
 configuration file:
 
-~~~~ {.programlisting}
+<pre><code>
  #cfg_file=/usr/local/icinga/etc/objects/switch.cfg
-~~~~
+</code></pre>
 
 Save the file and exit.
 
@@ -153,9 +130,8 @@ to monitor a new router/switch.
 
 Open the *switch.cfg* file for editing.
 
-~~~~ {.screen}
 #> vi /usr/local/icinga/etc/objects/switch.cfg
-~~~~
+</code></pre>
 
 Add a new [host](objectdefinitions.md#objectdefinitions-host)
 definition for the switch that you're going to monitor. If this is the
@@ -163,15 +139,9 @@ definition for the switch that you're going to monitor. If this is the
 host definition in *switch.cfg*. Change the *host\_name*, *alias*, and
 *address* fields to appropriate values for the switch.
 
-~~~~ {.programlisting}
+<pre><code>
  define host{
-        use             generic-switch          ; Inherit default values from a template
-        host_name       linksys-srw224p         ; The name we're giving to this switch
-        alias           Linksys SRW224P Switch  ; A longer name associated with the switch
-        address         192.168.1.253           ; IP address of the switch
-        hostgroups      allhosts,switches       ; Host groups this switch is associated with
-        }
-~~~~
+</code></pre>
 
 **Monitoring Services**
 
@@ -188,124 +158,29 @@ Replace "*linksys-srw224p*" in the example definitions below with the
 name you specified in the *host\_name* directive of the host definition
 you just added.
 
--   **Monitoring Packet Loss and RTA**
 
-    Add the following service definition in order to monitor packet loss
-    and round trip average between the Icinga host and the switch every
-    5 minutes under normal conditions.
 
-    ~~~~ {.programlisting}
-     define service{
-            use                     generic-service ; Inherit values from a template
-            host_name               linksys-srw224p ; The name of the host the service is associated with
-            service_description     PING            ; The service description
-            check_command           check_ping!200.0,20%!600.0,60%  ; The command used to monitor the service
-            check_interval          5       ; Check the service every 5 minutes under normal conditions
-            retry_interval          1       ; Re-check every minute until its final/hard state is determined
-            }
-    ~~~~
 
-    This service will be:
 
-    -   CRITICAL if the round trip average (RTA) is greater than 600
-        milliseconds or the packet loss is 60% or more
 
-    -   WARNING if the RTA is greater than 200 ms or the packet loss is
-        20% or more
 
-    -   OK if the RTA is less than 200 ms and the packet loss is less
-        than 20%
 
--   **Monitoring SNMP Status Information**
 
-    If your switch or router supports SNMP, you can monitor a lot of
-    information by using the *check\_snmp* plugin. If it doesn't, skip
-    this section.
 
-    Add the following service definition to monitor the uptime of the
-    switch.
 
-    ~~~~ {.programlisting}
-     define service{
-            use                     generic-service ; Inherit values from a template
-            host_name               linksys-srw224p
-            service_description     Uptime  
-            check_command           check_snmp!-C public -o sysUpTime.0
-            }
-    ~~~~
 
-    In the *check\_command* directive of the service definition above,
-    the "-C public" tells the plugin that the SNMP community name to be
-    used is "public" and the "-o sysUpTime.0" indicates which OID should
-    be checked.
 
-    If you want to ensure that a specific port/interface on the switch
-    is in an up state, you could add a service definition like this:
 
-    ~~~~ {.programlisting}
-     define service{
-            use                     generic-service ; Inherit values from a template
-            host_name               linksys-srw224p
-            service_description     Port 1 Link Status
-            check_command           check_snmp!-C public -o ifOperStatus.1 -r 1 -m RFC1213-MIB
-            }
-    ~~~~
 
-    In the example above, the "-o ifOperStatus.1" refers to the OID for
-    the operational status of port 1 on the switch. The "-r 1" option
-    tells the *check\_snmp* plugin to return an OK state if "1" is found
-    in the SNMP result (1 indicates an "up" state on the port) and
-    CRITICAL if it isn't found. The "-m RFC1213-MIB" is optional and
-    tells the *check\_snmp* plugin to only load the "RFC1213-MIB"
-    instead of every single MIB that's installed on your system, which
-    can help speed things up.
 
-    That's it for the SNMP monitoring example. There are a million
-    things that can be monitored via SNMP, so it's up to you to decide
-    what you need and want to monitor. Good luck!
 
-    ![[Tip]](../images/tip.png)
 
-    Tip
 
-    You can usually find the OIDs that can be monitored on a switch by
-    running the following command (replace *192.168.1.253* with the IP
-    address of the switch): *snmpwalk -v1 -c public 192.168.1.253 -m ALL
-    .1*
 
--   **Monitoring Bandwidth / Traffic Rate**
 
-    If you're monitoring bandwidth usage on your switches or routers
-    using [MRTG](http://oss.oetiker.ch/mrtg/), you can have Icinga alert
-    you when traffic rates exceed thresholds you specify. The
-    *check\_mrtgtraf* plugin (which is included in the Icinga plugins
-    distribution) allows you to do this.
 
-    You'll need to let the *check\_mrtgtraf* plugin know what log file
-    the MRTG data is being stored in, along with thresholds, etc. In
-    this example, we're monitoring one of the ports on a Linksys switch.
-    The MRTG log file is stored in */var/lib/mrtg/192.168.1.253\_1.log*.
-    Here's the service definition we use to monitor the bandwidth data
-    that's stored in the log file...
 
-    ~~~~ {.programlisting}
-     define service{
-            use                     generic-service ; Inherit values from a template
-            host_name               linksys-srw224p
-            service_description     Port 1 Bandwidth Usage
-            check_command           check_local_mrtgtraf!/var/lib/mrtg/192.168.1.253_1.log!AVG!1000000,2000000!5000000,5000000!10
-            }
-    ~~~~
 
-    In the example above, the "/var/lib/mrtg/192.168.1.253\_1.log"
-    option that gets passed to the *check\_local\_mrtgtraf* command
-    tells the plugin which MRTG log file to read from. The "AVG" option
-    tells it that it should use average bandwidth statistics. The
-    "1000000,2000000" options are the warning thresholds (in bytes) for
-    incoming traffic rates. The "5000000,5000000" are critical
-    thresholds (in bytes) for outgoing traffic rates. The "10" option
-    causes the plugin to return a CRITICAL state if the MRTG log file is
-    older than 10 minutes (it should be updated every 5 minutes).
 
 Save the file.
 
@@ -324,10 +199,12 @@ Icinga until the verification process completes without any errors!
 
 * * * * *
 
-  ------------------------------------ -------------------- -----------------------------------------------
-  [Prev](monitoring-printers.md)     [Up](ch02.md)       [Next](monitoring-publicservices.md)
-  2.16. Monitoring Network Printers    [Home](index.md)    2.18. Monitoring Publicly Available Services
-  ------------------------------------ -------------------- -----------------------------------------------
+[Prev](monitoring-printers.md) | [Up](ch02.md) | [Next](monitoring-publicservices.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

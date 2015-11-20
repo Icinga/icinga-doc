@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.15. Performance Data
-
-[Prev](stalking.md) 
-
-Chapter 7. Advanced Topics
-
- [Next](downtime.md)
+[Prev](stalking.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](downtime.md)
 
 * * * * *
 
@@ -44,9 +36,7 @@ below...
 There are two basic categories of performance data that can be obtained
 from Icinga:
 
-1.  Check performance data
 
-2.  Plugin performance data
 
 Check performance data is internal data that relates to the actual
 execution of a host or service check. This might include things like
@@ -66,7 +56,6 @@ service check was.
 Plugin performance data is external data specific to the plugin used to
 perform the host or service check. Plugin-specific data can include
 things like percent packet loss, free disk space, processor load, number
-of current users, etc. - basically any type of metric that the plugin is
 measuring when it executes. Plugin-specific performance data is optional
 and may not be supported by all plugins. Plugin-specific performance
 data (if available) can be obtained by using the
@@ -84,9 +73,7 @@ text that indicates the status of some type of measurable data. For
 example, the check\_ping plugin might return a line of text like the
 following:
 
-~~~~ {.screen}
- PING ok - Packet loss = 0%, RTA = 0.80 ms 
-~~~~
+</code></pre>
 
 With this simple type of output, the entire line of text is available in
 the \$HOSTOUTPUT\$ or \$SERVICEOUTPUT\$
@@ -102,23 +89,14 @@ example and assume that it has been enhanced to return percent packet
 loss and average round trip time as performance data metrics. Sample
 output from the plugin might look like this:
 
-~~~~ {.screen}
- PING ok - Packet loss = 0%, RTA = 0.80 ms | percent_packet_loss=0 rta=0.80
-~~~~
+</code></pre>
 
 When Icinga sees this plugin output format it will split the output into
 two parts:
 
-1.  Everything before the pipe character is considered to be the
-    "normal" plugin output and will be stored in either the
-    \$HOSTOUTPUT\$ or \$SERVICEOUTPUT\$ macro
 
-2.  Everything after the pipe character is considered to be the
-    plugin-specific performance data and will be stored in the
-    \$HOSTPERFDATA\$ or \$SERVICEPERFDATA\$ macro
 
 In the example above, the \$HOSTOUTPUT\$ or \$SERVICEOUTPUT\$ macro
-would contain "*PING ok - Packet loss = 0%, RTA = 0.80 ms*" (without
 quotes) and the \$HOSTPERFDATA\$ or \$SERVICEPERFDATA\$ macro would
 contain "*percent\_packet\_loss=0 rta=0.80*" (without quotes).
 
@@ -144,12 +122,7 @@ comes with the addon for more information.
 If you want to process the performance data that is available from
 Icinga and the plugins, you'll need to do the following:
 
-1.  Enable the
-    [process\_performance\_data](configmain.md#configmain-process_performance_data)
-    option.
 
-2.  Configure Icinga so that performance data is either written to files
-    and/or processed by executing commands.
 
 Read on for information on how to process performance data by writing to
 files or executing commands.
@@ -170,12 +143,9 @@ An example command definition that redirects service check performance
 data to a text file for later processing by another application is shown
 below:
 
-~~~~ {.programlisting}
+<pre><code>
  define command{
-        command_name    store-service-perfdata
-        command_line    /bin/echo -e "$LASTSERVICECHECK$\t$HOSTNAME$\t$SERVICEDESC$\t$SERVICESTATE$\t$SERVICEATTEMPT$\t$SERVICESTATETYPE$\t$SERVICEEXECUTIONTIME$\t$SERVICELATENCY$\t$SERVICEOUTPUT$\t$SERVICEPERFDATA$" >> /usr/local/icinga/var/service-perfdata.dat
-        }
-~~~~
+</code></pre>
 
 ![[Tip]](../images/tip.png)
 
@@ -203,9 +173,9 @@ options.
 An example file format template for service performance data might look
 like this:
 
-~~~~ {.programlisting}
+<pre><code>
  service_perfdata_file_template=[SERVICEPERFDATA]\t$TIMET$\t$HOSTNAME$\t$SERVICEDESC$\t$SERVICEEXECUTIONTIME$\t$SERVICELATENCY$\t$SERVICEOUTPUT$\t$SERVICEPERFDATA$
-~~~~
+</code></pre>
 
 ![[Note]](../images/note.png)
 
@@ -244,7 +214,6 @@ contain in [section
 specification and an explanation of the format of performance data. It
 is repeated below for your convenience:
 
------ 8\< -----
 
 *2.6.Performance data*
 
@@ -263,65 +232,31 @@ the expected format:
 
 Notes:
 
-1.  space separated list of label/value pairs
 
-2.  label can contain any characters
 
-3.  the single quotes for the label are optional. Required if spaces, =
-    or ' are in the label
 
-4.  label length is arbitrary, but ideally the first 19 characters are
-    unique (due to a limitation in RRD). Be aware of a limitation in the
-    amount of data that NRPE returns to Nagios
 
-5.  to specify a quote character, use two single quotes
 
-6.  warn, crit, min, and/or max, respectively, may be null (for example,
-    if the threshold is not defined or min and max do not apply).
-    Trailing unfilled semicolons can be dropped
 
-7.  min and max are not required if UOM=%
 
-8.  value, min and max in class [-0-9.]. Must all be the same UOM
 
-9.  warn and crit are in the range format (see Section 2.5). Must be the
-    same UOM
 
 10. UOM (unit of measurement) is one of:
 
-    -   no unit specified - assume a number (int or float) of things
-        (eg, users, processes, load averages)
 
-    -   s - seconds (also us, ms)
 
-    -   % - percentage
 
-    -   B - bytes (also KB, MB, TB, GB?)
 
-    -   c - a continous counter (such as bytes transmitted on an
-        interface)
 
 It is up to third party programs to convert the Nagios plugins
 performance data into graphs.
 
------ 8\< -----
 
 Every now and then people are curious if their performance data is valid
 so we'll give some examples showing the data following the pipe symbol:
 
-~~~~ {.screen}
- loss=0 rta=0.80ms         # valid (rule 1,10)
- loss=0, rta=0.80ms        # invalid (rule 1, no comma allowed)
- loss=0 rta=0,80ms         # invalid (rule 8, no comma allowed) *1
- packet loss=0 rta=0.80    # invalid (rule 3, single quotes needed)
- 'packet loss'=0 rta=0.80  # valid version of line above
- 'john''s disk'=83%        # valid (rule 5,10)
  'disk usage'=78%;80;90;;; # invalid (trailing semicolon after max value)
- 'disk usage'=78%;80;90    # valid (rule 6)
- 'data packets'=11345234c  # valid (rule 6,10)
- drum=153482pages          # invalid (rule 10, wrong UOM) *2
- temperature=23;;;20;30    # valid (rule 6)
-~~~~
+</code></pre>
 
 ![[Note]](../images/note.png)
 
@@ -338,10 +273,12 @@ to graph your performance data.
 
 * * * * *
 
-  ------------------------ -------------------- ---------------------------
-  [Prev](stalking.md)    [Up](ch07.md)       [Next](downtime.md)
-  7.14. State Stalking     [Home](index.md)    7.16. Scheduled Downtime
-  ------------------------ -------------------- ---------------------------
+[Prev](stalking.md) | [Up](ch07.md) | [Next](downtime.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

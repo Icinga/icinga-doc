@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-5.3. Standard Macros in Icinga
-
-[Prev](macros.md) 
-
-Chapter 5. The Basics
-
- [Next](hostchecks.md)
+[Prev](macros.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](hostchecks.md)
 
 * * * * *
 
@@ -30,29 +22,16 @@ may only be valid during host check commands. There are ten types of
 commands that Icinga recognizes and treats differently. They are as
 follows:
 
-1.  Service checks
 
-2.  Service notifications
 
-3.  Host checks
 
-4.  Host notifications
 
-5.  Service [event handlers](eventhandlers.md "7.3. Event Handlers")
-    and/or a global service event handler
 
-6.  Host [event handlers](eventhandlers.md "7.3. Event Handlers")
-    and/or a global host event handler
 
-7.  [OCSP](configmain.md#configmain-ocsp_command) command
 
-8.  [OCHP](configmain.md#configmain-ochp_command) command
 
-9.  Service [performance data](perfdata.md "7.15. Performance Data")
-    commands
 
 10. Host [performance data](perfdata.md "7.15. Performance Data")
-    commands
 
 The tables below list all macros currently available in Icinga, along
 with a brief description of each and the types of commands in which they
@@ -4135,7 +4114,6 @@ definition](objectdefinitions.md#objectdefinitions-contact).
 
 Address of the contact being notified. Each contact can have six
 different addresses (in addition to email address and pager number). The
-macros for these addresses are \$CONTACTADDRESS1\$ -
 \$CONTACTADDRESS6\$. This value is taken from the *addressx* directive
 in the [contact
 definition](objectdefinitions.md#objectdefinitions-contact).
@@ -4418,13 +4396,7 @@ This is a special on-demand macro that returns a 1 or 0 depending on
 whether or not a particular time is valid within a specified timeperiod.
 There are two ways of using this macro:
 
-1.  **\$ISVALIDTIME:24x7\$** will be set to "1" if the current time is
-    valid within the "24x7" timeperiod. If not, it will be set to "0".
 
-2.  **\$ISVALIDTIME:24x7:timestamp\$** will be set to "1" if the time
-    specified by the "timestamp" argument (which must be in time\_t
-    format) is valid within the "24x7" timeperiod. If not, it will be
-    set to "0".
 
 \$NEXTVALIDTIME:\$[^9^](macrolist.md#macrolist-note9)
 
@@ -4432,13 +4404,7 @@ This is a special on-demand macro that returns the next valid time (in
 time\_t format) for a specified timeperiod. There are two ways of using
 this macro:
 
-1.  **\$NEXTVALIDTIME:24x7\$** will return the next valid time - from
-    and including the current time - in the "24x7" timeperiod.
 
-2.  **\$NEXTVALIDTIME:24x7:timestamp\$** will return the next valid time
-    - from and including the time specified by the "timestamp" argument
-    (which must be specified in time\_t format) - in the "24x7"
-    timeperiod.
 
 If a next valid time cannot be found in the specified timeperiod, the
 macro will be set to "0".
@@ -4602,7 +4568,6 @@ comma-delimited list of all (contact) members of the contactgroup *cg1*.
 generic \$NOTIFICATIONAUTHOR\$, \$NOTIFICATIONAUTHORNAME\$,
 \$NOTIFICATIONAUTHORALIAS\$ or \$NOTIFICATIONCOMMENT\$ macros instead.
 
-**^9^** These macro are only available as on-demand macros - e.g. you
 must supply an additional argument with them in order to use them. These
 macros are not available as environment variables.
 
@@ -4613,10 +4578,12 @@ option is enabled, as they are quite CPU-intensive to calculate.
 
 * * * * *
 
-  ---------------------------------------------- -------------------- --------------------------
-  [Prev](macros.md)                            [Up](ch05.md)       [Next](hostchecks.md)
-  5.2. Understanding Macros and How They Work    [Home](index.md)    5.4. Host Checks
-  ---------------------------------------------- -------------------- --------------------------
+[Prev](macros.md) | [Up](ch05.md) | [Next](hostchecks.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

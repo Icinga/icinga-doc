@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-5.11. Benachrichtigungen
-
-[Zurück](networkreachability.md) 
-
-Kapitel 5. Die Grundlagen
-
- [Weiter](notifications2.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -57,15 +49,7 @@ nicht, dass die in der Direktive \<notification\_interval\> angegebene
 Zeit seit der letzten Benachrichtigung vergangen ist. Host- und
 Service-Benachrichtigungen erfolgen in den folgenden Fällen...
 
--   wenn ein HARD-Statuswechsel erfolgt. Mehr Informationen über
-    Statustypen und Hard-Statuswechsel finden Sie
-    [hier](statetypes.md "5.8. Statustypen").
 
--   wenn ein Host oder Service in einem Hard nicht-OK-Zustand bleibt und
-    die in der \<*notification\_interval*\>-Option der Host- oder
-    Service-Definition angegebene Zeit seit der letzten versandten
-    Benachrichtigung verstrichen ist (für den angegebenen Host oder
-    Service).
 
 ### 5.11.3. Wer wird benachrichtigt?
 
@@ -99,7 +83,6 @@ sind. Dies wird ursprünglich durch die
 in der Hauptkonfigurationsdatei festgelegt, kann aber während der
 Laufzeit über das Web-Interface verändert werden. Falls
 Benachrichtigungen auf programmweiter Basis deaktiviert sind, werden
-keine Benachrichtigungen für Hosts oder Services versandt - Punkt. Wenn
 sie auf programmweiter Basis aktiviert sind, müssen weitere Tests
 durchlaufen werden...
 
@@ -382,19 +365,12 @@ notwendige Software installieren und Benachrichtigungs-Befehle
 konfigurieren, bevor Sie diese benutzen können. Hier sind nur ein paar
 mögliche Benachrichtigungs-Methoden:
 
--   e-Mail
 
--   Pager
 
--   Telefon (SMS)
 
--   WinPopup-Meldung
 
--   Yahoo-, ICQ- oder MSN-Sofortnachricht
 
--   Audio-Hinweise
 
--   etc...
 
 Im Grunde genommen kann alles, was Sie von einer Kommandozeile aus tun
 können, so angepasst werden, dass Sie es in einem
@@ -410,12 +386,8 @@ Benachrichtigungen zu versenden (bedenken Sie, dass e-Mail ggf.
 diese Pakete nicht selbst ausprobiert, aber andere haben von
 erfolgreichem Einsatz berichtet...
 
--   [Gnokii](http://www.gnokii.org/) (SMS-Software, um Nokia-Telefone
-    über das GSM-Netzwerk zu erreichen)
 
--   [QuickPage](http://www.qpage.org/) (Alphanumerische Pager-Software)
 
--   [Sendpage](http://www.sendpage.org/) (Paging-Software)
 
 Wenn Sie eine nicht-traditionelle Methode für Benachrichtigungen
 ausprobieren möchten, können Sie ggf. Audio-Hinweise nutzen. Wenn Sie
@@ -429,10 +401,6 @@ anderen Rechner abspielen möchten, dann sehen Sie sich die Projekte
 
 * * * * *
 
-  ------------------------------------------------------------------------- -------------------------- ------------------------------------------------------
-  [Zurück](networkreachability.md)                                        [Nach oben](ch05.md)      [Weiter](notifications2.md)
-  5.10. Ermitteln des Zustands und der Erreichbarkeit von Netzwerk-Hosts    [Zum Anfang](index.md)    5.12. Benachrichtigungen: Beispiele und Fehlersuche
-  ------------------------------------------------------------------------- -------------------------- ------------------------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

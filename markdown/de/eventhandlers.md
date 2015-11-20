@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.3. Eventhandler
-
-[Zurück](extcommands2.md) 
-
-Kapitel 7. Fortgeschrittene Themen
-
- [Weiter](volatileservices.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -47,15 +39,10 @@ Ein einleuchtender Einsatz von Eventhandlern ist die Möglichkeit von
 Icinga, proaktiv Probleme zu beheben, bevor jemand benachrichtigt wird.
 Einige andere Anwendungsmöglichkeiten für Eventhandler umfassen:
 
--   neustarten eines ausgefallenen Service
 
--   anlegen eines Trouble-Tickets in einem Helpdesk-Systems
 
--   eintragen von Ereignisinformationen in eine Datenbank
 
--   Strom aus- und einschalten bei einem Host\*
 
--   etc.
 
 \* Strom durch ein automatisiertes Script bei einem Host aus- und
 einzuschalten, der Probleme hat, sollte wohlüberlegt sein. Betrachten
@@ -66,11 +53,8 @@ Reboots implementieren. :-)
 
 Eventhandler werden ausgeführt, wenn ein Service oder Host
 
--   in einem SOFT-Problemzustand ist
 
--   in einen HARD-Problemzustand wechselt
 
--   aus einem SOFT- oder HARD-Problemzustand zurückkehrt
 
 SOFT- und HARD-Zustände sind ausführlich
 [hier](statetypes.md "5.8. Statustypen") beschrieben.
@@ -80,13 +64,9 @@ SOFT- und HARD-Zustände sind ausführlich
 Es gibt unterschiedliche Typen von optionalen Eventhandlern, die Sie
 definieren können, um Host- und Statuswechsel zu behandeln:
 
--   Globale Host-Eventhandler
 
--   Globale Service-Eventhandler
 
--   Host-spezifische Eventhandler
 
--   Service-spezifische Eventhandler
 
 Globale Host- und Service-Eventhandler werden für *jeden* auftretenden
 Host- oder Service-Zustandswechsel durchgeführt, direkt vor einem
@@ -188,97 +168,39 @@ Service wird viermal geprüft, bevor angenommen wird, dass es ein
 richtiges Problem gibt). Eine gekürzte Service-Definition könnte wie
 folgt aussehen...
 
-~~~~ {.screen}
  define service{
-        host_name               somehost
-        service_description     HTTP
-        max_check_attempts      4
-        event_handler           restart-httpd
-        ...
-        }
-~~~~
+</code></pre>
 
 Sobald der Service mit einem Eventhandler definiert wird, müssen wir
 diesen Eventhandler als Befehlsfolge definieren. Eine Beispieldefinition
 für *restart-httpd* sehen Sie nachfolgend. Beachten Sie die Makros in
-der Kommandozeile, die an das Eventhandler-Script übergeben werden - sie
 sind wichtig!
 
-~~~~ {.screen}
  define command{
-        command_name    restart-httpd
-        command_line    /usr/local/icinga/libexec/eventhandlers/restart-httpd  $SERVICESTATE$ $SERVICESTATETYPE$ $SERVICEATTEMPT$
-        }
-~~~~
+</code></pre>
 
 Lassen Sie uns nun das Eventhandler-Script schreiben (das ist das
 */usr/local/icinga/libexec/eventhandlers/restart-httpd*-Script).
 
-~~~~ {.screen}
 #!/bin/sh
 #
 # Eventhandler-Script für den Restart des Web-Servers auf der lokalen Maschine
 #
 # Anmerkung: Dieses Script wird den Web-Server nur dann restarten, wenn der Service
-#       dreimal erneut geprüft wurde (sich in einem "soft"-Zustand befindet)
-#       oder der Web-Service aus irgendeinem Grund in einen "hard"-Zustand fällt 
 # In welchem Status befindet sich der Service?
 case "$1" in
 OK)
-        # Der Service hat sich gerade erholt, also tun wir nichts...
-        ;;
 WARNING)
-        # Wir kümmern uns nicht um WARNING-Zustände, denn der Dienst läuft wahrscheinlich noch...
-        ;;
 UNKNOWN)
-        # Wir wissen nicht, was einen UNKNOWN-Fehler auslösen könnte, also tun wir nichts...
-        ;;
 CRITICAL)
-        # Aha!  Der HTTP-Service scheint ein Problem zu haben - vielleicht sollten wir den Server neu starten...
-        # Ist dies ein "Soft"- oder ein "Hard"-Zustand?
-        case "$2" in
-        # Wir sind in einem "Soft"-Zustand, also ist Icinga mitten in erneuten Prüfungen, bevor es in einen
-        # "Hard"-Zustand wechselt und Kontakte informiert werden...
-        SOFT)
-                # Bei welchem Versuch sind wir? Wir wollen den Web-Server nicht gleich beim ersten Mal restarten,
-                # denn es könnte ein Ausrutscher sein!
-                case "$3" in
-                # Warte, bis die Prüfung dreimal wiederholt wurde, bevor der Web-Server restartet wird.
-                # Falls der Check ein viertes Mal fehlschlägt (nachdem wir den Web-Server restartet haben),
-                # wird der Zustandstyp auf "Hard" wechseln und Kontakte werden über das Problem informiert.
-                # Hoffentlich wird der Web-Server erfolgreich restartet, so dass der vierte Check zu einer
-                # "Soft"-Erholung führt. Wenn das passiert, wird niemand informiert, weil wir das Problem gelöst haben.
-                3)
-                        echo -n "Restart des HTTP-Service (dritter kritischer "Soft"-Zustand)..."
-                        # Aufrufen des Init-Scripts, um den HTTPD-Server zu restarten
-                        /etc/rc.d/init.d/httpd restart
-                        ;;
-                        esac
-                ;;
-        # Der HTTP-Service hat es irgendwie geschafft, in einen "Hard"-Zustand zu wechseln, ohne dass das Problem
-        # behoben wurde. Er hätte durch den Code restartet werden sollen, aber aus irgendeinem Grund hat es nicht
-        # funktioniert. Wir probieren es ein letztes Mal, okay?
-        # Anmerkung: Kontakte wurden bereits darüber informiert, dass es ein Problem mit dem Service gibt (solange
-        # Sie nicht Benachrichtungen für diesen Service deaktiviert haben.
-        HARD)
-                echo -n "Restart des HTTP-Service..."
-                # Aufrufen des Init-Scripts, um den HTTPD-Server zu restarten
-                /etc/rc.d/init.d/httpd restart
-                ;;
-        esac
-        ;;
 esac
 exit 0
-~~~~
+</code></pre>
 
 Das mitgelieferte Beispiel-Script wird versuchen, den Web-Server auf der
 lokalen Maschine in zwei Fällen zu restarten:
 
--   nachdem der Service das dritte Mal erneut geprüft wurde und sich in
-    einem kritischen "Soft"-Zustand befindet
 
--   nachdem der Service das erste Mal in einen kritischen "Hard"-Zustand
-    wechselt
 
 Das Script sollte theoretisch den Web-Server restarten und das Problem
 beheben, bevor der Service in einen "Hard"-Problemzustand wechselt, aber
@@ -294,10 +216,6 @@ implementieren, also versuchen Sie es und sehen, was Sie tun können.
 
 * * * * *
 
-  ---------------------------------- -------------------------- ----------------------------------
-  [Zurück](extcommands2.md)        [Nach oben](ch07.md)      [Weiter](volatileservices.md)
-  7.2. Liste der externen Befehle    [Zum Anfang](index.md)    7.4. sprunghafte Services
-  ---------------------------------- -------------------------- ----------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

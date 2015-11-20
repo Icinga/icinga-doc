@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-1.1. About Icinga
-
-[Prev](ch01.md) 
-
-Chapter 1. About
-
- [Next](whatsnew.md)
+[Prev](ch01.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](whatsnew.md)
 
 * * * * *
 
@@ -38,36 +30,16 @@ anything connected to a network.
 
 Some of the many features of Icinga include:
 
--   Monitoring of network services (SMTP, POP3, HTTP, NNTP, PING, etc.)
 
--   Monitoring of host resources (CPU load, disk usage, etc.)
 
--   Simple plugin design that allows users to easily develop their own
-    service checks
 
--   Parallelized service checks
 
--   Ability to define network host hierarchy using "parent" hosts,
-    allowing detection of and distinction between hosts that are down
-    and those that are unreachable
 
--   Contact notifications when service or host problems occur and get
-    resolved (via email, pager, or user-defined method)
 
--   Ability to define event handlers to be run during service or host
-    events for proactive problem resolution
 
--   Automatic log file rotation
 
--   Support for implementing redundant monitoring hosts
 
--   Optional classic web interface for viewing current network status,
-    notification and problem history, log file, etc.
 
--   Optional new Icinga web interface based on Icinga Core, IDOUtils,
-    API using a modern and refreshed web 2.0 GUI showing current states,
-    historical information, using cronks and filters, creating reports
-    with multilanguage support
 
 ### 1.1.2. System requirements
 
@@ -89,14 +61,8 @@ You are not required to use one of the web interfaces included with
 Icinga. However, if you do decide to use them, you will need additional
 software:
 
-1.  A Web-Server (preferrably [Apache](http://www.apache.org))
 
-2.  Thomas Boutells [gd library](http://www.boutell.com/gd) Version
-    1.6.3 or higher (required by the
-    [statusmap](cgis.md#cgis-statusmap_cgi)- and
-    [trends](cgis.md#cgis-trends_cgi)-CGIs)
 
-3.  PHP
 
 ### 1.1.3. Licensing
 
@@ -130,10 +96,12 @@ community.
 
 * * * * *
 
-  -------------------- -------------------- ---------------------------------
-  [Prev](ch01.md)    [Up](ch01.md)       [Next](whatsnew.md)
-  Chapter 1. About     [Home](index.md)    1.2. What's New in Icinga 1.13
-  -------------------- -------------------- ---------------------------------
+[Prev](ch01.md) | [Up](ch01.md) | [Next](whatsnew.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

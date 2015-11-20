@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-6.2. Authentication And Authorization In The Classic UI
-
-[Prev](cgis.md) 
-
-Chapter 6. User Interfaces
-
- [Next](cgiparams.md)
+[Prev](cgis.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](cgiparams.md)
 
 * * * * *
 
@@ -46,13 +38,7 @@ the Classic web interface.
 Before continuing, it is important that you understand the meaning of
 and difference between authenticated users and authenticated contacts:
 
--   An **authenticated user** is someone who has authenticated to the
-    web server with a username and password and has been granted access
-    to the Icinga Classic web interface.
 
--   An **authenticated contact** is an authenticated user whose username
-    matches the short name of a [contact
-    definition](objectdefinitions.md#objectdefinitions-contact).
 
 ### 6.2.3. Setting Up Authenticated Users
 
@@ -72,9 +58,8 @@ the username should match the short name of a
 [contact](objectdefinitions.md#objectdefinitions-contact) that has
 been defined.
 
-~~~~ {.screen}
  htpasswd /usr/local/icinga/etc/htpasswd.users <username>
-~~~~
+</code></pre>
 
 ### 6.2.4. Enabling Authentication/Authorization Functionality In The Classic UI
 
@@ -87,9 +72,9 @@ variable in the [Classic UI configuration
 file](configcgi.md "3.6. CGI Configuration File Options") to a
 non-zero value. Example:
 
-~~~~ {.programlisting}
+<pre><code>
  use_authentication=1
-~~~~
+</code></pre>
 
 Okay, you're now done with setting up basic authentication/authorization
 functionality in the Classic UI.
@@ -191,53 +176,29 @@ are granted the following permissions for each **service** for which
 they are contacts (but not for services for which they are not
 contacts)...
 
--   Authorization to view service status information
 
--   Authorization to view service configuration information
 
--   Authorization to view history and notifications for the service
 
--   Authorization to issue service commands
 
 *Authenticated
 contacts^[\*](cgiauth.md#definitionscgiauth "6.2.2. Definitions")^*
 are granted the following permissions for each **host** for which they
 are contacts (but not for hosts for which they are not contacts)...
 
--   Authorization to view host status information
 
--   Authorization to view host configuration information
 
--   Authorization to view history and notifications for the host
 
--   Authorization to issue host commands
 
--   Authorization to view status information for all services on the
-    host
 
--   Authorization to view configuration information for all services on
-    the host
 
--   Authorization to view history and notification information for all
-    services on the host
 
--   Authorization to issue commands for all services on the host
 
 It is important to note that by default **no one** is authorized for the
 following...
 
--   Viewing the raw log file via the [showlog
-    module](cgis.md#cgis-showlog_cgi)
 
--   Viewing Icinga process information via the [extended information
-    modules](cgis.md#cgis-extinfo_cgi)
 
--   Issuing Icinga process commands via the [command
-    module](cgis.md#cgis-cmd_cgi)
 
--   Viewing host group, contact, contact group, time period, and command
-    definitions via the [configuration
-    module](cgis.md#cgis-config_cgi)
 
 You will undoubtably want to access this information, so you'll have to
 assign additional rights for yourself (and possibly other users) as
@@ -255,19 +216,12 @@ particular permissions, but its better than nothing..
 Additional authorization can be given to users by adding them to the
 following variables in the Classic UI configuration file...
 
--   [authorized\_for\_system\_information](configcgi.md#configcgi-authorized_for_system_information)
 
--   [authorized\_for\_system\_commands](configcgi.md#configcgi-authorized_for_system_commands)
 
--   [authorized\_for\_configuration\_information](configcgi.md#configcgi-authorized_for_configuration_information)
 
--   [authorized\_for\_all\_hosts](configcgi.md#configcgi-authorized_for_all_hosts)
 
--   [authorized\_for\_all\_host\_commands](configcgi.md#configcgi-authorized_for_all_host_commands)
 
--   [authorized\_for\_all\_services](configcgi.md#configcgi-authorized_for_all_services)
 
--   [authorized\_for\_all\_service\_commands](configcgi.md#configcgi-authorized_for_all_service_commands)
 
 ### 6.2.7. Classic UI Authorization Requirements
 
@@ -298,10 +252,12 @@ inherit all rights you assign to this user!
 
 * * * * *
 
-  ----------------------------------------------------- -------------------- --------------------------------------------
-  [Prev](cgis.md)                                     [Up](ch06.md)       [Next](cgiparams.md)
-  6.1. Icinga Classic UI: Information On The Modules    [Home](index.md)    6.3. Information On Classic UI parameters
-  ----------------------------------------------------- -------------------- --------------------------------------------
+[Prev](cgis.md) | [Up](ch06.md) | [Next](cgiparams.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

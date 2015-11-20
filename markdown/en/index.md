@@ -1,18 +1,9 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-Icinga Version 1.13 Documentation
-
- 
-
- 
-
- [Next](ch01.md)
+ ![Icinga](../images/logofullsize.png "Icinga") [Next](ch01.md)
 
 * * * * *
 
 Copyright 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team.
 
-Portions copyright © by Nagios/Icinga community members - see the THANKS
 file in the Icinga core sources for more information..
 
 Credits to Yoann LAMY for creating the Vautour Style we use for the
@@ -44,14 +35,6 @@ MERCHANTABILITY, AND FITNESS FOR A PARTICULAR PURPOSE.”
 
 2015.03.13
 
-  **Revision History**
-  --------------------------- ------------
-  Revision 1.12               2014-11-19
-  1.12 Icinga Documentation
-  Revision 1.x                2009-2015
-  1.x Icinga Documentation
-  Revision 0.1                2009-08-12
-  First Release
 
 * * * * *
 
@@ -431,7 +414,6 @@ Inheritance](customobjectvars.md#inheritancecustomvars)
 
 5.2.1. [Macros](macros.md#introduction)
 
-5.2.2. [Macro Substitution - How Macros Work](macros.md#howitworks)
 
 5.2.3. [Example 1: Host Address Macro](macros.md#hostaddressexample)
 
@@ -827,10 +809,8 @@ Configuration](distributed.md#distributedconfig)
 
 7.7.3. [Sample Scripts](redundancy.md#samplescripts)
 
-7.7.4. [Scenario 1 - Redundant
 Monitoring](redundancy.md#redundantmonitoring)
 
-7.7.5. [Scenario 2 - Failover
 Monitoring](redundancy.md#failovermonitoring)
 
 7.8. [Detection and Handling of State Flapping](flapping.md)
@@ -1708,10 +1688,6 @@ Tables](db_model.md#idp18634352)
 
 * * * * *
 
-  --- --- --------------------
-           [Next](ch01.md)
-           Chapter 1. About
-  --- --- --------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

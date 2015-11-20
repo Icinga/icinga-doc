@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-2.9. Links zu weiteren Howtos
-
-[Zurück](icinga_packages.md) 
-
-Kapitel 2. Los geht's
-
- [Weiter](upgrading.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -90,17 +82,9 @@ PDFs](http://www.thurnhofer.net/index.php?option=com_content&view=article&id=84&
 
 Dort finden Sie:
 
--   "ICINGA in einer virtuellen Umgebung mit Ubuntu 9.10 Desktop
-    installieren"
 
--   "ICINGA 1.0.1 in einer virtuellen Umgebung mit Ubuntu 10.04 Server
-    installieren"
 
--   "ICINGA 1.0.2 in einer Microsoft Hyper-V Maschine mit Ubuntu 10.04
-    Desktop installieren"
 
--   "Zusatzkomponenten/Plug-Ins und Perl Skripte für ICINGA 1.0.2
-    installieren"
 
 als PDF's zum downloaden.
 
@@ -115,30 +99,17 @@ Im [Icinga-Wiki](www.icinga.org) gibt es einen eigenen
 [HowTo-Bereich](https://wiki.icinga.org/display/howtos/Home), der
 verschiedene Aspekte behandelt, u.a.:
 
--   Addons
 
--   Backup
 
--   Classic UI
 
--   Collections
 
--   Installation and Configuration Guides
 
--   Integration
 
--   Notifications
 
--   Performance Tuning
 
--   Plugins
 
 * * * * *
 
-  ---------------------------------------------- -------------------------- -----------------------------
-  [Zurück](icinga_packages.md)                 [Nach oben](ch02.md)      [Weiter](upgrading.md)
-  2.8. Icinga Pakete für Linux-Distributionen    [Zum Anfang](index.md)    2.10. Icinga aktualisieren
-  ---------------------------------------------- -------------------------- -----------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

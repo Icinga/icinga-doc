@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.21. Cached Checks
-
-[Prev](dependencychecks.md) 
-
-Chapter 7. Advanced Topics
-
- [Next](passivestatetranslation.md)
+[Prev](dependencychecks.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](passivestatetranslation.md)
 
 * * * * *
 
@@ -46,19 +38,11 @@ be used as cached checks in the future.
 
 For reference, on-demand host checks occur...
 
--   When a service associated with the host changes state.
 
--   As needed as part of the [host
-    reachability](networkreachability.md "5.10. Determining Status and Reachability of Network Hosts")
-    logic.
 
--   As needed for [predictive host dependency
-    checks](dependencychecks.md "7.20. Predictive Dependency Checks").
 
 And on-demand service checks occur...
 
--   As needed for [predictive service dependency
-    checks](dependencychecks.md "7.20. Predictive Dependency Checks").
 
 ![[Note]](../images/note.png)
 
@@ -66,7 +50,6 @@ Note
 
 Unless you make use of service dependencies, Icinga will not be able to
 use cached check results to improve the performance of service checks.
-Don't worry about that - its normal. Cached host checks are where the
 big performance improvements lie, and everyone should see a benefit
 there.
 
@@ -117,7 +100,6 @@ Higher cache hit rates require that previous check results are
 considered "valid" for longer periods of time. Things can change quickly
 in any network scenario, and there's no guarantee that a server that was
 functioning properly 30 seconds ago isn't on fire right now. There's the
-tradeoff - reliability versus speed. If you have a large cached check
 horizon, you risk having unreliable check result values being used in
 the monitoring logic.
 
@@ -144,24 +126,14 @@ The following variables determine the timeframes in which a previous
 host or service check result may be used as a cached host or service
 check result:
 
--   The
-    [cached\_host\_check\_horizon](configmain.md#configmain-cached_host_check_horizon)
-    variable controls cached host checks.
 
--   The
-    [cached\_service\_check\_horizon](configmain.md#configmain-cached_service_check_horizon)
-    variable controls cached service checks.
 
 ### 7.21.6. Optimizing Cache Effectiveness
 
 In order to make the most effective use of cached checks, you should:
 
--   Schedule regular checks of your hosts
 
--   Use [PNP4Nagios](http://docs.pnp4nagios.org/pnp-0.6/start) to graph
-    statistics for 1) on-demand checks and 2) cached checks
 
--   Adjust cached check horizon variables to fit your needs
 
 You can schedule regular checks of your hosts by specifying a value
 greater than 0 for *check\_interval* option in your [host
@@ -189,14 +161,8 @@ shown above.
 
 The monitoring installation which produced the graphs had:
 
--   A total of 110 hosts, all of which were checked at regular intervals
 
--   An average (regularly scheduled) host check interval of 30 minutes
-    with a 5 minute retry interval
 
--   A
-    [cached\_host\_check\_horizon](configmain.md#configmain-cached_host_check_horizon)
-    of 15 seconds
 
 The graph shows how many regularly scheduled host checks compared to how
 many cached host checks have occurred. In this example, an average of 77
@@ -227,10 +193,12 @@ statistics. Rinse and repeat as necessary.
 
 * * * * *
 
-  ------------------------------------- -------------------- ---------------------------------------
-  [Prev](dependencychecks.md)         [Up](ch07.md)       [Next](passivestatetranslation.md)
-  7.20. Predictive Dependency Checks    [Home](index.md)    7.22. Passive Host State Translation
-  ------------------------------------- -------------------- ---------------------------------------
+[Prev](dependencychecks.md) | [Up](ch07.md) | [Next](passivestatetranslation.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

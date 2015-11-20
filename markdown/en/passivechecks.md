@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-5.7. Passive Checks
-
-[Prev](activechecks.md) 
-
-Chapter 5. The Basics
-
- [Next](statetypes.md)
+[Prev](activechecks.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](statetypes.md)
 
 * * * * *
 
@@ -42,10 +34,7 @@ often. Icinga also supports a way to monitor hosts and services
 passively instead of actively. They key features of passive checks are
 as follows:
 
--   Passive checks are initiated and performed external
-    applications/processes
 
--   Passive check results are submitted to Icinga for processing
 
 The major difference between active and passive checks is that active
 checks are initiated and performed by Icinga, while passive checks are
@@ -55,11 +44,7 @@ performed by external applications.
 
 Passive checks are useful for monitoring services that are:
 
--   Asynchronous in nature and cannot be monitored effectively by
-    polling their status on a regularly scheduled basis
 
--   Located behind a firewall and cannot be checked actively from the
-    monitoring host
 
 Examples of asynchronous services that lend themselves to being
 monitored passively include SNMP traps and security alerts. You never
@@ -78,22 +63,9 @@ monitoring installations.
 
 Here's how passive checks work in more detail...
 
-1.  An external application checks the status of a host or service.
 
-2.  The external application writes the results of the check to the
-    [external command file](configmain.md#configmain-command_file).
 
-3.  The next time Icinga reads the external command file it will place
-    the results of all passive checks into a queue for later processing.
-    The same queue that is used for storing results from active checks
-    is also used to store the results from passive checks.
 
-4.  Icinga will periodically execute a [check result reaper
-    event](configmain.md#configmain-check_result_reaper_frequency) and
-    scan the check result queue. Each service check result that is found
-    in the queue is processed in the same manner - regardless of whether
-    the check was active or passive. Icinga may send out notifications,
-    log alerts, etc. depending on the check result information.
 
 The processing of active and passive check results is essentially
 identical. This allows for seamless integration of status information
@@ -104,12 +76,7 @@ from external applications with Icinga.
 In order to enable passive checks in Icinga, you'll need to do the
 following:
 
--   Set
-    [accept\_passive\_service\_checks](configmain.md#configmain-accept_passive_service_checks)
-    directive is set to 1.
 
--   Set the *passive\_checks\_enabled* directive in your host and
-    service definitions is set to 1.
 
 If you want to disable processing of passive checks on a global basis,
 set the
@@ -129,27 +96,15 @@ command file.
 
 The format of the command is as follows:
 
-~~~~ {.screen}
  [<timestamp>] PROCESS_SERVICE_CHECK_RESULT;<host_name>;<svc_description>;<return_code>;<plugin_output>
-~~~~
+</code></pre>
 
 where...
 
--   *timestamp* is the time in time\_t format (seconds since the UNIX
-    epoch) that the service check was perfomed (or submitted). Please
-    note the single space after the right bracket.
 
--   *host\_name* is the short name of the host associated with the
-    service in the service definition
 
--   *svc\_description* is the description of the service as specified in
-    the service definition
 
--   *return\_code* is the return code of the check (0=OK, 1=WARNING,
-    2=CRITICAL, 3=UNKNOWN)
 
--   *plugin\_output* is the text output of the service check (i.e. the
-    plugin output)
 
 ![[Note]](../images/note.png)
 
@@ -175,23 +130,14 @@ command file.
 
 The format of the command is as follows:
 
-~~~~ {.screen}
  [<timestamp>] PROCESS_HOST_CHECK_RESULT;<host_name>;<host_status>;<plugin_output>
-~~~~
+</code></pre>
 
 where...
 
--   *timestamp* is the time in time\_t format (seconds since the UNIX
-    epoch) that the host check was perfomed (or submitted). Please note
-    the single space after the right bracket.
 
--   *host\_name* is the short name of the host (as defined in the host
-    definition)
 
--   *host\_status* is the status of the host (0=UP, 1=DOWN,
-    2=UNREACHABLE)
 
--   *plugin\_output* is the text output of the host check
 
 ![[Note]](../images/note.png)
 
@@ -250,10 +196,12 @@ More information on the NSCA addon can be found
 
 * * * * *
 
-  ---------------------------- -------------------- --------------------------
-  [Prev](activechecks.md)    [Up](ch05.md)       [Next](statetypes.md)
-  5.6. Active Checks           [Home](index.md)    5.8. State Types
-  ---------------------------- -------------------- --------------------------
+[Prev](activechecks.md) | [Up](ch05.md) | [Next](statetypes.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

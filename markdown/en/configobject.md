@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-3.3. Object Configuration Overview
-
-[Prev](configmain.md) 
-
-Chapter 3. Configuring Icinga
-
- [Next](objectdefinitions.md)
+[Prev](configmain.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](objectdefinitions.md)
 
 * * * * *
 
@@ -18,25 +10,15 @@ Chapter 3. Configuring Icinga
 Objects are all the elements that are involved in the monitoring and
 notification logic. Types of objects include:
 
--   Services
 
--   Service Groups
 
--   Hosts
 
--   Host Groups
 
--   Contacts
 
--   Contact Groups
 
--   Commands
 
--   Time Periods
 
--   Notification Escalations
 
--   Notification and Execution Dependencies
 
 More information on what objects are and how they relate to each other
 can be found below.
@@ -106,18 +88,9 @@ Some of the main object types are explained in greater detail below...
 the central objects in the monitoring logic. Important attributes of
 hosts are as follows:
 
--   Hosts are usually physical devices on your network (servers,
-    workstations, routers, switches, printers, etc).
 
--   Hosts have an address of some kind (e.g. an IP or MAC address).
 
--   Hosts have one or more more services associated with them.
 
--   Hosts can have parent/child relationships with other hosts, often
-    representing real-world network connections, which is used in the
-    [network
-    reachability](networkreachability.md "5.10. Determining Status and Reachability of Network Hosts")
-    logic.
 
 [**Host Groups**](objectdefinitions.md#objectdefinitions-hostgroup)
 are groups of one or more hosts. Host groups can make it easier to (1)
@@ -131,11 +104,8 @@ tricks](objecttricks.md "7.27. Time-Saving Tricks For Object Definitions").
 of the central objects in the monitoring logic. Services are associated
 with hosts and can be:
 
--   Attributes of a host (CPU load, disk usage, uptime, etc.)
 
--   Services provided by the host (HTTP, POP3, FTP, SSH, etc.)
 
--   Other things associated with the host (DNS records, etc.)
 
 [**Service
 Groups**](objectdefinitions.md#objectdefinitions-servicegroup) are
@@ -149,11 +119,7 @@ tricks](objecttricks.md "7.27. Time-Saving Tricks For Object Definitions").
 [**Contacts**](objectdefinitions.md#objectdefinitions-contact) are
 people involved in the notification process:
 
--   Contacts have one or more notification methods (cellphone, pager,
-    email, instant messaging, etc.)
 
--   Contacts receive notifications for hosts and service they are
-    responsible for
 
 [**Contact
 Groups**](objectdefinitions.md#objectdefinitions-contactgroup) are
@@ -166,9 +132,7 @@ problems occur.
 [**Timeperiods**](objectdefinitions.md#objectdefinitions-timeperiod)
 are are used to control:
 
--   When hosts and services can be monitored
 
--   When contacts can receive notifications
 
 Information on how timeperiods work can be found
 [here](timeperiods.md "5.9. Time Periods").
@@ -179,22 +143,20 @@ Information on how timeperiods work can be found
 used to tell Icinga what programs, scripts, etc. it should execute to
 perform:
 
--   Host and service checks
 
--   Notifications
 
--   Event handlers
 
--   and more...
 
 ![](../images/objects-commands.png)
 
 * * * * *
 
-  --------------------------------------- -------------------- ---------------------------------
-  [Prev](configmain.md)                 [Up](ch03.md)       [Next](objectdefinitions.md)
-  3.2. Main Configuration File Options    [Home](index.md)    3.4. Object Definitions
-  --------------------------------------- -------------------- ---------------------------------
+[Prev](configmain.md) | [Up](ch03.md) | [Next](objectdefinitions.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

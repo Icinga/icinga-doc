@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-5.4. Host-Prüfungen (Host checks)
-
-[Zurück](macrolist.md) 
-
-Kapitel 5. Die Grundlagen
-
- [Weiter](servicechecks.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -42,19 +34,9 @@ beschrieben...
 
 Hosts werden durch den Icinga-Daemon geprüft
 
--   in regelmäßigen Intervallen, wie sie durch die *check\_interval* und
-    *retry\_interval*-Optionen in Ihren
-    [Host-Definitionen](objectdefinitions.md#objectdefinitions-host)
-    festgelegt sind.
 
--   nach Bedarf, wenn ein mit dem Host verbundener Service den Status
-    wechselt.
 
--   nach Bedarf als Teil der
-    [Host-Verfügbarkeit](networkreachability.md "5.10. Ermitteln des Zustands und der Erreichbarkeit von Netzwerk-Hosts")s-Logik.
 
--   nach Bedarf bei [vorausschauenden
-    Host-Abhängigkeitsprüfungen](dependencychecks.md "7.20. Vorausschauende Abhängigkeitsprüfungen").
 
 Regelmäßige Host-Prüfungen sind optional. Wenn Sie die
 *check\_interval*-Option in Ihrer Host-Definition auf Null (0) setzen,
@@ -146,11 +128,8 @@ Sie immer einen Wert größer als 1 für die
 Hosts, die geprüft werden, können in einem von drei unterschiedlichen
 Zuständen sein
 
--   UP
 
--   DOWN
 
--   UNREACHABLE
 
 ### 5.4.7. Host-Statusermittlung
 
@@ -248,10 +227,6 @@ des Flatterns finden Sie
 
 * * * * *
 
-  --------------------------------- -------------------------- ------------------------------------------
-  [Zurück](macrolist.md)          [Nach oben](ch05.md)      [Weiter](servicechecks.md)
-  5.3. Standard-Makros in Icinga    [Zum Anfang](index.md)    5.5. Service-Prüfungen (Service Checks)
-  --------------------------------- -------------------------- ------------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

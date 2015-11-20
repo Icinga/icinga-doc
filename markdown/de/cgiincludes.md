@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.24. Angepasste Classic UI-Modul-Kopf- und Fußzeilen
-
-[Zurück](checkscheduling.md) 
-
-Kapitel 7. Fortgeschrittene Themen
-
- [Weiter](modified_attr.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -59,16 +51,7 @@ schließenden \</BODY\>-Tag eingefügt werden.
 
 Es gibt zwei Arten von angepassten Kopf- und Fußzeilen:
 
--   Globale Kopf-/Fußzeilen: diese Dateien sollten *common-header.ssi*
-    und *common-footer.ssi* benannt werden. Wenn diese Dateien
-    existieren, werden sie in die Ausgaben aller Module eingefügt.
 
--   Modul-spezifische Kopf-/Fußzeilen: diese Dateinamen sollten im
-    Format *CGINAME-header.ssi* und *CGINAME-footer.ssi* benannt werden,
-    wobei *CGINAME* der (Datei-) Name des Moduls ohne die
-    .cgi-Erweiterung ist. Die Kopf- und Fußzeilendateien des [alert
-    summary-Moduls](cgis.md#cgis-summary_cgi) (summary.cgi) würden
-    beispielsweise *summary-header.ssi* und *summary-footer.ssi* heißen.
 
 Sie sind nicht gezwungen, irgendwelche angepassten Kopf- und Fußzeilen
 zu benutzen. Sie können nur eine globale Kopfzeile benutzen, wenn Sie
@@ -77,10 +60,6 @@ Fußzeile benutzen, wenn Sie möchten. Ganz wie Sie wollen. Wirklich.
 
 * * * * *
 
-  ------------------------------------------ -------------------------- -------------------------------
-  [Zurück](checkscheduling.md)             [Nach oben](ch07.md)      [Weiter](modified_attr.md)
-  7.23. Service- und Host-Prüfungsplanung    [Zum Anfang](index.md)    7.25. Modifizierte Attribute
-  ------------------------------------------ -------------------------- -------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

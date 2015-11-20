@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-5.7. Passive Prüfungen (Passive Checks)
-
-[Zurück](activechecks.md) 
-
-Kapitel 5. Die Grundlagen
-
- [Weiter](statetypes.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -44,11 +36,7 @@ Service gelegentlich "abzufragen". Icinga unterstützt auch einen Weg,
 Hosts und Services passiv zu überwachen statt aktiv. Die Hauptmerkmale
 von passiven Prüfungen sind wie folgt:
 
--   passive Prüfungen werden von externen Anwendungen/Prozessen
-    veranlasst und ausgeführt
 
--   Ergebnisse von passiven Prüfungen werden an Icinga zur Verarbeitung
-    übermittelt
 
 Der Hauptunterschied zwischen aktiven und passiven Prüfungen ist, dass
 aktive Prüfungen von Icinga veranlasst und ausgeführt werden, während
@@ -58,12 +46,7 @@ passive Prüfungen von externen Applikationen durchgeführt werden.
 
 passive Prüfungen sind nützlich, um Services zu überwachen, die
 
--   von Natur aus asynchron sind und nicht effektiv durch Abfrage ihres
-    Zustands auf einer regelmäßig geplanten Basis überwacht werden
-    können
 
--   sich hinter einer Firewall befinden und nicht aktiv vom
-    überwachenden Host aus geprüft werden können
 
 Beispiele für asynchrone Services, bei denen sich eine passive
 Überwachung lohnt, sind u.a. SNMP-Traps und Sicherheits-Alarme. Sie
@@ -82,24 +65,9 @@ Passive Prüfungen werden auch genutzt, um
 
 Hier nun mehr Details, wie passive Prüfungen arbeiten...
 
-1.  eine externe Applikation prüft den Status eines Hosts oder Service.
 
-2.  die externe Applikation schreibt die Ergebnisse der Prüfung in das
-    [external command file](configmain.md#configmain-command_file).
 
-3.  das nächste Mal, wenn Icinga das "external command file" liest, wird
-    es die Ergebnisse aller passiven Prüfungen zur späteren Verarbeitung
-    in eine Queue stellen. Dieselbe Queue, die für die Speicherung von
-    Ergebnissen von aktiven Prüfungen genutzt wird, wird auch für die
-    Speicherung von Ergebnissen von aktiven Prüfungen verwendet.
 
-4.  Icinga wird periodisch ein [check result reaper
-    event](configmain.md#configmain-check_result_reaper_frequency)
-    ausführen und die Ergebnis-Queue abfragen. Jedes
-    Service-Prüfungs-Ergebnis, das in der Queue gefunden wird, wird in
-    der gleichen Weise bearbeitet - unabhängig davon, ob die Prüfung
-    aktiv oder passiv war. Icinga kann abhängig vom Prüfergebnis
-    Benachrichtigungen senden, Alarme protokollieren, usw.
 
 Die Verarbeitung von aktiven und passiven Prüfungsergebnissen ist
 tatsächlich identisch. Dies erlaubt eine nahtlose Integration von
@@ -109,12 +77,7 @@ externen Applikationen mit Icinga.
 
 Um passive Prüfungen in Icinga zu aktivieren, müssen Sie folgendes tun:
 
--   setzen Sie die
-    [accept\_passive\_service\_checks](configmain.md#configmain-accept_passive_service_checks)-Direktive
-    auf 1.
 
--   setzen Sie die *passive\_checks\_enabled*-Direktive in Ihren Host-
-    und Service-Definitionen auf 1.
 
 Wenn Sie die Verarbeitung von passiven Prüfungen global deaktivieren
 wollen, setzen Sie die
@@ -135,28 +98,15 @@ command file" schreiben.
 
 Das Format des Befehls lautet wie folgt:
 
-~~~~ {.screen}
  [<Zeitstempel>] PROCESS_SERVICE_CHECK_RESULT;<host_name>;<svc_description>;<return_code>;<plugin_output>
-~~~~
+</code></pre>
 
 wobei...
 
--   *timestamp* ist die Zeit im time\_t-Format (Sekunden seit der
-    UNIX-Epoche), zu der die Service-Prüfung durchgeführt (oder
-    übermittelt) wurde. Bitte beachten Sie das einzelne Leerzeichen nach
-    der rechten Klammer.
 
--   *host\_name* ist der Kurzname des Hosts, der mit dem Service in der
-    Service-Definition verbunden ist
 
--   *svc\_description* ist die Beschreibung des Service wie in der
-    Service-Definition angegeben
 
--   *return\_code* ist der Return-Code der Prüfung (0=OK, 1=WARNING,
-    2=CRITICAL, 3=UNKNOWN)
 
--   *plugin\_output* ist die Textausgabe der Service-Prüfung (also die
-    Ausgabe des Plugins)
 
 ![](../images/note.gif) Anmerkung: ein Service muss in Icinga definiert
 sein, bevor Sie passive Prüfungen für ihn abliefern können! Icinga wird
@@ -177,25 +127,14 @@ command file" schreiben.
 
 Das Format des Befehls lautet wie folgt:
 
-~~~~ {.screen}
  [<timestamp>] PROCESS_HOST_CHECK_RESULT;<host_name>;<host_status>;<plugin_output>
-~~~~
+</code></pre>
 
 wobei...
 
--   *timestamp* ist die Zeit im time\_t-Format (Sekunden seit der
-    UNIX-Epoche), zu der die Host-Prüfung durchgeführt (oder
-    übermittelt) wurde. Bitte beachten Sie das einzelne Leerzeichen nach
-    der rechten Klammer.
 
--   *host\_name* ist der Kurzname des Hosts (wie in der Host-Definition
-    angegeben)
 
--   *host\_status* ist der Status des Hosts (0=UP, 1=DOWN,
-    2=UNREACHABLE)
 
--   *plugin\_output* ist die Textausgabe der Host-Prüfung (also die
-    Ausgabe des Plugins)
 
 ![](../images/note.gif) Anmerkung: ein Host muss in Icinga definiert
 sein, bevor Sie passive Prüfungen für ihn abliefern können! Icinga wird
@@ -204,7 +143,6 @@ bevor es das letzte Mal (neu) gestartet wurde.
 
 ### 5.7.7. Passive Prüfungen und Host-Zustände
 
-Icinga versucht bei passiven Prüfungen - anders bei aktiven Prüfungen -
 nicht festzustellen, ob der Host DOWN oder UNREACHABLE ist. Statt dessen
 nimmt Icinga das passive Prüfergebnis als den wahren Status des Hosts
 und versucht nicht, den wahren Host-Status mit Hilfe der
@@ -250,10 +188,6 @@ Informationen über das NSCA-Addon finden Sie
 
 * * * * *
 
-  ---------------------------------------- -------------------------- ----------------------------
-  [Zurück](activechecks.md)              [Nach oben](ch05.md)      [Weiter](statetypes.md)
-  5.6. Aktive Prüfungen (Active Checks)    [Zum Anfang](index.md)    5.8. Statustypen
-  ---------------------------------------- -------------------------- ----------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

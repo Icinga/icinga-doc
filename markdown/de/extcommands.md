@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.1. Externe Befehle
-
-[Zurück](ch07.md) 
-
-Kapitel 7. Fortgeschrittene Themen
-
- [Weiter](extcommands2.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -39,31 +31,13 @@ regelmäßig vom Icinga-Daemon verarbeitet wird.
 
 Damit Icinga externe Befehle verarbeitet, müssen Sie folgendes tun:
 
--   aktivieren Sie die Prüfung auf externe Befehle mit der
-    [check\_external\_commands](configmain.md#configmain-check_external_commands)-Option.
 
--   setzen Sie die Wiederholrate von Befehlsprüfungen mit der
-    [command\_check\_interval](configmain.md#configmain-command_check_interval)-Option.
 
--   definieren Sie den Ort des Command-File mit der
-    [command\_file](configmain.md#configmain-command_file)-Option.
 
--   setzen Sie korrekte Berechtigungen für das Verzeichnis, welches das
-    External-Command-File enthält, wie in der
-    [Schnellstartanleitung](quickstart.md "2.3. Schnellstart-Installationsanleitungen")
-    beschrieben.
 
 ### 7.1.3. Wann prüft Icinga auf externe Befehle?
 
--   in regelmäßigen Intervallen, wie sie durch die Option
-    [command\_check\_interval](configmain.md#configmain-command_check_interval)
-    in der Hauptkonfigurationsdatei angegeben sind
 
--   direkt nachdem
-    [Eventhandler](eventhandlers.md "7.3. Eventhandler") ausgeführt
-    werden. Das passiert zusätzlich zum regelmäßigen Zyklus von externen
-    Befehlsprüfungen und wird getan, um unverzügliche Aktivitäten zu
-    ermöglichen, falls ein Eventhandler Befehle an Icinga schickt.
 
 ### 7.1.4. Externe Befehle benutzen
 
@@ -83,9 +57,7 @@ Externe Befehle, die in das [command
 file](configmain.md#configmain-command_file) geschrieben werden, haben
 das folgende Format...
 
-~~~~ {.screen}
- [ Zeit]  Befehls-ID; Befehlsargumente 
-~~~~
+</code></pre>
 
 ...wobei *Zeit* die Zeit (im *time\_t*-Format) ist, zu der die externe
 Applikation den externen Befehl an das Command-File geschickt hat. Die
@@ -100,10 +72,6 @@ Befehle](extcommands2.md "7.2. Liste der externen Befehle").
 
 * * * * *
 
-  ------------------------------------- -------------------------- ----------------------------------
-  [Zurück](ch07.md)                   [Nach oben](ch07.md)      [Weiter](extcommands2.md)
-  Kapitel 7. Fortgeschrittene Themen    [Zum Anfang](index.md)    7.2. Liste der externen Befehle
-  ------------------------------------- -------------------------- ----------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

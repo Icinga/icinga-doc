@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.15. Performance-Daten
-
-[Zurück](stalking.md) 
-
-Kapitel 7. Fortgeschrittene Themen
-
- [Weiter](downtime.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -43,9 +35,7 @@ darüber, wie diese Daten verarbeitet werden, finden Sie im Folgenden...
 Es gibt zwei grundlegende Kategorien von Performance-Daten, die von
 Icinga erhalten werden können:
 
-1.  Prüf-Performance-Daten
 
-2.  Plugin-Performance-Daten
 
 Prüf-Performance-Daten sind interne Daten, die sich auf die aktuelle
 Ausführung einer Host- oder Service-Prüfung beziehen. Dies kann Dinge
@@ -67,7 +57,6 @@ Plugin-Performance-Daten sind externe Daten, die spezifisch für das
 Plugin sind, das die Host- oder Service-Prüfung ausführt.
 Plugin-spezifische Daten können Dinge wie Prozentsatz des
 Paketverlustes, freie Plattenplatz, Prozessor-Load, Anzahl der
-gegenwärtigen Benutzer usw. umfassen - generell jede Art von Metrik, die
 das Plugin misst, wenn es ausgeführt wird. Plugin-spezifische
 Performance-Daten sind optional und werden ggf. nicht von allen Plugins
 unterstützt. Plugin-spezifische Performance-Daten (falls verfügbar)
@@ -86,9 +75,7 @@ lesbarem Text zurückliefern, die den Status eines Typs von Messdaten
 enthält. Zum Beispiel könnte das check\_ping-Plugin eine Textzeile wie
 die folgende zurückliefern:
 
-~~~~ {.screen}
- PING ok - Packet loss = 0%, RTA = 0.80 ms
-~~~~
+</code></pre>
 
 Bei dieser einfachen Art von Ausgabe ist die gesamte Textzeile in den
 \$HOSTOUTPUT\$- oder
@@ -106,23 +93,14 @@ Paketverlusten (percent paket loss) und durchschnittlicher Umlaufzeit
 (average round trip time) erweitert wurde. Die Beispielausgabe des
 Plugins könnte wie folgt aussehen:
 
-~~~~ {.screen}
- PING ok - Packet loss = 0%, RTA = 0.80 ms | percent_packet_loss=0 rta=0.80
-~~~~
+</code></pre>
 
 wenn Icinga dieses Plugin-Ausgabeformat sieht, wird es die Ausgabe in
 zwei Teile aufteilen:
 
-1.  alles vor dem Pipe-Symbol wird als "normale" Ausgabe des Plugins
-    angesehen und im \$HOSTOUTPUT\$- oder \$SERVICEOUTPUT\$-Makro
-    gespeichert
 
-2.  alles nach dem Pipe-Symbol wird als Plugin-spezifische Ausgabe
-    angesehen und in den \$HOSTPERFDATA\$- oder
-    \$SERVICEPERFDATA\$-Makros gespeichert.
 
 Im obigen Beispiel würde das \$HOSTOUTPUT\$- oder das
-\$SERVICEOUTPUT\$-Makro "*PING ok - Packet loss = 0%, RTA = 0.80 ms*"
 enthalten (ohne Anführungszeichen) und das \$HOSTPERFDATA\$- oder das
 \$SERVICEPERFDATA\$-Makro würde "*percent\_packet\_loss=0 rta=0.80*"
 enthalten (ohne Anführungszeichen).
@@ -149,11 +127,7 @@ Prüfen Sie die Dokumentation des Addon auf weitere Informationen.
 Wenn Sie die Performance-Daten, die von den Plugins und in Icinga
 verfügbar sind, müssen Sie folgendes tun:
 
-1.  aktivieren Sie die
-    [process\_performance\_data](configmain.md#configmain-process_performance_data)-Option.
 
-2.  konfigurieren Sie Icinga so, dass Performance-Daten in Dateien
-    geschrieben und/oder durch Befehle verarbeitet wird.
 
 Lesen Sie weiter, um Informationen darüber zu erhalten, wie
 Performance-Daten durch das Schreiben in Dateien oder die Ausführung von
@@ -175,13 +149,9 @@ Eine Beispiel-Befehlsdefinition, die Service-Prüf-Performance-Daten zur
 späteren Verarbeitung durch eine andere Applikation in eine Textdatei
 umleitet, finden Sie nachfolgend:
 
-~~~~ {.screen}
  # ACHTUNG: diese Definition funktioniert NICHT mit PNP!
  define command{
-        command_name    store-service-perfdata
-        command_line    /bin/echo -e "$LASTSERVICECHECK$\t$HOSTNAME$\t$SERVICEDESC$\t$SERVICESTATE$\t$SERVICEATTEMPT$\t$SERVICESTATETYPE$\t$SERVICEEXECUTIONTIME$\t$SERVICELATENCY$\t$SERVICEOUTPUT$\t$SERVICEPERFDATA$" >> /usr/local/icinga/var/service-perfdata.dat
-        }
-~~~~
+</code></pre>
 
 ![](../images/tip.gif) Hinweis: Diese Methode, obwohl flexibel, erzeugt
 einen relativ hohen CPU-Overhead. Wenn Sie Performance-Daten für viele
@@ -206,10 +176,9 @@ festgelegt.
 Eine Beispiel-Dateiformatvorlage für Performance-Daten könnte wie folgt
 aussehen:
 
-~~~~ {.screen}
  # ACHTUNG: diese Definition funktioniert NICHT mit PNP!
  service_perfdata_file_template=[SERVICEPERFDATA]\t$TIMET$\t$HOSTNAME$\t$SERVICEDESC$\t$SERVICEEXECUTIONTIME$\t$SERVICELATENCY$\t$SERVICEOUTPUT$\t$SERVICEPERFDATA$
-~~~~
+</code></pre>
 
 Per Default werden die Textdateien im "append"-Modus ("anhängen")
 eröffnet. Wenn Sie den Modus auf "write" ("schreiben") oder
@@ -241,7 +210,6 @@ enthalten in [Abschnitt
 Definition und eine Erklärung des Performance-Daten-Formats. Es wird
 nachfolgend zu Ihrer Bequemlichkeit wiederholt (und übersetzt):
 
------ 8\< -----
 
 *2.6.Performance-Daten*
 
@@ -262,69 +230,32 @@ erwartete Format:
 
 Anmerkungen:
 
-1.  Leerzeichen trennen Listen von Bezeichnung/Werte-Paaren
 
-2.  Bezeichnungen können beliebige Zeichen enthalten
 
-3.  die Bezeichnung muss in Apostrophe eingeschlossen sein, wenn diese
-    Gleichheitszeichen (=), Apostroph (') oder Leerzeichen ( ) enthält,
-    ansonsten sind die Apostrophe optional
 
-4.  die Länge der Bezeichnung ist beliebig, aber idealerweise sind die
-    ersten 19 Zeichen eindeutig (aufgrund einer Beschränkung in RRD).
-    Bitte beachten Sie, dass es eine Längenbegrenzung bei der Menge von
-    Daten gibt, die von NRPE an Nagios geliefert werden kann
 
-5.  um ein Apostroph darzustellen, nutzen Sie zwei einzelne Apostrophe
 
-6.  warn, crit, min und/oder max können leer sein (z.B. wenn der
-    Schwellwert nicht definiert ist oder wenn min oder max nicht
-    zutreffen). Nachfolgende, nicht gefüllte Semikola können entfallen
 
-7.  min und max sind nicht erforderlich, wenn UOM = %
 
-8.  Wert, min und max sind aus der Klasse [-0-9.] (Ziffern, Minuszeichen
-    und Dezimalpunkt). Alle müssen die gleiche UOM benutzen
 
-9.  warn und crit sind im “Range”-Format (siehe Abschnitt 2.5 der
-    Original-Dokumentation). Alle müssen die gleiche UOM benutzen
 
 10. UOM (unit of measurement, Maßeinheit) ist eins von:
 
-    -   keine Einheit angegeben - angenommen wird eine Zahl (int oder
-        float) von Dingen (z.B. Benutzer, Prozesse, Load)
 
-    -   s - Sekunden (auch us, ms)
 
-    -   % - Prozent
 
-    -   B - Bytes (auch KB, MB, TB; GB?)
 
-    -   c - ein fortlaufender Zähler (z.B. Bytes, die über ein Interface
-        übertragen werden)
 
 Es bleibt Drittanbietern überlassen, aus den Performance-Daten Graphen
 zu erzeugen.
 
------ 8\< -----
 
 Ab und zu fragen sich Leute, ob ihre Performance-Daten gültig sind, so
 dass wir hier einige Beispiele geben. Gezeigt werden die Informationen
 nach dem Pipe-Symbol:
 
-~~~~ {.screen}
- loss=0 rta=0.80ms         # gültig (Regel 1,10)
- loss=0, rta=0.80ms        # ungültig (Regel 1, kein Komma erlaubt)
- loss=0 rta=0,80ms         # ungültig (Regel 8, kein Komman erlaubt) *1
- packet loss=0 rta=0.80    # ungültig (Regel 3, in Apostroph einschließen)
- 'packet loss'=0 rta=0.80  # gültig version of line above
- 'john''s disk'=83%        # gültig (Regel 5,10)
  'disk usage'=78%;80;90;;; # ungültig (nachfolgendes Semikolon hinter max-Wert)
- 'disk usage'=78%;80;90    # gültig (Regel 6)
- 'data packets'=11345234c  # gültig (Regel 6,10)
- drum=153482pages          # ungültig (Regel 10, ungültige UOM) *2
- temperature=23;;;20;30    # gültig (Regel 6)
-~~~~
+</code></pre>
 
 ![[Anmerkung]](../images/note.png)
 
@@ -342,10 +273,6 @@ andere Tools zur Aufbereitung Ihrer Performance-Daten nutzen.
 
 * * * * *
 
-  -------------------------- -------------------------- -------------------------------
-  [Zurück](stalking.md)    [Nach oben](ch07.md)      [Weiter](downtime.md)
-  7.14. Status Stalking      [Zum Anfang](index.md)    7.16. Geplante Ausfallzeiten
-  -------------------------- -------------------------- -------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

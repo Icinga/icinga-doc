@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.5. Service and Host Freshness Checks
-
-[Prev](volatileservices.md) 
-
-Chapter 7. Advanced Topics
-
- [Next](distributed.md)
+[Prev](volatileservices.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](distributed.md)
 
 * * * * *
 
@@ -45,18 +37,9 @@ monitoring environments.
 Icinga periodically checks the freshness of the results for all hosts
 services that have freshness checking enabled.
 
--   A freshness threshold is calculated for each host or service.
 
--   For each host/service, the age of its last check result is compared
-    with the freshness threshold.
 
--   If the age of the last check result is greater than the freshness
-    threshold, the check result is considered "stale".
 
--   If the check results is found to be stale, Icinga will force an
-    [active check](activechecks.md "5.6. Active Checks") of the host
-    or service by executing the command specified by in the host or
-    service definition.
 
 ![[Tip]](../images/tip.png)
 
@@ -73,33 +56,11 @@ check result is older than 60 seconds.
 
 Here's what you need to do to enable freshness checking...
 
--   Enable freshness checking on a program-wide basis with the
-    [check\_service\_freshness](configmain.md#configmain-check_service_freshness)
-    and
-    [check\_host\_freshness](configmain.md#configmain-check_host_freshness)
-    directives.
 
--   Use
-    [service\_freshness\_check\_interval](configmain.md#configmain-service_freshness_check_interval)
-    and
-    [host\_freshness\_check\_interval](configmain.md#configmain-host_freshness_check_interval)
-    options to tell Icinga how often in should check the freshness of
-    service and host results.
 
--   Enable freshness checking on a host- and service-specific basis by
-    setting the *check\_freshness* option in your host and service
-    definitions to a value of 1.
 
--   Configure freshness thresholds by setting the *freshness\_threshold*
-    option in your host and service definitions.
 
--   Configure the *check\_command* option in your host or service
-    definitions to reflect a valid command that should be used to
-    actively check the host or service when it is detected as stale.
 
--   The *check\_period* option in your host and service definitions is
-    used when Icinga determines when a host or service can be checked
-    for freshness, so make sure it is set to a valid timeperiod.
 
 ![[Tip]](../images/tip.png)
 
@@ -127,18 +88,9 @@ something like this...
 Here's what the definition for the service might look like (some
 required options are omitted)...
 
-~~~~ {.programlisting}
+<pre><code>
  define service{
-        host_name               backup-server
-        service_description     ArcServe Backup Job
-        active_checks_enabled   0               ; active checks are NOT enabled
-        passive_checks_enabled  1               ; passive checks are enabled (this is how results are reported)
-        check_freshness         1
-        freshness_threshold     93600           ; 26 hour threshold, since backups may not always finish at the same time
-        check_command           no-backup-report        ; this command is run only if the service results are "stale"
-        ...other options...
-        }
-~~~~
+</code></pre>
 
 Notice that active checks are disabled for the service. This is because
 the results for the service are only made by an external application
@@ -150,12 +102,9 @@ etc.). The *no-backup-report* command is executed only if the results of
 the service are determined to be stale. The definition of the
 *no-backup-report* command might look like this...
 
-~~~~ {.programlisting}
+<pre><code>
  define command{
-        command_name    no-backup-report
-        command_line    /usr/local/icinga/libexec/check_dummy 2 "CRITICAL: Results of backup job were not reported!"
-        }
-~~~~
+</code></pre>
 
 If Icinga detects that the service results are stale, it will run the
 *no-backup-report* command as an active service check. This causes the
@@ -166,57 +115,31 @@ already there) and someone will probably get notified of the problem.
 ### 7.5.5. "Check results ... are stale. Forcing an immediate check ...
 
 Sometimes you might find messages like the following in
-`icinga.log`{.filename}:
+`icinga.log`:
 
-~~~~ {.screen}
  Check results for service x on host y are stale by 0d 0h 0m 10s (threshold=0d 0h 10m 0s).
  Forcing an immediate check of the service...
-~~~~
+</code></pre>
 
 This means that the service was checked in the past and the threshold
 time (e.g. 10m) has passed without any new check results so a check is
 forced by the core.
 
-The message results from the code fragment in `base/checks.c`{.filename}
+The message results from the code fragment in `base/checks.c`
 (lines folded for better readability)
 
-~~~~ {.programlisting}
+<pre><code>
  /* the results for the last check of this service are stale */
-    if (expiration_time < current_time) {
 
-       get_time_breakdown((current_time - expiration_time), &days, &hours, &minutes, &seconds);
-       get_time_breakdown(freshness_threshold, &tdays, &thours, &tminutes, &tseconds);
 
-       /* log a warning */
-       if (log_this == TRUE)
-          logit(NSLOG_RUNTIME_WARNING, TRUE,
-             "Warning: The results of service '%s' on host '%s' are stale by %dd %dh %dm %ds (threshold=%dd %dh %dm %ds).
-             I'm forcing an immediate check of the service.\n",
-             temp_service->description, temp_service->host_name,
-             days, hours, minutes, seconds, tdays, thours, tminutes, tseconds
-          );
 
-       log_debug_info(DEBUGL_CHECKS, 1,
-          "Check results for service '%s' on host '%s' are stale by %dd %dh %dm %ds (threshold=%dd %dh %dm %ds).
-          Forcing an immediate check of the service...\n",
-          temp_service->description, temp_service->host_name,
-          days, hours, minutes, seconds, tdays, thours, tminutes, tseconds
-       );
 
-       return FALSE;
-    }
-~~~~
+</code></pre>
 
 By default, the following applies
 
--   `expiration_time`{.literal} = last\_check + freshness threshold
-    (e.g. 10m)
 
--   expiration\_time is in the past (`< current_time`{.literal}) ==
-    stale
 
--   the difference between now and expiration time is shown in the log
-    (e.g. 10s)
 
 If the service has not been checked now, but in the past (event\_start
 \> last\_check) and its freshness threshold is 0,
@@ -226,10 +149,12 @@ the initial service check (and state + output) must happen).
 
 * * * * *
 
-  -------------------------------- -------------------- ------------------------------
-  [Prev](volatileservices.md)    [Up](ch07.md)       [Next](distributed.md)
-  7.4. Volatile Services           [Home](index.md)    7.6. Distributed Monitoring
-  -------------------------------- -------------------- ------------------------------
+[Prev](volatileservices.md) | [Up](ch07.md) | [Next](distributed.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

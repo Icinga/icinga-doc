@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-3.1. Configuration Overview
-
-[Prev](ch03.md) 
-
-Chapter 3. Configuring Icinga
-
- [Next](configmain.md)
+[Prev](ch03.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](configmain.md)
 
 * * * * *
 
@@ -51,15 +43,15 @@ for reference.
 ### 3.1.2. File names
 
 Names and locations of these configuration files are all up to you but
-it is commonly accepted to have files called `icinga.cfg`{.filename},
-`resource.cfg`{.filename}, and `cgi.cfg`{.filename} in the main config
+it is commonly accepted to have files called `icinga.cfg`,
+`resource.cfg`, and `cgi.cfg` in the main config
 directory.
 
 The names of the object definition files may show the type of
-definitions (`contacts.cfg, commands.cfg`{.filename},
-`timeperiods.cfg`{.filename}, `notifications.cfg`{.filename}), the type
-of hardware (`printer.cfg`{.filename}, `switch.cfg`{.filename}), or the
-object which is described (`localhost.cfg`{.filename}). If your
+definitions (`contacts.cfg, commands.cfg`,
+`timeperiods.cfg`, `notifications.cfg`), the type
+of hardware (`printer.cfg`, `switch.cfg`), or the
+object which is described (`localhost.cfg`). If your
 installation doesn't contain any of these files then there is no need to
 panic. Using a web-based configuration tool, a database driven script,
 or editing the files with your favourite editor the files may be in
@@ -128,10 +120,12 @@ Documentation for the CGI configuration file can be found
 
 * * * * *
 
-  -------------------------------- -------------------- ---------------------------------------
-  [Prev](ch03.md)                [Up](ch03.md)       [Next](configmain.md)
-  Chapter 3. Configuring Icinga    [Home](index.md)    3.2. Main Configuration File Options
-  -------------------------------- -------------------- ---------------------------------------
+[Prev](ch03.md) | [Up](ch03.md) | [Next](configmain.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

@@ -1,22 +1,13 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-13.3. cgi.cfg
-
-[Zurück](sample-icinga.md) 
-
-Kapitel 13. Icinga Beispieldateien
-
- [Weiter](sample-resource.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
 13.3. cgi.cfg
 -------------
 
-~~~~ {.programlisting}
+<pre><code>
 #################################################################
 #
-# CGI.CFG - CGI Configuration File for Icinga
 #
 #################################################################
 
@@ -24,7 +15,6 @@ Kapitel 13. Icinga Beispieldateien
 
 ######################################
 #
-#    COMMON (ALL CGIs)
 #
 ######################################
 
@@ -52,7 +42,6 @@ standalone_installation=@CLASSICUI_STANDALONE_FLAG@
 
 
 # PHYSICAL HTML PATH
-# This is the path where the HTML files for Icinga reside.  This
 # value is used to locate the logo images needed by the statusmap
 # and status CGIs.
 
@@ -64,7 +53,6 @@ physical_html_path=@datadir@
 # This is the path portion of the URL that corresponds to the
 # physical location of the Icinga HTML files (as defined above).
 # This value is used by the CGIs to locate the online documentation
-# and graphics.  If you access the Icinga pages with an URL like
 # http://www.myhost.com/icinga, this value should be '/icinga'
 # (without the quotes).
 
@@ -109,7 +97,6 @@ refresh_type=1
 
 # ESCAPE HTML TAGS
 # This option determines whether HTML tags in host and service
-# status output is escaped in the web interface.  If enabled,
 # your plugin output will not be able to contain clickable links.
 
 escape_html_tags=1
@@ -139,7 +126,6 @@ show_tac_header=1
 # This option determines what states should be displayed in the web
 # interface for hosts/services that have not yet been checked.
 # Values: 0 = leave hosts/services that have not been check yet in their original state
-#         1 = mark hosts/services that have not been checked yet as PENDING (default)
 
 use_pending_states=1
 
@@ -194,7 +180,6 @@ notes_url_target=main
 
 ######################################
 #
-#   AUTHENTICATION (ALL CGIs)
 #
 ######################################
 
@@ -214,7 +199,6 @@ notes_url_target=main
 # Read the HTML documentation to learn how the authorization works!
 #
 # NOTE: It is a really *bad* idea to disable authorization, unless
-# you plan on removing the command CGI (cmd.cgi)!  Failure to do
 # so will leave you wide open to kiddies messing with Icinga and
 # possibly hitting you with a denial of service attack by filling up
 # your drive by continuously writing to your command file!
@@ -235,12 +219,9 @@ use_authentication=1
 # the value to one (1) requires "SSLUserName SSL_CLIENT_S_DN_CN" and
 # several other options in your web server config. Please consult your
 # web server configuration documentation for details.
-# 
 # Values:
 # 0 = Use web server environment variable REMOTE_USER to get the user
-#   logged in. Don't use client certificates (default)
 # 1 = Use web server environment variable SSL_CLIENT_S_DN_CN to get
-#   the user logged in. Use client certificates
 
 use_ssl_authentication=0
 
@@ -257,15 +238,11 @@ lowercase_user_name=0
 
 # DEFAULT USER
 # Setting this variable will define a default user name that can
-# access pages without authentication.  This allows people within a
 # secure domain (i.e., behind a firewall) to see the current status
-# without authenticating.  You may want to use this to avoid basic
 # authentication if you are not using a secure server since basic
 # authentication transmits passwords in the clear.
 #
-# Important:  Do not define a default username unless you are
 # running a secure web server and are sure that everyone who has
-# access to the CGIs has been authenticated in some manner!  If you
 # define this variable, anyone who has not authenticated to the web
 # server will inherit all rights you assign to this user!
 
@@ -276,9 +253,7 @@ lowercase_user_name=0
 # SYSTEM/PROCESS INFORMATION ACCESS
 # This option is a comma-delimited list of all usernames that
 # have access to viewing the Icinga process information as
-# provided by the Extended Information CGI (extinfo.cgi).  By
 # default, *no one* has access to this unless you choose to
-# not use authorization.  You may use an asterisk (*) to
 # authorize any user who has authenticated to the web server.
 # Alternatively you can specify contactgroups too, starting
 # with Icinga 1.5.0
@@ -320,7 +295,6 @@ authorized_for_full_command_resolution=icingaadmin
 # SYSTEM/PROCESS COMMAND ACCESS
 # This option is a comma-delimited list of all usernames that
 # can issue shutdown and restart commands to Icinga via the
-# command CGI (cmd.cgi).  Users in this list can also change
 # the program mode to active or standby. By default, *no one*
 # has access to this unless you choose to not use authorization.
 # You may use an asterisk (*) to authorize any user who has
@@ -336,7 +310,6 @@ authorized_for_system_commands=icingaadmin
 # GLOBAL HOST/SERVICE VIEW ACCESS
 # These two options are comma-delimited lists of all usernames that
 # can view information for all hosts and services that are being
-# monitored.  By default, users can only view information
 # for hosts or services that they are contacts for (unless you
 # you choose to not use authorization). You may use an asterisk (*)
 # to authorize any user who has authenticated to the web server.
@@ -358,7 +331,6 @@ authorized_for_all_hosts=icingaadmin
 # CGI (cmd.cgi) for all hosts and services that are being monitored.
 # By default, users can only issue commands for hosts or services
 # that they are contacts for (unless you you choose to not use
-# authorization).  You may use an asterisk (*) to authorize any
 # user who has authenticated to the web server.
 # Alternatively you can specify contactgroups too.
 #
@@ -374,7 +346,6 @@ authorized_for_all_host_commands=icingaadmin
 
 # READ-ONLY USERS
 # A comma-delimited list of usernames that have read-only rights in
-# the CGIs.  This will block any service or host commands normally shown
 # on the extinfo CGI pages. It will also block comments and downtimes
 # from being shown to read-only users.
 # Alternatively you can specify contactgroups too, starting
@@ -414,8 +385,6 @@ authorized_for_all_host_commands=icingaadmin
 # authorized as contact for the host only. By disabling this option,
 # the user must be an authorized contact for the service too in order
 # to view it.
-# Values: 0 - disabled, user must be authorized for services too
-#         1 - enabled, user can view all services on authorized host
 
 show_all_services_host_is_authorized_for=1
 
@@ -432,15 +401,11 @@ show_all_services_host_is_authorized_for=1
 # the Hostgroup Overview to help prevent any confusion over whether the option
 # is in use or not. However for privacy reasons, hostgroups that are only showing
 # a partial listing are not specifically indicated.
-# 
 # COMPATIBILITY NOTICE: As with any tweak made to the output of the CGIs, enabling
 # this option may adversely impact third party programs that rely on 'screen scraping'
 # to get their information. If you encounter such a problem, turn this option back
 # to its default of off and encourage the developer(s) of the program to use JSON
 # for their data needs instead.
-# 
-# Values: 0 - disabled, user only sees full hostgroups (default)
-#         1 - enabled, user sees partial hostgroups
 
 show_partial_hostgroups=0
 
@@ -449,7 +414,6 @@ show_partial_hostgroups=0
 
 ######################################
 #
-#   STATUSMAP (statusmap.cgi)
 #
 ######################################
 
@@ -457,7 +421,6 @@ show_partial_hostgroups=0
 # This option allows you to specify an image to be used as a background
 # in the statusmap CGI if you use the user-supplied coordinates layout method.
 # The background image is not be available in any other layout methods. It is
-# assumed that the image resides in the HTML images path (i.e. 
 # /usr/local/icinga/share/images). This path is automatically determined by
 # appending "/images" to the path specified by the physical_html_path directive.
 #
@@ -483,16 +446,7 @@ show_partial_hostgroups=0
 
 # DEFAULT STATUSMAP LAYOUT METHOD
 # This option allows you to specify the default layout method
-# the statusmap CGI should use for drawing hosts.  If you do
 # not use this option, the default is to use user-defined
-# coordinates.  Valid options are as follows:
-#   0 = User-defined coordinates
-#   1 = Depth layers
-#       2 = Collapsed tree
-#       3 = Balanced tree
-#       4 = Circular
-#       5 = Circular (Marked Up)
-#       6 = Baloon (Marked Up)
 
 default_statusmap_layout=5
 
@@ -501,16 +455,12 @@ default_statusmap_layout=5
 
 ######################################
 #
-#   STATUS (status.cgi)
 #
 ######################################
 
 # SOUND OPTIONS
 # These options allow you to specify an optional audio file
 # that should be played in your browser window when there are
-# problems on the network.  The audio files are used only in
-# the status CGI.  Only the sound for the most critical problem
-# will be played.  Order of importance (higher to lower) is as
 # follows: unreachable hosts, down hosts, critical services,
 # warning services, and unknown services. If there are no
 # visible problems, the sound file optionally specified by
@@ -555,7 +505,6 @@ display_status_totals=0
 # This option allows you to define if table rows in status.cgi
 # will be highlighted or not.
 # Values: 0 = disables row highlighting
-#     1 = enables row highlighting
 
 highlight_table_rows=1
 
@@ -573,11 +522,6 @@ highlight_table_rows=1
 # considered in trouble.
 # Relevant values from include/statusdata.h (look them up
 # *there* if you want to be *really* sure):
-#   #define SERVICE_PENDING     1
-#   #define SERVICE_OK      2
-#   #define SERVICE_WARNING     4
-#   #define SERVICE_UNKNOWN     8
-#   #define SERVICE_CRITICAL    16
 # You'll likely want to use add_notif_num_hard=0 (default)
 # or add_notif_num_hard=28 (warn+crit+unknown). There's an
 # add_notif_num_soft affecting services in a SOFT state
@@ -591,7 +535,6 @@ highlight_table_rows=1
 
 ######################################
 #
-#   SEND COMMANDS (cmd.cgi)
 #
 ######################################
 
@@ -618,11 +561,6 @@ cgi_log_file=@CGILOGDIR@/icinga-cgi.log
 # CGI LOG ROTATION METHOD
 # This is the log rotation method that should be used to rotate
 # the cgi log file. Values are as follows..
-#   n   = None - don't rotate the log
-#   h   = Hourly rotation (top of the hour)
-#   d   = Daily rotation (midnight every day)
-#   w   = Weekly rotation (midnight on Saturday evening)
-#   m   = Monthly rotation (midnight last day of month)
 
 cgi_log_rotation_method=d
 
@@ -640,7 +578,6 @@ cgi_log_archive_path=@CGILOGDIR@
 # This option forces the users of to comment every action they perform.
 # The comments get logged into cgi log file. This option only has effect
 # if logging is switched on. See option "use_logging"
-# Default  is 0 (off), to activate it set it to 1 (on).
 
 enforce_comments_on_actions=0
 
@@ -649,7 +586,6 @@ enforce_comments_on_actions=0
 # SEND ACK NOTIFICATIONS
 # This options determines whether the initial state of the
 # checkbox "Send Notifications" when acknowledging a problem.
-# A value of 1 ticks the checkbox and 0 does not.  The default
 # is 1, which will send notifications on acknowledged problems.
 
 send_ack_notifications=1
@@ -672,7 +608,6 @@ persistent_ack_comments=0
 # change the author name associated with the command request.
 #
 # Values: 0 = Allow users to change author names when submitting commands
-#         1 = Prevent users from changing author names (default)
 
 lock_author_names=1
 
@@ -688,8 +623,6 @@ default_downtime_duration=7200
 
 # SET EXPIRE ACK BY DEFAULT
 # This option either sets or clears the checkbox for "Use Expire Time"
-# in the acknowledgement menu.  Valid values are 0 (DO NOT tick the
-# checkbox by default) or 1 (tick the checkbox by default).  The default
 # is 0 (leave the checkbox blank).
 
 set_expire_ack_by_default=0
@@ -715,7 +648,6 @@ default_expiring_disabled_notifications_duration=86400
 
 ######################################
 #
-#   TACTICAL OVERVIEW (tac.cgi)
 #
 ######################################
 
@@ -742,16 +674,12 @@ show_tac_header_pending=1
 
 ######################################
 #
-#   EXTENDED INFO (extinfo.cgi)
 #
 ######################################
 
 # SHOW CHILD HOSTS IN EXTINFO OPTION
 # This Option allows you to specify if the extended host information
 # cgi will show child hosts for the selected host.
-#   0 = disabled
-#   1 = only show immediate child hosts
-#   2 = show immediate and all child hosts
 # NOTE: Option 2 could be a real performance killer in
 # large installations, so use with care.
 # By default disabled, as this could be a performance killer.
@@ -764,10 +692,6 @@ extinfo_show_child_hosts=0
 # Activating this option changes the <title> of status.cgi
 # and extinfo.cgi when they refer to a single host, service,
 # or group. They will then read:
-#   [Host]
-#   {HostGroup}
-#   ServiceDesc @ Host
-#   (ServiceGroup)
 # These are easier to read and find if you use (many) tabs
 # in your browser.
 # Default is enabled. 0=disabled, 1=enabled
@@ -779,7 +703,6 @@ tab_friendly_titles=1
 
 ######################################
 #
-#   SHOWLOG (showlog.cgi)
 #
 ######################################
 
@@ -808,21 +731,17 @@ tab_friendly_titles=1
 
 ######################################
 #
-#   SPLUNK INTEGRATION (VARIOUS CGIs)
 #
 ######################################
 
 # SPLUNK INTEGRATION OPTIONS
 # These options allow you to enable integration with Splunk
-# in the web interface.  If enabled, you'll be presented with
 # "Splunk It" links in various places in the CGIs (log file,
-# alert history, host/service detail, etc).  Useful if you're
 # trying to research why a particular problem occurred.
 # For more information on Splunk, visit http://www.splunk.com/
 
 # This option determines whether the Splunk integration is enabled
 # Values: 0 = disable Splunk integration
-#         1 = enable Splunk integration
 
 #enable_splunk_integration=1
 
@@ -837,8 +756,6 @@ tab_friendly_titles=1
 
 ######################################
 #
-#    STANDALONE (ICINGA 2) OPTIONS
-#    requires standalone_installation=1
 #
 ######################################
 
@@ -856,7 +773,6 @@ object_cache_file=@STATEDIR@/objects.cache
 
 # STATUS FILE
 # This is where the current status of all monitored services and
-# hosts is stored.  Its contents are read and processed by the CGIs.
 # The contents of the status file are deleted every time Icinga
 # restarts.
 # Icinga 2 provides this file through its compat component, if enabled.
@@ -868,7 +784,6 @@ status_file=@STATEDIR@/status.dat
 # RESOURCE FILE
 # This is an optional resource file that contains $USERx$ macro
 # definitions. Multiple resource files can be specified by using
-# multiple resource_file definitions.  The CGIs will not attempt to
 # read the contents of resource files, so information that is
 # considered to be sensitive (usernames, passwords, etc) can be
 # defined as macros in this file and restrictive permissions (600)
@@ -882,7 +797,6 @@ resource_file=@sysconfdir@/resource.cfg
 # This is the file that Icinga checks for external command requests.
 # It is also where the command CGI will write commands that are submitted
 # by users, so it must be writeable by the user that the web server
-# is running as (usually 'nobody').  Permissions should be set at the
 # directory level instead of on the file, as the file is deleted every
 # time its contents are processed.
 # Icinga 2 provides this file through its compat component, if enabled.
@@ -893,9 +807,7 @@ command_file=@EXTCMDFILEDIR@/icinga.cmd
 
 # EXTERNAL COMMAND OPTION
 # This option allows you to specify whether or not Icinga should check
-# for external commands (in the command file defined below).  By default
 # Icinga will *not* check for external commands, just to be on the
-# cautious side.  If you want to be able to use the CGI command interface
 # you will have to enable this.
 # Values: 0 = disable commands, 1 = enable commands
 
@@ -905,8 +817,6 @@ check_external_commands=1
 
 # INTERVAL LENGTH
 # This is the seconds per unit interval as used in the
-# host/contact/service configuration files.  Setting this to 60 means
-# that each interval is one minute long (60 seconds).  Other settings
 # have not been tested much, so your mileage is likely to vary...
 
 interval_length=60
@@ -926,7 +836,6 @@ status_update_interval=10
 
 # LOG FILE
 # This is the main log file where service and host events are logged
-# for historical purposes.  This should be the first option specified
 # in the config file!!!
 # Icinga 2 provides this file through its compat component, if enabled.
 
@@ -937,11 +846,6 @@ log_file=@LOGDIR@/icinga.log
 # LOG ROTATION METHOD
 # This is the log rotation method that Icinga should use to rotate
 # the main log file. Values are as follows..
-#   n   = None - don't rotate the log
-#   h   = Hourly rotation (top of the hour)
-#   d   = Daily rotation (midnight every day)
-#   w   = Weekly rotation (midnight on Saturday evening)
-#   m   = Monthly rotation (midnight last day of month)
 
 log_rotation_method=d
 
@@ -959,25 +863,16 @@ log_archive_path=@LOGDIR@/archives
 # DATE FORMAT OPTION
 # This option determines how short dates are displayed. Valid options
 # include:
-#   us      (MM-DD-YYYY HH:MM:SS)
-#   euro        (DD-MM-YYYY HH:MM:SS)
-#   iso8601     (YYYY-MM-DD HH:MM:SS)
-#   strict-iso8601  (YYYY-MM-DDTHH:MM:SS)
 #
 
 date_format=us
 
 
 
-#   EOF
-~~~~
+</code></pre>
 
 * * * * *
 
-  ------------------------------- -------------------------- ---------------------------------
-  [Zurück](sample-icinga.md)    [Nach oben](ch13.md)      [Weiter](sample-resource.md)
-  13.2. icinga.cfg                [Zum Anfang](index.md)    13.4. resource.cfg
-  ------------------------------- -------------------------- ---------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

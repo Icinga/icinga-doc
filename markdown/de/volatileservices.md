@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.4. sprunghafte Services
-
-[Zurück](eventhandlers.md) 
-
-Kapitel 7. Fortgeschrittene Themen
-
- [Weiter](freshness.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -43,11 +35,7 @@ eingesetzt werden...
 
 Flüchtige Services sind nützlich zur Überwachung von...
 
--   Dingen, die sich jedes Mal automatisch in einen "OK"-Zustand
-    zurücksetzen, wenn sie geprüft werden
 
--   Ereignisse wie Sicherheits-Alarme, die jedes Mal Beachtung
-    erfordern, wenn ein Problem vorliegt (und nicht nur beim ersten Mal)
 
 ### 7.4.3. Was ist so besonders an flüchtigen Services?
 
@@ -57,15 +45,8 @@ wichtigen Punkten. *Jedes Mal* wenn sie in einem
 die Prüfung einen nicht-OK-Zustand ergibt (also keine Statusänderung
 eintritt)...
 
--   wird der nicht-OK-Zustand des Service protokolliert
 
--   werden Kontakte über das Problem informiert (falls es das ist, [was
-    zu tun ist](notifications.md "5.11. Benachrichtigungen")).
-    Anmerkung: Benachrichtigungsintervalle werden bei flüchtigen
-    Services ignoriert.
 
--   Der [Eventhandler](eventhandlers.md "7.3. Eventhandler") für den
-    Service wird ausgeführt (falls einer definiert ist)
 
 Diese Ereignisse finden normalerweise nur für Services statt, wenn sie
 in einem nicht-OK-Zustand sind und gerade ein Hard-Zustandswechsel
@@ -94,24 +75,10 @@ können Sie das Folgende tun...
 
 ### 7.4.5. Icinga Konfiguration:
 
--   Legen Sie eine Service-Definition namens *Port Scans* an und
-    verbinden Sie diese mit dem Host, auf dem PortSentry läuft.
 
--   Setzen Sie die *max\_check\_attempts*-Direktive in der
-    Service-Definition auf 1. Dies teilt Icinga mit, sofort einen
-    [Hard-Zustand](statetypes.md "5.8. Statustypen") für den Service
-    zu erzwingen, wenn ein nicht-OK-Zustand ermittelt wird.
 
--   Setzen Sie die *active\_checks\_enabled*-Direktive in der
-    Service-Definition auf 0. Dies hält Icinga davon ab, den Service
-    aktiv zu prüfen.
 
--   Setzen Sie die *passive\_checks\_enabled*-Direktive in der
-    Service-Definition auf 1. Das erlaubt passive Prüfungen für den
-    Service.
 
--   Setzen Sie die *is\_volatile*-Direktive in der Service-Definition
-    auf 1.
 
 ### 7.4.6. PortSentry Konfiguration:
 
@@ -119,9 +86,7 @@ Editieren Sie die PortSentry-Konfigurationsdatei (portsentry.conf) und
 definieren Sie einen Befehl für die *KILL\_RUN\_CMD*-Direktive wie
 folgt:
 
-~~~~ {.screen}
- KILL_RUN_CMD="/usr/local/icinga/libexec/eventhandlers/submit_check_result host_name 'Port Scans' 2 'Port scan from host $TARGET$ on port $PORT$.  Host has been firewalled.'"
-~~~~
+</code></pre>
 
 Stellen Sie sicher, *host\_name* durch den Kurznamen des Hosts zu
 ersetzen, mit dem der Service verbunden ist.
@@ -133,7 +98,6 @@ Erstellen Sie ein Shell-Script im
 *submit\_check\_result*. Der Inhalt des Shell-Scripts sollte ähnlich dem
 Folgenden sein...
 
-~~~~ {.screen}
  #!/bin/sh
  # Write a command to the Icinga command file to cause
  # it to process a service check result
@@ -145,32 +109,19 @@ Folgenden sein...
  cmdline="[$datetime] PROCESS_SERVICE_CHECK_RESULT;$1;$2;$3;$4"
  # append the command to the end of the command file
  `$echocmd $cmdline >> $CommandFile`
-~~~~
+</code></pre>
 
 Was passiert, wenn PortSentry in der Zukunft einen Portscan auf der
 Maschine entdeckt?
 
--   PortSentry wird den Host ausschließen ("firewall", das ist eine
-    Funktion der PortSentry-Software)
 
--   PortSentry wird das *submit\_check\_result*-Shell-Script ausführen
-    und ein passives Prüfergebnis an Icinga senden
 
--   Icinga wird das external command file lesen und das passive
-    Service-Prüfergebnis von PortSentry verarbeiten
 
--   Icinga wird den *Port Scans*-Service in einen harten
-    CRITICAL-Zustand versetzen und Benachrichtigungen an die Kontakte
-    senden
 
 Ziemlich hübsch, oder?
 
 * * * * *
 
-  ------------------------------- -------------------------- -------------------------------------------
-  [Zurück](eventhandlers.md)    [Nach oben](ch07.md)      [Weiter](freshness.md)
-  7.3. Eventhandler               [Zum Anfang](index.md)    7.5. Service- und Host-Frische-Prüfungen
-  ------------------------------- -------------------------- -------------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

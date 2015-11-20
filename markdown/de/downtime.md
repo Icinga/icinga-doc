@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.16. Geplante Ausfallzeiten
-
-[Zurück](perfdata.md) 
-
-Kapitel 7. Fortgeschrittene Themen
-
- [Weiter](recurring_downtimes.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -122,22 +114,10 @@ kann, als Sie ursprünglich geplant haben...
 
 Nehmen wir das folgende Szenario:
 
-1.  Sie planen eine Auszeit für Host A an einem Montag von 19:30 Uhr bis
-    21:30 Uhr
 
-2.  Sie fahren den Server am Montag gegen 19:45 Uhr herunter, um einen
-    Platten-Upgrade durchzuführen
 
-3.  nachdem Sie eineinhalb Stunden mit SCSI-Fehlern und
-    Treiberinkompatibilitäten verschwendet haben, können Sie endlich den
-    Server starten
 
-4.  um 21:15 Uhr stellen Sie fest, dass eine Ihrer Partitions nirgends
-    auf der Platte zu finden ist
 
-5.  da Sie wissen, dass es eine lange Nacht wird, gehen Sie zurück und
-    planen eine zusätzliche Auszeit für Host A von Montag 21:20 Uhr bis
-    Dienstagmorgen 1:30 Uhr
 
 Wenn Sie überlappende Ausfallzeiten für einen Host oder Service planen
 (in diesem Fall waren die Zeiten von 19:40 Uhr bis 21:30 Uhr und 21:20
@@ -148,10 +128,6 @@ für Host A bis Dienstagmorgen 1:30 Uhr unterdrückt.
 
 * * * * *
 
-  -------------------------- -------------------------- -------------------------------------
-  [Zurück](perfdata.md)    [Nach oben](ch07.md)      [Weiter](recurring_downtimes.md)
-  7.15. Performance-Daten    [Zum Anfang](index.md)    7.17. Wiederkehrende Ausfallzeiten
-  -------------------------- -------------------------- -------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

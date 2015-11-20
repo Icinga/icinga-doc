@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-2.9. Links to other published Howtos
-
-[Prev](icinga_packages.md) 
-
-Chapter 2. Getting Started
-
- [Next](upgrading.md)
+[Prev](icinga_packages.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](upgrading.md)
 
 * * * * *
 
@@ -80,28 +72,22 @@ In the [Icinga wiki](wiki.icinga.org) there is a whole ["HowTo"
 section](https://wiki.icinga.org/display/howtos/Home) dealing with
 various aspects, amongst others:
 
--   Addons
 
--   Backup
 
--   Classic UI Collections
 
--   Installation and Configuration Guides
 
--   Integration
 
--   Notifications
 
--   Performance Tuning
 
--   Plugins
 
 * * * * *
 
-  ----------------------------------------------- -------------------- ------------------------------
-  [Prev](icinga_packages.md)                    [Up](ch02.md)       [Next](upgrading.md)
-  2.8. Icinga Packages for Linux Distributions    [Home](index.md)    2.10. Upgrading (to) Icinga
-  ----------------------------------------------- -------------------- ------------------------------
+[Prev](icinga_packages.md) | [Up](ch02.md) | [Next](upgrading.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

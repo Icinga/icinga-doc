@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-11.1. Nagios Plugin API
-
-[Zurück](ch11.md) 
-
-Kapitel 11. Entwicklung
-
- [Weiter](epnplugins.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -35,26 +27,19 @@ Plugin-Ausgaben](pluginapi.md#outputlengthrestrictions)
 Wenn Sie planen, Ihren eigenen Plugins für Icinga zu schreiben, dann
 besuchen Sie folgende Ressourcen:
 
--   Die offizielle [Monitoring Plugins
-    Projekt-Website](https://www.monitoring-plugins.org)
 
--   Die offiziellen [Monitoring Plugins
-    Entwicklungsrichtlinien](https://www.monitoring-plugins.org/doc/guidelines.md)
 
 ### 11.1.2. Plugin-Überblick
 
 Scripts und ausführbare Programme müssen (mindestens) zwei Dinge tun, um
 als Icinga-Plugins zu funktionieren:
 
--   mit einem von verschiedenen möglichen Return-Codes enden
 
--   mindestens eine Zeile Textausgabe an STDOUT zurückliefern
 
 Die inneren Abläufe Ihres Plugins sind für Icinga unwichtig. Ihr Plugin
 könnte den Zustand eines TCP-Ports prüfen, eine Datenbankabfrage
 durchführen, den freien Plattenplatz ermitteln oder was immer benötigt
 wird, um etwas zu prüfen. Die Einzelheiten hängen davon ab, was zu
-prüfen ist - das liegt an Ihnen.
 
 ### 11.1.3. Return-Code
 
@@ -136,96 +121,38 @@ dargestellt) sind ebenso optional.
 
 Nun ein paar Beispiele von möglichen Plugin-Ausgaben...
 
--   **Fall 1: Eine Zeile Ausgabe (nur Text)**
 
-    Angenommen, wir haben ein Plugin, das eine Zeile ausgibt, dann sieht
-    das wie folgt aus:
 
-    DISK OK - free space: / 3326 MB (56%); Wenn dieses Plugin benutzt
-    wurde, um eine Service-Prüfung durchzuführen, wird die gesamte Zeile
-    der Ausgabe im
-    [\$SERVICEOUTPUT\$](macrolist.md#macrolist-serviceoutput)-Makro
-    gespeichert.
 
--   **Fall 2: Eine Zeile Ausgabe (Text und Performance-Daten)**
 
-    Ein Plugin kann optionale Performance-Daten zurückliefern, die von
-    externen Applikationen benutzt werden. Um dies zu tun, müssen die
-    Performance-Daten von der Textausgabe durch ein Pipe-Symbol (|) wie
-    folgt getrennt werden:
 
-    DISK OK - free space: / 3326 MB (56%); | /=2643MB;5948;5958;0;5968.
-    Wenn dieses Plugin benutzt wurde, um eine Service-Prüfung
-    durchzuführen, wird der rote Teil der Ausgabe (links vom
-    Pipe-Symbol) im
-    [\$SERVICEOUTPUT\$](macrolist.md#macrolist-serviceoutput)-Makro
-    und der orange Teil der Ausgabe (rechts vom Pipe-Symbol) im
-    [\$SERVICEPERFDATA\$](macrolist.md#macrolist-serviceperfdata)-Makro
-    gespeichert.
 
--   **Fall 3: Mehrere Zeilen Ausgaben (Text und Performance-Daten)**
 
-    Ein Plugin kann optional mehrere Zeilen von Text und
-    Performance-Daten wie folgt zurückliefern:
 
-    DISK OK - free space: / 3326 MB (56%);
 
-     | /=2643MB;5948;5958;0;5968
 
-    / 15272 MB (77%);
 
-    /boot 68 MB (69%);
 
-    /home 69357 MB (27%);
 
-    /var/log 819 MB (84%); | /boot=68MB;88;93;0;98
 
-    /home=69357MB;253404;253409;0;253414
 
-    /var/log=818MB;970;975;0;980
 
-    Wenn dieses Plugin benutzt wurde, um eine Service-Prüfung
-    durchzuführen, wird der rote Teil der ersten Zeile der Ausgabe
-    (links vom Pipe-Symbol) im
-    [\$SERVICEOUTPUT\$](macrolist.md#macrolist-serviceoutput)-Makro
-    gespeichert. Der orange Teil der ersten und folgender Zeilen wird
-    (durch Leerzeichen verbunden) im
-    [\$SERVICEPERFDATA\$](macrolist.md#macrolist-serviceperfdata)-Makro
-    gespeichert. Der blaue Teil der zweiten bis fünften Zeile der
-    Ausgabe wird (mit maskierten Newlines) verkettet und im
-    [\$LONGSERVICEOUTPUT\$](macrolist.md#macrolist-longserviceoutput)-Makro
-    gespeichert.
 
-    Der endgültige Inhalt jedes Makros ist wie folgt:
 
-    **Makro**
 
-    **Wert**
 
-    \$SERVICEOUTPUT\$
 
-    DISK OK - free space: / 3326 MB (56%);
 
-    \$SERVICEPERFDATA\$
 
-    /=2643MB;5948;5958;0;5968 /boot=68MB;88;93;0;98 /home=69357MB;253404;253409;0;253414 /var/log=818MB;970;975;0;980
 
-    \$LONGSERVICEOUTPUT\$
 
-    / 15272 MB (77%);\\n/boot 68 MB (69%);\\n/var/log 819 MB (84%);
 
 Mit Blick auf mehrere Zeilen Ausgaben haben Sie die folgenden
 Möglichkeiten, Performance-Daten zurückzuliefern:
 
--   Sie können keinerlei Performance-Daten zurückliefern
 
--   Sie können nur in der ersten Zeile Performance-Daten zurückliefern
 
--   Sie können Performance-Daten in nachfolgenden Zeilen zurückliefern
-    (nach der ersten)
 
--   Sie können Performance-Daten in der ersten und folgenden Zeilen
-    zurückliefern (wie oben gezeigt)
 
 ### 11.1.6. Längenbeschränkungen von Plugin-Ausgaben
 
@@ -261,10 +188,6 @@ zur Nutzung mit dem eingebauten Perl-Interpreter finden Sie
 
 * * * * *
 
-  -------------------------- -------------------------- -----------------------------------------------------------------
-  [Zurück](ch11.md)        [Nach oben](ch11.md)      [Weiter](epnplugins.md)
-  Kapitel 11. Entwicklung    [Zum Anfang](index.md)    11.2. Entwickeln von Plugins für die Nutzung mit Embedded Perl
-  -------------------------- -------------------------- -----------------------------------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

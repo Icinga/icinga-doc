@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-12.5. IDOUtils Database Model
-
-[Zurück](example-configs.md) 
-
-Kapitel 12. IDOUtils
-
- [Weiter](db_changes.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -62,10 +54,7 @@ Anmerkung
 Due to limitations in Oracle the length of table names cannot exceed 30
 characters so
 
--   The name of one table has been shortened:
-    serviceescalation\_contactgroups -\> serviceescalationcontactgroups
 
--   The table prefix is ignored
 
 **Keys**
 
@@ -77,18 +66,10 @@ which may be composed of several columns as well ("NKn").
 There are a lot of tables containing different information so the
 description is divided into five parts:
 
--   [Central Tables](db_model.md#dbm_ct "12.5.1. Central Tables")
 
--   [Debugging Tables](db_model.md#dbm_dt "12.5.2. Debugging Tables")
 
--   [Historical
-    Tables](db_model.md#dbm_ht "12.5.3. Historical Tables")
 
--   [Current Status
-    Tables](db_model.md#dbm_cu "12.5.4. Current Status Tables")
 
--   [Configuration
-    Tables](db_model.md#dbm_cf "12.5.5. Configuration Tables")
 
 ### 12.5.1. Central Tables
 
@@ -98,9 +79,7 @@ information.
 
 *Table List*
 
--   [instances](db_model.md#dbm_instances)
 
--   [objects](db_model.md#dbm_objects)
 
 *Relationship Diagram*
 
@@ -265,7 +244,6 @@ more information.
 
 *Table List*
 
--   [conninfo](db_model.md#dbm_conninfo)
 
 Relationship Diagram
 
@@ -474,44 +452,27 @@ instances.instance\_id
 There are several tables in the database which are used to hold
 "historical" information about Icinga and the hosts/services it is
 monitoring or was monitoring at some point in the past. Keep in mind
-that historical items may not necessarily be "old" - they could have
 occurred 5 seconds ago, so the information used within these tables
 could/should be used when reporting current status information. Links to
 hosts/services which no longer exist in the Icinga configuration are
 maintained due to references for these previous objects existing in the
-objects table - this is by design.
 
 *Table List*
 
--   [acknowledgements](db_model.md#dbm_acknowledgements)
 
--   [commenthistory](db_model.md#dbm_commenthistory)
 
--   [contactnotifications](db_model.md#dbm_contactnotifications)
 
--   [dbversion](db_model.md#dbm_dbversion)
 
--   [downtimehistory](db_model.md#dbm_downtimehistory)
 
--   [eventhandlers](db_model.md#dbm_eventhandlers)
 
--   [externalcommands](db_model.md#dbm_externalcommands)
 
--   [flappinghistory](db_model.md#dbm_flappinghistory)
 
--   [hostchecks](db_model.md#dbm_hostchecks)
 
--   [logentries](db_model.md#dbm_logentries)
 
--   [notifications](db_model.md#dbm_notifications)
 
--   [processevents](db_model.md#dbm_processevents)
 
--   [servicechecks](db_model.md#dbm_servicechecks)
 
--   [statehistory](db_model.md#dbm_statehistory)
 
--   [systemcommands](db_model.md#dbm_systemcommands)
 
 *Relationship Diagram*
 
@@ -1918,7 +1879,6 @@ processed host checks? Raw checks are the raw results from a host check
 command that gets executed. Icinga must do some processing on the raw
 host check results before it can determine the real state of the host.
 Host checks (plugins) cannot directly determine whether a host is DOWN
-or UNREACHABLE - only Icinga can do that. In fact, host checks return
 the same status codes as service checks (OK, WARNING, UNKNOWN, or
 CRITICAL). Icinga processes the raw host check result to determine the
 true state of the host (UP, DOWN, or UNREACHABLE). These "processed"
@@ -3273,21 +3233,13 @@ Icinga daemon (belonging to the same instance) (re)starts
 
 *Table List*
 
--   [comments](db_model.md#dbm_comments)
 
--   [customvariablestatus](db_model.md#dbm_customvariablestatus)
 
--   [hoststatus](db_model.md#dbm_hoststatus)
 
--   [programstatus](db_model.md#dbm_programstatus)
 
--   [runtimevariables](db_model.md#dbm_runtimevariables)
 
--   [scheduleddowntime](db_model.md#dbm_scheduleddowntime)
 
--   [servicestatus](db_model.md#dbm_servicestatus)
 
--   [contactstatus](db_model.md#dbm_contactstatus)
 
 *Relationship Diagram*Notes: To reduce clutter, the links to the
 instances table (to which all these tables are related) is not shown.
@@ -5386,67 +5338,36 @@ configure Icinga.
 
 *Table List*
 
--   [commands](db_model.md#dbm_commands)
 
--   [configfiles](db_model.md#dbm_configfiles)
 
--   [configfilevariables](db_model.md#dbm_configfilevariables)
 
--   [contact\_addresses](db_model.md#dbm_contact_addresses)
 
--   [contact\_notificationcommands](db_model.md#dbm_contact_notificationcommands)
 
--   [contactgroup\_members](db_model.md#dbm_contactgroup_members)
 
--   [contactgroups](db_model.md#dbm_contactgroups)
 
--   [contactnotificationmethods](db_model.md#dbm_contactnotificationmethods)
 
--   [contacts](db_model.md#dbm_contacts)
 
--   [customvariables](db_model.md#dbm_customvariables)
 
--   [host\_contactgroups](db_model.md#dbm_host_contactgroups)
 
--   [host\_contacts](db_model.md#dbm_host_contacts)
 
--   [host\_parenthosts](db_model.md#dbm_host_parenthosts)
 
--   [hostdependencies](db_model.md#dbm_hostdependencies)
 
--   [hostescalation\_contactgroups](db_model.md#dbm_hostescalation_contactgroups)
 
--   [hostescalation\_contacts](db_model.md#dbm_hostescalation_contacts)
 
--   [hostescalations](db_model.md#dbm_hostescalations)
 
--   [hostgroup\_members](db_model.md#dbm_hostgroup_members)
 
--   [hostgroups](db_model.md#dbm_hostgroups)
 
--   [hosts](db_model.md#dbm_hosts)
 
--   [service\_contactgroups](db_model.md#dbm_service_contactgroups)
 
--   [service\_contacts](db_model.md#dbm_service_contacts)
 
--   [servicedependencies](db_model.md#dbm_servicedependencies)
 
--   [serviceescalation\_contactgroups](db_model.md#dbm_serviceescalation_contactgroups)
 
--   [serviceescalation\_contacts](db_model.md#dbm_serviceescalation_contacts)
 
--   [serviceescalations](db_model.md#dbm_serviceescalations)
 
--   [servicegroup\_members](db_model.md#dbm_servicegroup_members)
 
--   [servicegroups](db_model.md#dbm_servicegroups)
 
--   [services](db_model.md#dbm_services)
 
--   [timeperiod\_timeranges](db_model.md#dbm_timeperiod_timeranges)
 
--   [timeperiods](db_model.md#dbm_timeperiods)
 
 **Abbildung 12.18. Relationship of Configuration Tables**
 
@@ -8954,10 +8875,6 @@ String describing the timeperiod
 
 * * * * *
 
-  --------------------------------- -------------------------- -----------------------------------------
-  [Zurück](example-configs.md)    [Nach oben](ch12.md)      [Weiter](db_changes.md)
-  12.4. Beispielkonfigurationen     [Zum Anfang](index.md)    12.6. Datenbank-Anpassungen/Änderungen
-  --------------------------------- -------------------------- -----------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

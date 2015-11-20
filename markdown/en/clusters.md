@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.12. Monitoring Service and Host Clusters
-
-[Prev](oncallrotation.md) 
-
-Chapter 7. Advanced Topics
-
- [Next](dependencies.md)
+[Prev](oncallrotation.md) ![Icinga](../images/logofullsize.png "Icinga") [Next](dependencies.md)
 
 * * * * *
 
@@ -57,9 +49,7 @@ There are several ways you could potentially monitor service or host
 clusters. We'll describe one method to do that. Monitoring service or
 host clusters involves two things:
 
--   Monitoring individual cluster elements
 
--   Monitoring the cluster as a collective entity
 
 Monitoring individual host or service cluster elements is easier than
 you think. In fact, you're probably already doing it. For service
@@ -112,12 +102,9 @@ new "cluster" service. However, before you do that, make sure you have a
 service cluster check command configured. Let's assume that you have a
 command called *check\_service\_cluster* defined as follows:
 
-~~~~ {.programlisting}
+<pre><code>
  define command{
-        command_name    check_service_cluster
-        command_line    /usr/local/icinga/libexec/check_cluster --service -l $ARG1$ -w $ARG2$ -c $ARG3$ -d $ARG4$ 
-        }
-~~~~
+</code></pre>
 
 Now you'll need to create the "cluster" service and use the
 *check\_service\_cluster* command you just created as the cluster's
@@ -127,13 +114,9 @@ the cluster are in a non-OK state, and a WARNING alert if only 1 of the
 services is in a non-OK state. If all the individual service members of
 the cluster are OK, the cluster check will return an OK state as well.
 
-~~~~ {.programlisting}
+<pre><code>
  define service{
-        ...
-        check_command   check_service_cluster!"DNS Cluster"!0!1!$SERVICESTATEID:host1:DNS Service$,$SERVICESTATEID:host2:DNS Service$,$SERVICESTATEID:host3:DNS Service$
-        ...
-        }
-~~~~
+</code></pre>
 
 It is important to notice that we are passing a comma-delimited list of
 *on-demand* service state
@@ -161,12 +144,9 @@ hosts](redundancy.md "7.7. Redundant and Failover Network Monitoring"))...
 Anyway, let's assume that you have a *check\_host\_cluster* command
 defined as follows:
 
-~~~~ {.programlisting}
+<pre><code>
  define command{
-        command_name    check_host_cluster
-        command_line    /usr/local/icinga/libexec/check_cluster --host -l $ARG1$ -w $ARG2$ -c $ARG3$ -d $ARG4$ 
-        }
-~~~~
+</code></pre>
 
 Let's say you have three hosts (named "host1", "host2" and "host3") in
 the host cluster. If you want Icinga to generate a warning alert if one
@@ -174,13 +154,9 @@ host in the cluster is not UP or a critical alert if two or more hosts
 are not UP, the the service you define to monitor the host cluster might
 look something like this:
 
-~~~~ {.programlisting}
+<pre><code>
  define service{
-        ...
-        check_command   check_host_cluster!"Super Host Cluster"!0!1!$HOSTSTATEID:host1$,$HOSTSTATEID:host2$,$HOSTSTATEID:host3$
-        ...
-        }
-~~~~
+</code></pre>
 
 It is important to notice that we are passing a comma-delimited list of
 *on-demand* host state
@@ -202,10 +178,12 @@ unreachable states enabled for the host definitions.
 
 * * * * *
 
-  ------------------------------ -------------------- --------------------------------------
-  [Prev](oncallrotation.md)    [Up](ch07.md)       [Next](dependencies.md)
-  7.11. On-Call Rotations        [Home](index.md)    7.13. Host and Service Dependencies
-  ------------------------------ -------------------- --------------------------------------
+[Prev](oncallrotation.md) | [Up](ch07.md) | [Next](dependencies.md)
+
+
+
+
+
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-3.2. Optionen der Hauptkonfigurationsdatei
-
-[Zurück](config.md) 
-
-Kapitel 3. Icinga konfigurieren
-
- [Weiter](configobject.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -18,14 +10,8 @@ Kapitel 3. Icinga konfigurieren
 Bei der Erstellung und/oder Änderung von Konfigurationsdateien sollten
 Sie folgendes beachten:
 
-1.  Zeilen, die mit einem '\#'-Zeichen beginnen, werden als Kommentar
-    angesehen und nicht verarbeitet
 
-2.  Variablennamen müssen am Anfang der Zeile beginnen - "White space"
-    vor dem Namen sind nicht erlaubt
 
-3.  Variablennamen sind abhängig von Groß- und Kleinschreibung
-    (case-sensitive)
 
 **Beispiel-Konfigurationsdatei**
 
@@ -89,9 +75,9 @@ verarbeiten.
 
 Anmerkung
 
-Wenn Sie `cfg_file=.../foo/bar.cfg`{.filename} für eine Datei benutzen,
+Wenn Sie `cfg_file=.../foo/bar.cfg` für eine Datei benutzen,
 die im gleichen Verzeichnis liegt, das Sie mit
-`cfg_dir=.../foo`{.filename} angegeben haben, dann wird diese Datei
+`cfg_dir=.../foo` angegeben haben, dann wird diese Datei
 zweimal verarbeitet und führt dadurch zu einem Fehler bei der
 Überprüfung der Konfigurationsdateien.
 
@@ -120,9 +106,9 @@ jedes einzelnen Verzeichnisses zu verarbeiten.
 
 Anmerkung
 
-Wenn Sie `cfg_file=.../foo/bar.cfg`{.filename} für eine Datei benutzen,
+Wenn Sie `cfg_file=.../foo/bar.cfg` für eine Datei benutzen,
 die im gleichen Verzeichnis liegt, das Sie mit
-`cfg_dir=.../foo`{.filename} angegeben haben, dann wird diese Datei
+`cfg_dir=.../foo` angegeben haben, dann wird diese Datei
 zweimal verarbeitet und führt dadurch zu einem Fehler bei der
 Überprüfung der Konfigurationsdateien.
 
@@ -313,9 +299,7 @@ aktiviert ist), müssen Sie den entsprechenden [externen
 Befehl](extcommands.md "7.1. Externe Befehle") benutzen oder sie über
 das Web-Interface ändern. Die Werte sind wie folgt:
 
--   0 = Benachrichtigungen deaktivieren
 
--   1 = Benachrichtigungen aktivieren (Default)
 
 **Option Service-Prüfungen ausführen** (Service Check Execution Option)
 
@@ -354,9 +338,7 @@ aktiviert ist), müssen Sie den entsprechenden [externen
 Befehl](extcommands.md "7.1. Externe Befehle") benutzen oder sie über
 das Web-Interface ändern. Die Werte sind wie folgt:
 
--   0 = keine Service-Prüfungen ausführen
 
--   1 = Service-Prüfungen ausführen (Default)
 
 **Option passive Service-Prüfungen akzeptieren** (Passive Service Check
 Acceptance Option)
@@ -387,9 +369,7 @@ aktiviert ist), müssen Sie den entsprechenden [externen
 Befehl](extcommands.md "7.1. Externe Befehle") benutzen oder sie über
 das Web-Interface ändern. Die Werte sind wie folgt:
 
--   0 = keine passiven Service-Prüfungen akzeptieren
 
--   1 = passive Service-Prüfungen akzeptieren (Default)
 
 **Option Host-Prüfungen ausführen** (Host Check Execution Option)
 
@@ -429,9 +409,7 @@ aktiviert ist), müssen Sie den entsprechenden [externen
 Befehl](extcommands.md "7.1. Externe Befehle") benutzen oder sie über
 das Web-Interface ändern. Die Werte sind wie folgt:
 
--   0 = keine Host-Prüfungen ausführen
 
--   1 = Host-Prüfungen ausführen (Default)
 
 **Option passive Host-Prüfungen akzeptieren** (Passive Host Check
 Acceptance Option)
@@ -462,9 +440,7 @@ aktiviert ist), müssen Sie den entsprechenden [externen
 Befehl](extcommands.md "7.1. Externe Befehle") benutzen oder sie über
 das Web-Interface ändern. Die Werte sind wie folgt:
 
--   0 = keine passiven Host-Prüfungen akzeptieren
 
--   1 = passive Host-Prüfungen akzeptieren (Default)
 
 **Eventhandler-Option** (Event Handler Option)
 
@@ -494,9 +470,7 @@ aktiviert ist), müssen Sie den entsprechenden [externen
 Befehl](extcommands.md "7.1. Externe Befehle") benutzen oder sie über
 das Web-Interface ändern. Die Werte sind wie folgt:
 
--   0 = Eventhandler deaktivieren
 
--   1 = Eventhandler aktivieren (Default)
 
 **Protokollrotationsmethode** (Log Rotation Method)
 
@@ -511,20 +485,10 @@ Beispiel:
 Dies ist die Rotationsmethode, die Icinga für Ihre Protokolldatei nutzen
 soll. Die Werte sind wie folgt:
 
--   n = keine ("none" - die Protokolldatei nicht rotieren, das ist der
-    Standard)
 
--   h = stündlich ("hourly" - die Protokolldatei jede volle Stunde
-    rotieren)
 
--   d = täglich ("daily" - die Protokolldatei jeden Tag um Mitternacht
-    rotieren)
 
--   w = wöchentlich ("weekly" - die Protokolldatei jeden Samstag um
-    Mitternacht rotieren)
 
--   m = monatlich ("monthly" - die Protokolldatei am letzten Tag des
-    Monats um Mitternacht rotieren)
 
 **Protokollarchiv-Pfad** (Log Archiv Path)
 
@@ -555,9 +519,7 @@ Beispiel:
 Mit dieser Option können Sie die Protokollierung des Log-Daemons in die
 Protokolldatei (normalerweise icinga.log) ein- und abschalten.
 
--   0 = keine Protokollierung
 
--   1 = Protokollierung (Default)
 
 **Option externe Befehle prüfen** (External Command Check Option)
 
@@ -579,9 +541,7 @@ Command File um Befehle an Icinga zu senden. Mehr Informationen zu
 externen Befehlen finden Sie
 [hier](extcommands.md "7.1. Externe Befehle").
 
--   0 = nicht auf externe Befehle prüfen
 
--   1 = auf externe Befehle prüfen (Default)
 
 **Prüfintervall externe Befehle** (External Command Check Interval)
 
@@ -694,9 +654,7 @@ für Hosts und Services sichern, bevor es beendet (oder neu gestartet)
 wird und vorher gespeicherte Statusinformationen einlesen, wenn es neu
 gestartet wird.
 
--   0 = Statusinformationen nicht aufbewahren
 
--   1 = Statusinformationen aufbewahren (Default)
 
 **Statusaufbewahrungsdatei** (State Retention File)
 
@@ -785,9 +743,7 @@ Wenn Sie
 [Statusaufbewahrung](configmain.md#configmain-retain_state_information)
 deaktiviert haben, hat diese Option keine Auswirkung.
 
--   0 = keinen aufbewahrten Programmzustand nutzen
 
--   1 = aufbewahrten Programmzustand nutzen (Default)
 
 **Option Weitergabe der Statusinformationen an Neb-Module** (Dump
 Retained Host Service States To Neb Option)
@@ -806,9 +762,7 @@ gespeicherten Statusinformationen der Host- und Services an die
 NEB-Module weitergibt. Wenn Sie das nicht wünschen, deaktivieren Sie
 diese Option auf Ihr eigenes Risiko.
 
--   0 = Statusinformationen nicht weitergeben (default in 1.10+)
 
--   1 = Statusinformationen weitergeben
 
 **Option aufbewahrte Planungsinformationen nutzen** (Use Retained
 Scheduling Info Option)
@@ -829,9 +783,7 @@ starten, weil es nachteilig die Verteilung von initialen Prüfungen
 beeinflussen kann. Andernfalls werden Sie diese Option wahrscheinlich
 aktiviert lassen.
 
--   0 = keine aufbewahrten Planungsinformationen nutzen
 
--   1 = aufbewahrten Planungsinformationen nutzen (Default)
 
 **aufbewahrte Host- und Service-Attributmasken** (Retained Host and
 Service Attribute Masks)
@@ -922,9 +874,7 @@ Beispiel:
 Diese Variable legt fest, ob Meldungen im Syslog des lokalen Hosts
 protokolliert werden sollen. Die Werte sind wie folgt:
 
--   0 = Syslog nicht nutzen
 
--   1 = Syslog nutzen [Default]
 
 **Syslog Local Facility Option**
 
@@ -940,9 +890,7 @@ Wenn Sie use\_syslog aktiviert haben, dann können Sie Icinga anweisen,
 eine local-Facility zu benutzen statt des Defaults. Werte sind wie
 folgt:
 
--   0 = Syslog Local Facility nicht nutzen
 
--   1 = Syslog Local Facility benutzen
 
 **Syslog Local Facility Wert**
 
@@ -975,9 +923,7 @@ Service-Ausfällen haben, dann wird Ihre Protokolldatei relativ schnell
 wachsen. Benutzen Sie diese Option, um die Protokollierung von
 (Kontakt-)Benachrichtigungen zu verhindern.
 
--   0 = keine Benachrichtigungen protokollieren
 
--   1 = Benachrichtigungen protokollieren [Default]
 
 **Option Service-Wiederholungsprüfungen protokollieren** (Service Check
 Retry Logging Option)
@@ -1001,9 +947,7 @@ versuchen, Icinga zu debuggen, oder
 Service-[Eventhandler](eventhandlers.md "7.3. Eventhandler") zu
 testen.
 
--   0 = keine Service-Wiederholungsprüfungen protokollieren [Default-H]
 
--   1 = Service-Wiederholungsprüfungen protokollieren [Default-C]
 
 **Option Host-Wiederholungsprüfungen-protokollieren** (Host Check Retry
 Logging Option)
@@ -1021,9 +965,7 @@ werden. Die Protokollierung von Host-Wiederholungsprüfungen ist meist
 dann sinnvoll, wenn Sie versuchen, Icinga zu debuggen, oder
 Host-[Eventhandler](eventhandlers.md "7.3. Eventhandler") zu testen.
 
--   0 = keine Host-Wiederholungsprüfungen protokollieren [Default-H]
 
--   1 = Host-Wiederholungsprüfungen protokollieren [Default-C]
 
 **Option Eventhandler-protokollieren** (Event Handler Logging Option)
 
@@ -1044,9 +986,7 @@ wenn Sie versuchen, Icinga zu debuggen, oder Ihre
 [Eventhandler](eventhandlers.md "7.3. Eventhandler")-Scripts zu
 testen.
 
--   0 = Eventhandler nicht protokollieren
 
--   1 = Eventhandler protokollieren [Default]
 
 **Option initiale Zustände protokollieren** (Initial States Logging
 Option)
@@ -1067,9 +1007,7 @@ Aktivierung dieser Option ist sinnvoll, wenn Sie eine Applikation
 benutzen, die die Protokolldatei abfragt, um
 Langzeit-Zustandsstatistiken für Services und Hosts zu erstellen.
 
--   0 = keine anfänglichen Zustände protokollieren (Default)
 
--   1 = anfängliche Zustände protokollieren
 
 **Option externe Befehle protokollieren** (External Command Logging
 Option)
@@ -1092,9 +1030,7 @@ Aktivierung oder Deaktivierung der Protokollierung von passiven
 Prüfungen nutzen Sie die
 [log\_passive\_checks](configmain.md#configmain-log_passive_checks)-Option.
 
--   0 = keine externen Befehle protokollieren
 
--   1 = externe Befehle protokollieren (Default)
 
 **Option Benutzer von externen Kommandos protokollieren**
 
@@ -1121,11 +1057,7 @@ Diese Option ist ab Icinga 1.4 veraltet, weil Sie nun die Direktive
 [use\_logging](configcgi.md#configcgi-use_logging) benutzen können, um
 CGI-Befehle zu protokollieren.
 
--   0 = Den Namen des aktuellen Benutzers von externen Kommandos nicht
-    protokollieren (default)
 
--   1 = Den Namen des aktuellen Benutzers von externen Kommandos
-    protokollieren
 
 **Option passive Prüfungen protokollieren** (Passive Check Logging
 Option)
@@ -1148,9 +1080,7 @@ aufbauen oder planen, eine große Zahl von passiven Prüfungen auf einer
 regelmäßigen Basis zu behandeln, dann können Sie diese Option
 deaktivieren, damit Ihre Protokolldatei nicht zu groß wird.
 
--   0 = keine passiven Prüfungen protokollieren
 
--   1 = passive Prüfungen protokollieren (Default)
 
 **Option Aktuelle Zustände protokollieren**
 
@@ -1167,10 +1097,7 @@ Service-Zustände nach einer Log-Datei-Rotation protokolliert. Wenn Sie
 den Wert von log\_current\_states auf 0 setzen, werden die aktuellen
 Zustände nach einer Rotation der Log-Datei nicht protokolliert.
 
--   0 = die aktuellen Host- und Service-Zustände nicht protokollieren
 
--   1 = die aktuellen Host- und Service-Zustände protokollieren
-    (Default)
 
 **Option langen Plugin-Output protokollieren**
 
@@ -1187,9 +1114,7 @@ Diese Variable legt fest, ob Icinga die komplette Ausgabe von Plugin
 log\_long\_plugin\_output auf 1 setzen, werden die kompletten Ausgaben
 von Plugins protokolliert.
 
--   0 = nur die erste Zeile von Plugin-Ausgaben protokollieren (Default)
 
--   1 = die kompletten Plugin-Ausgaben protokollieren
 
 **globale Host-Eventhandler Option** (Global Host Event Handler Option)
 
@@ -1254,9 +1179,7 @@ Diese Optionen erlauben Ihnen festzulegen, ob Icinga Eventhandler für
 "stalked" Hosts oder Services ausführt. Auf diese Weise können
 Statusinformationsänderungen an externe Systeme weitergeleitet werden.
 
--   0 = Eventhandler deaktivieren (Default)
 
--   1 = Eventhandler aktivieren
 
 **Benachrichtigungen für "verfolgte" Hosts (Notifications for stalked
 hosts)**
@@ -1285,9 +1208,7 @@ Anmerkung
 Solange keine stalking\_options beim Host/Service definiert sind, haben
 diese Optionen keine Auswirkungen.
 
--   0 = Benachrichtigungen deaktivieren (Default)
 
--   1 = Benachrichtigungen aktivieren
 
 **Ruhezeit zwischen Prüfungen** (Inter-Check Sleep Time)
 
@@ -1331,17 +1252,9 @@ beeinflusst, finden Sie
 [hier](checkscheduling.md#serviceintercheckdelay "7.23.4. Inter-Check-Verzögerung (inter-check delay)").
 Die Werte sind wie folgt:
 
--   n = keine (none) Verzögerung benutzen - planen, dass alle
-    Service-Prüfungen sofort ausgeführt werden (d.h. zur gleichen Zeit!)
 
--   d = eine "dumme" (dumb) Verzögerung von einer Sekunde zwischen
-    Service-Prüfungen benutzen
 
--   s = eine "schlaue" (smart) Verzögerungsberechnung verwenden, um die
-    Service-Prüfungen gleichmäßig zu verteilen (Default)
 
--   x.xx = eine benutzerdefinierte Verzögerung von x.xx Sekunden
-    zwischen den Prüfungen benutzen
 
 **maximale Service-Prüfungsverteilung** (Maximum Service Check Spread)
 
@@ -1389,12 +1302,7 @@ während sie auftauchen. Mehr Informationen dazu, wie Verschachtelung
 funktioniert, finden Sie
 [hier](checkscheduling.md#serviceinterleaving "7.23.5. Service-Verschachtelung (service interleaving)").
 
--   *x* = eine Zahl gleich oder größer 1, die den zu benutzenden
-    Verschachtelungsfaktor angibt. Ein Verschachtelungsfaktor von 1
-    bedeutet keine Verschachtelung von Service-Prüfungen
 
--   s = eine "schlaue" (smart) Verschachtelungsberechnung benutzen
-    (Default)
 
 **maximale Anzahl gleichzeitiger Service-Prüfungen** (Maximum Concurrent
 Service Checks)
@@ -1494,7 +1402,6 @@ Prüfergebnisdateien im
 als gültig angesehen werden. Prüfergebnisdateien, die älter als dieser
 Schwellwert sind, werden von Icinga gelöscht und die darin enthaltenen
 Daten werden nicht verarbeitet. Durch die Angabe eines Wertes von Null
-(0) bei dieser Option wird Icinga alle Prüfergebnisdateien verarbeiten -
 selbst wenn sie älter als Ihre Hardware sind :-).
 
 **Verzögerungsmethode für Host-Prüfungen** (Host Inter-Check Delay
@@ -1522,17 +1429,9 @@ Prüfungen beeinflusst, finden Sie
 [hier](checkscheduling.md#serviceintercheckdelay "7.23.4. Inter-Check-Verzögerung (inter-check delay)").
 Die Werte sind wie folgt:
 
--   n = keine (none) Verzögerung benutzen - planen, dass alle
-    Host-Prüfungen sofort ausgeführt werden (d.h. zur gleichen Zeit!)
 
--   d = eine "dumme" (dumb) Verzögerung von einer Sekunde zwischen
-    Host-Prüfungen benutzen
 
--   s = eine "schlaue" (smart) Verzögerungsberechnung verwenden, um die
-    Host-Prüfungen gleichmäßig zu verteilen (Default)
 
--   x.xx = eine benutzerdefinierte Verzögerung von x.xx Sekunden
-    zwischen den Prüfungen benutzen
 
 **maximale Host-Prüfungsverteilung** (Maximum Host Check Spread)
 
@@ -1596,7 +1495,6 @@ Ausführung von Prüfungen mit einer rigideren Planung.
 
 **WARNUNG:** DIES IST EIN EXPERIMENTELLES FEATURE UND KÖNNTE IN DER
 ZUKUNFT ENTFERNT WERDEN. DIE AKTIVIERUNG DIESER OPTION KANN DIE LEISTUNG
-REDUZIEREN - STATT SIE ZU ERHÖHEN - WENN SIE UNGEEIGNET BENUTZT WIRD!
 
 **automatisches Wiedereinplanungs-Intervall** (Auto-Rescheduling
 Interval)
@@ -1617,7 +1515,6 @@ aktiviert ist. Standard ist 30 Sekunden.
 
 **WARNUNG:** DIES IST EIN EXPERIMENTELLES FEATURE UND KÖNNTE IN DER
 ZUKUNFT ENTFERNT WERDEN. DIE AKTIVIERUNG DIESER OPTION KANN DIE LEISTUNG
-REDUZIEREN - STATT SIE ZU ERHÖHEN - WENN SIE UNGEEIGNET BENUTZT WIRD!
 
 **automatisches Wiedereinplanungsfenster** (Auto-Rescheduling Window)
 
@@ -1639,7 +1536,6 @@ aktiviert ist. Standard ist 180 Sekunden (3 Minuten).
 
 **WARNING:** DIES IST EIN EXPERIMENTELLES FEATURE UND KÖNNTE IN DER
 ZUKUNFT ENTFERNT WERDEN. DIE AKTIVIERUNG DIESER OPTION KANN DIE LEISTUNG
-REDUZIEREN - STATT SIE ZU ERHÖHEN - WENN SIE UNGEEIGNET GENUTZT WIRD!
 
 **Option aggressive Host-Prüfung** (Aggressive Host Checking Option)
 
@@ -1660,9 +1556,7 @@ Zuverlässigkeit ein wenig steigern. Solange Sie keine Probleme damit
 haben, dass Icinga die Erholung eines Hosts nicht korrekt erkennt,
 würden wir empfehlen, diese Option **nicht** zu aktivieren.
 
--   0 = keine aggressive Host-Prüfung benutzen (Default)
 
--   1 = aggressive Host-Prüfung benutzen
 
 **Option passive Host-Prüfung übersetzen** (Translate Passive Host
 Checks Option)
@@ -1682,9 +1576,7 @@ verteilten und Failover-Umgebungen sein. Mehr Informationen zur
 Übersetzung von passiven Prüfergebnissen finden Sie
 [hier](passivestatetranslation.md "7.22. Passive Host-Zustandsübersetzung").
 
--   0 = Prüfübersetzung deaktivieren (Default)
 
--   1 = Prüfübersetzung aktivieren
 
 **Option passive Host-Prüfungen sind SOFT** (Passive Host Checks Are
 SOFT Option)
@@ -1704,9 +1596,7 @@ Prüfergebnis einen Host in einen
 [HARD-Status](statetypes.md "5.8. Statustypen") setzen. Sie können
 dieses Verhalten durch aktivieren dieser Option verändern.
 
--   0 = passive Host-Prüfungen sind HARD (Default)
 
--   1 = passive Host-Prüfungen sind SOFT
 
 **Option vorausschauende Host-Abhängigkeitsprüfung** (Predictive Host
 Dependency Checks Option)
@@ -1728,9 +1618,7 @@ wie möglich zu machen. Mehr Informationen darüber, wie vorausschauende
 Prüfungen arbeiten, finden Sie
 [hier](dependencychecks.md "7.20. Vorausschauende Abhängigkeitsprüfungen").
 
--   0 = vorausschauende Prüfungen deaktivieren
 
--   1 = vorausschauende Prüfungen aktivieren (Default)
 
 **Option vorausschauende Service-Abhängigkeitsprüfung** (Predictive
 Service Dependency Checks Option)
@@ -1752,9 +1640,7 @@ wie möglich zu machen. Mehr Informationen darüber, wie vorausschauende
 Prüfungen arbeiten, finden Sie
 [hier](dependencychecks.md "7.20. Vorausschauende Abhängigkeitsprüfungen").
 
--   0 = vorausschauende Prüfungen deaktivieren
 
--   1 = vorausschauende Prüfungen aktivieren (Default)
 
 **Horizont für zwischengespeicherte Host-Prüfungen** (Cached Host Check
 Horizon)
@@ -1823,9 +1709,7 @@ welche Optimierungen vorgenommen werden, wenn Sie diese Option
 aktivieren, finden Sie
 [hier](largeinstalltweaks.md "8.5. Large Installation Tweaks").
 
--   0 = keine Verbesserungen verwenden (Default)
 
--   1 = Verbesserungen verwenden
 
 **Kindprozess-Speicher-Option** (Child Process Memory Option)
 
@@ -1845,9 +1729,7 @@ aktiviert ist, wird der Speicher nicht freigegeben. Durch Definition
 dieser Option in Ihrer Konfigurationsdatei sind Sie in der Lage, das
 Verhalten einzustellen, das Sie möchten.
 
--   0 = Speicher nicht freigeben
 
--   1 = Speicher freigeben
 
 **Kindprozesse zweimal "fork()"en**
 
@@ -1867,9 +1749,7 @@ aktiviert ist, "fork()"ed Icinga nur einmal. Durch Definition dieser
 Option in Ihrer Konfigurationsdatei sind Sie in der Lage, das Verhalten
 einzustellen, das Sie möchten.
 
--   0 = nur einmal "fork()"en
 
--   1 = zweimal "fork()"en
 
 **Umgebungsmakros-Option**
 
@@ -1889,9 +1769,7 @@ sein, weil es zusätzlichen Speicher (und wichtiger) mehr CPU benötigt,
 um die Werte aller Makros zu berechnen und sie der Umgebung zur
 Verfügung zu stellen.
 
--   0 = Makros nicht als Umgebungsvariablen verfügbar machen (Default)
 
--   1 = Makros als Umgebungsvariablen verfügbar machen
 
 ![[Anmerkung]](../images/note.png)
 
@@ -1936,9 +1814,7 @@ aktiviert ist), müssen Sie den entsprechenden [externen
 Befehl](extcommands.md "7.1. Externe Befehle") benutzen oder sie über
 das Web-Interface ändern.
 
--   0 = Flattererkennung deaktivieren (Default)
 
--   1 = Flattererkennung aktivieren
 
 **niedriger Service-Flatterschwellwert** (Low Service Flap Threshold)
 
@@ -2023,9 +1899,7 @@ Sie möchten, dass der letzte Zustand (unabhängig davon, ob es ein Soft-
 oder Hard-[Zustandstyp](statetypes.md "5.8. Statustypen") ist), dann
 aktivieren Sie diese Option.
 
--   0 = keine Soft-Status-Abhängigkeiten benutzen (Default)
 
--   1 = Soft-Status-Abhängigkeiten benutzen
 
 **Schwellwert für die Abweichung von der Systemzeit** (Time Change
 Threshold Option)
@@ -2221,15 +2095,12 @@ Beispiel:
 Dieser Wert legt fest, ob Icinga Service-Prüfergebnisse "verfolgt"
 (obsess) und den
 [Zwangsverfolgungs-Service-Prozessorbefehl](configmain.md#configmain-ocsp_command)
-ausführt, den Sie angeben. Nun ja - ein komischer Name, aber das ist
 alles, was Ethan Galstad eingefallen ist. Diese Option ist nützlich, um
 [verteilte Überwachung](distributed.md "7.6. Verteilte Überwachung")
 durchzuführen. Wenn Sie keine verteilte Überwachung machen, dann
 aktivieren Sie diese Option nicht.
 
--   0 = Services nicht verfolgen (Default)
 
--   1 = Services verfolgen
 
 **Zwangsverfolgungs-Service-Prozessorbefehl** (Obsessive Compulsive
 Service Processor Command)
@@ -2275,15 +2146,12 @@ Beispiel:
 Dieser Wert legt fest, ob Icinga Host-Prüfergebnisse "verfolgt" (obsess)
 und den
 [Zwangsverfolgungs-Host-Prozessorbefehl](configmain.md#configmain-ocsp_command)
-ausführt, den Sie angeben. Nun ja - ein komischer Name, aber das ist
 alles, was Ethan Galstad eingefallen ist. Diese Option ist nützlich, um
 [verteilte Überwachung](distributed.md "7.6. Verteilte Überwachung")
 durchzuführen. Wenn Sie keine verteilte Überwachung machen, dann
 aktivieren Sie diese Option nicht.
 
--   0 = Hosts nicht verfolgen (Default)
 
--   1 = Hosts verfolgen
 
 **Zwangsverfolgungs-Host-Prozessorbefehl** (Obsessive Compulsive Host
 Processor Command)
@@ -2330,9 +2198,7 @@ Dieser Wert legt fest, ob Icinga
 [Performance-Daten](perfdata.md "7.15. Performance-Daten") von Host-
 und Service-Prüfungen verarbeitet.
 
--   0 = keine Performance-Daten verarbeiten (Default)
 
--   1 = Performance-Daten verarbeiten
 
 **Host-Performance-Daten-Verarbeitungsbefehl** (Host Performance Data
 Processing Command)
@@ -2484,12 +2350,8 @@ Diese Option legt fest, wie die
 geöffnet wird. Solange die Datei keine "named pipe" ist, werden Sie
 diese wahrscheinlich im append-Modus (anhängen) öffnen wollen.
 
--   a = Datei im append-Modus öffnen (Default)
 
--   w = Datei im Write-Modus öffnen
 
--   p = Datei im nicht-blockierenden Schreib-/Lesemodus öffnen
-    (nützlich, wenn man in Pipes schreibt)
 
 **Service-Performance-Daten-Dateimodus** (Service Performance Data File
 Mode)
@@ -2507,12 +2369,8 @@ Diese Option legt fest, wie die
 geöffnet wird. Solange die Datei keine "named pipe" ist, werden Sie
 diese wahrscheinlich im append-Modus (anhängen) öffnen wollen.
 
--   a = Datei im append-Modus öffnen (Default)
 
--   w = Datei im Write-Modus öffnen
 
--   p = Datei im nicht-blockierenden Schreib-/Lesemodus öffnen
-    (nützlich, wenn man in Pipes schreibt)
 
 **Host-Performance-Daten-Dateiverarbeitungsintervall** (Host Performance
 Data File Processing Interval)
@@ -2613,7 +2471,6 @@ wurden, aber während langer Zeit keine Ergebnisse geliefert haben. Weil
 keine Ergebnisse für den Service zurückgeliefert wurden, wird er nicht
 erneut in der Ereigniswarteschlange eingeplant. Das kann dazu führen,
 dass Service-Prüfungen nicht mehr ausgeführt werden. Normalerweise
-passiert das sehr selten - es kann dann auftreten, wenn ein externer
 Benutzer oder Prozess den Prozess abgebrochen (killed) hat, der benutzt
 wurde, um eine Service-Prüfung auszuführen. Wenn diese Option aktiviert
 ist und Icinga feststellt, dass eine bestimmte Service-Prüfung kein
@@ -2623,9 +2480,7 @@ Service-Prüfungen anscheinend nie erneut eingeplant werden, dann
 aktivieren Sie diese Option und schauen Sie nach Protokollmeldungen zu
 verwaisten Services.
 
--   0 = nicht auf verwaiste Service-Prüfungen prüfen
 
--   1 = auf verwaiste Service-Prüfungen prüfen (Default)
 
 **verwaiste Host-Prüfungsoption** (Orphaned Host Check Option)
 
@@ -2644,7 +2499,6 @@ wurden, aber während langer Zeit keine Ergebnisse geliefert haben. Weil
 keine Ergebnisse für den Host zurückgeliefert wurden, wird er nicht
 erneut in der Ereigniswarteschlange eingeplant. Das kann dazu führen,
 dass Host-Prüfungen nicht mehr ausgeführt werden. Normalerweise passiert
-das sehr selten - es kann dann auftreten, wenn ein externer Benutzer
 oder Prozess den Prozess abgebrochen (killed) hat, der benutzt wurde, um
 eine Host-Prüfung auszuführen. Wenn diese Option aktiviert ist und
 Icinga feststellt, dass eine bestimmte Host-Prüfung kein Ergebnis
@@ -2653,9 +2507,7 @@ Host-Prüfung erneut einplanen. Wenn Sie feststellen, dass Host-Prüfungen
 anscheinend nie erneut eingeplant werden, dann aktivieren Sie diese
 Option und schauen Sie nach Protokollmeldungen zu verwaisten Hosts.
 
--   0 = nicht auf verwaiste Host-Prüfungen prüfen
 
--   1 = auf verwaiste Host-Prüfungen prüfen (Default)
 
 **Service-Frischeprüfungsoption** (Service Freshness Checking Option)
 
@@ -2675,9 +2527,7 @@ rechtzeitig empfangen werden. Mehr Informationen zur Frische-Prüfung
 finden Sie
 [hier](freshness.md "7.5. Service- und Host-Frische-Prüfungen").
 
--   0 = Service-Frische nicht prüfen
 
--   1 = Service-Frische prüfen (Default)
 
 **Service-Frische-Prüfintervall** (Service Freshness Check Interval)
 
@@ -2715,9 +2565,7 @@ rechtzeitig empfangen werden. Mehr Informationen zur Frische-Prüfung
 finden Sie
 [hier](freshness.md "7.5. Service- und Host-Frische-Prüfungen").
 
--   0 = Host-Frische nicht prüfen (Default)
 
--   1 = Host-Frische prüfen
 
 **Host-Frische-Prüfintervall** (Host Freshness Check Interval)
 
@@ -2889,7 +2737,7 @@ Abhängig von Ihrem Betriebssystem kann es sein, dass Sie vor der
 Zeitzone einen Doppelpunkt einfügen müssen, damit es wie gewünscht
 funktioniert
 
-`use_timezone=:US/Mountain`{.literal}
+`use_timezone=:US/Mountain`
 
 **Illegale Zeichen für Objektnamen** (Illegal Object Name Characters)
 
@@ -2969,9 +2817,7 @@ als reguläre Ausdrücke verarbeitet werden. Mehr Informationen dazu, wie
 das funktioniert, finden Sie
 [hier](objecttricks.md "7.27. Zeitsparende Tricks für Objektdefinitionen").
 
--   0 = keine angepassten regulären Ausdrücke benutzen (Default)
 
--   1 = angepasste reguläre Ausdrücke benutzen
 
 **Option wahre reguläre Ausdrucksanpassung** (True Regular Expression
 Matching Option)
@@ -2991,14 +2837,11 @@ als reguläre Ausdrücke behandelt werden. Wenn diese Option deaktiviert
 ist (der Standard), dann werden Direktiven nur dann als reguläre
 Ausdrücke behandelt, wenn sie **\***, **?**, ***\$,* +** oder **\\.**
 enthalten (POSIX ERE). Wenn diese Option aktiviert ist, werden alle
-entsprechenden Direktiven als reguläre Ausdrücke behandelt - seien Sie
 vorsichtig bei der Aktivierung! Mehr Informationen darüber, wie das
 funktioniert, finden Sie
 [hier](objecttricks.md "7.27. Zeitsparende Tricks für Objektdefinitionen").
 
--   0 = keine Anpassung wahrer regulärer Ausdrücke benutzen (Default)
 
--   1 = Anpassung wahrer regul¨rer Ausdrücke benutzen
 
 **Administrator-e-Mail-Adresse** (Administrator Email Address)
 
@@ -3046,9 +2889,7 @@ wird, erlaubt ist Core Dumps zu erstellen. Dies kann im Fehlerfall sehr
 hilfsreich sein, allerdings garantiert das Aktivieren dieser Option
 nicht, dass auch wirklich ein Core Dump erstellt wird.
 
--   0 = Keine Core Dumps (Default)
 
--   1 = Erlaube Core Dumps
 
 **Ereignisvermittler-Optionen** (Event Broker Options)
 
@@ -3068,12 +2909,8 @@ Ereignisvermittler-Module benutzen) oder alles (wenn Sie
 Ereignisvermittler-Module benutzen). Mögliche Werte sehen Sie
 nachfolgend.
 
--   0 = nichts vermitteln
 
--   -1 = alles vermitteln
 
--   \# = sehen Sie sich die BROKER\_\*-Definitionen im Quellcode an
-    (include/broker.h), um andere Werte zu ermitteln
 
 **Ereignisvermittler-Module** (Event Broker Modules)
 
@@ -3133,33 +2970,19 @@ Diese Option legt fest, welche Arten von Informationen Icinga in das
 [debug\_file](configmain.md#configmain-debug_file) schreiben soll.
 Dieser Wert ist ein logisches ODER der nachfolgenden Werte:
 
--   -1 = alles protokollieren
 
--   0 = nichts protokollieren (Default)
 
--   1 = Informationen zu Funktionsbeginn/Ende
 
--   2 = Konfigurationsinformationen
 
--   4 = Prozessinformationen
 
--   8 = geplante Ereignisinformationen
 
--   16 = Host-/Service-Prüfinformationen
 
--   32 = Benachrichtigungsinformationen
 
--   64 = Ereignisvermittlerinformationen
 
--   128 = Externe Kommandos
 
--   256 = Befehle
 
--   512 = Geplante Ausfallzeiten
 
--   1024 = Kommentare
 
--   2048 = Makros
 
 **Debug-Ausführlichkeit** (Debug Verbosity)
 
@@ -3174,11 +2997,8 @@ Beispiel:
 Diese Option legt fest, wie viel Debugging-Informationen Icinga in das
 [debug\_file](configmain.md#configmain-debug_file) schreiben soll.
 
--   0 = grundlegende Informationen
 
--   1 = detailliertere Informationen (Default)
 
--   2 = sehr detaillierte Informationen
 
 **maximale Debug-Dateigröße** (Maximum Debug File Size)
 
@@ -3233,21 +3053,8 @@ hostgroup-Definition keine Host-Member zugeordnet sind.
 
 Aktivieren dieser Option kann sinnvoll sein, wenn:
 
--   Konfigurationdateien oder vorgespeicherte Objektdateien an viele
-    Icinga-Poller verteilt werden.
 
--   Automation benutzt wird, um einen "Baum" mit
-    Icinga-Konfigurationsdateien zu erzeugen.
 
--   es einen Satz von Services, Host-Abhängigkeiten oder
-    Service-Abhängigkeiten gibt, der von Administrationen verwaltet
-    werden, be dem Benutzer der Einfachheit halber Hosts über die
-    Hostgruppenzugehörigkeit hinzufügen können (z.B. eine Suite von
-    Prüfungen, die mit einem entfernten Überwachungsagenten verbunden
-    sind), wobei es aber keine Garantie dafür gibt, dass die Benutzer
-    die Services verwenden, die mit der Hostgruppe verbunden sind, oder
-    dass die Hosts existieren (z.B. ein entfernter Agent, dessen Hosts
-    mit der Zeit stillgelegt werden).
 
 **Leere Performance-Ergebnisse verarbeiten**
 
@@ -3266,8 +3073,6 @@ Beispiel:
 Diese Optionen legen fest, ob der Core leere
 Performance-Daten-Ergebnisse verarbeiten soll oder nicht. Dies wird für
 verteilte Überwachung benötigt und ist per Default aktiviert. Wenn Sie
-keine leeren Performance-Daten benötigen - und ein paar CPU-Zyklen bei
-der Berechnung von Makros sparen wollen - dann können Sie diese Optionen
 abschalten. Seien Sie vorsichtig! Werte: 1 = aktiviert, 0 = deaktiviert.
 
 **Anzahl von Einträgen in Check-Result-Liste begrenzen**
@@ -3299,10 +3104,6 @@ Diese Option ist verfügbar ab Icinga 1.8
 
 * * * * *
 
-  ------------------------------- -------------------------- -------------------------------------
-  [Zurück](config.md)           [Nach oben](ch03.md)      [Weiter](configobject.md)
-  3.1. Konfigurationsüberblick    [Zum Anfang](index.md)    3.3. Überblick Objektkonfiguration
-  ------------------------------- -------------------------- -------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org

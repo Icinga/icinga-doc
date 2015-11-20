@@ -1,12 +1,4 @@
-![Icinga](../images/logofullsize.png "Icinga")
-
-7.6. Verteilte Überwachung
-
-[Zurück](freshness.md) 
-
-Kapitel 7. Fortgeschrittene Themen
-
- [Weiter](redundancy.md)
+ ![Icinga](../images/logofullsize.png "Icinga") 
 
 * * * * *
 
@@ -78,7 +70,6 @@ der verschiedenen Server-Typen...
 
 Die Funktion eines *verteilten Servers* ist es, aktiv Prüfungen für alle
 Services durchzuführen, die Sie für eine "Gruppe" (Cluster) von Hosts
-definieren. Wir benutzen den Begriff "Gruppe" locker - er meint
 lediglich eine willkürliche Gruppe von Hosts in Ihrem Netzwerk. Abhängig
 von Ihrem Netzwerk-Layout können Sie mehrere Gruppen in einem physischen
 Standort haben oder jede Gruppe kann durch ein WAN voneinander getrennt
@@ -143,32 +134,12 @@ alles vom zentralen Server aus erledigt wird.
 
 Haupt-Konfigurationsanpassungen:
 
--   Nur die direkt durch den verteilten Server zu überwachenden Services
-    werden in der
-    [Objekt-Konfigurationsdatei](configobject.md "3.3. Überblick Objektkonfiguration")
-    definiert.
 
-    ![[Anmerkung]](../images/note.png)
 
-    Anmerkung
 
-    Obwohl "obsess\_over\_service" per Standard in der Objektdefinition
-    aktiviert ist, kann es ggf. durch Templates *de*aktiviert sein, so
-    dass Sie sicherstellen sollten, dass diese Direktive aktiviert ist,
-    wie sie benötigt wird.
 
--   Die
-    [enable\_notifications](configmain.md#configmain-enable_notifications)-Direktive
-    auf dem verteilten Server wird auf 0 gesetzt. Das verhindert das
-    Versenden von Benachrichtigungen.
 
--   Die [obsess over
-    services](configmain.md#configmain-obsess_over_services)-Direktive
-    auf dem verteilten Server wird aktiviert.
 
--   Auf dem verteilten Server ist ein [ocsp
-    command](configmain.md#configmain-ocsp_command) definiert (wie
-    unten beschrieben).
 
 Damit alles zusammenkommt und ordentlich arbeitet, wollen wir, dass der
 verteilte Server die Ergebnisse *aller* Service-Prüfungen an Icinga
@@ -193,50 +164,26 @@ Um dies zu erreichen, müssen Sie ein ocsp-Kommando wie folgt definieren:
 Die Definition für den *submit\_check\_result*-Befehl sieht ungefähr so
 aus:
 
-~~~~ {.programlisting}
- define command{ 
-    command_name submit_check_result
-    command_line /usr/local/icinga/libexec/eventhandlers/submit_check_result $HOSTNAME$ '$SERVICEDESC$' $SERVICESTATE$ '$SERVICEOUTPUT$'
+<pre><code>
  }
-~~~~
+</code></pre>
 
 Die *submit\_check\_result* Shell-Scripte sehen ungefähr so aus
 (ersetzen Sie *central\_server* durch die IP-Adresse des zentralen
 Servers):
 
-~~~~ {.programlisting}
+<pre><code>
  #!/bin/sh
  # Arguments:
- #  $1 = host_name (Short name of host that the service is
- #       associated with)
- #  $2 = svc_description (Description of the service)
- #  $3 = state_string (A string representing the status of
- #       the given service - "OK", "WARNING", "CRITICAL"
- #       or "UNKNOWN")
- #  $4 = plugin_output (A text string that should be used
- #       as the plugin output for the service checks)
  #
  # Convert the state string to the corresponding return code
  return_code=-1
  case "$3" in
-     OK)
-         return_code=0
-         ;;
-     WARNING)
-         return_code=1
-         ;;
-     CRITICAL)
-         return_code=2
-         ;;
-     UNKNOWN)
-         return_code=-1
-         ;;
  esac
  # pipe the service check info into the send_nsca program, which
  # in turn transmits the data to the nsca daemon on the central
  # monitoring server
- /bin/printf "%s\t%s\t%s\t%s\n" "$1" "$2" "$return_code" "$4" | /usr/local/icinga/bin/send_nsca -H  central_server -c /usr/local/icinga/etc/send_nsca.cfg
-~~~~
+</code></pre>
 
 Das Script oben geht davon aus, dass das send\_nsca-Programm und die
 Konfigurationsdatei (send\_nsca.cfg) in den Verzeichnissen
@@ -248,33 +195,10 @@ uns genau betrachten, was mit dem verteilten Server passiert und wie er
 Service-Prüfungsergebnisse an Icinga schickt (die unten skizzierten
 Schritte entsprechen den Zahlen im obigen Referenzdiagramm):
 
-1.  Nachdem der verteilte Server eine Service-Prüfung beendet hat, führt
-    er den Befehl aus, den Sie mit der Variable
-    [ocsp\_command](configmain.md#configmain-ocsp_command) definiert
-    haben. In unserem Beispiel ist dies das
-    */usr/local/icinga/libexec/eventhandlers/submit\_check\_result*-Script.
-    Beachten Sie, dass die Definition für den
-    *submit\_check\_result*-Befehl vier Parameter für das Script
-    übergibt: den Namen des Hosts, der mit dem Service verbunden ist,
-    die Service-Beschreibung, den Rückgabewert der Service-Prüfung und
-    die Plugin-Ausgabe der Service-Prüfung.
 
-2.  das *submit\_check\_result*-Script übergibt die Informationen der
-    Service-Prüfung (Host-Name, Beschreibung, Rückgabewert und Ausgabe)
-    an das *send\_nsca*-Client-Programm.
 
-3.  das *send\_nsca*-Programm überträgt die Informationen der
-    Service-Prüfung an den *nsca*-Daemon auf dem zentralen
-    Überwachungs-Server.
 
-4.  der *nsca*-Daemon auf dem zentralen Server nimmt die Informationen
-    der Service-Prüfung und schreibt sie in das external command file,
-    damit Icinga sie später dort aufsammeln kann.
 
-5.  der Icinga-Prozess auf dem zentralen Server liest das external
-    command file und verarbeitet die passiven
-    Service-Prüfungsergebnisse, die vom verteilten Überwachungs-Server
-    stammen.
 
 ### 7.6.8. zentrale Server-Konfiguration
 
@@ -283,46 +207,15 @@ werden sollten, daher wenden wir uns nun dem zentralen Server zu. Für
 alle wichtigen Dinge wird der zentrale so konfiguriert wie ein einzelner
 Server. Dessen Setup ist wie folgt:
 
--   auf dem zentralen Server ist das Web-Interface installiert
-    (optional, aber empfohlen)
 
--   auf dem zentralen Server ist die
-    [enable\_notifications](configmain.md#configmain-enable_notifications)-Direktive
-    auf 1 gesetzt. Das aktiviert Benachrichtungen (optional, aber
-    empfohlen)
 
--   auf dem zentralen Server sind [aktive
-    Service-Prüfungen](configmain.md#configmain-execute_service_checks)
-    deaktiviert (optional, aber empfohlen - beachten Sie die folgenden
-    Anmerkungen)
 
--   auf dem zentralen Server sind [external command
-    checks](configmain.md#configmain-check_external_commands)
-    aktiviert (erforderlich)
 
--   auf dem zentralen Server sind [passive
-    Service-Prüfungen](configmain.md#configmain-accept_passive_service_checks)
-    aktiviert (erforderlich)
 
 Es gibt drei andere sehr wichtige Dinge, die Sie beachten sollten, wenn
 Sie den zentralen Server konfigurieren:
 
--   Der zentrale Server muss Service-Definitionen für *alle Services*
-    haben, die auf allen verteilten Servern überwacht werden. Icinga
-    wird passive Prüfungsergebnisse ignorieren, wenn sie nicht zu einem
-    Service passen, den Sie definiert haben.
 
--   Wenn Sie den zentralen Server nur benutzen, um Services zu
-    verarbeiten, deren Ergebnisse von verteilten Hosts stammen, können
-    Sie alle aktiven Service-Prüfungen auf programmweiter Basis durch
-    das Setzen der
-    [execute\_service\_checks](configmain.md#configmain-execute_service_checks)-Direktive
-    auf 0 deaktivieren. Wenn Sie den zentralen Server nutzen, um selbst
-    einige Services aktiv zu überwachen (ohne die Hilfe von verteilten
-    Servern), dann sollten Sie die *active\_checks\_enabled*-Option der
-    Service-Definitionen auf 0 setzen, die von den verteilten Servern
-    überwacht werden. Das hindert Icinga daran, diese Services aktiv zu
-    prüfen.
 
 Es ist wichtig, dass Sie entweder alle Service-Prüfungen auf einer
 programmweiten Basis deaktivieren oder die
@@ -370,17 +263,8 @@ Wie machen Sie das? Auf dem zentralen Überwachungs-Server müssen Sie
 Services konfigurieren, die von verteilten Server wie folgt überwacht
 werden:
 
--   Die *check\_freshness*-Option in der Service-Definition ist auf 1 zu
-    setzen. Das aktiviert "Frische"-Prüfungen für den Service.
 
--   Die *freshness\_threshold*-Option in den Service-Definitionen sollte
-    auf einen Wert (in Sekunden) gesetzt werden, der widerspiegelt, wie
-    "frisch" die (von den entfernten Servern gelieferten) Ergebnisse der
-    Service-Prüfungen sein sollten.
 
--   Die *check\_command*-Option in den Service-Definitionen sollte
-    gültige Befehle enthalten, die genutzt werden können, um den Service
-    aktiv vom zentralen Server aus zu prüfen.
 
 Icinga prüft periodisch die "Frische" der Ergebnisse aller Services, für
 die Frische-Prüfungen aktiviert sind. Die *freshness\_threshold*-Option
@@ -417,12 +301,10 @@ annehmen, Sie definieren einen Befehl namens 'service-is-stale' und
 benutzen den Befehlsnamen in der *check\_command*-Option Ihrer Services.
 Hier nun, wie die Definition aussehen könnte...
 
-~~~~ {.programlisting}
+<pre><code>
  define command{
-    command_name service-is-stale
-    command_line /usr/local/icinga/libexec/check_dummy 2 "CRITICAL: Service results are stale"
  }
-~~~~
+</code></pre>
 
 Wenn Icinga feststellt, dass das Service-Ergebnis abgestanden ist und
 das **service-is-stale**-Kommando aufruft, wird das
@@ -462,24 +344,11 @@ Falls Sie in Ihrer verteilten Überwachungs-Umgebung passive
 Host-Prüfungen an einen zentralen Server senden möchten, dann stellen
 Sie sicher:
 
--   dass auf dem zentralen Server [passive
-    Host-Prüfungen](configmain.md#configmain-accept_passive_host_checks)
-    aktiviert sind (notwendig)
 
--   dass auf dem verteilten Server [obsess over
-    hosts](configmain.md#configmain-obsess_over_hosts) aktiviert ist.
 
-    ![[Anmerkung]](../images/note.png)
 
-    Anmerkung
 
-    Obwohl "obsess\_over\_host" per Standard in der Objektdefinition
-    aktiviert ist, kann es ggf. durch Templates *de*aktiviert sein, so
-    dass Sie sicherstellen sollten, dass diese Direktive aktiviert ist,
-    wie sie benötigt wird.
 
--   dass auf dem verteilten Server ein [ochp
-    command](configmain.md#configmain-ochp_command) definiert ist.
 
 Der ochp-Befehl, der zur Verarbeitung von Host-Prüfergebnissen genutzt
 wird, arbeitet ähnlich wie der ocsp-Befehl, der für die Verarbeitung von
@@ -491,10 +360,6 @@ beschrieben wird).
 
 * * * * *
 
-  ------------------------------------------- -------------------------- ----------------------------------------------------
-  [Zurück](freshness.md)                    [Nach oben](ch07.md)      [Weiter](redundancy.md)
-  7.5. Service- und Host-Frische-Prüfungen    [Zum Anfang](index.md)    7.7. Redundante und Failover-Netzwerk-Überwachung
-  ------------------------------------------- -------------------------- ----------------------------------------------------
 
 © 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team,
 http://www.icinga.org
