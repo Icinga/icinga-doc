@@ -84,13 +84,8 @@
 	<xsl:call-template name="inline.boldseq"/>
 </xsl:template>
 
-<!--
-<xsl:template name="user.footer.content">
-  <HR/><P class="copyright">&#x00A9; 2009-2015 Icinga Development Team, http://www.icinga.org</P>
-</xsl:template>
--->
 <xsl:template name="user.footer.navigation">
-  <P class="copyright">&#x00A9; 1999-2009 Ethan Galstad, 2009-2015 Icinga Development Team, http://www.icinga.org</P>
+  <P class="copyright">&#x00A9; 1999-2009 Ethan Galstad, 2009-2017 Icinga Development Team, https://www.icinga.com</P>
 </xsl:template>
 
 </xsl:stylesheet>
