@@ -16,165 +16,22 @@
   </indexterm>
 
   <section xml:id="whatsnew-changes">
-    <title>CHANGES</title>
     <itemizedlist>
       <listitem>
-        <para>Releases are now hosted at <link xlink:href="https://www.icinga.org/download">GitHub</link>!</para>
+        <para>Fix possible root privilege escalation during opening logs (CVE-2016-9566) #13709</para>
       </listitem>
       <listitem>
-        <para>Mailinglists have been migrated to <link xlink:href="https://www.icinga.org/support">lists.icinga.org</link>!</para>
-      </listitem>
-      <listitem>
-	<para>docs: rename nagios plugins to monitoring plugins #5460</para>
-      </listitem>
-      <listitem>
-        <para>classic ui: fix vulnerability against CSRF attacks CVE-2013-7107 #5346 requires HTTP_REFFERER on the cmd line</para>
-      </listitem>
-      <listitem>
-        <para>idoutils: dump customvariable status by default (restore feature for icinga web (2)) #5732</para>
-      </listitem>
-      <listitem>
-        <para>Icinga Web 1.11 requires IDO schema version >= 1.11</para>
+        <para>Minor bugfixes and enhancements</para>
       </listitem>
     </itemizedlist>
 
-  </section>
-
-  <section xml:id="whatsnew-core">
-    <title>Core</title>
-    <itemizedlist>
-      <listitem>
-       <para>Added commands for {en,dis}able freshness checks per host/service (thanks Philip Matuskiewicz) #5422 #4430</para>
-      </listitem>
-      <listitem>
-        <para>Added state history entries for newly added services (check result with OK state) #3854</para>
-      </listitem>
-      <listitem>
-        <para>Added option to make external command user in Icinga log anonymous #5689</para>
-      </listitem>
-      <listitem>
-        <para>Allow exclude (!) to work for regexp matches for hosts (thanks Franky Van Liedekerke) #5324</para>
-      </listitem>
-      <listitem>
-        <para>Fixed passive check result processing for host checks (Marco Hoyer) #5671</para>
-      </listitem>
-      <listitem>
-        <para>Accept service escalations without host mapping (Tomas Dubec) #5697</para>
-      </listitem>
-
-    </itemizedlist>
-  </section>
-
-  <section xml:id="whatsnew-classicui">
-    <title>Classic UI</title>
-    <itemizedlist>
-      <listitem>
-        <para>Added status.cgi modifed_attributes filter parameter #4880</para>
-      </listitem>
-      <listitem>
-        <para>Added "current_notification_number" to JSON output of hosts and services in status.cgi #5370</para>
-      </listitem>
-      <listitem>
-        <para>Added group notes and action URL links to status summary, overview and grid #5301</para>
-      </listitem>
-      <listitem>
-        <para>Integrated a range of logos #4057</para>
-      </listitem>
-      <listitem>
-        <para>Added support for gzip compressed logs #4519</para>
-      </listitem>
-      <listitem>
-        <para>Time picker no longer resets time in input field #5239</para>
-      </listitem>
-
-    </itemizedlist>
-  </section>
-
-  <section xml:id="whatsnew-idoutils">
-    <title>IDOutils</title>
-    <itemizedlist>
-      <listitem>
-        <para>ido2db should check database schema on start up, and bail early on errors #5272</para>
-      </listitem>
-      <listitem>
-        <para>Wait for child processes on exit preventing zombies (Laurent Bigonville) #4427</para>
-      </listitem>
-      <listitem>
-        <para>Fixed errors in oracle.sql with timed event sequences #5688</para>
-      </listitem>
-      <listitem>
-        <para>Fixed SEGV in ido2db and idomod syslog call in Solaris - #5687, #5686</para>
-      </listitem>
-      <listitem>
-        <para>Allow agent_version to store more than 16 chars #5731</para>
-      </listitem>
-
-    </itemizedlist>
-  </section>
-
-  <section xml:id="whatsnew-web">
-    <title>Icinga-Web</title>
-    <itemizedlist>
-      <listitem>
-        <para>Timezone handling has been fixed for duration and command fields. #5713</para>
-      </listitem>
-      <listitem>
-        <para>Added reload progress bar (Immobilienscout24) #5098 #5107</para>
-      </listitem>
-      <listitem>
-        <para> Expanded macros in action_url and notes_url #1882</para>
-      </listitem>
-      <listitem>
-        <para>Added jump links to host and service status from performance view - #4984</para>
-      </listitem>
-      <listitem>
-        <para>ExtJS framework has been updated to 3.4.1.1 #5620</para>
-      </listitem>
-
-    </itemizedlist>
-  </section>
-
-  <section xml:id="docs">
-    <title>Docs</title>
-    <itemizedlist>
-      <listitem>
-        <para>Define SELinux contexts rather than using chcon command #3555</para>
-      </listitem>
-      <listitem>
-        <para>explain "Check results for service x on host y are stale by 0d 0h 0m 10s (threshold=0d 0h 10m 0s). Forcing an immediate check of the service..." #5252</para>
-      </listitem>
-      <listitem>
-        <para>addons: suggest nsca-ng as nsca alternative #5253</para>
-      </listitem>
-      <listitem>
-        <para>rename nagios plugins to monitoring plugins #5460</para>
-      </listitem>
-      <listitem>
-        <para>icinga web rest api updates #4970</para>
-      </listitem>
-      <listitem>
-        <para>clean mysql creation commands #5426</para>
-      </listitem>
-      <listitem>
-        <para>replace sourceforge download links with github releases #5429</para>
-      </listitem>
-
-    </itemizedlist>
   </section>
 
   <section xml:id="moreinfo">
     <title>More information</title>
 
-    <para><link xlink:href="https://wiki.icinga.org/display/Dev/Changelogs">More at Icinga Wiki</link></para>
+    <para><link xlink:href="https://github.com/icinga">More at Github</link></para>
 
-    <para>Should you find any issues, please report them to one of the following links:</para>
-
-    <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-core">Report Issue &name-core;</link></para>
-
-    <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-web">Report Issue &name-web;</link></para>
-
-    <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-reporting">Report Issue &name-rep;</link></para>
-
-    <para><link xlink:href="https://dev.icinga.org/projects/show/icinga-docs">Report Issue &name-docs;</link></para>
+    <para>Should you find any issues, please report them on Github.</para>
   </section>
 </section>
